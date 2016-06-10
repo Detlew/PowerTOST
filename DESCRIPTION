@@ -1,0 +1,58 @@
+Package: PowerTOST
+Type: Package
+Title: Power and Sample Size Based on Two One-Sided t-Tests (TOST) for
+       (Bio)Equivalence Studies
+Version: 1.3-7
+Date: 2016-06-07
+Authors@R: c(person("Detlew", "Labes", role = c("aut","cre"), email =
+                    "DetlewLabes@gmx.de"),
+             person("Helmut", "Schuetz", role = c("aut"), email =
+                    "helmut.schuetz@bebac.at"),
+             person("Benjamin", "Lang", role =c ("aut"), email = 
+                    "BenjaminL@gmx.de"))
+Maintainer: Detlew Labes <DetlewLabes@gmx.de>
+Description: Contains functions to calculate power and sample size for
+    various study designs used for bioequivalence studies. 
+    See function known.designs() for study designs covered. 
+    Moreover the package contains functions for power and sample size 
+    based on 'expected' power in case of uncertain (estimated) variability.
+    -----
+    Added are functions for the power and sample size for the ratio of 
+    two means with normally distributed data on the original scale 
+    (based on Fieller's confidence ('fiducial') interval).
+    -----
+    Contains further functions for power and sample size calculations based on
+    non-inferiority t-test. This is not a TOST procedure but eventually useful 
+    if the question of 'non-superiority' must be evaluated.
+    The power and sample size calculations based on non-inferiority test may 
+    also performed via 'expected' power in case of uncertain (estimated) 
+    variability.
+    -----
+    Contains functions power.scABEL() and sampleN.scABEL() to calculate power 
+    and sample size for the BE decision via scaled (widened) BE acceptance 
+    limits (EMA recommended) based on simulations.
+    Contains also functions scABEL.ad() and sampleN.scABEL.ad() to iteratively
+    adjust alpha in order to maintain the overall consumer risk in ABEL studies
+    and adapt the sample size for the loss in power.
+    Contains further functions power.RSABE() and sampleN.RSABE() to calculate 
+    power and sample size for the BE decision via reference scaled ABE criterion 
+    according to the FDA procedure based on simulations.
+    Contains further functions power.NTIDFDA() and sampleN.NTIDFDA() to calculate 
+    power and sample size for the BE decision via the FDA procedure for NTID's 
+    based on simulations.
+    Contains further functions power.HVNTID() and sampleN.HVNTID() to calculate 
+    power and sample size for the BE decision via the FDA procedure for 
+    highly variable NTID's (see FDA Dabigatran / rivaroxaban guidances)
+    -----
+    Contains functions for power analysis of a sample size plan for ABE 
+    (pa.ABE()), scaled ABE (pa.scABE()) and scaled ABE for NTID's (pa.NTIDFDA())
+    analysing power if deviating from assumptions of the plan.
+    -----
+    Contains further functions for power calculations / sample size estimation
+    for dose proportionality studies using the Power model.    
+Imports: mvtnorm, stats, utils, graphics, grDevices
+Suggests: crossdes
+ByteCompile: yes
+License: GPL (>=2)
+LazyLoad: yes
+LazyData: yes

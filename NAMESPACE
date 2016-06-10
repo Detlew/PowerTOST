@@ -1,0 +1,79 @@
+# Import all packages listed as Imports or Depends
+# not selective:
+#import(
+#  mvtnorm, stats, graphics, grDevices, utils
+#)
+# import selectively only the used functions (good practice)
+importFrom(mvtnorm, pmvt, pmvnorm, GenzBretz)
+importFrom(graphics, abline, box, close.screen, legend, par, plot, points, 
+           screen, split.screen,  segments, text)
+importFrom(grDevices, colorRampPalette)
+importFrom(stats, dnorm, pnorm, qnorm, rnorm, pt, qt, dchisq, qchisq, rchisq, 
+           qf, uniroot, integrate, optim, binom.test)
+importFrom(utils, tail, head, read.table, flush.console)
+
+# Export all names except those beginning with .
+# exportPattern("^[^\\.]")
+#
+# Export explicitly by name
+export(
+    bib.CL
+  , CI.BE
+  , CI.RatioF
+  , CVCL
+  , CV2se
+  , CV2mse
+  , CVfromCI
+  , CI2CV
+  , CVp2CV
+  , CVpooled
+  , exppower.noninf
+  , exppower.TOST
+  , expsampleN.noninf
+  , expsampleN.TOST
+  , known.designs
+  , OwensQ
+  , OwensQOwen
+  , OwensT
+  , pa.ABE
+  , pa.scABE
+  , pa.NTIDFDA
+  , power.2TOST
+  , type1error.2TOST
+  , power.noninf
+  , power.RatioF
+  , power.TOST
+  , power.TOST.sim
+  , power.NTIDFDA
+  , power.HVNTID
+  , power.RSABE
+  , power.scABEL
+  , power.scABEL2
+  , power.dp
+  , pvalue.TOST
+  , pvalues.TOST
+  , reg_const
+  , sampleN.noninf
+  , sampleN.RatioF
+  , sampleN.2TOST
+  , sampleN.TOST
+  , sampleN.NTIDFDA
+  , sampleN.HVNTID
+  , sampleN.RSABE
+  , sampleN.scABEL
+  , sampleN.scABEL2
+  , sampleN.scABEL.ad
+  , sampleN.dp
+  , scABEL
+  , scABEL.ad
+  , se2CV
+  , mse2CV
+)         
+
+# Define S3 methods for the pooled CV
+S3method(print, CVp)
+# S3 methods for printing/plotting power analysis
+S3method(print, pwrA)
+S3method(plot, pwrA)
+# S3 method print for the regulatory settings in ABEL
+S3method(print, regSet)
