@@ -32,11 +32,11 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   if(missing(regulator)) regulator <- "EMA"
   # check regulator and get 
   # constants acc. to regulatory bodies (function in scABEL.R)
-  rc <- reg_check(regulator)
-  CVcap    <- rc$CVcap
-  CVswitch <- rc$CVswitch
-  r_const  <- rc$r_const
-  pe_constr <- rc$pe_constr
+  reg <- reg_check(regulator)
+  CVcap     <- reg$CVcap
+  CVswitch  <- reg$CVswitch
+  r_const   <- reg$r_const
+  pe_constr <- reg$pe_constr
   
   # check design
   design <- match.arg(design)
@@ -50,8 +50,6 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     # in case of the ISC we are using the 'robust' df's
     # T-R and R-R with df=n-seqs
     dfe   <- parse(text="n-3", srcfile=NULL)
-    # next is only for testing purposes
-    dfCIe <- parse(text="2*n-3", srcfile=NULL)
     dfRRe <- parse(text="n-3", srcfile=NULL)
     # according to McNally et al., verified via simulations:
     Emse  <- s2wT + s2wR/2
@@ -60,7 +58,6 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     desi  <- "2x2x4 (full replicate)"
     seqs  <- 2
     bk    <- 1.0    # needed for n0
-    dfCIe <- parse(text="3*n-4", srcfile=NULL)
     dfe   <- parse(text="n-2", srcfile=NULL)
     dfRRe <- parse(text="n-2", srcfile=NULL)
     # expectation of mse of the ANOVA of intra-subject contrasts
@@ -71,7 +68,6 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     seqs <- 2
     bk   <- 1.5    # needed for n0?
     dfe   <- parse(text="n-2", srcfile=NULL)
-    dfCIe <- parse(text="2*n-3", srcfile=NULL)
     dfRRe <- parse(text="n/2-1", srcfile=NULL) # for balanced designs
     # expectation of mse of the ANOVA of intra-subject contrasts
     Emse  <- 1.5*(s2wT + s2wR)/2               # for balanced designs
@@ -91,11 +87,11 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     cat("CVw(T) = ", CVwT,"; CVw(R) = ", CVwR,"\n", sep="")
     cat("Null (true) ratio = ",theta0,"\n", sep="")
     cat("ABE limits / PE constraint =", theta1,"...", theta2,"\n")
-    if (details | rc$name=="USER") { 
+    if (details | reg$name=="USER") { 
       print(rc)
       cat("\n")
     } else {
-      cat("Regulatory settings:", rc$name,"\n")
+      cat("Regulatory settings:", reg$name,"\n")
     }
   }
   
@@ -115,11 +111,11 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   if (missing(nstart)){
     # try to use the empirical alpha for start sample size, some sort of
     al <- alpha
-    if (rc$name=="FDA") {
+    if (reg$name=="FDA") {
       if(Emse/bk <= CV2mse(0.30001) & Emse/bk >= CV2mse(0.2975)) al=0.12
       if(Emse/bk > CV2mse(0.30001)) al <- 0.035   
     }
-    if (rc$name=="EMA") {
+    if (reg$name=="EMA") {
       #does not fit!
       #if(Emse/bk <= CV2mse(0.321) & Emse/bk >= CV2mse(0.28)) al=0.065
     }
@@ -131,7 +127,7 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     # empirical correction in the vicinity of CV=0.3, for ratios 
     # outside 0.86 ... 1/0.86
     #     if(Emse/bk <= CV2mse(0.305) & Emse/bk >= CV2mse(0.295) & abs(mlog)>log(1/0.865)) {
-    #       if (rc$name=="EMA") n01 <- 0.9*n01 else  n01 <- 0.8*n01
+    #       if (reg$name=="EMA") n01 <- 0.9*n01 else  n01 <- 0.8*n01
     #       n01 <- seqs*trunc(n01/seqs)
     #     }  
     # start from PE constraint sample size
@@ -148,12 +144,11 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   # sd of the sample mean T-R (point estimator)
   sdm  <- sqrt(Emse*C3)
   df   <- eval(dfe)
-  dfCI <- eval(dfCIe) # not really used
   dfRR <- eval(dfRRe)
   
   if(setseed) set.seed(123456)
   
-  p <- .pwr.ABEL.ISC(mlog, sdm, C3, Emse, df, dfCI, s2wR, dfRR, nsims, 
+  p <- .pwr.ABEL.ISC(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
                      CVswitch=CVswitch, r_const=r_const, CVcap=CVcap, 
                      pe_constr=pe_constr,
                      ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
@@ -183,10 +178,9 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     # sd of the sample mean T-R (point estimator)
     sdm  <- sqrt(Emse*C3)
     df   <- eval(dfe)
-    dfCI <- eval(dfCIe)
     dfRR <- eval(dfRRe)
     if(setseed) set.seed(123456)
-    p <- .pwr.ABEL.ISC(mlog, sdm, C3, Emse, df, dfCI, s2wR, dfRR, nsims, 
+    p <- .pwr.ABEL.ISC(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
                        CVswitch=CVswitch, r_const=r_const, CVcap=CVcap, 
                        pe_constr=pe_constr,
                        ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
@@ -205,10 +199,9 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     # sd of the sample mean T-R (point estimator)
     sdm  <- sqrt(Emse*C3)
     df   <- eval(dfe)
-    dfCI <- eval(dfCIe)
     dfRR <- eval(dfRRe)
     if(setseed) set.seed(123456)
-    p <- .pwr.ABEL.ISC(mlog, sdm, C3, Emse, df, dfCI, s2wR, dfRR, nsims, 
+    p <- .pwr.ABEL.ISC(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
                        CVswitch=CVswitch, r_const=r_const, CVcap=CVcap, 
                        pe_constr=pe_constr,
                        ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)

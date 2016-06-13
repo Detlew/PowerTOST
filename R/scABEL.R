@@ -13,13 +13,15 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
               pe_constr=pe_constr)
   }
   else if (regulator=="FDA"){
-    r <- list(name="FDA", CVswitch=0.3, r_const=log(1.25)/0.25, CVcap=Inf)
+    r <- list(name="FDA", CVswitch=0.3, r_const=log(1.25)/0.25, CVcap=Inf,
+              est_method="ISC")
   } 
   # else if (regulator=="ANVISA"){
   #   # same regulatory const. as EMA but
   #   # switch to widened limits if CVRef>=40% (inofficial)
   #   # now no longer valid, same as EMA settings
-  #   r <- list(name="USER", CVswitch=0.4, r_const=log(1.25)/CV2se(0.3), CVcap=0.5)
+  #   r <- list(name="ANVISA", CVswitch=0.4, r_const=log(1.25)/CV2se(0.3), CVcap=0.5)
+  #   r <- list(name="ANVISA", CVswitch=0.3, r_const=0.76, CVcap=0.5)
   # }
   else if (regulator=="EMA"){
     # r_const taken literally from BE guideline
@@ -30,13 +32,15 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
     # CVcap chosen to obtain nearly exact 1.50 as upper limit, 
     # literally it was given as 57.4%
     r <- list(name="HC", CVswitch=0.3, r_const=0.76, 
-              CVcap=0.57382) # se2CV(log(1.5)/0.76) = 0.57381995
+              CVcap=0.57382,  # se2CV(log(1.5)/0.76) = 0.57381995
+              est_method="ISC") 
   } else {
     stop("Unknown regulator.")
   }
   class(r) <- "regSet"
   # default is with pe constraint
   if (is.null(r$pe_constr)) r$pe_constr <- TRUE
+  if (is.null(r$est_method)) r$est_method <- "ANOVA"
   r
 } 
 

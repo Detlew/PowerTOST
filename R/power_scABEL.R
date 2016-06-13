@@ -58,11 +58,11 @@ power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   if(missing(regulator)) regulator <- "EMA"
   # check regulator and get 
   # constants acc. to regulatory bodies (function in scABEL.R)
-  rc <- reg_check(regulator)
-  CVcap    <- rc$CVcap
-  CVswitch <- rc$CVswitch
-  r_const  <- rc$r_const
-  pe_constr <- rc$pe_constr
+  reg <- reg_check(regulator)
+  CVcap     <- reg$CVcap
+  CVswitch  <- reg$CVswitch
+  r_const   <- reg$r_const
+  pe_constr <- reg$pe_constr
   if(is.null(pe_constr)) pe_constr <- TRUE
   
   # check design argument
@@ -141,9 +141,9 @@ power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   } 
   
   if(setseed) set.seed(123456)
-  p <- .power.scABEL(mlog, sdm, C2, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT, 
-                     design, nsims, CVswitch, r_const, CVcap, pe_constr,
-                     ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
+  p <- .pwr.ABEL.ANOVA(mlog, sdm, Ccon=C2, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT, 
+                       design, nsims, CVswitch, r_const, CVcap, pe_constr,
+                       ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
     
   if (details) {
     ptm <- summary(proc.time()-ptm)
@@ -161,9 +161,10 @@ power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 }
 
 # --- working horse for power calculation
-.power.scABEL <- function(mlog, sdm, C2, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT, 
-                          design, nsims, CVswitch, r_const, CVcap, pe_constr, 
-                          ln_lBEL, ln_uBEL, alpha=0.05)
+# sims based on EMA ANOVA
+.pwr.ABEL.ANOVA <- function(mlog, sdm, Ccon, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT, 
+                            design, nsims, CVswitch, r_const, CVcap, pe_constr, 
+                            ln_lBEL, ln_uBEL, alpha)
 {
   tcrit    <- qt(1-alpha,df)
   s2switch <- log(1.0 + CVswitch^2)
@@ -223,7 +224,7 @@ power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       uABEL[s2wRs>s2cap] <- +capABEL
     }
     #--- 90% CIs for T-R
-    hw  <- tcrit*sqrt(C2*mses)
+    hw  <- tcrit*sqrt(Ccon*mses)
     lCL <- means - hw 
     uCL <- means + hw
     rm(hw)

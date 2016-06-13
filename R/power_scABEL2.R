@@ -1,3 +1,5 @@
+# unified power.scABEL() function
+
 #---------------------------------------------------------------------------
 # Simulate partial and full replicate design and scaled ABE power
 # using 'widened' limits (EMA)
@@ -39,11 +41,11 @@ power.scABEL2 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   if(missing(regulator)) regulator <- "EMA"
   # check regulator and get 
   # constants acc. to regulatory bodies (function in scABEL.R)
-  rc <- reg_check(regulator)
-  CVcap    <- rc$CVcap
-  CVswitch <- rc$CVswitch
-  r_const  <- rc$r_const
-  pe_constr <- rc$pe_constr
+  reg <- reg_check(regulator)
+  CVcap     <- reg$CVcap
+  CVswitch  <- reg$CVswitch
+  r_const   <- reg$r_const
+  pe_constr <- reg$pe_constr
   if(is.null(pe_constr)) pe_constr <- TRUE
   
   design <- match.arg(design)
@@ -51,7 +53,6 @@ power.scABEL2 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     seqs  <- 3
     dfe   <- parse(text="n-3", srcfile=NULL)
     # this is only for testing purposes
-    dfCIe <- parse(text="2*n-3", srcfile=NULL)
     dfRRe <- parse(text="n-3", srcfile=NULL)
     #sd2  <- s2D + (s2wT + s2wR)/2 # used in v1.1-00 - v1.1-02
     # according to McNally et al.
@@ -61,7 +62,6 @@ power.scABEL2 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   if (design=="2x2x4") {
     seqs  <- 2
     dfe   <- parse(text="n-2", srcfile=NULL)
-    dfCIe <- parse(text="3*n-4", srcfile=NULL)
     dfRRe <- parse(text="n-2", srcfile=NULL)
     # sd^2 of the differences T-R from their components
     Emse  <- (s2wT + s2wR)/2 
@@ -69,7 +69,6 @@ power.scABEL2 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   if (design=="2x2x3") {
     seqs  <- 2
     dfe   <- parse(text="n-2", srcfile=NULL)
-    dfCIe <- parse(text="2*n-3", srcfile=NULL)
     dfRRe <- parse(text="n/2-1", srcfile=NULL) # for balanced designs
     # sd^2 of the differences T-R from their components
     Emse  <- 1.5*(s2wT + s2wR)/2               # for balanced design 
@@ -94,9 +93,6 @@ power.scABEL2 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   n  <- sum(nv)
   
   df   <- eval(dfe)
-  # next not really used. was for testing sims with robust df, but BE decision
-  # with ABEL with usual df
-  dfCI <- eval(dfCIe) 
 
   if (design=="2x2x3"){
     dfTT <- nv[1]-1
@@ -112,14 +108,14 @@ power.scABEL2 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   } else {
     dfRR <- eval(dfRRe)
   }
-  #cat("dfRR=", dfRR," dfTT=",dfTT," E(s2I)=", Emse, "\n")
+  
   # sd of the mean T-R (point estimate)
   sdm  <- sqrt(Emse*C3)
   # pe in the log domain
   mlog <- log(theta0)
   
   if(setseed) set.seed(123456)
-  p <- .pwr.ABEL.ISC(mlog, sdm, C3, Emse, df, dfCI, s2wR, dfRR, nsims, 
+  p <- .pwr.ABEL.ISC(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
                      CVswitch=CVswitch, r_const=r_const, CVcap=CVcap, 
                      pe_constr=pe_constr, ln_lBEL=log(theta1),ln_uBEL=log(theta2), 
                      alpha=alpha)
@@ -140,12 +136,11 @@ power.scABEL2 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 }
 
 # working horse
-.pwr.ABEL.ISC <- function(mlog, sdm, C3, Emse, df, dfCI, s2wR, dfRR, nsims, 
+.pwr.ABEL.ISC <- function(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
                           CVswitch, r_const, CVcap, pe_constr, ln_lBEL, ln_uBEL, 
-                          alpha=0.05)
+                          alpha)
 {
   tval     <- qt(1-alpha, df)
-  #tval     <- qt(1-alpha,dfCI)
   s2switch <- log(CVswitch^2+1)
   s2cap    <- log(CVcap^2+1)
   

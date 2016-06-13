@@ -45,11 +45,11 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   if(missing(regulator)) regulator <- "EMA"
   # check regulator and get 
   # constants acc. to regulatory bodies (function in scABEL.R)
-  rc <- reg_check(regulator)
-  CVcap     <- rc$CVcap
-  CVswitch  <- rc$CVswitch
-  r_const   <- rc$r_const
-  pe_constr <- rc$pe_constr
+  reg <- reg_check(regulator)
+  CVcap     <- reg$CVcap
+  CVswitch  <- reg$CVswitch
+  r_const   <- reg$r_const
+  pe_constr <- reg$pe_constr
   
   # check design
   design <- match.arg(design)
@@ -100,11 +100,11 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     cat("CVw(T) = ", CVwT,"; CVw(R) = ", CVwR,"\n", sep="")
     cat("Null (true) ratio = ",theta0,"\n", sep="")
     cat("ABE limits / PE constraint =", theta1,"...", theta2,"\n")
-    if (details | rc$name=="USER") { 
+    if (details | reg$name=="USER") { 
       print(rc)
       cat("\n")
     } else {
-      cat("Regulatory settings:", rc$name,"\n")
+      cat("Regulatory settings:", reg$name,"\n")
     }
   }
   
@@ -128,12 +128,11 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     # empirical correction in the vicinity of CV=0.3 for ratios 
     # outside 0.86 ... 1/0.86
     # does this fit also for CVswitch in case of ANVISA = 0.4?
-    #if(Emse < CV2mse(0.305) & Emse > CV2mse(0.295) & abs(mlog)>log(1/0.865)) {
     if(Emse < CV2mse(CVswitch+0.005) & Emse > CV2mse(CVswitch-0.005) 
         & abs(mlog)>log(1/0.865)) {
-      if (rc$name=="EMA")     n01 <- 0.9*n01
-      if (rc$name=="FDA")     n01 <- 0.65*n01
-      if (rc$name=="ANVISA")  n01 <- 0.6*n01
+      if (reg$name=="EMA")     n01 <- 0.9*n01
+      if (reg$name=="FDA")     n01 <- 0.65*n01
+      if (reg$name=="ANVISA")  n01 <- 0.6*n01
       n01 <- seqs*trunc(n01/seqs)
     }
     
@@ -155,9 +154,9 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   dfTT <- dfRR
 
   if(setseed) set.seed(123456)
-  p <- .power.scABEL(mlog, sdm, C2, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT,
-                     design, nsims, CVswitch, r_const, CVcap, pe_constr,
-                     ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
+  p <- .pwr.ABEL.ANOVA(mlog, sdm, C2, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT,
+                       design, nsims, CVswitch, r_const, CVcap, pe_constr,
+                       ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
   pwr <- as.numeric(p["BE"]);
   pd <- max(4,round(log10(nsims),0)-1)  # digits for power
   if (details) {
@@ -187,9 +186,9 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     dfRR <- eval(dfRRe)
     dfTT <- dfRR
     if(setseed) set.seed(123456)
-    p <- .power.scABEL(mlog, sdm, C2, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT,
-                       design, nsims, CVswitch, r_const, CVcap, pe_constr,
-                       ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
+    p <- .pwr.ABEL.ANOVA(mlog, sdm, C2, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT,
+                         design, nsims, CVswitch, r_const, CVcap, pe_constr,
+                         ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
     pwr <- as.numeric(p["BE"]);
     
     if (details) cat( n," ", formatC(pwr, digits=pd, format="f"),"\n")
@@ -207,9 +206,9 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     dfRR <- eval(dfRRe)
     dfTT <- dfRR
     if(setseed) set.seed(123456)
-    p <- .power.scABEL(mlog, sdm, C2, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT,
-                       design, nsims, CVswitch, r_const, CVcap, pe_constr, 
-                       ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
+    p <- .pwr.ABEL.ANOVA(mlog, sdm, C2, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT,
+                         design, nsims, CVswitch, r_const, CVcap, pe_constr,
+                         ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
     pwr <- as.numeric(p["BE"]);
     
     if (details) cat( n," ", formatC(pwr, digits=pd, format="f"),"\n")
