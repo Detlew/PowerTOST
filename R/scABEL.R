@@ -1,6 +1,7 @@
 # ---------------------------------------------------------------------------
 # helper function for the scABEL regulatory settings
 # constructor of an object of class 'regSet'
+# ---------------------------------------------------------------------------
 reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
 {
   regulator <- toupper(regulator)
@@ -40,6 +41,7 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
   class(r) <- "regSet"
   # default is with pe constraint
   if (is.null(r$pe_constr)) r$pe_constr <- TRUE
+  # default is est_method=="ANoVA" acc. to EMA 
   if (is.null(r$est_method)) r$est_method <- "ANOVA"
   r
 } 
@@ -48,6 +50,7 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
 # helper function to check regulatory settings
 # returns the regulatory settings as an object of class 'regSet'
 # regulator may be a character string or an object of class 'regSet'
+# ---------------------------------------------------------------------------
 reg_check <- function(regulator, choices=c("EMA", "HC", "FDA", "ANVISA"))
 {
   #browser()
