@@ -131,7 +131,7 @@ sampleN.scABEL1 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   if (print){
     cat("\n+++++++++++ scaled (widened) ABEL +++++++++++\n")
     cat("            Sample size estimation\n")
-    cat("   (simulation based on ANOVA evaluation)")
+    cat("   (simulation based on ANOVA evaluation)\n")
     cat("---------------------------------------------\n")
     cat("Study design: ",desi,"\n")
     cat("log-transformed data (multiplicative model)\n")
