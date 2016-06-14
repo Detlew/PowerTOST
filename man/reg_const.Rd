@@ -27,7 +27,7 @@ CV to switch to the widened acceptance limits.
 CV for capping the widening of the acceptance limits.
 }
   \item{pe_constr}{
-Logical. Shall pe constraint be applied?
+Logical. Shall pe constraint be applied? Defaults to \code{}
 }
 }
 \value{
@@ -37,7 +37,10 @@ Returns an object of class 'regSet', a list with components
   \item{r_const }{Regulatory constant}
   \item{CVcap }{see arguments}
   \item{pe_constr}{see arguments}
-Class 'regSet' has a S3 print method.  
+  \item{est_method}{"ANOVA" or "ISC"}
+Class 'regSet' has a S3 print method.\cr\cr
+The component \code{est_method} is automatically set to "ANOVA", except for 
+\code{regulator="FDA"} or \code{regulator="HC"} where "ISC" is used.
 }
 \author{
 D. Labes
@@ -55,6 +58,6 @@ See \url{http://www.hc-sc.gc.ca/dhp-mps/prodpharma/activit/announce-annonce/noti
 # to retrieve the EMA settings
 reg_const("EMA")
 # to define the old ANVISA settings
-rc <- reg_const("USER", r_const=0.76, CVswitch=0.4, CVcap=0.5)
-# Use rc as argument in the power / sample size functions
+reg <- reg_const("USER", r_const=0.76, CVswitch=0.4, CVcap=0.5)
+# Use reg as argument in the power / sample size functions
 }
