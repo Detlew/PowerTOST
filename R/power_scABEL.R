@@ -1,7 +1,10 @@
 #---------------------------------------------------------------------------
 # unified function
 # chooses the power function according to regulator$est_method
-# former is now power.scABEL
+# former is now power.scABEL1
+#
+# author dlabes
+#---------------------------------------------------------------------------
 power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                          design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
                          nsims=1E5, details=FALSE, setseed=TRUE)
@@ -21,7 +24,7 @@ power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     r <- power.scABEL1(alpha, theta1, theta2, theta0, CV, n, design=desi, reg, 
                        nsims, details, setseed)
   } else {
-    # must suppress 'depecated' warning 
+    # must suppress 'deprecated' warning 
     r <- suppressWarnings(
            power.scABEL2(alpha, theta1, theta2, theta0, CV, n, design=desi, reg, 
                          nsims, details, setseed)

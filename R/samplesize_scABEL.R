@@ -2,6 +2,9 @@
 # unified function
 # chooses the sample size function according to regulator$est_method
 # former is now sampleN.scABEL1
+#
+# author dlabes
+#---------------------------------------------------------------------------
 sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1, 
                            theta2, CV, design=c("2x3x3", "2x2x4", "2x2x3"), 
                            regulator, nsims=1E5, nstart, imax=100, print=TRUE, 
@@ -14,8 +17,8 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   reg  <- reg_check(regulator)
   ssfun <- "sampleN.scABEL1"
   if (reg$est_method=="ISC") ssfun <- "sampleN.scABEL2"
-  print(sys.call())
   # browser()
+  # print(sys.call())
   # next doesn't function if arguments are missing
   # r <- do.call(ssfun,
   #              list(alpha, targetpower, theta0, theta1, theta2, CV, 
@@ -60,7 +63,8 @@ sampleN.scABEL1 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
                             details=TRUE, setseed=TRUE)
 {
   if (missing(theta1) & missing(theta2)) theta1 <- 0.8
-  if (missing(theta2)) theta2=1/theta1
+  if (missing(theta2)) theta2 <- 1/theta1
+  if (missing(theta1)) theta1 <- 1/theta2
   # the two Laszlo's recommend theta0=0.9 for HVD's
   if (missing(theta0)) theta0 <- 0.9
   if ( (theta0<=theta1) | (theta0>=theta2) ) {
@@ -69,12 +73,10 @@ sampleN.scABEL1 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   }
   if (missing(CV)) stop("CV must be given!", call.=FALSE)
   
-  #if (!print) details <- FALSE # do not print anything
-  
   # subject-by-formulation interaction can't play a role here I think
-  # since the model doesn't allow such term
+  # since the EMA model doesn't allow such term
   CVwT <- CV[1]
-  # should we allow different variabilities in the EMA method?
+  # should we allow different variabilities in the EMA method at all?
   if (length(CV)==2) CVwR <- CV[2] else CVwR <- CVwT
   s2wT <- log(1.0 + CVwT^2)
   s2wR <- log(1.0 + CVwR^2)
