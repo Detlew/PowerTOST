@@ -1,8 +1,45 @@
+#---------------------------------------------------------------------------
+# unified function
+# chooses the sample size function according to regulator$est_method
+# former is now sampleN.scABEL1
+sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1, 
+                           theta2, CV, design=c("2x3x3", "2x2x4", "2x2x3"), 
+                           regulator, nsims=1E5, nstart, imax=100, print=TRUE, 
+                           details=TRUE, setseed=TRUE)
+{
+  # design must be checked outside
+  desi <- match.arg(design)
+  # check regulator
+  if (missing(regulator)) regulator <- "EMA"
+  reg  <- reg_check(regulator)
+  ssfun <- "sampleN.scABEL1"
+  if (reg$est_method=="ISC") ssfun <- "sampleN.scABEL2"
+  print(sys.call())
+  # browser()
+  # next doesn't function if arguments are missing
+  # r <- do.call(ssfun,
+  #              list(alpha, targetpower, theta0, theta1, theta2, CV, 
+  #                   design=desi, regulator=reg, nsims, nstart, imax,
+  #                   print, details, setseed))
+  if (reg$est_method!="ISC"){
+    r <- sampleN.scABEL1(alpha, targetpower, theta0, theta1, theta2, CV, 
+                         design=desi, regulator=reg, nsims, nstart, imax,
+                         print, details, setseed)
+  } else {
+    r <- suppressWarnings(
+           sampleN.scABEL2(alpha, targetpower, theta0, theta1, theta2, CV, 
+                          design=desi, regulator=reg, nsims, nstart, imax,
+                          print, details, setseed)
+                          )
+  } 
+  
+}  
+
 #-----------------------------------------------------------------------------
 # Sample size for partial and full replicate design and scaled ABE 
 # via simulated (empirical) power
 # estimation method ANOVA and BE decision via ABEL (Average bioequivalence with 
-# expanding eimits)
+# expanding limits)
 # 
 # Author: dlabes
 #-----------------------------------------------------------------------------
@@ -17,10 +54,10 @@
   n
 }  
 
-sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1, 
-                           theta2, CV, design=c("2x3x3", "2x2x4", "2x2x3"), 
-                           regulator, nsims=1E5, nstart, imax=100, print=TRUE, 
-                           details=TRUE, setseed=TRUE)
+sampleN.scABEL1 <- function(alpha=0.05, targetpower=0.8, theta0, theta1, 
+                            theta2, CV, design=c("2x3x3", "2x2x4", "2x2x3"), 
+                            regulator, nsims=1E5, nstart, imax=100, print=TRUE, 
+                            details=TRUE, setseed=TRUE)
 {
   if (missing(theta1) & missing(theta2)) theta1 <- 0.8
   if (missing(theta2)) theta2=1/theta1
@@ -92,6 +129,7 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   if (print){
     cat("\n+++++++++++ scaled (widened) ABEL +++++++++++\n")
     cat("            Sample size estimation\n")
+    cat("   (simulation based on ANOVA evaluation)")
     cat("---------------------------------------------\n")
     cat("Study design: ",desi,"\n")
     cat("log-transformed data (multiplicative model)\n")
@@ -101,7 +139,7 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     cat("Null (true) ratio = ",theta0,"\n", sep="")
     cat("ABE limits / PE constraint =", theta1,"...", theta2,"\n")
     if (details | reg$name=="USER") { 
-      print(rc)
+      print(reg)
       cat("\n")
     } else {
       cat("Regulatory settings:", reg$name,"\n")
