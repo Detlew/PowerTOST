@@ -1,5 +1,42 @@
 #---------------------------------------------------------------------------
+# unified function
+# chooses the power function according to regulator$est_method
+# former is now power.scABEL1
+#
+# author dlabes
+#---------------------------------------------------------------------------
+power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
+                         design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
+                         nsims=1E5, details=FALSE, setseed=TRUE)
+{
+  # design must be checked outside
+  desi <- match.arg(design)
+  # check regulator
+  if (missing(regulator)) regulator <- "EMA"
+  reg  <- reg_check(regulator)
+  pwrfun <- "power.scABEL1"
+  if (reg$est_method=="ISC") pwrfun <- "power.scABEL2"
+  # next doesn't function if one or more theta's missing
+  # r <- do.call(pwrfun,
+  #              list(alpha, theta1, theta2, theta0, CV, n, design=desi, reg, 
+  #                   nsims, details, setseed))
+  if (reg$est_method!="ISC"){
+    r <- power.scABEL1(alpha, theta1, theta2, theta0, CV, n, design=desi, reg, 
+                       nsims, details, setseed)
+  } else {
+    # must suppress 'deprecated' warning 
+    r <- suppressWarnings(
+           power.scABEL2(alpha, theta1, theta2, theta0, CV, n, design=desi, reg, 
+                         nsims, details, setseed)
+                          )
+  } 
+  r
+  
+}  # end function
+
+#---------------------------------------------------------------------------
 # Simulate partial and full replicate design and scaled ABEL power
+# sims based on EMA crippled ANOVA evaluation
 # 
 # Author: dlabes
 #---------------------------------------------------------------------------
@@ -28,10 +65,9 @@
 # This is used in the xxx.RSABE() functions
 # This is also used in power.scABEL2()
 
-
-power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
-                         design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
-                         nsims=1E5, details=FALSE, setseed=TRUE)
+power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
+                          design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
+                          nsims=1E5, details=FALSE, setseed=TRUE)
 {
   if (missing(CV)) stop("CV must be given!")
   if (missing(n))  stop("Number of subjects n must be given!")
@@ -63,6 +99,7 @@ power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   CVswitch  <- reg$CVswitch
   r_const   <- reg$r_const
   pe_constr <- reg$pe_constr
+  # paranoia
   if(is.null(pe_constr)) pe_constr <- TRUE
   
   # check design argument

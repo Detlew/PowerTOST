@@ -93,14 +93,17 @@ is issued if \code{setseed=TRUE}, the default.
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on widened ABEL. For more details see
 a description in the doc subdirectory of the package.\cr\cr
-Function \code{sampleN.scABEL()} is based on power calculations via simulation 
+Function \code{sampleN.scABEL()} is based on power calculations via simulations 
 using the distributional characteristics of the 'key' statistics obtained from 
-the EMA recommended evaluation via ANOVA. This function is preferable if 
-\code{regulator = "EMA"} is used.\cr
-Function \code{sampleN.scABEL2()} is based on power calculations via simulation 
-using the distributional characteristics of the 'key' statistics obtained from 
-evaluation via intra-subject contrasts (ISC), as recommended by the FDA.
-\code{sampleN.scABEL2()} is preferable if \code{regulator = "HC"} is used.
+the EMA recommended evaluation via ANOVA if \code{regulator="EMA"} or if the
+regulator component \code{est_method} is set to "ANOVA" if regulator is an object 
+of class 'regSet'.\cr
+Otherwise the simulations are based on the distributional characteristis of the 
+'key' statistics obtained from evaluation via intra-subject contrasts (ISC), 
+as recommended by the FDA.\cr\cr
+Function \code{sampleN.scABEL2()} is soleyly based on power calculations via 
+simulation using the distributional characteristics of the 'key' statistics 
+obtained from evaluation via ISC. This function is deprecated.
 }
 \value{
 Returns a data.frame with the input settings and sample size results.\cr
@@ -146,7 +149,9 @@ Since the dependence of power from n is very flat in the mentioned region you ma
 also consider to adapt the number of simulations not to tap in the simulation 
 error trap.\cr\cr
 See also the Warning section of the function \code{power.scABEL()} concerning
-the power value agreement to those obtained from simulations via subject data.
+the power value agreement to those obtained from simulations via subject data.\cr\cr
+\code{sampleN.scABEL2()} is deprecated and will be removed in future. A corresponding
+warning is thrown if this function is used.
 }
 
 \seealso{
@@ -164,12 +169,14 @@ sampleN.scABEL(CV=0.3)
 #
 # now with former (inofficial) ANVISA settings, CVswitch=40\%
 # (now ANVISA uses the same settings as EMA)
-rc <- reg_const("USER", r_const=0.76, CVswitch=0.4, CVcap=0.5)
-sampleN.scABEL(CV=0.3, regulator=rc)
+reg <- reg_const("USER", r_const=0.76, CVswitch=0.4, CVcap=0.5)
+reg$name <- "Old ANVISA"
+sampleN.scABEL(CV=0.3, regulator=reg)
 # should result in n=60, power=0.8101
 
 # for the full replicate design, target power = 90\%
 # true assumed ratio = 0.9, FDA regulatory settings
+# sims based on evalaution via ISC
 sampleN.scABEL(CV=0.4, targetpower=0.9, theta0=0.9, design="2x2x4", regulator="FDA")
-# should result in a sample size n=30, power=0.9074
+# should result in a sample size n=32, power=0.9125
 }

@@ -1,7 +1,20 @@
-Version 1-3-7
-Released 2016-06-07
+Version 1.4-1
+Published on GitHub 2016-06-14
+      - Objects of class 'regSet' now have an additional component 'est_method'
+        which controls the simualtions via key statistics of the evaluation using
+        EMA's ANOVA or FDA's recommended ISC.  
+      - power.scABEL()/power.scABEL2() as well as sampleN.scABEL()/sampleN.scABEL2()
+        are now unified. The regulator component 'est_method' is used for switching
+        between sims based on EMA's ANOVA evaluation or ISC evaluation, respectively.
+      - power.scABEL2()/sampleN.scABEL2() are therefore deprecated and will be
+        removed in future versions. A corresponding warning is thrown.
+      - URL of PowerTOST on GitHub added, URL for bug reports added.  
+
+Version 1.3-7
+Published on GitHub 2016-6-10        
       - Bug fix in functions scABEL.ad() and sampleN.scABEL.ad() if former
-        regulator="ANVISA" settings are used
+        regulator="ANVISA" settings are used.
+
 Version 1.3-6
 Released 2016-06-06 via CRAN
 Released 2016-05-04 to beta-testers
@@ -28,6 +41,7 @@ Released 2016-05-04 to beta-testers
         to avoid numerical dificulties with integrate() if method="exact".
       - Documentation (typos in man pages) rigorously enhanced.
         Thanks to Helmut and Ben. 
+
 Version 1.3-5
 Released 2016-04-12
       - Functions for expected power for TOST and non-inferiority updated 
@@ -42,6 +56,7 @@ Released 2016-04-12
         Contributed by H. Schuetz.  
       - plot method of 'pwrA' objects reworked by H. Schuetz to avoid some 
         ugly overlays.
+
 Version 1.3-4
 Released 2016-03-09
       - Bug removed in all sample size estimation functions for scaled ABE which
@@ -49,6 +64,7 @@ Released 2016-03-09
         Thanks to Shuanghe for detecting this bug.
       - All functions for scaled ABE now have an argument imax=100 for the maximum
         number of steps for sample size search. Wish of Helmut Schuetz.
+
 Version 1.3-3
 Released 2016-01-15 via CRAN
 Released 2016-01-04 to alpha testers
@@ -59,10 +75,12 @@ Released 2016-01-04 to alpha testers
         Contributed by Helmut Schuetz.
       - Default theta0 changed to 0.9 in sample size estimation for scaled ABE
         (as recommended by the Two Laszlo's).  
+
 Version 1.3-02
 Released 2015-12-02
       - New functions for calculation of power, type 1 errror and sample size
         for 2 TOST instances. Contributed by Benjamin Lang.
+
 Version 1.3-01
 Released 2015-09-30 
 Released 2015-09-23 to alpha testers
@@ -77,6 +95,7 @@ Released 2015-09-23 to alpha testers
         scaled ABE criterion, for the point estimate criterion and for the 
         conventional ABE test alone if the argument details=TRUE.
         Analogous changes were made in power.scABEL(). See man pages.
+
 Version 1.2-09
 Released 2015-08-26
       - power.TOST() with method="exact" reworked to give correct values in 
@@ -88,6 +107,7 @@ Released 2015-08-26
         and longer run-time. Contributed by Benjamin Lang.
       - New function power.TOST.sim() to obtain the power via simulations of
         the TOST. Only intended for checking purposes.
+
 Version 1.2-08
 Released 2015-07-10
       - Maintenance release with NAMESPACE adapted to import the necessary
@@ -95,7 +115,8 @@ Released 2015-07-10
       - power.NTIDFDA() and sampleN.NTIDFDA() now have an design argument to
         choose between 2x2x4 (full replicate 4-period) and 2x2x3 (full replicate 
         3-period design)
-      - Some minor documentation improvements  
+      - Some minor documentation improvements
+
 Version 1.2-07
 Released 2015-06-03
       - Functions power.scABEL(), sampleN.scABEL() now allow the power and 
