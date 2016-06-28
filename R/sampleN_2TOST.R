@@ -234,8 +234,10 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
       df <- eval(dfe)
     }
   }
-  if (n < nmin) n <- nmin
-  
+  if (n < nmin) {
+    n <- nmin
+    df <- eval(dfe)
+  }
   if (details) {
     cat("\nSample size search (ntotal)\n")
     cat(" n     power\n")
