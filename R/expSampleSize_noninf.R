@@ -98,11 +98,11 @@ expsampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
     if (missing(margin)) margin <- 0.8
     if (missing(theta0)) theta0 <- 0.95
     if ( (theta0<=margin) & (margin<1) ) {
-      stop("Null ratio ",theta0," must be above margin ",margin,"!", 
+      stop("True ratio ",theta0," must be above margin ",margin,"!", 
           call.=FALSE)
     }
     if ( (theta0>=margin) & (margin>1) ) {
-      stop("Null ratio ",theta0," must be below margin ",margin,"!", 
+      stop("True ratio ",theta0," must be below margin ",margin,"!", 
           call.=FALSE)
     }
     lmargin <- log(margin)
@@ -113,10 +113,10 @@ expsampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
     if (missing(margin)) margin <- -0.2
     if (missing(theta0)) theta0 <- -0.05
     if ( (theta0<=margin) & (margin<0) ) {
-      stop("Null diff. ",theta0," must be above margin ",margin,"!", call.=FALSE)
+      stop("True diff. ",theta0," must be above margin ",margin,"!", call.=FALSE)
     }
     if ( (theta0>=margin) & (margin>0) ) {
-      stop("Null diff. ",theta0," must be below margin ",margin,"!", call.=FALSE)
+      stop("True diff. ",theta0," must be below margin ",margin,"!", call.=FALSE)
     }
     lmargin <- margin
     diffm   <- theta0
@@ -126,14 +126,14 @@ expsampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
   
   if (print) {
     cat("alpha = ",alpha,", target power = ", targetpower,"\n", sep="")
-    cat("Non-inf. margin    = ", margin, "\n", sep="")
-    cat("Null (true) ratio  = ",theta0,"\n", sep="")
+    cat("Non-inf. margin = ", margin, "\n", sep="")
+    cat("True ratio      = ",theta0,"\n", sep="")
     if (length(CV)>1){
       cat("Variability data\n")
       print(data.frame(CV=CV,df=dfCV), row.names = FALSE)
-      cat("CV(pooled)         = ", CVp, " with ", dfse," df\n", sep="")
+      cat("CV(pooled) = ", CVp, " with ", dfse," df\n", sep="")
     } else {
-      cat("CV                 = ", CVp, " with ", dfse," df\n", sep="")
+      cat("CV = ", CVp, " with ", dfse," df\n", sep="")
     }   
   }
   

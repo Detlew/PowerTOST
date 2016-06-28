@@ -17,7 +17,7 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   if (missing(theta0)) theta0 <- 0.90
   if (missing(theta2)) theta2=1/theta1
   if ( (theta0<=theta1) | (theta0>=theta2) ) {
-    stop("Null ratio ",theta0," not between margins ",theta1," / ",theta2,"!", 
+    stop("True ratio ",theta0," not between margins ",theta1," / ",theta2,"!", 
          call.=FALSE)
   }
   if (missing(CV)) stop("CV(s) must be given!", call.=FALSE)
@@ -89,7 +89,7 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     cat(nsims,"studies for each step simulated.\n\n")
     cat("alpha  = ",alpha,", target power = ", targetpower,"\n", sep="")
     cat("CVw(T) = ",CVwT,"; CVw(R) = ",CVwR,"\n", sep="")
-    cat("Null (true) ratio = ",theta0,"\n", sep="")
+    cat("True ratio = ",theta0,"\n", sep="")
     cat("ABE limits / PE constraints =",theta1,"...", theta2,"\n")
     if (details | rc$name=="USER") { 
       rc$CVcap <- NULL # CVcap doesn't apply here

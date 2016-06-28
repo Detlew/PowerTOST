@@ -109,7 +109,7 @@ expsampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE,
     if (missing(theta1)) theta1 <- 0.8
     if (missing(theta2)) theta2 <- 1/theta1
     if ( (theta0<=theta1) | (theta0>=theta2) ) {
-      stop("Ratio ",theta0," not between margins ",theta1," / ",theta2,"!", 
+      stop("True ratio ",theta0," not between margins ",theta1," / ",theta2,"!", 
           call.=FALSE)
     }
     ltheta1 <- log(theta1)
@@ -126,7 +126,7 @@ expsampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE,
     if (missing(theta0)) theta0 <- 0.05
     if (missing(theta2)) theta2=-theta1
     if ( (theta0<=theta1) | (theta0>=theta2) ) {
-      stop("Null diff. ",theta0," not between margins ",theta1," / ",theta2,"!", 
+      stop("True diff. ",theta0," not between margins ",theta1," / ",theta2,"!", 
           call.=FALSE)
     }
     ltheta1 <- theta1
@@ -140,9 +140,9 @@ expsampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE,
   
   if (print) {
     cat("alpha = ",alpha,", target power = ", targetpower,"\n", sep="")
-    cat("BE margins         =",theta1,"...", theta2,"\n")
-    if (logscale) cat("Null (true) ratio  = ",theta0, "\n", sep="")
-      else  cat("Null (true) diff.  = ",theta0, "\n", sep="")
+    cat("BE margins =",theta1,"...", theta2,"\n")
+    if (logscale) cat("True ratio = ",theta0, "\n", sep="")
+      else  cat("True diff. = ",theta0, "\n", sep="")
     if (length(CV)>1){
       cat("Variability data\n")
       print(data.frame(CV=CV,df=dfCV), row.names = FALSE)

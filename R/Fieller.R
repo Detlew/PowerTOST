@@ -147,7 +147,7 @@ sampleN.RatioF <- function(alpha=0.025, targetpower=0.8, theta1=0.8, theta2,
   }
   if (missing(theta2)) theta2 <- 1/theta1
   if ( (theta0<=theta1) | (theta0>=theta2) ) {
-    stop("Ratio ",theta0," not between margins ",theta1," / ",theta2,"!", 
+    stop("True ratio ",theta0," not between margins ",theta1," / ",theta2,"!", 
          call.=FALSE)
   }
   
@@ -170,11 +170,11 @@ sampleN.RatioF <- function(alpha=0.025, targetpower=0.8, theta1=0.8, theta2,
     }
     cat("Ratio of means with normality on original scale\n")
     cat("alpha = ",alpha,", target power = ", targetpower,"\n", sep="")
-    cat("BE margins        =",theta1,"...", theta2,"\n")
+    cat("BE margins =",theta1,"...", theta2,"\n")
     if (tolower(design)=="parallel"){
-      cat("Null (true) ratio = ",theta0,",  CV = ",CV,"\n", sep="")
+      cat("True ratio = ",theta0,",  CV = ",CV,"\n", sep="")
     } else {
-      cat("Null (true) ratio = ",theta0,",  CVw = ",CV,",  CVb = ",CVb,
+      cat("True ratio = ",theta0,",  CVw = ",CV,",  CVb = ",CVb,
           "\n", sep="")
     }
   }

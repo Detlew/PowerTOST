@@ -197,12 +197,12 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
   if (print) {
     cat("alpha = ",paste(as.character(alpha), collapse = ", "),
         "; target power = ", targetpower,"\n", sep="")
-    cat("BE margins         =",theta1,"...", theta2,"\n")
-    if (logscale) cat("Null (true) ratios = ",paste(as.character(theta0), 
+    cat("BE margins =",theta1,"...", theta2,"\n")
+    if (logscale) cat("True ratios = ",paste(as.character(theta0), 
                                                     collapse = ", "),
                       "; CV = ",paste(as.character(CV), collapse = ", "),
                       "\n", sep="")
-    else          cat("Null (true) diffs = ",paste(as.character(theta0), 
+    else          cat("True diffs  = ",paste(as.character(theta0), 
                                                     collapse = ", "),
                       "; SD = ",paste(as.character(CV), collapse = ", "),
                       "\n", sep="")

@@ -135,14 +135,14 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
       txt <- paste(txt, "\n")
     }
     cat(txt)
-    cat("Null (true) ratio  :", sprintf("%.4f", theta0), "\n")
+    cat("True ratio         :", sprintf("%.4f", theta0), "\n")
     cat("Target power       :", sprintf("%.3g", targetpower), "\n")
     cat(paste0("Regulatory settings: ", reg$name, " (", method, ")\n"))
     
     # better theta1, theat2 as BE limits, PE constraint?
     if (CVwR <= reg$CVswitch) {
-      cat("Switching CVwR     :", reg$CVswitch, "\n",
-          "BE limits          : 0.8000 ... 1.2500\n")
+      cat("Switching CVwR     : ", reg$CVswitch, "\n",
+          "BE limits          : 0.8000 ... 1.2500\n", sep="")
     } else {
       cat(paste("Switching CVwR     :", reg$CVswitch, "\n",
                 "Regulatory constant:", reg$r_const, "\n"))
@@ -343,7 +343,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
 #   Expected CVwR 0.3
 #   Nominal alpha      : 0.05
 #   Significance limit : 0.05036
-#   Null (true) ratio  : 0.900
+#   True ratio         : 0.900
 #   Regulatory settings: EMA (ABE)
 #   Switching CVwR     : 0.30
 #   BE limits          : 0.8000...1.2500

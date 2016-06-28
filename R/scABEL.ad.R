@@ -157,7 +157,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
       txt <- paste(txt, "\n")
     }
     cat(txt)
-    cat("Null (true) ratio             :", sprintf("%.4f", theta0), "\n")
+    cat("True ratio                    :", sprintf("%.4f", theta0), "\n")
     cat(paste0("Regulatory settings           : ", reg$name, " (",
                method, ")\n"))
     if (flushable) flush.console() # advance console output.
@@ -266,7 +266,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
 #
 #   CVwR 0.3, n(i) 18|18|18 (N 54)
 #   Nominal alpha                 : 0.05
-#   Null (true) ratio             : 0.900
+#   True ratio                    : 0.900
 #   Regulatory settings           : EMA (ABE)
 #   Empiric TIE for alpha 0.0500  : 0.07189
 #   Iteratively adjusted alpha    : 0.03389
@@ -285,7 +285,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
 #
 #   CVwR 0.3, n(i) 17|17 (N 34)
 #   Nominal alpha                 : 0.05
-#   Null (true) ratio             : 0.900
+#   True ratio                    : 0.900
 #   Regulatory settings           : EMA (ABE)
 #   Empiric TIE for alpha 0.0500  : 0.08163 (rel. change of risk: +63.3%)
 #   Power for theta0 0.900        : 0.803
@@ -309,7 +309,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
 #
 #   CVwR 0.3217, CVwT 0.2769, n(i) 15|14 (N 29)
 #   Nominal alpha                 : 0.05, pre-specified alpha 0.025
-#   Null (true) ratio             : 0.900
+#   True ratio                    : 0.900
 #   Regulatory settings           : EMA (ABEL)
 #   Empiric TIE for alpha 0.0250  : 0.03941
 #   TIE not > nominal alpha; the chosen pre-specified alpha is justified.
