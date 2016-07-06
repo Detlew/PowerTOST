@@ -8,18 +8,14 @@ of a BE study.\cr
 Useful if no CV but the 90\% CI was given in literature.
 }
 \usage{
-CVfromCI(pe, point, lower, upper, n, design = "2x2", alpha = 0.05, robust=FALSE)
-CI2CV(pe, point, lower, upper, n, design = "2x2", alpha = 0.05, robust=FALSE)
+CVfromCI(pe, lower, upper, n, design = "2x2", alpha = 0.05, robust=FALSE)
+CI2CV(pe, lower, upper, n, design = "2x2", alpha = 0.05, robust=FALSE)
 }
 \arguments{
   \item{pe}{
 Point estimate of the BE ratio.\cr
 The \code{pe} may be missing. In that case it will be calculated as geometric 
 mean of \code{lower} and \code{upper}.
-  }
-  \item{point}{
-Alias of the argument \code{pe} for backward compatibility.\cr Will be removed in
-next versions.
   }
   \item{lower}{
 Lower confidence limit of the BE ratio.
