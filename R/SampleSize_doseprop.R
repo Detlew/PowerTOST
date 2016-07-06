@@ -90,7 +90,7 @@ sampleN.dp <- function(alpha=0.05, CV, doses, targetpower=0.8, beta0,
     cat("alpha = ",alpha,", target power = ", targetpower,"\n", sep="")
     cat("Equivalence margins of R(dnm) =",theta1,"...", theta2,"\n")
     cat("Doses = "); cat(doses,"\n")
-    cat("Null (true) slope = ",beta0,", CV = ", CV, sep="")
+    cat("True slope = ",beta0,", CV = ", CV, sep="")
     if(design=="IBD"){
       cat(", CVb = ", CVb, "\n", sep="")
     } else {

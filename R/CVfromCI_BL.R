@@ -5,20 +5,10 @@
 # adapted to unbalanced studies by Benjamin Lang
 #------------------------------------------------------------------------------
 
-CVfromCI <- function(pe, point, lower, upper, n, design = "2x2", alpha = 0.05, 
+CVfromCI <- function(pe, lower, upper, n, design = "2x2", alpha = 0.05, 
                      robust = FALSE) 
 {
   if (missing(pe)) pe <- NULL
-  if (!missing(point)) {
-    if (is.null(pe)){
-      warning(paste0("Argument point is renamed to pe and will not function",
-                     "in next versions."), call. = FALSE)
-      pe <- point
-      
-    } else {
-      warning("Use pe only. Argument point is only an alias of pe.", call. = FALSE) 
-    }
-  }
   if (missing(n)) stop("Sample size n must be given!", call. = FALSE)
   # according to Helmut's suggestion
   if ((missing(lower) && missing(upper)) || ((missing(lower) && 
@@ -66,9 +56,7 @@ CVfromCI <- function(pe, point, lower, upper, n, design = "2x2", alpha = 0.05,
 }
 # ---------------------------------------------------------------------------
 # alias to CVfromCI
-CI2CV <- function(pe, point, lower, upper, n, design="2x2", alpha=0.05, 
-                  robust=FALSE)
+CI2CV <- function(pe, lower, upper, n, design="2x2", alpha=0.05, robust=FALSE)
 {
-  CVfromCI(pe, point, lower, upper, n, design=design, alpha=alpha, 
-           robust=robust)
+  CVfromCI(pe, lower, upper, n, design=design, alpha=alpha, robust=robust)
 }

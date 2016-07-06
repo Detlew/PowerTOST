@@ -61,11 +61,11 @@ sampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
     if(margin<=0) stop("With logscale=TRUE margin must be ratio >0")
     if(theta0<=0) stop("With logscale=TRUE theta0 must be ratio >0")
     if ( (theta0<=margin) & (margin<1) ) {
-      stop("Null ratio ",theta0," must be above margin ",margin,"!", 
+      stop("True ratio ",theta0," must be above margin ",margin,"!", 
           call.=FALSE)
     }
     if ( (theta0>=margin) & (margin>1) ) {
-      stop("Null ratio ",theta0," must be below margin ",margin,"!", 
+      stop("True ratio ",theta0," must be below margin ",margin,"!", 
           call.=FALSE)
     }
     lmargin <- log(margin)
@@ -76,10 +76,10 @@ sampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
     if (missing(margin)) margin <- -0.2
     if (missing(theta0)) theta0 <- -0.05
     if ( (theta0<=margin) & (margin<0) ) {
-      stop("Null diff. ",theta0," must be above margin ",margin,"!", call.=FALSE)
+      stop("True diff. ",theta0," must be above margin ",margin,"!", call.=FALSE)
     }
     if ( (theta0>=margin) & (margin>0) ) {
-      stop("Null diff. ",theta0," must be below margin ",margin,"!", call.=FALSE)
+      stop("True diff. ",theta0," must be below margin ",margin,"!", call.=FALSE)
     }
     lmargin <- margin
     diffm   <- theta0
@@ -88,9 +88,9 @@ sampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
   }
   if (print) {
     cat("alpha = ",alpha,", target power = ", targetpower,"\n", sep="")
-    cat("Non-inf. margin   = ", margin, "\n", sep="")
-    if (logscale) cat("Null (true) ratio = ",theta0,",  CV = ",CV,"\n", sep="")
-    else          cat("Null (true) diff. = ",theta0,",  CV = ",CV,"\n", sep="")
+    cat("Non-inf. margin = ", margin, "\n", sep="")
+    if (logscale) cat("True ratio = ",theta0,",  CV = ",CV,"\n", sep="")
+    else          cat("True diff. = ",theta0,",  CV = ",CV,"\n", sep="")
   }
   # start value of 'brute force'
   n   <- .sampleN0.noninf(alpha, targetpower, lmargin, d0=diffm, se, steps, bk)

@@ -49,26 +49,8 @@ CVp2CV <- function(CV, ratio=1.5)
   r
 }
 
-#------------------------------------------------------------------------
-# Densitiy of inverse gamma distriubtion
-# Adapted dinvgamma() from R package MCMCpack (1.3-3)
-# Author B. Lang, slightly modified by D. Labes
-#
-# MCMCpack:dinvgamma() authored by Andrew D. Martin, Kevin M. Quinn, 
-# and Jong Hee Park
-#------------------------------------------------------------------------
-my_dinvgamma <- function(x, shape, scale = 1) {
-  if(shape <= 0 | scale <= 0)
-    stop("Shape or scale parameter zero or negative in my_dinvgamma().")
-  # we return the asymptotic d=0 if x==0
-  # x negative is not allowed and gives NaN
-  d <- exp(shape * log(scale) - lgamma(shape) - (shape + 1) * log(x) - (scale/x))
-  d[x == 0] <- 0
-  d
-}
-
 # -------------------------------------------------------------------------
-# helper functions for partitioning Ntotal
+# helper functions for partitioning Ntotal into (sequence) groups
 # Author dlabes
 # -------------------------------------------------------------------------
 # partition n into grps with 'best' balance between grps
