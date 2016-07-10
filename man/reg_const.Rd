@@ -27,7 +27,7 @@ CV to switch to the widened acceptance limits.
 CV for capping the widening of the acceptance limits.
 }
   \item{pe_constr}{
-Logical. Shall pe constraint be applied? Defaults to \code{}
+Logical. Shall pe constraint be applied? Defaults to \code{TRUE}.
 }
 }
 \value{

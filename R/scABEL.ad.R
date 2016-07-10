@@ -26,14 +26,12 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
   ##              CV[2] the CV of R. Important!
   ##              Defaults to 0.3 (maximum TIE for EMA).
   ##   design     "2x2x4", "2x2x3", "2x3x3". Defaults to "2x3x3".
-  ##   regulator  "EMA" or "ANVISA". "ANVISA" requires extreme
-  ##              adjustment close to CVwR 40%. Realistic?
-  ##              Cave: ANVISA's requirements are unofficial.
+  ##   regulator  "EMA" or "ANVISA". ANVISA recently adopted EMA's rules.
   ##   n          Total sample size or a vector of subjects/sequences.
   ##   nsims      Simulations for the TIE. Should not be <1e6.
-  ##   imax       max. steps in sample size search
-  ##   tol        desired accuracy (convergence tolerance)
-  ##              defaults to 1e-6 for EMA and 1e-7 for ANVISA
+  ##   imax       Max. steps in sample size search.
+  ##   tol        Desired accuracy (convergence tolerance of uniroot);
+  ##              defaults to 1e-6.
   ##   print      Boolean (FALSE returns a list of results).
   ##   details    Boolean (runtime, number of simulations).
   ##   alpha.pre  Pre-specified level.
@@ -54,10 +52,10 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
   ##              where rel.loss = 100(pwr.adj - pwr.unadj)/pwr.unadj
   ##   If alpha.pre is given:
   ##   Assessment of TIE; alpha.pre is justified if not > alpha.
-  ######################################################################
-  ## Tested on Win 7 Pro SP1 64bit
-  ##   R 3.2.4 Revised 64bit (2016-03-16), PowerTOST 1.3-4 (2016-03-10)
-  ######################################################################
+  ################################################################
+  ## Tested on Win 7 Pro SP1 64bit                              ##
+  ##   R 3.3.1 64bit (2016-06-21), PowerTOST 1.4-1 (2016-06-14) ##
+  ################################################################
   env <- as.character(Sys.info()[1]) # get info about the OS
   if ((env == "Windows") || (env == "Darwin")) flushable <- TRUE
     else flushable <- FALSE # supress flushing on other OS's
@@ -72,12 +70,8 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
   if(missing(regulator)) regulator <- "EMA"
   # should we also allow "FDA"?
   reg <- reg_check(regulator, choices=c("EMA", "HC", "ANVISA"))
-  # set iteration tolerance for uniroot(). Must be higher for ANVISA. DL: Why?
-  if (missing(tol)) {
-    # What about other regulators? ANVISA is now changed EMA.
-    #if (reg$name == "EMA") tol <- 1e-6 else tol <- 1e-7
-    tol <- 1e-6
-  }
+  # set iteration tolerance for uniroot().
+  if (missing(tol)) tol <- 1e-6
   design <- match.arg(design)
   CVwT <- CV[1]
   if (length(CV) == 2) CVwR <- CV[2] else CVwR <- CVwT

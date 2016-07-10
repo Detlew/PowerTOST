@@ -11,9 +11,9 @@ on simulations. Simultaneously alpha is iteratively adjusted in order
 to maintain the consumer risk at the nominal level.
 }
 \usage{
-sampleN.scABEL.ad(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, 
-                  CV = 0.3, design = c("2x3x3", "2x2x4", "2x2x3"), regulator, 
-                  nstart = NA, nsims = 1e6, imax = 100, tol, print = TRUE, 
+sampleN.scABEL.ad(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2,
+                  CV = 0.3, design = c("2x3x3", "2x2x4", "2x2x3"), regulator,
+                  nstart = NA, nsims = 1e6, imax = 100, tol, print = TRUE,
                   details = FALSE, alpha.pre = 0.05, setseed = TRUE)
 }
 \arguments{
@@ -88,7 +88,7 @@ Maximum number of steps in sample size search. Defaults to 100.
 }
   \item{tol}{
 Desired accuracy (convergence tolerance).\cr
-Defaults to 1e-6 for \code{regulator = "EMA"} and to 1e-7 for \code{regulator = "ANVISA"}.
+Defaults to 1e-6.
 }
   \item{print}{
 If \code{TRUE} (default), the function prints its results.
@@ -139,24 +139,22 @@ obtained by \code{\link{sampleN.scABEL}}.
 \references{
 \enc{Tóthfalusi}{Tothfalusi}, L., \enc{Endrényi}{Endrenyi}, L.\cr
 Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs\cr
-J Pharm Pharmaceut Sci. 2011;15(1):73-84\cr
-\href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
+J Pharm Pharmaceut Sci. 2011;15(1):73-84. \href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
 
 Wonnemann, M., \enc{Frömke}{Froemke}, C., Koch, A.\cr
 Inflation of the Type I Error: Investigations on Regulatory Recommendations for 
 Bioequivalence of Highly Variable Drugs\cr
-Pharm Res. 2015;32(1):135-43
+Pharm Res. 2015;32(1):135-43. \href{http://dx.doi.org/10.1007/s11095-014-1450-z}{doi 10.1007/s11095-014-1450-z}
 
 \enc{Muñoz}{Munoz} J., Alcaide D., \enc{Ocaña}{Ocana} J.\cr 
 Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence
 in highly variable drugs\cr
-Stat Med. 2016 May 30;35(12):1933-43. doi: 10.1002/sim.6834.\cr
-Epub 2015 Dec 28
+Stat Med. 2016;35(12):1933-43. \href{http://dx.doi.org/10.1002/sim.6834}{doi 10.1002/sim.6834}
 
 Labes, D., \enc{Schütz}{Schuetz}, H.\cr
 Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, 
 and a Method for its Control\cr
-in preparation 2016
+submitted to Pharm. Res. 2016
 }
 \author{
 H. \enc{Schütz}{Schuetz}

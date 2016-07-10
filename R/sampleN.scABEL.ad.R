@@ -27,14 +27,12 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   ##               If given as a vector, CV[1] /must/ be the CV of T and
   ##               CV[2] the CV of R. Important!
   ##   design      "2x2x4", "2x2x3", "2x3x3"
-  ##   regulator   "EMA" or "ANVISA"
-  ##               Cave: ANVISA's requirements are unofficial and might
-  ##               require extreme adjustment close to CVwR 40%.
+  ##   regulator  "EMA" or "ANVISA". ANVISA recently adopted EMA's rules.
   ##   nstart      If given, the starting sample size.
   ##   nsims       Simulations for the TIE. Should not be <1e6.
-  ##   imax        max. number of steps in sample size search
-  ##   tol         desired accuracy (convergence tolerance)
-  ##               defaults to 1e-6 for EMA and 1e-7 for ANVISA
+  ##   imax        Max. number of steps in sample size search
+  ##   tol         Desired accuracy (convergence tolerance of uniroot);
+  ##               defaults to 1e-6.
   ##   print       Boolean. If FALSE, returns a data.frame of results.
   ##   details     Boolean (intermediates, runtime, number of sim's).
   ##   alpha.pre   Pre-specified level.
@@ -54,10 +52,10 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   ##      estimate the TIE.
   ##   5. Increase the sample size and repeat steps 3 & 4 until the
   ##      target power is reached.
-  ######################################################################
-  ## Tested on Win 7 Pro SP1 64bit
-  ##   R 3.2.4 Revised 64bit (2016-03-16), PowerTOST 1.3-4 (2016-03-10)
-  ######################################################################
+  ################################################################
+  ## Tested on Win 7 Pro SP1 64bit                              ##
+  ##   R 3.3.1 64bit (2016-06-21), PowerTOST 1.4-1 (2016-06-14) ##
+  ################################################################
   env <- as.character(Sys.info()[1]) # get info about the OS
   if ((env == "Windows") || (env == "Darwin")) flushable <- TRUE
     else flushable <- FALSE # supress flushing on other OS's
