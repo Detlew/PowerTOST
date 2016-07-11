@@ -1,7 +1,10 @@
+Version 1.4-2
+Released 2016-07-15
+      - 
       - Deprecated argument point in function CI2CV()/CVfromCI() now removed
       - Misleading term 'Null (true) ratio' in output of sample size functions
         changed to 'True ratio'.
-      - Minor bug in sampleN.2TOST() fixed.. 
+      - Minor bug in sampleN.2TOST() fixed. 
       
 Version 1.4-1
 Published on GitHub 2016-06-14
