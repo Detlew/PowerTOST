@@ -36,7 +36,7 @@ If package is run under R version < 3.1.0 \code{targetpower} has to be >= 0.5.
   \item{minpower}{
 Minimum acceptable power to have if deviating from assumptions for sample size plan.\cr
 Has to be < as \code{targetpower}. Defaults to 0.7.\cr
-\code{minpower} or \code{targetpower} <0.5 does'nt make much sense.\cr
+\code{minpower} or \code{targetpower} <0.5 doesn't make much sense.\cr
 If package is run under R version < 3.1.0 \code{minpower} has to be >= 0.5.
 }
   \item{design}{

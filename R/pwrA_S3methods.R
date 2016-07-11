@@ -59,6 +59,7 @@ print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
 # reworked by H. Schuetz to avoid overlay of target power line with legend
 # added argument ratiolabel for plots and changed "n" to "N" for consistency
 # with print method (HS 2016-07-11)
+# TODO: Change everything for ratios OR percentages insted of Kuddelmuddel.
 # ----------------------------------------------------------------------------
 plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), ...)
 {

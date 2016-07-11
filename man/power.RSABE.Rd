@@ -34,8 +34,8 @@ Defaults to 0.90 according to the two Laszlo's if not given explicitly.
   \item{CV}{
 Coefficient(s) of variation as ratio.\cr
 If \code{length(CV) = 1} the same CV is assumed for Test and Reference.\cr
-If \code{length(CV) = 2} the CV for Test must be given in CV[1] and for 
-Reference in CV[2].
+If \code{length(CV) = 2} the CV for Test must be given in \code{CV[1]} and for 
+Reference in \code{CV[2]}.
 }
   \item{n}{
 Number of subjects under study.\cr
@@ -45,8 +45,8 @@ If n is given as single number (total sample size) and this number is not
 divisible by the number of sequences of the design an unbalanced design is 
 assumed. A corresponding message is thrown showing the numbers of subjects 
 in sequence groups used.\cr
-Attention! In case of the 2x2x3 (TRT|RTR) design the order of n's important 
-if given as vector. n[1] is for sequence group 'TRT' and n[2] is for 
+Attention! In case of the 2x2x3 (TRT|RTR) design the order of sample sizes / sequence is important 
+if given as a vector. \code{n[1]} is for sequence group 'TRT' and \code{n[2]} is for 
 sequence group 'RTR'. 
 }
   \item{design}{

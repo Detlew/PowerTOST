@@ -6,8 +6,8 @@ Released 2016-07-15
       - Misleading term 'Null (true) ratio' in output of sample size functions
         changed to 'True ratio'.
       - Minor bug in sampleN.2TOST() fixed.
-      - S3 plot method of pa.xyz() has a new argument "ratiolabel";
-        defaults to theta0. Changed "n" to "N" for consistency with print method.
+      - S3 plot method of pa.xyz() has a new argument "ratiolabel"; defaults to 
+        theta0. Changed "n" to "N" for consistency with print method.
       
 Version 1.4-1
 Published on GitHub 2016-06-14
