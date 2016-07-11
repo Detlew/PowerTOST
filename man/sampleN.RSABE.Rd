@@ -86,7 +86,11 @@ given in the FDA progesterone guidance.\cr\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on scaled ABE. For more details see
 a document "Implementation_scaledABE_simsVx.yy.pdf" in the doc subdirectory of 
-the package.
+the package.\cr\cr
+If a CVcap is defined for the regulator, the BE decision is based on the inclusion
+of the CI in the capped widened acceptance limits in case of CVwR > CVcap. This
+resembles method Howe-EMA in Munoz et al. and is the standard behavior now if
+\code{regulator="EMA"} is choosen.
 }
 \value{
 Returns a data.frame with the input and sample size results.\cr
@@ -96,8 +100,8 @@ The "nlast" column contains the last n value. May be useful for restarting.
 \references{
 FDA "Draft Guidance on Progesterone"\cr
 Recommended Apr 2010; Revised Feb 2011\cr
-http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/
-Guidances/UCM209294.pdf
+\url{http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/
+Guidances/UCM209294.pdf}
 
 \enc{Lászlo}{Laszlo} \enc{Tóthfalusi}{Tothfalusi} and 
 \enc{Lászlo}{Laszlo} \enc{Endrényi}{Endrenyi}\cr
@@ -109,6 +113,11 @@ J. Pharm. Pharmaceut. Sci. (www.cspsCanada.org) 15(1) 73 - 84, 2011\cr
 "Evaluation of Bioequivalence for Highly Variable Drugs with Scaled Average 
 Bioequivalence" \cr
 Clin. Pharmacokin. 48/11, 725-743 (2009)
+
+\enc{Muñoz}{Munoz} J., Alcaide D., \enc{Ocaña}{Ocana} J.\cr 
+"Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence
+in highly variable drugs"\cr
+Stat Med. 2015;35(12):1933-43. \href{http://dx.doi.org/10.1002/sim.6834}{doi 10.1002/sim.6834}
 }
 \author{
 D. Labes
