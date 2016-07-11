@@ -32,8 +32,8 @@ power.RSABE <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   s2D  <- 0 
   CVwT <- CV[1]
   if (length(CV)==2) CVwR <- CV[2] else CVwR <- CVwT
-  s2wT <- log(1.0 + CVwT^2)
-  s2wR <- log(1.0 + CVwR^2)
+  s2wT <- CV2mse(CVwT)
+  s2wR <- CV2mse(CVwR)
 
   # regulator here only FDA, EMA
   # other regulatory bodies ("HC", "ANVISA") use all the EMA regulatory constant
@@ -43,6 +43,8 @@ power.RSABE <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   r_const   <- rc$r_const
   pe_constr <- rc$pe_constr
   # CVcap doesn't apply to the FDA recommended method
+  # but in Munoz et al. method= Howe-EMA
+  CVcap     <- rc$CVcap
 
   design <- match.arg(design)
   if (design=="2x3x3") {
@@ -114,8 +116,9 @@ power.RSABE <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   mlog <- log(theta0)
   
   if(setseed) set.seed(123456)
-  p <- .power.RSABE(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, CVswitch, r_const, 
-                    pe_constr, ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
+  p <- .power.RSABE(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
+                    CVswitch, r_const, pe_constr, CVcap,
+                    ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
     
   if (details) {
     ptm <- summary(proc.time()-ptm)
@@ -134,8 +137,8 @@ power.RSABE <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 
 # working horse of RSABE
 .power.RSABE <- function(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
-                         CVswitch, r_const, pe_constr, ln_lBEL, ln_uBEL, 
-                         alpha=0.05)
+                         CVswitch, r_const, pe_constr, CVcap,
+                         ln_lBEL, ln_uBEL, alpha=0.05)
 {
   tval     <- qt(1-alpha,df)
   chisqval <- qchisq(1-alpha, dfRR)
@@ -180,6 +183,15 @@ power.RSABE <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     # 95% upper CI of criterion <=0 if CVwR>CVswitch
     # else use conventional ABE (mixed procedure)
     BE    <- ifelse(s2wRs>s2switch, SABEc95<=0, BEABE)
+    # use capped acceptance limits if CVwR > CVcap
+    if (is.finite(CVcap)){
+      # browser()
+      s2Cap <- CV2mse(CVcap)
+      # calculate the capped widened acceptance limits in log domain
+      uprABEL <- r_const*sqrt(s2Cap)
+      lwrABEL <- -uprABEL
+      BE <- ifelse(s2wRs>=s2Cap, ((lwrABEL<=lCL) & (uCL<=uprABEL)), BE)
+    }
     # point est. constraint true?
     BEpe  <- ( means>=ln_lBEL & means<=ln_uBEL )
 

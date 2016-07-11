@@ -30,6 +30,8 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   r_const   <- rc$r_const
   pe_constr <- rc$pe_constr
   # CVcap doesn't apply to the FDA recommended method
+  # but in Munoz et al. method= Howe-EMA
+  CVcap     <- rc$CVcap
   
   # for later enhancement taking into account the 
   # subject-by-formulation interaction
@@ -152,8 +154,9 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   dfRR <- eval(dfRRe)
   
   if(setseed) set.seed(123456)
-  p <- .power.RSABE(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, CVswitch, r_const, 
-                    pe_constr, ln_lBEL=log(theta1), ln_uBEL=log(theta2), alpha=alpha)
+  p <- .power.RSABE(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, CVswitch, 
+                    r_const, pe_constr, CVcap, 
+                    ln_lBEL=log(theta1), ln_uBEL=log(theta2), alpha=alpha)
   pwr <- as.numeric(p["BE"]);
   pd <- max(4,round(log10(nsims),0))  # digits for power
   if (details) {
@@ -183,7 +186,7 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     
     if(setseed) set.seed(123456)
     p <- .power.RSABE(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, CVswitch, 
-                      r_const, pe_constr, ln_lBEL=log(theta1), 
+                      r_const, pe_constr, CVcap, ln_lBEL=log(theta1), 
                       ln_uBEL=log(theta2), alpha=alpha)
     pwr <- as.numeric(p["BE"]);
     
@@ -204,7 +207,7 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     
     if(setseed) set.seed(123456)
     p <- .power.RSABE(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, CVswitch, 
-                      r_const, pe_constr, ln_lBEL=log(theta1), 
+                      r_const, pe_constr, CVcap, ln_lBEL=log(theta1), 
                       ln_uBEL=log(theta2), alpha=alpha)
     pwr <- as.numeric(p["BE"]);
     
