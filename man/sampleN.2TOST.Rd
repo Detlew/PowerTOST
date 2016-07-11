@@ -108,9 +108,9 @@ Hua S. Y., Xu S., and D'Agostino Sr. R. B.\cr
 "Multiplicity adjustments in testing for bioequivalence"\cr
 Statistics in Medicine, Vol. 34, Issue 2, 215-231 (2015)
 
-Lang B., Fleischer F. (in press).\cr
-"Letter to the Editor 'Comments on Multiplicity adjustments in testing for bioequivalence'".\cr
-Statistics in Medicine.
+Lang B., Fleischer F.\cr
+"Letter to the Editor: Comments on 'Multiplicity adjustments in testing for bioequivalence'".\cr
+Statistics in Medicine, Vol. 35, Issue 14, 2479-2480 (2016)
 
 Zhang P.\cr
 "A Simple Formula for Sample Size Calculation in Equivalence Studies"\cr
