@@ -1,3 +1,4 @@
+\encoding{utf-8}
 \name{power.RSABE}
 \alias{power.RSABE}
 \title{
@@ -5,7 +6,7 @@
 }
 \description{
 This function performs the power calculation of the BE decision via 
-linearized scaled ABE criterion by simulations.
+linearized scaled ABE criterion by simulations as recommended by the FDA.
 }
 \usage{
 power.RSABE(alpha = 0.05, theta1, theta2, theta0, CV, n, 
@@ -91,7 +92,11 @@ given in the FDA progesterone guidance.\cr\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on scaled ABE criterion.\cr
 Details can be found in a document "Implementation_scaledABE_simsVx.yy.pdf" 
-located in the doc subdirectory of the package.
+located in the doc subdirectory of the package.\cr\cr
+If a CVcap is defined for the regulator, the BE decision is based on the inclusion
+of the CI in the capped widened acceptance limits in case of CVwR > CVcap. This
+resembles method Howe-EMA in Munoz et al. and is the standard behavior now if
+\code{regulator="EMA"} is choosen.
 }
 \value{
 Returns the value of the (empirical) power if argument \code{details=FALSE}.\cr\cr
@@ -111,16 +116,22 @@ issues a warning for that cases.
 \references{
 FDA "Draft Guidance on Progesterone"\cr
 Recommended Apr 2010; Revised Feb 2011\cr
-http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM209294.pdf
+\url{http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM209294.pdf}
 
-Laszlo Tothfalusi and Laszlo Endrenyi\cr
-"Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs"\cr
-J. Pharm. Pharmaceut. Sci. (www.cspsCanada.org) 15(1) 73 - 84, 2011
+\enc{Tóthfalusi}{Tothfalusi}, L., \enc{Endrényi}{Endrenyi}, L.\cr
+Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs\cr
+J Pharm Pharmaceut Sci. 2011;15(1):73-84. \cr
+\href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
 
-Tothfalusi L., Endrenyi L. and A. Garcia Arieta\cr
+\enc{Tóthfalusi}{Tothfalusi} L., \enc{Endrényi}{Endrenyi} L. and A. Garcia Arieta\cr
 "Evaluation of Bioequivalence for Highly Variable Drugs with Scaled Average 
 Bioequivalence"\cr
 Clin. Pharmacokin. 48/11, 725-743 (2009)
+
+\enc{Muñoz}{Munoz} J., Alcaide D., \enc{Ocaña}{Ocana} J.\cr 
+"Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence
+in highly variable drugs"\cr
+Stat Med. 2015;35(12):1933-43. \href{http://dx.doi.org/10.1002/sim.6834}{doi 10.1002/sim.6834}
 }
 \author{
 D. Labes
@@ -150,5 +161,4 @@ rs$pe_constr <- FALSE
 power.RSABE(CV=0.4, n=36, regulator=rs)
 # should give
 # [1] 0.84644
-
 }

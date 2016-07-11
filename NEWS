@@ -1,6 +1,7 @@
 Version 1.4-2
 Released 2016-07-15
-      - 
+      - Power and sample size for FDA RSABE now take into account a CVcap
+        if defined as finite
       - Deprecated argument point in function CI2CV()/CVfromCI() now removed
       - Misleading term 'Null (true) ratio' in output of sample size functions
         changed to 'True ratio'.
@@ -10,7 +11,7 @@ Version 1.4-1
 Published on GitHub 2016-06-14
       - Objects of class 'regSet' now have an additional component 'est_method'
         which controls the simualtions via key statistics of the evaluation using
-        EMA's ANOVA or FDA's recommended ISC.  
+        EMA's ANOVA or FDA's recommended ISC in xyz.scABEL() functions.  
       - power.scABEL()/power.scABEL2() as well as sampleN.scABEL()/sampleN.scABEL2()
         are now unified. The regulator component 'est_method' is used for switching
         between sims based on EMA's ANOVA evaluation or ISC evaluation, respectively.

@@ -1,14 +1,16 @@
 #---------------------------------------------------------------------------
 # Simulate partial or full replicate designs and scaled ABE power
 # estimation method via intra-subject contrasts of T-R and R-R
-# BE decision via linearized reference scaled ABE criterion, no cap
+# BE decision via linearized reference scaled ABE criterion, 
+# no cap if regulator = "FDA", else CVcap is taken into account if defined
+# in regulator argument of class 'regSet'
 # 
 # Author: dlabes
 #---------------------------------------------------------------------------
 
 # degrees of freedom for the TR/RR  analysis: 
 # Using the intrasubject contrasts T-R and R-R and analyze them  
-# by sequence groups the df's = n-seq.
+# by sequence groups the df's are = n-seq.
 # 2x3x3  dfRR = n-3
 # 2x2x4  dfRR = n-2
 # 2x2x3  dfRR = n/2 - 2
