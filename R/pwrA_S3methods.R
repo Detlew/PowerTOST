@@ -58,7 +58,7 @@ print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
 # Author D.Labes, from original code by H. Schuetz
 # reworked by H. Schuetz to avoid overlay of target power line with legend
 # ----------------------------------------------------------------------------
-plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...)
+plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), ...)
 {
   # make colors between the both given
   mkColors <- function(){
@@ -133,7 +133,7 @@ plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...
 
   if (x$method=="ABE"){
     plot(CVs, pwr, type="n",
-         main=paste0("Higher variability\n", GMRlabel, " = ", GMR, ", n = ", n.est),
+         main=paste0("Higher variability\n", ratiolabel, " = ", GMR, ", n = ", n.est),
          lwd=2, xlab=xlabtxt, ylab=ylabtxt, las=1)
     box()
     abline(h=c(targetpower, fact*0.8, minpower), lty=3, col="grey50")
@@ -146,7 +146,7 @@ plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...
   } else {
     # any scABE (including RSABE NTID)
     plot(CVs, pwr, type="n",
-         main=paste0("Lower/higher variability\n", GMRlabel, " = ", GMR,
+         main=paste0("Lower/higher variability\n", ratiolabel, " = ", GMR,
          ", n = ", n.est), lwd=2, xlab=xlabtxt, ylab=ylabtxt, las=1)
     abline(h=c(targetpower, 0.8*fact, minpower), lty=3, col="grey50")
     mklegend(x$method)
@@ -228,7 +228,7 @@ plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...
   nNs    <- length(Ns)
   if(nNs<5 & nNs>1) xticks <- c(max(Ns), min(Ns), nNs-1)
   plot(Ns, pwr, type="n",
-       main=paste0("Drop-outs\n", GMRlabel, " = ", GMR, ", CV = ", CV, pctsign),
+       main=paste0("Drop-outs\n", ratiolabel, " = ", GMR, ", CV = ", CV, pctsign),
        lwd=2, xlim=c(max(Ns), min(Ns)), ylim=c(minpower, pwr.est),
        xlab="n", xaxp=xticks,
        ylab=ylabtxt, las=1, cex.main=0.95)
@@ -312,7 +312,7 @@ plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...
                     "acceptable rel. deviations:",
                     #TODO:react to RSABE NTID where there may be also a CVmin
                     CVtxt,
-                    sprintf("  %s%s %+5.2f%%", GMRlabel, " =", 100*(GMR.min-GMR)/GMR),
+                    sprintf("  %s%s %+5.2f%%", ratiolabel, " =", 100*(GMR.min-GMR)/GMR),
                     sprintf("  %s %+5.1f%%", "n =",   100*(min(Ns)-n.est)/n.est)),
            bty="n", cex=0.80)
   } else { # ratios

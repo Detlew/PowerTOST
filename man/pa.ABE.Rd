@@ -66,7 +66,7 @@ is running interactively.
 If set to \code{TRUE} (the default) scales CV, theta0, and power in percent in
 \code{plot()}. Else they will be given as ratios, the usual standard in PowerTOST.
 }
-  \item{GMRlabel}{
+  \item{ratiolabel}{
 Label of the T/R-ratio. Can be set to any string, e.g. to \code{"GMR"}.
 Defaults to \code{"theta0"}, the usual standard in PowerTOST.
 }
