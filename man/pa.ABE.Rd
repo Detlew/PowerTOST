@@ -1,3 +1,4 @@
+\encoding{utf-8}
 \name{pa.ABE}
 \alias{pa.ABE}
 \alias{print.pwrA}
@@ -104,7 +105,7 @@ See \code{\link{pa.scABE}} for usage.
 See \url{http://forum.bebac.at/mix_entry.php?id=13353}.
 }
 \author{
-Idea and original code by H. \enc{Schütz}{Schuetz}\cr
+Idea and original code by H. \enc{SchÃ¼tz}{Schuetz}\cr
 with modifications by D. Labes to use PowerTOST infrastructure.
 }
 \note{

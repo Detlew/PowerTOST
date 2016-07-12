@@ -1,3 +1,4 @@
+\encoding{utf-8}
 \name{pa.NTIDFDA}
 \alias{pa.NTIDFDA}
 \title{
@@ -75,7 +76,7 @@ Recommended Dec 2012\cr
 }
 \author{
 D. Labes\cr
-according to code by \enc{Schütz}{Schuetz} for pa.ABE() and pa.scABE()
+according to code by H. \enc{SchÃ¼tz}{Schuetz} for pa.ABE() and pa.scABE()
 }
 \note{
 The code for impact of deviations from planned sample size tries

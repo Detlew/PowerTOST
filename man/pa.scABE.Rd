@@ -1,3 +1,4 @@
+\encoding{utf-8}
 \name{pa.scABE}
 \alias{pa.scABE}
 \title{
@@ -83,7 +84,7 @@ See \code{\link{pa.ABE}} for usage.
 See \url{http://forum.bebac.at/mix_entry.php?id=13376}.
 }
 \author{
-Idea and original code by H. \enc{Schütz}{Schuetz}\cr
+Idea and original code by H. \enc{SchÃ¼tz}{Schuetz}\cr
 with modifications by D. Labes to use PowerTOST infrastructure.
 }
 \note{
