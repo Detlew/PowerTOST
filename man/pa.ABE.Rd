@@ -15,7 +15,7 @@ the study.
 \usage{
 pa.ABE(CV, theta0 = 0.95, targetpower = 0.8, minpower = 0.7, design = "2x2", \dots)
 \method{print}{pwrA}(x, digits=4, plotit=TRUE, \dots)
-\method{plot}{pwrA}(x, pct=TRUE, cols=c("blue", "red"), \dots)
+\method{plot}{pwrA}(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), \dots)
 }
 \arguments{
   \item{CV}{
