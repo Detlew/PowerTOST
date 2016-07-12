@@ -129,12 +129,13 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   seg <- length(pwr); s <- seq(seg-1)
   clr <- mkColors()
   xlabtxt <- "CV"
-  if (fact==100) xlabtxt <- "CV %"
+  if (fact==100) xlabtxt <- "CV (%)"
 
   if (x$method=="ABE"){
     plot(CVs, pwr, type="n",
-         main=paste0("Higher variability\n", ratiolabel, " = ", GMR, ", n = ", n.est),
-         lwd=2, xlab=xlabtxt, ylab=ylabtxt, las=1)
+         main=paste0("Higher variability\n", ratiolabel, " = ", GMR, ", N = ", n.est),
+         lwd=2, xlab=xlabtxt, ylab="", las=1)
+    mtext(side=2, ylabtxt, line=2.5)
     box()
     abline(h=c(targetpower, fact*0.8, minpower), lty=3, col="grey50")
     segments(CVs[s], pwr[s], CVs[s+1], pwr[s+1], lwd=2, col=clr[s])
@@ -147,8 +148,9 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     # any scABE (including RSABE NTID)
     plot(CVs, pwr, type="n",
          main=paste0("Lower/higher variability\n", ratiolabel, " = ", GMR,
-         ", n = ", n.est), lwd=2, xlab=xlabtxt, ylab=ylabtxt, las=1)
+         ", N = ", n.est), lwd=2, xlab=xlabtxt, ylab="", las=1)
     abline(h=c(targetpower, 0.8*fact, minpower), lty=3, col="grey50")
+    mtext(side=2, ylabtxt, line=2.5)
     mklegend(x$method)
     box()
     segments(CVs[s], pwr[s], CVs[s+1], pwr[s+1], lwd=2, col=clr[s])
@@ -168,7 +170,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                       pctsign, ") (",round(minpower, dec), pctsign, ")")
       }
     }
-    text(min(CVs), (minpower+(pwr.est-minpower)*0.1), labels=txt,
+    text(min(CVs), (minpower+(max(pwr)-minpower)*0.1), labels=txt,
          cex=0.8, pos=4)
   }
 
@@ -230,17 +232,18 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   plot(Ns, pwr, type="n",
        main=paste0("Drop-outs\n", ratiolabel, " = ", GMR, ", CV = ", CV, pctsign),
        lwd=2, xlim=c(max(Ns), min(Ns)), ylim=c(minpower, pwr.est),
-       xlab="n", xaxp=xticks,
-       ylab=ylabtxt, las=1, cex.main=0.95)
+       xlab="N", xaxp=xticks,
+       ylab="", las=1, cex.main=0.95)
   abline(h=c(targetpower, fact*0.8, minpower), lty=3, col="grey50")
   mklegend(x$method)
+  mtext(side=2, ylabtxt, line=2.5)
   box()
   points(Ns, pwr, pch=16, cex=0.8, col=clr)
   points(Ns[length(Ns)], pwr[length(Ns)], col=clr[length(Ns)],
          pch=16, cex=1.25)
   points(n.est, pwr.est, col=clr[1], pch=16, cex=1.25)
   text(max(Ns), (minpower+(pwr.est-minpower)*0.1),
-       labels=paste0("n = ", min(Ns), " (", signif(min(pwr), 4), pctsign, ")"),
+       labels=paste0("N = ", min(Ns), " (", signif(min(pwr), 4), pctsign, ")"),
        cex=0.85, pos=4)
 
   screen(4) ### Some basic information ###
@@ -307,13 +310,13 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                     "power:",
                     sprintf("  %s %2.0f%%", "target =", targetpower),
                     sprintf("  %s %5.2f%% %s %i%s", "estimated =", pwr.est,
-                            "(n =", n.est, ")"),
+                            "(N =", n.est, ")"),
                     sprintf("  %s %2.0f%%", "minimum acceptable =", minpower),
                     "acceptable rel. deviations:",
                     #TODO:react to RSABE NTID where there may be also a CVmin
                     CVtxt,
                     sprintf("  %s%s %+5.2f%%", ratiolabel, " =", 100*(GMR.min-GMR)/GMR),
-                    sprintf("  %s %+5.1f%%", "n =",   100*(min(Ns)-n.est)/n.est)),
+                    sprintf("  %s %+5.1f%%", "N =",   100*(min(Ns)-n.est)/n.est)),
            bty="n", cex=0.80)
   } else { # ratios
     legend("topleft", inset=-0.03,
@@ -323,7 +326,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                     "power:",
                     sprintf("  %s %5.4f", "target =", targetpower),
                     sprintf("  %s %5.4f %s %i%s", "estimated =", pwr.est,
-                            "(n =", n.est, ")"),
+                            "(N =", n.est, ")"),
                     sprintf("  %s %5.4f", "minimum acceptable =", minpower),
                     "acceptable rel. deviations:",
                     CVtxt,
