@@ -31,10 +31,10 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
   ##   imax       Max. steps in sample size search.
   ##   tol        Desired accuracy (convergence tolerance of uniroot);
   ##              defaults to 1e-6.
-  ##   print      Boolean (FALSE returns a list of results).
-  ##   details    Boolean (runtime, number of simulations).
+  ##   print      Logical (FALSE returns a list of results).
+  ##   details    Logical (runtime, number of simulations).
   ##   alpha.pre  Pre-specified level.
-  ##   setseed    Boolean (default TRUE uses set.seed(123456)).
+  ##   setseed    Logical (default TRUE uses set.seed(123456)).
   ## Returns:
   ##   alpha.adj  Iteratively adjusted alpha which does not inflate the
   ##              TIE (for given CVwR and n).

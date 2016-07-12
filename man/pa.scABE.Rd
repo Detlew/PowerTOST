@@ -56,7 +56,7 @@ See man pages of \code{power.scABEL()} or \code{power.RSABE()}.
 \details{
 Power calculations are done via \code{power.scABEL()} or \code{power.RSABE()} and
 calculations of CV and theta0 which result in \code{minpower} are derived via \code{uniroot()}.\cr
-While one of the parameters (CV, GMR, n) is varied, the respective two others are
+While one of the parameters (CV, GMR, N) is varied, the respective two others are
 kept constant. The tool shows the relative impact of single parameters on power.\cr
 The tool takes a minimum of 12 subjects as demanded in most BE guidances into account.\cr\cr
 It should be kept in mind that this is \bold{not} a substitute for the "Sensitivity Analysis"

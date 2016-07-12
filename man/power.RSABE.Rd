@@ -34,8 +34,8 @@ Defaults to 0.90 according to the two Laszlo's if not given explicitly.
   \item{CV}{
 Coefficient(s) of variation as ratio.\cr
 If \code{length(CV) = 1} the same CV is assumed for Test and Reference.\cr
-If \code{length(CV) = 2} the CV for Test must be given in CV[1] and for 
-Reference in CV[2].
+If \code{length(CV) = 2} the CV for Test must be given in \code{CV[1]} and for 
+Reference in \code{CV[2]}.
 }
   \item{n}{
 Number of subjects under study.\cr
@@ -45,8 +45,8 @@ If n is given as single number (total sample size) and this number is not
 divisible by the number of sequences of the design an unbalanced design is 
 assumed. A corresponding message is thrown showing the numbers of subjects 
 in sequence groups used.\cr
-Attention! In case of the 2x2x3 (TRT|RTR) design the order of n's important 
-if given as vector. n[1] is for sequence group 'TRT' and n[2] is for 
+Attention! In case of the 2x2x3 (TRT|RTR) design the order of sample sizes / sequence is important 
+if given as a vector. \code{n[1]} is for sequence group 'TRT' and \code{n[2]} is for 
 sequence group 'RTR'. 
 }
   \item{design}{
@@ -107,10 +107,10 @@ range' alone.\cr
 p(BE-ABE) is the power of the conventional ABE test given for comparative purposes.
 }
 \section{Warning }{
-In case of the design 2x2x3 heteroscedasticity (CVwT not equal to CVwR) may 
+In case of the design 2x2x3 heteroscedasticity (i.e. CVwT not equal to CVwR) may 
 lead to poor agreement of the power values compared to those calculated via the 
-'classical' way of subject data sims if the design is unbalanced in respect
-to the number of subjects in the sequence groups. The function therefore 
+'classical' way of subject data simulations if the design is unbalanced in respect
+to the number of subjects in the sequence groups. Therefore, the function 
 issues a warning for that cases.
 }
 \references{
@@ -118,19 +118,19 @@ FDA "Draft Guidance on Progesterone"\cr
 Recommended Apr 2010; Revised Feb 2011\cr
 \url{http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM209294.pdf}
 
-\enc{Tóthfalusi}{Tothfalusi}, L., \enc{Endrényi}{Endrenyi}, L.\cr
+\enc{Tóthfalusi}{Tothfalusi}, L, \enc{Endrényi}{Endrenyi}, L.\cr
 Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs\cr
 J Pharm Pharmaceut Sci. 2011;15(1):73-84. \cr
 \href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
 
-\enc{Tóthfalusi}{Tothfalusi} L., \enc{Endrényi}{Endrenyi} L. and A. Garcia Arieta\cr
-"Evaluation of Bioequivalence for Highly Variable Drugs with Scaled Average 
-Bioequivalence"\cr
-Clin. Pharmacokin. 48/11, 725-743 (2009)
+\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L, Garcia Arieta A.\cr
+Evaluation of Bioequivalence for Highly Variable Drugs with Scaled Average 
+Bioequivalence\cr
+Clin Pharmacokin. 2009;48(11):725-743. \href{http://dx.doi.org/10.2165/11318040-000000000-00000}{doi 10.2165/11318040-000000000-00000}
 
-\enc{Muñoz}{Munoz} J., Alcaide D., \enc{Ocaña}{Ocana} J.\cr 
-"Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence
-in highly variable drugs"\cr
+\enc{Muñoz}{Munoz} J, Alcaide D, \enc{Ocaña}{Ocana} J.\cr 
+Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence
+in highly variable drugs\cr
 Stat Med. 2015;35(12):1933-43. \href{http://dx.doi.org/10.1002/sim.6834}{doi 10.1002/sim.6834}
 }
 \author{

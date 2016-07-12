@@ -17,8 +17,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   ##               Lower value only if needed (e.g. to correct for
   ##               multiplicity).
   ##   targetpower Desired power.
-  ##   theta0      Expected GMR. Defaults to 0.9 - different from the
-  ##               default 0.95 in sampleN.scABEL()!
+  ##   theta0      Expected T/R-ratio. Defaults to 0.9.
   ##   theta1      Lower margin. Defaults to 0.8.
   ##   theta2      Upper margin. Defaults to 1/theta1.
   ##   CV          Intra-subject CV(s) obtained in a replicate design.
@@ -33,10 +32,10 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   ##   imax        Max. number of steps in sample size search
   ##   tol         Desired accuracy (convergence tolerance of uniroot);
   ##               defaults to 1e-6.
-  ##   print       Boolean. If FALSE, returns a data.frame of results.
-  ##   details     Boolean (intermediates, runtime, number of sim's).
+  ##   print       Logical. If FALSE, returns a data.frame of results.
+  ##   details     Logical (intermediates, runtime, number of sim's).
   ##   alpha.pre   Pre-specified level.
-  ##   setseed     Boolean (default TRUE uses set.seed(123456)).
+  ##   setseed     Logical (default TRUE uses set.seed(123456)).
   ## Returns:
   ##   n           Sample size which maintains the TIE for the
   ##               adjusted (or pre-specified) alpha.
