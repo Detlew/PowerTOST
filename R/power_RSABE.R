@@ -45,7 +45,7 @@ power.RSABE <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   r_const   <- rc$r_const
   pe_constr <- rc$pe_constr
   # CVcap doesn't apply to the FDA recommended method
-  # but in Munoz et al. method= Howe-EMA
+  # but in Munoz et al. method = Howe-EMA
   CVcap     <- rc$CVcap
 
   design <- match.arg(design)
