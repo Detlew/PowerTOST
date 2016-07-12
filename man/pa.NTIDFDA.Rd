@@ -96,7 +96,7 @@ to values nearer to 1 to not run into errors and/or long execution times.
 \examples{
 # using the defaults:
 # targetpower=0.8, minpower=0.7, theta0/GMR=0.975
-# BE acceptance range from defaults of sampleN.NTIDFDA() 0.8 ... 1.25
+# BE margins from defaults of sampleN.NTIDFDA() 0.9002 ... 1.1108
 # 1E5 sims in power.NTIDFDA()
 # not run due to timing policy of CRAN for examples
 # may run some ten seconds or more

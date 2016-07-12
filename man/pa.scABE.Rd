@@ -28,13 +28,13 @@ in point estimates of T/R.
   \item{targetpower}{
 Power to achieve at least in sample size estimation. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9. Defaults to 0.8.\cr
-targetpower < 0.5 doesn't make much sense.\cr
+Note that targetpower < 0.5 doesn't make much sense.\cr
 If package is run under R version < 3.1.0 \code{targetpower} has to be >= 0.5.
 }
   \item{minpower}{
 Minimum acceptable power to have if deviating from assumptions for sample size plan.\cr
-Has to be < as \code{targetpower}. Defaults to 0.7.\cr
-\code{minpower} or \code{targetpower} <0.5 doesn't make much sense.\cr
+Has to lower than \code{targetpower}. Defaults to 0.7.\cr
+\code{minpower} < 0.5 doesn't make much sense.\cr
 If package is run under R version < 3.1.0 \code{minpower} has to be >= 0.5.
 }
   \item{design}{
@@ -100,7 +100,7 @@ This results in a lesser drop of power than more extreme drop-out patterns.
 \examples{
 # using the defaults:
 # design="2x3x3", targetpower=0.8, minpower=0.7, theta0/GMR=0.90
-# BE acceptance range from defaults of sampleN.scABEL() 0.8 ... 1.25
+# widened BE margins from defaults of sampleN.scABEL() 0.7462 ... 1.3402
 # 1E5 sims in power.scABEL()
 # not run due to timing policy of CRAN, may run some ten seconds
 \dontrun{

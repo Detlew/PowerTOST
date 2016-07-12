@@ -14,17 +14,17 @@ the study.
 }
 \usage{
 pa.ABE(CV, theta0 = 0.95, targetpower = 0.8, minpower = 0.7, design = "2x2", \dots)
-\method{print}{pwrA}(x, digits=4, plotit=TRUE, \dots)
-\method{plot}{pwrA}(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), \dots)
+\method{print}{pwrA}(x, digits = 4, plotit = TRUE, \dots)
+\method{plot}{pwrA}(x, pct = TRUE, ratiolabel = "theta0", cols = c("blue", "red"), \dots)
 }
 \arguments{
   \item{CV}{
 Coefficient of variation as ratio.\cr
-In case of cross-over studies this is the within-subject CV,\cr
+In case of cross-over studies this is the within-subject CV;\cr
 in case of a parallel-group design the CV of the total (pooled) variability.
 }
   \item{theta0}{
-'True' or assumed T/R ratio. Often named GMR. \cr
+'True' or assumed T/R ratio. Often named GMR.\cr
 Must be given as ratio.
 }
   \item{targetpower}{
@@ -35,8 +35,8 @@ If package is run under R version < 3.1.0 \code{targetpower} has to be >= 0.5.
 }
   \item{minpower}{
 Minimum acceptable power to have if deviating from assumptions for sample size plan.\cr
-Has to be < as \code{targetpower}. Defaults to 0.7.\cr
-\code{minpower} or \code{targetpower} <0.5 doesn't make much sense.\cr
+Has to be lower than \code{targetpower}. Defaults to 0.7.\cr
+\code{minpower} < 0.5 doesn't make much sense.\cr
 If package is run under R version < 3.1.0 \code{minpower} has to be >= 0.5.
 }
   \item{design}{
@@ -63,7 +63,7 @@ If set to \code{TRUE}, the default, the print method calls \code{plot(x)} if R
 is running interactively.
 }
   \item{pct}{
-If set to \code{TRUE} (the default) scales CV and power in percent in
+If set to \code{TRUE} (the default) scales CV, theta0, and power in percent in
 \code{plot()}. Else they will be given as ratios, the usual standard in PowerTOST.
 }
   \item{ratiolabel}{
@@ -78,7 +78,7 @@ the color changes gradually to \code{cols[2]}.}
 \details{
 Power calculations are done via \code{power.TOST()} and calculations of CV and theta0
 which gave a power=\code{minpower} are derived via R base \code{uniroot()}.
-While one of the parameters (CV, theta0, n) is varied, the respective two others are
+While one of the parameters (CV, theta0, N) is varied, the respective two others are
 kept constant. The tool shows the relative impact of single parameters on power.\cr
 The tool takes a minimum of 12 subjects as demanded in most BE guidances into account.\cr\cr
 It should be kept in mind that this is \bold{not} a substitute for the "Sensitivity Analysis"
@@ -120,12 +120,12 @@ This results in a lesser drop of power than more extreme drop-out patterns.
 \examples{
 # using the defaults
 # design="2x2", targetpower=0.8, minpower=0.7, theta0/GMR=0.95
-# BE acceptance range from defaults of sampleN.TOST() 0.8 ... 1.25
+# BE margins from defaults of sampleN.TOST() 0.8 ... 1.25
 # print & plot implicitly
 pa.ABE(CV=0.2)
 # print & plot
 \dontrun{
 res <- pa.ABE(CV=0.2)
-print(res, plotit=FALSE)    # print only
-plot(res, ratiolabel="GMR") # changed from default label}
+print(res, plotit=FALSE)               # print only
+plot(res, pct=FALSE, ratiolabel="GMR") # changed from defaults}
 }

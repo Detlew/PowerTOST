@@ -184,24 +184,45 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   GMR.min <- GMRs[1] # or better min(GMRs) or max(GMRs)?
   seg <- length(pwr); s <- seq(seg-1)
   clr  <- mkColors()
-  plot(GMRs, pwr, type="n",
-       main=paste0("Larger deviation of ", ratiolabel, " from 1\n", "CV = ",
-                   CV, pctsign,", N = ", n.est),
-       lwd=2, xlim=c(GMR, GMR.min), xlab=ratiolabel, ylab="", las=1,
-       cex.main=0.95, cex.axis=0.95)
-  abline(h=c(targetpower, fact*0.8, minpower), lty=3, col="grey50")
-  mklegend(x$method)
-  mtext(ylabtxt, side=2, line=2.5)
-  box()
-  segments(GMRs[s], pwr[s], GMRs[s+1], pwr[s+1], lwd=2, col=clr[s])
-  # the next assumes that the values start at GMR and end on GMR.min (maybe also max!)
-  # TODO rework if plan.GMR not at border
-  points(GMRs[1], pwr[1], col=clr[1], pch=16, cex=1.25)
-  points(GMRs[seg], pwr[seg], col=clr[seg], pch=16, cex=1.25)
-  text(GMR, (minpower+(pwr.est-minpower)*0.1),
-       labels=paste0(ratiolabel, " = ",signif(GMR.min, 4), " (",
-                     round(minpower, dec), pctsign, ")"),
-       cex=0.85, pos=4)
+  if (fact == 1) { # like in previous versions (ratio)
+    plot(GMRs, pwr, type="n",
+         main=paste0("Larger deviation of ", ratiolabel, " from 1\n", "CV = ",
+                     CV, pctsign,", N = ", n.est),
+         lwd=2, xlim=c(GMR, GMR.min), xlab=ratiolabel, ylab="", las=1,
+         cex.main=0.95, cex.axis=0.95)
+    abline(h=c(targetpower, fact*0.8, minpower), lty=3, col="grey50")
+    mklegend(x$method)
+    mtext(ylabtxt, side=2, line=2.5)
+    box()
+    segments(GMRs[s], pwr[s], GMRs[s+1], pwr[s+1], lwd=2, col=clr[s])
+    # the next assumes that the values start at GMR and end on GMR.min (maybe also max!)
+    # TODO rework if plan.GMR not at border
+    points(GMRs[1], pwr[1], col=clr[1], pch=16, cex=1.25)
+    points(GMRs[seg], pwr[seg], col=clr[seg], pch=16, cex=1.25)
+    text(GMR, (minpower+(pwr.est-minpower)*0.1),
+         labels=paste0(ratiolabel, " = ",signif(GMR.min, 4), " (",
+                       round(minpower, dec), pctsign, ")"),
+         cex=0.85, pos=4)
+  } else {
+    plot(100*GMRs, pwr, type="n",
+         main=paste0("Larger deviation of ", ratiolabel, " from 100%\n", "CV = ",
+                     CV, pctsign,", N = ", n.est),
+         lwd=2, xlim=100*c(GMR, GMR.min), xlab=paste(ratiolabel, "(%)"), ylab="", las=1,
+         cex.main=0.95, cex.axis=0.95)
+    abline(h=c(targetpower, fact*0.8, minpower), lty=3, col="grey50")
+    mklegend(x$method)
+    mtext(ylabtxt, side=2, line=2.5)
+    box()
+    segments(100*GMRs[s], pwr[s], 100*GMRs[s+1], pwr[s+1], lwd=2, col=clr[s])
+    # the next assumes that the values start at GMR and end on GMR.min (maybe also max!)
+    # TODO rework if plan.GMR not at border
+    points(100*GMRs[1], pwr[1], col=clr[1], pch=16, cex=1.25)
+    points(100*GMRs[seg], pwr[seg], col=clr[seg], pch=16, cex=1.25)
+    text(100*GMR, (minpower+(pwr.est-minpower)*0.1),
+         labels=paste0(ratiolabel, " = ",signif(100*GMR.min, 2), "% (",
+                       round(minpower, dec), pctsign, ")"),
+         cex=0.85, pos=4)    
+  }
 
   screen(3) ### Sensitivity of n (GMR and CV constant) ###
   pwr <- as.numeric(fact*x$paN[,"pwr"])
@@ -242,9 +263,14 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
         CVtxt <- sprintf("  %s %+5.1f%%", "CV =", 100*(CV.max-CV)/CV)
       }
   }
-  if(x$method=="ABE"){
-    BEARtxt <- paste("BE margins: ", round(theta1, 4),
-                     " ... ", round(theta2, 4), sep="")
+  if (x$method=="ABE") {
+    if (fact == 1) { # ratios
+      BEARtxt <- sprintf("%s %.4f %s %.4f", "BE margins:",
+                                            theta1, "...", theta2)
+    } else { # percent
+      BEARtxt <- sprintf("%s %.2f%% %s %.2f%%", "BE margins:",
+                                            100*theta1, "...", 100*theta2)
+    }
   }
   if(x$method=="scABE"){
     # (widened) acceptance range
@@ -258,22 +284,31 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
       wtheta1 <- min(theta1,exp(-CV2se(CVV)*0.76))
       wtheta2 <- max(theta2,exp(CV2se(CVV)*0.76))
     }
-    BEARtxt <- paste0(Ltxt, round(wtheta1, 4),
-                     " ... ", round(wtheta2, 4))
+    if (fact == 1) { # ratios
+      BEARtxt <- sprintf("%s %.4f %s %.4f",
+                         Ltxt, wtheta1, "...", wtheta2)
+    } else { # percent
+      BEARtxt <- sprintf("%s %.2f%% %s %.2f%%",
+                         Ltxt, 100*wtheta1, "...", 100*wtheta2)
+    }
   }
   if(x$method=="RSABE NTID"){
     Ltxt <-"implied BE margins: "
     wtheta1 <- max(theta1,exp(CV2se(CV/fact)*log(0.9)/0.1))
     wtheta2 <- min(theta2,exp(-CV2se(CV/fact)*log(0.9)/0.1))
-    BEARtxt <- paste0(Ltxt, round(wtheta1,4),
-                      " ... ", round(wtheta2,4))
+    if (fact == 1) { # ratios
+      BEARtxt <- sprintf("%s %.4f %s %.4f",
+                         Ltxt, wtheta1, "...", wtheta2)
+    } else { # percent
+      BEARtxt <- sprintf("%s %.2f%% %s %.2f%%",
+                         Ltxt, 100*wtheta1, "...", 100*wtheta2)
+    }
   }
   plot(1, type="n", axes=F, xlab="", ylab="")
-  if (fact == 100){
-    # percent
+  if (fact == 100) { # percent
     legend("topleft", inset=-0.03,
            legend=c(paste0(design, " design", "; assumed:"),
-                    sprintf("  %s %1.0f%%%s%s%s %5.4f", "CV =", CV, ", ", ratiolabel, " =", GMR),
+                    sprintf("  %s %1.0f%%%s%s%s %.2f%%", "CV =", CV, ", ", ratiolabel, " =", 100*GMR),
                     BEARtxt,
                     "power:",
                     sprintf("  %s %2.0f%%", "target =", targetpower),
@@ -286,11 +321,10 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                     sprintf("  %s%s %+5.2f%%", ratiolabel, " =", 100*(GMR.min-GMR)/GMR),
                     sprintf("  %s %+5.1f%%", "N =",   100*(min(Ns)-n.est)/n.est)),
            bty="n", cex=0.80)
-  } else {
-    # ratios
+  } else { # ratios
     legend("topleft", inset=-0.03,
            legend=c(paste0(design, " design", "; assumed:"),
-                    sprintf("  %s %5.4f%s%s%s %5.4f", "CV =", CV, ", ", ratiolabel, " =", GMR),
+                    sprintf("  %s %5.4f%s%s%s %.4f", "CV =", CV, ", ", ratiolabel, " =", GMR),
                     BEARtxt,
                     "power:",
                     sprintf("  %s %5.4f", "target =", targetpower),
@@ -301,7 +335,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                     CVtxt,
                     sprintf("  %s%s %+5.2f%%", ratiolabel, " =", 100*(GMR.min-GMR)/GMR),
                     sprintf("  %s %+5.1f%%", "N =",   100*(min(Ns)-n.est)/n.est)),
-           bty="n", cex=0.85)
+           bty="n", cex=0.80)
   }
 
   close.screen(all.screens=TRUE)
