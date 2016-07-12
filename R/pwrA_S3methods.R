@@ -57,11 +57,8 @@ print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
 #
 # Author D.Labes, from original code by H. Schuetz
 # reworked by H. Schuetz to avoid overlay of target power line with legend
-# added argument ratiolabel for plots and changed "n" to "N" for consistency
-# with print method (HS 2016-07-11)
-# TODO: Change everything for ratios OR percentages insted of Kuddelmuddel.
 # ----------------------------------------------------------------------------
-plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), ...)
+plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...)
 {
   # make colors between the both given
   mkColors <- function(){
@@ -126,19 +123,18 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   # plot at a paneel with 4 pieces
   split.screen(c(2, 2))
 
-  screen(1) ### 'Sensitivity' of CV (GMR and N constant) ###
+  screen(1) ### 'Sensitivity' of CV (GMR and n constant) ###
   pwr <- as.numeric(fact*x$paCV[,"pwr"])
   CVs <- as.numeric(fact*x$paCV[,"CV"])
   seg <- length(pwr); s <- seq(seg-1)
   clr <- mkColors()
   xlabtxt <- "CV"
-  if (fact==100) xlabtxt <- "CV (%)"
+  if (fact==100) xlabtxt <- "CV %"
 
   if (x$method=="ABE"){
     plot(CVs, pwr, type="n",
-         main=paste0("Higher variability\n", ratiolabel, " = ", GMR, ", N = ", n.est),
-         lwd=2, xlab=xlabtxt, ylab="", las=1)
-    mtext(ylabtxt, side=2, line=2.5)
+         main=paste0("Higher variability\n", GMRlabel, " = ", GMR, ", n = ", n.est),
+         lwd=2, xlab=xlabtxt, ylab=ylabtxt, las=1)
     box()
     abline(h=c(targetpower, fact*0.8, minpower), lty=3, col="grey50")
     segments(CVs[s], pwr[s], CVs[s+1], pwr[s+1], lwd=2, col=clr[s])
@@ -150,11 +146,10 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   } else {
     # any scABE (including RSABE NTID)
     plot(CVs, pwr, type="n",
-         main=paste0("Lower/higher variability\n", ratiolabel, " = ", GMR,
-         ", N = ", n.est), lwd=2, xlab=xlabtxt, ylab="", las=1)
+         main=paste0("Lower/higher variability\n", GMRlabel, " = ", GMR,
+         ", n = ", n.est), lwd=2, xlab=xlabtxt, ylab=ylabtxt, las=1)
     abline(h=c(targetpower, 0.8*fact, minpower), lty=3, col="grey50")
     mklegend(x$method)
-    mtext(ylabtxt, side=2, line=2.5)
     box()
     segments(CVs[s], pwr[s], CVs[s+1], pwr[s+1], lwd=2, col=clr[s])
     # mark the plan CV and power
@@ -173,17 +168,18 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                       pctsign, ") (",round(minpower, dec), pctsign, ")")
       }
     }
-    text(min(CVs), (minpower+(max(pwr)-minpower)*0.1), labels=txt,
+    text(min(CVs), (minpower+(pwr.est-minpower)*0.1), labels=txt,
          cex=0.8, pos=4)
   }
 
-  screen(2) ### 'Sensitivity' of GMR (CV and N constant) ###
+  screen(2) ### 'Sensitivity' of GMR (CV and n constant) ###
   pwr <- as.numeric(fact*x$paGMR[,"pwr"])
   GMRs <- as.numeric(x$paGMR[,"theta0"])
   #GMR.min <- ifelse(GMR<=1, GMRs[1], GMRs[length(GMRs)])
   GMR.min <- GMRs[1] # or better min(GMRs) or max(GMRs)?
   seg <- length(pwr); s <- seq(seg-1)
   clr  <- mkColors()
+<<<<<<< HEAD
   if (fact == 1) { # like in previous versions (ratio)
     plot(GMRs, pwr, type="n",
          main=paste0("Larger deviation of ", ratiolabel, " from 1\n", "CV = ",
@@ -223,6 +219,25 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                        round(minpower, dec), pctsign, ")"),
          cex=0.85, pos=4)    
   }
+=======
+  plot(GMRs, pwr, type="n",
+       main=paste0("Larger deviation of ", GMRlabel, " from 1\n", "CV = ",
+                   CV, pctsign,", n = ", n.est),
+       lwd=2, xlim=c(GMR, GMR.min), xlab=GMRlabel, ylab=ylabtxt, las=1,
+       cex.main=0.95, cex.axis=0.95)
+  abline(h=c(targetpower, fact*0.8, minpower), lty=3, col="grey50")
+  mklegend(x$method)
+  box()
+  segments(GMRs[s], pwr[s], GMRs[s+1], pwr[s+1], lwd=2, col=clr[s])
+  # the next assumes that the values start at GMR and end on GMR.min (maybe also max!)
+  # TODO rework if plan.GMR not at border
+  points(GMRs[1], pwr[1], col=clr[1], pch=16, cex=1.25)
+  points(GMRs[seg], pwr[seg], col=clr[seg], pch=16, cex=1.25)
+  text(GMR, (minpower+(pwr.est-minpower)*0.1),
+       labels=paste0(GMRlabel, " = ",signif(GMR.min, 4), " (",
+                     round(minpower, dec), pctsign, ")"),
+       cex=0.85, pos=4)
+>>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
 
   screen(3) ### Sensitivity of n (GMR and CV constant) ###
   pwr <- as.numeric(fact*x$paN[,"pwr"])
@@ -233,20 +248,19 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   nNs    <- length(Ns)
   if(nNs<5 & nNs>1) xticks <- c(max(Ns), min(Ns), nNs-1)
   plot(Ns, pwr, type="n",
-       main=paste0("Drop-outs\n", ratiolabel, " = ", GMR, ", CV = ", CV, pctsign),
+       main=paste0("Drop-outs\n", GMRlabel, " = ", GMR, ", CV = ", CV, pctsign),
        lwd=2, xlim=c(max(Ns), min(Ns)), ylim=c(minpower, pwr.est),
-       xlab="N", xaxp=xticks,
-       ylab="", las=1, cex.main=0.95)
+       xlab="n", xaxp=xticks,
+       ylab=ylabtxt, las=1, cex.main=0.95)
   abline(h=c(targetpower, fact*0.8, minpower), lty=3, col="grey50")
   mklegend(x$method)
-  mtext(ylabtxt, side=2, line=2.5)
   box()
   points(Ns, pwr, pch=16, cex=0.8, col=clr)
   points(Ns[length(Ns)], pwr[length(Ns)], col=clr[length(Ns)],
          pch=16, cex=1.25)
   points(n.est, pwr.est, col=clr[1], pch=16, cex=1.25)
   text(max(Ns), (minpower+(pwr.est-minpower)*0.1),
-       labels=paste0("N = ", min(Ns), " (", signif(min(pwr), 4), pctsign, ")"),
+       labels=paste0("n = ", min(Ns), " (", signif(min(pwr), 4), pctsign, ")"),
        cex=0.85, pos=4)
 
   screen(4) ### Some basic information ###
@@ -308,34 +322,48 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   if (fact == 100) { # percent
     legend("topleft", inset=-0.03,
            legend=c(paste0(design, " design", "; assumed:"),
+<<<<<<< HEAD
                     sprintf("  %s %1.0f%%%s%s%s %.2f%%", "CV =", CV, ", ", ratiolabel, " =", 100*GMR),
+=======
+                    sprintf("  %s %1.0f%%%s%s%s %5.4f", "CV =", CV, ", ", GMRlabel, " =", GMR),
+>>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
                     BEARtxt,
                     "power:",
                     sprintf("  %s %2.0f%%", "target =", targetpower),
                     sprintf("  %s %5.2f%% %s %i%s", "estimated =", pwr.est,
-                            "(N =", n.est, ")"),
+                            "(n =", n.est, ")"),
                     sprintf("  %s %2.0f%%", "minimum acceptable =", minpower),
-                    "acceptable relative deviations:",
+                    "acceptable rel. deviations:",
                     #TODO:react to RSABE NTID where there may be also a CVmin
                     CVtxt,
-                    sprintf("  %s%s %+5.2f%%", ratiolabel, " =", 100*(GMR.min-GMR)/GMR),
-                    sprintf("  %s %+5.1f%%", "N =",   100*(min(Ns)-n.est)/n.est)),
+                    sprintf("  %s%s %+5.2f%%", GMRlabel, " =", 100*(GMR.min-GMR)/GMR),
+                    sprintf("  %s %+5.1f%%", "n =",   100*(min(Ns)-n.est)/n.est)),
            bty="n", cex=0.80)
   } else { # ratios
     legend("topleft", inset=-0.03,
            legend=c(paste0(design, " design", "; assumed:"),
+<<<<<<< HEAD
                     sprintf("  %s %5.4f%s%s%s %.4f", "CV =", CV, ", ", ratiolabel, " =", GMR),
+=======
+                    sprintf("  %s %5.4f%s%s%s %5.4f", "CV =", CV, ", ", GMRlabel, " =", GMR),
+>>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
                     BEARtxt,
                     "power:",
                     sprintf("  %s %5.4f", "target =", targetpower),
                     sprintf("  %s %5.4f %s %i%s", "estimated =", pwr.est,
-                            "(N =", n.est, ")"),
+                            "(n =", n.est, ")"),
                     sprintf("  %s %5.4f", "minimum acceptable =", minpower),
-                    "acceptable relative deviations:",
+                    "acceptable rel. deviations:",
                     CVtxt,
+<<<<<<< HEAD
                     sprintf("  %s%s %+5.2f%%", ratiolabel, " =", 100*(GMR.min-GMR)/GMR),
                     sprintf("  %s %+5.1f%%", "N =",   100*(min(Ns)-n.est)/n.est)),
            bty="n", cex=0.80)
+=======
+                    sprintf("  %s%s %+5.2f%%", GMRlabel, " =", 100*(GMR.min-GMR)/GMR),
+                    sprintf("  %s %+5.1f%%", "n =",   100*(min(Ns)-n.est)/n.est)),
+           bty="n", cex=0.85)
+>>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
   }
 
   close.screen(all.screens=TRUE)

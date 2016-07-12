@@ -1,8 +1,11 @@
 Version 1.4-2
 Released 2016-07-15
+      - The S3 method plot for class 'pwrA' now has an argument ratiolabel for 
+        labeling the axis concerning theta0. Wish of B. Lang.
+      - Various enhancements in man pages.
       - Power and sample size for FDA RSABE now take into account a CVcap
-        if defined as finite
-      - Deprecated argument point in function CI2CV()/CVfromCI() now removed
+        if defined as finite.
+      - Deprecated argument point in functions CI2CV()/CVfromCI() now removed
       - Misleading term 'Null (true) ratio' in output of sample size functions
         changed to 'True ratio'.
       - Minor bug in sampleN.2TOST() fixed.
@@ -12,7 +15,7 @@ Released 2016-07-15
 Version 1.4-1
 Published on GitHub 2016-06-14
       - Objects of class 'regSet' now have an additional component 'est_method'
-        which controls the simualtions via key statistics of the evaluation using
+        which controls the simulations via key statistics of the evaluation using
         EMA's ANOVA or FDA's recommended ISC in xyz.scABEL() functions.  
       - power.scABEL()/power.scABEL2() as well as sampleN.scABEL()/sampleN.scABEL2()
         are now unified. The regulator component 'est_method' is used for switching

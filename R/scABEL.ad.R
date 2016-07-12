@@ -6,8 +6,8 @@
 # Author: Helmut Schuetz
 #-----------------------------------------------------------------------
 scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
-                     design = c("2x3x3", "2x2x4", "2x2x3"), regulator, n, 
-                     alpha.pre = 0.05, imax = 100, tol, print = TRUE, 
+                     design = c("2x3x3", "2x2x4", "2x2x3"), regulator, n,
+                     alpha.pre = 0.05, imax = 100, tol, print = TRUE,
                      details = FALSE, setseed = TRUE, nsims = 1e6)
 {
   ## Arguments:
