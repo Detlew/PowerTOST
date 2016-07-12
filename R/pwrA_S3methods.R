@@ -120,7 +120,7 @@ plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...
   par(mar=c(c(4, 4, 2.5, 0.75))+0.1) # default for B, L, T, R: c(5, 4, 4, 2) + 0.1
   par(cex.main=0.95, cex.axis=0.95, cex.lab=0.95, mgp=c(2,0.75,0), tcl=-0.2)
 
-  # plot at a paneel with 4 pieces
+  # plot on a panel of 4 pieces
   split.screen(c(2, 2))
 
   screen(1) ### 'Sensitivity' of CV (GMR and n constant) ###
@@ -179,7 +179,6 @@ plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...
   GMR.min <- GMRs[1] # or better min(GMRs) or max(GMRs)?
   seg <- length(pwr); s <- seq(seg-1)
   clr  <- mkColors()
-<<<<<<< HEAD
   if (fact == 1) { # like in previous versions (ratio)
     plot(GMRs, pwr, type="n",
          main=paste0("Larger deviation of ", ratiolabel, " from 1\n", "CV = ",
@@ -219,25 +218,6 @@ plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...
                        round(minpower, dec), pctsign, ")"),
          cex=0.85, pos=4)    
   }
-=======
-  plot(GMRs, pwr, type="n",
-       main=paste0("Larger deviation of ", GMRlabel, " from 1\n", "CV = ",
-                   CV, pctsign,", n = ", n.est),
-       lwd=2, xlim=c(GMR, GMR.min), xlab=GMRlabel, ylab=ylabtxt, las=1,
-       cex.main=0.95, cex.axis=0.95)
-  abline(h=c(targetpower, fact*0.8, minpower), lty=3, col="grey50")
-  mklegend(x$method)
-  box()
-  segments(GMRs[s], pwr[s], GMRs[s+1], pwr[s+1], lwd=2, col=clr[s])
-  # the next assumes that the values start at GMR and end on GMR.min (maybe also max!)
-  # TODO rework if plan.GMR not at border
-  points(GMRs[1], pwr[1], col=clr[1], pch=16, cex=1.25)
-  points(GMRs[seg], pwr[seg], col=clr[seg], pch=16, cex=1.25)
-  text(GMR, (minpower+(pwr.est-minpower)*0.1),
-       labels=paste0(GMRlabel, " = ",signif(GMR.min, 4), " (",
-                     round(minpower, dec), pctsign, ")"),
-       cex=0.85, pos=4)
->>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
 
   screen(3) ### Sensitivity of n (GMR and CV constant) ###
   pwr <- as.numeric(fact*x$paN[,"pwr"])
@@ -322,11 +302,7 @@ plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...
   if (fact == 100) { # percent
     legend("topleft", inset=-0.03,
            legend=c(paste0(design, " design", "; assumed:"),
-<<<<<<< HEAD
                     sprintf("  %s %1.0f%%%s%s%s %.2f%%", "CV =", CV, ", ", ratiolabel, " =", 100*GMR),
-=======
-                    sprintf("  %s %1.0f%%%s%s%s %5.4f", "CV =", CV, ", ", GMRlabel, " =", GMR),
->>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
                     BEARtxt,
                     "power:",
                     sprintf("  %s %2.0f%%", "target =", targetpower),
@@ -342,11 +318,7 @@ plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...
   } else { # ratios
     legend("topleft", inset=-0.03,
            legend=c(paste0(design, " design", "; assumed:"),
-<<<<<<< HEAD
                     sprintf("  %s %5.4f%s%s%s %.4f", "CV =", CV, ", ", ratiolabel, " =", GMR),
-=======
-                    sprintf("  %s %5.4f%s%s%s %5.4f", "CV =", CV, ", ", GMRlabel, " =", GMR),
->>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
                     BEARtxt,
                     "power:",
                     sprintf("  %s %5.4f", "target =", targetpower),
@@ -355,15 +327,9 @@ plot.pwrA <- function(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), ...
                     sprintf("  %s %5.4f", "minimum acceptable =", minpower),
                     "acceptable rel. deviations:",
                     CVtxt,
-<<<<<<< HEAD
                     sprintf("  %s%s %+5.2f%%", ratiolabel, " =", 100*(GMR.min-GMR)/GMR),
                     sprintf("  %s %+5.1f%%", "N =",   100*(min(Ns)-n.est)/n.est)),
            bty="n", cex=0.80)
-=======
-                    sprintf("  %s%s %+5.2f%%", GMRlabel, " =", 100*(GMR.min-GMR)/GMR),
-                    sprintf("  %s %+5.1f%%", "n =",   100*(min(Ns)-n.est)/n.est)),
-           bty="n", cex=0.85)
->>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
   }
 
   close.screen(all.screens=TRUE)

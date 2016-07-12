@@ -14,23 +14,13 @@ the study.
 }
 \usage{
 pa.ABE(CV, theta0 = 0.95, targetpower = 0.8, minpower = 0.7, design = "2x2", \dots)
-<<<<<<< HEAD
 \method{print}{pwrA}(x, digits = 4, plotit = TRUE, \dots)
 \method{plot}{pwrA}(x, pct = TRUE, ratiolabel = "theta0", cols = c("blue", "red"), \dots)
-=======
-\method{print}{pwrA}(x, digits=4, plotit=TRUE, \dots)
-\method{plot}{pwrA}(x, pct=TRUE, GMRlabel="theta0", cols=c("blue", "red"), \dots)
->>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
 }
 \arguments{
   \item{CV}{
 Coefficient of variation as ratio.\cr
-<<<<<<< HEAD
 In case of cross-over studies this is the within-subject CV;\cr
-=======
-In case of cross-over studies this is the within-subject CV, \cr
->>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
-in case of a parallel-group design the CV of the total (pooled) variability.
 }
   \item{theta0}{
 'True' or assumed T/R ratio. Often named GMR.\cr
@@ -47,10 +37,6 @@ Minimum acceptable power to have if deviating from assumptions for sample size p
 <<<<<<< HEAD
 Has to be lower than \code{targetpower}. Defaults to 0.7.\cr
 \code{minpower} < 0.5 doesn't make much sense.\cr
-=======
-Has to be < as \code{targetpower}. Defaults to 0.7.\cr
-\code{minpower} or \code{targetpower} <0.5 does'nt make much sense.\cr
->>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
 If package is run under R version < 3.1.0 \code{minpower} has to be >= 0.5.
 }
   \item{design}{
@@ -134,13 +120,8 @@ This results in a lesser drop of power than more extreme drop-out patterns.
 \examples{
 # using the defaults
 # design="2x2", targetpower=0.8, minpower=0.7, theta0/GMR=0.95
-<<<<<<< HEAD
 # BE margins from defaults of sampleN.TOST() 0.8 ... 1.25
 # print & plot implicitly
-=======
-# BE acceptance range from defaults of sampleN.TOST() 0.8 ... 1.25
-# print & plot implicit
->>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
 pa.ABE(CV=0.2)
 # print & plot
 \dontrun{
@@ -148,8 +129,4 @@ res <- pa.ABE(CV=0.2)
 <<<<<<< HEAD
 print(res, plotit=FALSE)               # print only
 plot(res, pct=FALSE, ratiolabel="GMR") # changed from defaults}
-=======
-print(res, plotit=FALSE) # print only
-plot(res)}
->>>>>>> 305ce6bb0d041b5f40f586379d3bb8f9a461f847
 }
