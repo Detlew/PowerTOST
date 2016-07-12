@@ -8,7 +8,7 @@ Power analysis for average bioequivalence (ABE)
 }
 \description{
 An analysis tool for exploration/visualization of the impact of expected values
-(CV, GMR, reduced sample size due to drop-outs) on power of BE decision via ABE
+(CV, theta0, reduced sample size due to drop-outs) on power of BE decision via ABE
 if these values deviate from the ones assumed in planning the sample size of
 the study.
 }
@@ -34,7 +34,6 @@ If package is run under R version < 3.1.0 \code{targetpower} has to be >= 0.5.
 }
   \item{minpower}{
 Minimum acceptable power to have if deviating from assumptions for sample size plan.\cr
-<<<<<<< HEAD
 Has to be lower than \code{targetpower}. Defaults to 0.7.\cr
 \code{minpower} < 0.5 doesn't make much sense.\cr
 If package is run under R version < 3.1.0 \code{minpower} has to be >= 0.5.
@@ -113,9 +112,8 @@ The code of deviations from planned sample size tries to keep the degree of
 imbalance as low as possible between (sequence) groups.
 This results in a lesser drop of power than more extreme drop-out patterns.
 }
-
 \seealso{
-\code{\link{power.TOST}}, \code{\link{known.designs}}, \code{\link{pa.scABE}}
+\code{\link{power.TOST}, \link{known.designs}, \link{pa.scABE}, \link{pa.NTIDFDA}}
 }
 \examples{
 # using the defaults
@@ -126,7 +124,6 @@ pa.ABE(CV=0.2)
 # print & plot
 \dontrun{
 res <- pa.ABE(CV=0.2)
-<<<<<<< HEAD
 print(res, plotit=FALSE)               # print only
 plot(res, pct=FALSE, ratiolabel="GMR") # changed from defaults}
 }

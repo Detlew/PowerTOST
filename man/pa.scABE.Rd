@@ -92,10 +92,9 @@ The code for impact of deviations from planned sample size tries
 to keep the degree of imbalance as low as possible between (sequence) groups.
 This results in a lesser drop of power than more extreme drop-out patterns.
 }
-
 \seealso{
-\code{\link{power.scABEL}}, \code{\link{power.RSABE}}, \code{\link{print.pwrA}},
- \code{\link{plot.pwrA}}, \code{\link{pa.ABE}}
+  \code{\link{power.scABEL}, \link{power.RSABE}, \link{known.designs},
+  \link{print.pwrA}, \link{plot.pwrA}, \link{pa.ABE}, \link{pa.NTIDFDA}}
 }
 \examples{
 # using the defaults:

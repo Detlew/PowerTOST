@@ -2,12 +2,12 @@
 \name{pa.NTIDFDA}
 \alias{pa.NTIDFDA}
 \title{
-Power analysis for scaled ABE for NTID according to FDA
+Power analysis for scaled ABE for NTIDs according to FDA
 }
 \description{
 An analysis tool for exploration/visualization of the impact of expected values
 (CV, theta0, reduced sample size due to drop-outs) on power of BE decision via
-scABE for narrow therapeutic drugs (NTID) if these values deviate from the ones
+scABE for narrow therapeutic drugs (NTIDs) if these values deviate from the ones
 assumed in planning the sample size of the study.\cr
 The only implemented design is the full replicate design "2x2x4" according to the
 FDA Warfarin guidance.
@@ -88,10 +88,8 @@ Be extremly carefull if your sample size plan has extremly small CV near or
 below 0.05 (5\%). Adapt in that case your expected true ratio (\code{theta0})
 to values nearer to 1 to not run into errors and/or long execution times.
 }
-
 \seealso{
-\code{\link{power.NTIDFDA}}, \code{\link{pa.ABE}}, \code{\link{pa.scABE}}
-\code{\link{print.pwrA}}, \code{\link{plot.pwrA}}
+  \code{\link{power.NTIDFDA}, \link{print.pwrA}, \link{plot.pwrA}, \link{pa.ABE}, \link{pa.scABE}}
 }
 \examples{
 # using the defaults:
