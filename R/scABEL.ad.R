@@ -6,17 +6,16 @@
 # Author: Helmut Schuetz
 #-----------------------------------------------------------------------
 scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
-                     design = c("2x3x3", "2x2x4", "2x2x3"), regulator, n, 
-                     alpha.pre = 0.05, imax = 100, tol, print = TRUE, 
+                     design = c("2x3x3", "2x2x4", "2x2x3"), regulator, n,
+                     alpha.pre = 0.05, imax = 100, tol, print = TRUE,
                      details = FALSE, setseed = TRUE, nsims = 1e6)
 {
   ## Arguments:
   ##   alpha      Nominal alpha (in BE generally fixed to 0.05).
   ##              Lower value only if needed (e.g. to correct for
   ##              multiplicity).
-  ##   theta0     If given, power is estimated for the expected GMR.
-  ##              Note that the default is 0.90 (different from
-  ##              sampleN.scABEL(), where the default is 0.95!
+  ##   theta0     If given, power is estimated for this expected ratio.
+  ##              Defaults to 0.90.
   ##   theta1     Lower margin. Defaults to 0.8.
   ##   theta2     Upper margin. Defaults to 1/theta1.
   ##   CV         Intra-subject CV(s) obtained in a replicate design.

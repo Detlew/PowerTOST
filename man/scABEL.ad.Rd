@@ -12,7 +12,7 @@ on simulations in order to maintain the consumer risk at the nominal level.
 \usage{
 scABEL.ad(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
           design = c("2x3x3", "2x2x4", "2x2x3"), regulator, n, alpha.pre = 0.05,
-          imax = 100, tol, print = TRUE, details = FALSE, 
+          imax = 100, tol, print = TRUE, details = FALSE,
           setseed = TRUE, nsims = 1e6)
 }
 \arguments{
@@ -58,8 +58,8 @@ Defaults to \code{design = "2x3x3"}.
 Regulatory settings for the widening of the \acronym{BE} acceptance limits.\cr
 Choose from \code{c("EMA", "HC")}. Defaults to \code{regulator = "EMA"}.\cr
 This argument may be given also in lower case.\cr
-The former \code{regulator="ANVISA"} is also allowed but is internally changed 
-to "EMA" since ANVISA now recommends the use of EMA regulatory settings. 
+The former \code{regulator="ANVISA"} is also allowed but is internally changed
+to "EMA" since ANVISA now recommends the use of EMA regulatory settings.
 Don't use "ANVISA" any longer since it will be removed in next versions.
 A corresponding message informs about this.
 }
@@ -113,7 +113,7 @@ runs a \code{set.seed(123456)} is issued if \code{setseed=TRUE} (default).
 The simulations are done via the distributional properties of the
 statistical quantities necessary for assessing \acronym{BE} based on \acronym{ABEL}.\cr
 Simulations for the \acronym{TIE} are performed at the upper (expanded) limit \emph{U}
-of the acceptance range.  Examples of \emph{U} at the \acronym{EMA}'s 
+of the acceptance range.  Examples of \emph{U} at the \acronym{EMA}'s
 \code{CVswitch} and \code{CVcap}:\cr
 \code{scABEL(CV=0.3, regulator="EMA")[["upper"]]}\cr
 \code{[1] 1.25}\cr
@@ -121,29 +121,29 @@ of the acceptance range.  Examples of \emph{U} at the \acronym{EMA}'s
 \code{[1] 1.43191}\cr
 Due to the symmetry around 1 results are valid for the lower (expanded)
 limit \emph{L} as well.\cr
-If an inflation of the \acronym{TIE} is expected (i.e., > \code{alpha}), alpha 
+If an inflation of the \acronym{TIE} is expected (i.e., > \code{alpha}), alpha
 is iteratively adjusted until the consumer risk is maintained (<= \code{alpha}).\cr
 }
 \value{
 Returns a list with the input, adjusted alpha, and type I error
 (for nominal and adjusted alpha).\cr
 If no adjustment is necessary, \code{NA} will be returned for
-\code{adj. alpha} and the \acronym{TIE} for \code{alpha0} (or \code{alpha1}, 
+\code{adj. alpha} and the \acronym{TIE} for \code{alpha0} (or \code{alpha1},
 if applicable) in \code{TIE.unadj}.
 }
 \references{
 Wonnemann, M., \enc{Frömke}{Froemke}, C., Koch, A.\cr
-Inflation of the Type I Error: Investigations on Regulatory Recommendations for 
+Inflation of the Type I Error: Investigations on Regulatory Recommendations for
 Bioequivalence of Highly Variable Drugs\cr
 Pharm Res. 2015;32(1):135-43. \href{http://dx.doi.org/10.1007/s11095-014-1450-z}{doi 10.1007/s11095-014-1450-z}
 
-\enc{Muñoz}{Munoz} J., Alcaide D., \enc{Ocaña}{Ocana} J.\cr 
+\enc{Muñoz}{Munoz} J., Alcaide D., \enc{Ocaña}{Ocana} J.\cr
 Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence
 in highly variable drugs\cr
 Stat Med. 2015;35(12):1933-43. \href{http://dx.doi.org/10.1002/sim.6834}{doi 10.1002/sim.6834}
 
 Labes, D., \enc{Schütz}{Schuetz}, H.\cr
-Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, 
+Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence,
 and a Method for its Control\cr
 submitted to Pharm. Res. 2016
 }
