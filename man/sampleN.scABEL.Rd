@@ -111,10 +111,9 @@ The "Sample size" column contains the total sample size.\cr
 The "nlast" column contains the last n value. May be useful for restarting.
 }
 \references{
-\enc{Lászlo}{Laszlo} \enc{Tóthfalusi}{Tothfalusi} and 
-\enc{Lászlo}{Laszlo} \enc{Endrényi}{Endrenyi}\cr
-"Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs"\cr
-J. Pharm. Pharmaceut. Sci. (www.cspsCanada.org) 15(1) 73 - 84, 2011\cr
+\enc{Tóthfalusi}{Tothfalusi}, L, \enc{Endrényi}{Endrenyi}, L.\cr
+Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs\cr
+J Pharm Pharmaceut Sci. 2011;15(1):73-84. \cr
 \href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
 }
 \author{
