@@ -1,5 +1,5 @@
 Version 1.4-2
-Released 2016-07-15
+Released 2016-07-14
       - Implementation_scaledABE_sims.pdf in \doc subdirectory updated to 
         reflect the changes in code of the scaled ABE functions.
       - The S3 method plot for class 'pwrA' now has an argument ratiolabel for 
