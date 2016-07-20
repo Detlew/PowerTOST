@@ -35,7 +35,7 @@
   # Define assurance function (density of expected power)
   f <- function(v) {
     .power.TOST(alpha, ltheta1, ltheta2, ldiff, se.fac*sqrt(v), df) * 
-      my_dinvgamma(x = v, shape = dfCV/2, scale = dfCV/2 * se^2)
+        dinvgamma(x = v, shape = dfCV/2, scale = dfCV/2 * se^2)
   }
   
   # Detlew's attempt to stay with one integrate() call

@@ -114,7 +114,7 @@ Article first published online: 22 MAR 2016
 # expected power for non-inferiority test of a 2x2 crossover
 # CV 30\% known from a pilot study with 12 subjects (-> dfCV=10)
 # using all the defaults for other parameters
-# should give: [1] 0.6761068
+# should give: [1] 0.6761048
 exppower.noninf(CV=0.3, dfCV=10, n=40)
 # Julious approximation
 exppower.noninf(CV=0.3, dfCV=10, n=40, method="approx")

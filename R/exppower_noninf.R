@@ -31,7 +31,7 @@
   # Define assurance function (expected power)
   f <- function(v) {
     .power.noninf(alpha, lmargin, ldiff, se.fac*sqrt(v), df) * 
-       my_dinvgamma(x = v, shape = dfCV/2, scale = dfCV/2 * se^2)
+         dinvgamma(x = v, shape = dfCV/2, scale = dfCV/2 * se^2)
   }
   
   # Detlew's attempt to stay with one integrate() call
