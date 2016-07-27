@@ -1,3 +1,8 @@
+      - Owen's T-function, used in OwensQOwen() and in turn in power.TOST() 
+        reworked to deal with numerical difficulties if argument h is large.
+        This lead to irregular behavior in the reworked expsampleN.TOST() in
+        certain cases.
+        
 Version 1.4-2
 Released 2016-07-14
       - Implementation_scaledABE_sims.pdf in \doc subdirectory updated to 

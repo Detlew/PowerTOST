@@ -5,6 +5,7 @@
 # Author: dlabes Mar 2012
 #-----------------------------------------------------------------------------
 
+#-----------------------------------------------------------------------------
 # Owen's T-function: 
 # Calculates integral 0 to a of exp(-0.5*h^2*(1+x^2))/(1+x^2)/(2*pi)
 # most simple implementation via integrate()
@@ -13,18 +14,52 @@
 
 OT_integrand <- function(x, h) exp(-0.5*h^2*(1+x^2))/(1+x^2)/(2*pi)
 
-OwensT <- function(h, a)
+#This function has quirks if h is big. see below
+OwensT_old <- function(h, a)
 { 
   int <- integrate(OT_integrand, lower=0, upper=abs(a), h=h)$value
   # in case of a=Inf or -Inf the condition T(h,-a)=-T(h,a) is not maintained!
   int <- ifelse(a<0, -int, int)
   return(int) 
 }
+# ----------------------------------------------------------------------------
+# reworked Owen's T function to handle numeric issues if h is large
+# example OwensT_old(0, 1e5) 
+# gives an error if stop.on.error=TRUE or gives erroneously
+# -1.289739e-06, 
+# correct is 0.2499984, nearly the same as
+# OwensT_old(0, Inf) = 0.25
+# ----------------------------------------------------------------------------
+# formulas (2) according to 
+# Patefield M, Tandy D
+# "Fast and Accurate Calculation of Owen’s T-Function"
+# https://www.jstatsoft.org/article/view/v005i05/t.pdf
+OwensT <- function(h, a){
+  # T(h, -a) = -T(h, a) thus we takes abs and care later for the sign
+  aa <- abs(a)
+  # T(-h, a) = T(h, a) thus we can take abs
+  hh <- abs(h)
+  if (is.finite(aa)) {
+    ah <- aa*hh
+    #T(a*h,1/a)
+    int <- integrate(OT_integrand, lower=0, upper=1/aa, rel.tol=1e-5, h=ah)$value
+  } else {
+    int <- 0
+    ah <- aa*hh
+    # in case of aa=Inf and h=0 the term aa*h becomes NaN
+    if (h==0) ah <- 0
+  }
+  int <- 0.5*(pnorm(hh) + pnorm(ah)) - pnorm(hh)*pnorm(ah) - int
+  # T(h, -a) = -T(h, a)
+  int <- ifelse(a<0, -int, int)
+  int
+}
 
+# ----------------------------------------------------------------------------
 # Owen's Q-function
 # Calculates Owen's Q-function via repeated integration by parts
 # formulas as given in 
-# Owen, D. B. (1965)
+# Owen, D B (1965)
 # "A Special Case of a Bivariate Non-central t-Distribution"
 # Biometrika Vol. 52, p437-446.
 
@@ -87,9 +122,9 @@ OwensQOwen <- function(nu, t, delta, a=0, b)
       k    <- seq(1, upr, by=2)
       sumt <- sum(M[k+1]) + sum(H[k+1])
     }
-    # if b==Inf what then?
-    # rewrite second argument in first OwensT call (A*b-delta)/b which 
-    # gives NaN to A-delta/b which gives A if b==Inf
+      # if b==Inf what then?
+      # rewrite second argument in first OwensT call (A*b-delta)/b which 
+      # gives NaN to A-delta/b which gives A if b==Inf
       qv <- pnorm(b) - 2*OwensT(b, A-delta/b) - 
                        2*OwensT(delta*sB, (delta*A*B-b)/B/delta) +
                        2*OwensT(delta*sB, A) - (delta>=0) + 2*sumt
