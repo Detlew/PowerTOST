@@ -19,22 +19,25 @@ OwensT_old <- function(h, a)
 { 
   int <- integrate(OT_integrand, lower=0, upper=abs(a), h=h)$value
   # in case of a=Inf or -Inf the condition T(h,-a)=-T(h,a) is not maintained!
+  # thus do it by ourself
   int <- ifelse(a<0, -int, int)
   return(int) 
 }
 # ----------------------------------------------------------------------------
-# reworked Owen's T function to handle numeric issues if h is large
+# first attempt of reworked Owen's T function to handle numeric issues if h is large
 # example OwensT_old(0, 1e5) 
 # gives an error if stop.on.error=TRUE or gives erroneously
 # -1.289739e-06, 
 # correct is 0.2499984, nearly the same as
 # OwensT_old(0, Inf) = 0.25
 # ----------------------------------------------------------------------------
-# formulas (2) according to 
+# using formulas (2) found in 
 # Patefield M, Tandy D
 # "Fast and Accurate Calculation of Owen’s T-Function"
 # https://www.jstatsoft.org/article/view/v005i05/t.pdf
-OwensT <- function(h, a){
+#
+# but using still integrate()
+OwensT2 <- function(h, a){
   # T(h, -a) = -T(h, a) thus we takes abs and care later for the sign
   aa <- abs(a)
   # T(-h, a) = T(h, a) thus we can take abs
@@ -54,7 +57,123 @@ OwensT <- function(h, a){
   int <- ifelse(a<0, -int, int)
   int
 }
-
+# ----------------------------------------------------------------------------
+# Owen's T-function according to ASR 65
+# G. E. Thomas
+# A Remark on Algorithm AS76: An Integral Useful in Calculating Non-central t
+# and Bivariate Normal Probabilities
+# Journal of the Royal Statistical Society. Series C (Applied Statistics), 
+# Vol. 35, No. 3 (1986), pp. 310-312
+#
+# no trouble with integrate()
+# arguments must be scalars!
+OwensT <- function(h, a){
+  # TP = 0.1591549 = 1/(2*pi)
+  TP <- 1/2/pi
+  # special cases
+  # from
+  # D.B. Owen
+  # Tables for computing bivariate normal Probabilities
+  # The Annals of Mathematical Statistics
+  # Vol. 27, No. 4 (Dec., 1956), pp. 1075-1090 
+  if (a==0)      return(0)
+  if (abs(a)==1) return(sign(a)*0.5*pnorm(h)*(1-pnorm(h)))
+  if (h==0)      return(atan(a)*TP)
+  if(!is.finite(abs(a))){
+    TFNX <- 0.5-0.5*pnorm(h)
+    if(h<0) TFNX <- 0.5*pnorm(h)
+    return(TFNX)
+  }
+  
+  # constants used
+  U  <- c(0.0744372, 0.2166977, 0.3397048, 0.4325317, 0.4869533)
+  R  <- c(0.1477621, 0.1346334, 0.1095432, 0.0747257, 0.0333357)
+  
+  X  <- h
+  FX <- abs(a)
+  # IF ABS(A) .GT. ONE EVALUATE TFNX(ABS(A)*H, 1/ABS(A))
+  SMX <- (FX <= 1)
+  # IF (SMX) GOTO 3
+  if (!SMX){
+    # if a=Inf and h=0 then X here becomes NaN
+    X = FX * X
+    if (is.nan(X)) X <- 0
+    FX = 1 / FX
+  } 
+  # mark 3
+  FXS <- FX * FX
+  FA = FX
+  X2 = X * X
+  #IF (X2 * (ONE + FXS) .GT. HUN) GOTO 5
+  if(X2*(1. + FXS) <= 0.01){
+    RT <- TP*(atan(FX) - 0.5*FX*X2 * (1 - X2*(1 + FXS/3)/4))
+    # GOTO 35 
+  }
+  # mark 5
+  # test for large value of abs(x)
+  # if (abs(X) .GT. TV2) GOTO 10
+  # TV2 = 13
+  else if(abs(X) > 13.) {
+    # mark 10
+    RT <- 0
+    # GOTO 35
+  }
+  # TEST FOR FX NEAR ZERO
+  # TV1 = 1.0E-19
+  else if (abs(FX) < 1e-19) {
+    RT <- 0
+  }
+  else {
+    # TEST WHETHER ABS(FX) IS SO LARGE THAT IT MUST BE TRUNCATED
+    # TV3 = 15
+    # mark 15
+    XS <- -0.5 * X2
+    # IF (ALOG(ONE + FXS) - XS * FXS .LT. TV3) GOTO 25
+    if (log(1 + FXS) - XS * FXS >= 15){ 
+      # COMPUTATION OF TRUNCATION POINT BY NEWTON ITERATION
+      # seems this is left over from AS 76 but is not used here
+      #browser()
+      X1  <- 0.5 * FX
+      FXS <- 0.25 * FX
+      while (1){
+        RT <- FXS + 1
+        FX = X1 + (XS * FXS + 15 - log(RT)) / (2 * X1 * (1 / RT - XS))
+        FXS = FX * FX
+        if (abs(FX - X1) < 1.0e-5 * FX) break
+        X1 = FX
+      }
+    }
+    # mark 25
+    # GAUSSIAN Quadrature
+    RT <- 0
+    TV5 <- -84.5
+    #DO 30 I = 1 , NG
+    for (I in 1:5){
+      UI <- U[I]
+      R1 <- 1 + FXS*(0.5 + UI)^2
+      R2 <- 1 + FXS*(0.5 - UI)^2
+      G1 <- XS*R1
+      G2 <- XS*R2
+      A1 <- 0
+      if (G1 >= TV5) A1 <- exp(G1) / R1
+      A2 <- 0
+      if (G2 >= TV5) A2 <- exp(G2) / R2
+      RT = RT + R[I]*(A1 + A2)
+    } # 30 CONTINUE
+    RT <- RT*FX*TP
+  }
+  # mark 35 IF (SMX) GOTO 40
+  if (!SMX){
+    R1 <- pnorm(X)
+    R2 <- pnorm(FA*X)
+    RT <- 0.5*(R1 + R2) - R1*R2 - RT
+  }
+  # mark 40
+  TFNX <- RT
+  if (a < 0) TFNX <- -RT
+  TFNX
+}  
+  
 # ----------------------------------------------------------------------------
 # Owen's Q-function
 # Calculates Owen's Q-function via repeated integration by parts
