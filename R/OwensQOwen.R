@@ -58,129 +58,127 @@ OwensT2 <- function(h, a){
   int
 }
 # ----------------------------------------------------------------------------
-# Owen's T-function according to ASR 65
-# G. E. Thomas
-# A Remark on Algorithm AS76: An Integral Useful in Calculating Non-central t
-# and Bivariate Normal Probabilities
-# Journal of the Royal Statistical Society. Series C (Applied Statistics), 
-# Vol. 35, No. 3 (1986), pp. 310-312
+# Owen's T-function according to algorithm AS76 and remarks AS R65, AS R80
+# R port of the FORTRAN code in the References and matlab code given on
+# https://people.sc.fsu.edu/~jburkardt/m_src/asa076/asa076.html
+# by J. Burkhardt, license GNU LGPL
 #
 # no trouble with integrate()
 # arguments must be scalars!
-OwensT <- function(h, a){
-  # TP = 0.1591549 = 1/(2*pi)
-  TP <- 1/2/pi
+OwensT <- function(h, a)
+{
+  eps <- .Machine$double.eps
   # special cases
-  # from
   # D.B. Owen
   # Tables for computing bivariate normal Probabilities
-  # The Annals of Mathematical Statistics
-  # Vol. 27, No. 4 (Dec., 1956), pp. 1075-1090 
-  if (a==0)      return(0)
-  if (abs(a)==1) return(sign(a)*0.5*pnorm(h)*(1-pnorm(h)))
-  if (h==0)      return(atan(a)*TP)
-  if(!is.finite(abs(a))){
-    TFNX <- 0.5-0.5*pnorm(h)
-    if(h<0) TFNX <- 0.5*pnorm(h)
-    return(TFNX)
+  # The Annals of Mathematical Statistics, Vol. 27 (4) Dec. 1956, pp. 1075-1090 
+  if (abs(a)<eps)        return(0)                                 # a==0
+  if (!is.finite(h))     return(0)                                 # h==Inf, -Inf
+  if (abs(1-abs(a))<eps) return(sign(a)*0.5*pnorm(h)*(1-pnorm(h))) # a==1
+  if (abs(h)<eps)        return(atan(a)/2/pi)                      # h==0
+  # a==Inf, -Inf
+  if (!is.finite(abs(a))){
+    if(h<0) tha <- pnorm(h)/2. else tha <- (1-pnorm(h))/2
+    return(sign(a)*tha)
   }
+  # Boys AS R80
+  # AS R89 recommends not to use this
+  # if (abs(h) < 0.3 && 7.0 < abs(a)){
+  #   lam <- abs(a*h)
+  #   ex  <- exp(-lam*lam/2.0)
+  #   g   <- pnorm(lam)
+  #   c1  <- (ex/lam + sqrt(2.0*pi)*(g - 0.5) )/(2.0*pi)
+  #   c2  <- ((lam*lam + 2.0)*ex/lam/lam/lam + sqrt(2.0*pi)*(g - 0.5))/(12.0*pi)
+  #   ah  <- abs(h)
+  #   tha <- abs(0.25 - c1*ah + c2*ah^3)
+  #   # next is paranoia?
+  #   if (a<0.0) tha <- -tha
+  #   return(tha)
+  # } 
+  aa <- abs(a)
+  if (aa <= 1.0){
+    tha <- tfn(h, a)
+    return(tha)
+  }
+  ah  <- aa * h
+  gh  <- pnorm(h)
+  gah <- pnorm (ah);
+  tha <- 0.5*(gh + gah) - gh*gah - tfn(ah, 1.0/aa);
+    
+  if (a < 0.0) tha <- -tha
+  return(tha)
   
-  # constants used
-  U  <- c(0.0744372, 0.2166977, 0.3397048, 0.4325317, 0.4869533)
-  R  <- c(0.1477621, 0.1346334, 0.1095432, 0.0747257, 0.0333357)
-  
-  X  <- h
-  FX <- abs(a)
-  # IF ABS(A) .GT. ONE EVALUATE TFNX(ABS(A)*H, 1/ABS(A))
-  SMX <- (FX <= 1)
-  # IF (SMX) GOTO 3
-  if (!SMX){
-    # if a=Inf and h=0 then X here becomes NaN
-    X = FX * X
-    if (is.nan(X)) X <- 0
-    FX = 1 / FX
-  } 
-  # mark 3
-  FXS <- FX * FX
-  FA = FX
-  X2 = X * X
-  #IF (X2 * (ONE + FXS) .GT. HUN) GOTO 5
-  if(X2*(1. + FXS) <= 0.01){
-    RT <- TP*(atan(FX) - 0.5*FX*X2 * (1 - X2*(1 + FXS/3)/4))
-    # GOTO 35 
-  }
-  # mark 5
-  # test for large value of abs(x)
-  # if (abs(X) .GT. TV2) GOTO 10
-  # TV2 = 13
-  else if(abs(X) > 13.) {
-    # mark 10
-    RT <- 0
-    # GOTO 35
-  }
-  # TEST FOR FX NEAR ZERO
-  # TV1 = 1.0E-19
-  else if (abs(FX) < 1e-19) {
-    RT <- 0
-  }
-  else {
-    # TEST WHETHER ABS(FX) IS SO LARGE THAT IT MUST BE TRUNCATED
-    # TV3 = 15
-    # mark 15
-    XS <- -0.5 * X2
-    # IF (ALOG(ONE + FXS) - XS * FXS .LT. TV3) GOTO 25
-    if (log(1 + FXS) - XS * FXS >= 15){ 
-      # COMPUTATION OF TRUNCATION POINT BY NEWTON ITERATION
-      # seems this is left over from AS 76 but is not used here
-      #browser()
-      X1  <- 0.5 * FX
-      FXS <- 0.25 * FX
-      while (1){
-        RT <- FXS + 1
-        FX = X1 + (XS * FXS + 15 - log(RT)) / (2 * X1 * (1 / RT - XS))
-        FXS = FX * FX
-        if (abs(FX - X1) < 1.0e-5 * FX) break
-        X1 = FX
-      }
+} #end function
+
+# Auxillary function 
+# R port of the matlab code given on
+# https://people.sc.fsu.edu/~jburkardt/m_src/owens/owens.html
+# by J. Burkhardt license GNU LGPL
+#
+# is called as tfn(h, a) if a<=1
+# otherwise as tfn(a*h, 1/a)
+tfn <- function(x, fx)
+{
+  # constants
+  ng  <- 5
+  r   <- c(0.1477621, 0.1346334, 0.1095432, 0.0747257, 0.0333357)
+  u   <- c(0.0744372, 0.2166977, 0.3397048, 0.4325317, 0.4869533)
+  tp  <- 1/(2.*pi) # 0.159155
+  tv1 <- .Machine$double.eps # 1e-19 in AS R65, 1E-35 in matlab code
+                             # 2.220446e-16 on my machine
+  tv2 <- 15.0                # 13 in AS R65
+  tv3 <- 15.0
+  tv4 <- 1.0E-05
+  #
+  # Test for X (=h) near zero
+  # this is superflous since it is handled in the higher level function
+  if (abs(x) < tv1) return(tp*atan(fx))
+  #
+  # Test for large values of abs(X) = abs(h)
+  # May be this is also superflous?
+  if (tv2 < abs(x)) return(0)
+  #
+  # Test for FX (= a) near zero.
+  # this is superflous since it is handled in the higher level function
+  if (abs(fx) < tv1) return(0)
+  #
+  # Test whether abs(FX) is so large that it must be truncated
+  # Is this really necessary? Since we call this function with fx = a <=1
+  # or otherwise with 1/a.
+  xs  <- -0.5*x*x
+  x2  <- fx
+  fxs <- fx * fx
+  # Computation of truncation point by Newton iteration
+  if (tv3 <= log(1.0 + fxs) - xs*fxs){
+    x1  <- 0.5 * fx
+    fxs <- 0.25 * fxs
+    while (1){
+      rt  <- fxs + 1.0
+      x2  <- x1 + (xs*fxs + tv3 - log(rt))/(2.0*x1*(1.0/rt - xs))
+      fxs <- x2 * x2;
+      if (abs(x2 - x1) < tv4) break
+      x1 <- x2
     }
-    # mark 25
-    # GAUSSIAN Quadrature
-    RT <- 0
-    TV5 <- -84.5
-    #DO 30 I = 1 , NG
-    for (I in 1:5){
-      UI <- U[I]
-      R1 <- 1 + FXS*(0.5 + UI)^2
-      R2 <- 1 + FXS*(0.5 - UI)^2
-      G1 <- XS*R1
-      G2 <- XS*R2
-      A1 <- 0
-      if (G1 >= TV5) A1 <- exp(G1) / R1
-      A2 <- 0
-      if (G2 >= TV5) A2 <- exp(G2) / R2
-      RT = RT + R[I]*(A1 + A2)
-    } # 30 CONTINUE
-    RT <- RT*FX*TP
   }
-  # mark 35 IF (SMX) GOTO 40
-  if (!SMX){
-    R1 <- pnorm(X)
-    R2 <- pnorm(FA*X)
-    RT <- 0.5*(R1 + R2) - R1*R2 - RT
+  #
+  #  Gaussian quadrature.
+  rt <- 0.0
+  for (i in 1:ng) {
+    r1 <- 1.0 + fxs*(0.5 + u[i])^2;
+    r2 <- 1.0 + fxs*(0.5 - u[i])^2;
+    
+    rt <- rt + r[i]*(exp(xs*r1)/r1 + exp(xs*r2)/r2)
   }
-  # mark 40
-  TFNX <- RT
-  if (a < 0) TFNX <- -RT
-  TFNX
-}  
-  
+  return(rt * x2 * tp)
+}
+
 # ----------------------------------------------------------------------------
 # Owen's Q-function
 # Calculates Owen's Q-function via repeated integration by parts
 # formulas as given in 
 # Owen, D B (1965)
 # "A Special Case of a Bivariate Non-central t-Distribution"
-# Biometrika Vol. 52, p437-446.
+# Biometrika Vol. 52, pp.437-446.
 
 OwensQOwen <- function(nu, t, delta, a=0, b)
 {
