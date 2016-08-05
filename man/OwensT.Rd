@@ -1,3 +1,4 @@
+\encoding{utf-8}
 \name{OwensT}
 \alias{OwensT}
 \title{
@@ -25,7 +26,7 @@ doesn't vectorize.
 Numerical value of the definite integral.
 }
 \author{
-MATLAB code by John Burkardt\cr
+MATLAB code by J. Burkardt\cr
 R port by D. Labes
 }
 \note{
@@ -36,42 +37,42 @@ But may be useful for others.
 Goedhart PW, Jansen MJW\cr
 Remark AS R89: A Remark on Algorithm AS76: An Integral Useful in Calculating 
 Noncentral T and Bivariate Normal Probabilities\cr
-J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 41 (2), 1992, pages 496-497\cr
-\href{http://dx.doi.org/10.2307/2347586}{doi 10.2307/2347586}
+J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 41 (2), 1992, pp 496-497\cr
+\doi{10.2307/2347586}
 
 Boys R \cr
 Remark AS R80: A Remark on Algorithm AS76: An Integral Useful in Calculating 
 Noncentral T and Bivariate Normal Probabilities \cr
-J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 38 (3), 1989, pp. 580-582\cr
-\href{http://dx.doi.org/10.2307/2347755}{doi 10.2307/2347755}
+J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 38 (3), 1989, pp 580-582\cr
+\doi{10.2307/2347755}
 
 Thomas GE\cr
 Remark ASR 65: A Remark on Algorithm AS76: An Integral Useful in Calculating 
 NonCentral t and Bivariate Normal Probabilities\cr
-J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 35 (3), 1986, pp. 310-312\cr
-\href{http://dx.doi.org/10.2307/2348031}{doi 10.2307/2348031}
+J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 35 (3), 1986, pp 310-312\cr
+\doi{10.2307/2348031}
 
 Chou Y-M \cr
 Remark AS R55: A Remark on Algorithm AS76: An Integral Useful in Calculating 
 Noncentral T and Bivariate Normal Probabilities\cr
-J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 34 (1), 1985, pp. 100-101\cr
-\href{http://dx.doi.org/10.2307/2347894}{doi 10.2307/2347894}
+J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 34 (1), 1985, pp 100-101\cr
+\doi{10.2307/2347894}
 
 Porter MA, Winstanley DJ\cr
 Remark AS R30: A Remark on Algorithm AS76: An Integral Useful in Calculating 
 Noncentral T and Bivariate Normal Probabilities\cr
-J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 28 (1), 1979, p. 113\cr
-\href{http://dx.doi.org/10.2307/2346833}{doi 10.2307/2346833}
+J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 28 (1), 1979, p 113\cr
+\doi{10.2307/2346833}
 
 Young JC, Minder C\cr
 Algorithm AS 76: An Algorithm Useful in Calculating Non-Central T and Bivariate 
 Normal Distributions\cr
-J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 23 (3), 1974, pp. 455-457\cr
-\href{http://dx.doi.org/10.2307/2347148}{doi 10.2307/2347148}
+J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 23 (3), 1974, pp 455-457\cr
+\doi{10.2307/2347148}
 
 Owen DB\cr
 Tables for Computing Bivariate Normal Probabilities\cr
-Annals of Mathematical Statistics, Vol. 27 (4), December 1956, pp 1075-1090\cr
+Annals of Mathematical Statistics, Vol. 27 (4), Dec. 1956, pp 1075-1090\cr
 \href{http://dx.doi.org/10.1214/aoms/1177728074}{doi 10.1214/aoms/1177728074}
 }
 \seealso{

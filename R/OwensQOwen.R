@@ -14,7 +14,7 @@
 
 OT_integrand <- function(x, h) exp(-0.5*h^2*(1+x^2))/(1+x^2)/(2*pi)
 
-#This function has quirks if h is big. see below
+#This function has quirks if h is large. see below
 OwensT_old <- function(h, a)
 { 
   int <- integrate(OT_integrand, lower=0, upper=abs(a), h=h)$value
@@ -33,7 +33,7 @@ OwensT_old <- function(h, a)
 # ----------------------------------------------------------------------------
 # using formulas (2) found in 
 # Patefield M, Tandy D
-# "Fast and Accurate Calculation of Owen’s T-Function"
+# "Fast and Accurate Calculation of Owen's T-Function"
 # https://www.jstatsoft.org/article/view/v005i05/t.pdf
 #
 # but using still integrate()
