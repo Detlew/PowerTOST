@@ -187,7 +187,6 @@ power.RSABE <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     BE    <- ifelse(s2wRs>s2switch, SABEc95<=0, BEABE)
     # use capped acceptance limits if CVwR > CVcap
     if (is.finite(CVcap)){
-      # browser()
       s2Cap <- CV2mse(CVcap)
       # calculate the capped widened acceptance limits in log domain
       uprABEL <- r_const*sqrt(s2Cap)

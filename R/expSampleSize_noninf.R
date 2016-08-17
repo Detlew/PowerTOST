@@ -142,7 +142,6 @@ expsampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
                              se, dfse, steps, bk)
   if(n<nmin) n <- nmin
   df  <- eval(dfe)
-  #browser()
   pow <- .exppower.noninf(alpha=alpha, lmargin=lmargin, ldiff=diffm, 
                           se.fac=sqrt(bk/n), se=se, dfCV=dfse, df=df, 
                           method=method) 

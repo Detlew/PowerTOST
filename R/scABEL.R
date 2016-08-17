@@ -53,7 +53,6 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
 # ---------------------------------------------------------------------------
 reg_check <- function(regulator, choices=c("EMA", "HC", "FDA", "ANVISA"))
 {
-  #browser()
   if (class(regulator)=="character"){
     reg <- toupper(regulator)
     reg <- match.arg(reg, choices)

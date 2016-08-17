@@ -166,7 +166,6 @@ power.scABEL2 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     hw  <- tval*SEs
     lCL <- means - hw 
     uCL <- means + hw
-    #browser()
     # conventional ABE
     BEABE <- (lCL>=ln_lBEL) & (uCL<=ln_uBEL)
     

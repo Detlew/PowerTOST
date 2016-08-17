@@ -195,7 +195,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   if (!is.na(TIE.adj)) {
     if (TIE.adj <= alpha && pwr.adj > targetpower) step.1 <- TRUE
   }
-  # browser()
+
   if (step.1 && is.na(TIE.adj)) { # Stop: Nothing to do.
     if (!details && print) { # only if we don't have this info already
       cat(sprintf("%s %3d, %s %.4f %s %.4f%s %.4f%s", "\nn", unadj.n,
@@ -272,7 +272,6 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
       TIE       <- x[["TIE.adj"]]
     }
     iter <- iter + 1
-    # browser()
     if (pwr < targetpower && iter >= 1) { # Show intermediate steps.
       if (print && details) {
         if (alpha.adj >= 0.01) { # Nice format (EMA)

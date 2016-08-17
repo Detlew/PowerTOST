@@ -17,7 +17,6 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   reg  <- reg_check(regulator)
   ssfun <- "sampleN.scABEL1"
   if (reg$est_method=="ISC") ssfun <- "sampleN.scABEL2"
-  # browser()
   # print(sys.call())
   # next doesn't function if arguments are missing
   # r <- do.call(ssfun,

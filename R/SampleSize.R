@@ -229,7 +229,6 @@ sampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE, theta0,
     if (details) cat( n," ", formatC(pow, digits=6, format="f"),"\n")
     if (iter>imax) break 
   }
-  #browser()
   # for very large n the search usually fails, but doesn't matter
   nlast <- n
   if (up & pow<targetpower & n<10000) {
