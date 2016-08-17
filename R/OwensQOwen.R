@@ -42,21 +42,24 @@ OwensT2 <- function(h, a){
   aa <- abs(a)
   # T(-h, a) = T(h, a) thus we can take abs
   hh <- abs(h)
-  if (is.finite(aa)) {
-    ah <- aa*hh
-    #T(a*h,1/a)
-    int <- integrate(OT_integrand, lower=0, upper=1/aa, rel.tol=1e-5, h=ah)$value
+  if (aa<=1){
+    #T(h, a)
+    int <- integrate(OT_integrand, lower=0, upper=aa, h=hh, rel.tol=1e-5)$value
   } else {
-    int <- 0
     ah <- aa*hh
-    # in case of aa=Inf and h=0 the term aa*h becomes NaN
-    if (h==0) ah <- 0
+    #T(a*h, 1/a)
+    int <- integrate(OT_integrand, lower=0, upper=1/aa, h=ah, rel.tol=1e-5)$value
+    #equation 2.3, Owen 1956
+    int <- 0.5*(pnorm(hh) + pnorm(ah)) - pnorm(hh)*pnorm(ah) - int
   }
-  int <- 0.5*(pnorm(hh) + pnorm(ah)) - pnorm(hh)*pnorm(ah) - int
+  # take care of sign
   # T(h, -a) = -T(h, a)
   int <- ifelse(a<0, -int, int)
   int
 }
+# OwensT according AS76 (see below) needs ~25-50% longer run time as OwensT2 
+# if h,a are not among the special cases
+
 # ----------------------------------------------------------------------------
 # Owen's T-function according to algorithm AS76 and remarks AS R65, AS R80
 # R port of the FORTRAN code in the References and matlab code given on
@@ -67,20 +70,24 @@ OwensT2 <- function(h, a){
 # arguments must be scalars!
 OwensT <- function(h, a)
 {
-  eps <- .Machine$double.eps
-  # special cases
-  # D.B. Owen
-  # Tables for computing bivariate normal Probabilities
-  # The Annals of Mathematical Statistics, Vol. 27 (4) Dec. 1956, pp. 1075-1090 
-  if (abs(a)<eps)        return(0)                                 # a==0
-  if (!is.finite(h))     return(0)                                 # h==Inf, -Inf
-  if (abs(1-abs(a))<eps) return(sign(a)*0.5*pnorm(h)*(1-pnorm(h))) # a==1
-  if (abs(h)<eps)        return(atan(a)/2/pi)                      # h==0
-  # a==Inf, -Inf
-  if (!is.finite(abs(a))){
-    if(h<0) tha <- pnorm(h)/2. else tha <- (1-pnorm(h))/2
-    return(sign(a)*tha)
+  eps <- .Machine$double.eps # 2.220446e-16
+  if (abs(a)<eps | !is.finite(h) | abs(1-abs(a))<eps | abs(h)<eps | 
+      !is.finite(abs(a))) {
+    # special cases
+    # D.B. Owen
+    # "Tables for computing bivariate normal Probabilities"
+    # The Annals of Mathematical Statistics, Vol. 27 (4) Dec. 1956, pp. 1075-1090 
+    if (abs(a)<eps)        return(0)                                 # a==0
+    if (!is.finite(h))     return(0)                                 # h==Inf, -Inf
+    if (abs(1-abs(a))<eps) return(sign(a)*0.5*pnorm(h)*(1-pnorm(h))) # a==1
+    if (abs(h)<eps)        return(atan(a)/2/pi)                      # h==0
+    # a==Inf, -Inf
+    if (!is.finite(abs(a))){
+      if(h<0) tha <- pnorm(h)/2. else tha <- (1-pnorm(h))/2
+      return(sign(a)*tha)
+    }
   }
+  
   # Boys AS R80
   # AS R89 recommends not to use this
   # if (abs(h) < 0.3 && 7.0 < abs(a)){
@@ -126,13 +133,13 @@ tfn <- function(x, fx)
   tp  <- 1/(2.*pi) # 0.159155
   tv1 <- .Machine$double.eps # 1e-19 in AS R65, 1E-35 in matlab code
                              # 2.220446e-16 on my machine
-  tv2 <- 15.0                # 13 in AS R65
+  tv2 <- 15.0                # is =13 in AS R65
   tv3 <- 15.0
   tv4 <- 1.0E-05
   #
   # Test for X (=h) near zero
   # this is superflous since it is handled in the higher level function
-  if (abs(x) < tv1) return(tp*atan(fx))
+  #if (abs(x) < tv1) return(tp*atan(fx))
   #
   # Test for large values of abs(X) = abs(h)
   # May be this is also superflous?
@@ -140,7 +147,7 @@ tfn <- function(x, fx)
   #
   # Test for FX (= a) near zero.
   # this is superflous since it is handled in the higher level function
-  if (abs(fx) < tv1) return(0)
+  #if (abs(fx) < tv1) return(0)
   #
   # Test whether abs(FX) is so large that it must be truncated
   # Is this really necessary? Since we call this function with fx = a <=1
@@ -185,6 +192,11 @@ OwensQOwen <- function(nu, t, delta, a=0, b)
   if (nu<1) stop("nu must be >=1!")
   if (a != 0) stop("Only a=0 implemented!")
   
+  # return nct if b is infinite
+  if (!is.finite(b)) return(pt(t, df=nu, ncp=delta))
+  # use a large delta if delta is infinite, using Inf results in an error
+  if (!is.finite(delta)) delta <- sign(delta)*1e20
+  
   A   <- t/sqrt(nu)
   B   <- nu/(nu + t*t)
   upr <- nu-2           # upper index of integration by parts
@@ -226,7 +238,7 @@ OwensQOwen <- function(nu, t, delta, a=0, b)
                         ( dnorm(delta*A*sB)-dnorm((delta*A*B-b)/sB)) )
     if (k>2)  M[k] <- ((k-2)/(k-1))*B*(av[k-1]*delta*A*M[k-1] + M[k-2]) - L[k-2]
   }
-  
+
   sumt <- 0 
   if (2*(nu%/%2)!= nu){
     # odd values of nu

@@ -88,7 +88,7 @@ OwensQ <- function (nu, t, delta, a, b)
 	# MBESS uses .Machine$double.eps^0.25 = 0.0001220703 for both tolerances
 	# seems it makes no difference
 	Qintegral <- integrate(.Q.integrand, lower = low, upper = up, 
-			         nu=nu, t=t, delta = delta, subdivisions = 10000, 
+			         nu=nu, t=t, delta = delta, subdivisions = 1000, 
 			         #rel.tol = .Machine$double.eps^0.5, 
                #abs.tol = .Machine$double.eps^0.5,
 			         rel.tol = 1.e-9, abs.tol=1.e-9, stop.on.error = TRUE)[[1]]
@@ -96,18 +96,9 @@ OwensQ <- function (nu, t, delta, a, b)
 	if(a==0){
     # approx. via nct?
     # this seems not correct for all cases!
-    # f.i. 
-    #>OwensQ(nu=100,t=1.64, delta=1,a=0,b=1)
-    # [1] 0.7361993
-    # Warning message:
-    #  In OwensQ(nu = 100, t = 1.64, delta = 1, a = 0, b = 1) :
-    #  OwensQ = 3.597533e-81 due to numeric problems.
-    #  Replaced with nct approx. = 0.7361993
-    #> OwensQOwen(nu=100,t=1.64, delta=1,a=0,b=1)
-    # [1] 8.326673e-17
+    # (the example given in previous code versions doesn't work any longer)
     # but seems to work for sufficient high b
     # the question is what is sufficient
-    #browser()
 	  if (b>50){
       check <- pt(t, df=nu, ncp=delta)
       # debug print
@@ -128,7 +119,7 @@ OwensQ <- function (nu, t, delta, a, b)
 # function must give a vectorized answer in respect to x
 .Q.integrand <- function(x, nu, t, delta)
 { #version without for - loop, it works without
-	lnQconst <- -((nu/2.0)-1.0)*log(2.0) - lgamma(nu/2.)
+	lnQconst <- -((nu/2.0)-1.0)*log(2.0) - lgamma(nu/2.0)
 
 # what if x<0? Should here not possible, but ...
 # simple x^(nu-1) doesnt work for high nu because  = Inf 
