@@ -50,7 +50,9 @@ OwensT2 <- function(h, a){
     #T(a*h, 1/a)
     int <- integrate(OT_integrand, lower=0, upper=1/aa, h=ah, rel.tol=1e-5)$value
     #equation 2.3, Owen 1956
-    int <- 0.5*(pnorm(hh) + pnorm(ah)) - pnorm(hh)*pnorm(ah) - int
+    phh <- pnorm(hh)
+    pah <- pnorm(ah)
+    int <- 0.5*(phh + pah) - phh*pah - int
   }
   # take care of sign
   # T(h, -a) = -T(h, a)
@@ -58,7 +60,8 @@ OwensT2 <- function(h, a){
   int
 }
 # OwensT according AS76 (see below) needs ~25-50% longer run time as OwensT2 
-# if h,a are not among the special cases
+# if h,a are not among the special cases and implementation of Gauss quadraturde
+# is via a loop
 
 # ----------------------------------------------------------------------------
 # Owen's T-function according to algorithm AS76 and remarks AS R65, AS R80
@@ -70,7 +73,7 @@ OwensT2 <- function(h, a){
 # arguments must be scalars!
 OwensT <- function(h, a)
 {
-  eps <- .Machine$double.eps # 2.220446e-16
+  eps <- .Machine$double.eps # 2.220446e-16 on my machine
   if (abs(a)<eps | !is.finite(h) | abs(1-abs(a))<eps | abs(h)<eps | 
       !is.finite(abs(a))) {
     # special cases
@@ -89,7 +92,7 @@ OwensT <- function(h, a)
   }
   
   # Boys AS R80
-  # AS R89 recommends not to use this
+  # AS R89 recommends *not* to use this
   # if (abs(h) < 0.3 && 7.0 < abs(a)){
   #   lam <- abs(a*h)
   #   ex  <- exp(-lam*lam/2.0)
@@ -104,14 +107,15 @@ OwensT <- function(h, a)
   # } 
   aa <- abs(a)
   if (aa <= 1.0){
+    # sign is controlled in tfn()
     tha <- tfn(h, a)
     return(tha)
-  }
-  ah  <- aa * h
-  gh  <- pnorm(h)
-  gah <- pnorm (ah);
-  tha <- 0.5*(gh + gah) - gh*gah - tfn(ah, 1.0/aa);
-    
+  } else {
+    ah  <- aa * h
+    gh  <- pnorm(h)
+    gah <- pnorm (ah);
+    tha <- 0.5*(gh + gah) - gh*gah - tfn(ah, 1.0/aa);
+  } 
   if (a < 0.0) tha <- -tha
   return(tha)
   
@@ -141,7 +145,7 @@ tfn <- function(x, fx)
   # this is superflous since it is handled in the higher level function
   #if (abs(x) < tv1) return(tp*atan(fx))
   #
-  # Test for large values of abs(X) = abs(h)
+  # Test for large values of abs(x) = abs(h)
   # May be this is also superflous?
   if (tv2 < abs(x)) return(0)
   #
@@ -168,14 +172,21 @@ tfn <- function(x, fx)
     }
   }
   #
-  #  Gaussian quadrature.
-  rt <- 0.0
-  for (i in 1:ng) {
-    r1 <- 1.0 + fxs*(0.5 + u[i])^2;
-    r2 <- 1.0 + fxs*(0.5 - u[i])^2;
-    
-    rt <- rt + r[i]*(exp(xs*r1)/r1 + exp(xs*r2)/r2)
-  }
+  # 10 point Gaussian quadrature.
+  # original via loop
+  # rt <- 0.0
+  # for (i in 1:ng) {
+  #   r1 <- 1.0 + fxs*(0.5 + u[i])^2;
+  #   r2 <- 1.0 + fxs*(0.5 - u[i])^2;
+  # 
+  #   rt <- rt + r[i]*(exp(xs*r1)/r1 + exp(xs*r2)/r2)
+  # }
+  # vectorized form, gives a run-time boost of ~50% compared to loop
+  # example: system.time(for (i in 1:10000) OwensT(h=2, a=0.7))
+  # loop: 0.45 sec, vectorized: 0.22, OwensT2(integrate() solution): 0.34
+  r1 <- 1.0 + fxs*(0.5 + u)^2
+  r2 <- 1.0 + fxs*(0.5 - u)^2
+  rt <- sum(r*(exp(xs*r1)/r1 + exp(xs*r2)/r2))
   return(rt * x2 * tp)
 }
 
