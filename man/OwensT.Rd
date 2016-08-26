@@ -73,7 +73,7 @@ J. of the Royal Statistical Society. Series C (Applied Statistics), Vol. 23 (3),
 Owen DB\cr
 Tables for Computing Bivariate Normal Probabilities\cr
 Annals of Mathematical Statistics, Vol. 27 (4), Dec. 1956, pp 1075-1090\cr
-\href{http://dx.doi.org/10.1214/aoms/1177728074}{doi 10.1214/aoms/1177728074}
+\doi{10.1214/aoms/1177728074}
 }
 \seealso{
 \code{\link{OwensQOwen}, \link{OwensQ}}
