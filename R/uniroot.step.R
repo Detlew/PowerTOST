@@ -1,8 +1,8 @@
-# find root of a function to the nearest integer in multiple of steps
-# based on ssanv::uniroot.integer, author = Michael P. Fay 
+# find root of a function to the nearest integer in multiple of step
+# code based on ssanv::uniroot.integer, author Michael P. Fay 
 uniroot.step <- function (f, interval, lower = min(interval), upper = max(interval), 
                           step=2, step.power = 6, step.up = TRUE, 
-                          pos.side = FALSE, maxiter = 1000, ...) 
+                          pos.side = FALSE, maxiter = 100, ...) 
 {
   iter <- 0
   if (!is.numeric(lower) || !is.numeric(upper) || lower >= upper) 
@@ -11,6 +11,16 @@ uniroot.step <- function (f, interval, lower = min(interval), upper = max(interv
     stop("lower cannot be -Inf when step.up=TRUE")
   if (upper == Inf && step.up == FALSE) 
     stop("upper cannot be Inf when step.up=FALSE")
+  # with step==1 uniroot.integer is obtained
+  if (step<1)
+    stop("step has to be >=1")
+  step <- ceiling(step) # paranoia
+  step.power.stop <- 0
+  if (step==1) {
+    step <- 2
+    step.power.stop <- -1
+  }  
+  
   if (step.up) {
     f.old <- f(lower, ...)
     iter <- iter + 1
@@ -25,7 +35,7 @@ uniroot.step <- function (f, interval, lower = min(interval), upper = max(interv
   }
   ever.switched <- FALSE
   tried.extreme <- FALSE
-  while (step.power > 0) {
+  while (step.power > step.power.stop) {
     if (f.old == 0) 
       (break)()
     if (iter >= maxiter) 
@@ -71,7 +81,7 @@ uniroot.step <- function (f, interval, lower = min(interval), upper = max(interv
     }
     if (ever.switched) {
       step.power <- step.power - 1
-      if (step.power == 0) {
+      if (step.power == step.power.stop) {
         (break)()
       }
     }
