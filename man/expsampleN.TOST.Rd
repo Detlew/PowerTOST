@@ -1,22 +1,22 @@
 \name{expsampleN.TOST}
 \alias{expsampleN.TOST}
 \title{
-Sample size based on 'expected' power
+Sample size based on expected power
 }
 \description{
-Calculates the sample size based on 'expected' power for a variety of study 
+Calculates the sample size based on the expected power for a variety of study 
 designs used in bioequivalence studies. See known.designs() for the study 
 designs covered.
 }
 \usage{
 expsampleN.TOST(alpha = 0.05, targetpower = 0.8, logscale=TRUE, theta0, 
-                theta1, theta2, CV, dfCV, design = "2x2", robust=FALSE,
-                method=c("exact", "approx"), print = TRUE, details = FALSE, 
-                imax=100)
+                theta1, theta2, CV, design = "2x2", robust = FALSE, dfCV,
+                prior.type = c("CV", "theta0", "both"), prior.parm = list(),
+                method = c("exact", "approx"), print = TRUE, details)
 }
 \arguments{
   \item{alpha}{
-Error probability. Typically set to 0.05.
+Significance level (one-sided). Commonly set to 0.05.
   }
   \item{targetpower}{
 Power to achieve at least. Must be >0 and <1.
@@ -27,9 +27,10 @@ Should the data used on log-transformed or on original scale? TRUE or FALSE.\cr
 Defaults to TRUE.
   }  
   \item{theta0}{
-'True' or assumed bioequivalence ratio or difference. \cr
-Maybe missing. Defaults the to 0.95 if \code{logscale=TRUE} or to 0.05 if 
-\code{logscale=FALSE}.
+Assumed 'true' (or 'observed' in case of \code{prior.type != "CV"}) bioequivalence 
+ratio or difference.\cr
+Typically set to 0.95 (default if missing) if \code{logscale=TRUE}.
+Defaults to 0.05 if \code{logscale=FALSE}.
   }
   \item{theta1}{
 Lower bioequivalence limit as ratio if \code{logscale=TRUE} or as difference.\cr
@@ -42,14 +43,10 @@ If not given \code{theta2} will be calculated as \code{1/theta1} if \code{logsca
 else as \code{-theta1}.
   }
   \item{CV}{
-Coefficient of variation as ratio. Only values > 0 ate allowed.\cr
-May be given as vector. Then the CVs were pooled as weighted mean with
-their df=degrees of freedom as weights.
-  }
-  \item{dfCV}{
-Degrees of freedom for the CVs. Must be a vector of same length as CV.\cr
-\code{dfCV=Inf} is allowed but makes only sense if \code{CV/dfCV} are scalars.\cr
-The (pooled) \code{dfCV} has to be >4. 
+Assumed true or observed coefficient of variation as ratio. Only values > 0 are allowed.
+If \code{logscale=FALSE} CV is assumed to be the standard deviation. If
+\code{prior.type="CV"} may be given as vector: The CVs are then pooled (as a 
+weighted mean with their degrees of freedoms as weights).
   }
   \item{design}{
 Character string describing the study design.\cr
@@ -61,13 +58,41 @@ Set to \code{TRUE} will use the degrees of freedom according to the 'robust' eva
 (aka Senn's basic estimator). These df are calculated as \code{n-seq}.\cr
 See \code{known.designs()$df2} for designs covered in this package.
   }
+  \item{dfCV}{
+Alias of the component \code{df} in argument \code{prior.parm} for backward
+compatibility.\cr
+Will be removed in next versions.
+  }
+  \item{prior.type}{
+Specifies which parameter uncertainty should be accounted for. In case of 
+\code{prior.type = "CV"} (the default), only the uncertainty with respect to the
+CV will be considered (i.e. the given treatment effect is assumed to be fix).
+In case of \code{prior.type = "theta0" } only uncertainty with respect to the
+treatment ratio/difference will be accounted for (i.e. the given CV is assumed
+to be fix). In case of  \code{prior.type = "both"} the power value will be
+unconditional with respect to both the \code{CV} and \code{theta0}.
+  }
+  \item{prior.parm}{
+A list of parameters expressing the prior information about the 
+variability and/or treatment effect. Possible components are \code{df}, 
+\code{SEM}, \code{m}, \code{design}.\cr
+For \code{prior.type = "CV"} the degrees of freedom from the prior trial are
+required. This information can be provided by speciffying the single component 
+\code{df} or the combination consisting of \code{m} and \code{design}.\cr
+For \code{prior.type != "CV"} the degrees of freedom and the standard error of
+the treatment difference are required. This information can be provided by 
+specifying the combination consisting of \code{df} and \code{SEM} or via the 
+combination \code{m} and \code{design}.\cr
+See 'Details' for a technical description on each component.
+  }
   \item{method}{
-Defaults to \code{method="exact"}.\cr
+Defaults to \code{method="exact"}.
 In that case the expected power will be calculated as expected value of the
-power with respect to the (prior) distribution of sigma^2 (inverse gamma
-distribution).\cr
-Set to \code{method="approx"} will calculate the expected power according to
-the formula given in the book from Julious or according to Julious/Owen paper.
+power with respect to the (prior) distribution of the respective parameter(s).\cr
+Set to \code{method="approx"} the expected power according to the 
+approximate formulas given in the book from Julious or in the Julious/Owen 
+paper will be calculated (using non-central t); this only affects 
+\code{prior.type = "CV"}.
 }
   \item{print}{
 If TRUE (default) the function prints its results.\cr
@@ -75,57 +100,79 @@ If FALSE only a data.frame with the results will be returned.
   }
   \item{details}{
 If TRUE the design characteristics and the steps during
-sample size calculations will be shown.\cr Defaults to FALSE.
-  }
-  \item{imax}{
-Maximum number of steps in sample size search.\cr 
-Defaults to 100. Adaption only in very rare cases needed.\cr
-Never seen a need for adaption up to now.
+sample size calculations will be shown.\cr 
+If not specified, the default value is FALSE for \code{prior.type != "CV"}
+and TRUE otherwise.
   }
 }
 \details{
-The sample size is calculated based on iterative evaluation of 'expected' power 
-exact as expected value of the power with respect to the (prior) distribution of 
-sigma^2 (inverse gamma distribution) or via Julious formulas based on 
-non-central t-distribution.\cr
-The start value of the sample size search is taken from a large sample approximation.
+The sample size is calculated based on iterative evaluation of expected power.
+
+The starting value of the sample size search is taken from a large sample 
+approximation if \code{prior.type = "CV"}. Else an empirical start value is
+obtained
+
+Note that in case of \code{prior.type != "CV"} the calculation may still take several seconds.
+
+Note also that the expected power is always bounded above by the so-called
+probability of technical success (PTS) which may be a value less than 1. 
+Therefore, it may be possible that it is either not possible to calculate the 
+required sample size at all or that the sample size gets very large 
+if the given targetpower is less but close to the PTS.
 }
 \value{
 A data.frame with the input values and the result of the sample size estimation.\cr
-The "Sample size" column contains the \bold{total} sample size in case of all design
-implemented.
+The "Sample size" column contains the \bold{total} sample size in case of all
+designs implemented.
 }
 \references{
-A.P. Grieve\cr 
-"Confidence Intervals and Sample Sizes"\cr
-Biometrics 47, 1597-1603 December 1991
+A.P. Grieve \cr 
+\emph{Confidence Intervals and Sample Sizes}\cr
+Biometrics 47, 1597-1603 December 1991\cr
+\doi{10.2307/2532411}
 
-O'Hagan et al.\cr
-"Assurance in Clinical Trial Design"\cr
-Pharmaceut. Statist. 2005; 4: 187-201
+O'Hagan et al.\cr 
+\emph{Assurance in Clinical Trial Design} \cr 
+Pharmaceut. Statist. 2005; 4: 187-201\cr
+\doi{10.1002/pst.175}
 
-S.A. Julious, R.J. Owen\cr
-"Sample size calculations for clinical studies allowing for 
-uncertainty in variance"\cr
-Pharmaceutical Statistics (2006), 5, 29-37
+S.A. Julious, R.J. Owen \cr 
+\emph{Sample size calculations for clinical studies allowing for 
+uncertainty in variance} \cr
+Pharmaceut. Statist. (2006), 5, 29-37\cr
+\doi{10.1002/pst.197}
 
-S.A. Julious\cr
-"Sample sizes for Clinical Trials"\cr
-CRC Press, Chapman & Hall 2010
+S.A. Julious \cr 
+\emph{Sample sizes for Clinical Trials}\cr 
+CRC Press, Chapman & Hall, 2010
 
-Bertsche et al.\cr
-"The predictive distribution of the residual variability in the 
-linear-fixed effects model for clinical cross-over trials"\cr
-Biometrical Journal 00 (2016) 0, 1-13\cr
-Article first published online: 22 MAR 2016
+Bertsche et al. \cr
+\emph{The predictive distribution of the residual variability in
+the linear-fixed effects model for clinical cross-over trials} \cr
+Biom J. 2016 Jul, 58(4), 797-809\cr
+Article first published online: 22 MAR 2016\cr
+\doi{10.1002/bimj.201500245}
 
-S. Senn\cr
-"Cross-over Trials in Clinical Research"\cr
-Second edition\cr
-Wiley, Chichester 2002
+George E.P. Box, George C. Tiao \cr 
+\emph{Bayesian Inference in Statistical Analysis}\cr
+Addison-Wesley publishing company, 1992
+
+L. Held, D. Sabanes Bove \cr
+\emph{Applied Statistical Inference. Likelihood and Bayes}\cr 
+Springer, 2014\cr
+\doi{10.1007/978-3-642-37887-4}
+
+S. Senn \cr
+\emph{Cross-over Trials in Clinical Research}\cr
+Second edition, Wiley, Chichester 2002
+
+M.L. Zierhut et al.\cr
+\emph{Ignorance is not bliss: Statistical power is not probability of trial success}\cr
+Clinical Pharmacology & Therapeutics (2015), 99, 356-359\cr
+\doi{10.1002/cpt.257}
 }
 \author{
-D. Labes
+B. Lang & D. Labes
 }
 \seealso{
  \code{\link{exppower.TOST}, \link{known.designs}, \link{sampleN.TOST}}
@@ -133,18 +180,25 @@ D. Labes
 \examples{
 # Classical 2x2 cross-over, target power = 80\%,
 # BE limits 80 ... 125\%, assumed true BE ratio = 95%,
-# intra-subject CV=30\% estimated with 10 df
-# using all the defaults
-expsampleN.TOST(CV=0.3, dfCV=10)
-# -> gives n=48 with achieved expected power 0.804617
+# intra-subject CV=30\% estimated from prior 2x2 trial 
+# with m = 30 subjects
+expsampleN.TOST(CV=0.3, prior.parm = list(m = 30, design = "2x2"))
+# -> gives n = 42 with achieved expected power 0.806262
 # Compare this to the usual sample size with CV assumed known ('carved in stone')
 sampleN.TOST(CV=0.3)
+# -> gives n = 40 subjects
+# Compare this to the case where uncertainty is accounted for CV and theta0
+# Not run due to timing policy of CRAN - may run several seconds
+\dontrun{
+expsampleN.TOST(CV=0.3, prior.parm = list(m = 30, design = "2x2"), 
+                prior.type = "both")}
+# -> gives n = 72 subjects
 
-# More then one CV with corresponding degrees of freedom 
-# other settings as above
+# More than one CV with corresponding degrees of freedom 
+# other settings as above in first example
 CVs <- c(0.25, 0.3)
-dfs <- c(  22, 10)
-expsampleN.TOST(CV=CVs, dfCV=dfs)
+dfs <- c(22, 10)
+expsampleN.TOST(CV=CVs, prior.parm = list(df = dfs))
 # -> gives a pooled CV=0.2664927 with df=32
 # and a sample size n=34 with achieved expected power 0.812653 exact
 # achieved expected power 0.815019 approximate acc. Julious

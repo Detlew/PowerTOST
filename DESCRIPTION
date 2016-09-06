@@ -50,7 +50,7 @@ Description: Contains functions to calculate power and sample size for
     -----
     Contains further functions for power calculations / sample size estimation
     for dose proportionality studies using the Power model.    
-Imports: mvtnorm, stats, utils, graphics, grDevices
+Imports: mvtnorm, stats, utils, graphics, grDevices, pracma
 Suggests: crossdes
 ByteCompile: yes
 URL:        http://github.com/Detlew/PowerTOST

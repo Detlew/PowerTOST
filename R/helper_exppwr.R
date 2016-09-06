@@ -109,7 +109,6 @@ get_df_sefac <- function(n = NULL, nu = NULL, design, robust = FALSE) {
       eval(dfe[[1]]) - nu
     }
     ssize <- uniroot.step(f, c(4, 1e+07), step=1, step.power = 2)$root
-    ## Check for ssize being an integer, see ?is.integer
     if (ssize %% ades$steps != 0) 
       ssize <- ades$steps * floor(ssize / ades$steps) + ades$steps
     # Here, df = v is not needed as return value

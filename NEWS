@@ -1,3 +1,6 @@
+      - Functions for expected power and sample size based on expected power 
+        reworked to deal also with uncertainty of theta0. Contributed by
+        Benjamin Lang.
       - Owen's T-function, used in OwensQOwen() and in turn in power.TOST() 
         now based on algorithm AS76 and remarks to that algorithm to 
         avoid numerical errors of the implementation via integrate(). 
