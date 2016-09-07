@@ -37,7 +37,7 @@ uniroot.step <- function (f, interval, lower = min(interval), upper = max(interv
   tried.extreme <- FALSE
   while (step.power > step.power.stop) {
     if (f.old == 0) 
-      (break)()
+      break
     if (iter >= maxiter) 
       stop("reached maxiter without a solution")
     xnew <- xold + sign * step^step.power
@@ -66,7 +66,7 @@ uniroot.step <- function (f, interval, lower = min(interval), upper = max(interv
         if (f.extreme == 0) {
           xold <- x.extreme
           f.old <- f.extreme
-          (break)()
+          break
         }
         if (f.old * f.extreme >= 0) {
           stop("f() at extremes not of opposite sign")
@@ -82,8 +82,13 @@ uniroot.step <- function (f, interval, lower = min(interval), upper = max(interv
     if (ever.switched) {
       step.power <- step.power - 1
       if (step.power == step.power.stop) {
-        (break)()
+        break
       }
+    }
+    else {
+      #increase stepsize (this is additional to ssanv::uniroot.integer)
+      # what happens if step.up=F and resulting x is < lower? TODO: check
+      if (iter>2) step.power <- step.power + 1
     }
     xold <- xnew
     f.old <- f.new

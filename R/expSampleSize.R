@@ -184,7 +184,7 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
   }
   
   # Derive minimum sample size
-  n <- 0
+  n  <- 0
   df <- 0
   while (df < 1) {
     n <- n + 1
@@ -267,7 +267,11 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
     sea <- if (prior.type == "theta0") se else 
       CV2se(CVCL(CV, df = df_m, side = "upper", alpha = 0.3)[[2]])
     diffma <- diffm + ifelse(diffm > 0, 1, -1) * qnorm(1 - 0.3) * sem_m
-    n0 <- .sampleN0_3(alpha, targetpower, ltheta1, ltheta2, diffma, sea, steps, bk)
+    # correct the targetpower wrt to PTS
+    # doesn't has so much effect, usually 1-2 iterations
+    tp <- 1 - (pts - targetpower)
+    #tp <- targetpower
+    n0 <- .sampleN0_3(alpha, targetpower=tp, ltheta1, ltheta2, diffma, sea, steps, bk)
   }
   if (n0 < nmin) n0 <- nmin
   if (details) {
@@ -283,8 +287,7 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
       cat(n, " ", formatC(pow, digits = 6, format = "f"), "\n")
     pow - targetpower
   }
-  # Use ssanv::uniroot.integer as it restricts to integers only 
-  # This should generally be faster than stats::uniroot
+  
   # Calculate power at n0
   #   if pow > targetpower then use c(nmin, n0) as search interval
   #   if pow <= targetpower then use c(n0, 1e+06) as search interval
@@ -312,17 +315,23 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
   }
 
   # Find sample size
+  # Use uniroot.step, a variant of ssanv::uniroot.integer which restricts the
+  # search to integers which are a multiple of steps
+  # This should generally be faster than ssanv::uniroot.integer or stats::uniroot
+  iter <- 1
   if (search_int[1]!=search_int[2]){
     n <- tryCatch({ 
       uniroot.step(f = pdiff_n, interval = search_int, step = steps, 
                    step.power = step.pwr, step.up = step.up, pos.side = TRUE)
     }, error = function(e) {
-      message("Sample size search ended with an error:")
       message(e)
       return(NA)
     })
-    pow <- n$f.root + targetpower  # pdiff_n() substracts targetpower
-    n <- n$root
+    if (all(!is.na(n))){
+      pow  <- n$f.root + targetpower  # pdiff_n() substracts targetpower
+      iter <- n$iter
+      n <- n$root
+    }
   }
   else {
     # else we have already the result n=nmin
@@ -339,6 +348,7 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
     # print always the last step, except if n=nmin where n, power is already printed
     if(details & n!=nmin){
       cat("\n")
+      cat(iter, "iterations\n")
       cat(n, " ", formatC(pow, digits = 6, format = "f"), "\n")
     }
     # give a message? in other sample size functions such a message is not given
