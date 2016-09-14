@@ -120,8 +120,8 @@
     lwr2 <- if (pts) ltheta1 else ldiff - (k/2)*s
     upr2 <- if (pts) ltheta2 else ldiff + (k/2)*s
     # Perform 2D-integration using pracma package functions
-    # pwr <- pracma::quad2d(function(v, t) f_(v, t) * d_(v, t), lwr1, upr1,
-    #                       lwr2, upr2, n = 50)
+    pwr <- pracma::quad2d(function(v, t) f_(v, t) * d_(v, t), lwr1, upr1,
+                          lwr2, upr2, n = 50)
     # pwr <- pracma::integral2(function(v, t) f_(v, t) * d_(v, t), lwr1, upr1,
     #                          lwr2, upr2)$Q
     # pwr <- pracma::dblquad(f=function(v, t) f_(v, t) * d_(v, t), xa=lwr1, xb=upr1,
@@ -129,17 +129,17 @@
     
     # For use of adaptIntegrate() the integrands we have to be re-formulated 
     # v and t to be a vector
-    d_ <- function(x) {
-                 dninvgamma(m = x[2], v = x[1], mu = ldiff, lambda = lambda,
-                 alpha = df_m/2, beta = df_m/2 * se^2)
-    }
-    f_ <- function(x) if (pts) 1 else
-        .calc.power(alpha, ltheta1, ltheta2, x[2], sefac_n*sqrt(x[1]), df_n, cp_method)
-    pwr <- cubature::adaptIntegrate(function(x) f_(x) * d_(x),
-                                    lowerLimit = c(lwr1, lwr2),
-                                    upperLimit = c(upr1, upr2), tol=1e-4)$integral
-    
-    return(pwr)
+    # d_ <- function(x) {
+    #              dninvgamma(m = x[2], v = x[1], mu = ldiff, lambda = lambda,
+    #              alpha = df_m/2, beta = df_m/2 * se^2)
+    # }
+    # f_ <- function(x) if (pts) 1 else
+    #     .calc.power(alpha, ltheta1, ltheta2, x[2], sefac_n*sqrt(x[1]), df_n, cp_method)
+    # pwr <- cubature::adaptIntegrate(function(x) f_(x) * d_(x),
+    #                                 lowerLimit = c(lwr1, lwr2),
+    #                                 upperLimit = c(upr1, upr2), tol=1e-4)$integral
+    # 
+    # return(pwr)
   } else {
     return(NA)
   }
@@ -273,8 +273,9 @@ exppower.TOST <- function(alpha = 0.05, logscale = TRUE, theta0, theta1, theta2,
   }
   
   # Call working horse
-  .exppower.TOST(alpha = alpha, ltheta1 = ltheta1, ltheta2 = ltheta2, 
+  pwr <- .exppower.TOST(alpha = alpha, ltheta1 = ltheta1, ltheta2 = ltheta2, 
                  ldiff = ldiff, se = se, sefac_n = ds_n$sefac, df_n = ds_n$df, 
                  df_m = df_m, sem_m = sem_m, method = method, 
                  prior.type = prior.type, pts = FALSE, cp_method = "exact")
+  pwr
 }
