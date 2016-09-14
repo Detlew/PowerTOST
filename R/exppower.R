@@ -33,35 +33,42 @@
 # Author(s) B. Lang & D. Labes
 .exact.exppower.TOST <- function(alpha=0.05, ltheta1, ltheta2, ldiff, se,
                                  sefac_n, df_n, df_m, sem_m, prior.type,
-                                 pts = FALSE) {
+                                 pts = FALSE, cp_method = "exact") 
+{ 
   # Infinite df_m should give expected power identical to conditional power   
-  if (is.infinite(df_m)) {
-    return(.power.TOST(alpha, ltheta1, ltheta2, ldiff, sefac_n*se, df_n))
+  if (is.infinite(df_m) && !pts) {
+    return(.calc.power(alpha, ltheta1, ltheta2, ldiff, sefac_n*se, df_n, 
+                       cp_method))
   }
   if (prior.type == "CV") {
     # Define expected power integrand
     # For prior densitiy, see for example Bertsche et al or 
     # Held and Sabanes Bove Example 6.25
     # NB: prior density is the posterior distribution from the prior trial
-    d <- function(v) {
+    d_t <- function(v) {
       dinvgamma(v, shape = df_m/2, scale = df_m/2 * se^2)
     }
     # If pts = TRUE we only want to integrate the density function
-    f <- function(v) if (pts) 1 else
-      .power.TOST(alpha, ltheta1, ltheta2, ldiff, sefac_n*sqrt(v), df_n)
+    # (from 0 to Inf)
+    # We already know the result from this: it will always be one
+    if (pts) 
+      return(1)
+    
+    f_t <- function(v) .calc.power(alpha, ltheta1, ltheta2, ldiff, 
+                                   sefac_n*sqrt(v), df_n, cp_method)
     
     # Numerical integration from 0 to Inf is likely to result in wrong result
-    # because the function d (and thus f*d as well) will be zero over nearly
-    # all its range. Apply Chebyshev's inequality with k=10 to avoid this
+    # because the function d_v (and thus f_v*d_v as well) will be zero over 
+    # nearly all its range. Apply Chebyshev's inequality with k=10 to avoid this
     k <- 10
     # Mean of inverse gamma with alpha=dfCV/2, beta=se^2*dfCV/2
     minvg <- (df_m/2 * se^2) / (df_m/2 - 1)
     # Variance of inverse gamma
     vinvg <- (df_m/2 * se^2)^2/(df_m/2 - 1)^2/(df_m/2 - 2)
-    lwr <- if (pts) 0 else max(0, minvg - k*sqrt(vinvg))
+    lwr <- max(0, minvg - k*sqrt(vinvg))
     # Modify a bit: heavier tail to the right, use 2*k
     upr <- minvg + 2*k*sqrt(vinvg)
-    pwr <- integrate(function(v) f(v) * d(v), lwr, upr, rel.tol = 1e-05, 
+    pwr <- integrate(function(v) f_t(v) * d_t(v), lwr, upr, rel.tol = 1e-05, 
                      stop.on.error = FALSE)
     if (pwr$message != "OK")
       warning(pwr$message)
@@ -75,25 +82,19 @@
     # non-standardized t-distribution)
     # Define lambda parameter, follows from (6.28) & (6.30) Held + Bove
     lambda <- (se / sem_m)^2  # No missing data => lambda = 1 / sefac_m^2
-    # R CMD check grumbles if here d and f are used as function names:
-    #* checking R code for possible problems ... NOTE
-    #  .exact.exppower.TOST: multiple local function definitions for 'd' with
-    #  different formal arguments
-    #  .exact.exppower.TOST: multiple local function definitions for 'f' with
-    # different formal arguments
-    dt0 <- function(t) {
+    d_v <- function(t) {
       dnorm(t, mean = ldiff, sd = se / sqrt(lambda))
       #dt_ls(t, df_m, ldiff, sem_m)  # non-standardized t-distr.
     }
-    ft0 <- function(t) if (pts) 1 else 
-      .power.TOST(alpha, ltheta1, ltheta2, t, sefac_n*se, df_n)
+    f_v <- function(t) if (pts) 1 else 
+      .calc.power(alpha, ltheta1, ltheta2, t, sefac_n*se, df_n, cp_method)
     
     s <- se / sqrt(lambda)
     k <- 5
     # If PTS = TRUE need to integrate density from ltheta1 to ltheta2
     lwr <- if (pts) ltheta1 else ldiff - k*s
     upr <- if (pts) ltheta2 else ldiff + k*s
-    pwr <- integrate(function(t) ft0(t) * dt0(t), lwr, upr, rel.tol = 1e-05, 
+    pwr <- integrate(function(t) f_v(t) * d_v(t), lwr, upr, rel.tol = 1e-05, 
                      stop.on.error = FALSE)
     if (pwr$message != "OK") 
       warning(pwr$message)
@@ -103,18 +104,12 @@
     # Use 2-dimensional posterior density
     # See e.g. Held and Sabanes Bove Example 6.26 for density and parameters
     lambda <- (se / sem_m)^2
-    # R CMD check grumbles if here d and f are used as function names:
-    #* checking R code for possible problems ... NOTE
-    #  .exact.exppower.TOST: multiple local function definitions for 'd' with
-    #  different formal arguments
-    #  .exact.exppower.TOST: multiple local function definitions for 'f' with
-    # different formal arguments
-    d2 <- function(v, t) {
+    d_ <- function(v, t) {
       dninvgamma(m = t, v = v, mu = ldiff, lambda = lambda, 
                  alpha = df_m/2, beta = df_m/2 * se^2)
     }
-    f2 <- function(v, t) if (pts) 1 else
-      .power.TOST(alpha, ltheta1, ltheta2, t, sefac_n*sqrt(v), df_n)
+    f_ <- function(v, t) if (pts) 1 else
+      .calc.power(alpha, ltheta1, ltheta2, t, sefac_n*sqrt(v), df_n, cp_method)
     
     k <- 10
     minvg <- (df_m/2 * se^2) / (df_m/2 - 1)
@@ -124,9 +119,26 @@
     s <- se / sqrt(lambda)
     lwr2 <- if (pts) ltheta1 else ldiff - (k/2)*s
     upr2 <- if (pts) ltheta2 else ldiff + (k/2)*s
-    # Perform 2D-integration using pracma package function
-    pwr <- pracma::quad2d(function(v, t) f2(v, t) * d2(v, t), lwr1, upr1, 
-                          lwr2, upr2, n = 42)
+    # Perform 2D-integration using pracma package functions
+    # pwr <- pracma::quad2d(function(v, t) f_(v, t) * d_(v, t), lwr1, upr1,
+    #                       lwr2, upr2, n = 50)
+    # pwr <- pracma::integral2(function(v, t) f_(v, t) * d_(v, t), lwr1, upr1,
+    #                          lwr2, upr2)$Q
+    # pwr <- pracma::dblquad(f=function(v, t) f_(v, t) * d_(v, t), xa=lwr1, xb=upr1,
+    #                        ya=lwr2, yb=upr2)
+    
+    # For use of adaptIntegrate() the integrands we have to be re-formulated 
+    # v and t to be a vector
+    d_ <- function(x) {
+                 dninvgamma(m = x[2], v = x[1], mu = ldiff, lambda = lambda,
+                 alpha = df_m/2, beta = df_m/2 * se^2)
+    }
+    f_ <- function(x) if (pts) 1 else
+        .calc.power(alpha, ltheta1, ltheta2, x[2], sefac_n*sqrt(x[1]), df_n, cp_method)
+    pwr <- cubature::adaptIntegrate(function(x) f_(x) * d_(x),
+                                    lowerLimit = c(lwr1, lwr2),
+                                    upperLimit = c(upr1, upr2), tol=1e-4)$integral
+    
     return(pwr)
   } else {
     return(NA)
@@ -136,7 +148,7 @@
 # Working horse for exppower.TOST() and expsampleN.TOST() ---------------------
 .exppower.TOST <- function(alpha=0.05, ltheta1, ltheta2, ldiff, se, sefac_n,
                            df_n, df_m, sem_m, method="exact", prior.type,
-                           pts = FALSE) {
+                           pts = FALSE, cp_method = "exact") {
   if (method == "approx" && prior.type == "CV") {
     return(.approx.exppower.TOST(alpha, ltheta1, ltheta2, ldiff, sefac_n*se,
                                  df_m, df_n, pts))
@@ -145,7 +157,7 @@
     warning(paste0("Argument method = \"approx\" only affects caluclations ",
                    "if prior.type = \"CV\"."), call. = FALSE)
   return(.exact.exppower.TOST(alpha, ltheta1, ltheta2, ldiff, se, sefac_n, 
-                              df_n, df_m, sem_m, prior.type, pts))
+                              df_n, df_m, sem_m, prior.type, pts, cp_method))
 }
 
 # Main function for expected power --------------------------------------------
@@ -264,5 +276,5 @@ exppower.TOST <- function(alpha = 0.05, logscale = TRUE, theta0, theta1, theta2,
   .exppower.TOST(alpha = alpha, ltheta1 = ltheta1, ltheta2 = ltheta2, 
                  ldiff = ldiff, se = se, sefac_n = ds_n$sefac, df_n = ds_n$df, 
                  df_m = df_m, sem_m = sem_m, method = method, 
-                 prior.type = prior.type, pts = FALSE)
+                 prior.type = prior.type, pts = FALSE, cp_method = "exact")
 }

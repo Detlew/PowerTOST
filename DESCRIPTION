@@ -3,7 +3,7 @@ Type: Package
 Title: Power and Sample Size Based on Two One-Sided t-Tests (TOST) for
        (Bio)Equivalence Studies
 Version: 1.4.2.9000
-Date: 2016-09-06
+Date: 2016-09-14
 Authors@R: c(person("Detlew", "Labes", role = c("aut","cre"), email =
                     "DetlewLabes@gmx.de"),
              person("Helmut", "Schuetz", role = c("aut"), email =
@@ -15,7 +15,8 @@ Description: Contains functions to calculate power and sample size for
     various study designs used for bioequivalence studies. 
     See function known.designs() for study designs covered. 
     Moreover the package contains functions for power and sample size 
-    based on 'expected' power in case of uncertain (estimated) variability.
+    based on 'expected' power in case of uncertain (estimated) variability 
+    and/or uncertain theta0.
     -----
     Added are functions for the power and sample size for the ratio of 
     two means with normally distributed data on the original scale 
@@ -26,7 +27,7 @@ Description: Contains functions to calculate power and sample size for
     if the question of 'non-superiority' must be evaluated.
     The power and sample size calculations based on non-inferiority test may 
     also performed via 'expected' power in case of uncertain (estimated) 
-    variability.
+    variability and/or uncertain theta0.
     -----
     Contains functions power.scABEL() and sampleN.scABEL() to calculate power 
     and sample size for the BE decision via scaled (widened) BE acceptance 
