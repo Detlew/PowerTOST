@@ -75,11 +75,13 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     ylabtxt <- "power (%)"
     dec     <- 2
     pctsign <- "%"
+    GMRmain <- sprintf("%.4g%%", 100*x$plan[1,"theta0"])
   }   else {
     fact    <- 1
     ylabtxt <- "power"
     dec     <- 4
     pctsign <- ""
+    GMRmain <- sprintf("%.4g", x$plan[1,"theta0"])
   }
 
   n <- nrow(x$paCV)
@@ -134,7 +136,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   if (x$method == "ABE") {
     plot(CVs, pwr, type="n",
          main=paste0("Higher variability\n",
-                     "constant: ", ratiolabel, " = ", GMR, ", N = ", n.est),
+                     "constant: ", ratiolabel, " = ", GMRmain, ", N = ", n.est),
          lwd=2, xlab=xlabtxt, ylab="", las=1)
     mtext(side=2, ylabtxt, line=2.5)
     box()
@@ -150,7 +152,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     # any scABE (including RSABE NTID)
     plot(CVs, pwr, type="n",
          main=paste0("Lower/higher variability\n",
-                     "constant: ", ratiolabel, " = ", GMR, ", N = ", n.est),
+                     "constant: ", ratiolabel, " = ", GMRmain, ", N = ", n.est),
          lwd=2, xlab=xlabtxt, ylab="", las=1)
     grid()
     abline(h=c(targetpower, 0.8*fact, minpower), lty=3)
@@ -237,7 +239,8 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   if(nNs<5 & nNs>1) xticks <- c(max(Ns), min(Ns), nNs-1)
   plot(Ns, pwr, type="n",
        main=paste0("Drop-outs\n",
-                   "constant: ", ratiolabel, " = ", GMR, ", CV = ", CV, pctsign),
+                   "constant: ", ratiolabel, " = ", GMRmain,
+                   ", CV = ", CV, pctsign),
        lwd=2, xlim=c(max(Ns), min(Ns)), ylim=c(minpower, pwr.est),
        xlab="N", xaxp=xticks,
        ylab="", las=1, cex.main=0.95)
