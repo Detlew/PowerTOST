@@ -138,7 +138,8 @@
   delta1[is.nan(delta1)] <- 0
   delta2[is.nan(delta2)] <- 0
   
-  pow <- pt(-tval, df, ncp=delta2)-pt(tval, df, ncp=delta1)
+  # suppress warnings with regard to insufficient precision of nct
+  pow <- suppressWarnings(pt(-tval, df, ncp=delta2)-pt(tval, df, ncp=delta1))
   pow[pow<0] <- 0 # this is to avoid neg. power due to approx. (vector form)
   
   return(pow)
