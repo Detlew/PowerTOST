@@ -81,7 +81,7 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
   # If details is not given, set default value depending on prior.type
   # TRUE for prior.type != "CV" as sample size search may take several sec.
   if (missing(details)) {
-    details <- if (prior.type == "CV") FALSE else TRUE
+    details <- if (prior.type != "both") FALSE else TRUE
   }
   # Check if design is implemented and eventually get its properties
   d.no <- .design.no(design)
@@ -204,7 +204,7 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
   if (pts <= targetpower)
     stop(paste0("Targetpower cannot be achieved because the expected power ",
                 "is bounded above by the probability of technical success (",
-                formatC(pts, digits = 6, format = "f"), "%).\n"), sep = "", 
+                formatC(pts, digits = 6, format = "f"), ").\n"), sep = "", 
          call. = FALSE)
   
   # Start printing the configuration

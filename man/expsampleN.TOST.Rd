@@ -101,7 +101,7 @@ If FALSE only a data.frame with the results will be returned.
   \item{details}{
 If TRUE the design characteristics and the steps during
 sample size calculations will be shown.\cr 
-If not specified, the default value is FALSE for \code{prior.type != "CV"}
+If not specified, the default value is FALSE for \code{prior.type != "both"}
 and TRUE otherwise.
   }
 }
@@ -110,9 +110,9 @@ The sample size is calculated based on iterative evaluation of expected power.
 
 The starting value of the sample size search is taken from a large sample 
 approximation if \code{prior.type = "CV"}. Else an empirical start value is
-obtained
+obtained.
 
-Note that in case of \code{prior.type != "CV"} the calculation may still take several seconds.
+Note that in case of \code{prior.type = "both"} the calculation may still take several seconds.
 
 Note also that the expected power is always bounded above by the so-called
 probability of technical success (PTS) which may be a value less than 1. 

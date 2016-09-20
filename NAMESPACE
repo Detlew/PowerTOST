@@ -11,7 +11,8 @@ importFrom(grDevices, colorRampPalette)
 importFrom(stats, dnorm, pnorm, qnorm, rnorm, dt, pt, qt, dchisq, qchisq, rchisq, 
            qf, uniroot, integrate, optim, binom.test)
 importFrom(utils, tail, head, read.table, flush.console)
-importFrom(pracma, quad2d)
+#importFrom(pracma, quad2d)
+importFrom(cubature, adaptIntegrate)
 
 # Export all names except those beginning with .
 # exportPattern("^[^\\.]")

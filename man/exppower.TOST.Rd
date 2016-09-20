@@ -133,7 +133,7 @@ of the posteriori distribution of (theta0, \eqn{\sigma^2}) from the prior
 trial.}
 \item{\code{both}}{The expectation is calculated with respect to the posteriori
 distribution of (theta0, \eqn{\sigma^2}) from the prior trial. Numerical calculation
-of the two-dimensional integral is performed via \code{pracma::quad2d}.}
+of the two-dimensional integral is performed via \code{cubature::adaptIntegrate}.}
 }
 }
 \value{
@@ -142,18 +142,18 @@ Value of expected power according to the input.
 \references{
 A.P. Grieve \cr 
 \emph{Confidence Intervals and Sample Sizes}\cr
-Biometrics 47, 1597-1603 December 1991 \cr
+Biometrics 47, 1597-1603 December 1991\cr
 \doi{10.2307/2532411}
 
 O'Hagan et al.\cr 
-\emph{Assurance in Clinical Trial Design}\cr 
+\emph{Assurance in Clinical Trial Design} \cr 
 Pharmaceut. Statist. 2005; 4: 187-201\cr
 \doi{10.1002/pst.175}
 
 S.A. Julious, R.J. Owen \cr 
 \emph{Sample size calculations for clinical studies allowing for 
 uncertainty in variance} \cr
-Pharmaceutical Statistics (2006), 5, 29-37\cr
+Pharmaceut. Statist. (2006), 5, 29-37\cr
 \doi{10.1002/pst.197}
 
 S.A. Julious \cr 
@@ -175,6 +175,10 @@ L. Held, D. Sabanes Bove \cr
 \emph{Applied Statistical Inference. Likelihood and Bayes}\cr 
 Springer, 2014\cr
 \doi{10.1007/978-3-642-37887-4}
+
+S. Senn \cr
+\emph{Cross-over Trials in Clinical Research}\cr
+Second edition, Wiley, Chichester 2002
 
 M.L. Zierhut et al.\cr
 \emph{Ignorance is not bliss: Statistical power is not probability of trial success}\cr
@@ -210,7 +214,7 @@ exppower.TOST(CV = 0.3, n = 40, prior.parm = list(df = Inf))
 # Expected power for a 2x2 crossover with 40 subjects
 # CV 30\% and theta0 = 0.95 known from a pilot 2x2 study with 12 subjects
 # using uncertainty with respect to both CV and theta0
-# should give [1] 0.5115295
+# should give [1] 0.5115417
 exppower.TOST(CV = 0.3, theta0 = 0.95, n = 40, 
               prior.parm = list(m = 12, design = "2x2"), prior.type = "both")
 }

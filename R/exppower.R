@@ -33,8 +33,7 @@
 # Author(s) B. Lang & D. Labes
 .exact.exppower.TOST <- function(alpha=0.05, ltheta1, ltheta2, ldiff, se,
                                  sefac_n, df_n, df_m, sem_m, prior.type,
-                                 pts = FALSE, cp_method = "exact") 
-{ 
+                                 pts = FALSE, cp_method = "exact") {
   # Infinite df_m should give expected power identical to conditional power   
   if (is.infinite(df_m) && !pts) {
     return(.calc.power(alpha, ltheta1, ltheta2, ldiff, sefac_n*se, df_n, 
@@ -54,7 +53,7 @@
     if (pts) 
       return(1)
     
-    f_t <- function(v) .calc.power(alpha, ltheta1, ltheta2, ldiff, 
+    p_t <- function(v) .calc.power(alpha, ltheta1, ltheta2, ldiff, 
                                    sefac_n*sqrt(v), df_n, cp_method)
     
     # Numerical integration from 0 to Inf is likely to result in wrong result
@@ -68,7 +67,7 @@
     lwr <- max(0, minvg - k*sqrt(vinvg))
     # Modify a bit: heavier tail to the right, use 2*k
     upr <- minvg + 2*k*sqrt(vinvg)
-    pwr <- integrate(function(v) f_t(v) * d_t(v), lwr, upr, rel.tol = 1e-05, 
+    pwr <- integrate(function(v) p_t(v) * d_t(v), lwr, upr, rel.tol = 1e-05, 
                      stop.on.error = FALSE)
     if (pwr$message != "OK")
       warning(pwr$message)
@@ -86,7 +85,7 @@
       dnorm(t, mean = ldiff, sd = se / sqrt(lambda))
       #dt_ls(t, df_m, ldiff, sem_m)  # non-standardized t-distr.
     }
-    f_v <- function(t) if (pts) 1 else 
+    p_v <- function(t) if (pts) 1 else 
       .calc.power(alpha, ltheta1, ltheta2, t, sefac_n*se, df_n, cp_method)
     
     s <- se / sqrt(lambda)
@@ -94,7 +93,7 @@
     # If PTS = TRUE need to integrate density from ltheta1 to ltheta2
     lwr <- if (pts) ltheta1 else ldiff - k*s
     upr <- if (pts) ltheta2 else ldiff + k*s
-    pwr <- integrate(function(t) f_v(t) * d_v(t), lwr, upr, rel.tol = 1e-05, 
+    pwr <- integrate(function(t) p_v(t) * d_v(t), lwr, upr, rel.tol = 1e-05, 
                      stop.on.error = FALSE)
     if (pwr$message != "OK") 
       warning(pwr$message)
@@ -104,13 +103,6 @@
     # Use 2-dimensional posterior density
     # See e.g. Held and Sabanes Bove Example 6.26 for density and parameters
     lambda <- (se / sem_m)^2
-    d_ <- function(v, t) {
-      dninvgamma(m = t, v = v, mu = ldiff, lambda = lambda, 
-                 alpha = df_m/2, beta = df_m/2 * se^2)
-    }
-    f_ <- function(v, t) if (pts) 1 else
-      .calc.power(alpha, ltheta1, ltheta2, t, sefac_n*sqrt(v), df_n, cp_method)
-    
     k <- 10
     minvg <- (df_m/2 * se^2) / (df_m/2 - 1)
     vinvg <- (df_m/2 * se^2)^2/(df_m/2 - 1)^2/(df_m/2 - 2)
@@ -119,27 +111,18 @@
     s <- se / sqrt(lambda)
     lwr2 <- if (pts) ltheta1 else ldiff - (k/2)*s
     upr2 <- if (pts) ltheta2 else ldiff + (k/2)*s
-    # Perform 2D-integration using pracma package functions
-    pwr <- pracma::quad2d(function(v, t) f_(v, t) * d_(v, t), lwr1, upr1,
-                          lwr2, upr2, n = 50)
-    # pwr <- pracma::integral2(function(v, t) f_(v, t) * d_(v, t), lwr1, upr1,
-    #                          lwr2, upr2)$Q
-    # pwr <- pracma::dblquad(f=function(v, t) f_(v, t) * d_(v, t), xa=lwr1, xb=upr1,
-    #                        ya=lwr2, yb=upr2)
-    
-    # For use of adaptIntegrate() the integrands we have to be re-formulated 
-    # v and t to be a vector
-    # d_ <- function(x) {
-    #              dninvgamma(m = x[2], v = x[1], mu = ldiff, lambda = lambda,
-    #              alpha = df_m/2, beta = df_m/2 * se^2)
-    # }
-    # f_ <- function(x) if (pts) 1 else
-    #     .calc.power(alpha, ltheta1, ltheta2, x[2], sefac_n*sqrt(x[1]), df_n, cp_method)
-    # pwr <- cubature::adaptIntegrate(function(x) f_(x) * d_(x),
-    #                                 lowerLimit = c(lwr1, lwr2),
-    #                                 upperLimit = c(upr1, upr2), tol=1e-4)$integral
-    # 
-    # return(pwr)
+    # Perform 2D-integration using cubature package function
+    d_ <- function(x) {  # x 2-dimensional, x[1] = variance, x[2] = trt diff
+      dninvgamma(m = x[2], v = x[1], mu = ldiff, lambda = lambda,
+                 alpha = df_m/2, beta = df_m/2 * se^2)
+    }
+    p_ <- function(x) if (pts) 1 else
+      .calc.power(alpha, ltheta1, ltheta2, x[2], sefac_n*sqrt(x[1]), df_n, cp_method)
+    pwr <- cubature::adaptIntegrate(function(x) p_(x) * d_(x), 
+                                    lowerLimit = c(lwr1, lwr2),
+                                    upperLimit = c(upr1, upr2), 
+                                    tol = 1e-4)$integral
+    return(pwr)
   } else {
     return(NA)
   }
@@ -273,9 +256,8 @@ exppower.TOST <- function(alpha = 0.05, logscale = TRUE, theta0, theta1, theta2,
   }
   
   # Call working horse
-  pwr <- .exppower.TOST(alpha = alpha, ltheta1 = ltheta1, ltheta2 = ltheta2, 
+  .exppower.TOST(alpha = alpha, ltheta1 = ltheta1, ltheta2 = ltheta2, 
                  ldiff = ldiff, se = se, sefac_n = ds_n$sefac, df_n = ds_n$df, 
                  df_m = df_m, sem_m = sem_m, method = method, 
                  prior.type = prior.type, pts = FALSE, cp_method = "exact")
-  pwr
 }
