@@ -4,7 +4,7 @@
 # Owen's Q-function 
 # a, b must be a scalar numeric
 # nu, t and delta also, no vectors allowed
-OwensQ <- function (nu, t, delta, a, b)
+OwensQ_old <- function (nu, t, delta, a, b)
 {
   if(missing(a)) a <- 0
   
