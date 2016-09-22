@@ -3,7 +3,7 @@ Type: Package
 Title: Power and Sample Size Based on Two One-Sided t-Tests (TOST) for
        (Bio)Equivalence Studies
 Version: 1.4.2.9000
-Date: 2016-09-21
+Date: 2016-09-22
 Authors@R: c(person("Detlew", "Labes", role = c("aut","cre"), email =
                     "DetlewLabes@gmx.de"),
              person("Helmut", "Schuetz", role = c("aut"), email =

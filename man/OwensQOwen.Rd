@@ -35,9 +35,7 @@ D. Labes
 }
 \note{
 This function is mainly for comparative / validation purposes.\cr
-It is used in \code{OwensQ()} in case of high nu and/or high upper integration 
-limit where the implementation via R's function \code{integrate()} may fail.
-The implementation needs \code{OwensT()} function.
+The function needs \code{OwensT()} function.
 }
 
 \seealso{

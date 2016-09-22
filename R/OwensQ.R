@@ -21,7 +21,7 @@ OwensQ <- function (nu, t, delta, a=0, b)
   # for that case see:
   # A bivariate noncentral T-distibution with applications
   # Youn Min Chou
-  # Communications in Statistics - Theory and Methods, 21:12, 3427-3462, 
+  # Communications in Statistics - Theory and Methods, 21:12, 3427-3462, 1992
   # DOI: 10.1080/03610929208830988
   # There are sometimes warnings regarding precision of nct, suppress them?
   if(a==0 && is.infinite(b)) return(suppressWarnings(pt(t, df=nu, ncp=delta)))
