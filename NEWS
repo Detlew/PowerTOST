@@ -1,3 +1,5 @@
+      - Deprecated functions power.scABEL2() and sampleN.scABEL2() now removed.
+        regulator = "ANVISA" no longer allowed in the scaled ABEL functions.
       - Functions for expected power and sample size based on expected power 
         reworked to deal also with uncertainty of theta0 or dealing with both
         uncertainties of CV and theta0. Contributed by Benjamin Lang.

@@ -1,22 +1,17 @@
 \encoding{utf-8}
 \name{power.scABEL}
 \alias{power.scABEL}
-\alias{power.scABEL2}
 \title{
 (Empirical) Power of BE decision via scaled (widened) BE acceptance limits
 }
 \description{
-These functions performs the power calculation of the BE decision via 
+These function performs the power calculation of the BE decision via 
 scaled (widened) BE acceptance limits by simulations.
 }
 \usage{
 power.scABEL(alpha = 0.05, theta1, theta2, theta0, CV, n, 
              design = c("2x3x3", "2x2x4", "2x2x3"), regulator, 
              nsims = 1e+05, details = FALSE, setseed = TRUE)
-
-power.scABEL2(alpha = 0.05, theta1, theta2, theta0, CV, n, 
-              design = c("2x3x3", "2x2x4", "2x2x3"), regulator, 
-              nsims = 1e+05, details = FALSE, setseed = TRUE)
 }
 \arguments{
   \item{alpha}{
@@ -67,10 +62,8 @@ May be given as character from the choices "EMA", "HC" "FDA" or as an object of
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr\cr
-The former \code{regulator="ANVISA"} is also allowed but is internally changed 
-to "EMA" since ANVISA now recommends the use of EMA regulatory settings. 
-Don't use "ANVISA" any longer since it will be removed in next versions.
-A corresponding message informs about this.
+The former \code{regulator="ANVISA"} is no longer allowed. Use "EMA" since 
+ANVISA now recommends the use of EMA regulatory settings. 
 }
   \item{nsims}{
 Number of simulations to be performed to obtain the empirical power.
@@ -117,10 +110,7 @@ evaluation via ANOVA if \code{regulator="EMA"} or if the regulator component
 \code{est_method} is set to "ANOVA" if regulator is an object of class 'regSet'.\cr
 Otherwise the simulations are based on the distributional characteristis of the 
 'key' statistics obtained from evaluation via intra-subject contrasts (ISC), 
-as recommended by the FDA.\cr\cr
-Function \code{power.scABEL2()} is soleyly based on simulation using the 
-distributional characteristics of the 'key' statistics obtained from evaluation 
-via ISC. This function is deprecated.
+as recommended by the FDA.
 }
 \value{
 Returns the value of the (empirical) power if argument \code{details=FALSE}.\cr\cr
@@ -158,9 +148,7 @@ subject data simulation have shown somewhat unsatisfactory results for the
 2x3x3 design if the variabilities for Test and Reference are different.\cr
 The function \code{power.scABEL()} therefore gives a warning if calculations 
 with different CVwT and CVwR are requested for the 2x3x3 partial replicate design.
-For more details see the above mentioned document "Implementation_scaledABE_simsVy.xx.pdf"\cr\cr 
-\code{power.scABEL2()} is deprecated and will be removed in future. A corresponding
-warning is thrown if this function is used.
+For more details see the above mentioned document "Implementation_scaledABE_simsVy.xx.pdf".
 }
 \seealso{
 \code{\link{sampleN.scABEL}, \link{power.RSABE}, \link{reg_const}}

@@ -1,7 +1,6 @@
 \encoding{utf-8}
 \name{sampleN.scABEL}
 \alias{sampleN.scABEL}
-\alias{sampleN.scABEL2}
 \title{
 Sample size estimation for BE decision via scaled (widened) BE acceptance limits
 }
@@ -13,10 +12,6 @@ BE decision via scaled (widened) BE acceptance limits, based on simulations.
 sampleN.scABEL(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, CV, 
                design = c("2x3x3", "2x2x4", "2x2x3"), regulator, nsims = 1e+05, 
                nstart, imax=100, print = TRUE, details = TRUE, setseed = TRUE)
-               
-sampleN.scABEL2(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, CV, 
-                design = c("2x3x3", "2x2x4", "2x2x3"), regulator, nsims = 1e+05, 
-                nstart, imax=100, print = TRUE, details = TRUE, setseed = TRUE)
 }
 \arguments{
   \item{alpha}{
@@ -60,10 +55,8 @@ May be given as character from the choices "EMA", "HC" "FDA" or as an object of
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr\cr
-The former \code{regulator="ANVISA"} is also allowed but is internally changed 
-to "EMA" since ANVISA now recommends the use of EMA regulatory settings. 
-Don't use "ANVISA" any longer since it will be removed in next versions.
-A corresponding message informs about this.
+The former \code{regulator="ANVISA"} is no longer allowed. Use "EMA" since 
+ANVISA now recommends the use of EMA regulatory settings. 
 }
   \item{nsims}{
 Number of simulations to be performed to obtain the (empirical) power.
