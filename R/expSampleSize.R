@@ -201,6 +201,7 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
   pts <- suppressWarnings(.exppower.TOST(alpha, ltheta1, ltheta2, diffm, se, 
                                          sqrt(bk/nmin), df, df_m, sem_m, 
                                          method, prior.type, pts = TRUE))
+  if (pts > 1) pts <- 1  # numerical inaccuarcy
   if (pts <= targetpower)
     stop(paste0("Targetpower cannot be achieved because the expected power ",
                 "is bounded above by the probability of technical success (",
@@ -278,7 +279,7 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
     cat("\nSample size search (ntotal)\n")
     cat(" n   exp. power\n")
   }
-
+ 
   # Next steps
   #
   # Use for Step 1 and Step 2
@@ -291,7 +292,7 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
       cat(n, " ", formatC(pow, digits = 6, format = "f"), "\n")
     pow - targetpower
   }
-  
+
   # Step 1: Use approximate conditional power function for calculation
   #         of expected power to get an approximate and fast answer for the
   #         required sample size.
@@ -339,17 +340,16 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
           # Since the function pdiff_n is monotone increasing we can conclude
           # that the required sample size must be greater than 1e+07
           return("n>1e7")
+        } else if (!step.up && grepl(pattern = "not of opposite sign", x = e)) {
+          return(nmin)
         } else {
           message("Sample size search ended with an error:")
           message(e)
           return(NA)
         }
       })
-    if (all(!is.na(n)) && n != "n>1e7") {
-      pow <- n$f.root + targetpower  # pdiff_n() substracts targetpower
-      iter <- n$iter
+    if (is.list(n))
       n <- n$root
-    }
   }
   
   # Step 2: Do the final search steps with exact conditional power
@@ -380,16 +380,30 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
                      step.power = step.pwr, step.up = step.up, pos.side = TRUE,
                      cp_method = "exact")
         }, error = function(e) {
-          message("Sample size search ended with an error:")
-          message(e)
-          return(NA)
+          if (!step.up && grepl(pattern = "not of opposite sign", x = e)) {
+            # Already nmin gives power > targetpower, return this value
+            return(nmin)
+          } else {
+            message("Sample size search ended with an error:")
+            message(e)
+            return(NA)
+          }
         })
       if (all(!is.na(n))) {
-        pow <- n$f.root + targetpower  # pdiff_n() substracts targetpower
-        iter <- n$iter
-        n <- n$root
+        if (is.list(n)) {
+          pow <- n$f.root + targetpower  # pdiff_n() substracts targetpower
+          iter <- n$iter
+          n <- n$root
+        } else {
+          # This means we have the other case where nmin was returned
+          pow <- suppressWarnings(.exppower.TOST(alpha, ltheta1, ltheta2, diffm, 
+                                                 se, sqrt(bk/n), eval(dfe), df_m,
+                                                 sem_m, method, prior.type, FALSE, 
+                                                 "exact"))
+          iter <- NA  # not known/applicable
+        }
       }
-    } else {  # should not end up here, but for safety reasons...
+    } else {
       # else we have already the result n=nmin
       # print the first step n=nmin
       if (details) cat(n, " ", formatC(pow, digits = 6, format = "f"), "\n")
