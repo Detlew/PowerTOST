@@ -16,13 +16,11 @@ Coefficient of variation (of the Reference) as ratio.
 }
   \item{regulator}{
 Regulatory body settings for the widening of the BE acceptance limits.\cr
-May be given as character from the choices "EMA", "HC" "FDA" or as an object of
+May be given as character from the choices "EMA", "HC", "FDA" or as an object of
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr\cr
-The former \code{regulator="ANVISA"} is also allowed but is internally changed 
-to "EMA" since ANVISA now recommends the use of EMA regulatory settings. 
-Don't use "ANVISA" any longer since it will be removed in next versions.
-A corresponding message informs about this.\cr\cr
+The former \code{regulator="ANVISA"} is no longer allowed. Use "EMA" since ANVISA 
+now recommends the use of EMA regulatory settings.\cr\cr
 The former \code{regulator="USER"} is no longer accepted but can be handled now
 via function \code{reg_const()} to define an object with class 'regSet'.
 }
@@ -50,10 +48,6 @@ See \url{http://www.hc-sc.gc.ca/dhp-mps/prodpharma/activit/announce-annonce/noti
 
 }
 \note{
-The former (inofficial) regulatory settings for \code{regulator="ANVISA"} are now
-covered by \code{regulator="EMA"}. See \url{http://forum.bebac.at/mix_entry.php?id=16291}.
-A corresponding message is thrown. Do not use \code{regulator="ANVISA"} any 
-longer since it will be deprecated in next versions. \cr\cr
 The scaled acceptance limits are not used directly in the BE evaluation 
 for highly variable drugs recommended by the FDA. They are included here
 for comparative purposes. Moreover there are controversies where to locate the 
@@ -61,16 +55,16 @@ for comparative purposes. Moreover there are controversies where to locate the
 }
 \references{
 Davit et al.\cr
-"Implementation of a Reference-Scaled Average Bioequivalence Approach for \cr
+"Implementation of a Reference-Scaled Average Bioequivalence Approach for 
 Highly Variable Generic Drug Products by the US Food and Drug Administration"\cr
-AAPS Journal, Vol. 14, No. 4, December 2012
+AAPS Journal, 2012 Dec, 14(4) pp915-24. Epub 2012 Sep 13\cr
+\doi{10.1208/s12248-012-9406-x}
 }
 \author{
 D. Labes
 }
 \seealso{
-\code{\link{power.scABEL}, \link{sampleN.scABEL},  \link{power.scABEL2}, 
-      \link{sampleN.scABEL2}, \link{reg_const}}
+\code{\link{power.scABEL}, \link{sampleN.scABEL}, \link{reg_const}}
 }
 \examples{
 scABEL(CV=0.3, regulator="EMA")
@@ -82,8 +76,9 @@ scABEL(CV=0.4, regulator="EMA")
 #   lower     upper
 # 0.746177 1.340165
 #
-# define old ANVISA settings
+# define old ANVISA settings via reg_const()
 rc <- reg_const("USER", r_const=0.76, CVswitch=0.4, CVcap=0.5)
+rc$name <- "ANVISAold"
 scABEL(CV=0.4, regulator=rc)
 # should give the not widened limits:
 # lower upper 

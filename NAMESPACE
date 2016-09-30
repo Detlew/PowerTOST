@@ -50,7 +50,6 @@ export(
   , power.HVNTID
   , power.RSABE
   , power.scABEL
-  , power.scABEL2
   , power.dp
   , pvalue.TOST
   , pvalues.TOST
@@ -63,7 +62,6 @@ export(
   , sampleN.HVNTID
   , sampleN.RSABE
   , sampleN.scABEL
-  , sampleN.scABEL2
   , sampleN.scABEL.ad
   , sampleN.dp
   , scABEL

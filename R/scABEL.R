@@ -51,16 +51,11 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
 # returns the regulatory settings as an object of class 'regSet'
 # regulator may be a character string or an object of class 'regSet'
 # ---------------------------------------------------------------------------
-reg_check <- function(regulator, choices=c("EMA", "HC", "FDA", "ANVISA"))
+reg_check <- function(regulator, choices=c("EMA", "HC", "FDA"))
 {
   if (class(regulator)=="character"){
     reg <- toupper(regulator)
     reg <- match.arg(reg, choices)
-    if (reg=="ANVISA"){
-      message("Former (inofficial) ANVISA regulatory settings changed to EMA settings.")
-      message("Don't use 'ANVISA' any longer since it will be removed in next versions.\n")
-      reg <- "EMA"
-    }
     reg <- reg_const(reg)
   } else if (class(regulator)=="regSet") {
     reg <- regulator

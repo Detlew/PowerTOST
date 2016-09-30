@@ -142,19 +142,19 @@ Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs\cr
 J Pharm Pharmaceut Sci. 2011;15(1):73-84. \href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
 
 Wonnemann, M., \enc{Frömke}{Froemke}, C., Koch, A.\cr
-Inflation of the Type I Error: Investigations on Regulatory Recommendations for 
+Inflation of the Type I Error: Investigations on Regulatory Recommendations for
 Bioequivalence of Highly Variable Drugs\cr
-Pharm Res. 2015;32(1):135-43. \href{http://dx.doi.org/10.1007/s11095-014-1450-z}{doi 10.1007/s11095-014-1450-z}
+Pharm Res. 2015;32(1):135-43. \doi{10.1007/s11095-014-1450-z}
 
-\enc{Muñoz}{Munoz} J., Alcaide D., \enc{Ocaña}{Ocana} J.\cr 
+\enc{Muñoz}{Munoz} J., Alcaide D., \enc{Ocaña}{Ocana} J.\cr
 Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence
 in highly variable drugs\cr
-Stat Med. 2016;35(12):1933-43. \href{http://dx.doi.org/10.1002/sim.6834}{doi 10.1002/sim.6834}
+Stat Med. 2015;35(12):1933-43. \doi{10.1002/sim.6834}
 
 Labes, D., \enc{Schütz}{Schuetz}, H.\cr
 Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, 
 and a Method for its Control\cr
-submitted to Pharm. Res. 2016
+Pharm. Res. 2016 Aug 1. [Epub ahead of print] \doi{10.1007/s11095-016-2006-1}
 }
 \author{
 H. \enc{Schütz}{Schuetz}
