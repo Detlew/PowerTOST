@@ -214,7 +214,7 @@ exppower.TOST(CV = 0.3, n = 40, prior.parm = list(df = Inf))
 # Expected power for a 2x2 crossover with 40 subjects
 # CV 30\% and theta0 = 0.95 known from a pilot 2x2 study with 12 subjects
 # using uncertainty with respect to both CV and theta0
-# should give [1] 0.5115417
+# should give [1] 0.5114685
 exppower.TOST(CV = 0.3, theta0 = 0.95, n = 40, 
               prior.parm = list(m = 12, design = "2x2"), prior.type = "both")
 }

@@ -278,12 +278,11 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
     cat("\nSample size search (ntotal)\n")
     cat(" n   exp. power\n")
   }
- 
-  # Step 1: Use approximate conditional power function for calculation
-  #         of expected power to get an approximate and fast answer for the
-  #         required sample size
+
+  # Next steps
   #
-  # Define sample size search function of which a root should be found
+  # Use for Step 1 and Step 2
+  # - Define sample size search function of which a root should be found
   pdiff_n <- function(n, cp_method = "exact") {
     pow <- suppressWarnings(.exppower.TOST(alpha, ltheta1, ltheta2, diffm, se,
                                            sqrt(bk/n), eval(dfe), df_m, sem_m, 
@@ -292,7 +291,11 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
       cat(n, " ", formatC(pow, digits = 6, format = "f"), "\n")
     pow - targetpower
   }
-
+  
+  # Step 1: Use approximate conditional power function for calculation
+  #         of expected power to get an approximate and fast answer for the
+  #         required sample size.
+  #
   # Calculate power at n0
   #   if pow > targetpower then use c(nmin, n0) as search interval
   #   if pow <= targetpower then use c(n0, 1e+07) as search interval
@@ -307,9 +310,10 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
     search_int <- c(nmin, n0)
     step.up <- FALSE
   }
-  # Modify step size for integer search using uniroot.step()
-  # If uncertainty is higher n0 not that close, need higher step size
-  # Otherwise smaller step size suffices
+  
+  # - Modify step size for integer search using uniroot.step() (see below)
+  # - If uncertainty is higher n0 not that close, need higher step size
+  #   Otherwise smaller step size suffices
   step.pwr <- 2
   if (prior.type != "CV") {
     step.pwr <- if (sem_m <= 0.05) 2 else if (sem_m > 0.05 && sem_m <= 0.1) 4 else 7
@@ -331,61 +335,69 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
                    step.power = step.pwr, step.up = step.up, pos.side = TRUE,
                    cp_method = "nct")
       }, error = function(e) {
-        message("Sample size search ended with an error:")
-        message(e)
-        return(NA)
+        if (step.up && grepl(pattern = "not of opposite sign", x = e)) {
+          # Since the function pdiff_n is monotone increasing we can conclude
+          # that the required sample size must be greater than 1e+07
+          return("n>1e7")
+        } else {
+          message("Sample size search ended with an error:")
+          message(e)
+          return(NA)
+        }
       })
-    if (all(!is.na(n))) {
+    if (all(!is.na(n)) && n != "n>1e7") {
       pow <- n$f.root + targetpower  # pdiff_n() substracts targetpower
       iter <- n$iter
       n <- n$root
     }
   }
-    
+  
   # Step 2: Do the final search steps with exact conditional power
   #         using n from Step 1 as starting value
   # Calculate power at n with cp_method = "exact"
   #   if pow > targetpower then use c(nmin, n) as search interval
   #   if pow <= targetpower then use c(n, 1e+07) as search interval
-  pow <- suppressWarnings(.exppower.TOST(alpha, ltheta1, ltheta2, diffm, se, 
-                                         sqrt(bk/n), eval(dfe), df_m, sem_m, 
-                                         method, prior.type, FALSE, "exact"))
-  if (pow <= targetpower) {
-    search_int <- c(n, 1e+07)
-    step.up <- TRUE
-  } else {
-    search_int <- c(nmin, n)
-    step.up <- FALSE
-  }
-  # We should be very close now
-  step.pwr <- 1
-
-  # Find sample size using cp_method = "exact"
-  iter <- 1
-  if (search_int[1] != search_int[2]) {
-    if (details) cat("Final search:\n")
-    n <- tryCatch({ 
-      uniroot.step(f = pdiff_n, interval = search_int, step = steps, 
-                   step.power = step.pwr, step.up = step.up, pos.side = TRUE,
-                   cp_method = "exact")
-      }, error = function(e) {
-        message("Sample size search ended with an error:")
-        message(e)
-        return(NA)
-      })
-    if (all(!is.na(n))) {
-      pow <- n$f.root + targetpower  # pdiff_n() substracts targetpower
-      iter <- n$iter
-      n <- n$root
+  if (all(!is.na(n)) && n != "n>1e7") {
+    pow <- suppressWarnings(.exppower.TOST(alpha, ltheta1, ltheta2, diffm, se, 
+                                           sqrt(bk/n), eval(dfe), df_m, sem_m, 
+                                           method, prior.type, FALSE, "exact"))
+    if (pow <= targetpower) {
+      search_int <- c(n, 1e+07)
+      step.up <- TRUE
+    } else {
+      search_int <- c(nmin, n)
+      step.up <- FALSE
     }
-  } else {  # should not end up here, but for safety reasons...
-    # else we have already the result n=nmin
-    # print the first step n=nmin
-    if (details) cat(n, " ", formatC(pow, digits = 6, format = "f"), "\n")
+    # We should be very close now
+    step.pwr <- 1
+  
+    # Find sample size using cp_method = "exact"
+    iter <- 1
+    if (search_int[1] != search_int[2]) {
+      if (details) cat("Final search:\n")
+      n <- tryCatch({ 
+        uniroot.step(f = pdiff_n, interval = search_int, step = steps, 
+                     step.power = step.pwr, step.up = step.up, pos.side = TRUE,
+                     cp_method = "exact")
+        }, error = function(e) {
+          message("Sample size search ended with an error:")
+          message(e)
+          return(NA)
+        })
+      if (all(!is.na(n))) {
+        pow <- n$f.root + targetpower  # pdiff_n() substracts targetpower
+        iter <- n$iter
+        n <- n$root
+      }
+    } else {  # should not end up here, but for safety reasons...
+      # else we have already the result n=nmin
+      # print the first step n=nmin
+      if (details) cat(n, " ", formatC(pow, digits = 6, format = "f"), "\n")
+    }
   }
 
   # Store result and print details about it
-  if (!is.na(n)) {
+  if (!is.na(n) && n != "n>1e7") {
     if (print && !details) {
       cat("\nSample size (ntotal)\n")
       cat(" n   exp. power\n")
@@ -410,7 +422,9 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
     if (print) cat("\n")
   } else {
     cat("\nSample size search failed!\n")
-    pow <- NA  # n is already NA
+    if (n == "n>1e7")
+      cat("Required sample size is greater than 1e+07\n")
+    pow <- NA
   }
   
   # Return results as data frame

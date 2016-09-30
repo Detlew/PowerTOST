@@ -1,13 +1,12 @@
-      - Functions for expected power and sample size based on expected power 
-        reworked to deal also with uncertainty of theta0 or dealing with both
-        uncertainties of CV and theta0. Contributed by Benjamin Lang.
+      - Functions for expected power of the TOST procedure and sample size based 
+        on expected power reworked to deal also with uncertainty of theta0 or 
+        dealing with both uncertainties of CV and theta0. 
+        Contributed mainly by Benjamin Lang.
       - OwensQ() simpler/faster implemented. Now based soleyly on numerical
         integrataion in combination with non-central t.
-      - Owen's T-function, used in OwensQOwen() and in turn in power.TOST() 
-        now based on algorithm AS76 and remarks to that algorithm to 
-        avoid numerical errors of the implementation via integrate(). 
-        These errors lead to irregular behavior in the reworked expsampleN.TOST() 
-        in certain cases.
+      - Owen's T-function, used in OwensQOwen() now based on algorithm AS76 and 
+        remarks to that algorithm to avoid numerical errors of the implementation 
+        via integrate(). 
       - Data.frame ct9.6.6 in data("data2x2x3") added which was missing a long
         time ago.
       - Little inconsistency resolved (by Helmut) in output of power analysis 

@@ -57,18 +57,14 @@
                                    sefac_n*sqrt(v), df_n, cp_method)
     
     # Numerical integration from 0 to Inf is likely to result in wrong result
-    # because the function d_v (and thus f_v*d_v as well) will be zero over 
-    # nearly all its range. Apply Chebyshev's inequality with k=10 to avoid this
-    k <- 10
-    # Mean of inverse gamma with alpha=dfCV/2, beta=se^2*dfCV/2
-    minvg <- (df_m/2 * se^2) / (df_m/2 - 1)
-    # Variance of inverse gamma
-    vinvg <- (df_m/2 * se^2)^2/(df_m/2 - 1)^2/(df_m/2 - 2)
-    lwr <- max(0, minvg - k*sqrt(vinvg))
-    # Modify a bit: heavier tail to the right, use 2*k
-    upr <- minvg + 2*k*sqrt(vinvg)
-    pwr <- integrate(function(v) p_t(v) * d_t(v), lwr, upr, rel.tol = 1e-05, 
-                     stop.on.error = FALSE)
+    # because the function d_t (and thus p_t*d_t as well) will be zero over 
+    # nearly all its range. To avoid numerical difficulties arising by this,
+    # we perform a change of variables: map (0, Inf) to (0, 1),
+    # see http://ab-initio.mit.edu/wiki/index.php/Cubature
+    i_fun <- function(x) {
+      p_t(x/(1 - x)) * d_t(x/(1 - x))/(1 - x)^2
+    }
+    pwr <- integrate(i_fun, 0, 1, rel.tol = 1e-05, stop.on.error = FALSE)
     if (pwr$message != "OK")
       warning(pwr$message)
     return(pwr$value)
@@ -79,22 +75,27 @@
     # See e.g. Held and Sabanes Bove (6.23) and Example 6.25
     # NB: We do not use the marginal distribution/density of theta0 (i.e. the
     # non-standardized t-distribution)
+    
     # Define lambda parameter, follows from (6.28) & (6.30) Held + Bove
     lambda <- (se / sem_m)^2  # No missing data => lambda = 1 / sefac_m^2
     d_v <- function(t) {
       dnorm(t, mean = ldiff, sd = se / sqrt(lambda))
       #dt_ls(t, df_m, ldiff, sem_m)  # non-standardized t-distr.
     }
-    p_v <- function(t) if (pts) 1 else 
-      .calc.power(alpha, ltheta1, ltheta2, t, sefac_n*se, df_n, cp_method)
+    p_v <- function(t) .calc.power(alpha, ltheta1, ltheta2, t, sefac_n*se, 
+                                   df_n, cp_method)
     
-    s <- se / sqrt(lambda)
-    k <- 5
-    # If PTS = TRUE need to integrate density from ltheta1 to ltheta2
-    lwr <- if (pts) ltheta1 else ldiff - k*s
-    upr <- if (pts) ltheta2 else ldiff + k*s
-    pwr <- integrate(function(t) p_v(t) * d_v(t), lwr, upr, rel.tol = 1e-05, 
-                     stop.on.error = FALSE)
+    # If pts = TRUE need to integrate density d_v from ltheta1 to ltheta2
+    # else we have to integrate p_v*d_v from -Inf to Inf. The latter will be
+    # handled via change of variables so that it will be mapped to -1 to 1,
+    # see http://ab-initio.mit.edu/wiki/index.php/Cubature
+    i_fun <- function(x) {
+      if (pts) 1 * d_v(x) else
+        p_v(x/(1 - x^2)) * d_v(x/(1 - x^2))*(1 + x^2)/(1 - x^2)^2
+    }
+    lwr <- if (pts) ltheta1 else -1
+    upr <- if (pts) ltheta2 else 1
+    pwr <- integrate(i_fun, lwr, upr, rel.tol = 1e-05, stop.on.error = FALSE)
     if (pwr$message != "OK") 
       warning(pwr$message)
     return(pwr$value)
@@ -103,26 +104,30 @@
     # Use 2-dimensional posterior density
     # See e.g. Held and Sabanes Bove Example 6.26 for density and parameters
     lambda <- (se / sem_m)^2
-    k <- 10
-    minvg <- (df_m/2 * se^2) / (df_m/2 - 1)
-    vinvg <- (df_m/2 * se^2)^2/(df_m/2 - 1)^2/(df_m/2 - 2)
-    lwr1 <- if (pts) 0 else max(0, minvg - k*sqrt(vinvg))
-    upr1 <- minvg + 2*k*sqrt(vinvg)
-    s <- se / sqrt(lambda)
-    lwr2 <- if (pts) ltheta1 else ldiff - (k/2)*s
-    upr2 <- if (pts) ltheta2 else ldiff + (k/2)*s
-    # Perform 2D-integration using cubature package function
-    d_ <- function(x) {  # x 2-dimensional, x[1] = variance, x[2] = trt diff
-      dninvgamma(m = x[2], v = x[1], mu = ldiff, lambda = lambda,
-                 alpha = df_m/2, beta = df_m/2 * se^2)
+    g <- function(x) x / (1 - x)
+    h <- function(x) x / (1 - x^2)
+    i_fun <- function(x) {
+      # 2-dimensional integration / change of variables
+      if (pts) {
+        # Need only to integrate densitiy
+        # - from 0 to Inf wrt variance variable (again, map (0, Inf) to (0, 1))
+        # - from ltheta1 to ltheta2 wrt trt diff variable (no re-mapping)
+        return(dninvgamma(m = x[2], v = g(x[1]), mu = ldiff, lambda = lambda, 
+                          alpha = df_m/2, beta = df_m/2 * se^2) *
+                 abs(1/(1 - x[1])^2))
+      } else {
+        dninvgamma(m = h(x[2]), v = g(x[1]), mu = ldiff, lambda = lambda, 
+                   alpha = df_m/2, beta = df_m/2 * se^2) * 
+          .calc.power(alpha, ltheta1, ltheta2, h(x[2]), sefac_n*sqrt(g(x[1])), 
+                      df_n, cp_method) * 
+          abs(1/(1 - x[1])^2*(1 + x[2]^2)/(1 - x[2]^2)^2)
+      }
     }
-    p_ <- function(x) if (pts) 1 else
-      .calc.power(alpha, ltheta1, ltheta2, x[2], sefac_n*sqrt(x[1]), df_n, cp_method)
-    pwr <- cubature::adaptIntegrate(function(x) p_(x) * d_(x), 
-                                    lowerLimit = c(lwr1, lwr2),
-                                    upperLimit = c(upr1, upr2), 
-                                    tol = 1e-4)$integral
-    return(pwr)
+    lwr2 <- if (pts) ltheta1 else -1
+    upr2 <- if (pts) ltheta2 else 1
+    pwr <- cubature::adaptIntegrate(i_fun, lowerLimit = c(0, lwr2), 
+                                    upperLimit = c(1, upr2), tol=1e-04)
+    return(pwr$integral)
   } else {
     return(NA)
   }
