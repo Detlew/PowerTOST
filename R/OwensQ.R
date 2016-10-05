@@ -8,6 +8,7 @@
 # and using the fact that Integral(0,b)+Integral(b,Inf) gives p(nct)
 OwensQ <- function (nu, t, delta, a=0, b)
 {
+  if (missing(b)) stop("Upper integration limit missing.")
   if (a!=0) stop("Only a==0 implemented.")
   
   if (length(nu)>1 | length(t)>1 | length(delta)>1 | length(a)>1 | length(b)>1) 
@@ -27,6 +28,12 @@ OwensQ <- function (nu, t, delta, a=0, b)
   if(a==0 && is.infinite(b)) return(suppressWarnings(pt(t, df=nu, ncp=delta)))
   # should also work for sufficient high b, but what is sufficient?
   if(a==0 && b>150) return(suppressWarnings(pt(t, df=nu, ncp=delta)))
+  
+  # in case of abs(delta)>37.62 the non-central t is evaluated via a crude
+  # approximation which can be rather poor for small nu
+  # then we return OwensQOwen() but for speed reasons only for small nu
+  # what is small is more or less arbitrary
+  if(nu<101 && abs(delta)>37.62) return(OwensQOwen(nu, t, delta, 0, b))
   
   # we calculate Owen's Q via
   # pt(t, df=nu, ncp=delta) - Integral(b,Inf)
