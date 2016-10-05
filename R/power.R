@@ -87,6 +87,7 @@
     p1[i] <- OwensQ(ddf,  ttt, delta1[i], 0, R[i])
     p2[i] <- OwensQ(ddf, -ttt, delta2[i], 0, R[i])
   }
+
   pow <- p2-p1
   # due to numeric inaccuracies power < 0?
   pow[pow<0] <- 0
@@ -117,7 +118,7 @@
     # give a warning if attr(prob,"msg") not equal "Normal completion"?
     if(attr(prob, which="msg")!="Normal Completion")
       warning("pmvt returned message ", attr(prob, which="msg"), call.=FALSE)
-    pow[i] <- prob[i]
+    pow[i] <- prob[1]
   }
   pow
 }
