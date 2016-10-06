@@ -151,10 +151,11 @@ Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence
 in highly variable drugs\cr
 Stat Med. 2015;35(12):1933-43. \doi{10.1002/sim.6834}
 
-Labes, D., \enc{Schütz}{Schuetz}, H.\cr
+Labes D, \enc{Schütz}{Schuetz} H\cr
 Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, 
 and a Method for its Control\cr
-Pharm. Res. 2016 Aug 1. [Epub ahead of print] \doi{10.1007/s11095-016-2006-1}
+Pharm. Res. 2016;33, pp2805-2814\cr
+Published online: 1 August 2016 \doi{10.1007/s11095-016-2006-1}
 }
 \author{
 H. \enc{Schütz}{Schuetz}
