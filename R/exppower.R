@@ -118,8 +118,8 @@
       } else {
         dninvgamma(m = h(x[2]), v = g(x[1]), mu = ldiff, lambda = lambda, 
                    alpha = df_m/2, beta = df_m/2 * se^2) * 
-          .calc.power(alpha, ltheta1, ltheta2, h(x[2]), sefac_n*sqrt(g(x[1])), 
-                      df_n, cp_method) * 
+          .calc.power(alpha=alpha, ltheta1=ltheta1, ltheta2=ltheta2, diffm=h(x[2]), 
+                      sem=sefac_n*sqrt(g(x[1])), df=df_n, method=cp_method) * 
           abs(1/(1 - x[1])^2*(1 + x[2]^2)/(1 - x[2]^2)^2)
       }
     }
