@@ -24,33 +24,40 @@ OwensQ <- function (nu, t, delta, a=0, b)
   # Youn Min Chou
   # Communications in Statistics - Theory and Methods, 21:12, 3427-3462, 1992
   # DOI: 10.1080/03610929208830988
-  # There are sometimes warnings regarding precision of nct, suppress them?
-  if(a==0 && is.infinite(b)) return(suppressWarnings(pt(t, df=nu, ncp=delta)))
-  # should also work for sufficient high b, but what is sufficient?
-  if(a==0 && b>150) return(suppressWarnings(pt(t, df=nu, ncp=delta)))
-  
+  # 
   # in case of abs(delta)>37.62 the non-central t is evaluated via a crude
   # approximation which can be rather poor for small nu
   # then we return OwensQOwen() but for speed reasons only for small nu
   # what is small is more or less arbitrary
-  if(nu<101 && abs(delta)>37.62) return(OwensQOwen(nu, t, delta, 0, b))
-  
-  # we calculate Owen's Q via
-  # pt(t, df=nu, ncp=delta) - Integral(b,Inf)
-  # the Integral(b,Inf) is via transformation of the variables x=b+y/(1-y)
-  # remapped to an integral(0,1)
-  # maybe this gives us more precision and numerical stability
-  i_fun <- function(y){
-    .Q.integrand(b+y/(1-y), nu, t, delta)/(1-y)^2
+  if (nu < 29 && abs(delta) > 37.62) {
+    if (is.infinite(b)) {
+      # for high delta we won't use the non-central t
+      # thus we try numerical integration of the original density from 0 to Inf, 
+      # remapped to 0,1
+      i_fun <- function(y) .Q.integrand(y / (1 - y), nu, t, delta) * 1/(1 - y)^2
+      return(integrate(i_fun, lower=0, upper=1, subdivisions = 1000L, 
+                       rel.tol = 1.e-8, stop.on.error = TRUE)[[1]])
+    } else {
+      return(OwensQOwen(nu, t, delta, 0, b))
+    }
+  } else {
+    if (is.infinite(b)) {
+      #we use the nct according to the Chou paper for low to moderate delta
+      return(suppressWarnings(pt(t, df=nu, ncp=delta)))
+    } else {
+      # We calculate Owen's Q via
+      # pt(t, df=nu, ncp=delta) - Integral(b,Inf)
+      # The Integral(b,Inf) is via transformation of the variables x=b+y/(1-y)
+      # remapped to an integral(0,1)
+      i_fun <- function(y) {
+        .Q.integrand(b + y/(1-y), nu, t, delta) / (1-y)^2
+      }
+      Integral01 <- integrate(i_fun, lower=0, upper=1, subdivisions = 1000L, 
+                              rel.tol = 1.e-8, stop.on.error = TRUE)
+      # suppress the warning w.r.t. precision of nct
+      return(suppressWarnings(pt(t, df=nu, ncp=delta)) - Integral01[[1]])
+    }
   }
-  Integral01 <- integrate(i_fun, lower=0, upper=1, subdivisions = 1000, 
-                          rel.tol = 1.e-8, stop.on.error = TRUE)
-  
-  # suppress the warning w.r.t. precision of nct
-  OQ <- suppressWarnings(pt(t, df=nu, ncp=delta)) - Integral01[[1]]
-  
-  OQ
-                            
 }
 #-------------------------------------------------------------------------------
 # Integrand of the definit integral in Owen's Q. Used in the call of integrate()
