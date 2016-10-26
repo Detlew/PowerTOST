@@ -13,7 +13,7 @@
   if (pts) {
     # Need to integrate dinvgamma() from 0 to Inf
     # cf. .exact.exppower.TOST with prior.type = "CV"
-    # Result will be 1 since dinvgamma is density
+    # Result will be 1 since dinvgamma is a density
     return(1)
   }
   tval <- qt(1 - alpha, df, lower.tail = TRUE)
@@ -29,8 +29,111 @@
   return(pow)
 }
 
+
 # Exact implementation of expected power --------------------------------------
 # Author(s) B. Lang & D. Labes
+
+.pts.exppower.TOST <- function(f, ltheta1, ltheta2, prior.type) {
+  # For the PTS calculation we only want to integrate the density function
+  if (prior.type == "CV") {
+    # For prior.type = "CV" integrate over whole range 0 to Inf
+    # We already know the result from this: it will always be one
+    return(1)
+  } else if (prior.type == "theta0") {
+    # For PTS, need to integrate the density from ltheta1 to ltheta2
+    # Will be handled via change of variables so that it will
+    # be mapped to -1 to 1. Need several cases since ltheta1 and/or ltheta2
+    # may be finite or infinite
+    # References regarding change of variables: e.g.
+    # - http://ab-initio.mit.edu/wiki/index.php/Cubature
+    # - pracma::quadinf
+    fun <- match.fun(f)
+    f <- function(t) fun(t)
+    u <- -1
+    v <- 1
+    if (is.finite(ltheta1) && is.finite(ltheta2)) {
+      dg <- (ltheta2 - ltheta1) / (v - u)
+      i_fun <- function(x) {
+        f(ltheta1 + dg * (x - u)) * dg
+      }
+    } else if (is.finite(ltheta1) && is.infinite(ltheta2)) {
+      i_fun <- function(x) {
+        dg <- (v - u) / (1 - x)^2
+        z <- (x - u) / (v - u)
+        f(ltheta1 + z / (1 - z)) * dg
+      }
+    } else if (is.infinite(ltheta1) && is.finite(ltheta2)) {
+      ltheta1 <- -ltheta2
+      i_fun <- function(x) {
+        dg <- (v - u) / (1 - x)^2
+        z <- (x - u) / (v - u)
+        f(-(ltheta1 + z / (1 - z))) * dg
+      }
+    } else if (is.infinite(ltheta1) && is.infinite(ltheta2)) {
+      i_fun <- function(x)
+        f(x / (1 - x^2)) * (1 + x^2)/(1 - x^2)^2
+    } else {
+      stop("Specified values for theta1 and theta2 cannot be handled.", 
+           call. = FALSE)
+    }
+    pts <- integrate(i_fun, -1, 1, rel.tol = 1e-05, stop.on.error = FALSE)
+    if (pts$message != "OK") 
+      warning(pts$message)
+    return(pts$value)
+  } else if (prior.type == "both") {
+    fun <- match.fun(f)
+    f <- function(t, v) fun(t, v)
+    u <- -1
+    v <- 1
+    if (is.finite(ltheta1) && is.finite(ltheta2)) {
+      i_fun <- function(x) {
+        g <- function(y) y / (1 - y)
+        dg <- 1 / (1 - x[1])^2
+        h <- function(y) ltheta1 + dh * (y - u)
+        dh <- (ltheta2 - ltheta1) / (v - u)
+        f(h(x[2]), g(x[1])) * abs(dg * dh)
+      }
+    } else if (is.finite(ltheta1) && is.infinite(ltheta2)) {
+      i_fun <- function(x) {
+        g <- function(y) y / (1 - y)
+        dg <- 1 / (1 - x[1])^2
+        h <- function(y) {
+          z <- (y - u) / (v - u)
+          ltheta1 + z / (1 - z)
+        }
+        dh <- (v - u) / (1 - x[2])^2
+        f(h(x[2]), g(x[1])) * abs(dg * dh)
+      }
+    } else if (is.infinite(ltheta1) && is.finite(ltheta2)) {
+      ltheta1 <- -ltheta2
+      i_fun <- function(x) {
+        g <- function(y) y / (1 - y)
+        dg <- 1 / (1 - x[1])^2
+        h <- function(y) {
+          z <- (y - u) / (v - u)
+          -(ltheta1 + z / (1 - z))
+        }
+        dh <- (v - u) / (1 - x[2])^2
+        f(h(x[2]), g(x[1])) * abs(dg * dh)
+      }
+    } else if (is.infinite(ltheta1) && is.infinite(ltheta2)) {
+      i_fun <- function(x) {
+        g <- function(y) y / (1 - y)
+        h <- function(y) y / (1 - y^2)
+        f(h(x[2]), g(x[1])) * abs(1/(1 - x[1])^2 * (1 + x[2]^2)/(1 - x[2]^2)^2)
+      }
+    } else {
+      stop("Specified values for theta1 and theta2 cannot be handled.", 
+           call. = FALSE)
+    }
+    pts <- cubature::adaptIntegrate(i_fun, lowerLimit = c(0, -1), 
+                                    upperLimit = c(1, 1), tol = 1e-04)
+    return(min(pts$integral, 1))  # handle numerical inaccuarcies
+  } else {
+    return(NA)
+  }
+}
+
 .exact.exppower.TOST <- function(alpha=0.05, ltheta1, ltheta2, ldiff, se,
                                  sefac_n, df_n, df_m, sem_m, prior.type,
                                  pts = FALSE, cp_method = "exact") {
@@ -44,30 +147,32 @@
     # For prior densitiy, see for example Bertsche et al or 
     # Held and Sabanes Bove Example 6.25
     # NB: prior density is the posterior distribution from the prior trial
+    #
+    # density
     d_t <- function(v) {
       dinvgamma(v, shape = df_m/2, scale = df_m/2 * se^2)
     }
-    # If pts = TRUE we only want to integrate the density function
-    # (from 0 to Inf)
-    # We already know the result from this: it will always be one
-    if (pts) 
-      return(1)
-    
+    # conditional power
     p_t <- function(v) .calc.power(alpha, ltheta1, ltheta2, ldiff, 
                                    sefac_n*sqrt(v), df_n, cp_method)
-    
-    # Numerical integration from 0 to Inf is likely to result in wrong result
-    # because the function d_t (and thus p_t*d_t as well) will be zero over 
-    # nearly all its range. To avoid numerical difficulties arising by this,
-    # we perform a change of variables: map (0, Inf) to (0, 1),
-    # see http://ab-initio.mit.edu/wiki/index.php/Cubature
-    i_fun <- function(x) {
-      p_t(x/(1 - x)) * d_t(x/(1 - x))/(1 - x)^2
+    if (pts) {
+      # Integrate only density d_t
+      return(.pts.exppower.TOST(d_t, ltheta1, ltheta2, prior.type))
+    } else {
+      # Integrate p_t * d_t from 0 to Inf:
+      # Numerical integration from 0 to Inf is likely to result in wrong result
+      # because the function d_t (and thus p_t*d_t as well) will be zero over 
+      # nearly all its range. To avoid numerical difficulties arising by this,
+      # we perform a change of variables: map (0, Inf) to (0, 1),
+      # see http://ab-initio.mit.edu/wiki/index.php/Cubature
+      i_fun <- function(x) {
+        p_t(x/(1 - x)) * d_t(x/(1 - x)) / (1 - x)^2
+      }
+      pwr <- integrate(i_fun, 0, 1, rel.tol = 1e-05, stop.on.error = FALSE)
+      if (pwr$message != "OK")
+        warning(pwr$message)
+      return(pwr$value)
     }
-    pwr <- integrate(i_fun, 0, 1, rel.tol = 1e-05, stop.on.error = FALSE)
-    if (pwr$message != "OK")
-      warning(pwr$message)
-    return(pwr$value)
   } else if (prior.type == "theta0") {
     # Define expected power integrand
     # Use conditional density of posteriori distribution, i.e.
@@ -85,119 +190,44 @@
     p_v <- function(t) .calc.power(alpha, ltheta1, ltheta2, t, sefac_n*se, 
                                    df_n, cp_method)
     
-    # If pts = TRUE need to integrate only the density d_v (from ltheta1 to 
-    # ltheta2). Otherwise we have to integrate p_v*d_v from -Inf to Inf. 
-    # All those cases will be handled via change of variables so that it will
-    # be mapped to -1 to 1. Need several cases since ltheta1 and/or ltheta2
-    # may be finite or infinite
-    # References regarding change of variables: e.g.
-    # - http://ab-initio.mit.edu/wiki/index.php/Cubature
-    # - pracma::quadinf
     if (pts) {
-      u <- -1
-      v <- 1
-      if (is.finite(ltheta1) && is.finite(ltheta2)) {
-        dg <- (ltheta2 - ltheta1) / (v - u)
-        i_fun <- function(x) {
-          d_v(ltheta1 + dg * (x - u)) * dg
-        }
-      } else if (is.finite(ltheta1) && is.infinite(ltheta2)) {
-        i_fun <- function(x) {
-          dg <- (v - u) / (1 - x)^2
-          z <- (x - u) / (v - u)
-          d_v(ltheta1 + z / (1 - z)) * dg
-        }
-      } else if (is.infinite(ltheta1) && is.finite(ltheta2)) {
-        ltheta1 <- -ltheta2
-        i_fun <- function(x) {
-          dg <- (v - u) / (1 - x)^2
-          z <- (x - u) / (v - u)
-          d_v(-(ltheta1 + z / (1 - z))) * dg
-        }
-      } else if (is.infinite(ltheta1) && is.infinite(ltheta2)) {
-        i_fun <- function(x)
-          d_v(x / (1 - x^2)) * (1 + x^2)/(1 - x^2)^2
-      } else {
-        stop("Specified values for theta1 and theta2 cannot be handled.", 
-             call. = FALSE)
-      }
+      # Integrate only density d_v
+      return(.pts.exppower.TOST(d_v, ltheta1, ltheta2, prior.type))
     } else {
+      # Otherwise we have to integrate p_v * d_v from -Inf to Inf
+      # Perform change of variables
       i_fun <- function(x)
         p_v(x / (1 - x^2)) * d_v(x / (1 - x^2)) * (1 + x^2)/(1 - x^2)^2
+      pwr <- integrate(i_fun, -1, 1, rel.tol = 1e-05, stop.on.error = FALSE)
+      if (pwr$message != "OK") 
+        warning(pwr$message)
+      return(pwr$value)
     }
-    pwr <- integrate(i_fun, -1, 1, rel.tol = 1e-05, stop.on.error = FALSE)
-    if (pwr$message != "OK") 
-      warning(pwr$message)
-    return(pwr$value)
   } else if (prior.type == "both") {
     # Define expected power integrand
     # Use 2-dimensional posterior density
     # See e.g. Held and Sabanes Bove Example 6.26 for density and parameters
     lambda <- (se / sem_m)^2
-    # Same principle and cases for PTS calculation as above
+    d_ <- function(t, v)
+      dninvgamma(t, v, mu = ldiff, lambda = lambda, alpha = df_m/2, 
+                 beta = df_m/2 * se^2)
+    p_ <- function(t, v)
+      .calc.power(alpha, ltheta1, ltheta2, t, sefac_n*sqrt(v), df_n, cp_method) 
+    
     if (pts) {
-      u <- -1
-      v <- 1
-      if (is.finite(ltheta1) && is.finite(ltheta2)) {
-        i_fun <- function(x) {
-          dg <- 1 / (1 - x[1])^2
-          g <- function(y) y / (1 - y)
-          dh <- (ltheta2 - ltheta1) / (v - u)
-          h <- function(y) ltheta1 + dh * (y - u)
-          dninvgamma(m = h(x[2]), v = g(x[1]), mu = ldiff, lambda = lambda, 
-                     alpha = df_m/2, beta = df_m/2 * se^2) * abs(dg * dh)
-        }
-      } else if (is.finite(ltheta1) && is.infinite(ltheta2)) {
-        i_fun <- function(x) {
-          dg <- 1 / (1 - x[1])^2
-          g <- function(y) y / (1 - y)
-          dh <- (v - u) / (1 - x[2])^2
-          h <- function(y) {
-            z <- (y - u) / (v - u)
-            ltheta1 + z / (1 - z)
-          }
-          dninvgamma(m = h(x[2]), v = g(x[1]), mu = ldiff, lambda = lambda, 
-                     alpha = df_m/2, beta = df_m/2 * se^2) * abs(dg * dh)
-          }
-        } else if (is.infinite(ltheta1) && is.finite(ltheta2)) {
-          ltheta1 <- -ltheta2
-          i_fun <- function(x) {
-            dg <- 1 / (1 - x[1])^2
-            g <- function(y) y / (1 - y)
-            dh <- (v - u) / (1 - x[2])^2
-            h <- function(y) {
-              z <- (y - u) / (v - u)
-              -(ltheta1 + z / (1 - z))
-            }
-            dninvgamma(m = h(x[2]), v = g(x[1]), mu = ldiff, lambda = lambda, 
-                       alpha = df_m/2, beta = df_m/2 * se^2) * abs(dg * dh)
-          }
-        } else if (is.infinite(ltheta1) && is.infinite(ltheta2)) {
-          i_fun <- function(x) {
-            g <- function(y) y / (1 - y)
-            h <- function(y) y / (1 - y^2)
-            dninvgamma(m = h(x[2]), v = g(x[1]), mu = ldiff, lambda = lambda, 
-                       alpha = df_m/2, beta = df_m/2 * se^2) *
-              abs(1/(1 - x[1])^2 * (1 + x[2]^2)/(1 - x[2]^2)^2)
-          }
-        } else {
-          stop("Specified values for theta1 and theta2 cannot be handled.", 
-               call. = FALSE)
-        }
+      return(.pts.exppower.TOST(d_, ltheta1, ltheta2, prior.type))
     } else {
+      # Perform change of variables
       i_fun <- function(x) {
         g <- function(y) y / (1 - y)
         h <- function(y) y / (1 - y^2)
-        dninvgamma(m = h(x[2]), v = g(x[1]), mu = ldiff, lambda = lambda, 
-                   alpha = df_m/2, beta = df_m/2 * se^2) * 
-          .calc.power(alpha, ltheta1, ltheta2, h(x[2]), sefac_n*sqrt(g(x[1])), 
-                      df_n, cp_method) * 
+        d_(h(x[2]), g(x[1])) * p_(h(x[2]), g(x[1])) * 
           abs(1/(1 - x[1])^2 * (1 + x[2]^2)/(1 - x[2]^2)^2)
       }
+      pwr <- cubature::adaptIntegrate(i_fun, lowerLimit = c(0, -1), 
+                                      upperLimit = c(1, 1), tol = 1e-04)
+      return(min(pwr$integral, 1))  # handle numerical inaccuarcies
     }
-    pwr <- cubature::adaptIntegrate(i_fun, lowerLimit = c(0, -1), 
-                                    upperLimit = c(1, 1), tol = 1e-04)
-    return(min(pwr$integral, 1))  # handle numerical inaccuarcies
   } else {
     return(NA)
   }

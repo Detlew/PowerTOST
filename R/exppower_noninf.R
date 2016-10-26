@@ -1,141 +1,156 @@
-#------------------------------------------------------------------------------
-# Author: dlabes, Benjamin Lang
-#------------------------------------------------------------------------------
-
-# --- Approximate "expected" power according to Julious book
-# taking into account the uncertainty of an estimated se with 
-# dfse degrees of freedom
-# Only for log-transformed data.
-# Raw function: see the call in exppower.noninf()
-.approx.exppower.noninf <- function(alpha=0.025, lmargin, diffm, sem, dfse, df)
-{
-  tval <- qt(1-alpha, df, lower.tail = TRUE)
-  tau  <- sqrt((diffm-lmargin)^2/sem^2)
-  # in case of diffm=lmargin and se=0
-  # tau has the value NaN
-  tau[is.nan(tau)] <- 0
-  pow  <- pt(tau, dfse, tval)
-  # values <0 not possible?
-  pow
-}
-
-# --- Exact implementation of expected power
-# Author(s) B. Lang & D. Labes
-.exact.exppower.noninf <- function(alpha=0.025, lmargin, ldiff, se.fac, se, 
-                                   dfCV, df) 
-{
-  # infinite df of CV should give expected power identical to power   
-  if (!is.finite(dfCV)) {
-    return(.power.noninf(alpha, lmargin, ldiff, se.fac*se, df))
-  }
-  # Define assurance function (expected power)
-  f <- function(v) {
-    .power.noninf(alpha, lmargin, ldiff, se.fac*sqrt(v), df) * 
-         dinvgamma(x = v, shape = dfCV/2, scale = dfCV/2 * se^2)
+exppower.noninf <- function(alpha = 0.025, logscale = TRUE, theta0, margin, 
+                            CV, n, design = "2x2", robust = FALSE,
+                            dfCV, # to be removed in next versions
+                            prior.type = c("CV", "theta0", "both"),
+                            prior.parm = list(),
+                            method=c("exact", "approx")) {
+  # Error handling
+  stopifnot(is.numeric(alpha), alpha >= 0, alpha <= 1, is.logical(logscale),
+            is.numeric(CV), CV > 0, is.numeric(n), is.character(design),
+            is.logical(robust))
+  if (length(CV) > 1) {
+    CV <- CV[[1]]
+    warning("CV has to be a scalar here. Only CV[1] used.", call. = FALSE)
   }
   
-  # Detlew's attempt to stay with one integrate() call
-  # modified by Ben
-  
-  # mean of inverse gamma with alpha=dfCV/2, beta=se^2*dfCV/2
-  minvg <- (dfCV/2 * se^2)/(dfCV/2 - 1)
-  # or should we use the mode?
-  minvg <- (dfCV/2 * se^2)/(dfCV/2 + 1)
-  # variance of inverse gamma
-  vinvg <- (dfCV/2 * se^2)^2/(dfCV/2 - 1)^2/(dfCV/2 - 2)
-  # Chebyshev's inequality with k = 10
-  k <- 10
-  lwr  <- max(0, minvg - k*sqrt(vinvg))
-  # heavier tail to the right. may be an other value than 2 fits better TODO
-  upr  <- minvg + 2*k*sqrt(vinvg)       
-  pwr <- integrate(f, lwr, upr, rel.tol = 1e-5, stop.on.error = FALSE)
-  if(pwr$message!="OK") warning(pwr$message)
-  # return expected power
-  pwr$value
-  
-}
-
-# --- working horse for exppower.noninf() and expsampleN.noninf()
-.exppower.noninf <- function(alpha=0.025, lmargin, ldiff, se.fac, se, dfCV, 
-                             df, method)
-{
-  if (method == "exact") {
-    return(.exact.exppower.noninf(alpha, lmargin, ldiff, se.fac, se, dfCV, df))
-  } else if (method == "approx") {
-    return(.approx.exppower.noninf(alpha, lmargin, ldiff, se.fac*se, dfCV, df))
-  } else {
-    # Paranoia. Is tested outside.
-    stop("Method '", method, "' unknown!\n", call. = TRUE)
-  }
-}
-# Main function for expected power
-exppower.noninf <- function(alpha=0.025, logscale=TRUE, theta0, margin, 
-                            CV, dfCV, n, design="2x2",  robust=FALSE,
-                            method=c("exact", "approx")) 
-{
-  # check if design is implemented
-  d.no <- .design.no(design)
-  if (is.na(d.no)) stop("Design ",design, " unknown!", call.=FALSE)
-  
-  # design characteristics
-  ades <- .design.props(d.no)
-  #df as expression
-  dfe  <- .design.df(ades, robust=robust)
-  #design const.
-  #bk   <- ades$bk
-  
-  if (missing(CV) | missing(dfCV)) stop("CV and df must be given!", call.=FALSE)
-  if (any(CV<=0)) stop("CV has to be >0", call.=FALSE)
-  if (length(CV)>1) {
-    CV <- CV[1]
-    warning("CV has to be a scalar. Only CV[1] used.", call.=FALSE)
-  }
-  if (length(dfCV)>1) {
-    dfCV <- dfCV[1]
-    warning("dfCV has to be a scalar here. Only dfCV[1] used.", call.=FALSE)
-  }
-  if (dfCV<=4) stop("dfCV has to be >4", call.=FALSE)
-  
-  if (missing(n)) stop("Number of subjects must be given!", call.=FALSE)
-  
-  if (logscale){
+  # Data log-normal or normal?
+  theta2 <- Inf  # for non-inferiority
+  if (logscale) {
     if (missing(theta0)) theta0 <- 0.95
-    if (missing(margin)) margin <- 0.8
-    lmargin <- log(margin)
-    ldiff   <- log(theta0)
-    se      <- CV2se(CV)
+    if (theta0 <= 0) 
+      stop("theta0 must be > 0.", call. = FALSE)
+    # We use the same notation as for TOST (for ease of recycling code)
+    if (missing(margin)) {
+      theta1 <- 0.8
+    } else {
+      theta1 <- margin
+    }
+    if (theta1 < 0) stop("margin must be >= 0!", call. = FALSE)
+    if ((theta0 <= theta1) && (theta1 < 1))  # non-inferiority error
+      stop("Ratio ",theta0," must be above margin ", theta1, "!", call. = FALSE)
+    if ((theta0 < theta1) && (theta1 > 1)) {
+      # non-superiority
+      # reduce this case to non-inferiority case
+      theta1 <- 1/theta1
+      theta0 <- 1/theta0
+    }
+    if ((theta0 >= theta1) && (theta1 > 1))  # non-superiority error
+      stop("Ratio ",theta0," must be below margin ", theta1, "!", call. = FALSE)
+    ltheta1 <- log(theta1)
+    ltheta2 <- log(theta2)
+    ldiff <- log(theta0)
+    se <- CV2se(CV)
   } else {
     if (missing(theta0)) theta0 <- -0.05
-    if (missing(margin)) margin <- -0.2
-    lmargin <- margin
-    ldiff   <- theta0
-    se      <- CV
-#    message("It is assumed that CV is the standard deviation.")
-  }
-  if (length(n) == 1) {
-    # total n given    
-    # for unbalanced designs we divide the ns by ourself
-    # to have only small imbalance (function nvec() from Helper_dp.R)
-    n <- nvec(n=n, grps=ades$steps)
-    if (n[1] != n[length(n)]) {
-      message("Unbalanced design. n(i)=", paste(n, collapse="/"), " assumed.")
-    } 
-  } else {
-    if (length(n) != ades$steps) {
-      stop("Length of n vector must be ", ades$steps, "!")
+    if (missing(margin)) {
+      theta1 <- -0.2 
+    } else {
+      theta1 <- margin
     }
+    if ((theta0 <= theta1) && (theta1 < 0))  # non-inf. error
+      stop("Diff. ", theta0, " must be above margin ", theta1,"!", 
+           call. = FALSE)
+    if ((theta0 < theta1) && (theta1 > 0)) {
+      # non-superiority
+      # reduce this case to non-inf
+      theta1 <- -theta1
+      theta0 <- -theta0
+    }
+    if ((theta0 >= theta1) && (theta1 > 0)) {  # non-sup. error
+      stop("Diff. ", theta0, " must be below margin ", theta1,"!", 
+           call. = FALSE)
+    }
+    ltheta1 <- theta1
+    ltheta2 <- theta2
+    ldiff <- theta0
+    se <- CV
   }
-  nc <- sum(1/n)
-  n  <- sum(n)
-  se.fac <- sqrt(ades$bkni * nc)
-  df     <- eval(dfe)
-  if (any(df < 1)) stop("n too low. Degrees of freedom <1!", call.=FALSE)
-
-  # check method
+  
+  # Check method and uncertainty type
   method <- tolower(method)
   method <- match.arg(method)
+  prior.type <- match.arg(prior.type)
+  # Derive df and prefactor of SEM for study to be conducted
+  ds_n <- get_df_sefac(n = n, design = design, robust = robust)
+  if (ds_n$df < 1)
+    stop("n too low. Degrees of freedom <1!", call. = FALSE)
   
-  pow <- .exppower.noninf(alpha, lmargin, ldiff, se.fac, se, dfCV, df, method)
+  # Check how prior.parm was specified
+  names(prior.parm) <- tolower(names(prior.parm))  # also allow "sem"
+  if (length(prior.parm$df) > 1 || length(prior.parm$sem) > 1)
+    warning("df and SEM must be scalar, only first entry used.", call. = FALSE) 
+  # Check if other components have been specified
+  unpar_nms <- c("df", "sem", "m", "design")  # correct possibilities
+  if (sum(no_nms <- !(names(prior.parm) %in% unpar_nms)) > 0)
+    warning("Unknown names in prior.parm: ", 
+            paste(names(prior.parm)[no_nms], collapse = ", "), 
+            call. = FALSE)
+  nms_match <- unpar_nms %in% names(prior.parm)  # check which parms are given
+  # Based on information in nms_match derive degrees of freedom and 
+  # standard error of prior trial
+  df_m <- sem_m <- NA
+  if (!missing(dfCV)) {  # Temporary code for dfCV
+    warning(paste0("Argument dfCV has been moved to component df of argument ", 
+                   "prior.parm and will not function in the next versions."), 
+            call. = FALSE)
+    df_m <- dfCV[[1]]
+  }
+  if (sum(nms_match[3:4]) == 2) {  # m and design given
+    if (prior.parm$design == "parallel" && design != "parallel")
+      stop(paste0("CV in case of parallel design is total variability. This ",
+                  "cannot be used to plan a future trial with ",
+                  "intra-individual comparison."), call. = FALSE)
+    if (prior.parm$design != "parallel" && design == "parallel")
+      warning(paste0("The meaning of a CV in an intra-individual design ",
+                     "is not the same as in a parallel group design.", 
+                     " The result may not be meaningful."), call. = FALSE)
+    ds_m <- get_df_sefac(n = prior.parm$m, 
+                         design = prior.parm$design, robust = robust)
+    df_m <- ds_m$df
+    sem_m <- ds_m$sefac * se[[1]]
+  }
+  if (prior.type == "CV") {
+    if (nms_match[1]) {  # df given
+      df_m <- prior.parm$df[[1]]  # possibly overwrite df_m
+    }
+    if (is.na(df_m))
+      stop("df or combination m & design must be supplied to prior.parm!", 
+           call. = FALSE)
+  }
+  if (sum(nms_match[1:2]) == 2) {  # df and SEM given
+    df_m <- prior.parm$df[[1]]  # possibly overwrite df_m
+    sem_m <- prior.parm$sem[[1]]  # and sem_m
+  }
+  if (is.na(df_m) && is.na(sem_m))
+    stop("Combination df & SEM or m & design must be supplied to prior.parm!", 
+         call. = FALSE)
+  # No check for !is.na(df_m) needed as it should be different by now
+  if (!is.numeric(df_m) || df_m <= 4)
+    stop("Degrees of freedom need to be numeric and > 4.", call. = FALSE)
+  # For sem_m however this check is needed
+  if (prior.type != "CV") {
+    # in contrast to !is.na(sem_m) this check avoids calc. and possible warnings
+    # for a case with prior.type = "CV" and prior.parm$sem specification
+    if (!is.numeric(sem_m) || sem_m < 0)
+      stop("SEM needs to be numeric and >= 0.", call. = FALSE)
+    # Rough plausibility check for relationship between df and SEM
+    # (should also give a warning if SEM > 1)
+    semc <- sqrt(2 / (df_m + 2)) * CV2se(CV)
+    if (sem_m > 0 && abs(semc - sem_m) / sem_m > 0.5)
+      warning(paste0("Input values df and SEM do not appear to be consistent. ", 
+                     "While the formal calculations may be correct, ", 
+                     "the resulting power may not be meaningful."), 
+              call. = FALSE)
+  }
   
-  pow
+  # Call working horse
+  # Note: "exact conditional power for non-inf." can be obtained via 
+  #       .exppower.TOST using ltheta2=Inf and cp_method="nct". 
+  #       Using cp_method="nct" results in the same as power.noninf()
+  #       but is faster than via cp_method="exact".
+  .exppower.TOST(alpha = alpha, ltheta1 = ltheta1, ltheta2 = ltheta2, 
+                 ldiff = ldiff, se = se, sefac_n = ds_n$sefac, df_n = ds_n$df, 
+                 df_m = df_m, sem_m = sem_m, method = method, 
+                 prior.type = prior.type, pts = FALSE, cp_method = "nct")
+  
 }
