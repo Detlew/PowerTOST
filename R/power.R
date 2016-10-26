@@ -65,7 +65,11 @@
     tval <- qnorm(1-alpha)
     p1   <- pnorm(tval-delta1)
     p2   <- pnorm(-tval-delta2)
-    return(p2-p1)
+    # may give negative values 
+    # thus set to zero
+    pwr <- p2-p1
+    pwr[pwr<0] <- 0
+    return(pwr)
   }
   if (min(df)>=5000 & min(df<=10000)) {
     # approximation via non-central t-distribution
@@ -88,10 +92,11 @@
     p2[i] <- OwensQ(ddf, -ttt, delta2[i], 0, R[i])
   }
 
-  pow <- p2-p1
-  # due to numeric inaccuracies power < 0?
-  pow[pow<0] <- 0
-  return( pow )
+  pwr <- p2-p1
+  # due to numeric inaccuracies power < 0
+  # paranoia
+  pwr[pwr<0] <- 0
+  return( pwr )
 }
 
 #------------------------------------------------------------------------------

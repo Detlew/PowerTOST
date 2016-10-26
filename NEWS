@@ -1,3 +1,5 @@
+      - Little bug in power.TOST removed which cause power <0 for large degrees 
+        of freedom
       - Functions for expected power of the TOST procedure and sample size based 
         on expected power reworked to deal also with uncertainty of theta0 or 
         dealing with both uncertainties of CV and theta0. 
