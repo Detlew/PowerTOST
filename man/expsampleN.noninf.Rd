@@ -185,13 +185,7 @@ sampleN.noninf(theta0 = 0.95, margin = 0.8, CV=0.3)
 # and margin 125%
 expsampleN.noninf(theta0 = 1.05, CV = 0.3, margin = 1.25, 
                   prior.parm = list(m = 12, design = "2x2"))
-# gives n = 56
-
-expsampleN.TOST(CV=0.3, prior.parm = list(m = 30, design = "2x2"))
-# -> gives n = 42 with achieved expected power 0.806262
-# Compare this to the usual sample size with CV assumed known ('carved in stone')
-sampleN.TOST(CV=0.3)
-# -> gives n = 40 subjects
+# should give n = 56
 
 # More than one CV with corresponding degrees of freedom 
 # other settings as above in first example
@@ -199,7 +193,7 @@ CVs <- c(0.25, 0.3)
 dfs <- c(22, 10)
 expsampleN.noninf(theta0 = 0.95, margin = 0.8, CV=CVs, 
                   prior.parm = list(df = dfs))
-# gives a pooled CV=0.2664927 with 32 df
+# should give a pooled CV=0.2664927 with 32 df
 # and a sample size n=42 with achieved expected power 0.814073 exact
 # achieved expected power 0.816163 approximate acc. Julious
 
