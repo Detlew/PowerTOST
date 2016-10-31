@@ -82,7 +82,7 @@
     return(pts$value)
   } else if (prior.type == "both") {
     fun <- match.fun(f)
-    f <- function(t, v) fun(t, v)
+    f2 <- function(t, v) fun(t, v)
     u <- -1
     v <- 1
     if (is.finite(ltheta1) && is.finite(ltheta2)) {
@@ -91,7 +91,7 @@
         dg <- 1 / (1 - x[1])^2
         h <- function(y) ltheta1 + dh * (y - u)
         dh <- (ltheta2 - ltheta1) / (v - u)
-        f(h(x[2]), g(x[1])) * abs(dg * dh)
+        f2(h(x[2]), g(x[1])) * abs(dg * dh)
       }
     } else if (is.finite(ltheta1) && is.infinite(ltheta2)) {
       i_fun <- function(x) {
@@ -102,7 +102,7 @@
           ltheta1 + z / (1 - z)
         }
         dh <- (v - u) / (1 - x[2])^2
-        f(h(x[2]), g(x[1])) * abs(dg * dh)
+        f2(h(x[2]), g(x[1])) * abs(dg * dh)
       }
     } else if (is.infinite(ltheta1) && is.finite(ltheta2)) {
       ltheta1 <- -ltheta2
@@ -114,13 +114,13 @@
           -(ltheta1 + z / (1 - z))
         }
         dh <- (v - u) / (1 - x[2])^2
-        f(h(x[2]), g(x[1])) * abs(dg * dh)
+        f2(h(x[2]), g(x[1])) * abs(dg * dh)
       }
     } else if (is.infinite(ltheta1) && is.infinite(ltheta2)) {
       i_fun <- function(x) {
         g <- function(y) y / (1 - y)
         h <- function(y) y / (1 - y^2)
-        f(h(x[2]), g(x[1])) * abs(1/(1 - x[1])^2 * (1 + x[2]^2)/(1 - x[2]^2)^2)
+        f2(h(x[2]), g(x[1])) * abs(1/(1 - x[1])^2 * (1 + x[2]^2)/(1 - x[2]^2)^2)
       }
     } else {
       stop("Specified values for theta1 and theta2 cannot be handled.", 
