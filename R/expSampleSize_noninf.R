@@ -45,6 +45,7 @@ expsampleN.noninf <- function(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
     if (missing(theta0)) theta0 <- 0.95
     if (theta0 <= 0)
       stop("theta0 must be > 0.", call. = FALSE)
+    theta0_in <- theta0
     # We use the same notation as for TOST (for ease of recycling code)
     if (missing(margin)) {
       theta1 <- 0.8
@@ -52,6 +53,7 @@ expsampleN.noninf <- function(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
       theta1 <- margin
     }
     if (theta1 < 0) stop("margin must be >= 0!", call. = FALSE)
+    theta1_in <- theta1
     if ((theta0 <= theta1) && (theta1 < 1))  # non-inferiority error
       stop("Ratio ",theta0," must be above margin ", theta1, "!", call. = FALSE)
     if ((theta0 < theta1) && (theta1 > 1)) {
@@ -68,11 +70,13 @@ expsampleN.noninf <- function(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
     se      <- CV2se(CV)
   } else {
     if (missing(theta0)) theta0 <- -0.05
+    theta0_in <- theta0
     if (missing(margin)) {
       theta1 <- -0.2
     } else {
       theta1 <- margin
     }
+    theta1_in <- theta1
     if ((theta0 <= theta1) && (theta1 < 0))  # non-inf. error
       stop("Diff. ", theta0, " must be above margin ", theta1,"!", 
            call. = FALSE)
@@ -133,9 +137,12 @@ expsampleN.noninf <- function(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
     df_m <- dfCV
   }
   if (sum(nms_match[3:4]) == 2) {  # m and design given
-    if ((prior.parm$design == "parallel" && design != "parallel") ||
-        (prior.parm$design != "parallel" && design == "parallel"))
-      warning(paste0("The meaning of CV in an intra-individual design ",
+    if (prior.parm$design == "parallel" && design != "parallel")
+      stop(paste0("CV in case of parallel design is total variability. This ",
+                  "cannot be used to plan a future trial with ",
+                  "intra-individual comparison."), call. = FALSE)
+    if (prior.parm$design != "parallel" && design == "parallel")
+      warning(paste0("The meaning of a CV in an intra-individual design ",
                      "is not the same as in a parallel group design.", 
                      " The result may not be meaningful."), call. = FALSE)
     ds_m <- get_df_sefac(n = prior.parm$m, 
@@ -248,13 +255,13 @@ expsampleN.noninf <- function(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
       cat(", design const. = ", bk, ", step = ", steps,"\n\n",sep = "")
     }
     cat("alpha = ", alpha,", target power = ", targetpower,"\n", sep = "")
-    cat("Non-inf. margin =", theta1, "\n")
+    cat("Non-inf. margin =", theta1_in, "\n")
     if (prior.type == "CV") {
-      if (logscale) cat("Ratio = ", theta0, "\n", sep = "")
-      else  cat("Diff.  = ",theta0, "\n", sep = "")
+      if (logscale) cat("Ratio = ", theta0_in, "\n", sep = "")
+      else  cat("Diff.  = ",theta0_in, "\n", sep = "")
     } else {
-      if (logscale) cat("Ratio = ", theta0, " with ", df_m, " df\n", sep = "")
-      else  cat("Diff. = ",theta0, " with ", df_m, " df\n", sep = "")
+      if (logscale) cat("Ratio = ", theta0_in, " with ", df_m, " df\n", sep = "")
+      else  cat("Diff. = ",theta0_in, " with ", df_m, " df\n", sep = "")
     }
     if (is_pooled) {
       cat("CV(pooled) = ", CV, " with ", df_m," df\n", sep = "")

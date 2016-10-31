@@ -115,9 +115,12 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
     df_m <- dfCV
   }
   if (sum(nms_match[3:4]) == 2) {  # m and design given
-    if ((prior.parm$design == "parallel" && design != "parallel") ||
-        (prior.parm$design != "parallel" && design == "parallel"))
-      warning(paste0("The meaning of CV in an intra-individual design ",
+    if (prior.parm$design == "parallel" && design != "parallel")
+      stop(paste0("CV in case of parallel design is total variability. This ",
+                  "cannot be used to plan a future trial with ",
+                  "intra-individual comparison."), call. = FALSE)
+    if (prior.parm$design != "parallel" && design == "parallel")
+      warning(paste0("The meaning of a CV in an intra-individual design ",
                      "is not the same as in a parallel group design.", 
                      " The result may not be meaningful."), call. = FALSE)
     ds_m <- get_df_sefac(n = prior.parm$m, 
