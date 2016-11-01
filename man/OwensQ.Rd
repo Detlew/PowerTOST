@@ -1,3 +1,4 @@
+\encoding{utf-8}
 \name{OwensQ}
 \alias{OwensQ}
 \title{Owen's Q-function}
@@ -11,8 +12,8 @@
   \item{b}{upper integration limit}
 }
 \details{
-Uses now the relationship to non-central t-distribution (see Chou YM)\cr\cr
-   \eqn{OwensQ = pt(t, df=nu, ncp=delta) - Integal_b_Inf(Q_integrand)}\cr\cr
+Uses the relationship to non-central t-distribution (see Chou YM)\cr\cr
+   OwensQ = pt(t, df=nu, ncp=delta) - Integal_b_Inf(Q_integrand)\cr\cr
 The definite integral is numerically evaluated using \code{integrate()} from 
 package \code{stats} after a variables transformation resulting in the 
 integration range from 0 to 1 instead of the semi-infinite original range. 

@@ -56,7 +56,7 @@ See \code{known.designs()$df2} for designs covered in this package.
   \item{dfCV}{
 Alias of the component \code{df} in argument \code{prior.parm} for backward
 compatibility.\cr
-Will be removed in next versions.
+This argument is deprecated and will be removed in next versions.
 }
   \item{prior.type}{
 Specifies which parameter uncertainty should be accounted for. In case of 

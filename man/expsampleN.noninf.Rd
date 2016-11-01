@@ -52,12 +52,12 @@ See \code{known.designs()} for designs covered in this package.
 Defaults to FALSE. With that value the usual degrees of freedom will be used.\cr
 Set to \code{TRUE} will use the degrees of freedom according to the 'robust' evaluation
 (aka Senn's basic estimator). These df are calculated as \code{n-seq}.\cr
-See \code{known.designs()$df2} for designs covered in this package.
+See \code{known.designs()} for designs covered in this package.
   }
   \item{dfCV}{
 Alias of the component \code{df} in argument \code{prior.parm} for backward
 compatibility.\cr
-Will be removed in next versions.
+This argument is deprecated and will be removed in next versions.
   }
   \item{prior.type}{
 Specifies which parameter uncertainty should be accounted for. In case of 
@@ -172,7 +172,7 @@ B. Lang & D. Labes
 }
 \examples{
 # Classical 2x2 cross-over, target power = 80\%,
-# assumed true ratio = 95%, margin = 0.8,
+# assumed true ratio = 95\%, margin = 0.8,
 # intra-subject CV=30\% estimated from prior 2x2 trial 
 # with m = 12 subjects
 expsampleN.noninf(theta0 = 0.95, CV = 0.3, margin = 0.8, 
@@ -181,11 +181,11 @@ expsampleN.noninf(theta0 = 0.95, CV = 0.3, margin = 0.8,
 # Compare this to the usual sample size with CV known as 'carved in stone'
 sampleN.noninf(theta0 = 0.95, margin = 0.8, CV=0.3)
 
-# Perform non-superiority with assumed true ratio = 105%
-# and margin 125%
+# Perform 'non-superiority' (lower is better) with assumed true ratio = 105\%
+# and margin 125\%
 expsampleN.noninf(theta0 = 1.05, CV = 0.3, margin = 1.25, 
                   prior.parm = list(m = 12, design = "2x2"))
-# should give n = 56
+# should give n = 56 with achieved expected power 0.806862
 
 # More than one CV with corresponding degrees of freedom 
 # other settings as above in first example

@@ -60,7 +60,7 @@ See \code{known.designs()$df2} for designs covered in this package.
   \item{dfCV}{
 Alias of the component \code{df} in argument \code{prior.parm} for backward
 compatibility.\cr
-Will be removed in next versions.
+This argument is deprecated and will be removed in next versions.
 }
   \item{prior.type}{
 Specifies which parameter uncertainty should be accounted for. In case of 
@@ -196,8 +196,8 @@ D. Labes
 # Expected power for a 2x2 crossover with 40 subjects
 # CV 30\% known from a pilot 2x2 study with 12 subjects
 # using all the defaults for other parameters (theta0 carved in stone)
-# should give: [1] 0.7365519
 exppower.TOST(CV = 0.3, n = 40, prior.parm = list(df = 12-2))
+# should give: [1] 0.7365519
 # or equivalently
 exppower.TOST(CV = 0.3, n = 40, prior.parm = list(m = 12, design = "2x2"))
 
@@ -214,7 +214,7 @@ exppower.TOST(CV = 0.3, n = 40, prior.parm = list(df = Inf))
 # Expected power for a 2x2 crossover with 40 subjects
 # CV 30\% and theta0 = 0.95 known from a pilot 2x2 study with 12 subjects
 # using uncertainty with respect to both CV and theta0
-# should give [1] 0.5114685
 exppower.TOST(CV = 0.3, theta0 = 0.95, n = 40, 
               prior.parm = list(m = 12, design = "2x2"), prior.type = "both")
+# should give [1] 0.5114685
 }

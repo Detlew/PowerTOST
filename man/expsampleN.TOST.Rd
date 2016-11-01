@@ -61,7 +61,7 @@ See \code{known.designs()$df2} for designs covered in this package.
   \item{dfCV}{
 Alias of the component \code{df} in argument \code{prior.parm} for backward
 compatibility.\cr
-Will be removed in next versions.
+This argument is deprecated and will be removed in next versions.
   }
   \item{prior.type}{
 Specifies which parameter uncertainty should be accounted for. In case of 
@@ -179,7 +179,7 @@ B. Lang & D. Labes
 }
 \examples{
 # Classical 2x2 cross-over, target power = 80\%,
-# BE limits 80 ... 125\%, assumed true BE ratio = 95%,
+# BE limits 80 ... 125\%, assumed true BE ratio = 95\%,
 # intra-subject CV=30\% estimated from prior 2x2 trial 
 # with m = 30 subjects
 expsampleN.TOST(CV=0.3, prior.parm = list(m = 30, design = "2x2"))
