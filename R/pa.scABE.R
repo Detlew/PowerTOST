@@ -46,8 +46,8 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
   {
     if (reg=="FDA") {
       power.RSABE(CV=x, ...) - minpower
-    } else if (reg=="HC") {
-      power.scABEL2(CV=x, ...)- minpower
+    # } else if (reg=="HC") {
+    #   power.scABEL2(CV=x, ...)- minpower
     } else {
       power.scABEL(CV=x, ...)- minpower
     }
@@ -56,8 +56,8 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
   {
     if (reg == "FDA"){
       power.RSABE(theta0=x, ...) - minpower
-    } else if(reg=="HC"){
-      power.scABEL2(theta0=x, ...) - minpower
+    # } else if(reg=="HC"){
+    #   power.scABEL2(theta0=x, ...) - minpower
     } else {
       power.scABEL(theta0=x, ...) - minpower
     }
@@ -66,10 +66,10 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
   if(reg == "FDA") {
     res <- sampleN.RSABE(CV=CV, theta0=GMR, targetpower=targetpower, 
                          design=design, print=FALSE, details=FALSE, ...)
-  } else if (reg=="HC") {
-    res <- sampleN.scABEL2(CV=CV, theta0=GMR, targetpower=targetpower, 
-                           design=design, regulator=reg,
-                           print=FALSE, details=FALSE, ...)
+  # } else if (reg=="HC") {
+  #   res <- sampleN.scABEL2(CV=CV, theta0=GMR, targetpower=targetpower, 
+  #                          design=design, regulator=reg,
+  #                          print=FALSE, details=FALSE, ...)
   } else {
 	  res <- sampleN.scABEL(CV=CV, theta0=GMR, targetpower=targetpower, 
 	                        design=design, regulator=reg,
@@ -83,9 +83,9 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
     n.est <- 12
     if(reg == "FDA") {
       pwr.est <- power.RSABE(CV=CV, n=n.est, theta0=GMR,  design=design, ...)
-    } else if (reg=="HC"){
-      pwr.est <- power.scABEL2(CV=CV, n=n.est, theta0=GMR, design=design, 
-                               regulator=reg, ...)
+    # } else if (reg=="HC"){
+    #   pwr.est <- power.scABEL2(CV=CV, n=n.est, theta0=GMR, design=design, 
+    #                            regulator=reg, ...)
     } else {
       pwr.est <- power.scABEL(CV=CV, n=n.est, theta0=GMR, design=design, 
                               regulator=reg, ...)
@@ -116,9 +116,9 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
 	for(j in seq_along(CVs)) {
 		if(reg == "FDA") {
 		  pBECV[j] <- power.RSABE(CV=CVs[j], n=n.est, theta0=GMR,  design=design, ...)
-		} else if (reg == "HC"){
-		  pBECV[j] <- power.scABEL2(CV=CVs[j], n=n.est, theta0=GMR, design=design,
-		                            regulator=reg, ...)
+		# } else if (reg == "HC"){
+		#   pBECV[j] <- power.scABEL2(CV=CVs[j], n=n.est, theta0=GMR, design=design,
+		#                             regulator=reg, ...)
 		} else {
 		  pBECV[j] <- power.scABEL(CV=CVs[j], n=n.est, theta0=GMR, design=design,
                                regulator=reg, ...)
@@ -158,9 +158,9 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
 		if(reg == "FDA") {
 		  pBEGMR[j] <- power.RSABE(CV=CV, n=n.est, theta0=GMRs[j], 
 		                           design=design, ...)
-		} else if(reg == "HC"){
-		  pBEGMR[j] <- power.scABEL2(CV=CV, n=n.est, theta0=GMRs[j], 
-		                            design=design, regulator=reg, ...)
+		# } else if(reg == "HC"){
+		#   pBEGMR[j] <- power.scABEL2(CV=CV, n=n.est, theta0=GMRs[j], 
+		#                             design=design, regulator=reg, ...)
 		} else {
 		  pBEGMR[j] <- power.scABEL(CV=CV, n=n.est, theta0=GMRs[j], 
 		                            design=design, regulator=reg, ...)
@@ -200,9 +200,9 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
     suppressMessages(
   		if(reg == "FDA") {
   		  pwrN <- power.RSABE(CV=CV, n=Ns[j], theta0=GMR, design=design, ...)
-  		} else if(reg == "HC"){
-  		  pwrN <- power.scABEL2(CV=CV, n=Ns[j], theta0=GMR, design=design, 
-  		                        regulator=reg, ...)
+  		# } else if(reg == "HC"){
+  		#   pwrN <- power.scABEL2(CV=CV, n=Ns[j], theta0=GMR, design=design, 
+  		#                         regulator=reg, ...)
   		} else {
   		  pwrN <- power.scABEL(CV=CV, n=Ns[j], theta0=GMR, design=design, 
                              regulator=reg, ...)

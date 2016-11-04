@@ -1,3 +1,6 @@
+      - Use of removed functions power.scABEL2() and sampleN.scABEL2() in
+        pa.scABE() corrected.
+
 Version 1.4-3
 Released 2016-11-01
       - Little bug in power.TOST() removed which cause power <0 for large degrees 

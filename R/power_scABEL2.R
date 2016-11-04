@@ -17,8 +17,9 @@ power.scABEL2 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
                           design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
                           nsims=1E5, details=FALSE, setseed=TRUE)
 {
-  .Deprecated(new="power.scABEL", msg=paste0("'power.scABEL2' is deprecated.",
-              " Use 'power.scABEL' instead."))
+  # function is no longer visible via NAMESPACE
+  # .Deprecated(new="power.scABEL", msg=paste0("'power.scABEL2' is deprecated.",
+  #             " Use 'power.scABEL' instead."))
   if (missing(CV)) stop("CV must be given!")
   if (missing(n))  stop("Number of subjects n must be given!")
 
