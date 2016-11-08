@@ -1,3 +1,5 @@
+      - BE_power_sample_size_excerpt.pdf updated to reflect the changes in
+        computation of OwensQ
       - Use of removed functions power.scABEL2() and sampleN.scABEL2() in
         pa.scABE() corrected.
 
