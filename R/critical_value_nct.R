@@ -1,31 +1,35 @@
 # -----------------------------------------------------------------------------
-# function to obtain exact critical values of the bivariate nct
+# Function to obtain exact critical values of the bivariate nct
 # Author B. Lang
 # modified by D. Labes
 # -----------------------------------------------------------------------------
 #
-# Why this function and not using qmvt() from package mvtnorm?
-cval_fixed <- function(se, df, ltheta1, ltheta2, alpha = 0.05) 
-{
+# Determine quantile of power function
+# - A similar set up as in .power.1TOST with diffm = ltheta1 and usage of qmvt
+#   works as well but has a somewhat limited precision with longer run-time
+# - Here we solve for a root using the OwensQ implementation for the power
+critical_value <- function(sem, df, ltheta1, ltheta2, alpha = 0.05) {
   tval <- qt(1 - alpha, df)
-  crange <- c(-tval-0.1, tval+0.1)
-  if (min(df) > 10000) return(tval)
+  # Define range for exact critical value search:
+  # Upper limit should be tval, but give a bit buffer here
+  crange <- c(tval - 0.2, tval + 0.01)
+  if (min(df) > 10000) 
+    return(tval)
   f <- function(c) {
-    .power.TOST2(cval = c, alpha = alpha, ltheta1 = ltheta1, ltheta2 = ltheta2,
-                 diffm = ltheta1, sem = se, df = df) - alpha
+    .power.TOST.cval(cval = c, ltheta1 = ltheta1, ltheta2 = ltheta2, 
+                     diffm = ltheta1, sem = sem, df = df, alpha = alpha) - alpha
   }
-  # now obtain the critical value via root finding
-  uniroot(f, interval = crange, extendInt = "yes")$root
+  # Now obtain the critical value via root finding
+  uniroot(f, interval = crange, extendInt = "downX")$root
 }
 
 # -----------------------------------------------------------------------------
-# modified exact power function to use tval as critical values or 
+# Modified exact power function to use tval as critical values or 
 # bivariate nct critical values
 # -----------------------------------------------------------------------------
-.power.TOST2 <- function(alpha=0.05, cval, ltheta1, ltheta2, diffm, sem, df)
+.power.TOST.cval <- function(cval, ltheta1, ltheta2, diffm, sem, df, alpha = 0.05)
 {
-  if(missing(cval)) tval <- qt(1 - alpha, df, lower.tail = TRUE) 
-    else tval <- cval
+  tval <- if (missing(cval)) qt(1 - alpha, df, lower.tail = TRUE) else cval
   # 0/0 -> NaN in case diffm=ltheta1 or diffm=ltheta2 and sem=0!
   delta1 <- (diffm-ltheta1)/sem
   delta2 <- (diffm-ltheta2)/sem
@@ -57,13 +61,17 @@ cval_fixed <- function(se, df, ltheta1, ltheta2, alpha = 0.05)
   # R <- abs(R)
   
   # to avoid numerical errors in OwensQ implementation
-  if (min(df)>10000){
+  if (min(df)>10000) {
     # 'shifted' normal approximation Jan 2015
     # former Julious formula (57)/(58) doesn't work
     tval <- qnorm(1-alpha)
     p1   <- pnorm(tval-delta1)
     p2   <- pnorm(-tval-delta2)
-    return(p2-p1)
+    # may give negative values 
+    # thus set to zero
+    pwr <- p2-p1
+    pwr[pwr<0] <- 0
+    return(pwr)
   }
   if (min(df)>=5000 & min(df<=10000)) {
     # approximation via non-central t-distribution
@@ -85,9 +93,9 @@ cval_fixed <- function(se, df, ltheta1, ltheta2, alpha = 0.05)
     p1[i] <- OwensQ(ddf,  ttt, delta1[i], 0, R[i])
     p2[i] <- OwensQ(ddf, -ttt, delta2[i], 0, R[i])
   }
-  pow <- p2-p1
+  pwr <- p2-p1
   # due to numeric inaccuracies power < 0?
   # paranoia
-  pow[pow<0] <- 0
-  return( pow )
+  pwr[pwr<0] <- 0
+  return(pwr)
 }
