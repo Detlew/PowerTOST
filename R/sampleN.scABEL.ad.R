@@ -53,7 +53,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   ##      target power is reached.
   ################################################################
   ## Tested on Win 7 Pro SP1 64bit                              ##
-  ##   R 3.3.1 64bit (2016-06-21), PowerTOST 1.4-1 (2016-06-14) ##
+  ##   R 3.3.2 64bit (2016-10-31), PowerTOST 1.4-3 (2016-11-01) ##
   ################################################################
   env <- as.character(Sys.info()[1]) # get info about the OS
   if ((env == "Windows") || (env == "Darwin")) flushable <- TRUE
@@ -136,13 +136,13 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     cat("Target power       :", sprintf("%.3g", targetpower), "\n")
     cat(paste0("Regulatory settings: ", reg$name, " (", method, ")\n"))
     
-    # better theta1, theat2 as BE limits, PE constraint?
+    # better theta1, theta2 as BE limits, PE constraint?
     if (CVwR <= reg$CVswitch) {
       cat("Switching CVwR     : ", reg$CVswitch, "\n",
           "BE limits          : 0.8000 ... 1.2500\n", sep="")
     } else {
-      cat(paste("Switching CVwR     :", reg$CVswitch, "\n",
-                "Regulatory constant:", reg$r_const, "\n"))
+      cat(paste("Switching CVwR     :", reg$CVswitch,
+                "\nRegulatory constant:", reg$r_const, "\n"))
       cat(sprintf("%s    : %.4f%s%.4f%s", "Expanded limits",
                   limits[1], "...", limits[2], "\n"))
     }
@@ -195,7 +195,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   if (!is.na(TIE.adj)) {
     if (TIE.adj <= alpha && pwr.adj > targetpower) step.1 <- TRUE
   }
-
+  # browser()
   if (step.1 && is.na(TIE.adj)) { # Stop: Nothing to do.
     if (!details && print) { # only if we don't have this info already
       cat(sprintf("%s %3d, %s %.4f %s %.4f%s %.4f%s", "\nn", unadj.n,
@@ -272,6 +272,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
       TIE       <- x[["TIE.adj"]]
     }
     iter <- iter + 1
+    # browser()
     if (pwr < targetpower && iter >= 1) { # Show intermediate steps.
       if (print && details) {
         if (alpha.adj >= 0.01) { # Nice format (EMA)
