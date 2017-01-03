@@ -1,3 +1,6 @@
+      - Removed default CV = 0.3 from scABEL.ad() and sampleN.scABEL.ad().
+        Stops exceution if CV not specified.
+      - DOI for references added in many man pages. THX to Helmut.
       - Bens description of expected power added in /doc subdirectory
       - BE_power_sample_size_excerpt.pdf updated to reflect the changes in
         computation of OwensQ

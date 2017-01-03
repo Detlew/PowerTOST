@@ -5,7 +5,7 @@
 #
 # Author: Helmut Schuetz
 #-----------------------------------------------------------------------
-scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
+scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
                      design = c("2x3x3", "2x2x4", "2x2x3"), regulator, n,
                      alpha.pre = 0.05, imax = 100, tol, print = TRUE,
                      details = FALSE, setseed = TRUE, nsims = 1e6)
@@ -53,7 +53,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
   ##   Assessment of TIE; alpha.pre is justified if not > alpha.
   ################################################################
   ## Tested on Win 7 Pro SP1 64bit                              ##
-  ##   R 3.3.1 64bit (2016-06-21), PowerTOST 1.4-1 (2016-06-14) ##
+  ##   R 3.3.2 64bit (2016-10-31), PowerTOST 1.4-3 (2016-11-01) ##
   ################################################################
   env <- as.character(Sys.info()[1]) # get info about the OS
   if ((env == "Windows") || (env == "Darwin")) flushable <- TRUE
@@ -72,6 +72,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV = 0.3,
   # set iteration tolerance for uniroot().
   if (missing(tol)) tol <- 1e-6
   design <- match.arg(design)
+  if (missing(CV)) stop("CV must be given!")
   CVwT <- CV[1]
   if (length(CV) == 2) CVwR <- CV[2] else CVwR <- CVwT
   no <- 0 # simulation counter

@@ -6,7 +6,7 @@
 # Author: Helmut Schuetz
 #-----------------------------------------------------------------------
 sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
-                              theta1, theta2, CV = 0.3,
+                              theta1, theta2, CV,
                               design = c("2x3x3", "2x2x4", "2x2x3"),
                               regulator, nstart = NA, nsims = 1e6, imax=100,
                               tol, print = TRUE, details = FALSE,
@@ -70,6 +70,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   reg <- reg_check(regulator, choices=c("EMA", "HC", "ANVISA"))
   if (length(nstart) == 2) nstart <- sum(nstart)
   design <- match.arg(design)
+  if (missing(CV)) stop("CV must be given!")
   CVwT <- CV[1]
   if (length(CV) == 2) CVwR <- CV[2] else CVwR <- CVwT
   if (!is.na(nstart) &&

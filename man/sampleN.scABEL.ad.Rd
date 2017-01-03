@@ -12,7 +12,7 @@ to maintain the consumer risk at the nominal level.
 }
 \usage{
 sampleN.scABEL.ad(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2,
-                  CV = 0.3, design = c("2x3x3", "2x2x4", "2x2x3"), regulator,
+                  CV, design = c("2x3x3", "2x2x4", "2x2x3"), regulator,
                   nstart = NA, nsims = 1e6, imax = 100, tol, print = TRUE,
                   details = FALSE, alpha.pre = 0.05, setseed = TRUE)
 }
@@ -45,9 +45,7 @@ constraint.\cr
 Defaults to 1.25 if not given explicitly.
 }
   \item{CV}{
-Coefficient(s) of variation as ratio (not percent). Defaults to
-0.30 (i.e., the location of maximum inflation of the TIE for the
-\acronym{EMA}'s \acronym{ABEL}.\cr
+Coefficient(s) of variation as ratio (not percent).\cr
 If \code{length(CV) = 1} the same CV of Test and Reference is assumed
 (\code{CVwT} = \code{CVwR}).\cr
 If \code{length(CV) = 2} the CV of Test \emph{must} be given in \code{CV[1]}
@@ -137,25 +135,23 @@ If no adjustment is necessary, \code{NA} will be returned in the
 obtained by \code{\link{sampleN.scABEL}}.
 }
 \references{
-\enc{Tóthfalusi}{Tothfalusi}, L., \enc{Endrényi}{Endrenyi}, L.\cr
-Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs\cr
-J Pharm Pharmaceut Sci. 2011;15(1):73-84. \href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
+\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L.\cr
+\emph{Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs}\cr
+J Pharm Pharmaceut Sci. 2011;15(1):73--84. \href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
 
-Wonnemann, M., \enc{Frömke}{Froemke}, C., Koch, A.\cr
-Inflation of the Type I Error: Investigations on Regulatory Recommendations for
-Bioequivalence of Highly Variable Drugs\cr
-Pharm Res. 2015;32(1):135-43. \doi{10.1007/s11095-014-1450-z}
+Wonnemann M, \enc{Frömke}{Froemke} C, Koch A.\cr
+\emph{Inflation of the Type I Error: Investigations on Regulatory Recommendations for
+Bioequivalence of Highly Variable Drugs}\cr
+Pharm Res. 2015;32(1):135--43. \doi{10.1007/s11095-014-1450-z}
 
-\enc{Muñoz}{Munoz} J., Alcaide D., \enc{Ocaña}{Ocana} J.\cr
-Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence
-in highly variable drugs\cr
-Stat Med. 2015;35(12):1933-43. \doi{10.1002/sim.6834}
+\enc{Muñoz}{Munoz} J, Alcaide D, \enc{Ocaña}{Ocana} J.\cr
+\emph{Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence in highly variable drugs}\cr
+Stat Med. 2015;35(12):1933--43. \doi{10.1002/sim.6834}
 
-Labes D, \enc{Schütz}{Schuetz} H\cr
-Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, 
-and a Method for its Control\cr
-Pharm. Res. 2016;33, pp2805-2814\cr
-Published online: 1 August 2016 \doi{10.1007/s11095-016-2006-1}
+Labes D, \enc{Schütz}{Schuetz} H.\cr
+\emph{Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, 
+and a Method for its Control}\cr
+Pharm Res. 2016;33(11):2805--14. \doi{10.1007/s11095-016-2006-1}
 }
 \author{
 H. \enc{Schütz}{Schuetz}
