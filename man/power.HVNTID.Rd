@@ -85,13 +85,13 @@ p(BE) is the power, p(BE-ABE) is the power of the ABE test alone and p(BE-sratio
 is the power of the criterion 'ratio of sWT/sWR is <= 2.5' alone.
 }
 \references{
-FDA "Draft Guidance on Dabigatran Etexilate Mesylate"\cr
-Recommended Jun 2012; Revised Sept 2015\cr
-http://www.fda.gov/downloads/drugs/guidancecomplianceregulatoryinformation/guidances/ucm308030.pdf
+FDA \emph{Draft Guidance on Dabigatran Etexilate Mesylate}\cr
+Recommended Jun 2012. Revised Sep 2015. \href{
+http://www.fda.gov/downloads/drugs/guidancecomplianceregulatoryinformation/guidances/ucm308030.pdf}{download}
 
-FDA "Draft Guidance on Rivaroxaban"\cr
-Recommended Sept 2015\cr
-http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM461150.pdf
+FDA \emph{Draft Guidance on Rivaroxaban}\cr
+Recommended Sep 2015. \href{
+http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM461150.pdf}{download}
 }
 \author{
 D. Labes

@@ -100,13 +100,13 @@ Other vector input is not tested yet.\cr\cr
 The calculation of the TIE may last some seconds. Be patient.
 }
 \references{
-Hua S. Y., Xu S., and D'Agostino Sr. R. B.\cr
-"Multiplicity adjustments in testing for bioequivalence"\cr
-Statistics in Medicine, Vol. 34, Issue 2, 215-231 (2015)
+Hua SY, Xu S, D'Agostino RB Sr.\cr
+\emph{Multiplicity adjustments in testing for bioequivalence}\cr
+Stat Med. 2015;34(2):215--31. \doi{10.1002/sim.6247}
 
-Lang B., Fleischer F.\cr
-"Letter to the Editor: Comments on 'Multiplicity adjustments in testing for bioequivalence'".\cr
-Statistics in Medicine, Vol. 35, Issue 14, 2479-2480 (2016)
+Lang B, Fleischer F.\cr
+\emph{Letter to the Editor: Comments on 'Multiplicity adjustments in testing for bioequivalence'}\cr
+Stat Med. 2016;35(14):2479--80. \doi{10.1002/sim.6488}
 }
 \author{
 Benjamin Lang\cr

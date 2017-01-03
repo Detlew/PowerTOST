@@ -80,10 +80,9 @@ The function does not vectorize properly.\cr
 If you need sample sizes with varying CVs f.i. use for-loops or the apply-family.
 }
 \references{
-S.A. Julious\cr
-"TUTORIAL IN BIOSTATISTICS\cr
-Sample sizes for clinical trials with Normal data"\cr
-Statist. Med. 2004; 23: 1921-1986
+Julious SA.\cr
+\emph{Sample sizes for clinical trials with Normal data}\cr
+Stat Med. 2004;23(12):1921--86. \doi{10.1002/sim.1783}
 }
 \author{
 D. Labes

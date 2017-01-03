@@ -23,7 +23,7 @@ Typical values are 0.8 or 0.9.
 }
   \item{theta0}{
 'True' or assumed bioequivalence ratio. \cr
-Defaults to 0.90 according to the two Laszlo's if not given explicitly.
+Defaults to 0.90 according to the \emph{"Two Laszlos"} if not given explicitly.
 }
   \item{theta1}{
 Conventional lower ABE limit to be applied in the mixed procedure if 
@@ -51,7 +51,7 @@ Defaults to \code{design="2x3x3"}
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
-May be given as character from the choices "EMA", "HC" "FDA" or as an object of
+May be given as character from the choices "EMA", "HC", "FDA" or as an object of
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr\cr
@@ -104,10 +104,9 @@ The "Sample size" column contains the total sample size.\cr
 The "nlast" column contains the last n value. May be useful for restarting.
 }
 \references{
-\enc{Tóthfalusi}{Tothfalusi}, L, \enc{Endrényi}{Endrenyi}, L.\cr
-Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs\cr
-J Pharm Pharmaceut Sci. 2011;15(1):73-84. \cr
-\href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
+\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L.\cr
+\emph{Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs}\cr
+J Pharm Pharmaceut Sci. 2011;15(1):73--84. \href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
 }
 \author{
 D. Labes
@@ -117,8 +116,8 @@ We are doing the sample size estimation only for balanced designs since the
 break down of the total subject number in case of unbalanced sequence groups
 is not unique. Moreover the formulas used are only for balanced designs.\cr\cr
 In case of \code{regulator="FDA"} the sample size is only approximate since
-the BE decision method is not exactly what is expected by the FDA. But the "Two
-Laszlo's"" state that the scABEL method should be 'operational' equivalent to the
+the BE decision method is not exactly what is expected by the FDA. But the \emph{"Two
+Laszlos"} state that the scABEL method should be 'operational' equivalent to the
 FDA method. Thus the sample size should be comparable.\cr
 Consider in case of \code{regulator="FDA"} to use the function 
 \code{sampleN.RSABE()}.\cr\cr

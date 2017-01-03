@@ -71,19 +71,19 @@ the results coincide with all-effects-fixed model.
 Value of power according to the input arguments.
 }
 \references{
-Patterson S, Jones B\cr
-"Bioequivalence and Statistics in Clinical Pharmacology"\cr
-Chapman & Hall/CRC, Boca Raton, 2006, page 239\cr
+Patterson S, Jones B.\cr
+\emph{Bioequivalence and Statistics in Clinical Pharmacology}\cr
+Boca Ration: Chapman & Hall/CR: 2006, p.239.\cr
 (contains presumably a bug)
 
-Sethuraman VS, Leonov S, Squassante L, Mitchell TR, Hale MD\cr
-"Sample size calculation for the Power Model for dose proportionality studies"\cr
-Pharm. Stat. 2007 Jan-Mar;6(1):35-41
+Sethuraman VS, Leonov S, Squassante L, Mitchell TR, Hale MD.\cr
+\emph{Sample size calculation for the Power Model for dose proportionality studies}\cr
+Pharm Stat. 2007;6(1):35--41. \doi{10.1002/pst.241}
 
-Hummel J, McKendrick S, Brindley C, and R French\cr
-"Exploratory assessment of dose proportionality: review of current approaches\cr 
-and proposal for a practical criterion"\cr
-Pharm. Stat. 2009 Jan-Mar;8(1):38-49
+Hummel J, McKendrick S, Brindley C, French R.\cr
+\emph{Exploratory assessment of dose proportionality: review of current approaches  
+and proposal for a practical criterion}\cr
+Pharm. Stat. 2009;8(1):38--49. \doi{10.1002/pst.326}
 }
 \author{
 D. Labes

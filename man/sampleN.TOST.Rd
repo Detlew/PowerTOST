@@ -101,24 +101,22 @@ The function does not vectorize properly.\cr
 If you need sample sizes with varying CVs f.i. use for-loops or the apply-family.
 }
 \references{
-Phillips, K. F. (1990)\cr 
-"Power of the Two One-Sided Tests Procedure in Bioequivalence"\cr
-J. of Pharmacokinetics and Biopharmaceutics, 18, 137-144.
+Phillips KF.\cr 
+\emph{Power of the Two One-Sided Tests Procedure in Bioequivalence}\cr
+J Pharmacokin Biopharm. 1990;18:137--44. \doi{10.1007/BF01063556}
 
-Diletti, D., Hauschke, D., and Steinijans, V. W. (1991)\cr
-"Sample Size Determination for Bioequivalence Assessment by Means of Confidence 
-Intervals"\cr
-Int. J. of Clinical Pharmacology, Therapy and Toxicology, 29(1), 1-8 (1991)\cr 
-30 Suppl.No.1, S51-58 (1992)
+Diletti D, Hauschke D, Steinijans VW.\cr
+\emph{Sample Size Determination for Bioequivalence Assessment by Means of Confidence 
+Intervals}\cr
+Int J Clin Pharmacol Ther Toxicol. 1991;29(1):1--8.\cr
 
-Diletti, D., Hauschke, D., and Steinijans, V. W. (1992)\cr
-"Sample size determination : Extended tables for the multiplicative model\cr
-and bioequivalence ranges of 0.9 to 1.11 and 0.7 to 1.43"\cr
-Int. J. of Clinical Pharmacology, Therapy and Toxicology, 30 Suppl.No.1, S59-62
+Diletti D, Hauschke D, Steinijans VW.\cr
+\emph{Sample size determination: Extended tables for the multiplicative model and bioequivalence ranges of 0.9 to 1.11 and 0.7 to 1.43}\cr
+Int J Clin Pharmacol Ther Toxicol. 1992;30(Suppl 1):S59--62.
 
 Zhang P.\cr
-"A Simple Formula for Sample Size Calculation in Equivalence Studies"\cr
-J. Biopharm. Stat. 13(3), 529-538 (2003)
+\emph{A Simple Formula for Sample Size Calculation in Equivalence Studies}\cr
+J Biopharm Stat. 2003;13(3):529--538. \doi{10.1081/BIP-120022772}
 }
 \author{
 D. Labes

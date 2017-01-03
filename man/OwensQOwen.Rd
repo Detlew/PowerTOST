@@ -25,10 +25,9 @@ numeric value of Owen's Q function.
 The argument \code{a=0} could be dropped but is retained for sake of completeness. 
 }
 \references{
-Owen D B\cr
-"A Special Case of a Bivariate Non-central t-Distribution"\cr
-Biometrika Vol. 52, 1965, pp.437-446.\cr
-\doi{10.2307/2333696}
+Owen DB.\cr
+\emph{A special case of a bivariate non-central t-distribution}\cr
+Biometrika. 1965;52(3/4):437--46. \doi{10.2307/2333696}
 }
 \author{
 D. Labes

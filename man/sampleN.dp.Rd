@@ -86,19 +86,19 @@ A data.frame with the input and results will be returned.\cr
 The "Sample size" column contains the total sample size.
 }
 \references{
-Patterson, Jones\cr
-"Bioequivalence and Statistics in Clinical Pharmacology"\cr
-Chapman & Hall/CRC, Boca Raton, 2006, page 239\cr
+Patterson S, Jones B.\cr
+\emph{Bioequivalence and Statistics in Clinical Pharmacology}\cr
+Boca Ration: Chapman & Hall/CR: 2006, p.239.\cr
 (contains presumably a bug)
 
-Hummel J, McKendrick S, Brindley C, and R French\cr
-"Exploratory assessment of dose proportionality: review of current approaches\cr 
-and proposal for a practical criterion"\cr
-Pharmaceut Statist 8(1), 38-49 (2009)
+Sethuraman VS, Leonov S, Squassante L, Mitchell TR, Hale MD.\cr
+\emph{Sample size calculation for the Power Model for dose proportionality studies}\cr
+Pharm Stat. 2007;6(1):35--41. \doi{10.1002/pst.241}
 
-Sethuraman VS, Leonov S, Squassante L, Mitchell TR, Hale MD\cr
-"Sample size calculation for the Power Model for dose proportionality studies"\cr
-Pharm Stat. Vol. 6(1):35-41 (2007)
+Hummel J, McKendrick S, Brindley C, French R.\cr
+\emph{Exploratory assessment of dose proportionality: review of current approaches  
+and proposal for a practical criterion}\cr
+Pharm. Stat. 2009;8(1):38--49. \doi{10.1002/pst.326}
 }
 \author{
 D. Labes

@@ -67,14 +67,14 @@ p.left names the p-value of testing HA1: theta>=theta1, p.right the p-value of
 testing HA2: theta<=theta2 against their respective Nulls.
 }
 \references{
-Schuirmann, DJ\cr
-"A comparison of the two one-sided tests procedure and the power approach for
-assessing the equivalence of average bioavailability"\cr
-J. Pharmacokin. Biopharm. 1987; 15: 657-680.
+Schuirmann DJ.\cr
+\emph{A comparison of the two one-sided tests procedure and the power approach for
+assessing the equivalence of average bioavailability}\cr
+J Pharmacokin Biopharm. 1987;15:657--80. \doi{10.1007/BF01068419}
 
-Hauschke D, Steinijans V, Pigeot I\cr
-"Bioequivalence Studies in Drug Development"\cr
-John Wiley & Sons Ltd, Chichester 2007
+Hauschke D, Steinijans V, Pigeot I.\cr
+\emph{Bioequivalence Studies in Drug Development}\cr
+Chichester: Wiley; 2007.
 }
 \author{
 Benjamin Lang\cr

@@ -76,14 +76,14 @@ A data.frame with the input values and results will be returned.\cr
 The sample size n returned is the \bold{total} sample size for \bold{both} designs.\cr
 }
 \references{
-Hauschke D., Kieser M., Diletti E. and Burke M.\cr
-"Sample size determination for proving equivalence based on the ratio \cr
-of two means for normally distributed data" \cr
-Stat. Med. 18(1) p93-105 (1999) 
+Hauschke D, Kieser M, Diletti E, Burke M.\cr
+\emph{Sample size determination for proving equivalence based on the ratio of two means for normally distributed data}\cr
+Stat Med. 1999;18(1):93--105. \doi{10.1002/(SICI)1097-0258(19990115)18:1<93::AID-SIM992>3.0.CO;2-8}
 
-Hauschke D., Steinijans V. and Pigeot I.\cr
-"Bioequivalence studies in Drug Development"\cr
-Chapter 10., John Wiley & Sons, Chichester (2007)
+Hauschke D, Steinijans V, Pigeot I.\cr
+\emph{Bioequivalence Studies in Drug Development}\cr
+Chichester: Wiley; 2007. Chapter 10.
+
 }
 \author{D. Labes}
 
@@ -91,8 +91,8 @@ Chapter 10., John Wiley & Sons, Chichester (2007)
 This function is intended for studies with clinical endpoints.\cr In such studies
 the 95\% confidence intervals are usually used for equivalence testing.\cr
 Therefore alpha defaults here to 0.025.\cr
-See CPMP/EWP/482/99 "Points to consider on switching between superiority and 
-non-inferiority" EMEA, London (2000).
+See CPMP/EWP/482/99 \emph{\href{http://www.ema.europa.eu/docs/en_GB/document_library/Scientific_guideline/2009/09/WC500003658.pdf}{Points to consider on switching between superiority and 
+non-inferiority}} EMEA, London (2000).
 }
 
 \seealso{

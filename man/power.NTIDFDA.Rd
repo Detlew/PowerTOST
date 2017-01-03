@@ -1,7 +1,8 @@
+\encoding{utf-8}
 \name{power.NTIDFDA}
 \alias{power.NTIDFDA}
 \title{
-(Empirical) Power for BE decision via FDA method for NTID's
+(Empirical) Power for BE decision via FDA method for NTIDs
 }
 \description{
 This function performs the power calculation of the BE decision via 
@@ -89,25 +90,21 @@ p(BE-ABE) is the power of the conventional ABE test alone and p(BE-sratio)
 is the power of the criterion 'ratio of sWT/sWR is <= 2.5' alone.
 }
 \references{
-FDA "Draft Guidance on Warfarin Sodium"\cr
-Recommended Dec 2012\cr
-http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM201283.pdf
+FDA \emph{Draft Guidance on Warfarin Sodium}\cr
+Recommended Dec 2012. \href{www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM201283.pdf}{download}
 
-LX Yu et al.\cr
-"Novel bioequivalence approach for narrow therapeutic index drugs"\cr
-Clin Pharm & Ther Vol 97, Issue 3, pages 286-291, March 2015\cr
-Article first published online: 15 DEC 2014
+Yu LX et al.\cr
+\emph{Novel bioequivalence approach for narrow therapeutic index drugs}\cr
+Clin Pharmacol Ther. 2015;97(3):286--91. \doi{10.1002/cpt.28}
 
-W Jiang et al.\cr
-"A Bioequivalence Approach for Generic Narrow Therapeutic Index Drugs: \cr
-Evaluation of the Reference-Scaled Approach and Variability Comparison Criterion"\cr
-The AAPS Journal, July 2015, Volume 17, Issue 4, pp 891-901\cr
-First online: 04 April 2015
+Jiang W et al.\cr
+\emph{A Bioequivalence Approach for Generic Narrow Therapeutic Index Drugs: Evaluation of the Reference-Scaled Approach and Variability Comparison Criterion}\cr
+AAPS J. 2015;17(4):891--901. \doi{10.1208/s12248-015-9753-5}
 
-Laszlo Endrenyi and Laszlo Tothfalusi\cr
-"Determination of Bioequivalence for Drugs with Narrow Therapeutic Index: 
-Reduction of the Regulatory Burden"\cr
-J Pharm Pharm Sci (www.cspsCanada.org) 16(5):676-682, 2013
+\enc{Endrényi}{Endrenyi} L, \enc{Tóthfalusi}{Tothfalusi} L.\cr
+\emph{Determination of Bioequivalence for Drugs with Narrow Therapeutic Index: 
+Reduction of the Regulatory Burden}\cr
+J Pharm Pharm Sci. 2013;16(5):676--82. \href{https://ejournals.library.ualberta.ca/index.php/JPPS/article/viewFile/20900/15927}{free download}
 }
 \author{
 D. Labes

@@ -100,17 +100,17 @@ theta0 and CV must be of length two, thus further vectorizing is not possible.\c
 Other vector input is not tested yet.\cr\cr
 }
 \references{
-Hua S. Y., Xu S., and D'Agostino Sr. R. B.\cr
-"Multiplicity adjustments in testing for bioequivalence"\cr
-Statistics in Medicine, Vol. 34, Issue 2, 215-231 (2015)
+Phillips KF.\cr 
+\emph{Power for Testing Multiple Instances of the Two One-Sided Tests Procedure}\cr
+Int J Biostat. 2009;5(1):Article 15. \doi{10.2202/1557-4679.1169}
 
-Lang B., Fleischer F.\cr
-"Letter to the Editor: Comments on 'Multiplicity adjustments in testing for bioequivalence'".\cr
-Statistics in Medicine, Vol. 35, Issue 14, 2479-2480 (2016)
+Hua SY, Xu S, D'Agostino RB Sr.\cr
+\emph{Multiplicity adjustments in testing for bioequivalence}\cr
+Stat Med. 2015;34(2):215--31. \doi{10.1002/sim.6247}
 
-Phillips, K. F. (2009) \cr 
-"Power for Testing Multiple Instances of the Two One-Sided Tests Procedure"\cr
-The International Journal of Biostatistics: Vol. 5: Iss. 1, Article 15.
+Lang B, Fleischer F.\cr
+\emph{Letter to the Editor: Comments on 'Multiplicity adjustments in testing for bioequivalence'}\cr
+Stat Med. 2016;35(14):2479--80. \doi{10.1002/sim.6488}
 }
 \author{
 Benjamin Lang\cr

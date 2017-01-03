@@ -119,50 +119,42 @@ The "Sample size" column contains the \bold{total} sample size in case of all
 designs implemented.
 }
 \references{
-A.P. Grieve \cr 
+Grieve AP.\cr 
 \emph{Confidence Intervals and Sample Sizes}\cr
-Biometrics 47, 1597-1603 December 1991\cr
-\doi{10.2307/2532411}
+Biometrics. 1991;47:1597--603. \doi{10.2307/2532411}
 
 O'Hagan et al.\cr 
-\emph{Assurance in Clinical Trial Design} \cr 
-Pharmaceut. Statist. 2005; 4: 187-201\cr
-\doi{10.1002/pst.175}
+\emph{Assurance in Clinical Trial Design}\cr
+Pharm Stat. 2005;4:187--201. \doi{10.1002/pst.175}
 
-S.A. Julious, R.J. Owen \cr 
-\emph{Sample size calculations for clinical studies allowing for 
-uncertainty in variance} \cr
-Pharmaceut. Statist. (2006), 5, 29-37\cr
-\doi{10.1002/pst.197}
+Julious SA, Owen RJ.\cr 
+\emph{Sample size calculations for clinical studies allowing for uncertainty in variance}\cr
+Pharm Stat. 2006;5:29--37. \doi{10.1002/pst.197}
 
-S.A. Julious \cr 
-\emph{Sample sizes for Clinical Trials}\cr 
-CRC Press, Chapman & Hall, 2010
+Julious SA.\cr 
+\emph{Sample sizes for Clinical Trials}\cr
+Boca Raton: CRC Press / Chapman & Hall; 2010.
 
-Bertsche et al. \cr
+Bertsche et al.\cr
 \emph{The predictive distribution of the residual variability in
-the linear-fixed effects model for clinical cross-over trials} \cr
-Biom J. 2016 Jul, 58(4), 797-809\cr
-Article first published online: 22 MAR 2016\cr
-\doi{10.1002/bimj.201500245}
+the linear-fixed effects model for clinical cross-over trials}\cr
+Biom J. 2016;58(4):797--809. \doi{10.1002/bimj.201500245}
 
-George E.P. Box, George C. Tiao \cr 
+Box GEP, Tiao GC.\cr 
 \emph{Bayesian Inference in Statistical Analysis}\cr
-Addison-Wesley publishing company, 1992
+Boston: Addison-Wesley; 1992.
 
-L. Held, D. Sabanes Bove \cr
-\emph{Applied Statistical Inference. Likelihood and Bayes}\cr 
-Springer, 2014\cr
-\doi{10.1007/978-3-642-37887-4}
+Held L, Sabanes Bove D.\cr
+\emph{Applied Statistical Inference. Likelihood and Bayes}\cr
+Berlin, Heidelberg: Springer; 2014. \doi{10.1007/978-3-642-37887-4}
 
-S. Senn \cr
+Senn S.\cr
 \emph{Cross-over Trials in Clinical Research}\cr
-Second edition, Wiley, Chichester 2002
+Chichester: Wiley; 2002.
 
-M.L. Zierhut et al.\cr
+Zierhut ML et al.\cr
 \emph{Ignorance is not bliss: Statistical power is not probability of trial success}\cr
-Clinical Pharmacology & Therapeutics (2015), 99, 356-359\cr
-\doi{10.1002/cpt.257}
+Clin Pharmacol Ther. 2015;99:356--9. \doi{10.1002/cpt.257}
 }
 \author{
 B. Lang & D. Labes

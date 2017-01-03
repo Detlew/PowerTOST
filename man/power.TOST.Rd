@@ -104,14 +104,14 @@ Former function \code{power2.TOST()} designd to handle unbalanced studies is
 now removed since \code{power.TOST()} handles balanced as well as unbalanced designs.
 }
 \references{
-Phillips, K. F. (1990) \cr 
-"Power of the Two One-Sided Tests Procedure in Bioequivalence" \cr
-J. of Pharmacokinetics and Biopharmaceutics, 18, 137-144.
+Phillips KF.\cr 
+\emph{Power of the Two One-Sided Tests Procedure in Bioequivalence}\cr
+J Pharmacokin Biopharm. 1990;18(2):137--44. \doi{10.1007/BF01063556}
 
-Diletti D., Hauschke D., and Steinijans V. W. (1991) \cr
-"Sample Size Determination for Bioequivalence Assessment by Means of 
-Confidence Intervals" \cr 
-Int. J. of Clinical Pharmacology, Therapy and Toxicology, 29, 1-8 
+Diletti D, Hauschke D, Steinijans VW.\cr
+\emph{Sample Size Determination for Bioequivalence Assessment by Means of 
+Confidence Intervals}\cr 
+Int J Clin Pharmacol Ther Toxicol. 1991;29(1):1--8. 
 }
 \author{
 D. Labes\cr

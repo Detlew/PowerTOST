@@ -29,15 +29,13 @@ But may be useful for others.
 }
 \author{D. Labes}
 \references{
-Owen, DB (1965) \cr
-"A Special Case of a Bivariate Non-central t-Distribution"\cr
-Biometrika, 52, 437-446.\cr
-\doi{10.2307/2333696}
+Owen DB.\cr
+\emph{A special case of a bivariate non-central t-distribution}\cr
+Biometrika. 1965;52(3/4):437--46. \doi{10.2307/2333696}
 
-Chou YM (1992)\cr
-"A bivariate noncentral T-distibution with applications"\cr
-Communications in Statistics - Theory and Methods, 21:12, 3427-3462\cr 
-\doi{10.1080/03610929208830988}
+Chou YM.\cr
+\emph{A bivariate noncentral T-distibution with applications}\cr
+Commun Stat Theory Methods. 1992;21(12):3427--62. \doi{10.1080/03610929208830988}
 
 }
 \seealso{

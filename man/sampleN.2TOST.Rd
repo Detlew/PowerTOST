@@ -104,17 +104,17 @@ The function does not vectorize properly.\cr
 If you need sample sizes with varying CVs f.i. use for-loops or the apply-family.
 }
 \references{
-Hua S. Y., Xu S., and D'Agostino Sr. R. B.\cr
-"Multiplicity adjustments in testing for bioequivalence"\cr
-Statistics in Medicine, Vol. 34, Issue 2, 215-231 (2015)
+Hua SY, Xu S, D'Agostino RB Sr.\cr
+\emph{Multiplicity adjustments in testing for bioequivalence}\cr
+Stat Med. 2015;34(2):215--31. \doi{10.1002/sim.6247}
 
-Lang B., Fleischer F.\cr
-"Letter to the Editor: Comments on 'Multiplicity adjustments in testing for bioequivalence'".\cr
-Statistics in Medicine, Vol. 35, Issue 14, 2479-2480 (2016)
+Lang B, Fleischer F.\cr
+\emph{Letter to the Editor: Comments on 'Multiplicity adjustments in testing for bioequivalence'}\cr
+Stat Med. 2016;35(14):2479--80. \doi{10.1002/sim.6488}
 
 Zhang P.\cr
-"A Simple Formula for Sample Size Calculation in Equivalence Studies"\cr
-J. Biopharm. Stat. 13(3), 529-538 (2003)
+\emph{A Simple Formula for Sample Size Calculation in Equivalence Studies}\cr
+J Biopharm Stat. 2003;13(3):529--538. \doi{10.1081/BIP-120022772}
 }
 \author{
 Benjamin Lang

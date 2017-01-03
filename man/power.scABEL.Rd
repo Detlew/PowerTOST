@@ -121,10 +121,9 @@ range' alone. p(BE-ABE) is the power of the conventional ABE test given for
 comparative purposes.
 }
 \references{
-\enc{Tóthfalusi}{Tothfalusi}, L, \enc{Endrényi}{Endrenyi}, L.\cr
-Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs\cr
-J Pharm Pharmaceut Sci. 2011;15(1):73-84. \cr
-\href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
+\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L.\cr
+\emph{Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs}\cr
+J Pharm Pharmaceut Sci. 2011;15(1):73--84. \href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
 }
 \author{
 D. Labes

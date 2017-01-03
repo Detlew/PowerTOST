@@ -55,10 +55,9 @@ for comparative purposes. Moreover there are controversies where to locate the
 }
 \references{
 Davit et al.\cr
-"Implementation of a Reference-Scaled Average Bioequivalence Approach for 
-Highly Variable Generic Drug Products by the US Food and Drug Administration"\cr
-AAPS Journal, 2012 Dec, 14(4) pp915-24. Epub 2012 Sep 13\cr
-\doi{10.1208/s12248-012-9406-x}
+\emph{Implementation of a Reference-Scaled Average Bioequivalence Approach for 
+Highly Variable Generic Drug Products by the US Food and Drug Administration}\cr
+AAPS J. 2012;14(4):915--24. \doi{10.1208/s12248-012-9406-x}
 }
 \author{
 D. Labes

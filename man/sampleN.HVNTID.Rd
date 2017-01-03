@@ -2,7 +2,7 @@
 \alias{sampleN.HVNTID}
 \title{
 Sample size estimation for BE decision via FDA method for highly variable (HV) 
-narrow therapeutic index drugs (NTID's)
+narrow therapeutic index drugs (NTIDs)
 }
 \description{
 This function performs the Sample size estimation for the BE decision via 
@@ -87,13 +87,12 @@ The "Sample size" column contains the total sample size.\cr
 The "nlast" column contains the last n value. May be useful for re-starting.
 }
 \references{
-FDA "Draft Guidance on Dabigatran Etexilate Mesylate"\cr
-Recommended Jun 2012; Revised Sept 2015\cr
-http://www.fda.gov/downloads/drugs/guidancecomplianceregulatoryinformation/guidances/ucm308030.pdf
+FDA \emph{Draft Guidance on Dabigatran Etexilate Mesylate}\cr
+Recommended Jun 2012. Revised Sep 2015. \href{http://www.fda.gov/downloads/drugs/guidancecomplianceregulatoryinformation/guidances/ucm308030.pdf}{download}
 
-FDA "Draft Guidance on Rivaroxaban"\cr
-Recommended Sept 2015\cr
-http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM461150.pdf
+FDA \emph{Draft Guidance on Rivaroxaban}\cr
+Recommended Sep 2015. \href{
+http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM461150.pdf}{download}
 }
 \author{
 D. Labes
