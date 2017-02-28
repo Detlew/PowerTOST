@@ -115,11 +115,13 @@ issues a warning for that cases.
 }
 \references{
 FDA \emph{Draft Guidance on Progesterone}\cr
-Recommended Apr 2010. Revised Feb 2011. \href{http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM209294.pdf}{download}
+Recommended Apr 2010. Revised Feb 2011. 
+\href{http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM209294.pdf}{download}
 
 \enc{Tóthfalusi}{Tothfalusi}, L, \enc{Endrényi}{Endrenyi}, L.\cr
 \emph{Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs}\cr
-J Pharm Pharmaceut Sci. 2011;15(1):73--84. \href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
+J Pharm Pharmaceut Sci. 2011;15(1):73--84. 
+\href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{free download}
 
 \enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L, \enc{García}{Garcia} Arieta A.\cr
 \emph{Evaluation of Bioequivalence for Highly Variable Drugs with Scaled Average 
