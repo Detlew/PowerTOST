@@ -12,7 +12,7 @@
 # seqs = vector of sequences (f.i. c("TRTR", "RTRT")) 
 # nseq = vector of number of subjects in sequences
 # muR = mean of logvals for treatment "R" (arbitrary)
-# ldiff = difference µT-µR (= log(GMR))
+# ldiff = difference muT-muR (= log(GMR))
 # s2wT, s2wR = within-subject variances for "T" or "R"
 #
 # prepare a dataframe with subject, sequence, period, logval
@@ -46,7 +46,6 @@ prep_data2 <- function(seqs, nseq, muR=log(10), ldiff, s2wT, s2wR)
   ldata     <- ldata[order(ldata$subject,ldata$period),]
   ldata$tmt <- substr(ldata$sequence,ldata$period,ldata$period)
   ldata     <- ldata[,c("subject","seqno","sequence","period","tmt","logval")]
-  nvals     <- nrow(ldata)
   ldata$logval <- sim_data2_y(data_tmt=ldata$tmt, muR=muR, ldiff=ldiff, 
                               s2wT=s2wT, s2wR=s2wR)
                
@@ -67,7 +66,7 @@ sim_data2 <- function(data, muR=log(10), ldiff, s2wT, s2wR)
 # args:
 # data_tmt= vector of treatments by subject and period coded as "T" or "R"
 # muR = mean of logvals for treatment "R"
-# ldiff = difference µT-µR
+# ldiff = difference muT-muR
 # s2wT, s2wR = within-subject variances for "T" or "R"
 sim_data2_y <- function(data_tmt, muR=log(10), ldiff, s2wT, s2wR)
 {
