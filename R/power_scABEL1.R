@@ -1,39 +1,4 @@
 #---------------------------------------------------------------------------
-# unified function
-# chooses the power function according to regulator$est_method
-# former is now power.scABEL1
-#
-# author dlabes
-#---------------------------------------------------------------------------
-power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
-                         design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
-                         nsims=1E5, details=FALSE, setseed=TRUE)
-{
-  # design must be checked outside
-  desi <- match.arg(design)
-  # check regulator
-  if (missing(regulator)) regulator <- "EMA"
-  reg  <- reg_check(regulator)
-  pwrfun <- "power.scABEL1"
-  if (reg$est_method=="ISC") pwrfun <- "power.scABEL2"
-  # next doesn't function if one or more theta's missing
-  # r <- do.call(pwrfun,
-  #              list(alpha, theta1, theta2, theta0, CV, n, design=desi, reg, 
-  #                   nsims, details, setseed))
-  if (reg$est_method!="ISC"){
-    r <- power.scABEL1(alpha, theta1, theta2, theta0, CV, n, design=desi, reg, 
-                       nsims, details, setseed)
-  } else {
-    # must suppress 'deprecated' warning 
-    r <- suppressWarnings(
-           power.scABEL2(alpha, theta1, theta2, theta0, CV, n, design=desi, reg, 
-                         nsims, details, setseed)
-                          )
-  } 
-  r
-}  # end function
-
-#---------------------------------------------------------------------------
 # Simulate partial and full replicate design and scaled ABEL power
 # sims based on EMA crippled ANOVA evaluation
 # 
@@ -70,7 +35,7 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 {
   if (missing(CV)) stop("CV must be given!")
   if (missing(n))  stop("Number of subjects n must be given!")
-
+  
   if (missing(theta0)) theta0 <- 0.90
   if (length(theta0)>1) {
     theta0 <- theta0[2]
@@ -120,7 +85,7 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     # warning in case of CVwR != CVwT
     if (abs(s2wT-s2wR)>1e-4){
       warning(paste("Heteroscedasticity in the 2x3x3 design may led", 
-              "to poor accuracy of power!"), call.=FALSE)
+                    "to poor accuracy of power!"), call.=FALSE)
     }
   }
   if (design=="2x2x4") {
@@ -163,7 +128,7 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     dfRR <- nv[2]-1
     Emse <- (nv[1]*(2*s2wT+s2wR)/3+nv[2]*(s2wT+2*s2wR)/3)/n
   }
-
+  
   # point est. in log domain
   mlog <- log(theta0)
   # sd of the sample mean T-R (point estimate)
@@ -180,7 +145,7 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   p <- .pwr.ABEL.ANOVA(mlog, sdm, Ccon=C2, Emse, cvec, df, s2wR, dfRR, s2wT, dfTT, 
                        design, nsims, CVswitch, r_const, CVcap, pe_constr,
                        ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
-    
+  
   if (details) {
     ptm <- summary(proc.time()-ptm)
     message(nsims," sims. Time elapsed (sec): ", 
@@ -245,8 +210,8 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       mses  <- Emse*rchisq(nsi, df)/df
       # --- 'mean' of mses and mses calculated as sum from components
       mses  <- 0.5*mses + 
-               0.5*((dfTT+1)*(2*s2wTs + s2wRs)/3
-                   +(dfRR+1)*(s2wTs + 2*s2wRs)/3)/(dfTT+dfRR+2)
+        0.5*((dfTT+1)*(2*s2wTs + s2wRs)/3
+             +(dfRR+1)*(s2wTs + 2*s2wRs)/3)/(dfTT+dfRR+2)
     }
     #--- EMA widened limits in log-domain
     uABEL   <- +sqrt(s2wRs)*r_const
