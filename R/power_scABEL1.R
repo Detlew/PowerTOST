@@ -1,34 +1,5 @@
-#---------------------------------------------------------------------------
-# Simulate partial and full replicate design and scaled ABEL power
-# sims based on EMA crippled ANOVA evaluation
-# 
-# Author: dlabes
-#---------------------------------------------------------------------------
-
-# degrees of freedom for the RR  analysis: 
-# model with subj, period like EMA Q&A
-# the inclusion of sequence changes only the split of df's
-# between seq with df=seq-1 and sub(seq) with df=(n-1) - (seq-1). 
-# 2x3x3  2*n measurements df = 2*n-1
-#        n subjects       df = n-1
-#        3 periods        df = 2
-#                   ->  dfRR = n-2
-# 2x2x4  2*n measurements df = 2*n-1
-#        n subjects       df = n-1
-#        4 periods        df = 3     2
-#                   ->  dfRR = n-3   n-2
-# But cave! The EMA set I (2x2x4) has only 2 df for period. 
-# Due to imbalance? No. Simulated data have also df=2 for period (typIII).
-# for typI we have n-2 for subject and df=3 for period!
-#
-# Another possibility is using the contrasts R-R and analyze by sequence. 
-# Then the dfRR = n-seq.
-# 2x3x3  dfRR = n-3
-# 2x2x2  dfRR = n/2 - 1 (only sequence TRR or RTR)
-# 2x2x4  dfRR = n-2
-# This is used in the xxx.RSABE() functions
-# This is also used in power.scABEL2()
-
+# sims based on EMA key statistics
+# small CV correction of the ABE contribution (CV<=0.2)
 power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                           design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
                           nsims=1E5, details=FALSE, setseed=TRUE)
@@ -194,6 +165,7 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     s2wTs <- s2wT*rchisq(nsi, dfTT)/dfTT
     # now simulate sample mse
     if (design=="2x3x3"){
+      mses_ABE  <- Emse*rchisq(nsi, df)/df
       # simulate sample mse not for this design
       # s2wT is empirical because dfTT is not defined and  
       # artificially set to equal dfRR
@@ -201,15 +173,15 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     } 
     if (design=="2x2x4"){
       # simulate sample mse 
-      mses  <- Emse*rchisq(nsi, df)/df
+      mses_ABE  <- Emse*rchisq(nsi, df)/df
       #--- 'mean' of both attempts V1.1-02/V1.1-03 in case of 2x2x4
-      mses  <- (mses + (cvec[1]*s2wTs + cvec[2]*s2wRs)/denom)/2
+      mses  <- (mses_ABE + (cvec[1]*s2wTs + cvec[2]*s2wRs)/denom)/2
     }
     if (design=="2x2x3"){
       # simulate sample mse 
-      mses  <- Emse*rchisq(nsi, df)/df
+      mses_ABE  <- Emse*rchisq(nsi, df)/df
       # --- 'mean' of mses and mses calculated as sum from components
-      mses  <- 0.5*mses + 
+      mses  <- 0.5*mses_ABE + 
         0.5*((dfTT+1)*(2*s2wTs + s2wRs)/3
              +(dfRR+1)*(s2wTs + 2*s2wRs)/3)/(dfTT+dfRR+2)
     }
@@ -217,8 +189,8 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     uABEL   <- +sqrt(s2wRs)*r_const
     lABEL   <- -uABEL
     # use ABE limits if CV < CVswitch
-    lABEL[s2wRs<=s2switch] <- ln_lBEL
-    uABEL[s2wRs<=s2switch] <- ln_uBEL
+    # lABEL[s2wRs<=s2switch] <- ln_lBEL
+    # uABEL[s2wRs<=s2switch] <- ln_uBEL
     # cap limits if CVcap not Inf
     if (is.finite(CVcap)){
       lABEL[s2wRs>s2cap] <- -capABEL
@@ -228,13 +200,22 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     hw  <- tcrit*sqrt(Ccon*mses)
     lCL <- means - hw 
     uCL <- means + hw
-    rm(hw)
-    #--- 90% CI in 'widened' limits? 
+    #--- 90% CI in 'widened' limits?
     BE   <- (lABEL<=lCL) & (uCL<=uABEL)
-    #--- conventional ABE
+    #--- conventional ABE (switch at 0.185 to avoid decrease of TIE)
+    if (s2wR<=CV2mse(0.225)){
+      hw  <- tcrit*sqrt(Ccon*mses_ABE)
+      lCL <- means - hw 
+      uCL <- means + hw
+    }
     BEABE <- (ln_lBEL<=lCL) & (uCL<=ln_uBEL)
+    # if CV < CV switch use ABE, else scABEL
+    BE    <- ifelse(s2wRs>s2switch, BE, BEABE)
+    
     #--- point est. constraint true?
     BEpe <- (means>=ln_lBEL) & (means<=ln_uBEL)
+    
+    rm(hw)
     
     counts["BEabe"] <- counts["BEabe"] + sum(BEABE)
     counts["BEpe"]  <- counts["BEpe"]  + sum(BEpe)
