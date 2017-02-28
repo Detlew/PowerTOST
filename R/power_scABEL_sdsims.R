@@ -1,13 +1,19 @@
+# ----------------------------------------------------------------------------
 # simulate replicate design subject data and evaluate via EMA ABEL method
 # ANOVA & average BE with expanding limits
+#
+# Author D. Labes with suggestions by Ben
+# ----------------------------------------------------------------------------
 power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                                 design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
                                 nsims=1E5, details=FALSE, setseed=TRUE, progress,
-                                Eigen=FALSE)
+                                fitmethod=c(".lm.fit", "lm.fit", "fastlm", "qr"))
 {
+  fitm <- match.arg(fitmethod)
+  
   if(missing(progress)) {
     progress <- FALSE
-    if(nsims>=1e5) progress <- TRUE
+    if(nsims>1E4) progress <- TRUE
   }
   # check if on windows, if not don't show progressbar TODO
   
@@ -31,26 +37,30 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   if (missing(theta2)) theta2 <- 1/theta1
   if (missing(theta1)) theta1 <- 1/theta2
   if(desi=="2x3x3"){
-    bk   <- 1.5
-    bkni <- 1/6
-    dfc  <- "2*n-3"
-    seqs <- c("TRR", "RTR", "RRT")
+    bk    <- 1.5
+    bkni  <- 1/6
+    dfc   <- "2*n-3"
+    dfcRR <- "n-2"
+    seqs  <- c("TRR", "RTR", "RRT")
   }
   if(desi=="2x2x3"){
-    bk   <- 1.5
-    bkni <- 3/8
-    dfc  <- "2*n-3"
-    seqs <- c("TRT", "RTR")
+    bk    <- 1.5
+    bkni  <- 3/8
+    dfc   <- "2*n-3"
+    dfcRR <- "n/2-1"        #balanced design only, is set explicitely later
+    seqs  <- c("TRT", "RTR")
   }
   if(desi=="2x2x4"){
-    bk   <- 1
-    bkni <- 1/4
-    dfc  <- "3*n-4"
-    seqs <- c("TRTR", "RTRT")
+    bk    <- 1
+    bkni  <- 1/4
+    dfc   <- "3*n-4"
+    dfcRR <- "n-2"
+    seqs  <- c("TRTR", "RTRT")
   }
   seqn <- length(seqs)
   # degrees of freedom as expression
-  dfe <- parse(text=dfc, srcfile=NULL)
+  dfe   <- parse(text=dfc, srcfile=NULL)
+  dfRRe <- parse(text=dfcRR, srcfile=NULL) 
   # CV scalar or vector
   CVwT <- CV[1]
   if (length(CV)==2) CVwR <- CV[2] else CVwR <- CVwT
@@ -74,12 +84,15 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     n <- sum(n)
   }
   df <- eval(dfe)
+  dfRR <- eval(dfRRe)
+  if(design=="2x2x3") dfRR <- nv[2]-1 
   # check if RcppEigen is installed
   # call the working horse
   pwr <- .pwr.ABEL.sdsims(seqs=seqs, nseq=nv, ldiff=log(theta0), s2WR=s2wR, 
-                          s2WT=s2wT, C2=C2, df=df, nsims=nsims, regulator=reg, 
+                          s2WT=s2wT, C2=C2, df=df, dfRR=dfRR, nsims=nsims, 
+                          regulator=reg, 
                           ln_lBEL=log(theta1), ln_uBEL=log(theta2), 
-                          alpha=alpha, Eigen=Eigen, setseed=setseed, 
+                          alpha=alpha, fitmethod=fitm, setseed=setseed, 
                           details=details, progress=progress)
   pwr
 }
@@ -87,9 +100,9 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 
 # working horse
 .pwr.ABEL.sdsims <- function(seqs, nseq, muR=log(10), ldiff, s2WR, s2WT, C2,
-                                   df, nsims, regulator,
+                                   df, dfRR, nsims, regulator,
                                    ln_lBEL=log(0.8), ln_uBEL=log(1.25), 
-                                   alpha=0.05, Eigen=FALSE, setseed=TRUE, 
+                                   alpha=0.05, fitmethod="lm.fit", setseed=TRUE, 
                                    details=FALSE, progress=FALSE)
 {
   # start time measurement
@@ -105,7 +118,7 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   if(progress) pb <- winProgressBar(title = "sims progress", min = 0, max = nsims, width = 400)
 
   if(setseed) set.seed(123456)
-  set.seed(146389) # seed for the scripts in directory /workspace/replicate_simul
+#  set.seed(146389) # seed for the scripts in directory /workspace/replicate_simul
   
   tcrit <- qt(1-alpha, df)
   
@@ -135,56 +148,115 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   pes   <- vector(mode="numeric", length=nsims)
   mses  <- vector(mode="numeric", length=nsims)
   s2wRs <- vector(mode="numeric", length=nsims)
-  # or better work in chunks?
-  for(j in 1:nsims){
-    #browser()
-    if(!Eigen){
+  # programming 2 loops to avoid 1 Mio if's. but this give no notable difference
+  # in run-time
+  if(fitmethod=="fastlm"){
+    # or better work in chunks?
+    for(j in 1:nsims){
+      # use RcppEigen
+      # Ben's method=2L gives different results to lm.fit() for
+      # design="2x2x4" and "2x2x3"
+      # but method=0L has no big advantage compared to lm.fit()
+      model   <- RcppEigen::fastLmPure(X=mm, y=logval, method=2L)
+      mses[j] <- (model$s)^2
+      pes[j]  <- model$coefficients["tmtT"]
+      
+      # R data only
+      modelR   <- RcppEigen::fastLmPure(X=mmR, y=logvalR, method=0L)
+      s2wRs[j] <- (modelR$s)^2
+      
+      # show progress
+      if(progress){
+        if(100*trunc(j/100)==j) 
+          setWinProgressBar(pb, j, title=paste(j, "sims done (",
+                                               trunc(1000*j/nsims)/10,"%)"))
+      }  
+      # simulate for next step
+      # this gives one step more as necessary but avoiding here an if may have some
+      # run-time advantage
+      logval  <- sim_data2_y(data_tmt=data_tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
+      logvalR <- logval[data_tmt == "R"]
+    }  
+  } else if(fitmethod=="lm.fit") {
+    # using lm.fit()
+    for(j in 1:nsims){
       # determine pe, mse of all data
       model   <- lm.fit(x=mm, y=logval)
       # lm.fit does'nt have anova() and confint() methods
       # thus we have to calculate them explicite
       mses[j] <- sum(model$residuals^2)/model$df.residual
       pes[j]  <- coef(model)["tmtT"]
-
+      
       # determine s2wR from R data only
       modelR   <- lm.fit(x=mmR, y=logvalR)
       s2wRs[j] <- sum(modelR$residuals^2)/modelR$df.residual
       
-    } else {
-      # Ben's method=2L gives different results to lm.fit() for
-      # design="2x2x4" and "2x2x3"
-      # but method=0L has no big advantage compared to lm.fit()
-      model   <- RcppEigen::fastLmPure(X=mm, y=logval, method=0L)
-      mses[j] <- (model$s)^2
-      pes[j]  <- model$coefficients["tmtT"]
+      # show progress
+      if(progress){
+        if(100*trunc(j/100)==j) 
+          setWinProgressBar(pb, j, title=paste(j, "sims done (",
+                                               trunc(1000*j/nsims)/10,"%)"))
+      }  
+      # simulate for next step
+      # this gives one step more as necessary but avoiding here an if may have some
+      # run-time advantage
+      logval  <- sim_data2_y(data_tmt=data_tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
+      logvalR <- logval[data_tmt == "R"]
+    }  
+  } else if(fitmethod==".lm.fit") {
+    # using lm.fit()
+    for(j in 1:nsims){
+      # determine pe, mse of all data
+      model   <- .lm.fit(x=mm, y=logval)
+      # lm.fit does'nt have anova() and confint() methods
+      # thus we have to calculate them explicite
+      mses[j] <- sum(model$residuals^2)/df
+      pes[j]  <- model$coefficients[2]
+      
+      # determine s2wR from R data only
+      modelR   <- .lm.fit(x=mmR, y=logvalR)
+      s2wRs[j] <- sum(modelR$residuals^2)/dfRR
+      
+      # show progress
+      if(progress){
+        if(100*trunc(j/100)==j) 
+          setWinProgressBar(pb, j, title=paste(j, "sims done (",
+                                               trunc(1000*j/nsims)/10,"%)"))
+      }  
+      # simulate for next step
+      # this gives one step more as necessary but avoiding here an if may have some
+      # run-time advantage
+      logval  <- sim_data2_y(data_tmt=data_tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
+      logvalR <- logval[data_tmt == "R"]
+    }  
+  } else {
+    # qr decomp saved for re-use
+    qr_all <- qr(mm)
+    qr_R   <- qr(mmR)
+    for(j in 1:nsims){
+      pes[j]   <- qr.coef(qr_all, logval)["tmtT"]
+      mses[j]  <- sum((qr.resid(qr_all, logval))^2)/df
+      
+      s2wRs[j] <- sum((qr.resid(qr_R, logvalR))^2)/dfRR
+      
+      # show progress
+      if(progress){
+        if(100*trunc(j/100)==j) 
+          setWinProgressBar(pb, j, title=paste(j, "sims done (",
+                                               trunc(1000*j/nsims)/10,"%)"))
+      }  
+      # simulate for next step
+      # this gives one step more as necessary but avoiding here an if may have some
+      # run-time advantage
+      logval  <- sim_data2_y(data_tmt=data_tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
+      logvalR <- logval[data_tmt == "R"]
+    } 
+  }
 
-      # R data only
-      modelR   <- RcppEigen::fastLmPure(X=mmR, y=logvalR, method=0L)
-      s2wRs[j] <- (modelR$s)^2
-    }
-    
-    # show progress
-    if(progress){
-      if(100*trunc(j/100)==j) setWinProgressBar(pb, j, title=paste("sims done (",
-                                                trunc(1000*j/nsims)/10,"%)"))
-    }
-    # simulate for next step
-    # this gives one step more as necessary but avoiding here an if may have some
-    # run-time advantage
-    logval  <- sim_data2_y(data_tmt=data_tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
-    logvalR <- logval[data_tmt == "R"]
-  } # end of simulation loop
-  
-  # done with the progressbar
-  if(progress) close(pb)
   # reset options
   options(oc)
-  if(details){
-    cat("Time consumed [min]:\n")
-    print(round((proc.time()-pt)/60,2));cat("\n")
-  }
   # vectorized calculations of CI's and widened acceptance limits 
-  # (moved outside the loop)
+  # (moved outside of loops)
   hw <- tcrit*sqrt(C2*mses)
   loCL <- pes - hw
   upCL <- pes + hw
@@ -200,7 +272,14 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   BE_pe <- (pes >= ln_lBEL & pes <= ln_uBEL)
   if(pe_constr) BE <- BE_sc & BE_pe else BE <- BE_sc
   
+  # done with the progressbar
+  if(progress) close(pb)
+  
   if (details){
+    cat("Using", fitmethod, "\n")
+    cat("Time consumed [min]:\n")
+    print(round((proc.time()-pt)/60,2));cat("\n")
+      
     cat("pBE(sABE)      =", sum(BE_sc)/nsims, "\n")
     cat("pBE(ABE)       =", sum(BE_ABE)/nsims, "\n")
     cat("pBE(pe constr.)=", sum(BE_pe)/nsims, "\n")

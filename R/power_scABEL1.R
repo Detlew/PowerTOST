@@ -202,8 +202,8 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     uCL <- means + hw
     #--- 90% CI in 'widened' limits?
     BE   <- (lABEL<=lCL) & (uCL<=uABEL)
-    #--- conventional ABE (switch at 0.185 to avoid decrease of TIE)
-    if (s2wR<=CV2mse(0.225)){
+    #--- conventional ABE for low CV (0.2 is purely empiric)
+    if (s2wR<=CV2mse(0.2)){
       hw  <- tcrit*sqrt(Ccon*mses_ABE)
       lCL <- means - hw 
       uCL <- means + hw

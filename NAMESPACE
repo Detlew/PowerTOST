@@ -10,7 +10,7 @@ importFrom(graphics, abline, box, close.screen, legend, par, plot, points,
 importFrom(grDevices, colorRampPalette)
 importFrom(stats, dnorm, pnorm, qnorm, rnorm, dt, pt, qt, dchisq, qchisq, rchisq, 
            qf, rf, df, uniroot, integrate, optim, binom.test, coef, lm.fit, 
-           model.matrix, reshape)
+           .lm.fit, model.matrix, reshape)
 importFrom(utils, tail, head, read.table, flush.console, setWinProgressBar,
            winProgressBar)
 #importFrom(pracma, quad2d)

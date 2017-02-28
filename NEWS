@@ -1,6 +1,7 @@
       - Added function power.scABEL.sdsims() to calculate power for the BE decision 
         via scaled (widened) BE acceptance limits (EMA recommended) based on 
         subject data simulations.
+      - Low CV (cosmetic) correction in power.scABEL() introduced.
       - Removed default CV = 0.3 from scABEL.ad() and sampleN.scABEL.ad().
         Stops exceution if CV not specified.
       - DOI for references added in many man pages. THX to Helmut.
@@ -12,7 +13,7 @@
 
 Version 1.4-3
 Released 2016-11-01
-      - Little bug in power.TOST() removed which cause power <0 for large degrees 
+      - Little bug in power.TOST() removed which caused power <0 for large degrees 
         of freedom
       - Functions for expected power of the TOST procedure and sample size based 
         on expected power reworked to deal also with uncertainty of theta0 or 
