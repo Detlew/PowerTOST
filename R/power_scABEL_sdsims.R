@@ -85,7 +85,7 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   }
   df <- eval(dfe)
   dfRR <- eval(dfRRe)
-  if(design=="2x2x3") dfRR <- nv[2]-1 
+  if(desi=="2x2x3") dfRR <- nv[2]-1 
   # check if RcppEigen is installed
   # call the working horse
   pwr <- .pwr.ABEL.sdsims(seqs=seqs, nseq=nv, ldiff=log(theta0), s2WR=s2wR, 
