@@ -148,8 +148,8 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   pes   <- vector(mode="numeric", length=nsims)
   mses  <- vector(mode="numeric", length=nsims)
   s2wRs <- vector(mode="numeric", length=nsims)
-  # programming 2 loops to avoid 1 Mio if's. but this give no notable difference
-  # in run-time
+  # programming each fitmethod in own loop to avoid 1 Mio if's. but this give 
+  # no notable difference in run-time
   if(fitmethod=="fastlm"){
     # or better work in chunks?
     for(j in 1:nsims){
@@ -161,7 +161,7 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       mses[j] <- (model$s)^2
       pes[j]  <- model$coefficients["tmtT"]
       
-      # R data only
+      # R data only, rank deficient in case of design="2x2x4" and "2x2x3"?
       modelR   <- RcppEigen::fastLmPure(X=mmR, y=logvalR, method=0L)
       s2wRs[j] <- (modelR$s)^2
       
