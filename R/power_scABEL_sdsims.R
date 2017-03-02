@@ -106,7 +106,7 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
                                    details=FALSE, progress=FALSE)
 {
   # start time measurement
-  pt <- proc.time()
+  ptm <- proc.time()
   
   CVcap     <- regulator$CVcap
   CVswitch  <- regulator$CVswitch
@@ -275,17 +275,26 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   # done with the progressbar
   if(progress) close(pb)
   
+  # same output as power.scABEL
+  p <- vector("numeric", length=4)
+  names(p) <- c("p(BE)", "p(BE-wABEL)", "p(BE-pe)", "p(BE-ABE)")
+  p[1] <- sum(BE)/nsims
+  p[2] <- sum(BE_sc)/nsims
+  p[3] <- sum(BE_pe)/nsims
+  p[4] <- sum(BE_ABE)/nsims
+  
   if (details){
-    cat("Using", fitmethod, "\n")
-    cat("Time consumed [min]:\n")
-    print(round((proc.time()-pt)/60,2));cat("\n")
-      
-    cat("pBE(sABE)      =", sum(BE_sc)/nsims, "\n")
-    cat("pBE(ABE)       =", sum(BE_ABE)/nsims, "\n")
-    cat("pBE(pe constr.)=", sum(BE_pe)/nsims, "\n")
-    cat("\n")
+    ptm <- summary(proc.time()-ptm)
+    tunit <- "sec"
+    if(ptm["elapsed"]>60){
+      ptm <- ptm/60; tUnit <- "min"
+    }
+    message("Using ", fitmethod, "\n", nsims," sims. Time elapsed (",tunit,"): ", 
+            formatC(ptm["elapsed"], digits=3), "\n")
+    
+    if (!pe_constr) p <- p[-3] # without pe constraint
+    p
+  } else {
+    as.numeric(p["p(BE)"])
   }
-  # result: probability of study passed:
-  # CI within wABEL and pe in acceptance range
-  sum(BE)/nsims
 }
