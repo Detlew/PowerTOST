@@ -287,7 +287,7 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     ptm <- summary(proc.time()-ptm)
     tunit <- "sec"
     if(ptm["elapsed"]>60){
-      ptm <- ptm/60; tUnit <- "min"
+      ptm <- ptm/60; tunit <- "min"
     }
     message("Using ", fitmethod, "\n", nsims," sims. Time elapsed (",tunit,"): ", 
             formatC(ptm["elapsed"], digits=3), "\n")
