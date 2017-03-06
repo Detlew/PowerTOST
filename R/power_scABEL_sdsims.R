@@ -3,6 +3,7 @@
 # ANOVA & average BE with expanding limits
 #
 # Author D. Labes with suggestions by Ben
+# This is the version trying to optimize things
 # ----------------------------------------------------------------------------
 power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                                 design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
@@ -86,7 +87,7 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   df <- eval(dfe)
   dfRR <- eval(dfRRe)
   if(desi=="2x2x3") dfRR <- nv[2]-1 
-  # check if RcppEigen is installed
+
   # call the working horse
   pwr <- .pwr.ABEL.sdsims(seqs=seqs, nseq=nv, ldiff=log(theta0), s2WR=s2wR, 
                           s2WT=s2wT, C2=C2, df=df, dfRR=dfRR, nsims=nsims, 
@@ -100,10 +101,10 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 
 # working horse
 .pwr.ABEL.sdsims <- function(seqs, nseq, muR=log(10), ldiff, s2WR, s2WT, C2,
-                                   df, dfRR, nsims, regulator,
-                                   ln_lBEL=log(0.8), ln_uBEL=log(1.25), 
-                                   alpha=0.05, fitmethod="lm.fit", setseed=TRUE, 
-                                   details=FALSE, progress=FALSE)
+                             df, dfRR, nsims, regulator,
+                             ln_lBEL=log(0.8), ln_uBEL=log(1.25), 
+                             alpha=0.05, fitmethod="lm.fit", setseed=TRUE, 
+                             details=FALSE, progress=FALSE)
 {
   # start time measurement
   ptm <- proc.time()
@@ -126,10 +127,17 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   data$tmt     <- as.factor(data$tmt)
   data$period  <- as.factor(data$period)
   data$subject <- as.factor(data$subject)
-  data_tmt <- data$tmt
-  data$logval <- sim_data2_y(data_tmt=data_tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
+  # measurements under treatments, values to simulate
+  # change coding to 1=R, 2=T
+  data_tmt <- as.numeric(data$tmt)
+  nT <- length(data_tmt[data_tmt==2])
+  nR <- length(data_tmt[data_tmt==1])
+  data$logval  <- sim_data2_y2(data_tmt=data_tmt, nT=nT, nR=nR, ldiff=ldiff, 
+                               s2wT=s2WT, s2wR=s2WR)
+  # change coding to 1=R, 2=T
+  data_tmt <- as.numeric(data$tmt)
   logval   <- data$logval
-
+  
   oc <- options(contrasts=c("contr.treatment","contr.poly"))
   # save the model matrices for reuse in the simulation loop
   # the inclusion of sequence doesn't change the residual ms
@@ -174,8 +182,9 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # simulate for next step
       # this gives one step more as necessary but avoiding here an if may have some
       # run-time advantage
-      logval  <- sim_data2_y(data_tmt=data_tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
-      logvalR <- logval[data_tmt == "R"]
+      logval  <- sim_data2_y2(data_tmt=data_tmt, nT=nT, nR=nR, ldiff=ldiff, 
+                              s2wT=s2WT, s2wR=s2WR)
+      logvalR <- logval[data_tmt == 1]
     }  
   } else if(fitmethod=="lm.fit") {
     # using lm.fit()
@@ -200,8 +209,9 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # simulate for next step
       # this gives one step more as necessary but avoiding here an if may have some
       # run-time advantage
-      logval  <- sim_data2_y(data_tmt=data_tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
-      logvalR <- logval[data_tmt == "R"]
+      logval  <- sim_data2_y2(data_tmt=data_tmt, ldiff=ldiff, nT=nT, nR=nR, 
+                              s2wT=s2WT, s2wR=s2WR)
+      logvalR <- logval[data_tmt == 1]
     }  
   } else if(fitmethod==".lm.fit") {
     # using lm.fit()
@@ -226,18 +236,36 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # simulate for next step
       # this gives one step more as necessary but avoiding here an if may have some
       # run-time advantage
-      logval  <- sim_data2_y(data_tmt=data_tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
-      logvalR <- logval[data_tmt == "R"]
+      logval  <- sim_data2_y2(data_tmt=data_tmt, ldiff=ldiff, nT=nT, nR=nR, 
+                              s2wT=s2WT, s2wR=s2WR)
+      logvalR <- logval[data_tmt == 1]
     }  
   } else {
     # qr decomp saved for re-use
     qr_all <- qr(mm)
     qr_R   <- qr(mmR)
     for(j in 1:nsims){
-      pes[j]   <- qr.coef(qr_all, logval)["tmtT"]
-      mses[j]  <- sum((qr.resid(qr_all, logval))^2)/df
+      # original attempt
+      # pes[j]   <- qr.coef(qr_all, logval)["tmtT"]
+      # mses[j]  <- sum((qr.resid(qr_all, logval))^2)/df
+      # Instead of qr.resid() we use faster approach via y - X * coefs
+      coefs <- qr.coef(qr_all, logval)
+      pes[j]   <- coefs["tmtT"]
+      mses[j]  <- sum((logval - mm %*% coefs)^2)/df
       
+      # For reference: do not use this alternative approach as some
+      # coefficients may be NA due to non-full rank
       s2wRs[j] <- sum((qr.resid(qr_R, logvalR))^2)/dfRR
+      
+      # doing all by "hand"
+      # coeffs  <- qr.coef(qr_all, logval)
+      # resid   <- as.numeric(mm %*% coeffs - logval)
+      # pes[j]  <- coeffs["tmtT"]
+      # mses[j] <- sum(resid^2)/df
+      # 
+      # coeffsR  <- qr.coef(qr_R, logvalR)
+      # residR   <- as.numeric(mmR %*% coeffsR - logvalR)
+      # s2wRs[j] <- sum(residR^2)/dfRR
       
       # show progress
       if(progress){
@@ -248,8 +276,9 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # simulate for next step
       # this gives one step more as necessary but avoiding here an if may have some
       # run-time advantage
-      logval  <- sim_data2_y(data_tmt=data_tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
-      logvalR <- logval[data_tmt == "R"]
+      logval  <- sim_data2_y2(data_tmt=data_tmt, ldiff=ldiff, nT=nT, nR=nR, 
+                              s2wT=s2WT, s2wR=s2WR)
+      logvalR <- logval[data_tmt == 1]
     } 
   }
 

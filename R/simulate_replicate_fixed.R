@@ -45,8 +45,9 @@ prep_data2 <- function(seqs, nseq, muR=log(10), ldiff, s2wT, s2wR)
   # order by subject, period
   ldata     <- ldata[order(ldata$subject,ldata$period),]
   ldata$tmt <- substr(ldata$sequence,ldata$period,ldata$period)
+  
   ldata     <- ldata[,c("subject","seqno","sequence","period","tmt","logval")]
-
+  
   return(ldata)
 }
 
