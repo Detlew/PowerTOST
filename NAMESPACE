@@ -11,8 +11,8 @@ importFrom(grDevices, colorRampPalette)
 importFrom(stats, dnorm, pnorm, qnorm, rnorm, dt, pt, qt, dchisq, qchisq, rchisq, 
            qf, rf, df, uniroot, integrate, optim, binom.test, coef, lm.fit, 
            .lm.fit, model.matrix, reshape)
-importFrom(utils, tail, head, read.table, flush.console, setWinProgressBar,
-           winProgressBar)
+importFrom(utils, tail, head, read.table, flush.console, setTxtProgressBar,
+           txtProgressBar)
 #importFrom(pracma, quad2d)
 importFrom(cubature, adaptIntegrate)
 
@@ -52,6 +52,7 @@ export(
   , power.HVNTID
   , power.RSABE
   , power.scABEL
+  , power.scABEL.sdsims
   , power.dp
   , pvalue.TOST
   , pvalues.TOST
