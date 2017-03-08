@@ -119,9 +119,13 @@ J Pharm Pharmaceut Sci. 2011;15(1):73--84. \href{http://ejournals.library.ualber
 D. Labes & B. Lang
 }
 \note{
-The run-time of this function is between ~ 1 min for n=12 and ~8 min for n=120 on
-a machine with an Intel core i7 processor.\cr
-Thus be patient and go for a coffe if you use this function!
+The function is mainly intended for crosscheck of \code{power.scABEL()} results.\cr
+But may be mandatory for cases where \code{power.scABEL()} results are imprecise
+(low samplesizes and/or heteroscedasticity).\cr
+It is relatively slow. The run-time of this function is between ~ 1 min for 
+n=12 and ~8 min for n=120 and nsims = 1 Mio on a machine with an 
+Intel core i7 processor.\cr
+Thus be patient and go for a coffee if you use this function!
 }
 \seealso{
 \code{\link{power.scABEL}, \link{reg_const}}
@@ -130,17 +134,8 @@ Thus be patient and go for a coffe if you use this function!
 # using all the defaults:
 # design="2x3x3", EMA regulatory settings
 # PE constraint 0.8-1.25, cap on widening if CV>0.5
-# true ratio =0.90, 1E+6 simulations
-\dontrun{power.scABEL.sdsims(CV=0.4, n=27)}
+# true ratio =0.90, 1E+5 simulations
+\dontrun{power.scABEL.sdsims(CV=0.4, n=36)}
 # should give:
-# [1] 0.66113
-#
-# with details=TRUE to view the computational time and components
-power.scABEL(CV=0.5, n=54, theta0=1.15, details=TRUE)
-# should give (times may differ depending on your machine):
-# 1e+05sims. Time elapsed (sec): 0.07
-# 
-#      p(BE) p(BE-wABEL)    p(BE-pe)   p(BE-ABE) 
-#    0.81727     0.82078     0.85385     0.27542
-
+# [1] 0.74237
 }
