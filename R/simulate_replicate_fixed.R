@@ -83,3 +83,17 @@ sim_data2_y2 <- function(data_tmt, nT, nR, muR=log(10), ldiff, s2wT, s2wR)
   logval[data_tmt == 1] <- rnorm(n=nR, mean=0, sd=sqrt(s2wR))
   logval + muR
 }
+
+#simulate multiple outcome (right-hand side) variables
+sim_mrhs <- function(data_tmt, nT, nR, muR=log(10), ldiff, s2wT, s2wR, no=10)
+{
+  ret_y <- matrix(nrow=nT+nR, ncol=no)
+  logval <- vector("numeric", length=nT+nR)
+  for (k in 1:no){
+    logval[data_tmt == 2] <- ldiff + rnorm(n=nT, mean=0, sd=sqrt(s2wT))
+    logval[data_tmt == 1] <- rnorm(n=nR, mean=0, sd=sqrt(s2wR))
+    logval + muR
+    ret_y[,k] <- logval
+  }
+  ret_y
+}
