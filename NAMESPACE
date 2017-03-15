@@ -14,7 +14,7 @@ importFrom(stats, dnorm, pnorm, qnorm, rnorm, dt, pt, qt, dchisq, qchisq, rchisq
 importFrom(utils, tail, head, read.table, flush.console, setTxtProgressBar,
            txtProgressBar)
 #importFrom(pracma, quad2d)
-importFrom(cubature, adaptIntegrate)
+importFrom(cubature, hcubature)
 
 # Export all names except those beginning with .
 # exportPattern("^[^\\.]")

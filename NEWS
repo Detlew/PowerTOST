@@ -1,3 +1,8 @@
+Version 1.4-4
+Released 2017-03-15
+      - Administrative change for expected power: cubature::adaptIntegrate 
+        replaced by cubature::hcubature to reflect change of function name within
+        package cubature.
       - Added function power.scABEL.sdsims() to calculate power for the BE decision 
         via scaled (widened) BE acceptance limits (EMA recommended) based on 
         subject data simulations.
@@ -6,9 +11,6 @@
         Stops exceution if CV not specified.
       - DOI for references added in many man pages. THX to Helmut.
       - Bens description of expected power added in /doc subdirectory
-      - Administrative change for expected power: cubature::adaptIntegrate 
-        replaced by cubature::hcubature to reflect change of function name within
-        package cubature.
       - BE_power_sample_size_excerpt.pdf updated to reflect the changes in
         computation of OwensQ
       - Use of removed functions power.scABEL2() and sampleN.scABEL2() in
