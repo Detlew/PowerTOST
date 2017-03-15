@@ -137,5 +137,5 @@ sample sizes!
 # true ratio =0.90, 1E+5 simulations
 \dontrun{power.scABEL.sdsims(CV=0.4, n=36)}
 # should give:
-# [1] 0.74237
+# [1] 0.74321
 }
