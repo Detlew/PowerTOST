@@ -224,8 +224,8 @@
         d_(h(x[2]), g(x[1])) * p_(h(x[2]), g(x[1])) * 
           abs(1/(1 - x[1])^2 * (1 + x[2]^2)/(1 - x[2]^2)^2)
       }
-      pwr <- cubature::adaptIntegrate(i_fun, lowerLimit = c(0, -1), 
-                                      upperLimit = c(1, 1), tol = 1e-04)
+      pwr <- cubature::hcubature(i_fun, lowerLimit = c(0, -1), 
+                                 upperLimit = c(1, 1), tol = 1e-04)
       return(min(pwr$integral, 1))  # handle numerical inaccuarcies
     }
   } else {

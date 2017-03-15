@@ -133,7 +133,7 @@ of the posteriori distribution of (theta0, \eqn{\sigma^2}) from the prior
 trial.}
 \item{\code{both}}{The expectation is calculated with respect to the posteriori
 distribution of (theta0, \eqn{\sigma^2}) from the prior trial. Numerical calculation
-of the two-dimensional integral is performed via \code{cubature::adaptIntegrate}.}
+of the two-dimensional integral is performed via \code{cubature::hcubature}.}
 }
 }
 \value{
