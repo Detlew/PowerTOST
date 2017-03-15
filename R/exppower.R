@@ -126,8 +126,8 @@
       stop("Specified values for theta1 and theta2 cannot be handled.", 
            call. = FALSE)
     }
-    pts <- cubature::adaptIntegrate(i_fun, lowerLimit = c(0, -1), 
-                                    upperLimit = c(1, 1), tol = 1e-04)
+    pts <- cubature::hcubature(i_fun, lowerLimit = c(0, -1), 
+                               upperLimit = c(1, 1), tol = 1e-04)
     return(min(pts$integral, 1))  # handle numerical inaccuarcies
   } else {
     return(NA)
