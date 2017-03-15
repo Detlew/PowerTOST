@@ -3,21 +3,18 @@
 # ANOVA & average BE with expanding limits
 #
 # Author D. Labes with suggestions by Ben
-# This is the version trying to optimize things
+# This is the version trying to optimize more things
+# using Ben's function to simulate multiple right-hand sides
 # ----------------------------------------------------------------------------
 power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                                 design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
                                 nsims=1E5, details=FALSE, setseed=TRUE, progress)
 {
-  # auto: set this to .lm.fit if n<18
-  fitm <- "qr"
-  
   if(missing(progress)) {
     progress <- FALSE
-    if(nsims>5E4) progress <- TRUE
+    if(nsims>=5E5) progress <- TRUE
   }
-  # check if on windows, if not don't show progressbar TODO
-  
+
   # check design
   desi <- match.arg(design)
   # check regulator
@@ -88,13 +85,16 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   dfRR <- eval(dfRRe)
   if(desi=="2x2x3") dfRR <- nv[2]-1 
   
-  if(n<=18) fitm <- ".lm.fit"
+  # auto fit method: set this to .lm.fit if n<=18
+  fitm <- "qr"
+  # after introducing multiple right-hand sides .lm.fit seems to have no longer
+  # an advantage in run-time
+  # if(n<=18) fitm <- ".lm.fit"
   
   # call the working horse
   pwr <- .pwr.ABEL.sdsims(seqs=seqs, nseq=nv, ldiff=log(theta0), s2WR=s2wR, 
                           s2WT=s2wT, C2=C2, df=df, dfRR=dfRR, nsims=nsims, 
-                          regulator=reg, 
-                          ln_lBEL=log(theta1), ln_uBEL=log(theta2), 
+                          regulator=reg, ln_lBEL=log(theta1), ln_uBEL=log(theta2), 
                           alpha=alpha, fitmethod=fitm, setseed=setseed, 
                           details=details, progress=progress)
   pwr
@@ -118,7 +118,7 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   # paranoia
   if(is.null(pe_constr)) pe_constr <- TRUE
   
-  if(progress) pb <- txtProgressBar( min = 0, max = nsims, style = 3)
+  if(progress) pb <- txtProgressBar( min = 0, max = 1, style = 3)
 
   if(setseed) set.seed(123456)
 #  set.seed(146389) # seed for the scripts in directory /workspace/replicate_simul
@@ -135,21 +135,15 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   # measurements under treatments, values to simulate
   nT <- length(data_tmt[data_tmt==2])
   nR <- length(data_tmt[data_tmt==1])
-  data$logval  <- sim_data2_y2(data_tmt=data_tmt, nT=nT, nR=nR, ldiff=ldiff, 
-                               s2wT=s2WT, s2wR=s2WR)
-  # change coding to 1=R, 2=T
-  data_tmt <- as.numeric(data$tmt)
-  logval   <- data$logval
-  
+
   oc <- options(contrasts=c("contr.treatment","contr.poly"))
   # save the model matrices for reuse in the simulation loop
   # the inclusion of sequence doesn't change the residual ms
   # model.matrix full
-  mm <- model.matrix(logval~tmt+period+subject, data=data)
-  # model matrix for R data only
+  mm <- model.matrix(~tmt+period+subject, data=data)
+  # model.matrix for R data only
   dataR   <- data[data$tmt=="R",]
-  logvalR <- dataR$logval
-  mmR     <- model.matrix(logval~period+subject, data=dataR)
+  mmR     <- model.matrix(~period+subject, data=dataR)
   
   if(is.finite(CVcap)) wABEL_cap <- r_const*CV2se(CVcap) else wABEL_cap <- Inf
   s2switch <- CV2mse(CVswitch)
@@ -160,50 +154,66 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   mses  <- vector(mode="numeric", length=nsims)
   s2wRs <- vector(mode="numeric", length=nsims)
   
+  # working with multiple right-hand side logvals 
+  # attention! the code breaks if no_rhs = 1. then the returns of .lm.fit
+  # or qr.coef are no longer matrices
+  no_rhs <- 500
+  # at least nsims sims
+  nsi <- ceiling(nsims/no_rhs)
+  nsims <- nsi*no_rhs
+  j1  <- 1
+  j2  <- no_rhs
   # only ".lm.fit" and "qr" retained. if n<=18 ".lm.fit" is used else "qr"
   # programming each fitmethod in own loop to avoid 1 Mio if's. but this give 
   # no notable difference in run-time
   if(fitmethod==".lm.fit") {
-    # using lm.fit()
-    for(j in 1:nsims){
+    # using .lm.fit()
+    for(j in 1:nsi){
+      logval <- sim_mrhs(data_tmt=data_tmt, nT=nT, nR=nR, ldiff=ldiff, 
+                         s2wT=s2WT, s2wR=s2WR, no=no_rhs)
+      logvalR <- logval[data_tmt==1,]
+      
       # determine pe, mse of all data
       model   <- .lm.fit(x=mm, y=logval)
       # lm.fit does'nt have anova() and confint() methods
       # thus we have to calculate them explicite
-      mses[j] <- sum(model$residuals^2)/df
-      pes[j]  <- model$coefficients[2]
+      mses[j1:j2] <- colSums(model$residuals^2)/df
+      pes[j1:j2]  <- model$coefficients[2,]
       
       # determine s2wR from R data only
-      modelR   <- .lm.fit(x=mmR, y=logvalR)
-      s2wRs[j] <- sum(modelR$residuals^2)/dfRR
+      modelR       <- .lm.fit(x=mmR, y=logvalR)
+      s2wRs[j1:j2] <- colSums(modelR$residuals^2)/dfRR
       
       # show progress
       if(progress){
-        if(100*trunc(j/100)==j) setTxtProgressBar(pb, j)
-      }  
-      # simulate for next step
-      # this gives one step more as necessary but avoiding here an if may have some
-      # run-time advantage
-      logval  <- sim_data2_y2(data_tmt=data_tmt, ldiff=ldiff, nT=nT, nR=nR, 
-                              s2wT=s2WT, s2wR=s2WR)
-      logvalR <- logval[data_tmt == 1]
+        jsim <- j*no_rhs
+        if(100*trunc(jsim/100)==jsim) setTxtProgressBar(pb, jsim/nsims)
+      }
+      j1 <- j1+no_rhs
+      j2 <- j2+no_rhs
+      #browser()
     }  
   } else {
     # qr decomp saved for re-use
     qr_all <- qr(mm)
     qr_R   <- qr(mmR)
-    for(j in 1:nsims){
+    for(j in 1:nsi){
+      logval <- sim_mrhs(data_tmt=data_tmt, nT=nT, nR=nR, ldiff=ldiff, 
+                         s2wT=s2WT, s2wR=s2WR, no=no_rhs)
+      logvalR <- logval[data_tmt==1,]
+      
       # original attempt
       # pes[j]   <- qr.coef(qr_all, logval)["tmtT"]
       # mses[j]  <- sum((qr.resid(qr_all, logval))^2)/df
+      
       # Instead of qr.resid() we use faster approach via y - X * coefs
       coefs <- qr.coef(qr_all, logval)
-      pes[j]   <- coefs["tmtT"]
-      mses[j]  <- sum((logval - mm %*% coefs)^2)/df
+      pes[j1:j2]  <- coefs["tmtT", ]
+      mses[j1:j2] <- colSums((logval - mm %*% coefs)^2)/df
       
       # For reference: do not use this alternative approach as some
       # coefficients may be NA due to non-full rank
-      s2wRs[j] <- sum((qr.resid(qr_R, logvalR))^2)/dfRR
+      s2wRs[j1:j2] <- colSums((qr.resid(qr_R, logvalR))^2)/dfRR
       
       # doing all by "hand"
       # coeffs  <- qr.coef(qr_all, logval)
@@ -217,17 +227,14 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       
       # show progress
       if(progress){
-        if(100*trunc(j/100)==j) setTxtProgressBar(pb, j)
+        jsim <- j*no_rhs
+        if(100*trunc(jsim/100)==jsim) setTxtProgressBar(pb, jsim/nsims)
       }  
-      # simulate for next step
-      # this gives one step more as necessary but avoiding here an if may have some
-      # run-time advantage
-      logval  <- sim_data2_y2(data_tmt=data_tmt, ldiff=ldiff, nT=nT, nR=nR, 
-                              s2wT=s2WT, s2wR=s2WR)
-      logvalR <- logval[data_tmt == 1]
+      j1 <- j1+no_rhs
+      j2 <- j2+no_rhs
     } 
   }
-
+  
   # reset options
   options(oc)
   # vectorized calculations of CI's and widened acceptance limits 
@@ -264,7 +271,8 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     if(ptm["elapsed"]>60){
       ptm <- ptm/60; tunit <- "min"
     }
-    message("Using ", fitmethod, "\n", nsims," sims. Time elapsed (",tunit,"): ", 
+    if (fitmethod!="qr") message("Using ", fitmethod, "\n")
+    message(nsims," sims. Time elapsed (",tunit,"): ", 
             formatC(ptm["elapsed"], digits=3), "\n")
     
     if (!pe_constr) p <- p[-3] # without pe constraint

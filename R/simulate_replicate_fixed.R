@@ -84,16 +84,27 @@ sim_data2_y2 <- function(data_tmt, nT, nR, muR=log(10), ldiff, s2wT, s2wR)
   logval + muR
 }
 
-#simulate multiple outcome (right-hand side) variables
-sim_mrhs <- function(data_tmt, nT, nR, muR=log(10), ldiff, s2wT, s2wR, no=10)
+# simulate multiple outcome (right-hand side) variables
+# Detlew's quick and dirty
+sim_mrhs0 <- function(data_tmt, nT, nR, muR=log(10), ldiff, s2wT, s2wR, no=10)
 {
   ret_y <- matrix(nrow=nT+nR, ncol=no)
   logval <- vector("numeric", length=nT+nR)
   for (k in 1:no){
     logval[data_tmt == 2] <- ldiff + rnorm(n=nT, mean=0, sd=sqrt(s2wT))
     logval[data_tmt == 1] <- rnorm(n=nR, mean=0, sd=sqrt(s2wR))
-    logval + muR
-    ret_y[,k] <- logval
+    ret_y[,k] <- logval + muR
   }
   ret_y
+}
+
+# Ben's variant claiming 50% run-time
+sim_mrhs <- function(data_tmt, nT, nR, muR=log(10), ldiff, s2wT, s2wR, no=10)
+{
+  logval <- vector("numeric", length = no*(nT+nR))
+  data_tmt_rep <- rep.int(data_tmt, no)
+  logval[data_tmt_rep == 2] <- ldiff + rnorm(n=nT*no, mean=0, sd=sqrt(s2wT)) + muR
+  logval[data_tmt_rep == 1] <- rnorm(n=nR*no, mean=0, sd=sqrt(s2wR)) + muR
+  dim(logval) <- c(nT+nR, no)
+  logval
 }

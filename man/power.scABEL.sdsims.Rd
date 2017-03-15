@@ -120,12 +120,12 @@ D. Labes & B. Lang
 }
 \note{
 The function is mainly intended for crosscheck of \code{power.scABEL()} results.\cr
-But may be mandatory for cases where \code{power.scABEL()} results are imprecise
+But may be mandatory for cases where \code{power.scABEL()} results are inaccurate
 (low samplesizes and/or heteroscedasticity).\cr
-It is relatively slow. The run-time of this function is between ~ 1 min for 
-n=12 and ~8 min for n=120 and nsims = 1 Mio on a machine with an 
-Intel core i7 processor.\cr
-Thus be patient and go for a coffee if you use this function!
+It is relatively slow. The run-time of this function doing 1 Mio sims is between 
+~ 7-8 sec for n=12 and ~ 3-4 min for n=120 on a machine with an Intel core i7 processor.\cr
+Thus be patient and go for a cup of coffee if you use this function with high 
+sample sizes!
 }
 \seealso{
 \code{\link{power.scABEL}, \link{reg_const}}
