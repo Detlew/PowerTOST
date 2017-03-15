@@ -82,7 +82,7 @@ generator. To avoid differences in power for different runs a \code{set.seed()}
 is issued if \code{setseed=TRUE}, the default. 
 }
   \item{progress}{
-Should a progressbar be shown? Defaults to TRUE if missing and nsims >5E4.
+Should a progressbar be shown? Defaults to TRUE if missing and nsims >5E5.
 }
 }
 \details{
