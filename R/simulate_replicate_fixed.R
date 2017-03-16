@@ -108,3 +108,16 @@ sim_mrhs <- function(data_tmt, nT, nR, muR=log(10), ldiff, s2wT, s2wR, no=10)
   dim(logval) <- c(nT+nR, no)
   logval
 }
+
+# variant where all sims for REF comes first
+# attention! the model.matrix has to be created after sorting the data for
+# that order
+sim_mrhs2 <- function(nT, nR, muR=log(10), ldiff, s2wT, s2wR, no=10)
+{
+  logvalT <- ldiff + rnorm(n=nT*no, mean=0, sd=sqrt(s2wT)) + muR
+  dim(logvalT) <- c(nT, no)
+  logvalR <- rnorm(n=nR*no, mean=0, sd=sqrt(s2wR)) + muR
+  dim(logvalR) <- c(nR, no)
+  logval <- rbind(logvalR, logvalT)
+  logval
+}
