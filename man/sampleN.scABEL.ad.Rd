@@ -13,59 +13,56 @@ to maintain the consumer risk at the nominal level.
 \usage{
 sampleN.scABEL.ad(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2,
                   CV, design = c("2x3x3", "2x2x4", "2x2x3"), regulator,
-                  nstart = NA, nsims = 1e6, imax = 100, tol, print = TRUE,
-                  details = FALSE, alpha.pre = 0.05, setseed = TRUE)
+                  nstart = NA, nsims = 1e+06, imax = 100, tol, print = TRUE,
+                  details = FALSE, alpha.pre = 0.05, setseed = TRUE,
+                  sdsims = FALSE, progress)
 }
 \arguments{
   \item{alpha}{
 Type I error (\acronym{TIE}) probability (nominal level of the test). Per
-convention commonly set to 0.05.\cr
-A lower value might be specified (e.g., in order to adjust for multiplicity
-in dose proportionality studies).
+convention commonly set to 0.05.
 }
   \item{targetpower}{
-Power to achieve at least. Must be \{=>0, <=1\}. Typical
-values are 0.80 to 0.90 (i.e., 80\% to 90\%).\cr
-Defaults to 0.80 if not given explicitly.
+Power to achieve at least. Must be in \{0, ≤1\}. Typical values are 0.80
+to 0.90 (i.e., 80\% to 90\%). Defaults to 0.80 if not given explicitly.
 }
   \item{theta0}{
-\sQuote{True} or assumed bioavailability ratio.\cr
-Defaults to 0.90 if not given explicitly.
+\sQuote{True} or assumed bioavailability ratio. Defaults to 0.90 if not
+given explicitly.
 }
   \item{theta1}{
 Conventional lower \acronym{ABE} limit to be applied in the mixed procedure
-if \code{CVwR} = \code{CVswitch}. Also lower limit for the point estimate
-constraint.\cr
-Defaults to 0.80 if not given explicitly.
+if \code{CVwR==CVswitch}. Also lower limit for the point estimate
+constraint. Defaults to 0.80 if not given explicitly.
 }
   \item{theta2}{
 Conventional upper \acronym{ABE} limit to be applied in the mixed procedure
-if \code{CVwR} = \code{CVswitch}. Also upper limit for the point estimate
-constraint.\cr
-Defaults to 1.25 if not given explicitly.
+if \code{CVwR==CVswitch}. Also upper limit for the point estimate
+constraint. Defaults to 1.25 if not given explicitly.
 }
   \item{CV}{
-Coefficient(s) of variation as ratio (not percent).\cr
-If \code{length(CV) = 1} the same CV of Test and Reference is assumed
-(\code{CVwT} = \code{CVwR}).\cr
-If \code{length(CV) = 2} the CV of Test \emph{must} be given in \code{CV[1]}
-and the one of Reference in \code{CV[2]}.
+Intra-subject coefficient(s) of variation as ratio (not percent).
+  \itemize{
+    \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
+          and Reference is assumed\cr
+          (homoscedasticity: \code{CVwT==CVwR}).
+    \item If given as a vector (\code{length(CV)==2}) -- assuming
+          heteroscedasticity --\cr
+          the CV of Test \strong{must} be given in the \emph{first} element
+          and the one of Reference in the \emph{second}.
+  }
 }
   \item{design}{
 Design of the study to be planned.\cr
-\code{"2x3x3"} is the partial replicate design (RRT|RTR|TRR).\cr
-\code{"2x2x3"} is the 2-sequence 3-period full replicate design (RTR|TRT).\cr
-\code{"2x2x4"} is the 2-sequence 4-period full replicate design (RTRT|TRTR).\cr
-Defaults to \code{design = "2x3x3"}.
+\code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
+\code{"2x2x3"} is the 2-sequence 3-period full replicate design (TRT|RTR).\cr
+\code{"2x2x4"} is the 2-sequence 4-period full replicate design (TRTR|RTRT).\cr
+Defaults to \code{"2x3x3"}.
 }
   \item{regulator}{
-Regulatory settings for the widening of the \acronym{BE} acceptance limits.\cr
-Choose from \code{c("EMA", "HC")}. Defaults to \code{regulator = "EMA"}.\cr
-This argument may be given also in lower case.\cr
-The former \code{regulator="ANVISA"} is also allowed but is internally changed 
-to "EMA" since ANVISA now recommends the use of EMA regulatory settings. 
-Don't use "ANVISA" any longer since it will be removed in next versions.
-A corresponding message informs about this.
+Regulatory settings for the widening of the \acronym{BE} acceptance limits.
+Choose from \code{"EMA"} (default) or \code{"HC"}. This argument may be given
+also in lower case.
 }
   \item{nstart}{
 Best \dQuote{guess} sample size. If not given (default), simulations
@@ -73,23 +70,22 @@ start with the sample size estimated for \code{alpha} (or \code{alpha.pre},
 if given), \code{theta0}, and \code{targetpower}.\cr
 Can also be set to start the sample size search if a previous run
 failed.\cr
-According to regulatory requirements must be >=12 for the \acronym{EMA} and
->=24 for \acronym{ANVISA}.
+According to regulatory requirements must be ≥12 for the \acronym{EMA} and
+≥24 for \acronym{ANVISA}.
 }
   \item{nsims}{
 Number of simulations to be performed to estimate the (empirical)
-\acronym{TIE} and in each iteration of adjusting alpha.\cr
-The default value 1,000,000 = 1e+6 should not be lowered.
+\acronym{TIE} and in each iteration of adjusting alpha. The default value
+1,000,000 = 1E+6 should not be lowered.
 }
   \item{imax}{
 Maximum number of steps in sample size search. Defaults to 100.
 }
   \item{tol}{
-Desired accuracy (convergence tolerance).\cr
-Defaults to 1e-6.
+Desired accuracy (convergence tolerance). Defaults to 1E-6.
 }
   \item{print}{
-If \code{TRUE} (default), the function prints its results.
+If \code{TRUE} (default), the function sends its results to the console.
 }
   \item{details}{
 If \code{TRUE} (default), the steps during sample size search are
@@ -98,33 +94,52 @@ adjusting alpha and change of study costs due to the increased sample
 size is given.
 }
   \item{alpha.pre}{
-Pre-specified alpha (optional). Must be <=\code{alpha}. \acronym{ABEL} will be
+Pre-specified alpha (optional). Must be \code{≤alpha}. \acronym{ABEL} will be
 performed at level \code{alpha.pre} and the \acronym{TIE} assessed at level \code{alpha}.\cr
 Less powerful than adjusting alpha but an alternative in the critical
-region of maximum inflation of the \acronym{TIE}. Not recommended for \code{CVwR}
->= 0.45 due to poor power characteristics.
+region of maximum inflation of the \acronym{TIE}. In certain scenarios
+Bonferroni’s 0.025 is not sufficient to preserve the Type I Error.\cr
+Not recommended if \code{CVwR ≥0.45} due to poor power characteristics.
 }
 \item{setseed}{
 Simulations are dependent on the starting point of the (pseudo)
 random number generator. To avoid differences in power for different
-runs a \code{set.seed(123456)} is issued if \code{setseed=TRUE} (default).
+runs \code{set.seed(123456)} is issued if \code{setseed=TRUE} (default).
+}
+\item{sdsims}{
+If \code{FALSE} (default) power is estimated by the respective statistics.
+Recommended for the full replicate designs for speed reasons.\cr
+Set to \code{TRUE} if results of \code{\link{power.scABEL}} are expected to be inaccurate
+(small sample sizes and/or heteroscedasticity) and subject data (via \code{\link{power.scABEL.sdsims}}) should be simulated instead. Very time consuming (easily 100times slower)!\cr
+If \code{design="2x3x3"} subject simulations are recommended -- even if homoscedasticity is assumed.\cr
+Subject data simulations are not supported for \code{regulator="HC"}.
+}
+\item{progress}{
+Set to \code{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims=FALSE}.
 }
 }
 \details{
-The simulations are done via the distributional properties of the
-statistical quantities necessary for assessing \acronym{BE} based on \acronym{ABEL}.\cr
+The simulations are done via the distributional properties of the statistical
+quantities necessary for assessing \acronym{BE} based on \acronym{ABEL}.
 Simulations for the \acronym{TIE} are performed at the upper (expanded) limit \emph{U}
-of the acceptance range. Examples of \emph{U} at \acronym{EMA}'s \code{CVswitch} and \code{CVcap}:\cr
-\code{scABEL(CV=0.3, regulator="EMA")[["upper"]]}\cr
-\code{[1] 1.25}\cr
-\code{scABEL(CV=0.5, regulator="EMA")[["upper"]]}\cr
-\code{[1] 1.43191}\cr
-Due to the symmetry around 1 results are valid for the lower (expanded)
-limit \emph{L} as well.\cr
+of the acceptance range. Due to the symmetry around 1 results are valid for the lower
+(expanded) limit \emph{L} as well.\cr
+\emph{U} at the \acronym{EMA}’s and Health Canada’s \code{CVswitch} and
+\code{CVcap}:\preformatted{scABEL(CV=0.3, regulator="EMA")[["upper"]]; scABEL(CV=0.3, regulator="HC")[["upper"]]
+[1] 1.25
+[1] 1.25
+scABEL(CV=0.5, regulator="EMA")[["upper"]]; scABEL(CV=0.57382, regulator="HC")[["upper"]]
+[1] 1.43191
+[1] 1.5}
+Simulated studies are evaluated by ANOVA (\sQuote{Method A}) as recommended in the
+\acronym{EMA}’s Q&A-document and by intra-subject contrasts if \code{regulator="HC"}.
+Health Canada requires a mixed-effects model which cannot be implemented in R. However,
+intra-subjects contrasts are a sufficiently close approximation.\cr
 
-If an inflation of the \acronym{TIE} is expected (i.e., > \code{alpha}), alpha is iteratively adjusted
-until at least the target power is reached and the consumer risk is maintained (<= \code{alpha})
-
+If an inflation of the \acronym{TIE} is expected (i.e., \code{>alpha}), alpha is
+iteratively adjusted until at least the target power is reached and the consumer
+risk is maintained (\code{≤alpha}). For details about the algorithm see the
+respective section of \code{\link{scABEL.ad}}.
 }
 \value{
 Returns a data.frame with the input and results for adjusted alpha,
@@ -160,7 +175,7 @@ H. \enc{Schütz}{Schuetz}
 We are doing the sample size estimation only for balanced designs
 since the break down of the total subject number in case of unbalanced
 sequences is not unique. Moreover the formulas used are only for
-balanced designs.\cr
+balanced designs.
 }
 
 \section{Warning }{
@@ -169,7 +184,7 @@ consuming and will eventually also fail since the start values chosen are
 not really reasonable in that ranges.\cr
 If you really need sample sizes in that range be prepared to restart the sample
 size estimation with \code{nstart} above the last one before failure.\cr
-Since the dependence of power from n is very flat in the mentioned region you may
+Since the dependence of power from \code{n} is very flat in the mentioned region you may
 also consider to adapt the number of simulations not to tap in the simulation
 error trap.\cr\cr
 See also the Warning section of the function \code{\link{power.scABEL}} concerning
@@ -184,8 +199,7 @@ the power value agreement to those obtained from simulations via subject data.
 # --- Not run due to timing policy of CRAN for examples
 # each may run some ten seconds or more
 # using all the defaults:
-# partial replicate design, target power=80\%,
-# true assumed ratio = 0.90, 1E+6 simulated studies
+# TRR|RTR|RRT, target power 80\%, assumed ratio 0.90, 1E+6 simulated studies,
 # EMA regulatory settings (ABE limits, PE constraint 0.8 - 1.25)
 \dontrun{
 sampleN.scABEL.ad(CV = 0.3)}
@@ -195,8 +209,8 @@ sampleN.scABEL.ad(CV = 0.3)}
 \dontrun{
 sampleN.scABEL.ad(CV = 0.3, details = TRUE)}
 #
-# full replicate design, target power = 90\%, pre-specified alpha 0.025
+# TRTR|RTRT, target power 90\%, pre-specified alpha 0.025
 \dontrun{
-sampleN.scABEL.ad(CV = 0.3, targetpower = 0.8, design = "2x2x4", alpha.pre = 0.025)}
-# should result in n 44, power 0.8040; pre-specified alpha justified.
+sampleN.scABEL.ad(CV = 0.3, targetpower = 0.9, design = "2x2x4", alpha.pre = 0.025)}
+# should result in n 60, power 0.9021; pre-specified alpha justified.
 }

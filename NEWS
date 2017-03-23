@@ -1,3 +1,10 @@
+Published on GitHub 2017-03-23
+      - Updated functions scABEL.ad() and sampleN.scABEL.ad() to allow
+        subject data simulations via power.scABEL.sdsims() if regulator = "EMA".
+        Removed regulator = "ANVISA".
+        Changed the order of sequences to be consistent with the other
+        functions of PowerTOST.
+
 Version 1.4-4
 Released 2017-03-15
       - Administrative change for expected power: cubature::adaptIntegrate 

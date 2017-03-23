@@ -10,7 +10,8 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
                               design = c("2x3x3", "2x2x4", "2x2x3"),
                               regulator, nstart = NA, nsims = 1e6, imax=100,
                               tol, print = TRUE, details = FALSE,
-                              alpha.pre = 0.05, setseed = TRUE)
+                              alpha.pre = 0.05, setseed = TRUE,
+                              sdsims = FALSE, progress)
 {
   ## Arguments:
   ##   alpha       Nominal alpha (in BE generally fixed to 0.05).
@@ -26,10 +27,10 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   ##               If given as a vector, CV[1] /must/ be the CV of T and
   ##               CV[2] the CV of R. Important!
   ##   design      "2x2x4", "2x2x3", "2x3x3"
-  ##   regulator  "EMA" or "ANVISA". ANVISA recently adopted EMA's rules.
+  ##   regulator  "EMA" or "HC".
   ##   nstart      If given, the starting sample size.
   ##   nsims       Simulations for the TIE. Should not be <1e6.
-  ##   imax        Max. number of steps in sample size search
+  ##   imax        Max. number of steps in sample size search.
   ##   tol         Desired accuracy (convergence tolerance of uniroot);
   ##               defaults to 1e-6.
   ##   print       Logical. If FALSE, returns a data.frame of results.
@@ -53,11 +54,11 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   ##      target power is reached.
   ################################################################
   ## Tested on Win 7 Pro SP1 64bit                              ##
-  ##   R 3.3.2 64bit (2016-10-31), PowerTOST 1.4-3 (2016-11-01) ##
+  ##   R 3.3.3 64bit (2017-03-06), PowerTOST 1.4-4 (2017-03-15) ##
   ################################################################
   env <- as.character(Sys.info()[1]) # get info about the OS
-  if ((env == "Windows") || (env == "Darwin")) flushable <- TRUE
-    else flushable <- FALSE # supress flushing on other OS's
+  ifelse ((env == "Windows") || (env == "Darwin"), flushable <- TRUE,
+    flushable <- FALSE) # supress flushing on other OS's
   # acceptance range defaults
   if (missing(theta1) && missing(theta2)) theta1 <- 0.8
   if (missing(theta2)) theta2 = 1/theta1
@@ -67,20 +68,21 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     stop("theta0 must be within [theta1, theta2]")
   # check regulator arg
   if (missing(regulator)) regulator <- "EMA"
-  reg <- reg_check(regulator, choices=c("EMA", "HC", "ANVISA"))
+  reg <- reg_check(regulator, choices=c("EMA", "HC"))
+  if (regulator == "HC" && sdsims)
+    stop("Subject data simulations are not supported for regulator='HC'.")
   if (length(nstart) == 2) nstart <- sum(nstart)
   design <- match.arg(design)
   if (missing(CV)) stop("CV must be given!")
   CVwT <- CV[1]
   if (length(CV) == 2) CVwR <- CV[2] else CVwR <- CVwT
-  if (!is.na(nstart) &&
-    ((reg$name == "EMA" && nstart < 12) ||
-     (reg$name == "ANVISA" && nstart < 24)))
-      warning("Requested sample size below regulatory minimum.")
+  if(missing(progress)) progress <- FALSE
+  if (!is.na(nstart) && nstart < 12)
+    warning("Requested sample size below regulatory minimum.")
   if (!is.na(targetpower) && (targetpower < 0 || targetpower >= 1))
     stop("targetpower must be within 0 <= 1.")
   if (alpha.pre > alpha) {
-    warning(paste0("alpha.pre > alpha doesn't make sense.",
+    warning(paste0("alpha.pre > alpha does not make sense.",
                    "\nalpha.pre was set to alpha."))
     alpha.pre <- alpha
   }
@@ -91,29 +93,33 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   if (CVwR > reg$CVswitch) method <- "ABEL"
   # define the data.frame of rseults
   res <- data.frame(design = design, regulator = reg$name,
-                    method = method, theta0 = theta0, CVwT = CVwT,
-                    CVwR = CVwR, alpha = alpha, alpha.pre = alpha.pre,
+                    method = method, eval = reg$est_method,
+                    theta0 = theta0, CVwT = CVwT, CVwR = CVwR,
+                    alpha = alpha, alpha.pre = alpha.pre,
                     alpha.adj = NA, TIE = NA, n = NA,
                     targetpower = targetpower, power = NA)
-  names(res) <- c("Design", "Regulator", "Method", "theta0", "CVwT",
-                  "CVwR", "alpha", "alpha.pre", "adj. alpha", "TIE",
-                  "Sample size", "Target power", "Achieved power")
+  names(res) <- c("Design", "Regulator", "Method", "Eval", "theta0",
+                  "CVwT", "CVwR", "alpha", "alpha.pre", "adj. alpha",
+                  "TIE", "Sample size", "Target power", "Achieved power")
   limits <- as.numeric(scABEL(CV = CVwR, regulator = reg))
   U <- limits[2] # Simulate at the upper (expanded) limit. For CVwR
                  # 30% that's 1.25. Due to the symmetry simulations
-                 # at the lower limit (0.8) would work as well.
+                 # at the lower limit (0.80) would work as well.
   if (is.na(alpha.pre) || (alpha.pre != alpha)) {
     al <- alpha.pre # If pre-specified, use alpha.pre.
   } else {
     al <- alpha     # If not, use alpha (commonly 0.05).
   }
   designs <- c("2x2x4", "2x2x3", "2x3x3")
-  type    <- c("RTRT|TRTR", "RTR|TRT", "RRT|RTR|TRR") # clear words
+  type    <- c("TRTR|RTRT", "TRT|RTR", "TRR|RTR|RRT") # clear words
   if (print) { # Show input to keep the spirits of the user high.
-    cat("\n+++++++++++ scaled (widened) ABEL +++++++++++\n")
+    if (sdsims) cat("Be patient. Simulating subject data will take a good while!\n\n")  
+    cat("+++++++++++ scaled (widened) ABEL ++++++++++++\n")
     cat("            Sample size estimation\n")
     cat("        for iteratively adjusted alpha\n")
-    cat("---------------------------------------------\n")
+    if (regulator == "EMA") cat("   (simulations based on ANOVA evaluation)\n")
+    if (regulator == "HC") cat("(simulations based on intra-subject contrasts)\n")
+    cat("----------------------------------------------\n")
     cat("Study design: ")
     cat(paste0(design, " (", type[match(design, designs)], ")\n"))
     cat("log-transformed data (multiplicative model)\n")
@@ -136,7 +142,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     cat("True ratio         :", sprintf("%.4f", theta0), "\n")
     cat("Target power       :", sprintf("%.3g", targetpower), "\n")
     cat(paste0("Regulatory settings: ", reg$name, " (", method, ")\n"))
-    
+
     # better theta1, theta2 as BE limits, PE constraint?
     if (CVwR <= reg$CVswitch) {
       cat("Switching CVwR     : ", reg$CVswitch, "\n",
@@ -149,7 +155,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     }
     cat("Upper scaling cap  : CVwR >", reg$CVcap, "\n")
     cat("PE constraints     : 0.8000 ... 1.2500\n")
-
+    if (progress) cat("Progress of each iteration:\n")
     if (flushable) flush.console()
   }
   if (details) ptm <- proc.time()
@@ -168,7 +174,8 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   x <- scABEL.ad(alpha = alpha, theta0 = theta0, CV = CV,
                  design = design, regulator = reg, n = unadj.n,
                  nsims = nsims, imax=imax, print = FALSE, details = FALSE,
-                 alpha.pre = alpha.pre, setseed = setseed)
+                 alpha.pre = alpha.pre, setseed = setseed,
+                 sdsims = sdsims, progress = progress)
   alpha.adj <- x[["alpha.adj"]]
   if (is.na(alpha.adj)) { # No adjustment was necessary:
     if (alpha.pre != alpha) {
@@ -219,16 +226,9 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   if (print && details && (alpha.adj != alpha)) { # Some information.
     cat("\nSample size search and iteratively adjusting alpha")
     cat(sprintf("%s %3d, %s ", "\nn", unadj.n, "  adj. alpha:"))
-    if (alpha.adj >= 0.01) {    # General case (alphas <0.025 are rare).
-      cat(sprintf("%.5f %s %.4f%s %.2f%%%s", alpha.adj, "(power", pwr.adj,
-                  "), rel. impact on power:",
-                  100*(pwr.adj - pwr.unadj)/pwr.unadj, "\n"))
-    } else {                # Sometimes necessary for ANVISA...
-      cat(paste0(signif(alpha.adj, 5),
-          sprintf(" %s %.4f%s %.2f%%%s", "(power", pwr.adj,
-                  "), relative impact on power:",
-                  100*(pwr.adj - pwr.unadj)/pwr.unadj, "\n")))
-    }
+    cat(sprintf("%.5f %s %.4f%s %.2f%%%s", alpha.adj, "(power", pwr.adj,
+                "), rel. impact on power:",
+                100*(pwr.adj - pwr.unadj)/pwr.unadj, "\n"))
     if (flushable) flush.console()
   }
   # Increase the sample size /and/ adjust alpha until achieved
@@ -257,12 +257,14 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
       x  <- scABEL.ad(alpha = alpha, regulator = reg, design = design,
                       CV = CV, n = n.new, theta0 = theta0, imax=imax,
                       tol = tol, print = FALSE, details = FALSE,
-                      nsims = nsims, setseed = setseed)
+                      nsims = nsims, setseed = setseed,
+                      sdsims = sdsims, progress = progress)
     } else {                      # Do /not/ adjust pre-specified alpha!
       x  <- scABEL.ad(regulator = reg, design = design, CV = CV,
                       n = n.new, theta0 = theta0, imax=imax, tol = tol,
                       print = FALSE, details = FALSE, nsims = nsims,
-                      setseed = setseed, alpha.pre = alpha.adj)
+                      setseed = setseed, alpha.pre = alpha.adj,
+                      sdsims = sdsims, progress = progress)
     }
     no <- no + x$sims
     if (is.na(x[["alpha.adj"]])) { # No adjustment was necessary!
@@ -276,14 +278,8 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     # browser()
     if (pwr < targetpower && iter >= 1) { # Show intermediate steps.
       if (print && details) {
-        if (alpha.adj >= 0.01) { # Nice format (EMA)
-          cat(sprintf("%s %3d, %s %.5f %s %.4f%s", "n", n.new,
-                      "  adj. alpha:", alpha.adj, "(power", pwr, ")\n"))
-        } else {                 # Sometimes needed for ANVISA.
-          cat(sprintf("%s %3d, %s ", "n", n.new, "  adj. alpha:"))
-          cat(paste0(signif(alpha.adj, 5),
-              sprintf(" %s %.5f%s", "(power", pwr, ")\n")))
-        }
+        cat(sprintf("%s %3d, %s %.5f %s %.4f%s", "n", n.new,
+                    "  adj. alpha:", alpha.adj, "(power", pwr, ")\n"))        
         if (flushable) flush.console() # advance console output.
       }
     }
@@ -291,14 +287,8 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   if (details) run.time <- proc.time() - ptm
   if (print) {
     cat(sprintf("%s %3d, %s ", "n", n.new, "  adj. alpha:"))
-    if (alpha.adj >= 0.01) { # As above. EMA
-      cat(sprintf("%.5f %s %.4f%s %.5f%s", alpha.adj, "(power", pwr,
-                  "), TIE:", TIE, "\n"))
-    } else {                 # As above. ANVISA
-      cat(signif(alpha.adj, 5),
-          sprintf("%s %.4f%s %.5f%s", "(power", pwr,
-                  "), TIE:", TIE, "\n"))
-    }
+    cat(sprintf("%.5f %s %.4f%s %.5f%s", alpha.adj, "(power", pwr,
+                "), TIE:", TIE, "\n"))
     if (details) {
       cat("Compared to nominal alpha's sample size increase of",
           sprintf("%.1f%%", 100*(n.new - unadj.n)/unadj.n),
@@ -312,7 +302,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
         "\nSimulations:", formatC(no, format = "d", big.mark = ",",
                                   decimal.mark = "."), "\n\n")
   }
-  if (TIE > sig) { # Happens rarely for ANVISA (only).
+  if (TIE > sig) { # Happens very, very rarely.
     warning(paste0("Algorithm failed. ",
                    "Try to restart with at least 'nstart = ",
                    n.new + seqs, "'."))
@@ -334,7 +324,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
 #              Sample size estimation
 #           for iteratively adjusted alpha
 #   ---------------------------------------------
-#   Study design: 2x2x4 (RTRT|TRTR)
+#   Study design: 2x2x4 (TRTR|RTRT)
 #   log-transformed data (multiplicative model)
 #   1,000,000 studies in each iteration simulated.
 #
@@ -342,7 +332,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
 #   Nominal alpha      : 0.05
 #   Significance limit : 0.05036
 #   True ratio         : 0.900
-#   Regulatory settings: EMA (ABE)
+#   Regulatory settings: EMA (ABE) evaluated by ANOVA
 #   Switching CVwR     : 0.30
 #   BE limits          : 0.8000...1.2500
 #
@@ -359,7 +349,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
 #   x <- sampleN.scABEL.ad(regulator="EMA", design="2x2x3", CV=c(0.35, 0.40), nstart=42, theta0=0.9, targetpower=0.8, details=FALSE, print=FALSE)
 #   Show the results:
 #   print(x, row.names=FALSE)
-#    Design Regulator Method theta0 CVwT CVwR alpha alpha.pre adj. alpha      TIE Sample size Target power Achieved power
-#     2x2x3       EMA   ABEL    0.9 0.35  0.4  0.05      0.05   0.038992 0.050001          46          0.8        0.81531
+#    Design Regulator Method  Eval theta0 CVwT CVwR alpha alpha.pre adj. alpha      TIE Sample size Target power Achieved power
+#     2x2x3       EMA   ABEL ANOVA    0.9 0.35  0.4  0.05      0.05   0.038992 0.050001          46          0.8        0.81531
 #   Show the sample size only: x[["Sample size"]]
 #   [1] 46
