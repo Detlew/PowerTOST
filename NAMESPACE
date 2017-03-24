@@ -15,6 +15,7 @@ importFrom(utils, tail, head, read.table, flush.console, setTxtProgressBar,
            txtProgressBar)
 #importFrom(pracma, quad2d)
 importFrom(cubature, hcubature)
+importFrom(TeachingDemos, shadowtext)
 
 # Export all names except those beginning with .
 # exportPattern("^[^\\.]")

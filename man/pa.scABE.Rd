@@ -13,7 +13,7 @@ in planning the sample size of the study.
 \usage{
 pa.scABE(CV, theta0 = 0.9, targetpower = 0.8, minpower = 0.7,
          design = c("2x3x3", "2x2x4", "2x2x3"),
-         regulator = c("EMA", "HC", "ANVISA", "FDA"), ...)
+         regulator = c("EMA", "HC", "FDA"), ...)
 }
 \arguments{
   \item{CV}{
@@ -43,7 +43,7 @@ Defaults to \code{2x3x3}, the partial replicate design (TRR|RTR|RRT).
 }
   \item{regulator}{
 Character string describing the scaled ABE method recommended by the regulatory
-bodies EMA, HC, ANVISA or FDA.\cr
+bodies EMA, HC, or FDA.\cr
 Defaults to \code{EMA}, method of scaled (widened) bioequivalence limits.
 }
   \item{\dots}{
@@ -59,9 +59,9 @@ calculations of CV and theta0 which result in \code{minpower} are derived via \c
 While one of the parameters (CV, GMR, N) is varied, the respective two others are
 kept constant. The tool shows the relative impact of single parameters on power.\cr
 The tool takes a minimum of 12 subjects as demanded in most BE guidances into account.\cr\cr
-It should be kept in mind that this is \bold{not} a substitute for the "Sensitivity Analysis"
+It should be kept in mind that this is \bold{not} a substitute for the \dQuote{Sensitivity Analysis}
 recommended in ICH-E9. In a real study a combination of all effects occurs simultaneously.
-It is up to \bold{you} to decide on reasonable combinations and analyze their respective power.
+It is up to \emph{you} to decide on reasonable combinations and analyze their respective power.
 }
 \value{
 Returns a list with class \code{'pwrA'} with the components
@@ -74,7 +74,7 @@ Returns a list with class \code{'pwrA'} with the components
   \item{paN}{A data.frame with value pairs N, pwr for impact of
              deviations from planned N (drop-outs).}
   \item{method}{Method of BE decision. Here fix = "scABE".}
-  \item{regulator}{"EMA" or "FDA".}
+  \item{regulator}{"EMA", "HC", or "FDA".}
   \item{minpower}{Minimum acceptable power from the call of the function.}
 
 The class \code{'pwrA'} has the S3 methods \code{print()} and \code{plot()}.

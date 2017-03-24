@@ -7,7 +7,7 @@
 #-------------------------------------------------------------------------
 pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7, 
                        design=c("2x3x3", "2x2x4", "2x2x3"), 
-                       regulator=c("EMA", "HC", "ANVISA", "FDA"), ...) 
+                       regulator=c("EMA", "HC", "FDA"), ...) 
 { 
   # Rversion must be >=3.1.0 for the uniroot call with argument extendInt
   Rver <- paste0(R.Version()$major, ".", R.Version()$minor)
@@ -128,13 +128,10 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
   ##################################################################
 	# min. GMR for minimum accept. power, may also be max if GMR>1!  #
 	##################################################################
-# 	if(reg == "EMA" | reg=="ANVISA") { 
+# 	if(reg == "EMA") { 
 #     # scABEL (rounded switch acc. to BE-GL and Q&A document)
 # 		ifelse(CV <= 0.5, UL <- exp(0.76*CV2se(CV)), UL <- exp(0.76*CV2se(0.5)))
 # 		if(CV <= 0.3) UL <- 1.25
-#     if (reg=="ANVISA"){
-#       if(CV <= 0.4) UL <- 1.25
-#     }
 # 	} else {       
 #     # RSABE (exact switching cond.: 0.8925742...)
 # 		ifelse(CV > 0.3, UL <- exp(log(1.25)/0.25*CV2se(CV)), UL <- 1.25)

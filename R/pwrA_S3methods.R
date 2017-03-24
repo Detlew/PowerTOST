@@ -1,4 +1,3 @@
-# --------------------------------------------------------------------------
 # S3 method for printing the results of pa.ABE(), pa.scABE()
 # --------------------------------------------------------------------------
 print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
@@ -27,7 +26,6 @@ print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
     meth <- switch(x$regulator,
                    EMA=   " (EMA/ABEL)",
                    HC =   " (HC/ABEL2)",
-                   ANVISA=" (ANVISA/ABEL)",
                    FDA=   " (FDA/RSABE)"
                   )
     method <- paste0(method, meth)
@@ -110,11 +108,11 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     if (method=="scABE"){
       algo <- ifelse(reg == "FDA", "RSABE", "ABEL")
       legend("topright", legend=c(algo, paste0("(",reg,")")), cex=0.90,
-      bg="white", box.lty=0)
+      bg="white", box.lty=0, x.intersp=0)
     }
     if (method=="RSABE NTID"){
       legend("topright", legend=c("RSABE", "(NTID FDA)"), cex=0.90,
-      bg="white", box.lty=0)
+      bg="white", box.lty=0, x.intersp=0)
     }
   }
 
@@ -139,15 +137,16 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                      "constant: ", ratiolabel, " = ", GMRmain, ", N = ", n.est),
          lwd=2, xlab=xlabtxt, ylab="", las=1)
     mtext(side=2, ylabtxt, line=2.5)
-    box()
     grid()
     abline(h=c(targetpower, fact*0.8, minpower), lty=3)
     segments(CVs[s], pwr[s], CVs[s+1], pwr[s+1], lwd=2, col=clr[s])
     points(CVs[1], pwr[1], col=clr[1], pch=16, cex=1.25)
     points(CVs[seg], pwr[seg], col=clr[seg], pch=16, cex=1.25)
-    text(CV, (minpower+(pwr.est-minpower)*0.1),
-         labels=paste0("CV = ", signif(CV.max, 4), pctsign," (",
-                       round(minpower, dec), pctsign,")"), cex=0.9, pos=4)
+    shadowtext(CV, (minpower+(pwr.est-minpower)*0.1),
+               labels=paste0("CV = ", signif(CV.max, 4), pctsign," (",
+                             round(minpower, dec), pctsign,")"),
+               col="black", bg="white", pos=4, r=0.5, cex=0.9)
+    
   } else {
     # any scABE (including RSABE NTID)
     plot(CVs, pwr, type="n",
@@ -158,7 +157,6 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     abline(h=c(targetpower, 0.8*fact, minpower), lty=3)
     mtext(side=2, ylabtxt, line=2.5)
     mklegend(x$method)
-    box()
     segments(CVs[s], pwr[s], CVs[s+1], pwr[s+1], lwd=2, col=clr[s])
     # mark the plan CV and power
     points(CV, pwr.est, col=cols[1], pch=16, cex=1.25)
@@ -168,7 +166,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     }
     txt <- paste0("CV = ", signif(CV.max, 4), pctsign, " (",
                   round(minpower, dec), pctsign, ")")
-    if  (x$method=="RSABE NTID"){
+    if  (x$method=="RSABE NTID") {
       if(abs(pwr[1]-minpower)/minpower<=1e-4) {
         #we have also CV.min with power=minpower
         points(CV.min, pwr[1], col=clr[seg], pch=16, cex=1.1)
@@ -176,10 +174,11 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                       pctsign, ") (",round(minpower, dec), pctsign, ")")
       }
     }
-    text(min(CVs), (minpower+(max(pwr)-minpower)*0.1), labels=txt,
-         cex=0.9, pos=4)
+    shadowtext(min(CVs), (minpower+(max(pwr)-minpower)*0.1),
+               labels=txt,col="black", bg="white", pos=4, r=0.5, cex=0.9)
   }
-
+  box()
+  
   screen(2) ### 'Sensitivity' of GMR (CV and n constant) ###
   pwr <- as.numeric(fact*x$paGMR[,"pwr"])
   GMRs <- as.numeric(x$paGMR[,"theta0"])
@@ -197,17 +196,16 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     abline(h=c(targetpower, fact*0.8, minpower), lty=3)
     mklegend(x$method)
     mtext(ylabtxt, side=2, line=2.5)
-    box()
     segments(GMRs[s], pwr[s], GMRs[s+1], pwr[s+1], lwd=2, col=clr[s])
     # the next assumes that the values start at GMR and end on GMR.min (maybe also max!)
     # TODO rework if plan.GMR not at border
     points(GMRs[1], pwr[1], col=clr[1], pch=16, cex=1.25)
     points(GMRs[seg], pwr[seg], col=clr[seg], pch=16, cex=1.25)
-    text(GMR, (minpower+(pwr.est-minpower)*0.1),
-         labels=paste0(ratiolabel, " = ",signif(GMR.min, 4), " (",
-                       round(minpower, dec), pctsign, ")"),
-         cex=0.9, pos=4)
-  } else {
+    shadowtext(GMR, (minpower+(pwr.est-minpower)*0.1),
+               labels=paste0(ratiolabel, " = ", signif(GMR.min, 4), " (",
+                             round(minpower, dec), pctsign, ")"),
+               col="black", bg="white", pos=4, r=0.5, cex=0.9)
+    } else {
     plot(100*GMRs, pwr, type="n",
          main=paste0("Larger deviation from 100%\n",
                      "constant: CV = ", CV, pctsign,", N = ", n.est),
@@ -217,7 +215,6 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     abline(h=c(targetpower, fact*0.8, minpower), lty=3)
     mklegend(x$method)
     mtext(ylabtxt, side=2, line=2.5)
-    box()
     segments(100*GMRs[s], pwr[s], 100*GMRs[s+1], pwr[s+1], lwd=2, col=clr[s])
     # the next assumes that the values start at GMR and end on GMR.min (maybe also max!)
     # TODO rework if plan.GMR not at border
@@ -227,8 +224,13 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
          labels=paste0(ratiolabel, " = ",signif(100*GMR.min, 4), "% (",
                        round(minpower, dec), pctsign, ")"),
          cex=0.9, pos=4)    
+    shadowtext(100*GMR, (minpower+(pwr.est-minpower)*0.1),
+               labels=paste0(ratiolabel, " = ", signif(100*GMR.min, 4), "% (",
+                             round(minpower, dec), pctsign, ")"),
+               col="black", bg="white", pos=4, r=0.5, cex=0.9)
   }
-
+  box()
+  
   screen(3) ### Sensitivity of n (GMR and CV constant) ###
   pwr <- as.numeric(fact*x$paN[,"pwr"])
   Ns  <- as.numeric(x$paN[,"N"])
@@ -238,7 +240,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   nNs    <- length(Ns)
   if(nNs<5 & nNs>1) xticks <- c(max(Ns), min(Ns), nNs-1)
   plot(Ns, pwr, type="n",
-       main=paste0("Drop-outs\n",
+       main=paste0("Dropouts\n",
                    "constant: ", ratiolabel, " = ", GMRmain,
                    ", CV = ", CV, pctsign),
        lwd=2, xlim=c(max(Ns), min(Ns)), ylim=c(minpower, pwr.est),
@@ -248,7 +250,6 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   abline(h=c(targetpower, fact*0.8, minpower), lty=3)
   mklegend(x$method)
   mtext(side=2, ylabtxt, line=2.5)
-  box()
   points(Ns, pwr, pch=16, cex=0.8, col=clr)
   points(Ns[length(Ns)], pwr[length(Ns)], col=clr[length(Ns)],
          pch=16, cex=1.25)
@@ -256,101 +257,103 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   # label even drop-outs
   do.even  <- Ns[c(TRUE, FALSE)]
   pwr.even <- pwr[c(TRUE, FALSE)]
-  text(do.even, pwr.even, labels=n.est-do.even, pos=3, cex=0.75, offset=0.5)
-  text(max(Ns), (minpower+(pwr.est-minpower)*0.1),
-       labels=paste0("N = ", min(Ns), " (", signif(min(pwr), 4), pctsign, ")"),
-       cex=0.9, pos=4)
+  shadowtext(do.even, pwr.even, labels=n.est-do.even,
+             col="black", bg="white", pos=3, r=0.4, cex=0.75)
+  shadowtext(max(Ns), (minpower+(pwr.est-minpower)*0.1),
+             labels=paste0("N = ", min(Ns), " (", signif(min(pwr), 4), pctsign, ")"),
+             col="black", bg="white", pos=4, r=0.5, cex=0.9)
+  box()
 
   screen(4) ### Some basic information ###
-  if (x$method != "RSABE NTID"){
+  if (x$method != "RSABE NTID") {
     if (fact == 1) {
       CVtxt <- sprintf("  CV = %.4f (%+5.1f%%)",
-                       CV.max, 100*(CV.max-CV)/CV)
+                     CV.max, 100*(CV.max-CV)/CV)
     } else {
       CVtxt <- sprintf("  CV = %5.2f%% (%+5.1f%%)",
-                       CV.max, 100*(CV.max-CV)/CV)
+                     CV.max, 100*(CV.max-CV)/CV)
     }
   } else {
-      # CVtxt <- "" # why?
-      if(abs(fact*x$paCV[1,"pwr"]-minpower)/minpower<=1e-4) {
-        # we have also CV.min with power=minpower
-        if (fact == 1) {
-          CVtxt <- sprintf("  CVmin = %.5f (%+5.1f%%)", CV.min, 100*(CV.min-CV)/CV)
-          CVtxt <- c(CVtxt, sprintf("  CVmax = %.4f (%+5.1f%%)", CV.max, 100*(CV.max-CV)/CV))
-        } else {
-          CVtxt <- sprintf("  CVmin = %5.3f%% (%+5.1f%%)", CV.min, 100*(CV.min-CV)/CV)
-          CVtxt <- c(CVtxt, sprintf("  CVmax = %5.2f%% (%+5.1f%%)", CV.max, 100*(CV.max-CV)/CV))
-        }
+    # CVtxt <- "" # why?
+    if(abs(fact*x$paCV[1,"pwr"]-minpower)/minpower<=1e-4) {
+      # we have also CV.min with power=minpower
+      if (fact == 1) {
+        CVtxt <- sprintf("  CVmin = %.5f (%+5.1f%%)", CV.min, 100*(CV.min-CV)/CV)
+        CVtxt <- c(CVtxt, sprintf("  CVmax = %.4f (%+5.1f%%)", CV.max, 100*(CV.max-CV)/CV))
       } else {
-        # we have only CV.max with power=minpower
-        if (fact == 1) {
-          CVtxt <- sprintf("  CV = %.4f (%+5.1f%%)", CV.max, 100*(CV.max-CV)/CV)
-        } else {
-          CVtxt <- sprintf("  CV = %5.2f%% (%+5.1f%%)", CV.max, 100*(CV.max-CV)/CV)
-        }
+        CVtxt <- sprintf("  CVmin = %5.3f%% (%+5.1f%%)", CV.min, 100*(CV.min-CV)/CV)
+        CVtxt <- c(CVtxt, sprintf("  CVmax = %5.2f%% (%+5.1f%%)", CV.max, 100*(CV.max-CV)/CV))
       }
-  }
-  if (x$method=="ABE") {
-      BEARtxt <- "  BE margins:"
-    if (fact == 1) { # ratios
-      BEARtxt <- c(BEARtxt, sprintf("    %.4f %s %.4f",
-                                    theta1, "...", theta2))
-    } else { # percent
-      BEARtxt <- c(BEARtxt, sprintf("    %.2f%% %s %.2f%%",
-                                    100*theta1, "...", 100*theta2))
+    } else {
+      # we have only CV.max with power=minpower
+      if (fact == 1) {
+        CVtxt <- sprintf("  CV = %.4f (%+5.1f%%)", CV.max, 100*(CV.max-CV)/CV)
+      } else {
+        CVtxt <- sprintf("  CV = %5.2f%% (%+5.1f%%)", CV.max, 100*(CV.max-CV)/CV)
+      }
     }
   }
-  if(x$method=="scABE"){
-    # (widened) acceptance range
-    if(x$regulator=="FDA"){
-      Ltxt <-"  implied BE margins:"
-      wtheta1 <- min(theta1,exp(CV2se(CV/fact)*log(theta1)/0.25))
-      wtheta2 <- max(theta2,exp(CV2se(CV/fact)*log(theta2)/0.25))
-    } else { #EMA
-      Ltxt <- "  (widened) BE margins:"
-      CVV <- min(0.5,CV/fact)      # cap
-      wtheta1 <- min(theta1,exp(-CV2se(CVV)*0.76))
-      wtheta2 <- max(theta2,exp(CV2se(CVV)*0.76))
-    }
-    if (fact == 1) { # ratios
-      BEARtxt <- c(Ltxt, sprintf("    %.4f %s %.4f",
-                                 wtheta1, "...", wtheta2))
-    } else { # percent
-      BEARtxt <- c(Ltxt, sprintf("    %.2f%% %s %.2f%%",
-                                 100*wtheta1, "...", 100*wtheta2))
-    }
-  }
-  if(x$method=="RSABE NTID"){
-    Ltxt <-"  implied BE margins:"
-    wtheta1 <- max(theta1,exp(CV2se(CV/fact)*log(0.9)/0.1))
-    wtheta2 <- min(theta2,exp(-CV2se(CV/fact)*log(0.9)/0.1))
-    if (fact == 1) { # ratios
-      BEARtxt <- c(Ltxt, sprintf("    %.4f %s %.4f",
-                                 wtheta1, "...", wtheta2))
-    } else { # percent
-      BEARtxt <- c(Ltxt, sprintf("    %.2f%% %s %.2f%%",
-                                 100*wtheta1, "...", 100*wtheta2))
-    }
-  }
-  plot(1, type="n", axes=F, xlab="", ylab="")
-  if (fact == 100) { # percent
-    legend("topleft", inset=-0.065,
-           legend=c(paste0(design, " design", "; assumed:"),
-                    sprintf("  %s %1.0f%%%s%s%s %.2f%%", "CV =", CV, ", ", ratiolabel, " =", 100*GMR),
-                    BEARtxt,
-                    "power:",
-                    sprintf("  %s %2.0f%%", "target =", targetpower),
-                    sprintf("  %s %5.2f%% %s %i%s", "estimated =", pwr.est,
-                            "(N =", n.est, ")"),
-                    sprintf("  %s %2.0f%%", "minimum acceptable =", minpower),
-                    "acceptable (relative) deviations:",
-                    #TODO:react to RSABE NTID where there may be also a CVmin
-                    CVtxt,
-                    sprintf("  %s%s %5.2f%% (%+5.2f%%)",
-                            ratiolabel, " =", 100*GMR.min, 100*(GMR.min-GMR)/GMR),
-                    sprintf("  %s %i (%+5.1f%%)",
-                            "N =", min(Ns), 100*(min(Ns)-n.est)/n.est)),
-           bty="n", cex=0.9)
+ if (x$method=="ABE") {
+   BEARtxt <- "  BE margins:"
+   if (fact == 1) { # ratios
+     BEARtxt <- c(BEARtxt, sprintf("    %.4f %s %.4f",
+                                  theta1, "...", theta2))
+   } else { # percent
+     BEARtxt <- c(BEARtxt, sprintf("    %.2f%% %s %.2f%%",
+                                  100*theta1, "...", 100*theta2))
+   }
+ }
+ if(x$method=="scABE") {
+   # (widened) acceptance range
+   if(x$regulator=="FDA"){
+     Ltxt <-"  implied BE margins:"
+     wtheta1 <- min(theta1,exp(CV2se(CV/fact)*log(theta1)/0.25))
+     wtheta2 <- max(theta2,exp(CV2se(CV/fact)*log(theta2)/0.25))
+   } else { #EMA
+     Ltxt <- "  (widened) BE margins:"
+     CVV <- min(0.5,CV/fact)      # cap
+     wtheta1 <- min(theta1,exp(-CV2se(CVV)*0.76))
+     wtheta2 <- max(theta2,exp(CV2se(CVV)*0.76))
+   }
+   if (fact == 1) { # ratios
+     BEARtxt <- c(Ltxt, sprintf("    %.4f %s %.4f",
+                                wtheta1, "...", wtheta2))
+   } else { # percent
+     BEARtxt <- c(Ltxt, sprintf("    %.2f%% %s %.2f%%",
+                                100*wtheta1, "...", 100*wtheta2))
+   }
+ }
+ if(x$method=="RSABE NTID") {
+   Ltxt <-"  implied BE margins:"
+   wtheta1 <- max(theta1,exp(CV2se(CV/fact)*log(0.9)/0.1))
+   wtheta2 <- min(theta2,exp(-CV2se(CV/fact)*log(0.9)/0.1))
+   if (fact == 1) { # ratios
+     BEARtxt <- c(Ltxt, sprintf("    %.4f %s %.4f",
+                                wtheta1, "...", wtheta2))
+   } else { # percent
+     BEARtxt <- c(Ltxt, sprintf("    %.2f%% %s %.2f%%",
+                                100*wtheta1, "...", 100*wtheta2))
+   }
+ }
+ plot(1, type="n", axes=F, xlab="", ylab="")
+ if (fact == 100) { # percent
+   legend("topleft", inset=-0.055,
+          legend=c(paste0(design, " design", "; assumed:"),
+                   sprintf("  %s %1.0f%%%s%s%s %.2f%%", "CV =", CV, ", ", ratiolabel, " =", 100*GMR),
+                   BEARtxt,
+                   "power:",
+                   sprintf("  %s %2.0f%%", "target =", targetpower),
+                   sprintf("  %s %5.2f%% %s %i%s", "estimated =", pwr.est,
+                           "(N =", n.est, ")"),
+                   sprintf("  %s %2.0f%%", "minimum acceptable =", minpower),
+                   "acceptable (relative) deviations:",
+                   #TODO:react to RSABE NTID where there may be also a CVmin
+                   CVtxt,
+                   sprintf("  %s%s %5.2f%% (%+5.2f%%)",
+                           ratiolabel, " =", 100*GMR.min, 100*(GMR.min-GMR)/GMR),
+                   sprintf("  %s %i (%+5.1f%%)",
+                           "N =", min(Ns), 100*(min(Ns)-n.est)/n.est)),
+          bty="n", cex=0.9)
   } else { # ratios
     legend("topleft", inset=-0.065,
            legend=c(paste0(design, " design", "; assumed:"),
