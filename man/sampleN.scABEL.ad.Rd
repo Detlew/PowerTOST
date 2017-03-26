@@ -146,7 +146,7 @@ Returns a data.frame with the input and results for adjusted alpha,
 type I error, sample size, and achieved power.\cr
 The \dQuote{Sample size} column contains the total sample size.
 If no adjustment is necessary, \code{NA} will be returned in the
-\dQuote{adj. alpha} column and other results are identical to the ones
+\dQuote{alpha.adj} column and other results are identical to the ones
 obtained by \code{\link{sampleN.scABEL}}.
 }
 \references{

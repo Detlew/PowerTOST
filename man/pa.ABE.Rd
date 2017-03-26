@@ -20,23 +20,23 @@ pa.ABE(CV, theta0 = 0.95, targetpower = 0.8, minpower = 0.7, design = "2x2", \do
 \arguments{
   \item{CV}{
 Coefficient of variation as ratio.\cr
-In case of cross-over studies this is the within-subject CV;\cr
+In case of cross-over studies this is the within-subject CV.\cr
 }
   \item{theta0}{
-'True' or assumed T/R ratio. Often named GMR.\cr
+\sQuote{True} or assumed T/R ratio. Often named GMR.\cr
 Must be given as ratio.
 }
   \item{targetpower}{
 Power to achieve at least in sample size estimation. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9. Defaults to 0.8.\cr
-Note that targetpower < 0.5 doesn't make much sense.\cr
-If package is run under R version < 3.1.0 \code{targetpower} has to be >= 0.5.
+Note that targetpower < 0.5 doesn’t make much sense.\cr
+If package is run under R version < 3.1.0 \code{targetpower} has to be ≥ 0.5.
 }
   \item{minpower}{
 Minimum acceptable power to have if deviating from assumptions for sample size plan.\cr
 Has to be lower than \code{targetpower}. Defaults to 0.7.\cr
-\code{minpower} < 0.5 doesn't make much sense.\cr
-If package is run under R version < 3.1.0 \code{minpower} has to be >= 0.5.
+\code{minpower} < 0.5 doesn’t make much sense.\cr
+If package is run under R version < 3.1.0 \code{minpower} has to be ≥ 0.5.
 }
   \item{design}{
 Character string describing the study design.\cr
@@ -80,9 +80,9 @@ which gave a power=\code{minpower} are derived via R base \code{uniroot()}.
 While one of the parameters (CV, theta0, N) is varied, the respective two others are
 kept constant. The tool shows the relative impact of single parameters on power.\cr
 The tool takes a minimum of 12 subjects as demanded in most BE guidances into account.\cr\cr
-It should be kept in mind that this is \bold{not} a substitute for the "Sensitivity Analysis"
+It should be kept in mind that this is \bold{not} a substitute for the \dQuote{Sensitivity Analysis}
 recommended in ICH-E9. In a real study a combination of all effects occurs simultaneously.
-It is up to \bold{you} to decide on reasonable combinations and analyze their respective power.
+It is up to \emph{you} to decide on reasonable combinations and analyze their respective power.
 }
 \value{
 Returns a list with class \code{"pwrA"} with the components
@@ -93,7 +93,7 @@ Returns a list with class \code{"pwrA"} with the components
   \item{paGMR}{A data.frame with value pairs theta0, pwr for impact of
                deviations from theta0 (GMR).}
   \item{paN}{A data.frame with value pairs N, pwr for impact of
-             deviations from planned N (drop-outs).}
+             deviations from planned N (dropouts).}
   \item{method}{Method of BE decision. Here fix = "ABE".}
   \item{minpower}{Minimum acceptable power.}
 
@@ -110,7 +110,7 @@ with modifications by D. Labes to use PowerTOST infrastructure.
 \note{
 The code of deviations from planned sample size tries to keep the degree of
 imbalance as low as possible between (sequence) groups.
-This results in a lesser drop of power than more extreme drop-out patterns.
+This results in a lesser decrease of power than more extreme dropout-patterns.
 }
 \seealso{
 \code{\link{power.TOST}, \link{known.designs}, \link{pa.scABE}, \link{pa.NTIDFDA}}

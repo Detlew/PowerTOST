@@ -1,10 +1,13 @@
-Published on GitHub 2017-03-24
+Published on GitHub 2017-03-26
       - Updated functions scABEL.ad() and sampleN.scABEL.ad() to allow
         subject data simulations via power.scABEL.sdsims() if
         regulator = "EMA".
         Removed regulator = "ANVISA".
         Changed the order of sequences to be consistent with the other
         functions of PowerTOST.
+      - Renamed the variable 'adj. alpha' in sampleN.scABEL.ad() to 'alpha.adj'
+        for consistency with scABEL.ad(). Bug corrected if pre-specified
+        alpha gives TIE <0.05.
       - Removed regulator = "ANVISA" from pa.scABE().
       - Small bug in the S3 method plot for class 'pwrA' corrected (text
         in the 4th box was truncated on top if saved as a PDF).
@@ -25,34 +28,34 @@ Released 2017-03-15
       - DOI for references added in many man pages. THX to Helmut.
       - Bens description of expected power added in /doc subdirectory
       - BE_power_sample_size_excerpt.pdf updated to reflect the changes in
-        computation of OwensQ
+        computation of OwensQ.
       - Use of removed functions power.scABEL2() and sampleN.scABEL2() in
         pa.scABE() corrected.
 
 Version 1.4-3
 Released 2016-11-01
       - Little bug in power.TOST() removed which caused power <0 for large degrees
-        of freedom
+        of freedom.
       - Functions for expected power of the TOST procedure and sample size based
         on expected power reworked to deal also with uncertainty of theta0 or
-        dealing with both uncertainties of CV and theta0. 
+        dealing with both uncertainties of CV and theta0.
         Contributed mainly by Benjamin Lang.
       - Functions for expected power of non-inferiority testing and sample size
         based on that expected power reworked to deal also with uncertainty of
-        theta0 or dealing with both uncertainties of CV and theta0. 
+        theta0 or dealing with both uncertainties of CV and theta0.
         Contributed mainly by Benjamin Lang.
       - Deprecated functions power.scABEL2() and sampleN.scABEL2() now removed.
         regulator = "ANVISA" no longer allowed in the scaled ABEL functions.
       - OwensQ() simpler/faster implemented. Now based soleyly on numerical
         integrataion in combination with non-central t.
-      - Owen's T-function, used in OwensQOwen() now based on algorithm AS76 and 
+      - Owen's T-function, used in OwensQOwen() now based on algorithm AS76 and
         remarks to that algorithm to avoid numerical errors of the implementation
         via integrate(). 
       - Data.frame ct9.6.6 in data("data2x2x3") added which was missing a long
         time ago.
       - Little inconsistency resolved (by Helmut) in output of power analysis 
         functions w.r.t. ratio or percent. Thanks to user myttiri of BEBA forum
-        for pointing out this inconsistency. 
+        for pointing out this inconsistency.
         
 Version 1.4-2
 Released 2016-07-14
@@ -72,7 +75,7 @@ Version 1.4-1
 Published on GitHub 2016-06-14
       - Objects of class 'regSet' now have an additional component 'est_method'
         which controls the simulations via key statistics of the evaluation using
-        EMA's ANOVA or FDA's recommended ISC in xyz.scABEL() functions.  
+        EMA's ANOVA or FDA's recommended ISC in xyz.scABEL() functions.
       - power.scABEL()/power.scABEL2() as well as sampleN.scABEL()/sampleN.scABEL2()
         are now unified. The regulator component 'est_method' is used for switching
         between sims based on EMA's ANOVA evaluation or ISC evaluation, respectively.
@@ -97,7 +100,7 @@ Released 2016-05-04 to beta-testers
         'regSet' and allow via this way User definitions of regulatory settings.
       - New function reg_const made visible to define objects of 'regSet'.
         Class 'regSet' has an S3 print method.
-      - Default value of argument theta0 in functions power.scABEL(), 
+      - Default value of argument theta0 in functions power.scABEL(),
         power.scABEL2() and power.RSABE() changed to 0.90 to be in agreement
         with the setting in the corresponding sample size functions.
       - Function scABEL (calculation of widened acceptance limits) no longer
@@ -181,58 +184,58 @@ Released 2015-08-26
 Version 1.2-08
 Released 2015-07-10
       - Maintenance release with NAMESPACE adapted to import the necessary
-        functions from base R installation (CRAN request)
+        functions from base R installation (CRAN request).
       - power.NTIDFDA() and sampleN.NTIDFDA() now have an design argument to
         choose between 2x2x4 (full replicate 4-period) and 2x2x3 (full replicate
-        3-period design)
-      - Some minor documentation improvements
+        3-period design).
+      - Some minor documentation improvements.
 
 Version 1.2-07
 Released 2015-06-03
       - Functions power.scABEL(), sampleN.scABEL() now allow the power and
         sample size calculations for scaled ABEL according to the (inofficial)
-        regulatory settings of Brasilian ANVISA
-      - Function pa.scABE() also allows regulator="ANVISA"
+        regulatory settings of Brasilian ANVISA.
+      - Function pa.scABE() also allows regulator="ANVISA".
       - New helper function scABEL for calculation of the (widened) ABE acceptance
-        limits
-      - Function power2.TOST() now removed
+        limits.
+      - Function power2.TOST() now removed.
 
 Version 1.2-06
 Released 2015-01-23
       - Function power.TOST() now handles balanced as well as unbalanced studies
       - Function power2.TOST() is therefore depreciated and will not be contained
-        in later versions
+        in later versions.
       - Internal change in interface to the (hidden) 'raw' power functions
-        (sem used in function calls instead of se, n, bk)
+        (sem used in function calls instead of se, n, bk).
       - BE_power_sample_size_excerpt.pdf in subdirectory doc changed to reflect
-        the internal changes
+        the internal changes.
 
 Version 1.2-05
 Released 2015-01-07
       - Bug in OwensQOwen() removed (debug code left over), THX to Helmut
-        for discovering this
+        for discovering this.
       - Function CVfromCI() and alias CI2CV() now handle unbalanced studies,
-        contributed by Benjamin Lang
-      - Some typos in BE_power_sample_size_excerpt.pdf, found by Ben, corrected
+        contributed by Benjamin Lang.
+      - Some typos in BE_power_sample_size_excerpt.pdf, found by Ben, corrected.
 
 Version 1.2-04
 Released 2014-12-19
       - Bug in OwensT(h,a) for the case of a=-Inf removed. Thanks to
-        Benjamin Lang for discovering that nasty bug
+        Benjamin Lang for discovering that nasty bug.
       - Functions power.noninf(), exppower.TOST(), exppower.noninf() adapted to
-        deal with unbalanced studies
+        deal with unbalanced studies.
       - Function pvalue.TOST() introduced to calculate the two p-values of the
-        TOST procedure. Contributed by Benjamin Lang
+        TOST procedure. Contributed by Benjamin Lang.
 
 Version 1.2-03
 Released 2014-11-13
       - sampleN.dp() / power.dp() now cover "incomplete block designs"
       - minimum sample size in sampleN.dp() introduced to avoid errors for
-        small CV <= 0.1 for the crossover design
+        small CV <= 0.1 for the crossover design.
       - partitition of n(total) to (sequence) groups reworked in most power
-        functions if design is unbalanced
+        functions if design is unbalanced.
       - Liu's 2x2x2 design with 2 repeated measurements in each period added
-        (see ?known.designs under Notes)
+        (see ?known.designs under Notes).
        
 Version 1.2-02
 Released 2014-10-06
@@ -241,18 +244,18 @@ Released 2014-10-06
 
 Version 1.2-01
 Released 2014-09-30
-      - Some minor bugs removed and spelling in man pages corrected
-      - print method for class pwrA now calls plot()
-      - power analysis in case of n=12 for the plan now drops n below 12 subjects
+      - Some minor bugs removed and spelling in man pages corrected.
+      - print method for class pwrA now calls plot().
+      - power analysis in case of n=12 for the plan now drops n below 12 subjects.
 
 Version 1.2-00
 Build 2014-09-19, released to alpha/beta testers only
       - Contains now functions for power analysis of a sample size plan
         for ABE (pa.ABE()), scaled ABE (pa.sABE()) and scaled ABE for NTID's
         (pa.NTIDFDA()) analyzing power for deviations from assumptions for
-        the sample size estimation
+        the sample size estimation.
       - Contains further experimental functions for power calculations / samplesize
-        estimation for dose proportionality studies using the Power model
+        estimation for dose proportionality studies using the Power model.
 
 Version 1.1-13
 Released 2014-08-12
@@ -263,9 +266,9 @@ Version 1.1-12
 Released 2014-07-02
       - Some minor improvements in documentation.
       - Function power.TOST() now throws a warning if used with imbalanced
-        designs (n not an even multiple of no. of sequences)
+        designs (n not an even multiple of no. of sequences).
       - Internal change of start value of sample size search in sampleN.TOST()
-        to avoid failed searches if variability is high and theta0 is near 1
+        to avoid failed searches if variability is high and theta0 is near 1.
 
 Version 1.1-11
 Released 2014-04-30
@@ -333,8 +336,8 @@ Released 2013-06-17
        restarting.
      - Start values for sample size search in functions sampleN.scABEL(),
        sampleN.RSABE() reworked. 
-       Failed sample size searches are now more seldom observed. 
-     - Flaw in sample size search removed which does not indicate a failed 
+       Failed sample size searches are now more seldom observed.
+     - Flaw in sample size search removed which does not indicate a failed
        search (n=NA) if started with a too high n (Thanks to Helmut Schütz).
 
 Version 1.1-04
@@ -426,7 +429,7 @@ Released 2012-04-05 (Easter egg)
      - Functions CVpooled(), exppower.TOST() and expsampleN.TOST() now
        also implemented for logscale=FALSE, i.e. contain that argument in
        their calls.
-     - Function OwensQOwen() made public. This is an implementation of the 
+     - Function OwensQOwen() made public. This is an implementation of the
        algorithm given by Owen itself in the original paper (Biometrica 1965)
        via repeated integration by parts.
        This function is only for comparative purposes.
@@ -437,7 +440,7 @@ Version 0.9-6/7
 Released 2012-03-26
      - PowerTOST 0.9-7 is a small bug fix PowerTOST required from CRAN.
        Contains the old PowerTOST number 0.9-6 in the package man page.
-     - Functions added for power and sample size calculations based on 
+     - Functions added for power and sample size calculations based on
        non-inferiority t-test. This is not a TOST procedure but eventually
        useful if the question of 'non-superiority' within a BE study must be
        evaluated.
@@ -453,7 +456,7 @@ Released 2012-03-05
 Version 0.9-3
 Released 2012-02-13
      - Bug in power.TOST removed which prevented calculation of Power
-       according to method ^= "exact".
+       according to method = "exact".
      - Sample size tables for replicate design 2x2x3 in data sub-directory added.
      - Sample size tables for replicate design 2x4x4 in data sub-directory added.
      - Scripts in the /test sub-directory made available.
@@ -478,7 +481,7 @@ released 2011-12-15
      - Paired means design introduced
      - 'robust' argument added to nearly all functions.
        With robust=TRUE the degrees of freedom for the so-called robust
-       evaluation (df2 in known.designs() output) will be used. 
+       evaluation (df2 in known.designs() output) will be used.
        This may be helpful if planning is done for higher order designs
        evaluated via mixed model or via intra-subject contrasts
        (aka Senn's basic estimator).
@@ -517,7 +520,7 @@ released 2011-01-18
 
 Version 0.8-2 
 released 2011-01-10
-     - error in df for 3x3 and 4x4 crossover removed
+     - error in df for 3x3 and 4x4 crossover removed.
      - function for pooling CV's from different studies made public
        see ?CVpooled
 
@@ -528,7 +531,7 @@ released 2010-11-25
 
 Version 0.7-3 
 released 2010-10-09
-     - bugs in documentation removed
+     - bugs in documentation removed.
      - input argument diff removed from sampleN.TOST, expsampleN.TOST,
        power.TOST and exppower.TOST
 

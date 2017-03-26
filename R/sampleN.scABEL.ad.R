@@ -99,8 +99,9 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
                     alpha.adj = NA, TIE = NA, n = NA,
                     targetpower = targetpower, power = NA)
   names(res) <- c("Design", "Regulator", "Method", "Eval", "theta0",
-                  "CVwT", "CVwR", "alpha", "alpha.pre", "adj. alpha",
+                  "CVwT", "CVwR", "alpha", "alpha.pre", "alpha.adj",
                   "TIE", "Sample size", "Target power", "Achieved power")
+  if (alpha.pre == alpha) res[["alpha.pre"]] <- NA
   limits <- as.numeric(scABEL(CV = CVwR, regulator = reg))
   U <- limits[2] # Simulate at the upper (expanded) limit. For CVwR
                  # 30% that's 1.25. Due to the symmetry simulations
@@ -113,8 +114,8 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   designs <- c("2x2x4", "2x2x3", "2x3x3")
   type    <- c("TRTR|RTRT", "TRT|RTR", "TRR|RTR|RRT") # clear words
   if (print) { # Show input to keep the spirits of the user high.
-    if (sdsims) cat("Be patient. Simulating subject data will take a good while!\n\n")  
-    cat("+++++++++++ scaled (widened) ABEL ++++++++++++\n")
+    if (sdsims) cat("\nBe patient. Simulating subject data will take a good while!\n")  
+    cat("\n+++++++++++ scaled (widened) ABEL ++++++++++++\n")
     cat("            Sample size estimation\n")
     cat("        for iteratively adjusted alpha\n")
     if (regulator == "EMA") cat("   (simulations based on ANOVA evaluation)\n")
@@ -269,6 +270,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     no <- no + x$sims
     if (is.na(x[["alpha.adj"]])) { # No adjustment was necessary!
       pwr       <- x[["pwr.unadj"]]
+      TIE       <- x[["TIE.unadj"]]
     } else {
       pwr       <- x[["pwr.adj"]]
       alpha.adj <- x[["alpha.adj"]]
@@ -307,7 +309,11 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
                    "Try to restart with at least 'nstart = ",
                    n.new + seqs, "'."))
   }
-  res[["adj. alpha"]]     <- signif(alpha.adj, 5)
+  if (alpha.adj == alpha.pre) {
+    res[["alpha.adj"]] <- NA
+  } else {
+    res[["alpha.adj"]] <- signif(alpha.adj, 5)
+  }
   res[["TIE"]]            <- signif(TIE, 5)
   res[["Sample size"]]    <- n.new
   res[["Achieved power"]] <- signif(pwr, 5)
@@ -320,10 +326,11 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
 # Examples
 #   sampleN.scABEL.ad(regulator="EMA", design="2x2x4", CV=0.3, theta0=0.9, targetpower=0.8, details=TRUE)
 # should return:
-#   +++++++++++ scaled (widened) ABEL +++++++++++
+#   +++++++++++ scaled (widened) ABEL ++++++++++++
 #              Sample size estimation
 #           for iteratively adjusted alpha
-#   ---------------------------------------------
+#      (simulations based on ANOVA evaluation)
+#   ----------------------------------------------
 #   Study design: 2x2x4 (TRTR|RTRT)
 #   log-transformed data (multiplicative model)
 #   1,000,000 studies in each iteration simulated.
@@ -332,9 +339,11 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
 #   Nominal alpha      : 0.05
 #   Significance limit : 0.05036
 #   True ratio         : 0.900
-#   Regulatory settings: EMA (ABE) evaluated by ANOVA
+#   Regulatory settings: EMA (ABE)
 #   Switching CVwR     : 0.30
 #   BE limits          : 0.8000...1.2500
+#   Upper scaling cap  : CVwR > 0.5 
+#   PE constraints     : 0.8000 ... 1.2500
 #
 #   n  34, nomin. alpha: 0.0500 (power 0.8028), TIE: 0.0816
 #
@@ -346,10 +355,11 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
 #   Runtime    : 11.6 seconds
 #   Simulations: 10,400,000
 #
-#   x <- sampleN.scABEL.ad(regulator="EMA", design="2x2x3", CV=c(0.35, 0.40), nstart=42, theta0=0.9, targetpower=0.8, details=FALSE, print=FALSE)
+#   Pre-specified alpha 0.03
+#   x <- sampleN.scABEL.ad(regulator="EMA", design="2x2x3", CV=c(0.35, 0.40), nstart=42, targetpower=0.8, print=FALSE, alpha.pre=0.03)
 #   Show the results:
 #   print(x, row.names=FALSE)
-#    Design Regulator Method  Eval theta0 CVwT CVwR alpha alpha.pre adj. alpha      TIE Sample size Target power Achieved power
-#     2x2x3       EMA   ABEL ANOVA    0.9 0.35  0.4  0.05      0.05   0.038992 0.050001          46          0.8        0.81531
+#   Design Regulator Method  Eval theta0 CVwT CVwR alpha alpha.pre alpha.adj      TIE Sample size Target power Achieved power
+#    2x2x3       EMA   ABEL ANOVA    0.9 0.35  0.4  0.05      0.03        NA 0.041359          48          0.8        0.80052
 #   Show the sample size only: x[["Sample size"]]
-#   [1] 46
+#   [1] 48

@@ -22,18 +22,18 @@ as ratio.\cr
 Here only the case CVwT=CVwR is implemented, i.e. CV has to be a scalar.
 }
   \item{theta0}{
-'True' or assumed T/R ratio. Often named GMR.\cr
+\sQuote{True} or assumed T/R ratio. Often named GMR.\cr
 Must be given as ratio. Defaults here to 0.975.
 }
   \item{targetpower}{
 Power to achieve at least in sample size estimation. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9. Defaults to 0.8.\cr
-Note that targetpower < 0.5 doesn't make much sense.
+Note that targetpower < 0.5 doesn’t make much sense.
 }
   \item{minpower}{
 Minimum acceptable power to have if deviating from assumptions for sample size plan.\cr
 Has to be lower than \code{targetpower}. Defaults to 0.7.\cr
-\code{minpower} < 0.5 doesn't make much sense.
+\code{minpower} < 0.5 doesn’t make much sense.
 }
   \item{\dots}{
 More arguments to pass to \code{power.NTIDFDA()}.\cr
@@ -47,10 +47,12 @@ Power calculations are done via \code{power.NTIDFDA()} and
 calculations of CV and theta0 which result in \code{minpower} are derived via \code{uniroot()}.\cr
 While one of the parameters (CV, theta0, n) is varied, the respective two others are
 kept constant. The tool shows the relative impact of single parameters on power.\cr
-The tool takes a minimum of 12 subjects into account as demanded in most BE guidances.\cr\cr
-It should be kept in mind that this is \bold{not} a substitute for the "Sensitivity Analysis"
+The tool takes a minimum of 12 subjects into account as demanded in most BE guidances.
+However, it should be kept in mind that the FDA requires at least 24 subjects to be enrolled
+in studies intended for reference-scaling.\cr\cr
+It should be kept in mind that this is \bold{not} a substitute for the \dQuote{Sensitivity Analysis}
 recommended in ICH-E9. In a real study a combination of all effects occurs simultaneously.
-It is up to \bold{you} to decide on reasonable combinations and analyze their respective power.
+It is up to \emph{you} to decide on reasonable combinations and analyze their respective power.
 }
 \value{
 Returns a list with class \code{'pwrA'} with the components
@@ -61,7 +63,7 @@ Returns a list with class \code{'pwrA'} with the components
   \item{paGMR}{A data.frame with value pairs theta0, pwr for impact of
                deviations from theta0 (GMR).}
   \item{paN}{A data.frame with value pairs N, pwr for impact of
-             deviations from planned N (drop-outs).}
+             deviations from planned N (dropouts).}
   \item{method}{Method of BE decision. Here fix = "NTID FDA".}
   \item{regulator}{Here fix = "FDA".}
   \item{minpower}{Minimum acceptable power from the call of the function.}
@@ -70,9 +72,13 @@ The class \code{'pwrA'} has the S3 methods \code{print()} and \code{plot()}.
 See \code{\link{pa.ABE}} for usage.
 }
 \references{
-FDA "Draft Guidance on Warfarin Sodium"\cr
+FDA. \emph{Draft Guidance on Warfarin Sodium.}\cr
 Recommended Dec 2012\cr
 \url{http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM201283.pdf}
+
+Conner DP. \emph{Bioequivalence Methods for Highly Variable Drugs and Drug Products.}\cr
+ACPS-CP Meeting, 5 August 2009\cr
+\url{https://www.fda.gov/downloads/AdvisoryCommittees/CommitteesMeetingMaterials/Drugs/AdvisoryCommitteeforPharmaceuticalScienceandClinicalPharmacology/UCM178927.pdf}
 }
 \author{
 D. Labes\cr
@@ -81,7 +87,7 @@ according to code by H. \enc{Schütz}{Schuetz} for pa.ABE() and pa.scABE()
 \note{
 The code for impact of deviations from planned sample size tries
 to keep the degree of imbalance as low as possible between (sequence) groups.
-This results in a lesser drop of power than more extreme drop-out patterns.
+This results in a lesser decrease of power than more extreme dropout-patterns.
 }
 \section{Warning }{
 Be extremly carefull if your sample size plan has extremly small CV near or
