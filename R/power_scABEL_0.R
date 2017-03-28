@@ -1,5 +1,6 @@
 # scaled ABEL according to EMA
 # naive assumption of independent distribution of mse, s2wR
+# this was in V1.1-2 the implementation
 power.scABEL0 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                           design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
                           nsims=1E5, details=FALSE, setseed=TRUE)
@@ -158,33 +159,14 @@ power.scABEL0 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   for (iter in 1:chunks){
     # simulate sample mean via its normal distribution
     means  <- rnorm(nsi, mean=mlog, sd=sdm)
+    # attention! The order of the sims matters.
+    # next was the order in V1.1-2
+    mses  <- Emse*rchisq(nsi, df)/df
     # simulate sample value s2wT/s2wR via chi-square distri
-    # shifting this after the sample mse sims will give
-    # changes in the order of max. 4E-4 compared to V1.1-02!
     s2wRs <- s2wR*rchisq(nsi, dfRR)/dfRR
-    s2wTs <- s2wT*rchisq(nsi, dfTT)/dfTT
-    # now simulate sample mse
-    if (design=="2x3x3"){
-      # simulate sample mse 
-      mses  <- Emse*rchisq(nsi, df)/df
-      # s2wT is empirical because dfTT is not defined and  
-      # artificially set to equal dfRR
-#      mses  <- (cvec[1]*s2wTs + cvec[2]*s2wRs)/denom
-    } 
-    if (design=="2x2x4"){
-      # simulate sample mse 
-      mses  <- Emse*rchisq(nsi, df)/df
-      #--- 'mean' of both attempts V1.1-02/V1.1-03 in case of 2x2x4
-#      mses  <- (mses + (cvec[1]*s2wTs + cvec[2]*s2wRs)/denom)/2
-    }
-    if (design=="2x2x3"){
-      # simulate sample mse 
-      mses  <- Emse*rchisq(nsi, df)/df
-      # --- 'mean' of mses and mses calculated as sum from components
-      # mses  <- 0.5*mses + 
-      #   0.5*((dfTT+1)*(2*s2wTs + s2wRs)/3
-      #        +(dfRR+1)*(s2wTs + 2*s2wRs)/3)/(dfTT+dfRR+2)
-    }
+    # next not necessary here
+    #s2wTs <- s2wT*rchisq(nsi, dfTT)/dfTT
+
     #--- EMA widened limits in log-domain
     uABEL   <- +sqrt(s2wRs)*r_const
     lABEL   <- -uABEL
