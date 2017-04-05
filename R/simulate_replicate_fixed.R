@@ -48,6 +48,8 @@ prep_data2 <- function(seqs, nseq, muR=log(10), ldiff, s2wT, s2wR)
   
   ldata     <- ldata[,c("subject","seqno","sequence","period","tmt","logval")]
   
+  ldata$logval <- sim_data2_y(data_tmt=ldata$tmt, muR=log(10), 
+                              ldiff=ldiff, s2wT, s2wR)
   return(ldata)
 }
 

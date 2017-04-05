@@ -5,6 +5,7 @@
 # Author D. Labes with suggestions by Ben
 # This is the version trying to optimize more things
 # using Ben's function to simulate multiple right-hand sides
+# Trying to made more self-contained, df and C2 from a first, single lm() call
 # ----------------------------------------------------------------------------
 power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                                 design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
@@ -34,34 +35,29 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   if (missing(theta1) & missing(theta2)) theta1 <- 0.8
   if (missing(theta2)) theta2 <- 1/theta1
   if (missing(theta1)) theta1 <- 1/theta2
+  # degrees of freedom no longer set here
+  # will be determined in the working horse via a first, single call of lm.fit
   if(desi=="2x3x3"){
     bk    <- 1.5
     bkni  <- 1/6
-    dfc   <- "2*n-3"
-    dfcRR <- "n-2"
     seqs  <- c("TRR", "RTR", "RRT")
   }
   if(desi=="2x2x3"){
     bk    <- 1.5
     bkni  <- 3/8
-    dfc   <- "2*n-3"
-    dfcRR <- "n/2-1"        #balanced design only, is set explicitely later
     seqs  <- c("TRT", "RTR")
   }
   if(desi=="2x2x4"){
     bk    <- 1
     bkni  <- 1/4
-    dfc   <- "3*n-4"
-    dfcRR <- "n-2"
     seqs  <- c("TRTR", "RTRT")
   }
   seqn <- length(seqs)
-  # degrees of freedom as expression
-  dfe   <- parse(text=dfc, srcfile=NULL)
-  dfRRe <- parse(text=dfcRR, srcfile=NULL) 
+
   # CV scalar or vector
   CVwT <- CV[1]
   if (length(CV)==2) CVwR <- CV[2] else CVwR <- CVwT
+  # intra-subject variabilities from CV
   s2wT <- log(1.0 + CVwT^2)
   s2wR <- log(1.0 + CVwR^2)
   # check n: vector or scalar
@@ -81,10 +77,7 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     nv <- n
     n <- sum(n)
   }
-  df <- eval(dfe)
-  dfRR <- eval(dfRRe)
-  if(desi=="2x2x3") dfRR <- nv[2]-1 
-  
+
   # auto fit method: set this to .lm.fit if n<=18
   fitm <- "qr"
   # after introducing multiple right-hand sides .lm.fit seems to have no longer
@@ -93,8 +86,8 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   
   # call the working horse
   pwr <- .pwr.ABEL.sdsims(seqs=seqs, nseq=nv, ldiff=log(theta0), s2WR=s2wR, 
-                          s2WT=s2wT, C2=C2, df=df, dfRR=dfRR, nsims=nsims, 
-                          regulator=reg, ln_lBEL=log(theta1), ln_uBEL=log(theta2), 
+                          s2WT=s2wT, C2=C2, nsims=nsims, regulator=reg, 
+                          ln_lBEL=log(theta1), ln_uBEL=log(theta2), 
                           alpha=alpha, fitmethod=fitm, setseed=setseed, 
                           details=details, progress=progress)
   pwr
@@ -103,9 +96,8 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 
 # working horse
 .pwr.ABEL.sdsims <- function(seqs, nseq, muR=log(10), ldiff, s2WR, s2WT, C2,
-                             df, dfRR, nsims, regulator,
-                             ln_lBEL=log(0.8), ln_uBEL=log(1.25), 
-                             alpha=0.05, fitmethod="lm.fit", setseed=TRUE, 
+                             nsims, regulator, ln_lBEL, ln_uBEL, 
+                             alpha=0.05, fitmethod="qr", setseed=TRUE, 
                              details=FALSE, progress=FALSE)
 {
   # start time measurement
@@ -123,10 +115,16 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   if(setseed) set.seed(123456)
 #  set.seed(146389) # seed for the scripts in directory /workspace/replicate_simul
   
-  tcrit <- qt(1-alpha, df)
-  
   # prep_data2 gives all logvals = 0 back
   data <- prep_data2(seqs, nseq, muR=log(10), ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
+  # here we could introduce missings by deleting rows. TODO
+  # What about C2 in case of missing data? it changes compared to complete cases
+  
+  # example: subject 1,2 in period 3 missing
+  # dta_miss <- data.frame(subject=c(1,2), period=c(3,3))
+  # dta_miss$rnam <- paste0(dta_miss$subject,".",dta_miss$period)
+  # data <- data[! rownames(data) %in% dta_miss$rnam, ]
+  
   data$tmt     <- as.factor(data$tmt)
   data$period  <- as.factor(data$period)
   data$subject <- as.factor(data$subject)
@@ -142,17 +140,35 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   # model.matrix full
   mm <- model.matrix(~tmt+period+subject, data=data)
   # model.matrix for R data only
-  dataR   <- data[data$tmt=="R",]
-  mmR     <- model.matrix(~period+subject, data=dataR)
+  dataR <- data[data$tmt=="R",]
+  mmR   <- model.matrix(~period+subject, data=dataR)
   
   if(is.finite(CVcap)) wABEL_cap <- r_const*CV2se(CVcap) else wABEL_cap <- Inf
   s2switch <- CV2mse(CVswitch)
   s2cap    <- CV2mse(CVcap)
   
+  # make a first evaluation via lm.fit to obtain degrees of freedom
+  model  <- lm(logval~tmt+period+subject, data=data)
+  df     <- model$df.residual
+  
+  #browser()
+  tcrit <- qt(1-alpha, df)
+  hw1  <- as.numeric(confint(model, level=1-2*alpha)["tmtT", 2]-coef(model)["tmtT"])
+  mse1 <- summary(model)$sigma^2
+  C21  <- (hw1/tcrit)^2/mse1
+  C2   <- C21
+  
+  modelR <- lm.fit(x=mmR, y=dataR$logval)
+  dfRR   <- modelR$df.residual
+  
   # allocate memory space for the results of the simulation loop
   pes   <- vector(mode="numeric", length=nsims)
   mses  <- vector(mode="numeric", length=nsims)
   s2wRs <- vector(mode="numeric", length=nsims)
+  
+  # yet another set.seed because the first sim is now done in prep_data2 above
+  # and only with this set.seed we obtain the same value as in V1.4-4
+  if(setseed) set.seed(123456)
   
   # working with multiple right-hand side logvals 
   # attention! the code breaks if no_rhs = 1. then the returns of .lm.fit
@@ -163,7 +179,7 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   nsims <- nsi*no_rhs
   j1  <- 1
   j2  <- no_rhs
-  # only ".lm.fit" and "qr" retained. if n<=18 ".lm.fit" is used else "qr"
+  # only ".lm.fit" and "qr" retained.
   # programming each fitmethod in own loop to avoid 1 Mio if's. but this give 
   # no notable difference in run-time
   if(fitmethod==".lm.fit") {
@@ -191,7 +207,6 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       }
       j1 <- j1+no_rhs
       j2 <- j2+no_rhs
-      #browser()
     }  
   } else {
     # qr decomp saved for re-use
