@@ -180,7 +180,7 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
 	# get # of sequences 
   # dont need this here since unbalancedness is handled
   # by power.scABEL() or power.RSABE() itself
-# 	seqs <- known.designs()[known.designs()$design==design,"steps"]
+# 	seqs <- designs[designs$design==design,"steps"]
 # 	n    <- vector("numeric", length=seqs)
 # 	ni   <- 1:seqs
 	# may it be that j grows greater than length(Ns)? paranoia

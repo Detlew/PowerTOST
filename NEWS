@@ -1,4 +1,6 @@
-Published on GitHub 2017-03-26
+Published on GitHub 2017-05-02
+      - Internal change of coding in design helpers (repeted creation of 
+        data.frame with design characteristics avoided)
       - Updated functions scABEL.ad() and sampleN.scABEL.ad() to allow
         subject data simulations via power.scABEL.sdsims() if
         regulator = "EMA".
