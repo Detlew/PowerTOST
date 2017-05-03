@@ -151,12 +151,17 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   model  <- lm(logval~tmt+period+subject, data=data)
   df     <- model$df.residual
   
-  #browser()
+  # calculate C2 for the equation CI half width hw = tcrit*sqrt(C2*mse) 
+  # may be different to argument C2 in case of missing data
+  # in case of alpha=0 C21 becomes NaN (tcrit=Inf, hw1=Inf)
+  # therefore we calculate C21 with alpha=0.05
+  tcrit <- qt(1-0.05, df)
+  hw1   <- as.numeric(confint(model, level=1-2*0.05)["tmtT", 2]-coef(model)["tmtT"])
+  mse1  <- summary(model)$sigma^2
+  C21   <- (hw1/tcrit)^2/mse1
+  C2    <- C21
+  # now the correct tcrit to be used
   tcrit <- qt(1-alpha, df)
-  hw1  <- as.numeric(confint(model, level=1-2*alpha)["tmtT", 2]-coef(model)["tmtT"])
-  mse1 <- summary(model)$sigma^2
-  C21  <- (hw1/tcrit)^2/mse1
-  C2   <- C21
   
   modelR <- lm.fit(x=mmR, y=dataR$logval)
   dfRR   <- modelR$df.residual
