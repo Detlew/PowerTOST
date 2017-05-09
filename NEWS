@@ -1,6 +1,11 @@
-Published on GitHub 2017-05-02
+Published on GitHub 2017-05-09
+      - power.scABEL.sdsims() now has an argument design_dta to specify the
+        design via a data.frame. May be useful for considering missing data.
+        Attention! This feature is experimental because the data.frame is not 
+        checked at moment
+      - Bug in power.scABEL.sdsims() fixed which gave power=NA if alpha=0.
       - Internal change of coding in design helpers (repeted creation of 
-        data.frame with design characteristics avoided)
+        data.frame with design characteristics avoided).
       - Updated functions scABEL.ad() and sampleN.scABEL.ad() to allow
         subject data simulations via power.scABEL.sdsims() if
         regulator = "EMA".

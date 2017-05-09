@@ -10,8 +10,9 @@ scaled (widened) BE acceptance limits based on \bold{subject data} simulations.
 }
 \usage{
 power.scABEL.sdsims(alpha = 0.05, theta1, theta2, theta0, CV, n, 
-                    design = c("2x3x3", "2x2x4", "2x2x3"), regulator, 
-                    nsims = 1e+05, details = FALSE, setseed = TRUE, progress)
+                    design = c("2x3x3", "2x2x4", "2x2x3"), 
+                    regulator, nsims = 1e+05, details = FALSE, setseed = TRUE, 
+                    progress)
 }
 \arguments{
   \item{alpha}{
@@ -51,10 +52,20 @@ sequence group 'RTR'.
 }
   \item{design}{
 Design of the study to be planned.\cr
-2x3x3 is the partial replicate design (TRR/RTR/RRT).\cr
-2x2x4 is the full replicate design with 2 sequences and 4 periods.\cr
+2x3x3 is the partial replicate design (TRR|RTR|RRT).\cr
+2x2x4 is the full replicate design with 2 sequences and 4 periods (TRTR|RTRT).\cr
 2x2x3 is the 3-period design with sequences TRT|RTR.\cr
 Defaults to \code{design="2x3x3"}.
+}
+  \item{design_dta}{
+Alternatively to using the arguments \code{design} and \code{n} the design may 
+be defined via a data.frame with columns \code{subject, sequence, period} and
+\code{tmt}. This feature is experimental in the sense that the data.frame is
+not checked for complying with the assumed structure.\cr
+If you use the argument \code{design_dta} you don't need to specify the arguments
+\code{design} and \code{n}.\cr
+The default \code{design_dta = NULL} means that \code{design} and \code{n} are used
+for the internal construction of the design data.frame.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
@@ -100,7 +111,15 @@ CVwr>0.5, i.e. the widened limits are held at value calculated for CVwR=0.5.\cr\
 The simulations are done by simulating subject data (all effects fixed except the
 residuals) and evaluating these data via ANOVA of all data to get the point esimate
 of T vs. R along with its 90\% CI and an ANOVA of the data under R(eference) only
-to get an estimate of s2wR.
+to get an estimate of s2wR.\cr
+The data.frame with columns  \code{subject, sequence, period} and \code{tmt} 
+necessary for evalution of simulated subject data is constructed internally from 
+the arguments \code{design} and \code{n} or may be given user defined via the argument 
+\code{design_dta}. The last option is usefull if missing data have to be considered
+or if designs have to be evaluated which are not in the list of argument 
+\code{design}.\cr
+This feature is experimental in the sense that the data.frame is not checked 
+for complying with the assumed structure.
 }
 \value{
 Returns the value of the (empirical) power if argument \code{details=FALSE}.\cr\cr
