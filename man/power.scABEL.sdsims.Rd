@@ -10,7 +10,7 @@ scaled (widened) BE acceptance limits based on \bold{subject data} simulations.
 }
 \usage{
 power.scABEL.sdsims(alpha = 0.05, theta1, theta2, theta0, CV, n, 
-                    design = c("2x3x3", "2x2x4", "2x2x3"), 
+                    design = c("2x3x3", "2x2x4", "2x2x3"), design_dta=NULL,
                     regulator, nsims = 1e+05, details = FALSE, setseed = TRUE, 
                     progress)
 }
