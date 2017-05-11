@@ -1,4 +1,8 @@
-Published on GitHub 2017-05-10
+Published on GitHub 2017-05-11
+      - Two new test scrips in /test subdirectory added: test_ABEL.R and
+        test_RSABE which recalculate the sample size tables given in 
+        Thotfalusi & Endrenyi "Sample Sizes for Designing Bioequivalence Studies 
+        for Highly Variable Drugs". Contributed by Helmut.
       - power.scABEL.sdsims() now has an argument design_dta to specify the
         design via a data.frame. May be useful for considering missing data.
         Attention! This feature is experimental because the data.frame is not 
