@@ -6,14 +6,19 @@ library(PowerTOST)
 sampsiz <- function(alpha=0.05, power, CV, GMR, theta1, design=design)
 {
 # 'cartesian' product
-  data <- merge(CV, GMR)
+  cells <- length(CV)*length(GMR)*length(power)
+  data  <- merge(CV, GMR)
   names(data) <- c("CV", "GMR")
-  tbl  <- data.frame()
+  tbl   <- data.frame()
+  pb    <- txtProgressBar(min=0, max=1, style=3)
+  cell  <- 0
   for (j in seq_along(power))
   {
     data$n <- 1
     data$power <- power[j]
     for (i in seq_along(data$n)) {
+      cell <- cell + 1
+      setTxtProgressBar(pb, cell/cells)
       data$n[i] <- sampleN.RSABE(alpha=alpha, CV=data[i, "CV"], regulator="FDA",
                                  theta0=data$GMR[i], targetpower=power[j],
                                  theta1=theta1, design=design,
@@ -32,7 +37,8 @@ sampsiz <- function(alpha=0.05, power, CV, GMR, theta1, design=design)
   #shift power to first column
   tbl <- tbl[, c(2, 1, 3:ncol(tbl))]
   return(invisible(tbl))
-} 
+  close(pb)
+}
 
 CVs   <- seq(0.3, 0.8, 0.05)
 GMRs  <- c(seq(0.85, 1, 0.05), seq(1.05, 1.2, 0.05))
@@ -40,7 +46,7 @@ power <- c(0.8, 0.9)
 # Tothfalusi L, Endrenyi L.
 # "Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs"
 # J Pharm Pharmacol Sci. 2012;15(1):73-84.
-txt0 <- paste('\nTothfalusi L, Endrenyi L.',
+txt0 <- paste('\n\nTothfalusi L, Endrenyi L.',
 '\nSample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs',
 '\nJ Pharm Pharmacol Sci. 2012;15(1):73-84.\n\n')
 note0 <- paste("\nNote: Small discrepancies since in the reference only 10,000 studies",
