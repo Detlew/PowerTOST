@@ -27,12 +27,13 @@ Upper bioequivalence limit. Typically 1.25.\cr
 Is set to \code{1/theta1} if missing.
 }
   \item{theta0}{
-True ('null') assumed bioequivalence ratio. Typically set to 0.95 for planning.
+'True' or assumed bioequivalence ratio. Typically set to 0.95 for planning.
 }
   \item{CV}{
 Coefficient of variation as ratio. In case of \code{design="parallel"} this is
 the CV of the total variability, in case of \code{design="2x2"} the 
-intra-subject CV (CVw in the reference).
+intra-subject CV (CVw in the reference).\cr
+If \code{logscale=FALSE}, CV is assumed to be the standard deviation.
 }
   \item{CVb}{
 CV of the between-subject variability. Only necessary for \code{design="2x2"}.

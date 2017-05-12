@@ -20,17 +20,16 @@ Observed point estimate of the ratio Test vs. Reference (if \code{logscale=TRUE}
 or of the difference (if \code{logscale=FALSE}).
 }
   \item{CV}{
-Obseved coefficient of variation as ratio or error standard deviation.
+Obseved coefficient of variation as ratio (if \code{logscale=TRUE}) 
+or residual error standard deviation (if \code{logscale=FALSE}).
 }
   \item{n}{
 Total number of subjects if given as scalar.\cr
 Number of subjects in (sequence) groups if given as vector.
 }
   \item{logscale}{
-Should the data used after log-transformation or on original scale? \cr
-\code{TRUE} or \code{FALSE}. Defaults to \code{TRUE}.\cr
-\code{logscale=FALSE} is useful if you have the data of analysis after 
-log-transformation only.
+Should the data be used after log-transformation or on original scale? \cr
+\code{TRUE} or \code{FALSE}. Defaults to \code{TRUE}.
 }
   \item{theta1}{
 Lower bioequivalence limit.\cr

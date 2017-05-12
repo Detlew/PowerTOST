@@ -38,7 +38,8 @@ Defaults to 0.95 if \code{logscale=TRUE} or to 0.05 if \code{logscale=FALSE}
   \item{CV}{
 Coefficient of variation as ratio.\cr
 In case of cross-over studies this is the within-subject CV, \cr
-in case of a parallel-group design the CV of the total variability.
+in case of a parallel-group design the CV of the total variability.\cr
+If \code{logscale=FALSE}, CV is assumed to be the standard deviation.
 }
   \item{n}{
 Number of subjects under study.\cr
