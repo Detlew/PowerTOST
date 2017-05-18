@@ -35,7 +35,7 @@ Defaults to 0.8 if \code{logscale=TRUE} or to -0.2 if \code{logscale=FALSE}.
   }
   \item{CV}{
 Assumed true or observed coefficient of variation as ratio. Only values > 0 are
-allowed. If \code{logscale=FALSE} CV is assumed to be the standard deviation.
+allowed.
   }
   \item{n}{
 Number of subjects under study.\cr
@@ -92,10 +92,10 @@ paper will be calculated (using non-central t); this only affects
 }
 \details{
 This function calculates the so-called expected power taking into account that
-usually the parameters (CV and/or theta0) are not known but estimated from a
-prior study with some uncertainty. The expected power is an unconditional power
-and can therefore be seen as probability for success. See references for further
-details.
+usually the parameters (CV and/or theta0) are not known but \emph{estimated} 
+from a prior study with some uncertainty. The expected power is an unconditional 
+power and can therefore be seen as probability for success. See references for 
+further details.\cr\cr
 The \code{prior.parm} argument is a list that can supply any of the following 
 components: 
 \describe{
@@ -128,25 +128,25 @@ trial.}
 distribution of (theta0, \eqn{\sigma^2}) from the prior trial. Numerical calculation
 of the two-dimensional integral is performed via \code{cubature::hcubature}.}
 }
-\cr
-Notes on the underlying hypotheses:\cr\cr
+\strong{Notes on the underlying hypotheses}\cr
 If the supplied margin is < 0 (\code{logscale=FALSE}) or < 1 (\code{logscale=TRUE}), 
 then it is assumed higher response values are better. The hypotheses are\cr
 \code{H0: theta0 <= margin vs. H1: theta0 > margin}\cr
 where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
-or\cr
+or \cr
 \code{H0: log(theta0) <= log(margin) vs. H1: log(theta0) > log(margin)}\cr
-where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.
-\cr\cr
+where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr\cr
+
 If the supplied margin is > 0 (\code{logscale=FALSE}) or > 1 (\code{logscale=TRUE}), 
 then it is assumed lower response values are better. The hypotheses are\cr
 \code{H0: theta0 >= margin vs. H1: theta0 < margin}\cr
 where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
-or\cr
+or \cr
 \code{H0: log(theta0) >= log(margin) vs. H1: log(theta0) < log(margin)}\cr
 where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr
 This latter case may also be considered as 'non-superiority'.
 }
+
 \value{
 Value of expected power according to the input.
 }

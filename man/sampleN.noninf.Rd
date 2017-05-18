@@ -38,8 +38,7 @@ Defaults to 0.95 if \code{logscale=TRUE} or to 0.05 if \code{logscale=FALSE}
   \item{CV}{
 Coefficient of variation as ratio.\cr
 In case of cross-over studies this is the within-subject CV, \cr
-in case of a parallel-group design the CV of the total variability.\cr
-If \code{logscale=FALSE}, CV is assumed to be the standard deviation.
+in case of a parallel-group design the CV of the total variability.
 }
   \item{design}{
 Character string describing the study design.\cr
@@ -70,16 +69,17 @@ Defaults to 100. Adaption only in rare cases needed.
 \details{
 The sample size is calculated via iterative evaluation of \code{power.noninf()}.\cr
 Start value for the sample size search is taken from a large sample approximation.\cr
-The sample size is bound to 4 as minimum.
-\cr\cr
+The sample size is bound to 4 as minimum.\cr\cr
+
+\strong{Notes on the underlying hypotheses}\cr
 If the supplied margin is < 0 (\code{logscale=FALSE}) or < 1 (\code{logscale=TRUE}), 
 then it is assumed higher response values are better. The hypotheses are\cr
 \code{H0: theta0 <= margin vs. H1: theta0 > margin}\cr
 where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
 or\cr
 \code{H0: log(theta0) <= log(margin) vs. H1: log(theta0) > log(margin)}\cr
-where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.
-\cr\cr
+where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr\cr
+
 If the supplied margin is > 0 (\code{logscale=FALSE}) or > 1 (\code{logscale=TRUE}), 
 then it is assumed lower response values are better. The hypotheses are\cr
 \code{H0: theta0 >= margin vs. H1: theta0 < margin}\cr

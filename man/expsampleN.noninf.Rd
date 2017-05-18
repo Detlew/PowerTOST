@@ -102,34 +102,16 @@ and TRUE otherwise.
   }
 }
 \details{
-The sample size is calculated based on iterative evaluation of the expected power.
+The sample size is calculated based on iterative evaluation of expected power.
 The starting value of the sample size search is taken from a large sample 
-approximation if \code{prior.type = "CV"}. Else an empirical starting value is
+approximation if \code{prior.type = "CV"}. Else an empirical start value is
 obtained.
 Note that in case of \code{prior.type = "both"} the calculation may still take several seconds.
 Note also that the expected power is always bounded above by the so-called
 probability of technical success (PTS) which may be a value less than 1. 
-Therefore, it may be the case that it is either not possible to calculate the 
+Therefore, it may be possible that it is either not possible to calculate the 
 required sample size at all or that the sample size gets very large 
 if the given targetpower is less but close to the PTS.
-\cr\cr
-Notes on the underlying hypotheses:\cr\cr
-If the supplied margin is < 0 (\code{logscale=FALSE}) or < 1 (\code{logscale=TRUE}), 
-then it is assumed higher response values are better. The hypotheses are\cr
-\code{H0: theta0 <= margin vs. H1: theta0 > margin}\cr
-where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
-or\cr
-\code{H0: log(theta0) <= log(margin) vs. H1: log(theta0) > log(margin)}\cr
-where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.
-\cr\cr
-If the supplied margin is > 0 (\code{logscale=FALSE}) or > 1 (\code{logscale=TRUE}), 
-then it is assumed lower response values are better. The hypotheses are\cr
-\code{H0: theta0 >= margin vs. H1: theta0 < margin}\cr
-where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
-or\cr
-\code{H0: log(theta0) >= log(margin) vs. H1: log(theta0) < log(margin)}\cr
-where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr
-This latter case may also be considered as 'non-superiority'.
 }
 \value{
 A data.frame with the input values and the result of the sample size estimation.\cr

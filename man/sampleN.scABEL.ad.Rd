@@ -23,7 +23,7 @@ Type I error (\acronym{TIE}) probability (nominal level of the test). Per
 convention commonly set to 0.05.
 }
   \item{targetpower}{
-Power to achieve at least. Must be in \{0, ≤1\}. Typical values are 0.80
+Power to achieve at least. Must be >0 and <1. Typical values are 0.80
 to 0.90 (i.e., 80\% to 90\%). Defaults to 0.80 if not given explicitly.
 }
   \item{theta0}{
@@ -70,8 +70,8 @@ start with the sample size estimated for \code{alpha} (or \code{alpha.pre},
 if given), \code{theta0}, and \code{targetpower}.\cr
 Can also be set to start the sample size search if a previous run
 failed.\cr
-According to regulatory requirements must be ≥12 for the \acronym{EMA} and
-≥24 for \acronym{ANVISA}.
+According to regulatory requirements must be >=12 for the \acronym{EMA} and
+>=24 for \acronym{ANVISA}.
 }
   \item{nsims}{
 Number of simulations to be performed to estimate the (empirical)
@@ -94,12 +94,12 @@ adjusting alpha and change of study costs due to the increased sample
 size is given.
 }
   \item{alpha.pre}{
-Pre-specified alpha (optional). Must be \code{≤alpha}. \acronym{ABEL} will be
+Pre-specified alpha (optional). Must be \code{<=alpha}. \acronym{ABEL} will be
 performed at level \code{alpha.pre} and the \acronym{TIE} assessed at level \code{alpha}.\cr
 Less powerful than adjusting alpha but an alternative in the critical
 region of maximum inflation of the \acronym{TIE}. In certain scenarios
 Bonferroni’s 0.025 is not sufficient to preserve the Type I Error.\cr
-Not recommended if \code{CVwR ≥0.45} due to poor power characteristics.
+Not recommended if \code{CVwR >= 0.45} due to poor power characteristics.
 }
 \item{setseed}{
 Simulations are dependent on the starting point of the (pseudo)
@@ -138,7 +138,7 @@ intra-subjects contrasts are a sufficiently close approximation.\cr
 
 If an inflation of the \acronym{TIE} is expected (i.e., \code{>alpha}), alpha is
 iteratively adjusted until at least the target power is reached and the consumer
-risk is maintained (\code{≤alpha}). For details about the algorithm see the
+risk is maintained (\code{<=alpha}). For details about the algorithm see the
 respective section of \code{\link{scABEL.ad}}.
 }
 \value{

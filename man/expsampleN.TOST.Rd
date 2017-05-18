@@ -43,9 +43,8 @@ If not given \code{theta2} will be calculated as \code{1/theta1} if \code{logsca
 else as \code{-theta1}.
   }
   \item{CV}{
-Assumed true or observed coefficient of variation as ratio. Only values > 0 are allowed.
-If \code{logscale=FALSE} CV is assumed to be the standard deviation. If
-\code{prior.type="CV"} may be given as vector: The CVs are then pooled (as a 
+Assumed true or observed coefficient of variation as ratio. Only values > 0 are allowed.\cr
+If \code{prior.type="CV"} may be given as vector: The CVs are then pooled (as a 
 weighted mean with their degrees of freedoms as weights).
   }
   \item{design}{
@@ -118,7 +117,24 @@ Note also that the expected power is always bounded above by the so-called
 probability of technical success (PTS) which may be a value less than 1. 
 Therefore, it may be possible that it is either not possible to calculate the 
 required sample size at all or that the sample size gets very large 
-if the given targetpower is less but close to the PTS.
+if the given targetpower is less but close to the PTS.\cr\cr
+
+\strong{Notes on the underlying hypotheses}\cr
+If the supplied margin is < 0 (\code{logscale=FALSE}) or < 1 (\code{logscale=TRUE}), 
+then it is assumed higher response values are better. The hypotheses are\cr
+\code{H0: theta0 <= margin vs. H1: theta0 > margin}\cr
+where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
+or \cr
+\code{H0: log(theta0) <= log(margin) vs. H1: log(theta0) > log(margin)}\cr
+where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr\cr
+If the supplied margin is > 0 (\code{logscale=FALSE}) or > 1 (\code{logscale=TRUE}), 
+then it is assumed lower response values are better. The hypotheses are\cr
+\code{H0: theta0 >= margin vs. H1: theta0 < margin}\cr
+where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
+or \cr
+\code{H0: log(theta0) >= log(margin) vs. H1: log(theta0) < log(margin)}\cr
+where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr
+This latter case may also be considered as 'non-superiority'.
 }
 \value{
 A data.frame with the input values and the result of the sample size estimation.\cr

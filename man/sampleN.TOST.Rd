@@ -40,8 +40,7 @@ If not given theta2 will be calculated as \code{1/theta1} if \code{logscale=TRUE
 or as \code{-theta1} if \code{logscale=FALSE}.
   }
   \item{CV}{
-Coefficient of variation as ratio.\cr
-If \code{logscale=FALSE}, CV is assumed to be the standard deviation.
+Coefficient of variation as ratio.
   }
   \item{design}{
 Character string describing the study design.\cr

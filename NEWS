@@ -1,9 +1,9 @@
-Published on GitHub 2017-05-11
+Version 1.4-5
+Released 2017-03-18
       - Man pages for non-inferiority functions updated to include a
         description of the underlying hypotheses
       - Remaining man pages updated where term 'Null (true) ratio' was
         mentioned instead of 'True ratio'
-      - Man pages update: Clarification of CV in case of logscale=FALSE
       - Two new test scrips in /test subdirectory added: test_ABEL.R and
         test_RSABE which recalculate the sample size tables given in 
         Thotfalusi & Endrenyi "Sample Sizes for Designing Bioequivalence Studies 

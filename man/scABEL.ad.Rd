@@ -71,12 +71,12 @@ If \code{n} is missing, a sample size is estimated with target power 0.80 and pr
 alpha if defined. Otherwise, alpha is used.
 }
   \item{alpha.pre}{
-Pre-specified alpha (optional). Must be \code{≤alpha}. \acronym{ABEL} will be
+Pre-specified alpha (optional). Must be \code{<=alpha}. \acronym{ABEL} will be
 performed at level \code{alpha.pre} and the \acronym{TIE} assessed at level \code{alpha}.\cr
 Less powerful than adjusting alpha but an alternative in the critical region
 of maximum inflation of the \acronym{TIE}. In certain scenarios Bonferroni’s
 0.025 is not sufficient to preserve the Type I Error (e.g., the third example).\cr
-Not recommended if \code{CVwR ≥0.45} due to poor power characteristics.
+Not recommended if \code{CVwR >= 0.45} due to poor power characteristics.
 }
   \item{imax}{
 Maximum number of steps in sample size search. Defaults to 100.
@@ -134,7 +134,6 @@ Simulated studies are evaluated by ANOVA (\sQuote{Method A}) as recommended in t
 \acronym{EMA}’s Q&A-document and by intra-subject contrasts if \code{regulator="HC"}.
 Health Canada requires a mixed-effects model which cannot be implemented in R.
 However, intra-subjects contrasts are a sufficiently close approximation.\cr
-
 The Type I Error in \acronym{ABEL} depends only on \code{CVwR} and -- to a
 minor degree -- the sample size. Algorithm:
 \enumerate{
@@ -143,7 +142,7 @@ minor degree -- the sample size. Algorithm:
   \item If no inflation of the \acronym{TIE} is found, the algorithm stops.
   \item Otherwise, alpha is iteratively adjusted (i.e., \code{alpha.adj <alpha})
   until no more relevant inflation of the \acronym{TIE} is detected (i.e.,
-  \code{abs(TIE - alpha) ≤ tol}).
+  \code{abs(TIE - alpha) <= tol}).
 }
 }
 \value{

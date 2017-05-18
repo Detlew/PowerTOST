@@ -29,14 +29,12 @@ Must be given as ratio.
   \item{targetpower}{
 Power to achieve at least in sample size estimation. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9. Defaults to 0.8.\cr
-Note that targetpower < 0.5 doesn’t make much sense.\cr
-If package is run under R version < 3.1.0 \code{targetpower} has to be ≥ 0.5.
+Note that targetpower < 0.5 doesn’t make much sense.
 }
   \item{minpower}{
 Minimum acceptable power to have if deviating from assumptions for sample size plan.\cr
 Has to be lower than \code{targetpower}. Defaults to 0.7.\cr
-\code{minpower} < 0.5 doesn’t make much sense.\cr
-If package is run under R version < 3.1.0 \code{minpower} has to be ≥ 0.5.
+\code{minpower} < 0.5 doesn’t make much sense.
 }
   \item{design}{
 Character string describing the study design.\cr

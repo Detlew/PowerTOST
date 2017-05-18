@@ -33,8 +33,7 @@ Defaults to 0.95 if \code{logscale=TRUE} or to -0.05 if \code{logscale=FALSE}.
   \item{CV}{
 Coefficient of variation as ratio.\cr
 In case of cross-over studies this is the within-subject CV, \cr
-in case of a parallel-group design the CV of the total variability.\cr
-If \code{logscale=FALSE}, CV is assumed to be the standard deviation.
+in case of a parallel-group design the CV of the total variability.
 }
   \item{n}{
 Number of subjects under study.\cr
@@ -55,16 +54,16 @@ Has only effect for higher-order crossover designs.
 }
 }
 \details{
-The power is calculated via non-central t-distribution.
-\cr\cr
+The power is calculated exact via non-central t-distribution.\cr\cr
+
+\strong{Notes on the underlying hypotheses}\cr
 If the supplied margin is < 0 (\code{logscale=FALSE}) or < 1 (\code{logscale=TRUE}), 
 then it is assumed higher response values are better. The hypotheses are\cr
 \code{H0: theta0 <= margin vs. H1: theta0 > margin}\cr
 where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
 or\cr
 \code{H0: log(theta0) <= log(margin) vs. H1: log(theta0) > log(margin)}\cr
-where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.
-\cr\cr
+where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr\cr
 If the supplied margin is > 0 (\code{logscale=FALSE}) or > 1 (\code{logscale=TRUE}), 
 then it is assumed lower response values are better. The hypotheses are\cr
 \code{H0: theta0 >= margin vs. H1: theta0 < margin}\cr
