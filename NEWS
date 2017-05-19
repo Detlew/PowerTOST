@@ -1,9 +1,9 @@
 Version 1.4-5
-Released 2017-03-18
+Released 2017-03-19
       - Man pages for non-inferiority functions updated to include a
-        description of the underlying hypotheses
+        description of the underlying hypotheses.
       - Remaining man pages updated where term 'Null (true) ratio' was
-        mentioned instead of 'True ratio'
+        mentioned instead of 'True ratio'.
       - Two new test scrips in /test subdirectory added: test_ABEL.R and
         test_RSABE which recalculate the sample size tables given in 
         Thotfalusi & Endrenyi "Sample Sizes for Designing Bioequivalence Studies 
@@ -11,14 +11,13 @@ Released 2017-03-18
       - power.scABEL.sdsims() now has an argument design_dta to specify the
         design via a data.frame. May be useful for considering missing data.
         Attention! This feature is experimental because the data.frame is not 
-        checked at moment
+        checked at moment.
       - Bug in power.scABEL.sdsims() fixed which gave power=NA if alpha=0.
-      - Internal change of coding in design helpers (repeted creation of 
+      - Internal change of coding in design helpers (repeated creation of 
         data.frame with design characteristics avoided).
       - Typo corrected in Expected_Power_for_TOST.pdf.
       - Updated functions scABEL.ad() and sampleN.scABEL.ad() to allow
-        subject data simulations via power.scABEL.sdsims() if
-        regulator = "EMA".
+        subject data simulations via power.scABEL.sdsims() if regulator = "EMA".
         Removed regulator = "ANVISA".
         Changed the order of sequences to be consistent with the other
         functions of PowerTOST.
