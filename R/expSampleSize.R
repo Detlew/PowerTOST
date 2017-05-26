@@ -34,7 +34,6 @@
 expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE, 
                             theta0, theta1, theta2, CV, design = "2x2", 
                             robust = FALSE, 
-                            dfCV, # to be removed in next versions 
                             prior.type = c("CV", "theta0", "both"), 
                             prior.parm = list(), 
                             method = c("exact", "approx"), 
@@ -108,12 +107,6 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
   # Based on information in nms_match derive degrees of freedom and 
   # standard error of prior trial
   df_m <- sem_m <- NA
-  if (!missing(dfCV)) {  # Temporary code for dfCV
-    warning(paste0("Argument dfCV has been moved to component df of argument ", 
-                   "prior.parm and will not function in the next versions."), 
-            call. = FALSE)
-    df_m <- dfCV
-  }
   if (sum(nms_match[3:4]) == 2) {  # m and design given
     if (prior.parm$design == "parallel" && design != "parallel")
       stop(paste0("CV in case of parallel design is total variability. This ",

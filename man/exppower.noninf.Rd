@@ -9,7 +9,7 @@ study designs used in bioequivalence studies.
 }
 \usage{
 exppower.noninf(alpha = 0.025, logscale = TRUE, theta0, margin, CV, n,
-                design = "2x2", robust = FALSE, dfCV, 
+                design = "2x2", robust = FALSE, 
                 prior.type = c("CV", "theta0", "both"), prior.parm = list(), 
                 method = c("exact", "approx"))
 }
@@ -52,11 +52,6 @@ Defaults to FALSE. Set to \code{TRUE} will use the degrees of freedom according
 to the 'robust' evaluation (aka Senn's basic estimator). These df are calculated
 as \code{n-seq}.\cr 
 See \code{known.designs()$df2} for designs covered in this package.
-}
-  \item{dfCV}{
-Alias of the component \code{df} in argument \code{prior.parm} for backward
-compatibility.\cr
-This argument is deprecated and will be removed in next versions.
 }
   \item{prior.type}{
 Specifies which parameter uncertainty should be accounted for. In case of 
