@@ -54,7 +54,7 @@ Has only effect for higher-order crossover designs.
 }
 }
 \details{
-The power is calculated exact via non-central t-distribution.\cr\cr
+The power is calculated exact via non-central t-distribution.\cr
 
 \strong{Notes on the underlying hypotheses}\cr
 If the supplied margin is < 0 (\code{logscale=FALSE}) or < 1 (\code{logscale=TRUE}), 
@@ -63,7 +63,8 @@ then it is assumed higher response values are better. The hypotheses are\cr
 where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
 or\cr
 \code{H0: log(theta0) <= log(margin) vs. H1: log(theta0) > log(margin)}\cr
-where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr\cr
+where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr
+
 If the supplied margin is > 0 (\code{logscale=FALSE}) or > 1 (\code{logscale=TRUE}), 
 then it is assumed lower response values are better. The hypotheses are\cr
 \code{H0: theta0 >= margin vs. H1: theta0 < margin}\cr
