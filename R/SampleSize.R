@@ -101,6 +101,7 @@ sampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE, theta0,
     message("Negative CV changed to abs(CV).")
     CV <- abs(CV)
   }
+  if (length(alpha) != 1) stop("alpha must be a scalar!")
   
   #number of the design and check
   d.no <- .design.no(design)

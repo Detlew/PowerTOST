@@ -210,8 +210,7 @@ power.TOST <- function(alpha=0.05, logscale=TRUE, theta1, theta2, theta0,
 {
   if (missing(CV)) stop("CV must be given!")
   if (missing(n))  stop("Number of subjects n must be given!")
-  if (length(alpha) != 1)
-    stop("alpha must be a scalar!")
+  if (length(alpha) != 1) stop("alpha must be a scalar!")
 
   # check if design is implemented
   d.no <- .design.no(design)
