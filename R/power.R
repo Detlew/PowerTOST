@@ -28,7 +28,9 @@
 # so call it with sem= se*sqrt(bk/n) if balanced or se*sqrt(bkni*sum(1/n)) 
 .power.TOST <- function(alpha=0.05, ltheta1, ltheta2, diffm, sem, df)
 {
+  stopifnot(length(alpha) <= 2)
   tval   <- qt(1 - alpha, df, lower.tail = TRUE)
+  dl     <- length(tval)
   # 0/0 -> NaN in case diffm=ltheta1 or diffm=ltheta2 and sem=0!
   delta1 <- (diffm-ltheta1)/sem
   delta2 <- (diffm-ltheta2)/sem
@@ -36,7 +38,7 @@
   delta1[is.nan(delta1)] <- 0
   delta2[is.nan(delta2)] <- 0
   # R is infinite in case of alpha=0.5 where tval is == 0
-  R <- (delta1-delta2)*sqrt(df)/(2.*tval)
+  R <- (delta1-delta2)*sqrt(df)/(tval[1]+tval[dl])
   # in case of se=0 it results: delta1=Inf, delta2=inf if diffm>ltheta2
   # Inf - Inf is NaN
   R[is.nan(R)] <- 0
@@ -63,8 +65,8 @@
     # 'shifted' normal approximation Jan 2015
     # former Julious formula (57)/(58) doesn't work
     tval <- qnorm(1-alpha)
-    p1   <- pnorm(tval-delta1)
-    p2   <- pnorm(-tval-delta2)
+    p1   <- pnorm(tval[1]-delta1)
+    p2   <- pnorm(-tval[dl]-delta2)
     # may give negative values 
     # thus set to zero
     pwr <- p2-p1
@@ -78,20 +80,18 @@
   
   # attempt to vectorize (it vectorizes properly if diffm is a vector
   # OR se OR n,df are vectors) 
-  nel <- length(delta1)
-  dl <- length(tval)
-  p1 <- c(1:nel)	
-  p2 <- p1
+  p1 <- vector("numeric", length(delta1))
+  p2 <- vector("numeric", length(delta1))
   for (i in seq_along(delta1)) {
-    if (dl>1) {
-      ddf <- df[i]; ttt <- tval[i]
-    } else {
-      ddf <- df[1]; ttt <- tval[1]
-    }
-    p1[i] <- OwensQ(ddf,  ttt, delta1[i], 0, R[i])
-    p2[i] <- OwensQ(ddf, -ttt, delta2[i], 0, R[i])
+    # get correct values for p1 and p2:
+    # p1 is for left hypothesis (right-tailed)
+    # -> critical value is always first component
+    # p2 for right hypothesis (left-tailed) 
+    # -> critical value is first component if alpha is 1-dim, 
+    #    second component if alpha is 2-dim
+    p1[i] <- OwensQ(df[1], tval[1], delta1[i], 0, R[i])
+    p2[i] <- OwensQ(df[1], -tval[dl], delta2[i], 0, R[i])
   }
-
   pwr <- p2-p1
   # due to numeric inaccuracies power < 0
   # paranoia
@@ -105,12 +105,13 @@
 # does'nt vectorize in any respect!
 .power.1TOST <- function(alpha, ltheta1, ltheta2, diffm, sem, df, setseed = TRUE)
 {
+  stopifnot(length(alpha) <= 2)
   if (setseed) set.seed(123456)
   corr  <- matrix(1, ncol = 2, nrow = 2)
   
   tval  <- qt(1 - alpha, df)
-  lower <- c(tval, -Inf)
-  upper <- c(Inf, -tval)
+  lower <- c(tval[1], -Inf)
+  upper <- c(Inf, -tval[length(tval)])
   delta1 <- (diffm - ltheta1) / sem
   delta2 <- (diffm - ltheta2) / sem
   pow <- rep(0, times=length(delta1))
@@ -134,6 +135,7 @@
 # this vectorizes ok
 .approx.power.TOST <- function(alpha=0.05, ltheta1, ltheta2, diffm, sem, df)
 {
+  stopifnot(length(alpha) <= 2)
   tval <- qt(1 - alpha, df, lower.tail = TRUE, log.p = FALSE)
   
   # 0/0 -> NaN in case diffm=ltheta1 or diffm=ltheta2
@@ -145,7 +147,8 @@
   delta2[is.nan(delta2)] <- 0
   
   # suppress warnings with regard to insufficient precision of nct
-  pow <- suppressWarnings(pt(-tval, df, ncp=delta2)-pt(tval, df, ncp=delta1))
+  pow <- suppressWarnings(pt(-tval[length(tval)], df, ncp=delta2) - 
+			    pt(tval[1], df, ncp=delta1))
   pow[pow<0] <- 0 # this is to avoid neg. power due to approx. (vector form)
   
   return(pow)
@@ -167,7 +170,7 @@
 	delta1[is.nan(delta1)] <- 0
 	delta2[is.nan(delta2)] <- 0
 	
-	pow <- pt(-tval-delta2, df) - pt(tval-delta1, df)
+	pow <- pt(-tval[length(tval)]-delta2, df) - pt(tval[1]-delta1, df)
 	pow[pow<0] <- 0 # this is to avoid neg. power due to approx. (vector form)
 	
 	return(pow)
@@ -207,6 +210,8 @@ power.TOST <- function(alpha=0.05, logscale=TRUE, theta1, theta2, theta0,
 {
   if (missing(CV)) stop("CV must be given!")
   if (missing(n))  stop("Number of subjects n must be given!")
+  if (length(alpha) != 1) stop("alpha must be a scalar!")
+
   # check if design is implemented
   d.no <- .design.no(design)
   if (is.na(d.no)) stop("Design ",design, " unknown!", call.=FALSE)
