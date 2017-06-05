@@ -1,6 +1,9 @@
 Published on GitHub 2017-05-26
-      - Man pages for non-inferiority updated
-      - Deprecated argument dfCV now completely removed
+      - Power and sample size for TOST: Argument alpha restricted to scalar.
+        Internal functions now allow length = 2 (different alpha's
+        for the two null hypotheses)
+      - Man pages for non-inferiority again updated
+      - Deprecated argument dfCV in expected power functions now completely removed
       
 Version 1.4-5
 Released 2017-05-19
