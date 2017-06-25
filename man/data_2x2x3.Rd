@@ -3,13 +3,13 @@
 \alias{data2x2x3}
 \alias{ct9.6.2}
 \alias{ct9.6.6}
-\title{Sample size tables for the 2x2x3 replicate crossover}
+\title{Sample Size Tables for the 2x2x3 Replicate Crossover Design}
 \description{These data.frames give sample size tables calculated with 
 \code{sampleN.TOST()} for the 2×2×3 replicate crossover design
 (2-treatment 2-sequence 3-period design.}
 
 \details{
-After \code{data("data2x2x3")} the data.frames can be accessed by their names.\cr
+The data.frames can be accessed by their names.\cr
 
 ct9.6.2 is Table 9.6.2 from\cr
 Chow SC, Liu JP. \emph{Design and Analysis of Bioavailability and Bioequivalence Studies.}\cr
@@ -24,13 +24,12 @@ Attention! Chow and Liu’s CV is se (standard error) of residuals.
 }
 \note{Scripts for creation of these data.frames can be found in the \\test
 sub-directory of the package.\cr
-Comparing the results of that scripts to the corresponding data.frames can 
+Comparing the results of these scripts to the corresponding data.frames can 
 be used for validation purposes.}
 
 \author{PowerTOST}
 
 \examples{
-data("data2x2x3")
 ct9.6.2
 ct9.6.6
 }
