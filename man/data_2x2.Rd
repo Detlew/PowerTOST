@@ -5,7 +5,7 @@
 \alias{ct5.2}
 \alias{ct5.3}
 \alias{ct5.4.1}
-\title{Sample size tables for the classical 2×2 crossover}
+\title{Sample size tables for the classical 2x2 crossover}
 \description{These data.frames give sample size tables calculated with 
 \code{sampleN.TOST()} for the 2×2 design.}
 

@@ -3,7 +3,7 @@
 \alias{data2x2x3}
 \alias{ct9.6.2}
 \alias{ct9.6.6}
-\title{Sample size tables for the 2×2×3 replicate crossover}
+\title{Sample size tables for the 2x2x3 replicate crossover}
 \description{These data.frames give sample size tables calculated with 
 \code{sampleN.TOST()} for the 2×2×3 replicate crossover design
 (2-treatment 2-sequence 3-period design.}
