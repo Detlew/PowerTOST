@@ -27,7 +27,7 @@ Should the data used on log-transformed or on original scale? TRUE or FALSE.\cr
 Defaults to TRUE.
   }  
   \item{theta0}{
-Assumed 'true' (or 'observed' in case of \code{prior.type != "CV"}) bioequivalence 
+Assumed \sQuote{true} (or \sQuote{observed} in case of \code{prior.type != "CV"}) bioequivalence 
 ratio or difference.\cr
 Typically set to 0.95 (default if missing) if \code{logscale=TRUE}.
 Defaults to 0.05 if \code{logscale=FALSE}.
@@ -53,7 +53,7 @@ See \code{known.designs()} for designs covered in this package.
   }
   \item{robust}{
 Defaults to FALSE. With that value the usual degrees of freedom will be used.\cr
-Set to \code{TRUE} will use the degrees of freedom according to the 'robust' evaluation
+Set to \code{TRUE} will use the degrees of freedom according to the \sQuote{robust} evaluation
 (aka Senn's basic estimator). These df are calculated as \code{n-seq}.\cr
 See \code{known.designs()$df2} for designs covered in this package.
   }
@@ -71,7 +71,7 @@ A list of parameters expressing the prior information about the
 variability and/or treatment effect. Possible components are \code{df}, 
 \code{SEM}, \code{m}, \code{design}.\cr
 For \code{prior.type = "CV"} the degrees of freedom from the prior trial are
-required. This information can be provided by speciffying the single component 
+required. This information can be provided by specifying the single component 
 \code{df} or the combination consisting of \code{m} and \code{design}.\cr
 For \code{prior.type != "CV"} the degrees of freedom and the standard error of
 the treatment difference are required. This information can be provided by 
@@ -85,7 +85,7 @@ In that case the expected power will be calculated as expected value of the
 power with respect to the (prior) distribution of the respective parameter(s).\cr
 Set to \code{method="approx"} the expected power according to the 
 approximate formulas given in the book from Julious or in the Julious/Owen 
-paper will be calculated (using non-central t); this only affects 
+paper will be calculated (using non-central \emph{t}); this only affects 
 \code{prior.type = "CV"}.
 }
   \item{print}{
@@ -109,10 +109,10 @@ obtained.
 Note that in case of \code{prior.type = "both"} the calculation may still take several seconds.
 
 Note also that the expected power is always bounded above by the so-called
-probability of technical success (PTS) which may be a value less than 1. 
+probability of technical success (\acronym{PTS}) which may be a value less than 1. 
 Therefore, it may be possible that it is either not possible to calculate the 
 required sample size at all or that the sample size gets very large 
-if the given targetpower is less but close to the PTS.
+if the given targetpower is less but close to the \acronym{PTS}.
 }
 \value{
 A data.frame with the input values and the result of the sample size estimation.\cr

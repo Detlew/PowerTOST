@@ -22,7 +22,7 @@ Should the data be used on log-transformed or on original scale? TRUE or FALSE.\
 Defaults to TRUE.
   }  
   \item{theta0}{
-Assumed 'true' (or 'observed' in case of \code{prior.type != "CV"}) bioequivalence 
+Assumed \sQuote{true} (or \sQuote{observed} in case of \code{prior.type != "CV"}) bioequivalence 
 ratio or difference.\cr
 Typically set to 0.95 (default if missing) if \code{logscale=TRUE}.
 Defaults to 0.05 if \code{logscale=FALSE}.
@@ -53,7 +53,7 @@ See \code{known.designs()} for designs covered in this package.
 }
   \item{robust}{
 Defaults to FALSE. Set to \code{TRUE} will use the degrees of freedom according 
-to the 'robust' evaluation (aka Senn's basic estimator). These df are calculated
+to the \sQuote{robust} evaluation (aka Senn's basic estimator). These df are calculated
 as \code{n-seq}.\cr 
 See \code{known.designs()$df2} for designs covered in this package.
 }
@@ -71,7 +71,7 @@ A list of parameters expressing the prior information about the
 variability and/or treatment effect. Possible components are \code{df}, 
 \code{SEM}, \code{m} and \code{design}.\cr
 For \code{prior.type = "CV"} the degrees of freedom from the prior trial are
-required. This information can be provided by speciffying the single component 
+required. This information can be provided by specifying the single component 
 \code{df} or the combination consisting of \code{m} and \code{design}.\cr
 For \code{prior.type != "CV"} the degrees of freedom and the standard error of
 the treatment difference are required. This information can be provided by 
@@ -85,7 +85,7 @@ In that case the expected power will be calculated as expected value of the
 power with respect to the (prior) distribution of the respective parameter(s).\cr
 Set to \code{method="approx"} the expected power according to the 
 approximate formulas given in the book from Julious or in the Julious/Owen 
-paper will be calculated (using non-central t); this only affects 
+paper will be calculated (using non-central \emph{t}); this only affects 
 \code{prior.type = "CV"}.
 }
 }
@@ -114,7 +114,7 @@ main argument \code{design}.}
 For \code{prior.parm}, the combination consisting of \code{df} and \code{SEM} 
 requires a somewhat advanced knowledge of the prior trial (the standard error of
 the difference usually needs separate calculation or is only provided in the
-raw output, for example coming from the software SAS). However, it has the advantage
+raw output, for example coming from the software \acronym{SAS}). However, it has the advantage
 that if the prior trial had missing data the exact degrees of freedom
 and standard error can be used, the former being possibly non-integer valued.
 
