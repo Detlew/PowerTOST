@@ -5,6 +5,8 @@ Published on GitHub 2017-05-26
       - Man pages for non-inferiority again updated
       - Deprecated argument dfCV in expected power functions now completely removed
       - Data lazy loading (allows access by the name)
+      - CVwRfromU() / U2CVwR() calculates CVwR from the upper expanded limit
+        of an ABEL study according to EMA's or Health Canada's rules.
       
 Version 1.4-5
 Released 2017-05-19
