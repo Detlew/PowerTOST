@@ -15,7 +15,7 @@ CVwRfromU <- function(U, regulator = "EMA")
   EL <- c(scABEL(CV=reg$CVswitch, regulator=regulator)[["upper"]],
           scABEL(CV=reg$CVcap, regulator=regulator)[["upper"]])
   if (U <= EL[1] || U >= EL[2]) {
-    stop(sprintf("Calculation only possible if 1.2500 > U < %.4f!",
+    stop(sprintf("Calculation only possible if 1.2500 < U < %.4f!",
                  scABEL(CV=reg$CVcap, regulator=regulator)["upper"]))
   }
   # same precision as U
