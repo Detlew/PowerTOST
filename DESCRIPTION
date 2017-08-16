@@ -55,6 +55,6 @@ Imports: mvtnorm, stats, utils, graphics, grDevices, cubature (>= 1.3-6), Teachi
 Suggests: crossdes
 ByteCompile: yes
 LazyData: true
-URL: <http://github.com/Detlew/PowerTOST>
-BugReports: <http://github.com/Detlew/PowerTOST/issues>
+URL: http://github.com/Detlew/PowerTOST
+BugReports: http://github.com/Detlew/PowerTOST/issues
 License: GPL (>=2)
