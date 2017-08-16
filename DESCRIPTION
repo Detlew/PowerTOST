@@ -54,6 +54,7 @@ Description: Contains functions to calculate power and sample size for
 Imports: mvtnorm, stats, utils, graphics, grDevices, cubature (>= 1.3-6), TeachingDemos
 Suggests: crossdes
 ByteCompile: yes
-URL: http://github.com/Detlew/PowerTOST
-BugReports: http://github.com/Detlew/PowerTOST/issues
+LazyData: true
+URL: <http://github.com/Detlew/PowerTOST>
+BugReports: <http://github.com/Detlew/PowerTOST/issues>
 License: GPL (>=2)

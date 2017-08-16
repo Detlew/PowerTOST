@@ -30,6 +30,8 @@ export(
   , CV2mse
   , CVfromCI
   , CI2CV
+  , CVwRfromU
+  , U2CVwR
   , CVp2CV
   , CVpooled
   , exppower.noninf

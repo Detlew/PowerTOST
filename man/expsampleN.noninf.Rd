@@ -27,7 +27,7 @@ Should the data used on log-transformed or on original scale? TRUE or FALSE.\cr
 Defaults to TRUE.
   }  
   \item{theta0}{
-Assumed 'true' (or 'observed' in case of \code{prior.type != "CV"}) ratio 
+Assumed \sQuote{true} (or \sQuote{observed} in case of \code{prior.type != "CV"}) ratio 
 or difference.\cr
 Typically set to 0.95 (default if missing) if \code{logscale=TRUE}.
 Defaults to -0.05 if \code{logscale=FALSE}.
@@ -50,7 +50,7 @@ See \code{known.designs()} for designs covered in this package.
   }
   \item{robust}{
 Defaults to FALSE. With that value the usual degrees of freedom will be used.\cr
-Set to \code{TRUE} will use the degrees of freedom according to the 'robust' evaluation
+Set to \code{TRUE} will use the degrees of freedom according to the \sQuote{robust} evaluation
 (aka Senn's basic estimator). These df are calculated as \code{n-seq}.\cr
 See \code{known.designs()} for designs covered in this package.
   }
@@ -82,7 +82,7 @@ In that case the expected power will be calculated as expected value of the
 power with respect to the (prior) distribution of the respective parameter(s).\cr
 Set to \code{method="approx"} the expected power according to the 
 approximate formulas given in the book from Julious or in the Julious/Owen 
-paper will be calculated (using non-central t); this only affects 
+paper will be calculated (using non-central \emph{t}); this only affects 
 \code{prior.type = "CV"}.
 }
   \item{print}{
@@ -103,10 +103,10 @@ approximation if \code{prior.type = "CV"}. Else an empirical start value is
 obtained.
 Note that in case of \code{prior.type = "both"} the calculation may still take several seconds.
 Note also that the expected power is always bounded above by the so-called
-probability of technical success (PTS) which may be a value less than 1. 
+probability of technical success (\acronym{PTS}) which may be a value less than 1. 
 Therefore, it may be possible that it is either not possible to calculate the 
 required sample size at all or that the sample size gets very large 
-if the given targetpower is less but close to the PTS.\cr
+if the given targetpower is less but close to the \acronym{PTS}.\cr
 
 \strong{Notes on the underlying hypotheses}\cr
 If the supplied margin is < 0 (\code{logscale=FALSE}) or < 1 (\code{logscale=TRUE}), 
@@ -124,7 +124,7 @@ where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
 or \cr
 \code{H0: log(theta0) >= log(margin) vs. H1: log(theta0) < log(margin)}\cr
 where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr
-This latter case may also be considered as 'non-superiority'.
+This latter case may also be considered as \sQuote{non-superiority}.
 }
 \value{
 A data.frame with the input values and the result of the sample size estimation.\cr
