@@ -22,7 +22,7 @@ Should the data be used on log-transformed or on original scale? TRUE or FALSE.\
 Defaults to TRUE.
   }  
   \item{theta0}{
-Assumed 'true' (or 'observed' in case of \code{prior.type != "CV"}) ratio 
+Assumed \sQuote{true} (or \sQuote{observed} in case of \code{prior.type != "CV"}) ratio 
 or difference.\cr
 Typically set to 0.95 (default if missing) if \code{logscale=TRUE}.
 Defaults to -0.05 if \code{logscale=FALSE}.
@@ -49,7 +49,7 @@ See \code{known.designs()} for designs covered in this package.
 }
   \item{robust}{
 Defaults to FALSE. Set to \code{TRUE} will use the degrees of freedom according 
-to the 'robust' evaluation (aka Senn's basic estimator). These df are calculated
+to the \sQuote{robust} evaluation (aka Senn's basic estimator). These df are calculated
 as \code{n-seq}.\cr 
 See \code{known.designs()$df2} for designs covered in this package.
 }
@@ -59,7 +59,7 @@ Specifies which parameter uncertainty should be accounted for. In case of
 CV will be considered (i.e. the given treatment effect is assumed to be fix).
 In case of \code{prior.type = "theta0" } only uncertainty with respect to the
 treatment ratio/difference will be accounted for (i.e. the given CV is assumed
-to be fix). In case of  \code{prior.type = "both"} the power value will be
+to be fix). In case of \code{prior.type = "both"} the power value will be
 unconditional with respect to both the \code{CV} and \code{theta0}.
   }
   \item{prior.parm}{
@@ -81,7 +81,7 @@ In that case the expected power will be calculated as expected value of the
 power with respect to the (prior) distribution of the respective parameter(s).\cr
 Set to \code{method="approx"} the expected power according to the 
 approximate formulas given in the book from Julious or in the Julious/Owen 
-paper will be calculated (using non-central t); this only affects 
+paper will be calculated (using non-central \emph{t}); this only affects 
 \code{prior.type = "CV"}.
 }
 }
@@ -108,7 +108,7 @@ main argument \code{design}.}
 For \code{prior.parm}, the combination consisting of \code{df} and \code{SEM} 
 requires a somewhat advanced knowledge of the prior trial (the standard error of
 the difference usually needs separate calculation or is only provided in the
-raw output, for example coming from the software SAS). However, it has the advantage
+raw output, for example coming from the software \acronym{SAS}). However, it has the advantage
 that if the prior trial had missing data the exact degrees of freedom
 and standard error can be used, the former being possibly non-integer valued.
 Details on argument \code{prior.type}:
@@ -139,7 +139,7 @@ where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
 or \cr
 \code{H0: log(theta0) >= log(margin) vs. H1: log(theta0) < log(margin)}\cr
 where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr
-This latter case may also be considered as 'non-superiority'.
+This latter case may also be considered as \sQuote{non-superiority}.
 }
 
 \value{
