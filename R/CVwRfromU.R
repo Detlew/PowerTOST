@@ -26,5 +26,5 @@ CVwRfromU <- function(U, regulator = "EMA")
 # alias to CVwRfromUL
 U2CVwR <- function(U, regulator = "EMA")
 {
-  CVwRfromU(U, regulator = "EMA")
+  CVwRfromU(U, regulator = regulator)
 }
