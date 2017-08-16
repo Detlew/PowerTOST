@@ -152,10 +152,12 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   chunks <- 1
   nsi    <- nsims
   if (nsims>1E7) {
-    chunks <- round(nsims/1E7,0)
+    chunks <- ceiling(nsims/1E7)
     nsi    <- 1E7
   } 
   for (iter in 1:chunks){
+    # if chunks*1E7 >nsims correct nsi to given nsims
+    if(iter==chunks & chunks>1) nsi <- nsims-(chunks-1)*nsi
     # simulate sample mean via its normal distribution
     means  <- rnorm(nsi, mean=mlog, sd=sdm)
     # simulate sample value s2wT/s2wR via chi-square distri

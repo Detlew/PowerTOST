@@ -149,14 +149,18 @@ power.RSABE <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   
   counts <- rep.int(0, times=4)
   names(counts) <- c("BE", "BEul", "BEpe", "BEabe")
-  # to avoid memory problems for high number of sims
+  # to avoid memory problems for high number of sims we work in chunks
   chunks <- 1
   nsi    <- nsims
   if (nsims>1E7) {
-    chunks <- round(nsims/1E7,0)
+    chunks <- ceiling(nsims/1E7)
     nsi    <- 1E7
   } 
   for (iter in 1:chunks) {
+    # if chunks*1E7 >nsims correct nsi to given nsims
+    if(iter==chunks) nsi <- nsims-(chunks-1)*nsi
+    # debug code
+    # cat("nsi=", nsi, "\n")
     # simulate sample mean via its normal distribution
     means  <- rnorm(nsi, mean=mlog, sd=sdm)
     # simulate sample sd2s via chi-square distri
