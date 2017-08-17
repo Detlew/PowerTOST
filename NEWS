@@ -1,13 +1,14 @@
-Published on GitHub 2017-08-16
+Version 1.4-6
+Released 2017-08-17
       - Bug fixed in functions relying in simulations if nsims>1e7.
+      - Functions CVwRfromU() / U2CVwR() calculate CVwR from the upper expanded 
+        limit of an ABEL study according to EMA's or Health Canada's rules.
       - Power and sample size for TOST: Argument alpha restricted to scalar.
         Internal functions now allow length = 2 (different alpha's
         for the two null hypotheses).
       - Man pages for non-inferiority again updated.
       - Deprecated argument dfCV in expected power functions now completely removed.
       - Data lazy loading (allows access by the name)
-      - CVwRfromU() / U2CVwR() calculates CVwR from the upper expanded limit
-         of an ABEL study according to EMA's or Health Canada's rules.
 
 Version 1.4-5
 Released 2017-05-19
