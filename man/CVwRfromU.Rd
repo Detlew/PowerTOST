@@ -5,9 +5,8 @@
 \title{CVwR from the upper expanded limit (ABEL)}
 \description{
 Calculates the CV (coefficient of variation) of the reference from the upper 
-expanded limit of a BE study (replicate design for ABEL). Useful if no 
-\ifelse{html}{\out{CV<sub>wR</sub>}}{\eqn{CV\textsubscript}{wR}} but the 
-expanded limits were given.
+expanded limit of a BE study (replicate design for ABEL). Useful if no CVwR but 
+the expanded limits were given.
 }
 \usage{
 CVwRfromU(U, regulator = "EMA")
