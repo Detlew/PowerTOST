@@ -203,7 +203,8 @@ expsampleN.noninf(theta0 = 0.95, margin = 0.8, CV=CVs,
 # achieved expected power 0.816163 approximate acc. Julious
 
 # Uncertainty is accounted for CV and theta0
+\dontrun{
 expsampleN.noninf(CV=0.3, prior.parm = list(m = 12, design = "2x2"), 
                   prior.type = "both")
-# gives a dramatic increase in sample size (n = 194) due to small pilot trial
+# gives a dramatic increase in sample size (n = 194) due to small pilot trial}
 }
