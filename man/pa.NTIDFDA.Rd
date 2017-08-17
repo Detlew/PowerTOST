@@ -76,9 +76,18 @@ FDA. \emph{Draft Guidance on Warfarin Sodium.}\cr
 Recommended Dec 2012\cr
 \url{http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM201283.pdf}
 
-Conner DP. \emph{Bioequivalence Methods for Highly Variable Drugs and Drug Products.}\cr
-ACPS-CP Meeting, 5 August 2009\cr
-\url{https://www.fda.gov/downloads/AdvisoryCommittees/CommitteesMeetingMaterials/Drugs/AdvisoryCommitteeforPharmaceuticalScienceandClinicalPharmacology/UCM178927.pdf}
+Yu LX et al.\cr
+\emph{Novel bioequivalence approach for narrow therapeutic index drugs}\cr
+Clin Pharmacol Ther. 2015;97(3):286--91. \doi{10.1002/cpt.28}
+
+Jiang W et al.\cr
+\emph{A Bioequivalence Approach for Generic Narrow Therapeutic Index Drugs: Evaluation of the Reference-Scaled Approach and Variability Comparison Criterion}\cr
+AAPS J. 2015;17(4):891--901. \doi{10.1208/s12248-015-9753-5}
+
+\enc{Endrényi}{Endrenyi} L, \enc{Tóthfalusi}{Tothfalusi} L.\cr
+\emph{Determination of Bioequivalence for Drugs with Narrow Therapeutic Index: 
+Reduction of the Regulatory Burden}\cr
+J Pharm Pharm Sci. 2013;16(5):676--82. \href{https://ejournals.library.ualberta.ca/index.php/JPPS/article/viewFile/20900/15927}{free download}
 }
 \author{
 D. Labes\cr
