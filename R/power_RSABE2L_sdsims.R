@@ -1,13 +1,13 @@
 # ----------------------------------------------------------------------------
 # simulate replicate design subject data and evaluate via "exact" method
 # of the two Laszlo's
-# estimimation method ANOVA acc. to EMA
+# estimimation method ANOVA acc. to EMA (method A of Q&A)
 #
 # Author D. Labes based on power.scABEL.sdsims()
 # ----------------------------------------------------------------------------
 power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                                  design=c("2x3x3", "2x2x4", "2x2x3"), 
-                                 design_dta=NULL, regulator,
+                                 SABE_test="exact", design_dta=NULL, regulator,
                                  nsims=1E5, details=FALSE, setseed=TRUE, progress)
 {
   if (is.null(design_dta)){
@@ -74,6 +74,10 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     if(nsims>=1E5 & n>72) progress <- TRUE
   }
   
+  # check SABE_test
+  SABE_test <- tolower(SABE_test)
+  SABE_test <- match.arg(SABE_test, choices=c("exact", "abel", "hyslop"))
+  
   # check regulator
   if (missing(regulator)) regulator <- "EMA"
   reg  <- reg_check(regulator)
@@ -108,7 +112,7 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   pwr <- .pwr.RSABE.sds(seqs=seqs, nseq=nv, design_dta=design_dta, ldiff=log(theta0), 
                         s2WR=s2wR, s2WT=s2wT, C2=C2, nsims=nsims, regulator=reg, 
                         ln_lBEL=log(theta1), ln_uBEL=log(theta2), alpha=alpha, 
-                        fitmethod=fitm, BE_test="hyslop", setseed=setseed, 
+                        fitmethod=fitm, SABE_test=SABE_test, setseed=setseed, 
                         details=details, progress=progress)
   pwr
 }
@@ -117,7 +121,7 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 # working horse
 .pwr.RSABE.sds <- function(seqs, nseq, muR=log(10), design_dta=NULL, ldiff, 
                            s2WR, s2WT, C2, nsims, regulator, ln_lBEL, ln_uBEL, 
-                           alpha=0.05, fitmethod="qr", BE_test="exact",
+                           alpha=0.05, fitmethod="qr", SABE_test="exact",
                            setseed=TRUE, details=FALSE, progress=FALSE)
 {
   # start time measurement
@@ -264,16 +268,18 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   
   # reset options
   options(oc)
+  # standard error of the difference T-R
   seD  <- sqrt(C2*mses)
+  # 1-2alpha CI
   hw   <- tcrit*seD
   loCL <- pes - hw
   upCL <- pes + hw
   # conventional ABE decision
   BE_ABE <- (loCL >=  ln_lBEL) & (upCL <= ln_uBEL)
   
-  if(BE_test=="exact") {
+  if(SABE_test=="exact") {
     # step 1: compute k
-    k <- sqrt(C2*mses/s2wRs)
+    k <- seD/sqrt(s2wRs)
     # Hedges correction
     Hf <- 1-3/(4*dfRR-1)
     # step 2: compute L/U using eqn. (26)
@@ -283,14 +289,14 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     es <- pes/sqrt(s2wRs)/k
     # RSABE ("exact") decision
     BE_RSABE  <- (Ltheta < es) & (es < Utheta)
-  } else if(BE_test=="abel") {
+  } else if(SABE_test=="abel") {
     # 'widened' acceptance limits
     wABEL  <- ifelse(s2wRs<=s2switch, ln_uBEL, r_const*sqrt(s2wRs))
     # cap on widening
     wABEL  <- ifelse(s2wRs>s2cap, wABEL_cap, wABEL)
     # scaled ABE (ABEL) decision
     BE_RSABE  <- (loCL >= -wABEL) & (upCL <= wABEL)
-  } else if(BE_test=="howe" | BE_test=="hyslop") {
+  } else if(SABE_test=="howe" | SABE_test=="hyslop") {
     # linearized RSABE criterion and upper 95% CI
     # seems the 2L have used other df's 
     # namely sum(nseq) - length(nseq) for T vsR
@@ -298,8 +304,8 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     # dfRR <- n[2] - 1 for the TRT|RTR design (number in RTR sequence)
     chisqval <- qchisq(1-alpha, dfRR)
     # with -seD^2 the 'unknown' x from the progesterone guidance
-    Em <- pes^2 - seD^2  
-    Em <- pes^2 # is this  what the 2L have used?
+    # Em <- pes^2 - seD^2  
+    Em <- pes^2 # is this  what the 2L have used? formula (8)
     Es <- r_const^2*s2wRs
     Cm <- (abs(pes) + hw)^2
     Cs <- Es*dfRR/chisqval    
@@ -312,7 +318,15 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   
   # mixed decision
   BE <- ifelse(s2wRs < s2switch, BE_ABE, BE_RSABE)
-  # cap? is it possible to have a capping within this method?
+
+  # use capped acceptance limits if CVwR > CVcap
+  if (is.finite(CVcap)){
+    #s2Cap <- CV2mse(CVcap)
+    # calculate the capped widened acceptance limits in log domain
+    uprABEL <- r_const*sqrt(s2cap)
+    lwrABEL <- -uprABEL
+    BE <- ifelse(s2wRs>=s2cap, ((lwrABEL<=loCL) & (upCL<=uprABEL)), BE)
+  }
   
   # add pe constraint
   if(pe_constr) BE <- BE & BE_pe
@@ -327,7 +341,7 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   p[2] <- sum(BE_RSABE)/nsims
   p[3] <- sum(BE_pe)/nsims
   p[4] <- sum(BE_ABE)/nsims
-  if(BE_test=="abel") names(p) <- c("p(BE)", "p(BE-ABEL)", "p(BE-pe)", "p(BE-ABE)")
+  if(SABE_test=="abel") names(p) <- c("p(BE)", "p(BE-ABEL)", "p(BE-pe)", "p(BE-ABE)")
   
   if (details){
     ptm <- summary(proc.time()-ptm)
