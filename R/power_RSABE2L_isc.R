@@ -125,16 +125,15 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   mlog <- log(theta0)
   
   if(setseed) set.seed(123456)
-  p <- .power.RSABE.isc(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
-                        CVswitch, r_const, pe_constr, CVcap, SABE_test=SABE_test,
-                        ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
+  p <- .pwr.RSABE.isc(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
+                      CVswitch, r_const, pe_constr, CVcap, SABE_test=SABE_test,
+                      ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
     
   if (details) {
     ptm <- summary(proc.time()-ptm)
     message(nsims," sims. Time elapsed (sec): ", 
             formatC(ptm["elapsed"], digits=2), "\n")
-    #print(ptm)
-    # return also the components
+    # return the components
     names(p) <- c("p(BE)", "p(BE-RSABE)", "p(BE-pe)", "p(BE-ABE)")
     if (SABE_test=="abel") names(p) <- c("p(BE)", "p(BE-ABEL)", "p(BE-pe)", "p(BE-ABE)")
     if (!pe_constr) p <- p[-3] # without pe constraint
@@ -146,9 +145,9 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 }
 
 # working horse of RSABE
-.power.RSABE.isc <- function(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
-                             CVswitch, r_const, pe_constr, CVcap, SABE_test="exact",
-                             ln_lBEL, ln_uBEL, alpha=0.05)
+.pwr.RSABE.isc <- function(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
+                           CVswitch, r_const, pe_constr, CVcap, SABE_test="exact",
+                           ln_lBEL, ln_uBEL, alpha=0.05)
 {
   tval     <- qt(1-alpha,df)
   chisqval <- qchisq(1-alpha, dfRR)
@@ -192,17 +191,28 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # Hedges correction
       Hf <- 1-3/(4*dfRR-1)
       # step 2: compute L/U using eqn. (26)
-      # warnings wrt to full precision in pnt
+      # attention! in the 2016 paper the non-centrality parm is defined
+      # different, also the effect size
+      # see f.i. eqn (17a, 17b)
+      #
+      # avoid warnings wrt to full precision in pnt
       op <- options()
       options(warn=-1)
-        Ltheta <- qt(1-alpha, df, -(Hf/k)*r_const)
-        Utheta <- qt(alpha, df, +(Hf/k)*r_const)
+      # df for non-central t-distri; Which one?
+      # here dfRR equals df, except for TRT|RTR
+        Ltheta <- qt(1-alpha, dfRR, -(Hf/k)*r_const)
+        Utheta <- qt(alpha, dfRR, +(Hf/k)*r_const)
+      # 2016 paper  
+        #Ltheta <- qt(1-alpha, dfRR, -r_const/k)
+        #Utheta <- qt(alpha, dfRR, +r_const/k)
       options(op)
       # effect size
-      es <- means/sqrt(s2wRs)/k
+      es <- (means/sqrt(s2wRs))/k
+      # 2016 paper
+      #es <- means/sqrt(s2wRs)/k/Hf
       # RSABE ("exact") decision
       BE_RSABE  <- (Ltheta < es) & (es < Utheta)
-      
+      #browser()
     } else if (SABE_test=="hyslop" | SABE_test=="howe") {
       # linearized SABE criterion + 95%CI
       # with -SEs^2 the 'unknown' x from the progesterone guidance

@@ -270,7 +270,7 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   options(oc)
   # standard error of the difference T-R
   seD  <- sqrt(C2*mses)
-  # 1-2alpha CI
+  # 1-2*alpha CI
   hw   <- tcrit*seD
   loCL <- pes - hw
   upCL <- pes + hw
@@ -283,12 +283,28 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     # Hedges correction
     Hf <- 1-3/(4*dfRR-1)
     # step 2: compute L/U using eqn. (26)
-    Ltheta <- qt(1-alpha, df, -(Hf/k)*r_const)
-    Utheta <- qt(alpha, df, +(Hf/k)*r_const)
+    # attention! in the 2016 paper the non-centrality parm is defined
+    # different, also the effect size
+    # see f.i. eqn (17a, 17b)
+    #
+    # avoid warnings wrt to full precision in pnt
+    op <- options()
+    options(warn=-1)
+    # df for non-central t-distri; Which one? 
+      Ltheta <- qt(1-alpha, dfRR, -(Hf/k)*r_const)
+      #Utheta <- qt(alpha, dfRR, +(Hf/k)*r_const)
+      Utheta <- -Ltheta # is this always the case?
+    # 2016 paper  
+      #Ltheta <- qt(1-alpha, dfRR, -r_const/k)
+      #Utheta <- qt(alpha, dfRR, +r_const/k)
+    options(op)
     # effect size
     es <- pes/sqrt(s2wRs)/k
+    # 2016 paper
+    #es <- pes/sqrt(s2wRs)/k/Hf
     # RSABE ("exact") decision
     BE_RSABE  <- (Ltheta < es) & (es < Utheta)
+    #browser()
   } else if(SABE_test=="abel") {
     # 'widened' acceptance limits
     wABEL  <- ifelse(s2wRs<=s2switch, ln_uBEL, r_const*sqrt(s2wRs))
