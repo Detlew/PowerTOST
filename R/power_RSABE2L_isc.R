@@ -188,6 +188,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     if (SABE_test=="exact"){
       # step 1: compute k
       k <- SEs/sqrt(s2wRs)
+      #k <- mean(k)
       # Hedges correction
       Hf <- 1-3/(4*dfRR-1)
       # step 2: compute L/U using eqn. (26)
@@ -201,10 +202,11 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # df for non-central t-distri; Which one?
       # here dfRR equals df, except for TRT|RTR
         Ltheta <- qt(1-alpha, dfRR, -(Hf/k)*r_const)
-        Utheta <- qt(alpha, dfRR, +(Hf/k)*r_const)
+        #Utheta <- qt(alpha, dfRR, +(Hf/k)*r_const)
       # 2016 paper  
         #Ltheta <- qt(1-alpha, dfRR, -r_const/k)
         #Utheta <- qt(alpha, dfRR, +r_const/k)
+        Utheta <- -Ltheta # is this in all cases correct?
       options(op)
       # effect size
       es <- (means/sqrt(s2wRs))/k
