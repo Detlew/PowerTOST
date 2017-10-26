@@ -76,7 +76,7 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   
   # check SABE_test
   SABE_test <- tolower(SABE_test)
-  SABE_test <- match.arg(SABE_test, choices=c("exact", "abel", "hyslop"))
+  SABE_test <- match.arg(SABE_test, choices=c("exact", "abel", "hyslop", "fda"))
   
   # check regulator
   if (missing(regulator)) regulator <- "EMA"
@@ -116,7 +116,9 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
                         details=details, progress=progress)
   pwr
 }
-  
+
+# alias
+power.RSABE2L.sds <- power.RSABE2L.sdsims
 
 # working horse
 .pwr.RSABE.sds <- function(seqs, nseq, muR=log(10), design_dta=NULL, ldiff, 
@@ -181,7 +183,7 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   mse1  <- summary(model)$sigma^2
   C21   <- (hw1/tcrit)^2/mse1
   C2    <- C21
-  # now the correct tcrit to be used
+  # now the correct tcrit to be used, df from the ANOVA of T-R
   tcrit <- qt(1-alpha, df)
   
   modelR <- lm.fit(x=mmR, y=dtaR$logval)
@@ -270,7 +272,7 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   options(oc)
   # standard error of the difference T-R
   seD  <- sqrt(C2*mses)
-  # 1-2*alpha CI
+  # ABE test = 1-2*alpha CI, df are the df of the ANOVA
   hw   <- tcrit*seD
   loCL <- pes - hw
   upCL <- pes + hw
@@ -312,18 +314,22 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     wABEL  <- ifelse(s2wRs>s2cap, wABEL_cap, wABEL)
     # scaled ABE (ABEL) decision
     BE_RSABE  <- (loCL >= -wABEL) & (upCL <= wABEL)
-  } else if(SABE_test=="howe" | SABE_test=="hyslop") {
+  } else if(SABE_test=="howe" | SABE_test=="hyslop" | SABE_test=="fda") {
     # linearized RSABE criterion and upper 95% CI
+    # with -seD^2 the 'unknown x' from the progesterone guidance
+    Em <- pes^2 # this is what the 2L have used. formula (8)
+    if (SABE_test=="fda") Em <- Em -  seD^2 # bias corr. according to the SAS code
+    Es <- r_const^2*s2wRs
     # seems the 2L have used other df's 
-    # namely sum(nseq) - length(nseq) for T vsR
+    # namely sum(nseq) - length(nseq) for T vs R
+    # only with that CI (df=N-seq) the rsults of the 2L can be verified
+    # but the df of the PE are different for the evaluation via ANOVA
+    tcrit <- qt(1-alpha, df=sum(nseq) - length(nseq))
+    hw   <- tcrit*seD
+    Cm <- (abs(pes) + hw)^2
     # dfRR the same for 'full' replicates and 
     # dfRR <- n[2] - 1 for the TRT|RTR design (number in RTR sequence)
     chisqval <- qchisq(1-alpha, dfRR)
-    # with -seD^2 the 'unknown' x from the progesterone guidance
-    # Em <- pes^2 - seD^2  
-    Em <- pes^2 # is this  what the 2L have used? formula (8)
-    Es <- r_const^2*s2wRs
-    Cm <- (abs(pes) + hw)^2
     Cs <- Es*dfRR/chisqval    
     SABEc95 <- Em - Es + sqrt((Cm-Em)^2 + (Cs-Es)^2)
     BE_RSABE <- (SABEc95 <= 0)

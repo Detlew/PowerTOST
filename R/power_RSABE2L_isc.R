@@ -52,7 +52,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 
   # check SABE_test
   SABE_test <- tolower(SABE_test)
-  SABE_test <- match.arg(SABE_test, choices=c("exact", "abel", "hyslop"))
+  SABE_test <- match.arg(SABE_test, choices=c("exact", "abel", "hyslop", "fda"))
   
   # check design and give the design characteristics
   design <- match.arg(design)
@@ -105,7 +105,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     n  <- sum(n)
   }
   
-  df   <- eval(dfe)
+  df <- eval(dfe)
   if (design=="2x2x3"){
     dfTT <- nv[1]-1
     dfRR <- nv[2]-1
@@ -144,7 +144,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   }
 }
 
-# working horse of RSABE
+# working horse of RSABE, estimation via ISC
 .pwr.RSABE.isc <- function(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
                            CVswitch, r_const, pe_constr, CVcap, SABE_test="exact",
                            ln_lBEL, ln_uBEL, alpha=0.05)
@@ -170,18 +170,18 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     if(iter==chunks) nsi <- nsims-(chunks-1)*nsi
     # debug code
     # cat("nsi=", nsi, "\n")
-    # simulate sample mean via its normal distribution
-    means  <- rnorm(nsi, mean=mlog, sd=sdm)
+    # simulate sample mean (pe) of T-R via its normal distribution
+    pes  <- rnorm(nsi, mean=mlog, sd=sdm)
     # simulate sample sd2s via chi-square distri
     sd2s   <- Emse*C3*rchisq(nsi, df)/df
     # simulate sample value s2wRs via chi-square distri
     s2wRs  <- s2wR*rchisq(nsi, dfRR)/dfRR
-    
+    #browser()
     SEs <- sqrt(sd2s)
     # conventional (1-2*alpha) CI's for T-R
     hw  <- tval*SEs
-    lCL <- means - hw 
-    uCL <- means + hw
+    lCL <- pes - hw 
+    uCL <- pes + hw
     # conventional ABE
     BE_ABE <- ((ln_lBEL<=lCL) & (uCL<=ln_uBEL))
     
@@ -189,6 +189,8 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # step 1: compute k
       k <- SEs/sqrt(s2wRs)
       #k <- mean(k)
+      # in case of s2wT == s2wR == Emse
+      #if(Emse==s2wR) k <- sqrt(C3)
       # Hedges correction
       Hf <- 1-3/(4*dfRR-1)
       # step 2: compute L/U using eqn. (26)
@@ -197,8 +199,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # see f.i. eqn (17a, 17b)
       #
       # avoid warnings wrt to full precision in pnt
-      op <- options()
-      options(warn=-1)
+      op2 <- options(warn=-1)
       # df for non-central t-distri; Which one?
       # here dfRR equals df, except for TRT|RTR
         Ltheta <- qt(1-alpha, dfRR, -(Hf/k)*r_const)
@@ -207,20 +208,22 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
         #Ltheta <- qt(1-alpha, dfRR, -r_const/k)
         #Utheta <- qt(alpha, dfRR, +r_const/k)
         Utheta <- -Ltheta # is this in all cases correct?
-      options(op)
+      options(op2)
       # effect size
-      es <- (means/sqrt(s2wRs))/k
+      es <- (pes/sqrt(s2wRs))/k
       # 2016 paper
-      #es <- means/sqrt(s2wRs)/k/Hf
+      #es <- pes/sqrt(s2wRs)/k/Hf
       # RSABE ("exact") decision
       BE_RSABE  <- (Ltheta < es) & (es < Utheta)
       #browser()
-    } else if (SABE_test=="hyslop" | SABE_test=="howe") {
+    } else if (SABE_test=="hyslop" | SABE_test=="howe" | SABE_test=="fda") {
       # linearized SABE criterion + 95%CI
       # with -SEs^2 the 'unknown' x from the progesterone guidance
-      Em <- means^2 #- SEs^2  
+      # and this gives the same values as power.RSABE()
+      Em <- pes^2 
+      if (SABE_test=="fda") Em <- Em - SEs^2 # bias corr.  
       Es <- r2const*s2wRs
-      Cm <- (abs(means) + hw)^2
+      Cm <- (abs(pes) + hw)^2
       Cs <- Es*dfRR/chisqval    
       SABEc95 <- Em - Es + sqrt((Cm-Em)^2 + (Cs-Es)^2)
       # save memory
@@ -248,7 +251,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     }
     
     # point est. constraint true?
-    BEpe  <- ( means>=ln_lBEL & means<=ln_uBEL )
+    BEpe  <- ( pes>=ln_lBEL & pes<=ln_uBEL )
 
     counts["BEabe"] <- counts["BEabe"] + sum(BE_ABE)
     counts["BEpe"]  <- counts["BEpe"]  + sum(BEpe)

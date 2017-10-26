@@ -1,6 +1,11 @@
+V 1.4.6.9000
+2017-10-26
+      - New function power.RSABE2L.sds() for implementing the 'exact' based
+        method for RSABE of the two Laszlo's (undocumented till now) 
+
 Version 1.4-6
 Released 2017-08-17
-      - Bug fixed in functions relying in simulations if nsims>1e7.
+      - Bug fixed in functions relying on simulations if nsims>1e7.
       - Functions CVwRfromU() / U2CVwR() calculate CVwR from the upper expanded 
         limit of an ABEL study according to EMA's or Health Canada's rules.
       - Power and sample size for TOST: Argument alpha restricted to scalar.

@@ -54,6 +54,7 @@ export(
   , power.NTIDFDA
   , power.HVNTID
   , power.RSABE
+  , power.RSABE2L.sds
   , power.scABEL
   , power.scABEL.sdsims
   , power.dp
