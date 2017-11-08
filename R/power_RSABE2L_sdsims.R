@@ -7,7 +7,7 @@
 # ----------------------------------------------------------------------------
 power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                                  design=c("2x3x3", "2x2x4", "2x2x3"), 
-                                 SABE_test="exact", design_dta=NULL, regulator,
+                                 design_dta=NULL, SABE_test="exact", regulator,
                                  nsims=1E5, details=FALSE, setseed=TRUE, progress)
 {
   if (is.null(design_dta)){
@@ -184,6 +184,7 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
   C21   <- (hw1/tcrit)^2/mse1
   C2    <- C21
   # now the correct tcrit to be used, df from the ANOVA of T-R
+  # attention! the 2L use the 'robust' df in their 2016 paper.
   tcrit <- qt(1-alpha, df)
   
   modelR <- lm.fit(x=mmR, y=dtaR$logval)
