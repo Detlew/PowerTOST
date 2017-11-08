@@ -18,8 +18,6 @@ power.RSABE2L.sdsims(alpha = 0.05, theta1, theta2, theta0, CV, n,
                      design = c("2x3x3", "2x2x4", "2x2x3"), design_dta=NULL,
                      SABE_test="exact", regulator, nsims = 1e+05, 
                      details = FALSE, setseed = TRUE, progress)
-
-The function has an alias power.RSABE2L.sds()
 }
 \arguments{
   \item{alpha}{
