@@ -64,7 +64,7 @@ Design of the study to be planned.\cr
 Defaults to \verb{design="2x3x3"}.
 }
   \item{design_dta}{
-Alternatively to using the arguments \cerb{design} and \verb{n} the design may 
+Alternatively to using the arguments \verb{design} and \verb{n} the design may 
 be defined via a data.frame with columns \verb{subject, sequence, period} and
 \verb{tmt}. This feature is experimental in the sense that the data.frame is
 not checked for complying with the assumed structure.\cr
