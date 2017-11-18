@@ -196,8 +196,8 @@ Clin Pharmacol Ther. 2015;99:356--9. \doi{10.1002/cpt.257}
 # assumed true ratio = 95\%, margin = 0.8,
 # intra-subject CV=30\% estimated from prior 2x2 trial 
 # with m = 12 subjects
-expsampleN.noninf(theta0 = 0.95, margin = 0.8, CV = 0.3,
-                  design = "2x2", prior.parm = list(m = 12))
+expsampleN.noninf(theta0 = 0.95, margin = 0.8, CV = 0.3, design = "2x2",
+                  prior.parm = list(m = 12, design = "2x2"))
 # gives n = 58 with achieved expected power 0.809148 
 # Compare this to the usual sample size with CV assumed
 # as 'carved in stone'
@@ -205,8 +205,8 @@ sampleN.noninf(theta0 = 0.95, margin = 0.8, CV=0.3)
 
 # Perform 'non-superiority' (lower is better) with assumed
 # true ratio = 105\% and margin 125\%
-expsampleN.noninf(theta0 = 1.05, margin = 1.25, CV = 0.3,
-                  design = "2x2", prior.parm = list(m = 12))
+expsampleN.noninf(theta0 = 1.05, margin = 1.25, CV = 0.3, design = "2x2",
+                  prior.parm = list(m = 12, design = "2x2"))
 # should give n = 56 with achieved expected power 0.806862
 
 # More than one CV with corresponding degrees of freedom 
