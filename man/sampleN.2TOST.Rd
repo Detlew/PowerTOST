@@ -1,7 +1,8 @@
+\encoding{utf-8}
 \name{sampleN.2TOST}
 \alias{sampleN.2TOST}
 \title{
-Sample size based on power of 2 TOSTs
+Sample size based on power of two TOSTs
 }
 \description{
 Calculates the necessary sample size to have at least a given power when two
@@ -22,12 +23,13 @@ Power to achieve at least. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9.
   }
   \item{logscale}{
-Should the data used on log-transformed or on original scale? TRUE or FALSE.\cr
-Defaults to TRUE.
+Should the data used on log-transformed (\verb{TRUE}) or on original
+scale (\verb{FALSE})?\cr
+Defaults to \verb{TRUE}.
   }
   \item{theta0}{
-Vector; contains 'true' assumed bioequivalence ratio for each of the two TOSTs. \cr
-In case of \code{logscale=TRUE} each element must be given as ratio, \cr
+Vector; contains \sQuote{true} assumed bioequivalence ratio for each of the two TOSTs. \cr
+In case of \code{logscale=TRUE} each element must be given as ratio,\cr
 otherwise as difference to 1. See examples.\cr
 Defaults to \code{c(0.95, 0.95)} if \code{logscale=TRUE} or to 
 \code{c(0.05, 0.05)} if \code{logscale=FALSE}.
@@ -39,9 +41,9 @@ Defaults to \code{c(0.8, 0.8)} if \code{logscale=TRUE} or to \code{c(-0.2, -0.2)
 if \code{logscale=FALSE}.
   }
   \item{theta2}{
-Vector; contains upper bioequivalence limit for each of the two TOSTS.\cr
-If not given theta2 will be calculated as \code{1/theta1} if \code{logscale=TRUE}\cr
-or as \code{-theta1} if \code{logscale=FALSE}.
+Vector; contains upper bioequivalence limit for each of the two TOSTs.\cr
+If not given \verb{theta2} will be calculated as \code{1/theta1} if \code{logscale=TRUE}\cr
+or as \verb{-theta1} if \code{logscale=FALSE}.
   }
   \item{CV}{
 Vector of coefficient of variations (given as as ratio, e.g. 0.2 for 20\%).\cr
@@ -51,9 +53,9 @@ In case of \code{logscale=FALSE} CV is assumed to be the respective standard
 deviation.
   }
   \item{rho}{
-Correlation between the two parameters under consideration. This is defined 
-as correlation between the estimator of the treatment difference of
-parameter one and the estimator of the treatment difference of parameter two.
+Correlation between the two PK metrics (\emph{e.g.}, AUC and Cmax) under consideration.
+This is defined as correlation between the estimator of the treatment difference of
+PK metric one and the estimator of the treatment difference of PK metric two.
 }
   \item{design}{
 Character string describing the study design.\cr
@@ -64,9 +66,9 @@ Calculation depends on \code{pmvt()} which is based on randomized quasi Monte Ca
 methods. If \code{setseed=TRUE} a seed value is set, the default.
 }
   \item{robust}{
-Defaults to \code{FALSE}. With that value the usual degrees of freedom will be used.\cr
-Set to \code{TRUE} will use the degrees of freedom according to the 'robust' evaluation
-(aka Senn's basic estimator). These df are calculated as \code{n-seq}.\cr
+Defaults to \verb{FALSE}. With that value the usual degrees of freedom will be used.\cr
+Set to \verb{TRUE} will use the degrees of freedom according to the \sQuote{robust} evaluation
+(aka Senn\enc{’}{'}s basic estimator). These df are calculated as \code{n-seq}.\cr
 See \code{known.designs()$df2} for designs covered in this package.\cr
 Has only effect for higher-order crossover designs.
   }
@@ -92,11 +94,11 @@ The sample size is bound to 4 as minimum.
 }
 \value{
 A list with the input and results will be returned.\cr
-The element name "Sample size" contains the total sample size.
+The element name \verb{"Sample size"} contains the total sample size.
 }
 \note{
-If both theta0 are near the acceptance limits then the starting value may not
-be a good approximation resulting in a lot of iteration steps; imax may need
+If both \verb{theta0} are near the acceptance limits then the starting value may not
+be a good approximation resulting in a lot of iteration steps; \verb{imax} may need
 to be increased to obtain the required sample size.\cr\cr
 }
 \section{Warning}{
@@ -104,12 +106,12 @@ The function does not vectorize properly.\cr
 If you need sample sizes with varying CVs f.i. use for-loops or the apply-family.
 }
 \references{
-Hua SY, Xu S, D'Agostino RB Sr.\cr
+Hua SY, Xu S, D\enc{’}{'}Agostino RB Sr.\cr
 \emph{Multiplicity adjustments in testing for bioequivalence}\cr
 Stat Med. 2015;34(2):215--31. \doi{10.1002/sim.6247}
 
 Lang B, Fleischer F.\cr
-\emph{Letter to the Editor: Comments on 'Multiplicity adjustments in testing for bioequivalence'}\cr
+\emph{Letter to the Editor: Comments on \sQuote{Multiplicity adjustments in testing for bioequivalence}}\cr
 Stat Med. 2016;35(14):2479--80. \doi{10.1002/sim.6488}
 
 Zhang P.\cr

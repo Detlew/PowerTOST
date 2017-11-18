@@ -1,3 +1,4 @@
+\encoding{utf-8}
 \name{sampleN.TOST}
 \alias{sampleN.TOST}
 \title{
@@ -20,11 +21,12 @@ Power to achieve at least. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9.
   }
   \item{logscale}{
-Should the data used on log-transformed or on original scale? TRUE or FALSE.\cr
-Defaults to TRUE.
+Should the data used on log-transformed (\verb{TRUE}) or on original
+scale (\verb{FALSE})?\cr
+Defaults to \verb{TRUE}.
   }
   \item{theta0}{
-'True' or assumed bioequivalence ratio. \cr
+\sQuote{True} or assumed bioequivalence ratio.\cr
 In case of \code{logscale=TRUE} it must be given as ratio, otherwise as 
 difference to 1. See examples.\cr
 Defaults to 0.95 if \code{logscale=TRUE} or to 0.05 if \code{logscale=FALSE}.
@@ -48,51 +50,51 @@ See \code{known.designs()} for designs covered in this package.
   }
   \item{method}{
 Method for calculation of the power.\cr  
-Defaults to "exact" in which case the calculation is done based on formulas 
-with Owen's Q. The calculation via Owen's Q can also be choosen with 
+Defaults to \verb{"exact"} in which case the calculation is done based on formulas 
+with Owen\enc{’}{'}s Q. The calculation via Owen\enc{’}{'}s Q can also be choosen with 
 \code{method="owenq"}.\cr
-Another exact method via direct use of the bivariate non-central t-distribution
-may be chosen with \code{method="mvt"}. This may have somewhat lower precision
-compared to Owen's Q and has much longer run-time.\cr  
-Approximate calculations can be choosen via \code{method="noncentral"} or 
-\code{method="nct"} for the approximation using the non-central t-distribution.
-With \code{method="central"} or \code{method="shifted"} the relative crude
-approximation via 'shifted' central t-distribution is chosen.\cr
-The strings for \code{method} may be abbreviated.
+Another exact method via direct use of the bivariate non-central \emph{t}-distribution
+may be chosen with \verb{method="mvt"}. This may have somewhat lower precision
+compared to Owen\enc{’}{'}s Q and has much longer run-time.\cr  
+Approximate calculations can be choosen via \verb{method="noncentral"} or 
+\verb{method="nct"} for the approximation using the non-central \emph{t}-distribution.
+With \verb{method="central"} or \verb{method="shifted"} the relative crude
+approximation via \sQuote{shifted} central \emph{t}-distribution is chosen.\cr
+The strings for \verb{method} may be abbreviated.
   }
   \item{robust}{
-Defaults to \code{FALSE}. With that value the usual degrees of freedom will be used.\cr
-Set to \code{TRUE} will use the degrees of freedom according to the 'robust' evaluation
-(aka Senn's basic estimator). These df are calculated as \code{n-seq}.\cr
+Defaults to \verb{FALSE}. With that value the usual degrees of freedom will be used.\cr
+Set to \verb{TRUE} will use the degrees of freedom according to the \sQuote{robust} evaluation
+(aka Senn\enc{’}{'}s basic estimator). These df are calculated as \code{n-seq}.\cr
 See \code{known.designs()$df2} for designs covered in this package.\cr
 Has only effect for higher-order crossover designs.
   }
   \item{print}{
-If \code{TRUE} (default) the function prints its results.\cr 
-If \code{FALSE} only the data.frame with the results will be returned. 
+If \verb{TRUE} (default) the function prints its results.\cr 
+If \verb{FALSE} only the data.frame with the results will be returned. 
   }
   \item{details}{
-If \code{TRUE} the design characteristics and the steps during
-sample size calculations will be shown. \cr 
-Defaults to \code{FALSE}.
+If \verb{TRUE} the design characteristics and the steps during
+sample size calculations will be shown.\cr 
+Defaults to \verb{FALSE}.
   }
   \item{imax}{
-Maximum number of steps in sample size search. \cr 
+Maximum number of steps in sample size search.\cr 
 Defaults to 100. Adaption only in rare cases needed.
   }
 }
 \details{
-The sample size is calculated via iterative evaluation of power of the TOST procedure.\cr
+The sample size is calculated via iterative evaluation of power of the \acronym{TOST} procedure.\cr
 Start value for the sample size search is taken from a large sample approximation
 according to Zhang, modified.\cr
 The sample size is bound to 4 as minimum.
 }
 \value{
 A data.frame with the input and results will be returned.\cr
-The "Sample size" column contains the total sample size.
+The \verb{"Sample size"} column contains the total sample size.
 }
 \note{
-Of course it is highly recommended to use the default \code{method="exact"} :-)). \cr
+Of course it is highly recommended to use the default \verb{method="exact"} :-)).\cr
 There is no reason beside testing and comparative purposes to use an 
 approximation if the exact method is available at no extra costs.
 }

@@ -4,8 +4,9 @@
 \alias{CV2mse}
 \alias{mse2CV}
 \title{Helper functions}
-\description{Calculates the standard error or the mean squared error from a 
-given CV and vice versa for log-normal data.}
+\description{
+  Calculates the standard error or the mean squared error from a 
+  given CV and vice versa for log-normal data.}
 \usage{
 CV2se(CV)
 se2CV(se)
@@ -17,16 +18,21 @@ mse2CV(mse)
   \item{se}{standard error}
   \item{mse}{mean squared error}
 }
+
 \value{
-Returns \code{se = sqrt(log(CV^2+1))}\cr
-or \code{CV = sqrt(exp(se*se)-1)}\cr
-or \code{mse = log(CV^2+1)}\cr
-or \code{CV = sqrt(exp(mse)-1)}
+  Returns \code{se = sqrt(log(CV^2+1))}\cr
+  or \code{CV = sqrt(exp(se*se)-1)}\cr
+  or \code{mse = log(CV^2+1)}\cr
+  or \code{CV = sqrt(exp(mse)-1)}
 }
-\author{D. Labes}
+
 \note{
 These functions were originally intended for internal use only.\cr
 But may be useful for others.
+}
+
+\author{
+  D. Labes
 }
 
 \examples{
