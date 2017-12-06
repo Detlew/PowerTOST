@@ -174,7 +174,6 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     sd2s   <- Emse*C3*rchisq(nsi, df)/df
     # simulate sample value s2wRs via chi-square distri
     s2wRs  <- s2wR*rchisq(nsi, dfRR)/dfRR
-    #browser()
     SEs <- sqrt(sd2s)
     # conventional (1-2*alpha) CI's for T-R
     hw  <- tval*SEs
@@ -186,10 +185,11 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     if (SABE_test=="exact"){
       # step 1: compute k
       # eqn (12), but is valid only for the population values?
+      # is this valid for ANOVA only?
       k <- SEs/sqrt(s2wRs)
-      # try to empirical correct the alpha overshot
-      k <- 1.04*SEs/sqrt(s2wRs)
       #browser()
+      # try to empirical correct the alpha overshot
+      k <- 1.04*k
       #k <- median(k)
       # in case of s2wT == s2wR use constant k
       # maybe replaced by median(k)
@@ -202,7 +202,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # see f.i. eqn (17a, 17b)
       #
       # avoid warnings wrt to full precision in pnt
-      #op2 <- options(warn=-1)
+      op2 <- options(warn=-1)
       # df for non-central t-distri; Which one?
       # here dfRR equals df, except for TRT|RTR
         Ltheta <- qt(p=1-alpha, df=dfRR, ncp=-(Hf/k)*r_const)
@@ -212,7 +212,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
         #Ltheta <- qt(1-alpha, dfRR, -r_const/k)
         #Utheta <- qt(alpha, dfRR, +r_const/k)
         Utheta <- -Ltheta # is this in all cases correct?
-      #options(op2)
+      options(op2)
       # effect size
       es <- (pes/sqrt(s2wRs))/k
       # 2016 paper
