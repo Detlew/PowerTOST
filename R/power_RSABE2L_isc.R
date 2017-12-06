@@ -125,7 +125,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   mlog <- log(theta0)
   
   if(setseed) set.seed(123456)
-  p <- .pwr.RSABE.isc(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
+  p <- .pwr.RSABE.isc(mlog, sdm, C3, Emse, df, s2wT, s2wR, dfRR, nsims, 
                       CVswitch, r_const, pe_constr, CVcap, SABE_test=SABE_test,
                       ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
     
@@ -145,7 +145,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 }
 
 # working horse of RSABE, estimation via ISC
-.pwr.RSABE.isc <- function(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
+.pwr.RSABE.isc <- function(mlog, sdm, C3, Emse, df, s2wT, s2wR, dfRR, nsims, 
                            CVswitch, r_const, pe_constr, CVcap, SABE_test="exact",
                            ln_lBEL, ln_uBEL, alpha=0.05)
 {
@@ -168,8 +168,6 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   for (iter in 1:chunks) {
     # if chunks*1E7 >nsims correct nsi to given nsims
     if(iter==chunks) nsi <- nsims-(chunks-1)*nsi
-    # debug code
-    # cat("nsi=", nsi, "\n")
     # simulate sample mean (pe) of T-R via its normal distribution
     pes  <- rnorm(nsi, mean=mlog, sd=sdm)
     # simulate sample sd2s via chi-square distri
@@ -182,15 +180,20 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     hw  <- tval*SEs
     lCL <- pes - hw 
     uCL <- pes + hw
-    # conventional ABE
+    # conventional ABE, only for comparative purposes
     BE_ABE <- ((ln_lBEL<=lCL) & (uCL<=ln_uBEL))
     
     if (SABE_test=="exact"){
       # step 1: compute k
+      # eqn (12), but is valid only for the population values?
       k <- SEs/sqrt(s2wRs)
-      #k <- mean(k)
-      # in case of s2wT == s2wR == Emse
-      #if(Emse==s2wR) k <- sqrt(C3)
+      # try to empirical correct the alpha overshot
+      k <- 1.04*SEs/sqrt(s2wRs)
+      #browser()
+      #k <- median(k)
+      # in case of s2wT == s2wR use constant k
+      # maybe replaced by median(k)
+      #if(s2wT==s2wR) k <- sqrt((Emse/s2wR)*C3)
       # Hedges correction
       Hf <- 1-3/(4*dfRR-1)
       # step 2: compute L/U using eqn. (26)
@@ -199,16 +202,17 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # see f.i. eqn (17a, 17b)
       #
       # avoid warnings wrt to full precision in pnt
-      op2 <- options(warn=-1)
+      #op2 <- options(warn=-1)
       # df for non-central t-distri; Which one?
       # here dfRR equals df, except for TRT|RTR
-        Ltheta <- qt(1-alpha, dfRR, -(Hf/k)*r_const)
+        Ltheta <- qt(p=1-alpha, df=dfRR, ncp=-(Hf/k)*r_const)
+        #browser()
         #Utheta <- qt(alpha, dfRR, +(Hf/k)*r_const)
       # 2016 paper  
         #Ltheta <- qt(1-alpha, dfRR, -r_const/k)
         #Utheta <- qt(alpha, dfRR, +r_const/k)
         Utheta <- -Ltheta # is this in all cases correct?
-      options(op2)
+      #options(op2)
       # effect size
       es <- (pes/sqrt(s2wRs))/k
       # 2016 paper
