@@ -283,6 +283,8 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
   if(SABE_test=="exact") {
     # step 1: compute k
     k <- seD/sqrt(s2wRs)
+    # constant K in case of s2wR=s2wT
+    #if(s2WT==s2WR) k <- sqrt(C2)
     # Hedges correction
     Hf <- 1-3/(4*dfRR-1)
     # step 2: compute L/U using eqn. (26)

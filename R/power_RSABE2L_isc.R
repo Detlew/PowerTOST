@@ -18,7 +18,7 @@
 
 power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                               design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
-                              SABE_test="exact",
+                              SABE_test="exact", k_est=TRUE,
                               nsims=1E5, details=FALSE, setseed=TRUE)
 {
   if (missing(CV)) stop("CV must be given!")
@@ -125,7 +125,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   mlog <- log(theta0)
   
   if(setseed) set.seed(123456)
-  p <- .pwr.RSABE.isc(mlog, sdm, C3, Emse, df, s2wT, s2wR, dfRR, nsims, 
+  p <- .pwr.RSABE.isc(mlog, sdm, C3, Emse, df, s2wT, s2wR, dfRR, k_est, nsims, 
                       CVswitch, r_const, pe_constr, CVcap, SABE_test=SABE_test,
                       ln_lBEL=log(theta1),ln_uBEL=log(theta2), alpha=alpha)
     
@@ -145,7 +145,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 }
 
 # working horse of RSABE, estimation via ISC
-.pwr.RSABE.isc <- function(mlog, sdm, C3, Emse, df, s2wT, s2wR, dfRR, nsims, 
+.pwr.RSABE.isc <- function(mlog, sdm, C3, Emse, df, s2wT, s2wR, dfRR, k_est, nsims, 
                            CVswitch, r_const, pe_constr, CVcap, SABE_test="exact",
                            ln_lBEL, ln_uBEL, alpha=0.05)
 {
@@ -184,35 +184,48 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     
     if (SABE_test=="exact"){
       # step 1: compute k
-      # eqn (12), but is valid only for the population values?
-      # is this valid for ANOVA only?
-      k <- SEs/sqrt(s2wRs)
+      if(k_est){
+        # eqn (12), but is valid only for the population values?
+        # is this valid for ANOVA only?
+        k <- SEs/sqrt(s2wRs)
+        # try to empirical correct the alpha overshot
+        #k <- 1.04*k
+        # geometric mean of 'estimated' and constant value
+        #k <- sqrt(k * sdm/sqrt(s2wR))
+        # geometric mean
+        #k <- exp(mean(log(k)))
+      } else {
+        # use constant k based on population values
+        #k <- sqrt((Emse/s2wR)*C3)
+        k <- sdm/sqrt(s2wR)
+        # maybe replaced by median(k) or mean(k)
+      }
       #browser()
-      # try to empirical correct the alpha overshot
-      k <- 1.04*k
-      #k <- median(k)
-      # in case of s2wT == s2wR use constant k
-      # maybe replaced by median(k)
-      #if(s2wT==s2wR) k <- sqrt((Emse/s2wR)*C3)
-      # Hedges correction
+      # Hedges correction factor
       Hf <- 1-3/(4*dfRR-1)
       # step 2: compute L/U using eqn. (26)
       # attention! in the 2016 paper the non-centrality parm is defined
       # different, also the effect size
-      # see f.i. eqn (17a, 17b)
+      # see f.i. eqn (17a, 17b) of the 2016 paper
       #
       # avoid warnings wrt to full precision in pnt
-      op2 <- options(warn=-1)
+      #op2 <- options(warn=-1)
       # df for non-central t-distri; Which one?
       # here dfRR equals df, except for TRT|RTR
-        Ltheta <- qt(p=1-alpha, df=dfRR, ncp=-(Hf/k)*r_const)
+        #Ltheta <- qt(p=1-alpha, df=dfRR, ncp=-(Hf/k)*r_const)
+        # next line avoids warnings
+        Ltheta <- -qt(p=alpha, df=dfRR, ncp=(Hf/k)*r_const)
+        # using non-central f distribution
+        # doesn't give the same values!!!
+        #Ltheta <- -sqrt(qf(p=alpha, df1=1, df2=dfRR, ncp=(r_const*Hf/k)^2))
         #browser()
         #Utheta <- qt(alpha, dfRR, +(Hf/k)*r_const)
       # 2016 paper  
         #Ltheta <- qt(1-alpha, dfRR, -r_const/k)
         #Utheta <- qt(alpha, dfRR, +r_const/k)
+        #Ltheta <- -qt(alpha, dfRR, +r_const/k)
         Utheta <- -Ltheta # is this in all cases correct?
-      options(op2)
+      #options(op2)
       # effect size
       es <- (pes/sqrt(s2wRs))/k
       # 2016 paper
