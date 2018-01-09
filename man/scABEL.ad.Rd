@@ -56,8 +56,8 @@ Defaults to \code{"2x3x3"}.
 }
   \item{regulator}{
 Regulatory settings for the widening of the \acronym{BE} acceptance limits.
-Choose from \code{"EMA"} (default) or \code{"HC"}. This argument may be given
-also in lower case.
+Choose from \code{"EMA"} (default), \code{"HC"}, or \code{"FDA"}. This argument
+may also be given in lower case.
 }
   \item{n}{
 Total sample size of the study or a vector of sample size / sequences.
@@ -168,6 +168,14 @@ Labes D, \enc{Schütz}{Schuetz} H.\cr
 and a Method for its Control}\cr
 Pharm Res. 2016;33(11):2805--14. \doi{10.1007/s11095-016-2006-1}
 
+\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L.\cr
+\emph{Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk}\cr
+Stat Med. 2017;36(27):4378--90. \doi{10.1002/sim.7440}
+
+Molins E, Cobo E, \enc{Ocaña}{Ocana} J\cr
+Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?\cr
+Stat Med. 2017;36(30):4777--88. \doi{10.1002/sim.7452}
+
 European Medicines Agency, Committee for Medicinal Products for Human Use.\cr
 \emph{Guideline on the Investigation of Bioequivalence}\cr
 London, 20 January 2010. \href{http://www.ema.europa.eu/docs/en_GB/document_library/Scientific_guideline/2010/01/WC500070039.pdf}{CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **}
@@ -191,7 +199,7 @@ of 0.80 (both for \code{alpha} and adjusted alpha) will be estimated. If
 \code{theta0} \emph{is} specified, its value will be used; again for target power 0.80.\cr
 If you are interested in other levels of power, use \code{\link{sampleN.scABEL.ad}}.
 
-The EMA’s method is currently recommended in other jurisdictions as well (e.g., the WHO;
+The EMA’s method is currently recommended in other jurisdictions as well (\emph{e.g.}, the WHO;
 ASEAN States, Australia, Brazil, Egypt, the Eurasian Economic Union, New Zealand, the Russian Federation).
 }
 

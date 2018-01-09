@@ -1,7 +1,8 @@
 V 1.4.6.9000
-2017-11-08
+2017-11-09
+      - regulator="FDA" implemented in scABEL.ad().
       - New function power.RSABE2L.sds() which implements the 'exact' based
-        method for RSABE (ncTOST) of the two Laszlo's.
+        method for RSABE (ncTOST) of the two Laszlos.
         Documentation included.
 
 Version 1.4-6
