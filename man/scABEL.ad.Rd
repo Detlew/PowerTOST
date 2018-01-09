@@ -172,7 +172,7 @@ Pharm Res. 2016;33(11):2805--14. \doi{10.1007/s11095-016-2006-1}
 \emph{Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk}\cr
 Stat Med. 2017;36(27):4378--90. \doi{10.1002/sim.7440}
 
-Molins E, Cobo E, \enc{Ocaña}{Ocana} J\cr
+Molins E, Cobo E, \enc{Ocaña}{Ocana} J.\cr
 Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?\cr
 Stat Med. 2017;36(30):4777--88. \doi{10.1002/sim.7452}
 
