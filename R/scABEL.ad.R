@@ -123,7 +123,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
   # Finds adjusted alpha which gives TIE as close as possible to alpha.
   # Simulate underlying statistics (if sdsims=FALSE)
   opt1 <- function(x) {
-    if (!reg$name != "FDA") { # EMA or HC
+    if (!reg$name == "FDA") { # EMA or HC
       power.scABEL(alpha = x, CV = CV, theta0 = U, n = n,
                    regulator = reg, design = design,
                    nsims = nsims, setseed = setseed) - alpha
@@ -196,7 +196,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     } else {
       cat(paste("Switching CVwR                :", reg$CVswitch,
                 "\nRegulatory constant           :", signif(reg$r_const, 4), "\n"))
-      if (!reg$name != "FDA") { # EMA or HC
+      if (!reg$name == "FDA") { # EMA or HC
         cat(sprintf("%s               : %.4f%s%.4f%s", "Expanded limits",
                     limits[1], " ... ", limits[2], "\n"))
       } else {                  # FDA
@@ -211,7 +211,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     if (flushable) flush.console() # advance console output.
   }
   if (!sdsims) { # simulate underlying statistics
-    if (!reg$name != "FDA") { # EMA or HC
+    if (!reg$name == "FDA") { # EMA or HC
       TIE[1] <- power.scABEL(alpha = al, CV = CV, theta0 = U, n = n,
                              design = design, regulator = reg,
                              nsims = nsims, setseed = setseed)
@@ -221,7 +221,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
                             nsims = nsims, setseed = setseed)
     }
     no <- no + nsims
-    if (!reg$name != "FDA") { # EMA or HC
+    if (!reg$name == "FDA") { # EMA or HC
       pwr[1] <- power.scABEL(alpha = al, CV = CV, theta0 = theta0,
                              n = n, design = design, regulator = reg,
                              setseed = setseed)
@@ -250,7 +250,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     }
     alpha.adj <- x$root
     if (!sdsims) { # simulate underlying statistics
-      if (!reg$name != "FDA") { # EMA or HC
+      if (!reg$name == "FDA") { # EMA or HC
         TIE[2] <- power.scABEL(alpha = alpha.adj, CV = CV, theta0 = U, n = n,
                                design = design, regulator = reg,
                                nsims = nsims, setseed = setseed)
