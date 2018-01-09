@@ -163,7 +163,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     cat("+++++++++++ scaled (widened) ABEL ++++++++++++\n")
     cat("         iteratively adjusted alpha\n")
     if (reg$name == "EMA") cat("   (simulations based on ANOVA evaluation)\n")
-    if (reg$name == "HC") cat("(simulations based on intra-subject contrasts)\n")
+    if (reg$name %in% c("HC", "FDA")) cat("(simulations based on intra-subject contrasts)\n")
     cat("----------------------------------------------\n")
     cat("Study design: ")
     cat(paste0(design, " (", type[match(design, designs)], ")\n"))
