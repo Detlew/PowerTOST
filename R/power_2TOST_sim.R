@@ -105,23 +105,24 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, CV, rho=0, n,
     sigma[1,2]  <- sigma[2,1] <- rho*sqrt(sigma[1,1]*sigma[2,2])
   }
 
-  df <- eval(dfe) 
+  df    <- eval(dfe) 
   tvals <- qt(1-alpha, df)
-  sem <- sqrt(sigma*Cfact)
+  # cave sqrt() in case of rho<0
+  s2m   <- sigma*Cfact
   
   pes  <- matrix(0, nrow=nsims, ncol=2)
   mses <- matrix(0, nrow=nsims, ncol=2)
-  if (rho==2){
+  if (rho==0){
     # simulate point est. via normal distribution
-    pes[ , 1] <- rnorm(n=nsims, mean=ltheta0[1], sd=sem[1,1]) # metric 1, f.i. AUC
-    pes[ , 2] <- rnorm(n=nsims, mean=ltheta0[2], sd=sem[2,2]) # metric 2, f.i. Cmax
+    pes[ , 1] <- rnorm(n=nsims, mean=ltheta0[1], sd=sqrt(s2m[1,1])) # metric 1, f.i. AUC
+    pes[ , 2] <- rnorm(n=nsims, mean=ltheta0[2], sd=sqrt(s2m[2,2])) # metric 2, f.i. Cmax
     # simulate mse via chi-squared distribution
     mses[ , 1] <- sigma[1,1]*rchisq(n=nsims, df=df)/df
     mses[ , 2] <- sigma[2,2]*rchisq(n=nsims, df=df)/df
   } else {
     # multivariate normal with rho
     # TODO: check this
-    pes <- mvtnorm::rmvnorm(nsims, mean=ltheta0, sigma=sem^2)
+    pes <- mvtnorm::rmvnorm(nsims, mean=ltheta0, sigma=s2m)
     # simulate covariance matrices via Wishart distribution
     #or do we have here df=n-1?
     covm      <- rWishart(n=nsims, df=df, Sigma=sigma)/df 
