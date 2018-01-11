@@ -111,7 +111,7 @@ be inaccurate (small sample sizes and/or heteroscedasticity) and subject data
 (via \code{\link{power.scABEL.sdsims}}) should be simulated instead. Very time consuming (easily 100times slower)!\cr
 If \code{design="2x3x3"} subject simulations are recommended -- even if
 homoscedasticity is assumed.\cr
-Subject data simulations are not supported for \code{regulator="HC"}.
+Subject data simulations are only supported for \code{regulator="EMA"}.
 }
   \item{progress}{
 Set to \code{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims=FALSE}.
