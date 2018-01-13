@@ -57,8 +57,7 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0,
     if (any(theta1 > theta2))
       stop("theta1 and/or theta2 not correctly specified.")
   }
-  theta <- cbind(theta1, theta2)
-    
+
   if(missing(CV))  stop("CVs must be given.")
   else {
     if(length(CV)==1) CV <- rep(CV,2)
@@ -73,7 +72,7 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0,
     stop("Correlation between the two endpoints must be given!")
   if (length(rho) != 1)
     stop("One rho must be given!")
-  if (rho <= -1 || rho > 1)
+  if (rho <= -1 || rho >= 1)
     stop("Correlation must be > -1 and < 1.")
 
     # design characteristics
@@ -111,35 +110,50 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0,
   
   if(missing(nsims)){
     nsims <- 1E5
-    if(any(theta0<=theta[, 1]) | any(theta0>=theta[,2])) nsims <- 1E6
+    if(any(theta0<=theta1) | any(theta0>=theta2)) nsims <- 1E6
   }
-  
-  # ---------------------------------------------------------------------------
-  # now the calculations are starting
-  # start timer
-  ptm  <- proc.time()
   
   if (setseed) set.seed(1234567)
   
+  # 'true' variance-covariance matrix
   sigma <- matrix(0, nrow=2, ncol=2)
   if(logscale) {
     ltheta0 <- log(theta0)
-    ltheta  <- log(theta)
+    ltheta1 <- log(theta1)
+    ltheta2 <- log(theta2)
     diag(sigma) <- CV2mse(CV)
     sigma[1,2]  <- sigma[2,1] <- rho*sqrt(sigma[1,1]*sigma[2,2])
   } else {
     ltheta0 <- theta0
-    ltheta  <- theta
+    ltheta1  <- theta1
+    ltheta2  <- theta2
     diag(sigma) <- CV^2 # ??? is this correct?
     sigma[1,2]  <- sigma[2,1] <- rho*sqrt(sigma[1,1]*sigma[2,2])
   }
+  # now the calculations are starting
+  # start timer
+  ptm  <- proc.time()
+  df  <- eval(dfe)
+  pwr <- .pwr.2TOST.sim(alpha, df, Cfact, ltheta0, ltheta1, ltheta2, sigma, 
+                        rho, nsims)
+  if(details){
+    cat(nsims, "simulations. Time consumed (secs)\n")
+    print(proc.time()-ptm)
+    cat("\n")
+  }
+  pwr
+}
 
-  df    <- eval(dfe) 
+# ---------------------------------------------------------------------------
+# working horse. to be used also in sampleN.2TOST()
+.pwr.2TOST.sim <- function(alpha, df, Cfact, ltheta0, ltheta1, ltheta2, 
+                           sigma, rho, nsims)
+{
   tvals <- qt(1-alpha, df)
   # cave sqrt() in case of rho<0
   s2m   <- sigma*Cfact
   
-  # to avoid memory problems
+  # over chunks of 1E7 if nsims > 1E7 to avoid memory problems
   chunksize <- 1e7
   chunks    <- 1
   nsi       <- nsims
@@ -148,10 +162,10 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0,
      nsi    <- chunksize
   } 
   BE <- 0
-  # over chunks of 1E7 if nsims > 1E7 to avoid memory problems
   for (iter in 1:chunks){
-    # if chunks*1E7 >nsims correct nsi to given nsims
+    # if chunks*1E7 > nsims then correct nsi to given rest of nsims
     if(iter==chunks & chunks>1) nsi <- nsims-(chunks-1)*nsi
+    # reserve memory
     pes  <- matrix(0, nrow=nsi, ncol=2)
     mses <- matrix(0, nrow=nsi, ncol=2)
     # next: if directive with rho==0 was only for comparative purposes
@@ -181,7 +195,7 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0,
       hw <- tvals[nu]*sqrt(Cfact*mses[, nu])
       loCL <- pes[, nu] - hw
       upCL <- pes[, nu] + hw
-      BE <- loCL >= ltheta[nu, 1] & upCL <= ltheta[nu, 2]
+      BE <- loCL >= ltheta1[nu] & upCL <= ltheta2[nu]
       BE
     }
     # make BE decision for both metrics
@@ -192,11 +206,6 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0,
     BE <- BE + sum(BE_m1 & BE_m2)
   } # end over chunks
   
-  if(details){
-    cat(nsims, "simulations. Time consumed (secs)\n")
-    print(proc.time()-ptm)
-    cat("\n")
-  }
   return(BE/nsims)
   
 } #end function
