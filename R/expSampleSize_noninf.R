@@ -151,6 +151,14 @@ expsampleN.noninf <- function(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
       stop("df or combination m & design must be supplied to prior.parm!", 
            call. = FALSE)
   }
+  if (prior.type == "theta0") {
+    if (nms_match[2]) {  # SEM given
+      sem_m <- prior.parm$sem[[1]]  # possibly overwrite sem_m
+    }
+    if (is.na(sem_m))
+      stop("SEM or combination m & design must be supplied to prior.parm!", 
+           call. = FALSE)
+  }
   if (sum(nms_match[1:2]) == 2) {  # df and SEM given
     df_m <- prior.parm$df  # possibly overwrite df_m
     sem_m <- prior.parm$sem[[1]]  # and sem_m
@@ -182,19 +190,16 @@ expsampleN.noninf <- function(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
   if (is.na(df_m) && is.na(sem_m))
     stop("Combination df & SEM or m & design must be supplied to prior.parm!", 
          call. = FALSE)
-  # No check for !is.na(df_m) needed as it should be different by now
-  if (!is.numeric(df_m) || any(df_m <= 4))
+  
+  # Check for meaningful input
+  if (!is.na(df_m) && (!is.numeric(df_m) || df_m <= 4))
     stop("Degrees of freedom need to be numeric and > 4.", call. = FALSE)
-  # For sem_m however this check is needed
-  if (prior.type != "CV") {
-    # in contrast to !is.na(sem_m) this check avoids calc. and possible warnings
-    # for a case with prior.type = "CV" and prior.parm$sem specification
-    if (!is.numeric(sem_m) || sem_m < 0)
-      stop("SEM needs to be numeric and >= 0.", call. = FALSE)
+  if (!is.na(sem_m) && (!is.numeric(sem_m) || sem_m < 0))
+    stop("SEM needs to be numeric and >= 0.", call. = FALSE)
+  if (prior.type == "both") {
     # Rough plausibility check for relationship between df and SEM
-    # (should also give a warning if SEM > 1)
     semc <- sqrt(2 / (df_m + 2)) * CV2se(CV)
-    if (sem_m > 0 && any(abs(semc - sem_m) / sem_m > 0.5))
+    if (sem_m > 0 && abs(semc - sem_m) / sem_m > 0.5)
       warning(paste0("Input values df and SEM do not appear to be consistent. ", 
                      "While the formal calculations may be correct, ", 
                      "the resulting power may not be meaningful."), 
@@ -249,7 +254,7 @@ expsampleN.noninf <- function(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
     }
     cat("alpha = ", alpha,", target power = ", targetpower,"\n", sep = "")
     cat("Non-inf. margin =", theta1_in, "\n")
-    if (prior.type == "CV") {
+    if (prior.type != "both") {
       if (logscale) cat("Ratio = ", theta0_in, "\n", sep = "")
       else  cat("Diff.  = ",theta0_in, "\n", sep = "")
     } else {

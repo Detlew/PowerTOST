@@ -333,6 +333,14 @@ exppower.TOST <- function(alpha = 0.05, logscale = TRUE, theta0, theta1, theta2,
       stop("df or combination m & design must be supplied to prior.parm!", 
            call. = FALSE)
   }
+  if (prior.type == "theta0") {
+    if (nms_match[2]) {  # SEM given
+      sem_m <- prior.parm$sem[[1]]  # possibly overwrite sem_m
+    }
+    if (is.na(sem_m))
+      stop("SEM or combination m & design must be supplied to prior.parm!", 
+           call. = FALSE)
+  }
   if (sum(nms_match[1:2]) == 2) {  # df and SEM given
     df_m <- prior.parm$df[[1]]  # possibly overwrite df_m
     sem_m <- prior.parm$sem[[1]]  # and sem_m
@@ -340,17 +348,14 @@ exppower.TOST <- function(alpha = 0.05, logscale = TRUE, theta0, theta1, theta2,
   if (is.na(df_m) && is.na(sem_m))
     stop("Combination df & SEM or m & design must be supplied to prior.parm!", 
          call. = FALSE)
-  # No check for !is.na(df_m) needed as it should be different by now
-  if (!is.numeric(df_m) || df_m <= 4)
+  
+  # Check for meaningful input
+  if (!is.na(df_m) && (!is.numeric(df_m) || df_m <= 4))
     stop("Degrees of freedom need to be numeric and > 4.", call. = FALSE)
-  # For sem_m however this check is needed
-  if (prior.type != "CV") {
-    # in contrast to !is.na(sem_m) this check avoids calc. and possible warnings
-    # for a case with prior.type = "CV" and prior.parm$sem specification
-    if (!is.numeric(sem_m) || sem_m < 0)
-      stop("SEM needs to be numeric and >= 0.", call. = FALSE)
+  if (!is.na(sem_m) && (!is.numeric(sem_m) || sem_m < 0))
+    stop("SEM needs to be numeric and >= 0.", call. = FALSE)
+  if (prior.type == "both") {
     # Rough plausibility check for relationship between df and SEM
-    # (should also give a warning if SEM > 1)
     semc <- sqrt(2 / (df_m + 2)) * CV2se(CV)
     if (sem_m > 0 && abs(semc - sem_m) / sem_m > 0.5)
       warning(paste0("Input values df and SEM do not appear to be consistent. ", 

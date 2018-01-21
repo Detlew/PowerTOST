@@ -73,7 +73,11 @@ variability and/or treatment effect. Possible components are \code{df},
 For \code{prior.type = "CV"} the degrees of freedom from the prior trial are
 required. This information can be provided by specifying the single component 
 \code{df} or the combination consisting of \code{m} and \code{design}.\cr
-For \code{prior.type != "CV"} the degrees of freedom and the standard error of
+For \code{prior.type = "theta0"} the standard error of the treatment difference 
+from the prior trial is required. This information can be provided by specifying
+the single component \code{SEM} or the combination consisting of 
+\code{m} and \code{design}.\cr
+For \code{prior.type = "both"} the degrees of freedom and the standard error of
 the treatment difference are required. This information can be provided by 
 specifying the combination consisting of \code{df} and \code{SEM} or via the 
 combination \code{m} and \code{design}.\cr
