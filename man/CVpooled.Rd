@@ -24,7 +24,7 @@ A data.frame that contains the columns \code{CV} and giving the degrees of freed
   \item{alpha}{
 Error probability for calculating an upper confidence limit of the pooled CV.\cr
 Recommended 0.2--0.25 for use in subsequent sample size estimation.\cr
-See f.i one of H. \enc{Schütz}{Schuetz}\enc{’}{'} lectures \url{http://bebac.at/lectures/MU2010-CD2.pdf}
+See f.i one of H. \enc{Schütz}{Schuetz}\enc{’}{'} \href{http://bebac.at/lectures/MU2010-CD2.pdf}{lectures}.
   }
   \item{logscale}{
 Should the calculations be done for log-transformed data? Defaults to \verb{TRUE}. 
@@ -73,19 +73,19 @@ D. Labes
 \note{
 The calculations for \code{logscale=FALSE} are not described in the references.
 They are implemented by analogy to the case via log-transformed data.\cr
-The calculations are based on a common variance of Test and Reference formulations\cr
-in replicate crossover studies or parallel group study, respectively.
+The calculations are based on a common variance of Test and Reference formulations 
+in replicate crossover studies or a parallel group study, respectively.
 }
 \section{Warning}{
-Pooling of CVs from parallel-group and cross-over designs does not make any sense.\cr
-Also the function does not throw an error if you do so.
+Pooling of CVs from parallel group and crossover designs does not make any sense.\cr
+Also the function \emph{does not} throw an error if you do so.
 }
 \seealso{
   \code{\link{known.designs}, \link{CVfromCI} }
 }
 \examples{
 # some data:
-# the values for AUC, study 1 and study 2 are Example 3 of H.  \enc{Schütz}{Schuetz} lecture
+# the values for AUC, study 1 and study 2 are Example 3 of H.Schuetz' lecture
 CVs <- ("
  PKmetric | CV   |  n |design| source
     AUC   | 0.20 | 24 | 2x2  | study 1
