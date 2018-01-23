@@ -3,10 +3,28 @@
 #
 # Author D.L.
 # --------------------------------------------------------------------------
+power.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta0, theta1,
+                        theta2, CV, n, rho, design = "2x2", robust = FALSE, 
+                        nsims, setseed = TRUE, details = FALSE) {
+  prob.2TOST(alpha = alpha, logscale = logscale, theta0 = theta0, 
+             theta1 = theta1, theta2 = theta2, CV = CV, n = n, rho = rho, 
+             design = design, robust = robust, nsims = nsims, setseed = setseed,
+             details = details)
+}
 
-power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, 
-                            theta1, theta2,  CV, n, rho, design="2x2", 
-                            robust=FALSE, nsims, setseed=TRUE, details=FALSE)
+type1error.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta0,
+                             theta1, theta2, CV, n, rho, design = "2x2", 
+                             robust = FALSE, nsims, setseed = TRUE, 
+                             details = FALSE) {
+  prob.2TOST(alpha = alpha, logscale = logscale, theta0 = theta0, 
+             theta1 = theta1, theta2 = theta2, CV = CV, n = n, rho = rho, 
+             design = design, robust = robust, nsims = nsims, setseed = setseed,
+             t1e = TRUE, details = details)
+}
+
+prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
+                       theta2, CV, n, rho, design="2x2", robust=FALSE, nsims, 
+                       setseed=TRUE, t1e = FALSE, details=FALSE)
 {
   # Args:
   #   alpha: Vector of one-sided alpha levels for each procedure
@@ -108,9 +126,9 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0,
   # Cfact*mse gives the variance of the mean difference
   Cfact <- ades$bkni * nc
   
-  if(missing(nsims)){
+  if (missing(nsims)) {
     nsims <- 1E5
-    if(any(theta0<=theta1) | any(theta0>=theta2)) nsims <- 1E6
+    if (t1e) nsims <- 1E6
   }
   
   if (setseed) set.seed(1234567)
@@ -134,20 +152,71 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0,
   # start timer
   ptm  <- proc.time()
   df  <- eval(dfe)
-  pwr <- .pwr.2TOST.sim(alpha, df, Cfact, ltheta0, ltheta1, ltheta2, sigma, 
-                        rho, nsims)
-  if(details){
+  if (t1e) {
+    # Calculate Type I Error
+    nullsets <- vector("list", 8)
+    lim <- 100  # 100 instead of Inf; suffices and avoids potential
+    # optimization problems when using Inf
+    H_A01 <- c(-lim, log(theta1[1]))
+    H_A02 <- c(log(theta2[1]), lim)
+    H_C01 <- c(-lim, log(theta1[2]))
+    H_C02 <- c(log(theta2[2]), lim)
+    H_Aa <- c(log(theta1[1]), log(theta2[1]))
+    H_Ca <- c(log(theta1[2]), log(theta2[2]))
+    nullsets[[1]] <- rbind(H_A01, H_Ca)
+    nullsets[[2]] <- rbind(H_A02, H_Ca)
+    nullsets[[3]] <- rbind(H_Aa, H_C01)
+    nullsets[[4]] <- rbind(H_Aa, H_C02)
+    nullsets[[5]] <- rbind(H_A01, H_C01)
+    nullsets[[6]] <- rbind(H_A01, H_C02)
+    nullsets[[7]] <- rbind(H_A02, H_C01)
+    nullsets[[8]] <- rbind(H_A02, H_C02)
+    size.H <- function(H) {  # size of test (supremum over H)
+      # Determine starting values (theta0[1], theta0[2])
+      starting <- c(.getStart(H[1, ], lim), .getStart(H[2, ], lim))
+      # Perform maximization over intersection nullset H via optim()
+      res <- optim(par = starting, fn = .prob.2TOST, alpha = alpha, df = df,
+                   Cfact = Cfact, ltheta1 = ltheta1, ltheta2 = ltheta2, 
+                   sigma = sigma, rho = rho, nsims = nsims,
+                   method = "L-BFGS-B", lower = c(H[1, 1], H[2, 1]), 
+                   upper = c(H[1, 2], H[2, 2]), control = list(fnscale = -1))
+      if (!(res$convergence %in% c(0, 1)))
+        warning("Result of maximization over nullset may not be reliable.",
+                call. = FALSE) 
+      # Select maximum
+      res.argmax <- if (logscale) exp(res$par) else res$par
+      res.max <- res$value
+      c(res.max, res.argmax)
+    }  # End of size.H
+    # Combine results
+    probs <- as.data.frame(t(vapply(nullsets, size.H, numeric(3))))
+    nullsets.label <- c("H_A01 n H_Ca", "H_A02 n H_Ca", "H_Aa n H_C01",
+                        "H_Aa n H_C02", "H_A01 n H_C01", "H_A01 n H_C02",
+                        "H_A02 n H_C01", "H_A02 n H_C02")
+    probs <- cbind(nullsets.label, probs)
+    colnames(probs) <- c("Intersection null", "P(Type I Error)", "theta0 #1", 
+                         "theta0 #2")
+    prob <- if (details) probs else max(probs[["P(Type I Error)"]])
+  } else {
+    # Calculate Power
+    prob <- .prob.2TOST(ltheta0 = ltheta0, alpha = alpha, df = df, Cfact = Cfact, 
+                        ltheta1 = ltheta1, ltheta2 = ltheta2, sigma = sigma, 
+                        rho = rho, nsims = nsims)
+  }
+  #pwr <- .pwr.2TOST.sim(alpha, df, Cfact, ltheta0, ltheta1, ltheta2, sigma, 
+  #                      rho, nsims)
+  if (details) {
     cat(nsims, "simulations. Time consumed (secs)\n")
     print(proc.time()-ptm)
     cat("\n")
   }
-  pwr
+  prob
 }
 
 # ---------------------------------------------------------------------------
 # working horse. to be used also in sampleN.2TOST()
-.pwr.2TOST.sim <- function(alpha, df, Cfact, ltheta0, ltheta1, ltheta2, 
-                           sigma, rho, nsims)
+.prob.2TOST <- function(ltheta0, alpha, df, Cfact, ltheta1, ltheta2, sigma, 
+                        rho, nsims)
 {
   tvals <- qt(1-alpha, df)
   # cave sqrt() in case of rho<0
@@ -166,8 +235,8 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0,
     # if chunks*1E7 > nsims then correct nsi to given rest of nsims
     if(iter==chunks & chunks>1) nsi <- nsims-(chunks-1)*nsi
     # reserve memory
-    pes  <- matrix(0, nrow=nsi, ncol=2)
-    mses <- matrix(0, nrow=nsi, ncol=2)
+    pes  <- matrix(logical(0), nrow=nsi, ncol=2)
+    mses <- matrix(logical(0), nrow=nsi, ncol=2)
     # next: if directive with rho==0 was only for comparative purposes
     # no need to have it. multivariate NV and Wishart can handle this case
     # but retained by reason of an eventual speed gain
@@ -209,3 +278,13 @@ power.2TOST.sim <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0,
   return(BE/nsims)
   
 } #end function
+
+.getStart <- function(H, lim) {
+  if (H[1] <= -lim) {
+    return(H[2])
+  } else if (H[2] >= lim) {
+    return(H[1])
+  } else {
+    return((H[1] + H[2]) / 2)
+  }
+}

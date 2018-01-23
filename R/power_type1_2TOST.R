@@ -1,23 +1,24 @@
 ## Benjamin Lang
-power.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta1, theta2,
-                        theta0, CV, n, rho, design = "2x2", robust = FALSE, 
-                        setseed = TRUE) {
-  prob.2TOST(alpha = alpha, logscale = logscale, theta1 = theta1, 
-             theta2 = theta2, theta0 = theta0, CV = CV, n = n, rho = rho,
-             design = design, robust = robust, setseed = TRUE)
+power.2TOST.old <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta1, 
+                            theta2, theta0, CV, n, rho, design = "2x2", 
+                            robust = FALSE, setseed = TRUE) {
+  prob.2TOST.old(alpha = alpha, logscale = logscale, theta1 = theta1, 
+                 theta2 = theta2, theta0 = theta0, CV = CV, n = n, rho = rho, 
+                 design = design, robust = robust, setseed = TRUE)
 }
 
-type1error.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta1, 
-                             theta2, CV, n, rho, design = "2x2", robust = FALSE,
-                             setseed = TRUE, details = FALSE) {
-  prob.2TOST(alpha = alpha, logscale = logscale, theta1 = theta1, 
-             theta2 = theta2, CV = CV, n = n, rho = rho, design = design, 
-             robust = robust, setseed = TRUE, t1e = TRUE, details = details)
+type1error.2TOST.old <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta1, 
+                                 theta2, CV, n, rho, design = "2x2", robust = FALSE, 
+                                 setseed = TRUE, details = FALSE) {
+  prob.2TOST.old(alpha = alpha, logscale = logscale, theta1 = theta1, 
+                 theta2 = theta2, CV = CV, n = n, rho = rho, design = design, 
+                 robust = robust, setseed = TRUE, t1e = TRUE, details = details)
 }
 
-prob.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta1, theta2, 
-                       theta0, CV, n, rho, design = "2x2", robust = FALSE, 
-                       setseed = TRUE, t1e = FALSE, details = FALSE) {
+prob.2TOST.old <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta1, 
+                           theta2, theta0, CV, n, rho, design = "2x2", 
+                           robust = FALSE, setseed = TRUE, t1e = FALSE, 
+                           details = FALSE) {
   # Computes Power or Type I Error rate for two simultaneous TOST procedures,
   # where the two parameters of the two TOSTs are correlated with correlation
   # coefficient rho.
@@ -141,7 +142,7 @@ prob.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta1, theta2,
       # Determine starting values (theta0[1], theta0[2])
       starting <- c(.getStart(H[1, ], lim), .getStart(H[2, ], lim))
       # Perform maximization over intersection nullset H via optim()
-      res <- optim(par = starting, fn = .prob.2TOST, se = se, df = df, 
+      res <- optim(par = starting, fn = .prob.2TOST.old, se = se, df = df, 
                    ltheta1 = ltheta1, ltheta2 = ltheta2, rho = rho, 
                    alpha = alpha, setseed = setseed, eps = 1e-05, 
                    method = "L-BFGS-B", lower = c(H[1, 1], H[2, 1]), 
@@ -168,15 +169,15 @@ prob.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta1, theta2,
       return(max(probs[["P(Type I Error)"]]))
   } else {
     # Calculate Power
-    fcn.max <- .prob.2TOST(ltheta0 = log(theta0), se = se, df = df, 
+    fcn.max <- .prob.2TOST.old(ltheta0 = log(theta0), se = se, df = df, 
                             ltheta1 = ltheta1, ltheta2 = ltheta2, rho = rho, 
                             alpha = alpha, setseed = setseed)
     fcn.max
   }
 }
 
-.prob.2TOST <- function(ltheta0, se, df, ltheta1, ltheta2, rho, 
-                        alpha = c(0.05, 0.05), setseed = TRUE, eps = 1e-04) {
+.prob.2TOST.old <- function(ltheta0, se, df, ltheta1, ltheta2, rho, 
+                            alpha = c(0.05, 0.05), setseed = TRUE, eps = 1e-04) {
   if (setseed)
     set.seed(12345)
   tval <- qt(1 - alpha, df)
@@ -195,7 +196,7 @@ prob.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta1, theta2,
   prob[1]
 }
 
-.getStart <- function(H, lim) {
+.getStart.old <- function(H, lim) {
   if (H[1] <= -lim) {
     return(H[2])
   } else if (H[2] >= lim) {
@@ -206,7 +207,7 @@ prob.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta1, theta2,
 }
 
 # Gives the same numbers but is a bit slower
-#.prob.2TOST <- function(ltheta0, se, df, ltheta1, ltheta2, rho,
+#.prob.2TOST.old <- function(ltheta0, se, df, ltheta1, ltheta2, rho,
 #                         alpha = c(0.05, 0.05), setseed = TRUE, eps = 1e-04) {
 #  if (setseed)
 #    set.seed(12345)
