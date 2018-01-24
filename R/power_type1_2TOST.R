@@ -250,6 +250,7 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
     } else {
       # pes multivariate normal with rho
       pes <- mvtnorm::rmvnorm(nsi, mean=ltheta0, sigma=s2m)
+      #pes <- mvnfast::rmvn(nsi, mu=ltheta0, sigma=s2m)
       # simulate covariance matrices via Wishart distribution
       covm      <- stats::rWishart(n=nsi, df=df, Sigma=sigma)/df 
       mses[, 1] <- covm[1, 1, ]
