@@ -132,14 +132,14 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
                     .sampleN0_3(alpha[2], targetpower, ltheta1[2], 
                                 ltheta2[2], diffm[2], se[2], steps, bk))
   df <- eval(dfe)
-  pow <- .prob.2TOST_old(ltheta0 = diffm, se = se*sqrt(bk/n), df = df,
+  pow <- .prob.2TOST.old(ltheta0 = diffm, se = se*sqrt(bk/n), df = df,
                       ltheta1 = ltheta1, ltheta2 = ltheta2, rho = rho,
                       alpha = alpha, setseed = setseed)
   if (!isTRUE(all.equal(pow, targetpower, tolerance = 1e-04))) {
     n <- .sampleN0_3(min(alpha), targetpower, ltheta1[idx.d], ltheta2[idx.d], 
                      diffm[idx.d], max(se), steps, bk)
     df <- eval(dfe)
-    pow.tmp <- .prob.2TOST_old(ltheta0 = diffm, se = se*sqrt(bk/n), df = df,
+    pow.tmp <- .prob.2TOST.old(ltheta0 = diffm, se = se*sqrt(bk/n), df = df,
                             ltheta1 = ltheta1, ltheta2 = ltheta2, rho = rho,
                             alpha = alpha, setseed = setseed)
     if (abs(pow.tmp - targetpower) <= abs(pow - targetpower)) {
@@ -176,7 +176,7 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
     n    <- n-steps     # step down if start power is too high
     iter <- iter+1
     df   <- eval(dfe)
-    pow <- .prob.2TOST_old(ltheta0 = diffm, se = se*sqrt(bk/n), df = df,
+    pow <- .prob.2TOST.old(ltheta0 = diffm, se = se*sqrt(bk/n), df = df,
                         ltheta1 = ltheta1, ltheta2 = ltheta2, rho = rho,
                         alpha = alpha, setseed = setseed)
     # do not print first step down
@@ -191,7 +191,7 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
     n <- n+steps
     iter <- iter+1
     df   <- eval(dfe)
-    pow <- .prob.2TOST_old(ltheta0 = diffm, se = se*sqrt(bk/n), df = df,
+    pow <- .prob.2TOST.old(ltheta0 = diffm, se = se*sqrt(bk/n), df = df,
                         ltheta1 = ltheta1, ltheta2 = ltheta2, rho = rho,
                         alpha = alpha, setseed = setseed)
     if (details) cat( n," ", formatC(pow, digits=6, format="f"),"\n")
