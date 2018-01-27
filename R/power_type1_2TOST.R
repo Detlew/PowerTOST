@@ -1,7 +1,7 @@
 # --------------------------------------------------------------------------
 # power (or alpha) of 2 TOST via simulations
 #
-# Author D.L.
+# Author(s) D. Labes, Ben Lang
 # --------------------------------------------------------------------------
 power.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta0, theta1,
                         theta2, CV, n, rho, design = "2x2", robust = FALSE, 
@@ -11,12 +11,12 @@ power.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta0, theta1,
              design = design, robust = robust, nsims = nsims, setseed = setseed,
              details = details)
 }
-
-type1error.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta0,
+# without theta0
+type1error.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, 
                              theta1, theta2, CV, n, rho, design = "2x2", 
                              robust = FALSE, nsims, setseed = TRUE, 
                              details = FALSE) {
-  prob.2TOST(alpha = alpha, logscale = logscale, theta0 = theta0, 
+  prob.2TOST(alpha = alpha, logscale = logscale,  
              theta1 = theta1, theta2 = theta2, CV = CV, n = n, rho = rho, 
              design = design, robust = robust, nsims = nsims, setseed = setseed,
              t1e = TRUE, details = details)

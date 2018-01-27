@@ -10,8 +10,8 @@ for various study designs used in BE studies
 }
 \usage{
 type1error.2TOST(alpha = c(0.05, 0.05), logscale = TRUE, theta1, theta2, 
-                 CV, n, rho, design = "2x2", robust = FALSE, setseed = TRUE, 
-                 details = FALSE)
+                 CV, n, rho, design = "2x2", robust = FALSE, nsims, 
+                 setseed = TRUE, details = FALSE)
 }
 \arguments{
   \item{alpha}{
