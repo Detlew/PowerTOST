@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# power (or alpha) of 2 TOST via simulations
+# power (or alpha aka type 1 error aka TIE) of 2 TOST via simulations
 #
 # Author(s) D. Labes, Ben Lang
 # --------------------------------------------------------------------------
@@ -41,8 +41,7 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
   #   rho: Correlation between the two parameters under consideration
   #   design: Character string describing the study design
   #   robust: logical; if TRUE, use robust degrees of freedom (n - #sequences)
-  #   setseed: pmvt() is based on randomized quasi Monte Carlo methods.
-  #            Set seed value for (pseudo) random number generator?
+  #   setseed: Set seed value for (pseudo) random number generator?
   #   t1e: logical; if TRUE, Type I Error will be calculated
   #   details: logical; if TRUE, return P(Type I error) for all intersection
   #            null sets, max P(Type I error) otherwise
@@ -78,7 +77,7 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
 
   if(missing(CV))  stop("CVs must be given.")
   else {
-    if(length(CV)==1) CV <- rep(CV,2)
+#    if(length(CV)==1) CV <- rep(CV,2)
     if(length(CV)!=2) stop("CV must have 2 elements.")
     if(any(CV<=0))   stop("CVs must be >0.")
   }
@@ -88,8 +87,10 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
   # correlation
   if (missing(rho))
     stop("Correlation between the two endpoints must be given!")
-  if (length(rho) != 1)
-    stop("One rho must be given!")
+  if (length(rho) != 1){
+    warning("Only one rho must be given. First entry used.")
+    rho <- rho[1]
+  }
   if (rho <= -1 || rho >= 1)
     stop("Correlation must be > -1 and < 1.")
 
@@ -131,8 +132,6 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
     if (t1e) nsims <- 1E6
   }
   
-  if (setseed) set.seed(1234567)
-  
   # 'true' variance-covariance matrix
   sigma <- matrix(0, nrow=2, ncol=2)
   if(logscale) {
@@ -148,12 +147,14 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
     diag(sigma) <- CV^2 # ??? is this correct?
     sigma[1,2]  <- sigma[2,1] <- rho*sqrt(sigma[1,1]*sigma[2,2])
   }
+  
   # now the calculations are starting
   # start timer
   ptm  <- proc.time()
   df  <- eval(dfe)
   if (t1e) {
     # Calculate Type I Error
+    if (setseed) set.seed(1234567)
     nullsets <- vector("list", 8)
     lim <- 100  # 100 instead of Inf; suffices and avoids potential
     # optimization problems when using Inf
@@ -179,7 +180,8 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
                    Cfact = Cfact, ltheta1 = ltheta1, ltheta2 = ltheta2, 
                    sigma = sigma, rho = rho, nsims = nsims,
                    method = "L-BFGS-B", lower = c(H[1, 1], H[2, 1]), 
-                   upper = c(H[1, 2], H[2, 2]), control = list(fnscale = -1))
+                   upper = c(H[1, 2], H[2, 2]), 
+                   control = list(fnscale = -1))
       if (!(res$convergence %in% c(0, 1)))
         warning("Result of maximization over nullset may not be reliable.",
                 call. = FALSE) 
@@ -199,12 +201,11 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
     prob <- if (details) probs else max(probs[["P(Type I Error)"]])
   } else {
     # Calculate Power
+    if (setseed) set.seed(1234567)
     prob <- .prob.2TOST(ltheta0 = ltheta0, alpha = alpha, df = df, Cfact = Cfact, 
                         ltheta1 = ltheta1, ltheta2 = ltheta2, sigma = sigma, 
                         rho = rho, nsims = nsims)
   }
-  #pwr <- .pwr.2TOST.sim(alpha, df, Cfact, ltheta0, ltheta1, ltheta2, sigma, 
-  #                      rho, nsims)
   if (details) {
     cat(nsims, "simulations. Time consumed (secs)\n")
     print(proc.time()-ptm)
@@ -215,9 +216,12 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
 
 # ---------------------------------------------------------------------------
 # working horse. to be used also in sampleN.2TOST()
+# shifting setseed into this function doubles the run-time in
+# type1error.2TOST()
 .prob.2TOST <- function(ltheta0, alpha, df, Cfact, ltheta1, ltheta2, sigma, 
                         rho, nsims)
 {
+
   tvals <- qt(1-alpha, df)
   # cave sqrt() in case of rho<0
   s2m   <- sigma*Cfact

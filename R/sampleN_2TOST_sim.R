@@ -1,14 +1,13 @@
 #-----------------------------------------------------------------------------
-# Author: dlabes
-# Adapted for power.2TOST by Benjamin Lang
+# Author(s): dlabes, Benjamin Lang
 #-----------------------------------------------------------------------------
-# Sample size for a desired power: 
+# Sample size for a desired power (now based on sims): 
 # see known.designs() for covered experimental designs
 # theta1 if empty is set to 0.8 or -0.2 depending on logscale
 # diff if empty is set to 0.95 or 0.05 depending on logscale
 # leave upper BE margin (theta2) empty and the function will use -lower
 # in case of additive model or 1/lower if logscale=TRUE
-sampleN.2TOST.sim <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE, 
+sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE, 
                           theta0, theta1, theta2, CV, rho, design="2x2", 
                           setseed=TRUE, robust=FALSE, print=TRUE, details=FALSE,
                           imax=100, nsims)
@@ -135,6 +134,8 @@ sampleN.2TOST.sim <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRU
     cat("Correlation between the two metrics = ", rho,"\n", sep="")
   }
   
+  # -------------------------------------------------------------------------
+  # sample size search starts
   # if both theta0 are near acceptance limits then starting value may not be
   # ideal resulting in a lot of iteration steps
   idx.d <- which.max(abs(diffm))
@@ -144,15 +145,19 @@ sampleN.2TOST.sim <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRU
                                 ltheta2[2], diffm[2], se[2], steps, bk))
   df <- eval(dfe)
   Cfact <- bk/n
-  pow <- .pwr.2TOST.sim(alpha, df, Cfact, ltheta0=diffm, ltheta1, ltheta2, sigma, 
-                        rho, nsims)
+  # we have to set the seed at each invocation, else we have different powers
+  # between power.2TOST() amd sampleN.2TOST()
+  if (setseed) set.seed(1234567)
+  pow <- .prob.2TOST(ltheta0=diffm, alpha, df, Cfact, ltheta1, ltheta2, sigma, 
+                     rho, nsims, setseed)
   if (!isTRUE(all.equal(pow, targetpower, tolerance = 1e-04))) {
     n <- .sampleN0_3(min(alpha), targetpower, ltheta1[idx.d], ltheta2[idx.d], 
                      diffm[idx.d], max(se), steps, bk)
     df <- eval(dfe)
     Cfact <- bk/n
-    pow.tmp <- .pwr.2TOST.sim(alpha, df, Cfact, ltheta0=diffm, ltheta1, ltheta2, 
-                              sigma, rho, nsims)
+    if (setseed) set.seed(1234567)
+    pow.tmp <- .prob.2TOST(ltheta0=diffm, alpha, df, Cfact, ltheta1, ltheta2, 
+                           sigma, rho, nsims, setseed)
     if (abs(pow.tmp - targetpower) <= abs(pow - targetpower)) {
       pow <- pow.tmp
     } else {
@@ -190,9 +195,9 @@ sampleN.2TOST.sim <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRU
     iter <- iter+1
     df   <- eval(dfe)
     Cfact <- bk/n
-    
-    pow <- .pwr.2TOST.sim(alpha, df, Cfact, ltheta0=diffm, ltheta1, ltheta2,  
-                          sigma, rho, nsims)
+    if (setseed) set.seed(1234567)
+    pow <- .prob.2TOST(ltheta0=diffm, alpha, df, Cfact, ltheta1, ltheta2, 
+                       sigma, rho, nsims, setseed)
     # do not print first step down
     if (details) cat( n," ", formatC(pow, digits=6),"\n")
     if (iter>imax) break  
@@ -206,8 +211,9 @@ sampleN.2TOST.sim <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRU
     iter <- iter+1
     df   <- eval(dfe)
     Cfact <- bk/n
-    pow <- .pwr.2TOST.sim(alpha, df, Cfact, ltheta0=diffm, ltheta1, ltheta2, 
-                          sigma, rho, nsims)
+    if (setseed) set.seed(1234567)
+    pow <- .prob.2TOST(ltheta0=diffm, alpha, df, Cfact, ltheta1, ltheta2, 
+                       sigma, rho, nsims, setseed)
     if (details) cat( n," ", formatC(pow, digits=6, format="f"),"\n")
     if (iter>imax) break 
   }
