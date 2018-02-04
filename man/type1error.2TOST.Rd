@@ -62,19 +62,23 @@ evaluation (aka Senn's basic estimator). These df are calculated as \code{n-seq}
 See \code{known.designs()$df2} for designs covered in this package.\cr
 Has only effect for higher-order crossover designs.
   }
+  \item{nsims}{
+Number of studies to simulate. Defaults to 1E6.
+  }
   \item{setseed}{
-Calculation depends on \code{pmvt()} which is based on randomized quasi Monte Carlo
-methods. If \code{setseed=TRUE} a seed value is set, the default.
+  Logical; if \verb{TRUE}, the default, a seed of 1234567 is set.
 }
   \item{details}{
-logical; if TRUE, P(Type I error) will be returned for all eight intersection 
-null sets, otherwise the maximum (default).
+Logical; if TRUE, overall run time and P(Type I error) for all eight 
+intersection null sets will be returned, otherwise the maximum (default).
 }
 }
 \details{
-The exact calculations of the type 1 error rate are performed via integration of
-the 4-dimensional non-central t-distribution via function \code{pmvt()} of package 
-\code{mvtnorm}. An absolute error tolerance of 1e-05 is set within \code{pmvt()}.\cr\cr
+Calculations are based on simulations and follow the distributional
+properties as described in Phillips. This is in contrast to the calculations
+via the 4-dimensional non-central t-distribution as described in Hua et al
+which was implemented in versions up to 1.4-6. The type 1 error rate will be
+evaluated for all possible intersection null sets according to Hua et al.\cr\cr
 The formulas cover balanced and unbalanced studies w.r.t (sequence) groups.\cr\cr
 In case of parallel group design and higher order crossover designs 
 (replicate crossover or crossover with more than two treatments) the calculations 
@@ -100,6 +104,10 @@ Other vector input is not tested yet.\cr\cr
 The calculation of the TIE may last some seconds. Be patient.
 }
 \references{
+Phillips KF.\cr 
+\emph{Power for Testing Multiple Instances of the Two One-Sided Tests Procedure}\cr
+Int J Biostat. 2009;5(1):Article 15. \doi{10.2202/1557-4679.1169}
+
 Hua SY, Xu S, D'Agostino RB Sr.\cr
 \emph{Multiplicity adjustments in testing for bioequivalence}\cr
 Stat Med. 2015;34(2):215--31. \doi{10.1002/sim.6247}
@@ -117,7 +125,7 @@ Benjamin Lang\cr
 \examples{
 \dontrun{
 # Replicate type 1 error rate for scenario S2 from Hua et al.
-# runs 6-7 seconds, more than allowed for examples on CRAN
+# Caution: Very long run time
 n <- 24
 cv <- se2CV(c(0.0490 / sqrt(2/n), 0.0657 / sqrt(2/n)))
 type1error.2TOST(CV = cv, n = n, rho = 0.6794, details = FALSE)}

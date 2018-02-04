@@ -12,7 +12,7 @@ for various study designs used in BE studies
 \usage{
 power.2TOST(alpha = c(0.05, 0.05), logscale = TRUE, theta0, theta1, theta2,  
             CV, n, rho, design = "2x2", robust = FALSE, nsims, setseed = TRUE,
-            details=FALSE)
+            details = FALSE)
 }
 \arguments{
   \item{alpha}{
@@ -71,16 +71,21 @@ evaluation (aka Senn\enc{’}{'}s basic estimator). These df are calculated as \
 See \code{known.designs()$df2} for designs covered in this package.\cr
 Has only effect for higher-order crossover designs.
   }
+  \item{nsims}{
+Number of studies to simulate. Defaults to 1E5.
+  }
   \item{setseed}{
-Calculation depends on \code{pmvt()} which is based on randomized quasi Monte Carlo
-methods. If \code{setseed=TRUE} a seed value is set, the default.
+  Logical; if \verb{TRUE}, the default, a seed of 1234567 is set.
+}
+  \item{details}{
+Logical; if \verb{TRUE}, run time will be printed. Defaults to \verb{FALSE}.
 }
 }
 \details{
-The exact calculations of the power are performed via integration of the
-4-dimensional non-central t-distribution via function \code{pmvt()} of package 
-\code{mvtnorm}. An absolute error tolerance of 1e-04 is set within 
-\code{pmvt()}.\cr\cr
+Calculations are based on simulations and follow the distributional
+properties as described in Phillips. This is in contrast to the calculations
+via the 4-dimensional non-central t-distribution as described in Hua et al
+which was implemented in versions up to 1.4-6.\cr\cr
 The formulas cover balanced and unbalanced studies w.r.t (sequence) groups.\cr\cr
 In case of parallel group design and higher order crossover designs 
 (replicate crossover or crossover with more than two treatments) the calculations 
@@ -116,7 +121,7 @@ Lang B, Fleischer F.\cr
 Stat Med. 2016;35(14):2479--80. \doi{10.1002/sim.6488}
 }
 \author{
-Benjamin Lang\cr
+Benjamin Lang and Detlew Labes\cr
 }
 \seealso{
  \code{\link{sampleN.2TOST}, \link{known.designs}}
@@ -134,5 +139,5 @@ power.2TOST(theta0 = rep(1.05, 2), CV = rep(se2CV(0.3), 2),
 p1 <- power.2TOST(theta0 = rep(1.05, 2), CV = rep(se2CV(0.3), 2),
                   n = 24, rho = 0.99999999, nsims=1E6)
 p2 <- power.TOST(theta0 = 1.05, CV = se2CV(0.3), n = 24)
-all.equal(p1, p2, tolerance = 1e-04)
+all.equal(p1, p2, tolerance = 1e-03)
 }

@@ -1,7 +1,7 @@
 # --------------------------------------------------------------------------
 # power (or alpha aka type 1 error aka TIE) of 2 TOST via simulations
 #
-# Author(s) D. Labes, Ben Lang
+# Author(s) D. Labes, B. Lang
 # --------------------------------------------------------------------------
 power.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta0, theta1,
                         theta2, CV, n, rho, design = "2x2", robust = FALSE, 
@@ -41,6 +41,7 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
   #   rho: Correlation between the two parameters under consideration
   #   design: Character string describing the study design
   #   robust: logical; if TRUE, use robust degrees of freedom (n - #sequences)
+  #   nsims: number of simulations
   #   setseed: Set seed value for (pseudo) random number generator?
   #   t1e: logical; if TRUE, Type I Error will be calculated
   #   details: logical; if TRUE, return P(Type I error) for all intersection

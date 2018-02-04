@@ -62,8 +62,7 @@ Character string describing the study design.\cr
 See \code{known.designs()} for designs covered in this package.
   }
   \item{setseed}{
-Calculation depends on \code{pmvt()} which is based on randomized quasi Monte Carlo
-methods. If \code{setseed=TRUE} a seed value is set, the default.
+Logical; if \verb{TRUE}, the default, a seed of 1234567 is set.
 }
   \item{robust}{
 Defaults to \verb{FALSE}. With that value the usual degrees of freedom will be used.\cr
@@ -106,6 +105,10 @@ The function does not vectorize properly.\cr
 If you need sample sizes with varying CVs f.i. use for-loops or the apply-family.
 }
 \references{
+Phillips KF.\cr 
+\emph{Power for Testing Multiple Instances of the Two One-Sided Tests Procedure}\cr
+Int J Biostat. 2009;5(1):Article 15. \doi{10.2202/1557-4679.1169}
+
 Hua SY, Xu S, D\enc{’}{'}Agostino RB Sr.\cr
 \emph{Multiplicity adjustments in testing for bioequivalence}\cr
 Stat Med. 2015;34(2):215--31. \doi{10.1002/sim.6247}
@@ -128,7 +131,7 @@ Benjamin Lang
 # Sample size for 2x2x2 cross-over design, intra-subject CV = 30\% and assumed
 # ratios of 0.95 for both parameters, and correlation 0.9 between parameters
 # (using all the other default values)
-# Should give n=44 with power=0.808840
+# Should give n=44 with power=0.806840
 sampleN.2TOST(theta0 = rep(0.95, 2), CV = rep(0.3, 2), rho = 0.9)
 
 # Sample size for a parallel group design,
@@ -136,7 +139,7 @@ sampleN.2TOST(theta0 = rep(0.95, 2), CV = rep(0.3, 2), rho = 0.9)
 # BE limits 80 ... 120\% = -20\% ... +20\% of reference,
 # assumed true BE ratio 0.95\% = -5\% to reference mean for both parameters,
 # total CV=20\% for both parameters, and correlation 0.9 between parameters
-# should give n=52 with power=0.801250
+# should give n=54 with power=0.8149
 sampleN.2TOST(logscale=FALSE, theta0 = rep(-0.05, 2), CV = c(0.2, 0.2), 
               rho = 0.9, design = "parallel")
 }
