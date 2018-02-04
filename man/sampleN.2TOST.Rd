@@ -85,6 +85,9 @@ Defaults to \code{FALSE}.
 Maximum number of steps in sample size search. \cr 
 Defaults to 100.
   }
+  \item{nsims}{
+Number of studies to simulate. Defaults to 1E5.
+  }
 }
 \details{
 The sample size is calculated via iterative evaluation of power of the 2 TOSTs.\cr

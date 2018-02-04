@@ -12,7 +12,6 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
                           setseed=TRUE, robust=FALSE, print=TRUE, details=FALSE,
                           imax=100, nsims = 1e+05)
 {
-  if (missing(nsims)) nsims <- 1e5
   if (length(alpha) != 2)
     stop("Two alpha values must be given!")
   if (!missing(theta0) && length(theta0) != 2)
