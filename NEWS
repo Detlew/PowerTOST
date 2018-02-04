@@ -1,10 +1,10 @@
 V 1.4.6.9000
 2018-01-11
       - Bug corrected in functions using expected power
-      - New function power.2TOST.sim() to obtain the power of 2 TOST via simulations.
-        This function will replace power.2TOST() in upcoming versions.
-        power.2TOST() and type1error.2TOST() will be deprecated due to a statistical flaw
-        in them.
+      - Function power.2TOST() and type1error.2TOST() now based on simulations 
+        to obtain the power of 2 TOSTs (statistical flaw in 4-dimensional
+        t-distribution approach).
+        sampleN.2TOST and man page adapted according to this change.
       - regulator="FDA" implemented in scABEL.ad().
       - New function power.RSABE2L.sds() which implements the 'exact' based
         method for RSABE (ncTOST) of the two Laszlos.

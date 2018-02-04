@@ -10,7 +10,7 @@
 sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE, 
                           theta0, theta1, theta2, CV, rho, design="2x2", 
                           setseed=TRUE, robust=FALSE, print=TRUE, details=FALSE,
-                          imax=100, nsims)
+                          imax=100, nsims = 1e+05)
 {
   if (missing(nsims)) nsims <- 1e5
   if (length(alpha) != 2)
