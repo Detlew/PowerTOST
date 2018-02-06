@@ -30,7 +30,7 @@ Released 2017-05-19
         mentioned instead of 'True ratio'.
       - Two new test scrips in /test subdirectory added: test_ABEL.R and
         test_RSABE which recalculate the sample size tables given in 
-        Thotfalusi & Endrenyi "Sample Sizes for Designing Bioequivalence Studies 
+        Tothfalusi & Endrenyi "Sample Sizes for Designing Bioequivalence Studies 
         for Highly Variable Drugs". Contributed by Helmut.
       - power.scABEL.sdsims() now has an argument design_dta to specify the
         design via a data.frame. May be useful for considering missing data.
