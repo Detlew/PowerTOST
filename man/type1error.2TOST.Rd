@@ -101,7 +101,7 @@ assumed numbers of subjects in (sequence) groups.\cr
 The function does not vectorize properly if design is a vector. Moreover,
 CV must be of length two, thus further vectorizing is not possible.\cr
 Other vector input is not tested yet.\cr\cr
-The calculation of the TIE may last some seconds. Be patient.
+The calculation of the TIE may last some minutes. Be patient.
 }
 \references{
 Phillips KF.\cr 
@@ -117,7 +117,7 @@ Lang B, Fleischer F.\cr
 Stat Med. 2016;35(14):2479--80. \doi{10.1002/sim.6488}
 }
 \author{
-Benjamin Lang\cr
+Benjamin Lang
 }
 \seealso{
  \code{\link{sampleN.2TOST}, \link{known.designs}}

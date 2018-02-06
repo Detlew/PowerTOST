@@ -126,7 +126,7 @@ Zhang P.\cr
 J Biopharm Stat. 2003;13(3):529--538. \doi{10.1081/BIP-120022772}
 }
 \author{
-Benjamin Lang
+Benjamin Lang & Detlew Labes
 }
 \seealso{
   \code{\link{power.2TOST}, \link{known.designs}}
@@ -135,7 +135,7 @@ Benjamin Lang
 # Sample size for 2x2x2 cross-over design, intra-subject CV = 30\% and assumed
 # ratios of 0.95 for both parameters, and correlation 0.9 between parameters
 # (using all the other default values)
-# Should give n=44 with power=0.806840
+# Should give n=44 with power=0.80684
 sampleN.2TOST(theta0 = rep(0.95, 2), CV = rep(0.3, 2), rho = 0.9)
 
 # Sample size for a parallel group design,
