@@ -159,12 +159,13 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
     nullsets <- vector("list", 8)
     lim <- 100  # 100 instead of Inf; suffices and avoids potential
     # optimization problems when using Inf
-    H_A01 <- c(-lim, log(theta1[1]))
-    H_A02 <- c(log(theta2[1]), lim)
-    H_C01 <- c(-lim, log(theta1[2]))
-    H_C02 <- c(log(theta2[2]), lim)
-    H_Aa <- c(log(theta1[1]), log(theta2[1]))
-    H_Ca <- c(log(theta1[2]), log(theta2[2]))
+    #lim <- Inf
+    H_A01 <- c(-lim, ltheta1[1])
+    H_A02 <- c(ltheta2[1], lim)
+    H_C01 <- c(-lim, ltheta1[2])
+    H_C02 <- c(ltheta2[2], lim)
+    H_Aa <- c(ltheta1[1], ltheta2[1])
+    H_Ca <- c(ltheta1[2], ltheta2[2])
     nullsets[[1]] <- rbind(H_A01, H_Ca)
     nullsets[[2]] <- rbind(H_A02, H_Ca)
     nullsets[[3]] <- rbind(H_Aa, H_C01)
@@ -179,20 +180,51 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
       # Perform maximization over intersection nullset H via optim()
       res <- optim(par = starting, fn = .prob.2TOST, alpha = alpha, df = df,
                    Cfact = Cfact, ltheta1 = ltheta1, ltheta2 = ltheta2, 
-                   sigma = sigma, rho = rho, nsims = nsims,
-                   method = "L-BFGS-B", lower = c(H[1, 1], H[2, 1]), 
-                   upper = c(H[1, 2], H[2, 2]), 
+                   sigma = sigma, rho = rho, nsims = nsims, 
+                   method = "L-BFGS-B", lower = H[, 1], upper = H[, 2], 
                    control = list(fnscale = -1))
-      if (!(res$convergence %in% c(0, 1)))
-        warning("Result of maximization over nullset may not be reliable.",
-                call. = FALSE) 
+      #browser()
+      if (!(res$convergence %in% c(0, 1))) {
+        nsname <- paste(row.names(H), collapse=" n ")
+        warning("Result of maximization over nullset '", nsname, 
+                "' may not be reliable.\n optim() message: ", 
+                res$message, call. = FALSE) 
+      }
       # Select maximum
       res.argmax <- if (logscale) exp(res$par) else res$par
       res.max <- res$value
       c(res.max, res.argmax)
     }  # End of size.H
     # Combine results
-    probs <- as.data.frame(t(vapply(nullsets, size.H, numeric(3))))
+    # original:
+    #probs <- as.data.frame(t(vapply(nullsets, size.H, numeric(3))))
+    nullsets14 <- nullsets[1:4]
+    probs <- as.data.frame(t(vapply(nullsets14, size.H, numeric(3))))
+    # recalculate with setseed to avoid discepancies to call of power.2TOST()
+    if(setseed) {
+      for(i in 1:4) {
+        lth0 <- as.numeric(probs[i, 2:3])
+        if(logscale) lth0 <- log(lth0)
+        set.seed(123456)
+        pwr <- .prob.2TOST(ltheta0=lth0, alpha = alpha, df = df,
+                           Cfact = Cfact, ltheta1 = ltheta1, ltheta2 = ltheta2, 
+                           sigma = sigma, rho = rho, nsims = nsims)
+        probs$V1[i] <- pwr
+      }
+    }
+    # nullsets [5:8] via direct call of .prob.2TOST
+    nullsets58 <- nullsets[5:8]
+    for(i in 1:4) {
+      H <- nullsets58[[i]]
+      starting <- c(.getStart(H[1, ], lim), .getStart(H[2, ], lim))
+      if(setseed) set.seed(123456)
+      pwr <- .prob.2TOST(ltheta0=starting, alpha = alpha, df = df,
+                         Cfact = Cfact, ltheta1 = ltheta1, ltheta2 = ltheta2, 
+                         sigma = sigma, rho = rho, nsims = nsims)
+      if(logscale) starting <- exp(starting)
+      prow <- c(pwr, starting)
+      probs <- rbind(probs, prow)
+    }
     nullsets.label <- c("H_A01 n H_Ca", "H_A02 n H_Ca", "H_Aa n H_C01",
                         "H_Aa n H_C02", "H_A01 n H_C01", "H_A01 n H_C02",
                         "H_A02 n H_C01", "H_A02 n H_C02")
@@ -202,7 +234,7 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
     prob <- if (details) probs else max(probs[["P(Type I Error)"]])
   } else {
     # Calculate Power
-    if (setseed) set.seed(1234567)
+    if (setseed) set.seed(123456)
     prob <- .prob.2TOST(ltheta0 = ltheta0, alpha = alpha, df = df, Cfact = Cfact, 
                         ltheta1 = ltheta1, ltheta2 = ltheta2, sigma = sigma, 
                         rho = rho, nsims = nsims)
@@ -222,7 +254,6 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
 .prob.2TOST <- function(ltheta0, alpha, df, Cfact, ltheta1, ltheta2, sigma, 
                         rho, nsims)
 {
-
   tvals <- qt(1-alpha, df)
   # cave sqrt() in case of rho<0
   s2m   <- sigma*Cfact

@@ -146,7 +146,7 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
   Cfact <- bk/n
   # we have to set the seed at each invocation, else we have different powers
   # between power.2TOST() amd sampleN.2TOST()
-  if (setseed) set.seed(1234567)
+  if (setseed) set.seed(123456)
   pow <- .prob.2TOST(ltheta0=diffm, alpha, df, Cfact, ltheta1, ltheta2, sigma, 
                      rho, nsims)
   if (!isTRUE(all.equal(pow, targetpower, tolerance = 1e-04))) {
@@ -154,7 +154,7 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
                      diffm[idx.d], max(se), steps, bk)
     df <- eval(dfe)
     Cfact <- bk/n
-    if (setseed) set.seed(1234567)
+    if (setseed) set.seed(123456)
     pow.tmp <- .prob.2TOST(ltheta0=diffm, alpha, df, Cfact, ltheta1, ltheta2, 
                            sigma, rho, nsims)
     if (abs(pow.tmp - targetpower) <= abs(pow - targetpower)) {
@@ -194,7 +194,7 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
     iter <- iter+1
     df   <- eval(dfe)
     Cfact <- bk/n
-    if (setseed) set.seed(1234567)
+    if (setseed) set.seed(123456)
     pow <- .prob.2TOST(ltheta0=diffm, alpha, df, Cfact, ltheta1, ltheta2, 
                        sigma, rho, nsims)
     # do not print first step down
@@ -210,7 +210,7 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
     iter <- iter+1
     df   <- eval(dfe)
     Cfact <- bk/n
-    if (setseed) set.seed(1234567)
+    if (setseed) set.seed(123456)
     pow <- .prob.2TOST(ltheta0=diffm, alpha, df, Cfact, ltheta1, ltheta2, 
                        sigma, rho, nsims)
     if (details) cat( n," ", formatC(pow, digits=6, format="f"),"\n")
