@@ -155,6 +155,9 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
   df  <- eval(dfe)
   if (t1e) {
     # Calculate Type I Error
+    
+    twodim = FALSE # via 2 dimensional optim() or via one dimensional optimize()
+    
     if (setseed) set.seed(1234567)
     nullsets <- vector("list", 8)
     lim <- 100  # 100 instead of Inf; suffices and avoids potential
@@ -174,6 +177,37 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
     nullsets[[6]] <- rbind(H_A01, H_C02)
     nullsets[[7]] <- rbind(H_A02, H_C01)
     nullsets[[8]] <- rbind(H_A02, H_C02)
+    onedim <- function(H) 
+      {
+      # function to optimize
+      fun <- function(x, ix, ltheta0,
+                      alpha = alpha, df = df, Cfact = Cfact, 
+                      ltheta1 = ltheta1, ltheta2 = ltheta2, 
+                      sigma = sigma, rho = rho, nsims = nsims)
+        {
+        ltheta0[ix] <- x
+        pwr <- .prob.2TOST(ltheta0=ltheta0, alpha = alpha, df = df,
+        Cfact = Cfact, ltheta1 = ltheta1, ltheta2 = ltheta2, 
+        sigma = sigma, rho = rho, nsims = nsims)
+        pwr
+      } 
+      lower <- H[, 1]
+      upper <- H[, 2]
+      ltheta0 <- c(.getStart(H[1, ], lim), .getStart(H[2, ], lim))
+      if(lower[1] == -lim | upper[1] == lim){
+        ix <- 2
+      } else ix <- 1
+      res <- optimize(f=fun, interval=H[ix, ], ix=ix, ltheta0=ltheta0,
+                      alpha = alpha, df = df, Cfact = Cfact, 
+                      ltheta1 = ltheta1, ltheta2 = ltheta2, 
+                      sigma = sigma, rho = rho, nsims = nsims,
+                      maximum=TRUE, tol=1e-5)
+      #browser()
+      ltheta0[ix] <- res$maximum
+      argmax <- if (logscale) exp(ltheta0) else ltheta0
+      c(res$objective, argmax)
+    } # function onedim
+    
     size.H <- function(H) {  # size of test (supremum over H)
       # Determine starting values (theta0[1], theta0[2])
       starting <- c(.getStart(H[1, ], lim), .getStart(H[2, ], lim))
@@ -182,8 +216,7 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
                    Cfact = Cfact, ltheta1 = ltheta1, ltheta2 = ltheta2, 
                    sigma = sigma, rho = rho, nsims = nsims, 
                    method = "L-BFGS-B", lower = H[, 1], upper = H[, 2], 
-                   control = list(fnscale = -1))
-      #browser()
+                   control = list(fnscale = -1, ndeps=rep(1e-4,2)))
       if (!(res$convergence %in% c(0, 1))) {
         nsname <- paste(row.names(H), collapse=" n ")
         warning("Result of maximization over nullset '", nsname, 
@@ -195,11 +228,13 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
       res.max <- res$value
       c(res.max, res.argmax)
     }  # End of size.H
+    #browser()
     # Combine results
     # original:
     #probs <- as.data.frame(t(vapply(nullsets, size.H, numeric(3))))
     nullsets14 <- nullsets[1:4]
-    probs <- as.data.frame(t(vapply(nullsets14, size.H, numeric(3))))
+    if( twodim) probs <- as.data.frame(t(vapply(nullsets14, size.H, numeric(3))))
+      else probs <- as.data.frame(t(vapply(nullsets14, onedim, numeric(3))))
     # recalculate with setseed to avoid discepancies to call of power.2TOST()
     if(setseed) {
       for(i in 1:4) {
