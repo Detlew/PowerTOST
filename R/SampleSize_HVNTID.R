@@ -59,7 +59,7 @@ sampleN.HVNTID <- function(alpha=0.05, targetpower=0.8, theta0, theta1, theta2,
   bkk     <- bk
   
   if (print){
-    cat("\n+++++++++ FDA method for HV NTID's +++++++++++\n")
+    cat("\n+++++++++ FDA method for HV NTIDs ++++++++++++\n")
     cat("           Sample size estimation\n")
     cat("----------------------------------------------\n")
     cat("Study design: ",design,"\n")

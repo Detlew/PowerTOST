@@ -5,7 +5,7 @@ Sample size estimation for BE decision via FDA method for narrow therapeutic ind
 }
 \description{
 This function performs the Sample size estimation for the BE decision via 
-FDA method for NTID's based on simulations. The study design is the full 
+FDA method for NTIDs based on simulations. The study design is the full 
 replicate design 2x2x4 or the 3-period replicate design with sequeences TRT|RTR.
 }
 \usage{
@@ -22,9 +22,9 @@ Power to achieve at least. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9.
 }
   \item{theta0}{
-'True' or assumed bioequivalence ratio. \cr
+\sQuote{True} or assumed bioequivalence ratio. \cr
 Attention! Defaults here to 0.975 if not given explicitly. The value was chosen 
-nearer to 1 because the potency (contents) settings for NTID's are tightened 
+nearer to 1 because the potency (contents) settings for NTIDs are tightened 
 by the FDA.
 }
   \item{theta1}{

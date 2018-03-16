@@ -70,7 +70,7 @@ sampleN.NTIDFDA <- function(alpha=0.05, targetpower=0.8, theta0, theta1, theta2,
   }
   
   if (print){
-    cat("\n+++++++++++ FDA method for NTID's +++++++++++\n")
+    cat("\n+++++++++++ FDA method for NTIDs ++++++++++++\n")
     cat("           Sample size estimation\n")
     cat("---------------------------------------------\n")
     cat("Study design: ",design,"\n")

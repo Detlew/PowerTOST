@@ -6,7 +6,7 @@ narrow therapeutic index drugs (NTIDs)
 }
 \description{
 This function performs the Sample size estimation for the BE decision via 
-FDA method for highly variable NTID's as described in the FDA Dabigatran / 
+FDA method for highly variable NTIDs as described in the FDA Dabigatran / 
 Rivaroxaban guidances based on simulations. \cr
 The study designs may be the full replicate design 2x2x4 with 4 periods and 
 the 3-period replicate design 2x2x3 with sequences RTR|TRT.
@@ -25,7 +25,7 @@ Power to achieve at least. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9.
 }
   \item{theta0}{
-'True' or assumed bioequivalence ratio. \cr
+\sQuote{True} or assumed bioequivalence ratio. \cr
 Defaults to 0.95 if not given explicitly.
 }
   \item{theta1}{
