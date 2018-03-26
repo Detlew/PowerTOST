@@ -37,15 +37,17 @@
   # is this correct?
   delta1[is.nan(delta1)] <- 0
   delta2[is.nan(delta2)] <- 0
-  # R is infinite in case of alpha=0.5 where tval is == 0
+  # Define integration boundary R for OwensQ
   R <- (delta1-delta2)*sqrt(df)/(tval[1]+tval[dl])
   # in case of se=0 it results: delta1=Inf, delta2=inf if diffm>ltheta2
   # Inf - Inf is NaN
   R[is.nan(R)] <- 0
   
-  # if alpha>0.5 (very unusual!) t(1-alpha,df) is <0 and then R is negative 
-  # i.e in OwensQ the upper integration limit is lower then the lower limit!
-  # SAS OwenQ gives missings if b or a are negative!
+  # If delta1 > delta2, or equivalently ltheta1 < ltheta2:
+  # R is negative if and only if tval[1] <= -tval[dl]. 
+  # An example would be equal alphas for the two hypotheses and alpha > 0.5
+  # (very unusual!) a,df) => the upper integration limit is lower then the
+  # lower limit! SAS OwenQ gives missings if b or a are negative!
   # On the other hand SAS Proc Power gives values which are seemingly calculated
   # with abs(R). 
   # Correct acc. to Fig. 1 given in K.Philips
@@ -56,6 +58,8 @@
   # This gives the same values (within certain precision) as Ben's power.1TOST
   # aka power.TOST(..., method="mvt").
   # Can also be checked via function power.TOST.sim().
+  # Also gives the same results as Power code (base.powerfun.TOST) from 
+  # Maurer et al (2018)
   R[R<=0] <- Inf
   # to check SAS Proc power values comment above out and write
   # R <- abs(R)
