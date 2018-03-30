@@ -116,11 +116,12 @@ main argument \code{design}.}
 }
 
 For \code{prior.parm}, the combination consisting of \code{df} and \code{SEM} 
-requires a somewhat advanced knowledge of the prior trial (the standard error of
-the difference usually needs separate calculation or is only provided in the
-raw output, for example coming from the software \acronym{SAS}). However, it has the advantage
-that if the prior trial had missing data the exact degrees of freedom
-and standard error can be used, the former being possibly non-integer valued.
+requires a somewhat advanced knowledge of the prior trial (provided in the raw
+output from for example the software \acronym{SAS}, or may be obtained via
+\code{emmeans::emmeans}). However, it has the advantage that if there were 
+missing data the exact degrees of freedom and standard error of the difference 
+can be used, the former possibly being non-integer valued (e.g. if the 
+Kenward-Roger method was used).
 
 Details on argument \code{prior.type}:
 \describe{

@@ -105,12 +105,10 @@ and TRUE otherwise.
 }
 \details{
 The sample size is calculated based on iterative evaluation of expected power.
-
 The starting value of the sample size search is taken from a large sample 
 approximation if \code{prior.type = "CV"}. Else an empirical start value is
-obtained.
-
-Note that in case of \code{prior.type = "both"} the calculation may still take several seconds.
+obtained. Note that in case of \code{prior.type = "both"} the calculation may 
+still take several seconds.
 
 Note also that the expected power is always bounded above by the so-called
 probability of technical success (\acronym{PTS}) which may be a value less than 1. 

@@ -119,6 +119,7 @@ expsampleN.noninf(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
   taken from a large sample approximation if \code{prior.type="CV"}.
   Else an empirical start value is obtained. Note that in case of
   \code{prior.type="both"} the calculation may still take several seconds.
+  
   Note also that the expected power is always bounded above by the
   so-called probability of technical success (\acronym{PTS}) which
   may be a value less than 1.Therefore, it may be possible that it

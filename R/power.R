@@ -46,7 +46,7 @@
   # If delta1 > delta2, or equivalently ltheta1 < ltheta2:
   # R is negative if and only if tval[1] <= -tval[dl]. 
   # An example would be equal alphas for the two hypotheses and alpha > 0.5
-  # (very unusual!) a,df) => the upper integration limit is lower then the
+  # (very unusual!) => the upper integration limit is lower then the
   # lower limit! SAS OwenQ gives missings if b or a are negative!
   # On the other hand SAS Proc Power gives values which are seemingly calculated
   # with abs(R). 
