@@ -1,9 +1,12 @@
-V 1.4.6.9000
-2018-02-06
+Version 1.4-7
+2018-03-30
       - Bug corrected in functions using expected power
-      - Function power.2TOST() and type1error.2TOST() now based on simulations 
-        to obtain the power of 2 TOSTs (statistical flaw in 4-dimensional
-        t-distribution approach).
+      - Function type1error.2TOST() no longer available since it suffers from
+        insufficient precision to obtain the type 1 error (TIE) via simulations.
+        Due to the intersection-union principle the TIE is always upper bounded
+        to alpha by theory.
+      - Function power.2TOST() now based on simulations to obtain the power 
+        of 2 TOSTs (statistical flaw in 4-dimensional t-distribution approach).
       - sampleN.2TOST and man page adapted according to this change.
       - regulator="FDA" implemented in scABEL.ad().
       - New function power.RSABE2L.sds() which implements the 'exact' based
@@ -13,7 +16,7 @@ V 1.4.6.9000
 Version 1.4-6
 Released 2017-08-17
       - Bug fixed in functions relying on simulations if nsims>1e7.
-      - Functions CVwRfromU() / U2CVwR() calculate CVwR from the upper expanded 
+      - Functions CVwRfromU() / U2CVwR() to calculate CVwR from the upper expanded 
         limit of an ABEL study according to EMA's or Health Canada's rules.
       - Power and sample size for TOST: Argument alpha restricted to scalar.
         Internal functions now allow length = 2 (different alpha's

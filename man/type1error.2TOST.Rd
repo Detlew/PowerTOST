@@ -4,9 +4,14 @@
 Type I error rate for two simultaneous TOST procedures
 }
 \description{
-Calculates the exact type I error rate of two simultaneous TOST procedures 
+Was designed to calculate the type I error rate of two simultaneous TOST procedures 
 (where the two parameters of the two TOSTs are correlated with some correlation)
-for various study designs used in BE studies 
+for various study designs used in BE studies.
+
+Is defunct now since it suffers from insufficient precision to obtain the 
+type 1 error (TIE) via simulations.\cr 
+Due to the intersection-union principle the TIE is always upper bounded 
+to alpha by theory.
 }
 \usage{
 type1error.2TOST(alpha = c(0.05, 0.05), logscale = TRUE, theta1, theta2, 
