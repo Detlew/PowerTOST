@@ -12,10 +12,6 @@ sampleN.scABEL2 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
                             regulator, nsims=1E5, nstart, imax=100, print=TRUE, 
                             details=TRUE, setseed=TRUE)
 {
-  # function is no longer visible via NAMESPACE
-  # .Deprecated(new="sampleN.scABEL", msg=paste0("'sampleN.scABEL2' is deprecated.",
-  #                                            " Use 'sampleN.scABEL' instead."))
-  
   if (missing(theta1) & missing(theta2)) theta1 <- 0.8
   if (missing(theta2)) theta2=1/theta1
   # the two Laszlo's recommend theta0=0.9 for HVD's

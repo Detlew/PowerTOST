@@ -28,11 +28,9 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
                          design=desi, regulator=reg, nsims, nstart, imax,
                          print, details, setseed)
   } else {
-    r <- suppressWarnings(
-           sampleN.scABEL2(alpha, targetpower, theta0, theta1, theta2, CV, 
-                          design=desi, regulator=reg, nsims, nstart, imax,
-                          print, details, setseed)
-                          )
+    r <- sampleN.scABEL2(alpha, targetpower, theta0, theta1, theta2, CV, 
+                         design=desi, regulator=reg, nsims, nstart, imax,
+                         print, details, setseed)
   } 
   
 }  
