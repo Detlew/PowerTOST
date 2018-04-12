@@ -1,5 +1,5 @@
 Version 1.4-7
-2018-03-30
+2018-04-12 (dedicated to the birthday of Alfie Schuetz :-))
       - Bug corrected in functions using expected power
       - Function type1error.2TOST() no longer available since it suffers from
         insufficient precision to obtain the type 1 error (TIE) via simulations.
