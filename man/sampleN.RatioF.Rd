@@ -78,7 +78,7 @@ The sample size n returned is the \bold{total} sample size for \bold{both} desig
 \references{
 Hauschke D, Kieser M, Diletti E, Burke M.\cr
 \emph{Sample size determination for proving equivalence based on the ratio of two means for normally distributed data}\cr
-Stat Med. 1999;18(1):93--105. \doi{10.1002/(SICI)1097-0258(19990115)18:1<93::AID-SIM992>3.0.CO;2-8}
+Stat Med. 1999;18(1):93--105. doi: 10.1002/(SICI)1097-0258(19990115)18:1<93::AID-SIM992>3.0.CO;2-8
 
 Hauschke D, Steinijans V, Pigeot I.\cr
 \emph{Bioequivalence Studies in Drug Development}\cr
