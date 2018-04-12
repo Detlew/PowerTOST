@@ -11,12 +11,14 @@ power.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, theta0, theta1,
              design = design, robust = robust, nsims = nsims, setseed = setseed,
              details = details)
 }
-# without theta0
+# type1error.2TOST without theta0
 type1error.2TOST <- function(alpha = c(0.05, 0.05), logscale = TRUE, 
                              theta1, theta2, CV, n, rho, design = "2x2", 
                              robust = FALSE, nsims, setseed = TRUE, 
                              details = FALSE) {
-  .Defunct(msg="This function is no longer available.")
+  .Defunct(msg=paste0("This function is no longer available since it suffers\n",
+                      "from insufficient precision to obtain the type 1 error (TIE)\n",
+                      "via simulations."))
   
   prob.2TOST(alpha = alpha, logscale = logscale,  
              theta1 = theta1, theta2 = theta2, CV = CV, n = n, rho = rho, 
