@@ -123,9 +123,9 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
 
 # ------ working horse ----------------------------------------------------
 .pwr.SABE.sds <- function(muR=log(10), design_dta, ldiff, s2WR, s2WT, C2, 
-                           nsims, regulator, ln_lBEL, ln_uBEL, 
-                           alpha=0.05, SABE_test="exact",
-                           setseed=TRUE, details=FALSE, progress=FALSE)
+                          nsims, regulator, ln_lBEL, ln_uBEL, 
+                          alpha=0.05, SABE_test="exact",
+                          setseed=TRUE, details=FALSE, progress=FALSE)
 {
   # start time measurement
   ptm <- proc.time()
@@ -142,7 +142,7 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
   if(setseed) set.seed(123456)
 #  set.seed(146389) # seed for the scripts in directory /workspace/replicate_simul
   dta <- design_dta
-    # make a first simulation of logval
+  # make a first simulation of logval
   dta$logval <- sim_data2_y(data_tmt=dta$tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
 
   dta$tmt     <- as.factor(dta$tmt)
@@ -293,10 +293,14 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
     Es <- r_const^2*s2wRs
     # seems the 2L have used other df's 
     # namely sum(nseq) - length(nseq) for T vs R
-    # only with that CI (df=N-seq) the rsults of the 2L can be verified
+    # only with that CI (df=N-seq) the results of the 2L can be verified
     # but the df of the PE are different for the evaluation via ANOVA
-    tcrit <- qt(1-alpha, df=sum(nseq) - length(nseq))
-    hw   <- tcrit*seD
+    #tcrit <- qt(1-alpha, df=sum(nseq) - length(nseq))
+    # TODO: check this for unbalanced designs and for missings
+    n    <- length(unique(dta$subject))
+    seqs <- length(unique(dta$sequence))
+    tcrit <- qt(1-alpha, df=n - seqs)
+    hw    <- tcrit*seD
     Cm <- (abs(pes) + hw)^2
     # dfRR the same for 'full' replicates and 
     # dfRR <- n[2] - 1 for the TRT|RTR design (number in RTR sequence)

@@ -291,7 +291,7 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
                          CVswitch, r_const, pe_constr, CVcap,
                          ln_lBEL, ln_uBEL, alpha=0.05)
 {
-  pwr <- .pwr.SABE.isc(mlog, sdm, C3, Emse, df, s2wT, s2wR, dfRR, k_est=NULL, 
+  pwr <- .pwr.SABE.isc(mlog, sdm, C3, Emse, df, s2wT=NULL, s2wR, dfRR, k_est=NULL, 
                        nsims, CVswitch, r_const, pe_constr, CVcap, 
                        SABE_test="fda", ln_lBEL, ln_uBEL, alpha=alpha)
   pwr
@@ -300,11 +300,11 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
 # ----------------------------------------------------------------------------
 # working horse for ABEL with ISC est. based on .pwr.SABE.isc
 # k_est is only used with SABE_test="exact"
-.power.ABEL.isc <- function(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
+.pwr.ABEL.ISC <- function(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
                             CVswitch, r_const, pe_constr, CVcap,
                             ln_lBEL, ln_uBEL, alpha=0.05)
 {
-  pwr <- .pwr.SABE.isc(mlog, sdm, C3, Emse, df, s2wT, s2wR, dfRR, k_est=NULL, 
+  pwr <- .pwr.SABE.isc(mlog, sdm, C3, Emse, df, s2wT=NULL, s2wR, dfRR, k_est=NULL, 
                        nsims, CVswitch, r_const, pe_constr, CVcap, 
                        SABE_test="abel", ln_lBEL, ln_uBEL, alpha=alpha)
   pwr
