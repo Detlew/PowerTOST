@@ -10,6 +10,31 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
                                  design_dta=NULL, SABE_test="exact", regulator,
                                  nsims=1E5, details=FALSE, setseed=TRUE, progress)
 {
+  # check regulator
+  if (missing(regulator)) regulator <- "EMA"
+  reg  <- reg_check(regulator)
+  if (reg$est_method=="ISC") stop("ISC evaluation not allowed in this function.")
+  # Check CV
+  if (missing(CV)) stop("CV must be given!")
+  # check theta0 and ABE limits
+  if (missing(theta0)) theta0 <- 0.90
+  if (length(theta0)>1) {
+    theta0 <- theta0[2]
+    warning(paste0("theta0 has to be scalar. theta0 = ",
+                   theta0, " used."), call. = FALSE)
+  }
+  if (missing(theta1) & missing(theta2)) theta1 <- 0.8
+  if (missing(theta2)) theta2 <- 1/theta1
+  if (missing(theta1)) theta1 <- 1/theta2
+  
+  # CV scalar or vector
+  CVwT <- CV[1]
+  if (length(CV)==2) CVwR <- CV[2] else CVwR <- CVwT
+  # intra-subject variabilities from CV
+  s2wT <- CV2mse(CVwT)
+  s2wR <- CV2mse(CVwR)
+  
+  
   if (is.null(design_dta)){
     # check design
     desi <- match.arg(design)
@@ -50,6 +75,8 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       nv <- n
       n <- sum(n)
     }
+    design_dta <- prep_data2(seqs, nseq=nv, muR=log(10), ldiff=log(theta0), 
+                             s2wT=s2wT, s2wR=s2wR)
   } else {
     # check data.frame design_dta 
     # TODO
@@ -78,52 +105,26 @@ power.RSABE2L.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   SABE_test <- tolower(SABE_test)
   SABE_test <- match.arg(SABE_test, choices=c("exact", "abel", "hyslop", "fda"))
   
-  # check regulator
-  if (missing(regulator)) regulator <- "EMA"
-  reg  <- reg_check(regulator)
-  if (reg$est_method=="ISC") stop("ISC evaluation not allowed in this function.")
-  # Check CV
-  if (missing(CV)) stop("CV must be given!")
-  # check theta0 and ABE limits
-  if (missing(theta0)) theta0 <- 0.90
-  if (length(theta0)>1) {
-    theta0 <- theta0[2]
-    warning(paste0("theta0 has to be scalar. theta0 = ",
-                   theta0, " used."), call. = FALSE)
-  }
-  if (missing(theta1) & missing(theta2)) theta1 <- 0.8
-  if (missing(theta2)) theta2 <- 1/theta1
-  if (missing(theta1)) theta1 <- 1/theta2
-
-  # CV scalar or vector
-  CVwT <- CV[1]
-  if (length(CV)==2) CVwR <- CV[2] else CVwR <- CVwT
-  # intra-subject variabilities from CV
-  s2wT <- CV2mse(CVwT)
-  s2wR <- CV2mse(CVwR)
-
-  # auto fit method: set this to .lm.fit if n<=18
-  fitm <- "qr"
   # after introducing multiple right-hand sides .lm.fit seems to have no longer
   # an advantage in run-time
-  # if(n<=18) fitm <- ".lm.fit"
+  # thus fitmethod removed May 2018
   
   # call the working horse
-  pwr <- .pwr.RSABE.sds(seqs=seqs, nseq=nv, design_dta=design_dta, ldiff=log(theta0), 
-                        s2WR=s2wR, s2WT=s2wT, C2=C2, nsims=nsims, regulator=reg, 
-                        ln_lBEL=log(theta1), ln_uBEL=log(theta2), alpha=alpha, 
-                        fitmethod=fitm, SABE_test=SABE_test, setseed=setseed, 
-                        details=details, progress=progress)
+  pwr <- .pwr.SABE.sds(muR=log(10), design_dta=design_dta, ldiff=log(theta0), 
+                      s2WR=s2wR, s2WT=s2wT, C2=C2, nsims=nsims, regulator=reg, 
+                      ln_lBEL=log(theta1), ln_uBEL=log(theta2), alpha=alpha, 
+                      SABE_test=SABE_test, setseed=setseed, details=details, 
+                      progress=progress)
   pwr
 }
 
 # alias
 power.RSABE2L.sds <- power.RSABE2L.sdsims
 
-# working horse
-.pwr.RSABE.sds <- function(seqs, nseq, muR=log(10), design_dta=NULL, ldiff, 
-                           s2WR, s2WT, C2, nsims, regulator, ln_lBEL, ln_uBEL, 
-                           alpha=0.05, fitmethod="qr", SABE_test="exact",
+# ------ working horse ----------------------------------------------------
+.pwr.SABE.sds <- function(muR=log(10), design_dta, ldiff, s2WR, s2WT, C2, 
+                           nsims, regulator, ln_lBEL, ln_uBEL, 
+                           alpha=0.05, SABE_test="exact",
                            setseed=TRUE, details=FALSE, progress=FALSE)
 {
   # start time measurement
@@ -140,13 +141,9 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
 
   if(setseed) set.seed(123456)
 #  set.seed(146389) # seed for the scripts in directory /workspace/replicate_simul
-  if (is.null(design_dta)){
-    dta <- prep_data2(seqs, nseq, muR=log(10), ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
-  } else {
-    dta <- design_dta
+  dta <- design_dta
     # make a first simulation of logval
-    dta$logval <- sim_data2_y(data_tmt=dta$tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
-  }
+  dta$logval <- sim_data2_y(data_tmt=dta$tmt, ldiff=ldiff, s2wT=s2WT, s2wR=s2WR)
 
   dta$tmt     <- as.factor(dta$tmt)
   dta$period  <- as.factor(dta$period)
@@ -211,64 +208,35 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
   # only ".lm.fit" and "qr" retained.
   # programming each fitmethod in own loop to avoid 1 Mio if's. but this give 
   # no notable difference in run-time
-  if(fitmethod==".lm.fit") {
-    # using .lm.fit()
-    for(j in 1:nsi){
-      logval <- sim_mrhs(data_tmt=dta_tmt, nT=nT, nR=nR, ldiff=ldiff, 
-                         s2wT=s2WT, s2wR=s2WR, no=no_rhs)
-      logvalR <- logval[dta_tmt==1,]
+  # qr decomp saved for re-use
+  qr_all <- qr(mm)
+  qr_R   <- qr(mmR)
+  for(j in 1:nsi){
+    logval <- sim_mrhs(data_tmt=dta_tmt, nT=nT, nR=nR, ldiff=ldiff, 
+                       s2wT=s2WT, s2wR=s2WR, no=no_rhs)
+    logvalR <- logval[dta_tmt==1,]
       
-      # determine pe, mse of all data
-      model   <- .lm.fit(x=mm, y=logval)
-      # lm.fit does'nt have anova() and confint() methods
-      # thus we have to calculate them explicite
-      mses[j1:j2] <- colSums(model$residuals^2)/df
-      pes[j1:j2]  <- model$coefficients[2,]
+    # original attempt
+    # pes[j]   <- qr.coef(qr_all, logval)["tmtT"]
+    # mses[j]  <- sum((qr.resid(qr_all, logval))^2)/df
+    
+    # Instead of qr.resid() we use faster approach via y - X * coefs
+    coefs <- qr.coef(qr_all, logval)
+    pes[j1:j2]  <- coefs["tmtT", ]
+    mses[j1:j2] <- colSums((logval - mm %*% coefs)^2)/df
       
-      # determine s2wR from R data only
-      modelR       <- .lm.fit(x=mmR, y=logvalR)
-      s2wRs[j1:j2] <- colSums(modelR$residuals^2)/dfRR
+    # For reference: do not use this alternative approach as some
+    # coefficients may be NA due to non-full rank
+    s2wRs[j1:j2] <- colSums((qr.resid(qr_R, logvalR))^2)/dfRR
       
-      # show progress
-      if(progress){
-        jsim <- j*no_rhs
-        if(100*trunc(jsim/100)==jsim) setTxtProgressBar(pb, jsim/nsims)
-      }
-      j1 <- j1+no_rhs
-      j2 <- j2+no_rhs
+    # show progress
+    if(progress){
+      jsim <- j*no_rhs
+      if(100*trunc(jsim/100)==jsim) setTxtProgressBar(pb, jsim/nsims)
     }  
-  } else {
-    # qr decomp saved for re-use
-    qr_all <- qr(mm)
-    qr_R   <- qr(mmR)
-    for(j in 1:nsi){
-      logval <- sim_mrhs(data_tmt=dta_tmt, nT=nT, nR=nR, ldiff=ldiff, 
-                         s2wT=s2WT, s2wR=s2WR, no=no_rhs)
-      logvalR <- logval[dta_tmt==1,]
-      
-      # original attempt
-      # pes[j]   <- qr.coef(qr_all, logval)["tmtT"]
-      # mses[j]  <- sum((qr.resid(qr_all, logval))^2)/df
-      
-      # Instead of qr.resid() we use faster approach via y - X * coefs
-      coefs <- qr.coef(qr_all, logval)
-      pes[j1:j2]  <- coefs["tmtT", ]
-      mses[j1:j2] <- colSums((logval - mm %*% coefs)^2)/df
-      
-      # For reference: do not use this alternative approach as some
-      # coefficients may be NA due to non-full rank
-      s2wRs[j1:j2] <- colSums((qr.resid(qr_R, logvalR))^2)/dfRR
-      
-      # show progress
-      if(progress){
-        jsim <- j*no_rhs
-        if(100*trunc(jsim/100)==jsim) setTxtProgressBar(pb, jsim/nsims)
-      }  
-      j1 <- j1 + no_rhs
-      j2 <- j2 + no_rhs
-    } 
-  }
-  
+    j1 <- j1 + no_rhs
+    j2 <- j2 + no_rhs
+  } 
   # reset options
   options(oc)
   # standard error of the difference T-R
@@ -374,7 +342,6 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
     if(ptm["elapsed"]>60){
       ptm <- ptm/60; tunit <- "min"
     }
-    if (fitmethod!="qr") message("Using ", fitmethod, "\n")
     message(nsims," sims. Time elapsed (",tunit,"): ", 
             formatC(ptm["elapsed"], digits=3), "\n")
     
@@ -384,3 +351,22 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
     as.numeric(p["p(BE)"])
   }
 }
+
+# ----------------------------------------------------------------------------
+# working horse for ABEL with sdsims based on .pwr.SABE.sds
+.pwr.ABEL.sds <- function(muR=log(10), design_dta, ldiff, 
+                          s2WR, s2WT, C2, nsims, regulator, 
+                          ln_lBEL, ln_uBEL, alpha=0.05, 
+                          SABE_test="abel", setseed=TRUE, details=FALSE, 
+                          progress=FALSE)
+{
+  pwr <- .pwr.SABE.sds(muR=muR, design_dta=design_dta, ldiff=ldiff, 
+                       s2WR=s2WR, s2WT=s2WT, C2=C2, nsims=nsims, 
+                       regulator=regulator, 
+                       ln_lBEL=ln_lBEL, ln_uBEL=ln_uBEL, alpha=alpha, 
+                       SABE_test="abel", setseed=setseed, details=details, 
+                       progress=progress)
+  pwr
+}
+
+

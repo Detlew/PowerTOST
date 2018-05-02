@@ -15,7 +15,7 @@
 # 2x2x4  dfRR = n-2
 # 2x2x3  dfRR = n/2 - 2
 
-power.RSABE <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
+power.RSABE.old <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                         design=c("2x3x3", "2x2x4", "2x2x3"), regulator, 
                         nsims=1E5, details=FALSE, setseed=TRUE)
 {
@@ -135,4 +135,82 @@ power.RSABE <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     # return only the 'power'
     as.numeric(p["BE"])
   }
+}
+
+# ---------------------------------------------------------------------------
+# working horse of RSABE
+.power.RSABE.old <- function(mlog, sdm, C3, Emse, df, s2wR, dfRR, nsims, 
+                         CVswitch, r_const, pe_constr, CVcap,
+                         ln_lBEL, ln_uBEL, alpha=0.05)
+{
+  tval     <- qt(1-alpha,df)
+  chisqval <- qchisq(1-alpha, dfRR)
+  r2const  <- r_const^2
+  s2switch <- log(CVswitch^2+1) 
+  
+  counts <- rep.int(0, times=4)
+  names(counts) <- c("BE", "BEul", "BEpe", "BEabe")
+  # to avoid memory problems for high number of sims we work in chunks
+  chunks <- 1
+  nsi    <- nsims
+  if (nsims>1E7) {
+    chunks <- ceiling(nsims/1E7)
+    nsi    <- 1E7
+  } 
+  for (iter in 1:chunks) {
+    # if chunks*1E7 >nsims correct nsi to given nsims
+    if(iter==chunks) nsi <- nsims-(chunks-1)*nsi
+    # debug code
+    # cat("nsi=", nsi, "\n")
+    # simulate sample mean via its normal distribution
+    means  <- rnorm(nsi, mean=mlog, sd=sdm)
+    # simulate sample sd2s via chi-square distri
+    sd2s   <- Emse*C3*rchisq(nsi, df)/df
+    # simulate sample value s2wRs via chi-square distri
+    s2wRs  <- s2wR*rchisq(nsi, dfRR)/dfRR
+    
+    SEs <- sqrt(sd2s)
+    # conventional (1-2*alpha) CI's for T-R
+    hw  <- tval*SEs
+    lCL <- means - hw 
+    uCL <- means + hw
+    
+    # upper 95% CI linearized SABE criterion
+    # with -SEs^2 the 'unknown' x from the progesterone guidance
+    Em <- means^2 - SEs^2  
+    Es <- r2const*s2wRs
+    Cm <- (abs(means) + hw)^2
+    Cs <- Es*dfRR/chisqval    
+    SABEc95 <- Em - Es + sqrt((Cm-Em)^2 + (Cs-Es)^2)
+    # save memory
+    rm(SEs, hw, Em, Es, Cm, Cs)
+    
+    # conventional ABE
+    BEABE <- ((ln_lBEL<=lCL) & (uCL<=ln_uBEL))
+    # 95% upper CI of criterion <=0 if CVwR>CVswitch
+    # else use conventional ABE (mixed procedure)
+    BE    <- ifelse(s2wRs>s2switch, SABEc95<=0, BEABE)
+    # use capped acceptance limits if CVwR > CVcap
+    if (is.finite(CVcap)){
+      s2Cap <- CV2mse(CVcap)
+      # calculate the capped widened acceptance limits in log domain
+      uprABEL <- r_const*sqrt(s2Cap)
+      lwrABEL <- -uprABEL
+      BE <- ifelse(s2wRs>=s2Cap, ((lwrABEL<=lCL) & (uCL<=uprABEL)), BE)
+    }
+    # point est. constraint true?
+    BEpe  <- ( means>=ln_lBEL & means<=ln_uBEL )
+
+    counts["BEabe"] <- counts["BEabe"] + sum(BEABE)
+    counts["BEpe"]  <- counts["BEpe"]  + sum(BEpe)
+    counts["BEul"]  <- counts["BEul"]  + sum(BE)
+    if(pe_constr) {
+      counts["BE"]    <- counts["BE"]    + sum(BE & BEpe)
+    } else {
+      counts["BE"]    <- counts["BE"]    + sum(BE) # no pe constraint
+    }
+    
+  } # end over chunks
+  # return the pBEs
+  counts/nsims
 }
