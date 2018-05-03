@@ -72,8 +72,6 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       }
       C2 <- sum(1/nv)*bkni
       n <- sum(nv)
-      design_dta <- prep_data2(seqs, nseq=nv, muR=log(10), ldiff=log(theta0), 
-                               s2wT=s2wT, s2wR=s2wR)
     } else {
       # check length
       if (length(n)!=seqn) stop("n must be a vector of length=",seqn,"!")
@@ -81,6 +79,8 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       nv <- n
       n <- sum(n)
     }
+    design_dta <- prep_data2(seqs, nseq=nv, muR=log(10), ldiff=log(theta0), 
+                             s2wT=s2wT, s2wR=s2wR)
   } else {
     # check data.frame design_dta 
     # TODO
