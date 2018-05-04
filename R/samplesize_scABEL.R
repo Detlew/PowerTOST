@@ -32,7 +32,7 @@ sampleN.scABEL <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
                          design=desi, regulator=reg, nsims, nstart, imax,
                          print, details, setseed)
   } 
-  r
+  if(print | details) return(invisible(r)) else return(r)
 }  
 
 #-----------------------------------------------------------------------------
