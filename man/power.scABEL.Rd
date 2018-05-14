@@ -19,46 +19,46 @@ Type I error probability, significance level. Conventionally mostly set to 0.05.
 }
   \item{theta1}{
 Conventional lower ABE limit to be applied in the mixed procedure if 
-CVsWR <= CVswitch. Also lower limit for the point estimate constraint.\cr
+\code{CVsWR <= CVswitch}. Also lower limit for the point estimate constraint.\cr
 Defaults to 0.8 if not given explicitly.
 }
   \item{theta2}{
 Conventional upper ABE limit to be applied in the mixed procedure if 
-CVsWR <= CVswitch. Also upper limit for the point estimate constraint.\cr
+\code{CVsWR <= CVswitch}. Also upper limit for the point estimate constraint.\cr
 Defaults to 1.25 if not given explicitly.
 }
   \item{theta0}{
-'True' or assumed bioequivalence ratio. \cr
-Defaults to 0.90 according to the two Laszlo's if not given explicitly.
+\sQuote{True} or assumed bioequivalence ratio. \cr
+Defaults to 0.90 according to the two Laszlos if not given explicitly.
 }
   \item{CV}{
 Coefficient(s) of variation as ratio.\cr
 If \code{length(CV) = 1} the same CV is assumed for Test and Reference.\cr
-If \code{length(CV) = 2} the CV for Test must be given in CV[1] and for 
-Reference in CV[2].
+If \code{length(CV) = 2} the CV for Test must be given in \verb{CV[1]} and for 
+Reference in \verb{CV[2]}.
 }
   \item{n}{
 Number of subjects under study.\cr
-May be given as vector. In that case it is assumed that n contains the number
+May be given as vector. In that case it is assumed that \verb{n} contains the number
 of subjects in the sequence groups.\cr
-If n is given as single number (total sample size) and this number is not 
+If \verb{n} is given as single number (total sample size) and this number is not 
 divisible by the number of sequences of the design an unbalanced design is 
 assumed. A corresponding message is thrown showing the numbers of subjects 
 in sequence groups.\cr
 Attention! In case of the 2x2x3 (TRT|RTR) design the order of n's is important 
-if given as vector. n[1] is for sequence group 'TRT' and n[2] is for 
+if given as vector. \verb{n[1]} is for sequence group 'TRT' and \verb{n[2]} is for 
 sequence group 'RTR'. 
 }
   \item{design}{
 Design of the study to be planned.\cr
-2x3x3 is the partial replicate design (TRR/RTR/RRT).\cr
-2x2x4 is the full replicate design with 2 sequences and 4 periods.\cr
-2x2x3 is the 3-period design with sequences TRT|RTR.\cr
+\verb{2x3x3} is the partial replicate design (TRR|RTR|RRT).\cr
+\verb{2x2x4} is the full replicate design with 2 sequences and 4 periods.\cr
+\verb{2x2x3} is the 3-period design with sequences TRT|RTR.\cr
 Defaults to \code{design="2x3x3"}.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
-May be given as character from the choices "EMA", "HC" "FDA" or as an object of
+May be given as character from the choices "EMA", "HC", "FDA" or as an object of
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr\cr
@@ -84,7 +84,7 @@ is issued if \code{setseed=TRUE}, the default.
 }
 }
 \details{
-The methods rely on the analysis of log-transformed data, i.e. assume a 
+The methods rely on the analysis of log-transformed data, \emph{i.e.}, assume a 
 log-normal distribution on the original scale.\cr\cr
 The widened BE acceptance limits will be calculated by the formula\cr
    \code{[lBEL,uBEL] =exp(-+ r_const*sWR)}\cr
@@ -95,7 +95,7 @@ in case of \code{regulator="EMA"} or \code{regulator="HC"} and in case of
 If the CVwR of the Reference is < CVswitch=0.3 the conventional ABE limits 
 apply (mixed procedure).\cr\cr 
 In case of \code{regulator="EMA"} a cap is placed on the widened limits if 
-CVwr>0.5, i.e. the widened limits are held at value calculated for CVwR=0.5.
+CVwR>0.5, i.e. the widened limits are held at value calculated for CVwR=0.5.
 In case of \code{regulator="HC"} the capping is done such that the acceptance
 limits are 0.6666 ... 1.5 at maximum.\cr\cr
 The former inofficial regulatory settings for \code{regulator="ANVISA"} are now
@@ -105,19 +105,19 @@ quantities necessary for deciding BE based on widened ABEL.\cr
 For more details see a document "Implementation_scaledABE_simsVx.yy.pdf" in the 
 /doc subdirectory of the package.\cr\cr
 Function \code{power.scABEL()} implements the simulation via distributional 
-characteristics of the 'key' statistics obtained from the EMA recommended 
+characteristics of the \sQuote{key} statistics obtained from the EMA recommended 
 evaluation via ANOVA if \code{regulator="EMA"} or if the regulator component 
 \code{est_method} is set to "ANOVA" if regulator is an object of class 'regSet'.\cr
 Otherwise the simulations are based on the distributional characteristis of the 
-'key' statistics obtained from evaluation via intra-subject contrasts (ISC), 
+\sQuote{key} statistics obtained from evaluation via intra-subject contrasts (ISC), 
 as recommended by the FDA.
 }
 \value{
 Returns the value of the (empirical) power if argument \code{details=FALSE}.\cr\cr
 Returns a named vector if argument \code{details=TRUE}.\cr
 p(BE) is the power, p(BE-wABEL) is the power of the widened ABEL criterion alone 
-and p(BE-pe) is the power of the criterion 'point estimat within acceptance 
-range' alone. p(BE-ABE) is the power of the conventional ABE test given for 
+and p(BE-pe) is the power of the criterion \sQuote{point estimate within acceptance 
+range} alone. p(BE-ABE) is the power of the conventional ABE test given for 
 comparative purposes.
 }
 \references{
@@ -130,19 +130,19 @@ D. Labes
 }
 \note{
 In case of \code{regulator="FDA"} the (empirical) power is only approximate since
-the BE decision method is not exactly what is expected by the FDA. But the "Two
-Laszlos" state that the scABEL method should be 'operational equivalent' to the
+the BE decision method is not exactly what is expected by the FDA. But the \dQuote{Two
+Laszlos} state that the scABEL method should be \sQuote{operational equivalent} to the
 FDA method.\cr
 To get the power for the FDA favored method via linearized scaled ABE criterion
 use function \code{\link{power.RSABE}}.\cr\cr
 In case of \code{regulator="HC"} in function \code{power.scABEL()}, based on
-ISC, power is also only approximative since the Health Canada recommends an 
+ISC, power is also only approximative since Health Canada recommends an 
 evaluation via mixed model approach. This could only implemented via 
 subject data simulations which are very time consuming. But ISC may be a good 
 substitute.
 }
 \section{Warning }{
-Cross-validation of the simulations as implemented here and via the 'classical' 
+Cross-validation of the simulations as implemented here and via the \sQuote{classical} 
 subject data simulation have shown somewhat unsatisfactory results for the 
 2x3x3 design if the variabilities for Test and Reference are different.\cr
 The function \code{power.scABEL()} therefore gives a warning if calculations 

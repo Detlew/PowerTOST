@@ -5,7 +5,7 @@ Sample size for equivalence of the ratio of two means with normality on original
 }
 \description{
 Calculates the necessary sample size to have at least a given power based on 
-Fieller's confidence ('fiducial') interval.
+Fieller's confidence (\sQuote{fiducial}) interval.
 }
 \usage{
 sampleN.RatioF(alpha = 0.025, targetpower = 0.8, theta1 = 0.8, theta2, 
@@ -29,7 +29,7 @@ Upper bioequivalence limit. Typically 1.25.\cr
 Is set to \code{1/theta1} if missing.
   }
   \item{theta0}{
-'True' or assumed bioequivalence ratio. Typically set to 0.95.
+\sQuote{True} or assumed bioequivalence ratio. Typically set to 0.95.
   }
   \item{CV}{
 Coefficient of variation as ratio. In case of \code{design="parallel"} this is
@@ -40,7 +40,7 @@ CV (CVw in the reference).
 CV of the between-subject variability. Only necessary for \code{design="2x2"}.
   }
   \item{design}{
-A character string describing the study design. \cr
+A character string describing the study design.\cr
 \code{design="parallel"} or \code{design="2x2"} allowed for a two-parallel 
 group design or a classical TR/RT crossover design.
   }
@@ -49,11 +49,11 @@ If TRUE (default) the function prints its results. If FALSE only
 a data.frame with the results will be returned. 
   }
   \item{details}{
-If TRUE the steps during sample size calculations will be shown. \cr 
+If TRUE the steps during sample size calculations will be shown.\cr 
 Defaults to FALSE.
   }
   \item{imax}{
-Maximum number of steps in sample size search. \cr 
+Maximum number of steps in sample size search.\cr 
 Defaults to 100. Adaption only in rare cases needed.
   }
   \item{setseed}{
@@ -78,7 +78,7 @@ The sample size n returned is the \bold{total} sample size for \bold{both} desig
 \references{
 Hauschke D, Kieser M, Diletti E, Burke M.\cr
 \emph{Sample size determination for proving equivalence based on the ratio of two means for normally distributed data}\cr
-Stat Med. 1999;18(1):93--105. doi: 10.1002/(SICI)1097-0258(19990115)18:1<93::AID-SIM992>3.0.CO;2-8
+Stat Med. 1999;18(1):93--105. doi: \href{https://dx.doi.org/10.1002/(SICI)1097-0258(19990115)18\%3A1\%3C93\%3A\%3AAID-SIM992\%3E3.0.CO\%3B2-8}{10.1002/(SICI)1097-0258(19990115)18:1<93::AID-SIM992>3.0.CO;2-8}.
 
 Hauschke D, Steinijans V, Pigeot I.\cr
 \emph{Bioequivalence Studies in Drug Development}\cr
