@@ -6,7 +6,7 @@ Power for equivalence of the ratio of two means with normality on original scale
 \description{
 Calculates the power of the test of equivalence of the ratio of two means 
 with normality on original scale.\cr 
-This test is based on Fieller's confidence ('fiducial') interval and Sasabuchi's 
+This test is based on Fieller's confidence (\sQuote{fiducial}) interval and Sasabuchi's 
 test (again a TOST procedure).
 }
 \usage{
@@ -27,7 +27,7 @@ Upper bioequivalence limit. Typically 1.25.\cr
 Is set to \code{1/theta1} if missing.
 }
   \item{theta0}{
-'True' or assumed bioequivalence ratio. Typically set to 0.95 for planning.
+\sQuote{True} or assumed bioequivalence ratio. Typically set to 0.95 for planning.
 }
   \item{CV}{
 Coefficient of variation as ratio. In case of \code{design="parallel"} this is
@@ -66,7 +66,7 @@ Value of power according to the input.
 \references{
 Hauschke D, Kieser M, Diletti E, Burke M.\cr
 \emph{Sample size determination for proving equivalence based on the ratio of two means for normally distributed data}\cr
-Stat Med. 1999;18(1):93--105. doi: 10.1002/(SICI)1097-0258(19990115)18:1<93::AID-SIM992>3.0.CO;2-8
+Stat Med. 1999;18(1):93--105. doi: \href{https://dx.doi.org/10.1002/(SICI)1097-0258(19990115)18\%3A1\%3C93\%3A\%3AAID-SIM992\%3E3.0.CO\%3B2-8}{10.1002/(SICI)1097-0258(19990115)18:1<93::AID-SIM992>3.0.CO;2-8}.
 
 Hauschke D, Steinijans V, Pigeot I.\cr
 \emph{Bioequivalence Studies in Drug Development}\cr
