@@ -1,6 +1,7 @@
 #--------------------------------------------------------------------
 # Functions to simulate replicate cross-over data
 # fixed effects model (EMA)
+# may also be used for a 2x2 cross-over
 # 
 # Author: dlabes
 #--------------------------------------------------------------------
@@ -55,7 +56,7 @@ prep_data2 <- function(seqs, nseq, muR=log(10), ldiff, s2wT, s2wR)
   return(ldata)
 }
 
-# purpose as above but with alternate sequences to be used 
+# purpose as above but with alternating sequences to be used 
 # in models with group effects
 prep_data3 <- function(seqs, nseq, muR=log(10), ldiff, s2wT, s2wR)
 {
@@ -74,14 +75,14 @@ prep_data3 <- function(seqs, nseq, muR=log(10), ldiff, s2wT, s2wR)
   seqno <- vector("numeric")
   for(i in seq_along(seqs)){
     subinseqi <- 1:nseq[i] # subjects numbered within sequence
-    seqi <- rep(seqs[i], times=nseq[i])
+    seqi  <- rep(seqs[i], times=nseq[i])
     subinseq <- c(subinseq, subinseqi)
-    seq <- c(seq, seqi)
+    seq   <- c(seq, seqi)
     seqno <- c(seqno, rep.int(i, nseq[i]))
   }
-  seq <- seq[order(subinseq)]
+  seq   <- seq[order(subinseq)]
   seqno <- seqno[order(subinseq)]
-  data <- data.frame(seqno=seqno, sequence=seq)
+  data  <- data.frame(seqno=seqno, sequence=seq)
   maxper <- max(nchar(seq))
   # period values of the logval, here assumed as zero dummy
   pervals <- matrix(0, nrow=N, ncol=maxper)
