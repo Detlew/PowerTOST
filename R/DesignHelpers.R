@@ -26,6 +26,7 @@ des <- ("
         9  2x3x3    2*n-3  n-3    3    1.5  1/6   # partial replicate
         10  2x4x2    n-2    n-2    4    8    1/2   # Balaam's design
         11  2x2x2r   3*n-2  n-2    2    1    1/4
+        99  3-way    n-3    n-3    3    4    1/1   # 3-group parallel
         100 paired   n-1    n-1    1    2    2/1   
         ")
 # no. 9 is f.i. the partial replicate design TRR/RTR/RRT
@@ -53,6 +54,7 @@ designs$name[designs$no %in% c(5,6,7)] <-
 designs$name[designs$no==9]   <- "partial replicate (2x3x3)" 
 designs$name[designs$no==10]  <- "Balaam's (2x4x2)" 
 designs$name[designs$no==11]  <- "Liu's 2x2x2 repeated x-over" 
+designs$name[designs$no==99]  <- "3-group parallel" 
 designs$name[designs$no==100] <- "paired means" 
 
 # is this necessary?
