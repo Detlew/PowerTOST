@@ -1,4 +1,7 @@
 V1.4.7.9000
+      - 3-group parallel design introduced in known.designs()
+      - Function to simulate subject data & evaluate via models with group effect
+        implemented. not yet public.
       - Unified Code base for the scaled ABE functions
       
 Version 1.4-7
