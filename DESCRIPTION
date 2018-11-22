@@ -9,7 +9,7 @@ Authors@R: c(person("Detlew", "Labes", role = c("aut","cre"), email =
              person("Helmut", "Schuetz", role = c("aut"), email =
                     "helmut.schuetz@bebac.at"),
              person("Benjamin", "Lang", role =c ("aut"), email = 
-                    "BenjaminL@gmx.de"))
+                    "lang.be@icloud.com"))
 Maintainer: Detlew Labes <DetlewLabes@gmx.de>
 Description: Contains functions to calculate power and sample size for
     various study designs used for bioequivalence studies. 
