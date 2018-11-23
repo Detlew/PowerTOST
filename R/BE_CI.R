@@ -53,7 +53,6 @@ CI.RatioF <- function(alpha=0.025, pe, CV, CVb, n, design=c("2x2","parallel"))
                            call.=FALSE)
   }
   if (missing(n))  stop("Number of subjects must be given!", call.=FALSE)
-  if (n<=2) stop("Number of subjects must be >2!", call.=FALSE)
   
   if (length(n)<2){
     #TODO: check even?
@@ -63,6 +62,9 @@ CI.RatioF <- function(alpha=0.025, pe, CV, CVb, n, design=c("2x2","parallel"))
     n1 <- n[1]
     n2 <- n[2]
   }
+  nt <- n1+n2
+  if (nt<=2) stop("Total number of subjects must be >2!", call.=FALSE)
+  
   df <- n1+n2-2
   tq <- qt(1-alpha, df)
   if (design=="parallel"){
