@@ -61,7 +61,7 @@ CI.RatioF <- function(alpha=0.025, pe, CV, CVb, n, design=c("2x2","parallel"))
     n2 <- n-n1
   } else {
     n1 <- n[1]
-    n2 <- n[1]
+    n2 <- n[2]
   }
   df <- n1+n2-2
   tq <- qt(1-alpha, df)
