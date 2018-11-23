@@ -79,15 +79,15 @@ CI.RatioF(alpha = 0.025, pe, CV, CVb, n, design = c("2x2", "parallel"))
 \references{
 Locke CS. \emph{An exact confidence interval from untransformed data for the ratio of 
 two formulation means.}\cr
-J Pharmacokin Biopharm. 1984;12(6):649--55.
+J Pharmacokin Biopharm. 1984;12(6):649--55. \doi{10.1007/BF01059558}
 
 Hauschke D, Steinijans VW, Pigeot I. \emph{Bioequivalence Studies in Drug Development.}\cr
-Chichester: John Wiley; 2007. Chapter 10.
+Chichester: John Wiley; 2007. Chapter 10. \doi{10.1002/9780470094778.fmatter}
 
 European Medicines Agency, Committee for Proprietary Medicinal Products.\cr
 \emph{Points to consider on switching between superiority and non-inferiority}\cr
 London, 27 July 2000.
-\href{http://www.ema.europa.eu/docs/en_GB/document_library/Scientific_guideline/2009/09/WC500003658.pdf}{CPMP/EWP/482/99}
+\href{https://www.ema.europa.eu/documents/scientific-guideline/points-consider-switching-between-superiority-non-inferiority_en.pdf}{CPMP/EWP/482/99}
 }
 
 \seealso{
