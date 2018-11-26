@@ -220,7 +220,6 @@ power.ABE.sds <- power.TOST.sds
     # astonishing enough the next line gives NA only in case of gmodel==2
     # due to not full rank of the model matrix?
     #mses[j1:j2] <- colSums((logval - mm %*% coefs)^2)/df
-    # Instead of qr.resid() we use faster approach via y - X * coefs
     # thus we have to use qr.resid() for obtaining mse
     mses[j1:j2] <- colSums((qr.resid(qr_all, logval))^2)/df  
     # show progress
