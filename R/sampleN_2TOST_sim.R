@@ -31,6 +31,14 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
     stop("Correlation between the two endpoints must be given!")
   if (length(rho) != 1)
     stop("One rho must be given!")
+  if (rho == -1) {
+    rho <- -1+.Machine$double.eps
+    warning(paste0("Correlation -1 forced to -1+", .Machine$double.eps))
+  }
+  if (rho == 1) {
+    rho <- 1-.Machine$double.eps
+    warning(paste0("Correlation 1 forced to 1-", .Machine$double.eps))
+  }
   if (rho <= -1 || rho >= 1)
     stop("Correlation must be > -1 and < 1.") 
   
