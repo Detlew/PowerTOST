@@ -90,8 +90,9 @@ p(BE-ABE) is the power of the conventional ABE test alone and p(BE-sratio)
 is the power of the criterion 'ratio of sWT/sWR is <= 2.5' alone.
 }
 \references{
-FDA \emph{Draft Guidance on Warfarin Sodium}\cr
-Recommended Dec 2012. \href{www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM201283.pdf}{download}
+FDA. \emph{Draft Guidance on Warfarin Sodium.}\cr
+Recommended Dec 2012\cr
+\url{https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf}
 
 Yu LX et al.\cr
 \emph{Novel bioequivalence approach for narrow therapeutic index drugs}\cr

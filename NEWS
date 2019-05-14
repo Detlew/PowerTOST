@@ -1,10 +1,11 @@
 V1.4.7.9000
+      - Broken FDA URL in many man pages corrected.
       - Bug fix in expsampleN.noninf() wrt operator && with vector arguments 
-        (new check in R 3.6.0)
-      - Bug in CI.RatioF() fixed. Thanks to Michael (mittyri)
+        (new check in R 3.6.0).
+      - Bug in CI.RatioF() fixed. Thanks to Michael (mittyri).
       - Function to simulate subject data & evaluate via models with group effect
         implemented. not yet public.
-      - Unified Code base for the scaled ABE functions
+      - Unified Code base for the scaled ABE functions.
       
 Version 1.4-7
 2018-04-12 (dedicated to the birthday of Alfie Schuetz :-))

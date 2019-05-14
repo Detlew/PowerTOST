@@ -74,7 +74,7 @@ See \code{\link{pa.ABE}} for usage.
 \references{
 FDA. \emph{Draft Guidance on Warfarin Sodium.}\cr
 Recommended Dec 2012\cr
-\url{http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM201283.pdf}
+\url{https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf}
 
 Yu LX et al.\cr
 \emph{Novel bioequivalence approach for narrow therapeutic index drugs}\cr

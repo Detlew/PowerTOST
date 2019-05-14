@@ -145,7 +145,7 @@ the conventional \acronym{ABE} test given for comparative purposes.
 \references{
 FDA. \emph{Draft Guidance on Progesterone}\cr
 Recommended Apr 2010. Revised Feb 2011. 
-\href{http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM209294.pdf}{download}
+\href{https://www.accessdata.fda.gov/drugsatfda_docs/psg/Progesterone_caps_19781_RC02-11.pdf}{download}
 
 \enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L.\cr
 \emph{An Exact Procedure for the Evaluation of Reference-Scaled Average

@@ -86,12 +86,12 @@ is the power of the criterion 'ratio of sWT/sWR is <= 2.5' alone.
 }
 \references{
 FDA \emph{Draft Guidance on Dabigatran Etexilate Mesylate}\cr
-Recommended Jun 2012. Revised Sep 2015. 
-\href{http://www.fda.gov/downloads/drugs/guidancecomplianceregulatoryinformation/guidances/ucm308030.pdf}{download}
+Recommended Jun 2012; Revised Sept 2015, Jul 2017 
+\href{https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran\%20etexilate\%20mesylate_oral\%20capsule_NDA\%20022512_RV05-17.pdf}{download}
 
 FDA \emph{Draft Guidance on Rivaroxaban}\cr
 Recommended Sep 2015. 
-\href{http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/UCM461150.pdf}{download}
+\href{https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral\%20tablet_22406_RC09-15.pdf}{download}
 }
 \author{
 D. Labes
