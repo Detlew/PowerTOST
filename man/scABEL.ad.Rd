@@ -49,30 +49,30 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
 }
   \item{design}{
 Design of the study.\cr
-\code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x3"} is the 2-sequence 3-period full replicate design (TRT|RTR).\cr
-\code{"2x2x4"} is the 2-sequence 4-period full replicate design (TRTR|RTRT).\cr
-Defaults to \code{"2x3x3"}.
+\verb{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
+\verb{"2x2x3"} is the 2-sequence 3-period full replicate design (TRT|RTR).\cr
+\verb{"2x2x4"} is the 2-sequence 4-period full replicate design (TRTR|RTRT).\cr
+Defaults to \verb{"2x3x3"}.
 }
   \item{regulator}{
 Regulatory settings for the widening of the \acronym{BE} acceptance limits.
-Choose from \code{"EMA"} (default), \code{"HC"}, or \code{"FDA"}. This argument
+Choose from \verb{"EMA"} (default), \verb{"HC"}, or \verb{"FDA"}. This argument
 may also be given in lower case.
 }
   \item{n}{
 Total sample size of the study or a vector of sample size / sequences.
-If \code{n} leads to an unbalanced design (i.e., is not a multiple of two
+If \verb{n} leads to an unbalanced design (i.e., is not a multiple of two
 in the full replicate designs or not a multiple of three in the partial
 replicate), the code tries to keep subjects / sequence as balanced as possible.\cr
 In evaluating a particular \emph{unbalanced} study \strong{always} give \code{n}
-as a vector. If \code{design="2x2x3"} (TRT|RTR) the \emph{order} of sample sizes
-is important. \code{n[1]} is for sequence TRT and \code{n[2]} is for sequence RTR.\cr
-If \code{n} is missing, a sample size is estimated with target power 0.80 and pre-specified
+as a vector. If \verb{design="2x2x3"} (TRT|RTR) the \emph{order} of sample sizes
+is important. \verb{n[1]} is for sequence TRT and \verb{n[2]} is for sequence RTR.\cr
+If \verb{n} is missing, a sample size is estimated with target power 0.80 and pre-specified
 alpha if defined. Otherwise, alpha is used.
 }
   \item{alpha.pre}{
 Pre-specified alpha (optional). Must be \code{<=alpha}. \acronym{ABEL} will be
-performed at level \code{alpha.pre} and the \acronym{TIE} assessed at level \code{alpha}.\cr
+performed at level \verb{alpha.pre} and the \acronym{TIE} assessed at level \verb{alpha}.\cr
 Less powerful than adjusting alpha but an alternative in the critical region
 of maximum inflation of the \acronym{TIE}. In certain scenarios Bonferroni’s
 0.025 is not sufficient to preserve the Type I Error (e.g., the third example).\cr
@@ -85,13 +85,13 @@ Maximum number of steps in sample size search. Defaults to 100.
 Desired accuracy (convergence tolerance). Defaults to 1E-6.
 }
   \item{print}{
-If \code{TRUE} (default), the function sends its results to the console.
+If \verb{TRUE} (default), the function sends its results to the console.
 }
   \item{details}{
-If \code{TRUE}, the \emph{relative} change of the consumer risk in percent is shown.
-Additionally information about the impact on power (for specified \code{theta0}
+If \verb{TRUE}, the \emph{relative} change of the consumer risk in percent is shown.
+Additionally information about the impact on power (for specified \verb{theta0}
 and target power 0.80), runtime, and number of simulations (iterations)
-are given. Defaults to \code{FALSE}.
+are given. Defaults to \verb{FALSE}.
 }
   \item{setseed}{
 Simulations are dependent on the starting point of the (pseudo)
@@ -104,17 +104,17 @@ Number of simulations to be performed to estimate the (empirical)
 1,000,000 = 1E+6 should not be lowered.
 }
   \item{sdsims}{
-If \code{FALSE} (default) power is estimated by the respective statistics.
+If \verb{FALSE} (default) power is estimated by the respective statistics.
 Recommended for the full replicate designs for speed reasons.\cr
-Set to \code{TRUE} if results of \code{\link{power.scABEL}} are expected to
+Set to \verb{TRUE} if results of \code{\link{power.scABEL}} are expected to
 be inaccurate (small sample sizes and/or heteroscedasticity) and subject data
 (via \code{\link{power.scABEL.sdsims}}) should be simulated instead. Very time consuming (easily 100times slower)!\cr
-If \code{design="2x3x3"} subject simulations are recommended -- even if
+If \verb{design="2x3x3"} subject simulations are recommended -- even if
 homoscedasticity is assumed.\cr
-Subject data simulations are only supported for \code{regulator="EMA"}.
+Subject data simulations are only supported for \verb{regulator="EMA"}.
 }
   \item{progress}{
-Set to \code{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims=FALSE}.
+Set to \verb{TRUE} if a progress bar should be displayed. Ignored if \verb{sdsims=FALSE}.
 }
 }
 \details{
@@ -123,24 +123,24 @@ quantities necessary for assessing \acronym{BE} based on \acronym{ABEL}.
 Simulations for the \acronym{TIE} are performed at the upper (expanded) limit \emph{U}
 of the acceptance range. Due to the symmetry around 1 results are valid for the lower
 (expanded) limit \emph{L} as well.\cr
-\emph{U} at the \acronym{EMA}’s and Health Canada’s \code{CVswitch} and
-\code{CVcap}:\preformatted{scABEL(CV=0.3, regulator="EMA")[["upper"]]; scABEL(CV=0.3, regulator="HC")[["upper"]]
+\emph{U} at the \acronym{EMA}’s and Health Canada’s \verb{CVswitch} and
+\verb{CVcap}:\preformatted{scABEL(CV=0.3, regulator="EMA")[["upper"]]; scABEL(CV=0.3, regulator="HC")[["upper"]]
 [1] 1.25
 [1] 1.25
 scABEL(CV=0.5, regulator="EMA")[["upper"]]; scABEL(CV=0.57382, regulator="HC")[["upper"]]
 [1] 1.43191
 [1] 1.5}
 Simulated studies are evaluated by ANOVA (\sQuote{Method A}) as recommended in the
-\acronym{EMA}’s Q&A-document and by intra-subject contrasts if \code{regulator="HC"}.
+\acronym{EMA}’s Q&A-document and by intra-subject contrasts if \verb{regulator="HC"}.
 Health Canada requires a mixed-effects model which cannot be implemented in R.
 However, intra-subjects contrasts are a sufficiently close approximation.\cr
-The Type I Error in \acronym{ABEL} depends only on \code{CVwR} and -- to a
+The Type I Error in \acronym{ABEL} depends only on \verb{CVwR} and -- to a
 minor degree -- the sample size. Algorithm:
 \enumerate{
-  \item The \acronym{TIE} is assessed based on \code{alpha} (or \code{alpha.pre})
-  and compared to the nominal level of the test \code{alpha}.
+  \item The \acronym{TIE} is assessed based on \verb{alpha} (or \verb{alpha.pre})
+  and compared to the nominal level of the test \verb{alpha}.
   \item If no inflation of the \acronym{TIE} is found, the algorithm stops.
-  \item Otherwise, alpha is iteratively adjusted (i.e., \code{alpha.adj <alpha})
+  \item Otherwise, alpha is iteratively adjusted (i.e., \verb{alpha.adj <alpha})
   until no more relevant inflation of the \acronym{TIE} is detected (i.e.,
   \code{abs(TIE - alpha) <= tol}).
 }
@@ -150,8 +150,8 @@ Sends results to the console if argument \code{print=TRUE} (default).\cr
 
 Returns a list with the input, adjusted alpha, and Type I Error (for nominal
 and adjusted alpha) if argument \code{print=FALSE}.\cr
-If no adjustment is necessary, \code{NAs} will be returned for the respective
-variables (\code{alpha.adj}, \code{TIE.adj}, \code{rel.change}, \code{pwr.adj}, \code{rel.loss}).
+If no adjustment is necessary, \verb{NAs} will be returned for the respective
+variables (\verb{alpha.adj}, \verb{TIE.adj}, \verb{rel.change}, \verb{pwr.adj}, \verb{rel.loss}).
 }
 \references{
 Wonnemann M, \enc{Frömke}{Froemke} C, Koch A.\cr
@@ -178,15 +178,15 @@ Stat Med. 2017;36(30):4777--88. \doi{10.1002/sim.7452}
 
 European Medicines Agency, Committee for Medicinal Products for Human Use.\cr
 \emph{Guideline on the Investigation of Bioequivalence}\cr
-London, 20 January 2010. \href{http://www.ema.europa.eu/docs/en_GB/document_library/Scientific_guideline/2010/01/WC500070039.pdf}{CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **}
+London, 20 January 2010. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf}{CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **}
 
 European Medicines Agency, Committee for Medicinal Products for Human Use.\cr
 \emph{Questions & Answers: positions on specific questions addressed to the Pharmacokinetics Working Party (PKWP)}\cr
-London, 19 November 2015. \href{http://www.ema.europa.eu/docs/en_GB/document_library/Scientific_guideline/2009/09/WC500002963.pdf}{EMA/618604/2008 Rev. 13}
+London, 19 November 2015. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/questions-answers-positions-specific-questions-addressed-pharmacokinetics-working-party_en.pdf}{EMA/618604/2008 Rev. 13}
 
 Health Canada, Therapeutic Products Directorate.\cr
 \emph{Policy on Bioequivalence Standards for Highly Variable Drug Products}\cr
-Ottawa, 18 April 2016. \href{http://www.hc-sc.gc.ca/dhp-mps/prodpharma/activit/announce-annonce/notice-avis-be-hvdp-nb-pphv-eng.php}{16-104293-140}
+Ottawa, 18 April 2016. \href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/announcements/notice-policy-bioequivalence-standards-highly-variable-drug-products.html}{16-104293-140}
 }
 
 \author{

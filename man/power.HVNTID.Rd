@@ -33,15 +33,15 @@ Defaults to 0.95 if not given explicitly.
   \item{CV}{
 Coefficient(s) of variation as ratio.\cr
 If \code{length(CV) = 1} the same CV is assumed for Test and Reference.\cr
-If \code{length(CV) = 2} the CV for Test must be given in \code{CV[1]} and for 
-Reference in \code{CV[2]}.
+If \code{length(CV) = 2} the CV for Test must be given in \verb{CV[1]} and for 
+Reference in \verb{CV[2]}.
 }
   \item{n}{
 Number of subjects under study.\cr
 May be given as vector. In that case it is assumed that n contains the number
 of subjects per sequence groups.\cr
 Attention! In case of the 2x2x3 (TRT|RTR) design the order of n's important 
-if given as vector. \code{n[1]} is for sequence group 'TRT' and \code{n[2]} is for 
+if given as vector. \verb{n[1]} is for sequence group 'TRT' and \verb{n[2]} is for 
 sequence group 'RTR'.\cr\cr 
 If n is given as single number (total sample size) and this number is not 
 divisible by the number of sequences of the design an unbalanced design is assumed.

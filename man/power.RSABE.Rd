@@ -34,8 +34,8 @@ Defaults to 0.90 according to the two Laszlo's if not given explicitly.
   \item{CV}{
 Coefficient(s) of variation as ratio.\cr
 If \code{length(CV) = 1} the same CV is assumed for Test and Reference.\cr
-If \code{length(CV) = 2} the CV for Test must be given in \code{CV[1]} and for 
-Reference in \code{CV[2]}.
+If \code{length(CV) = 2} the CV for Test must be given in \verb{CV[1]} and for 
+Reference in \verb{CV[2]}.
 }
   \item{n}{
 Number of subjects under study.\cr
@@ -46,7 +46,7 @@ divisible by the number of sequences of the design an unbalanced design is
 assumed. A corresponding message is thrown showing the numbers of subjects 
 in sequence groups used.\cr
 Attention! In case of the 2x2x3 (TRT|RTR) design the order of sample sizes / sequence is important 
-if given as a vector. \code{n[1]} is for sequence group 'TRT' and \code{n[2]} is for 
+if given as a vector. \verb{n[1]} is for sequence group 'TRT' and \verb{n[2]} is for 
 sequence group 'RTR'. 
 }
   \item{design}{
@@ -73,7 +73,7 @@ Defaults to 100 000 = 1e+5.\cr
 If simulations are aimed for empirical alpha \code{nsims=1e+06} is recommended.
 }
   \item{details}{
-If set to \code{TRUE} the computational time is shown as well as the components
+If set to \verb{TRUE} the computational time is shown as well as the components
 for the BE decision.\cr
 p(BE-sABEc) is the probability that the 95\% CI of the ABE criterion is <0.\cr
 p(BE-PE) is the probability that the point estimate is within theta1 ... theta2.\cr

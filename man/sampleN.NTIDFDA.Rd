@@ -22,7 +22,7 @@ Power to achieve at least. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9.
 }
   \item{theta0}{
-\sQuote{True} or assumed bioequivalence ratio. \cr
+\sQuote{True} or assumed bioequivalence ratio.\cr
 Attention! Defaults here to 0.975 if not given explicitly. The value was chosen 
 nearer to 1 because the potency (contents) settings for NTIDs are tightened 
 by the FDA.
@@ -38,8 +38,8 @@ Defaults to 1.25 if not given explicitly.
   \item{CV}{
 Coefficient(s) of variation as ratio.\cr
 If \code{length(CV) = 1} the same CV is assumed for Test and Reference.\cr
-If \code{length(CV) = 2} the CV for Test must be given in CV[1] and for 
-Reference in CV[2].
+If \code{length(CV) = 2} the CV for Test must be given in \verb{CV[1]} and for 
+Reference in \verb{CV[2]}.
 }
   \item{design}{
 Design of the study to be planned.\cr
@@ -122,7 +122,7 @@ not really reasonable for them. This applies especially for theta0 values
 near to the implied scaled (tightened/widened) ABE limits according to
 \code{exp(+-1.053605*swR)}.\cr
 In case of a failed sample size search you may restart with setting the argument 
-\code{nstart}.\cr
+\verb{nstart}.\cr
 In case of theta0 values outside the implied scaled (tightened/widened) ABE limits
 no sample size estimation is possible and the function throws an error 
 (f.i. CV=0.04, theta0=0.95).

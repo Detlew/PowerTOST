@@ -54,20 +54,20 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
 }
   \item{design}{
 Design of the study to be planned.\cr
-\code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x3"} is the 2-sequence 3-period full replicate design (TRT|RTR).\cr
-\code{"2x2x4"} is the 2-sequence 4-period full replicate design (TRTR|RTRT).\cr
-Defaults to \code{"2x3x3"}.
+\verb{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
+\verb{"2x2x3"} is the 2-sequence 3-period full replicate design (TRT|RTR).\cr
+\verb{"2x2x4"} is the 2-sequence 4-period full replicate design (TRTR|RTRT).\cr
+Defaults to \verb{"2x3x3"}.
 }
   \item{regulator}{
 Regulatory settings for the widening of the \acronym{BE} acceptance limits.
-Choose from \code{"EMA"} (default) or \code{"HC"}. This argument may be given
+Choose from \verb{"EMA"} (default) or \verb{"HC"}. This argument may be given
 also in lower case.
 }
   \item{nstart}{
 Best \dQuote{guess} sample size. If not given (default), simulations
-start with the sample size estimated for \code{alpha} (or \code{alpha.pre},
-if given), \code{theta0}, and \code{targetpower}.\cr
+start with the sample size estimated for \verb{alpha} (or \verb{alpha.pre},
+if given), \verb{theta0}, and \verb{targetpower}.\cr
 Can also be set to start the sample size search if a previous run
 failed.\cr
 According to regulatory requirements must be >=12 for the \acronym{EMA} and
@@ -85,17 +85,17 @@ Maximum number of steps in sample size search. Defaults to 100.
 Desired accuracy (convergence tolerance). Defaults to 1E-6.
 }
   \item{print}{
-If \code{TRUE} (default), the function sends its results to the console.
+If \verb{TRUE} (default), the function sends its results to the console.
 }
   \item{details}{
-If \code{TRUE} (default), the steps during sample size search are
+If \verb{TRUE} (default), the steps during sample size search are
 shown. Additionally information about the impact on power by
 adjusting alpha and change of study costs due to the increased sample
 size is given.
 }
   \item{alpha.pre}{
 Pre-specified alpha (optional). Must be \code{<=alpha}. \acronym{ABEL} will be
-performed at level \code{alpha.pre} and the \acronym{TIE} assessed at level \code{alpha}.\cr
+performed at level \verb{alpha.pre} and the \acronym{TIE} assessed at level \verb{alpha}.\cr
 Less powerful than adjusting alpha but an alternative in the critical
 region of maximum inflation of the \acronym{TIE}. In certain scenarios
 Bonferroni’s 0.025 is not sufficient to preserve the Type I Error.\cr
@@ -107,15 +107,15 @@ random number generator. To avoid differences in power for different
 runs \code{set.seed(123456)} is issued if \code{setseed=TRUE} (default).
 }
 \item{sdsims}{
-If \code{FALSE} (default) power is estimated by the respective statistics.
+If \verb{FALSE} (default) power is estimated by the respective statistics.
 Recommended for the full replicate designs for speed reasons.\cr
-Set to \code{TRUE} if results of \code{\link{power.scABEL}} are expected to be inaccurate
+Set to \verb{TRUE} if results of \code{\link{power.scABEL}} are expected to be inaccurate
 (small sample sizes and/or heteroscedasticity) and subject data (via \code{\link{power.scABEL.sdsims}}) should be simulated instead. Very time consuming (easily 100times slower)!\cr
 If \code{design="2x3x3"} subject simulations are recommended -- even if homoscedasticity is assumed.\cr
 Subject data simulations are not supported for \code{regulator="HC"}.
 }
 \item{progress}{
-Set to \code{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims=FALSE}.
+Set to \verb{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims=FALSE}.
 }
 }
 \details{

@@ -25,7 +25,7 @@ Power to achieve at least. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9.
 }
   \item{theta0}{
-\sQuote{True} or assumed bioequivalence ratio. \cr
+\sQuote{True} or assumed bioequivalence ratio.\cr
 Defaults to 0.95 if not given explicitly.
 }
   \item{theta1}{
@@ -39,8 +39,8 @@ Defaults to 1.25 if not given explicitly.
   \item{CV}{
 Coefficient(s) of variation as ratio.\cr
 If \code{length(CV) = 1} the same CV is assumed for Test and Reference.\cr
-If \code{length(CV) = 2} the CV for Test must be given in CV[1] and for 
-Reference in CV[2].
+If \code{length(CV) = 2} the CV for Test must be given in \verb{CV[1]} and for 
+Reference in \verb{CV[2]}.
 }
   \item{design}{
 Design of the study to be planned.\cr
@@ -60,11 +60,11 @@ May be missing.
 Maximum number of steps in sample size search. Defaults to 100.
 }
   \item{print}{
-If \code{TRUE} (default) the function prints its results.\cr 
-If \code{FALSE} only the resulting dataframe will be returned. 
+If \verb{TRUE} (default) the function prints its results.\cr 
+If \verb{FALSE} only the resulting dataframe will be returned. 
 }
   \item{details}{
-If set to \code{TRUE}, the default, the steps during sample size search are shown.
+If set to \verb{TRUE}, the default, the steps during sample size search are shown.
 Moreover the details of the method settings are printed.
 }
   \item{setseed}{
@@ -113,7 +113,7 @@ For some input constellations the sample size search may be very time
 consuming and will eventually also fail since the start values chosen may
 not really reasonable for them.\cr
 In case of a failed sample size search you may restart with setting the argument 
-\code{nstart}.\cr
+\verb{nstart}.\cr
 }
 
 \seealso{ 

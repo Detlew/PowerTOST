@@ -62,17 +62,17 @@ Number of simulations to be performed to obtain the (empirical) power.
 }
   \item{nstart}{
 Set this to a start for the sample size search if a previous run failed.\cr
-After reworking the start n in version 1.1-05 seldom needed.
+After reworking the start n in version 1.1-05 rarely needed.
 }
   \item{imax}{
 Maximum number of steps in sample size search. Defaults to 100.
 }
   \item{print}{
-If \code{TRUE} (default) the function prints its results.\cr 
-If \code{FALSE} only the result data.frame will be returned. 
+If \verb{TRUE} (default) the function prints its results.\cr 
+If \verb{FALSE} only the result data.frame will be returned. 
 }
   \item{details}{
-If set to \code{TRUE}, the default, the steps during sample size search are shown.
+If set to \verb{TRUE}, the default, the steps during sample size search are shown.
 }
   \item{setseed}{
 Simulations are dependent on the starting point of the (pseudo) random number 

@@ -17,7 +17,7 @@ Coefficient of variation (of the Reference) as ratio.
   \item{regulator}{
 Regulatory body settings for the widening of the BE acceptance limits.\cr
 May be given as character from the choices "EMA", "HC", "FDA" or as an object of
-class 'regSet' (see \code{\link{reg_const}}).\cr
+class 'regSet' (see \verb{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr\cr
 The former \code{regulator="ANVISA"} is no longer allowed. Use "EMA" since ANVISA 
 now recommends the use of EMA regulatory settings.\cr\cr
@@ -44,7 +44,7 @@ CVwr>0.5, i.e. the widened limits are held at value calculated for CVwR=0.5.
 In case of \code{regulator="HC"} the capping is done such that the acceptance
 limits are 0.6666 ... 1.5 at maximum, i.e. CVcap=0.57382. 
 Literally it was given rounded to 3 significant digits as 57.4\%.\cr
-See \url{http://www.hc-sc.gc.ca/dhp-mps/prodpharma/activit/announce-annonce/notice-avis-be-hvdp-nb-pphv-eng.php} \cr\cr
+See \url{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/announcements/notice-policy-bioequivalence-standards-highly-variable-drug-products.html} \cr\cr
 
 }
 \note{

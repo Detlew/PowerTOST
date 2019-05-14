@@ -28,7 +28,7 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
     CV <- abs(CV)
   }
   if (missing(rho))
-    stop("Correlation between the two endpoints must be given!")
+    stop("Correlation between the two PK metrics must be given!")
   if (length(rho) != 1)
     stop("One rho must be given!")
   if (rho == -1) {

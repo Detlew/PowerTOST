@@ -27,7 +27,7 @@ CV to switch to the widened acceptance limits.
 CV for capping the widening of the acceptance limits.
 }
   \item{pe_constr}{
-Logical. Shall pe constraint be applied? Defaults to \code{TRUE}.
+Logical. Shall pe constraint be applied? Defaults to \verb{TRUE}.
 }
 }
 \value{
@@ -39,7 +39,7 @@ Returns an object of class 'regSet', a list with components
   \item{pe_constr}{see arguments}
   \item{est_method}{"ANOVA" or "ISC"}
 Class 'regSet' has a S3 print method.\cr\cr
-The component \code{est_method} is automatically set to "ANOVA", except for 
+The component \verb{est_method} is automatically set to "ANOVA", except for 
 \code{regulator="FDA"} or \code{regulator="HC"} where "ISC" is used.
 }
 \author{
@@ -52,7 +52,7 @@ See \url{http://forum.bebac.at/mix_entry.php?id=16291}.\cr\cr
 The settings for CVcap of Health Canada (\code{regulator="HC"}) were chosen 
 such that the limits of the acceptance range are capped nearly exact to 1/1.5 
 up to 1.5. Literally it was given rounded to 3 significant digits.\cr
-See \url{http://www.hc-sc.gc.ca/dhp-mps/prodpharma/activit/announce-annonce/notice-avis-be-hvdp-nb-pphv-eng.php}
+See \url{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/announcements/notice-policy-bioequivalence-standards-highly-variable-drug-products.html}
 }
 \examples{
 # to retrieve the EMA settings
