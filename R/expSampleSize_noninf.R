@@ -366,23 +366,27 @@ expsampleN.noninf <- function(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
         message(e)
         return(NA)
       }
-    })
-    if (all(!is.na(n)) && n != "n>1e7") {
-      if (is.list(n)) {
-        pow <- n$f.root + targetpower  # pdiff_n() substracts targetpower
-        iter <- n$iter
-        n <- n$root 
-      } else {
-        # This means we have the case where nmin was returned
-        pow <- suppressWarnings(.exppower.TOST(alpha, ltheta1, ltheta2, diffm, 
-                                               se, sqrt(bk/n), eval(dfe), df_m,
-                                               sem_m, method, prior.type, FALSE, 
-                                               "nct"))
-        iter <- NA  # not known/applicable
-      }
+    }) # end tryCatch
+    # now we have n
+    # - a list in case all went "normal"
+    # - a string "n>1e7"if we conclude that n is > 1E7
+    # - a number which equals nmin
+    # - NA in case of an error in uniroot.tep
+    #browser
+    if (is.list(n)){
+      pow  <- n$f.root + targetpower  # pdiff_n() substracts targetpower
+      iter <- n$iter
+      n <- n$root 
+    } else if(is.numeric(n) && n==nmin) {
+      pow <- suppressWarnings(.exppower.TOST(alpha, ltheta1, ltheta2, diffm, 
+                                             se, sqrt(bk/n), eval(dfe), df_m,
+                                             sem_m, method, prior.type, FALSE, 
+                                             "nct"))
+      iter <- NA  # not known/applicable
     }
-  } else {
-    # else we have already the result n=nmin
+  } else { 
+    # case search_int[1] == search_int[2], i.e. search interval with zero width
+    # means we have already the result for n==nmin
     # print the first step n=nmin
     if (details) cat(n, " ", formatC(pow, digits = 6, format = "f"), "\n")
   }

@@ -1,4 +1,6 @@
 V1.4.7.9000
+      - Bug fix in expsampleN.noninf() wrt operator && with vector arguments 
+        (new check in R 3.6.0)
       - Bug in CI.RatioF() fixed. Thanks to Michael (mittyri)
       - Function to simulate subject data & evaluate via models with group effect
         implemented. not yet public.
