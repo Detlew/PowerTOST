@@ -4,7 +4,7 @@ Type: Package
 Title: Power and Sample Size Based on Two One-Sided t-Tests (TOST) for
          (Bio)Equivalence Studies
 Version: 1.4.7.9000
-Date: 2018-07-24
+Date: 2018-07-25
 Authors@R: c(person("Detlew", "Labes",
                role = c("aut","cre"),
                email = "DetlewLabes@gmx.de",
@@ -16,7 +16,7 @@ Authors@R: c(person("Detlew", "Labes",
              person("Benjamin", "Lang",
                role = c("aut"),
                email ="lang.be@icloud.com"))
-Author: Detlew Labes [aut, ctb] (<https://orcid.org/0000-0003-2169-426X>),
+Author: Detlew Labes [aut, cre] (<https://orcid.org/0000-0003-2169-426X>),
   Helmut Schütz [aut] (<https://orcid.org/0000-0002-1167-7880>),
   Benjamin Lang [aut]
 Maintainer: Detlew Labes <DetlewLabes@gmx.de>
