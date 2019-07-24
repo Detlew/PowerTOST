@@ -1,0 +1,77 @@
+---
+title: "README"
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+## PowerTOST
+
+The package contains functions to calculate power and sample size for various study designs used in bioequivalence studies.
+
+### Supported designs
+
+```{r, echo = FALSE}
+designs <- PowerTOST:::known.designs()
+print(designs[, c(2, 9, 3)], row.names = FALSE)
+```
+
+### Purpose
+
+For various methods power can be *calculated* based on
+
+  - nominal *α*, coefficient of variation (*CV*), deviation of test from reference (*θ*<sub>0</sub>), accteptance limits {*θ*<sub>1</sub>, *θ*<sub>2</sub>}, sample size (*n*), and design.
+
+For all methods the sample size can be *estimated* based on
+
+  - nominal *α*, coefficient of variation (*CV*), deviation of test from reference(*θ*<sub>0</sub>), accteptance limits {*θ*<sub>1</sub>, *θ*<sub>2</sub>}, target power, and design.
+
+### Supported methods
+#### Power and sample size
+  - Average bioequivalence (with arbitrary *fixed* limits).
+  - Reference-scaled bioequivalence (EMA: ABEL, FDA: RSABE for HVD(P)s and NTIDs).
+  - Iteratively adjust *α* to control the type I error in ABEL and RSABE.
+  - Two simulataneous TOST procedures.
+  - Dose proportionality using the power model.
+  - Non-inferiority *t*-test.
+  - Ratio of two means with normally distributed data on the original scale based on Fieller’s (‘fiducial’) confidence interval.
+  - ‘Expected’ power in case of uncertain (estimated) variability  and/or uncertain *θ*<sub>0</sub>.
+
+#### Helpers
+  - Calculate *CV* from *MSE* or *SE* (and vice versa).
+  - Calculate *CV* from given confidence interval.
+  - Confidence interval of *CV*.
+  - Pool *CV* from several studies.
+  - Confidence interval for given *α*, *CV*, point estimate, sample size, and design.
+  - *p*-values of the TOST procedure.
+  - Analysis tool for exploration/visualization of the impact of expected values (*CV*, *θ*<sub>0</sub>, reduced sample size due to drop-outs) on power of BE decision.
+
+### Examples
+
+  1. Power of a paralled design (group sizes 75 and 70), total *CV* 0.36, *θ*<sub>0</sub> 0.925. The defaults for *α* (0.05) and {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25) are automatically employed.
+```{r}
+PowerTOST:::power.TOST(CV = 0.36, theta0 = 0.93,
+                       n = c(75, 70), design = "parallel")
+```
+  2. Sample size for a 2×2×2 crossover study, assumed intra-subject *CV* 0.20, and desired power 0.80. The defaults for *α* (0.05), *θ*<sub>0</sub> (0.95), {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25), targetpower (0.80), and design ("2x2") are automatically employed.
+```{r}
+PowerTOST:::sampleN.TOST(CV = 0.20)
+```
+  3. Sample size for a four-period replicate study intended for the EMA’s average bioequivalence with expanding limits (ABEL), assumed heteroscedasticity (*CV<sub>wT</sub>* 0.40, *CV<sub>wR</sub>* 0.50). The defaults for *α* (0.05), *θ*<sub>0</sub> (0.90 for highly variable drugs / drug products), and targetpower (0.80) are automatically employed. The expanded limits {*θ*<sub>1</sub>, *θ*<sub>2</sub>} are calculated based on *CV<sub>wR</sub>*.
+```{r}
+PowerTOST:::sampleN.scABEL(CV = c(0.40, 0.50), design = "2x2x4")
+```
+### Installation
+```{r}
+package <- "PowerTOST"
+inst    <- package %in% installed.packages()
+if (length(package[!inst]) > 0) install.packages(package[!inst])
+```

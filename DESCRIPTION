@@ -1,15 +1,24 @@
+Encoding: UTF-8
 Package: PowerTOST
 Type: Package
 Title: Power and Sample Size Based on Two One-Sided t-Tests (TOST) for
          (Bio)Equivalence Studies
 Version: 1.4.7.9000
-Date: 2018-05-03
-Authors@R: c(person("Detlew", "Labes", role = c("aut","cre"), email =
-                    "DetlewLabes@gmx.de"),
-             person("Helmut", "Schuetz", role = c("aut"), email =
-                    "helmut.schuetz@bebac.at"),
-             person("Benjamin", "Lang", role =c ("aut"), email = 
-                    "lang.be@icloud.com"))
+Date: 2018-07-24
+Authors@R: c(person("Detlew", "Labes",
+               role = c("aut","cre"),
+               email = "DetlewLabes@gmx.de",
+               comment = c(ORCID = "0000-0003-2169-426X")),
+             person("Helmut", "Schütz",
+               role = c("aut"),
+               email = "helmut.schuetz@bebac.at",
+               comment = c(ORCID = "0000-0002-1167-7880")),
+             person("Benjamin", "Lang",
+               role = c("aut"),
+               email ="lang.be@icloud.com"))
+Author: Detlew Labes [aut, ctb] (<https://orcid.org/0000-0003-2169-426X>),
+  Helmut Schütz [aut] (<https://orcid.org/0000-0002-1167-7880>),
+  Benjamin Lang [aut]
 Maintainer: Detlew Labes <DetlewLabes@gmx.de>
 Description: Contains functions to calculate power and sample size for
     various study designs used for bioequivalence studies. 
@@ -39,14 +48,14 @@ Description: Contains functions to calculate power and sample size for
     power and sample size for the BE decision via reference scaled ABE criterion 
     according to the FDA procedure based on simulations.
     Contains further functions power.NTIDFDA() and sampleN.NTIDFDA() to calculate 
-    power and sample size for the BE decision via the FDA procedure for NTID's 
+    power and sample size for the BE decision via the FDA procedure for NTIDs 
     based on simulations.
     Contains further functions power.HVNTID() and sampleN.HVNTID() to calculate 
     power and sample size for the BE decision via the FDA procedure for 
-    highly variable NTID's (see FDA Dabigatran / rivaroxaban guidances)
+    highly variable NTID's (see FDA Dabigatran / Rivaroxaban guidances)
     -----
     Contains functions for power analysis of a sample size plan for ABE 
-    (pa.ABE()), scaled ABE (pa.scABE()) and scaled ABE for NTID's (pa.NTIDFDA())
+    (pa.ABE()), scaled ABE (pa.scABE()) and scaled ABE for NTIDs (pa.NTIDFDA())
     analysing power if deviating from assumptions of the plan.
     -----
     Contains further functions for power calculations / sample size estimation

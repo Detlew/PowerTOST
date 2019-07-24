@@ -1,368 +1,369 @@
-V1.4.7.9000
-      - Broken FDA URL in many man pages corrected.
-      - Bug fix in expsampleN.noninf() wrt operator && with vector arguments 
-        (new check in R 3.6.0).
-      - Bug in CI.RatioF() fixed. Thanks to Michael (mittyri).
-      - Function to simulate subject data & evaluate via models with group effect
-        implemented. not yet public.
-      - Unified Code base for the scaled ABE functions.
+Version 1.4.7.9000
+    - New: README.md (knitted from README.Rmd).
+    - Broken FDA URL in many man pages corrected.
+    - Bug fix in expsampleN.noninf() wrt operator && with vector arguments 
+      (new check in R 3.6.0).
+    - Bug in CI.RatioF() fixed. Thanks to Michael (mittyri).
+    - Function to simulate subject data & evaluate via models with group effect
+      implemented. not yet public.
+    - Unified Code base for the scaled ABE functions.
       
 Version 1.4-7
 2018-04-12 (dedicated to the birthday of Alfie Schuetz :-))
-      - Bug corrected in functions using expected power
-      - Function type1error.2TOST() no longer available since it suffers from
-        insufficient precision to obtain the type 1 error (TIE) via simulations.
-        Due to the intersection-union principle the TIE is always upper bounded
-        to alpha by theory.
-      - Function power.2TOST() now based on simulations to obtain the power 
-        of 2 TOSTs (statistical flaw in 4-dimensional t-distribution approach).
-      - sampleN.2TOST and man page adapted according to this change.
-      - regulator="FDA" implemented in scABEL.ad().
-      - New function power.RSABE2L.sds() which implements the 'exact' based
-        method for RSABE (ncTOST) of the two Laszlos.
-        Documentation included.
+    - Bug corrected in functions using expected power
+    - Function type1error.2TOST() no longer available since it suffers from
+      insufficient precision to obtain the type 1 error (TIE) via simulations.
+      Due to the intersection-union principle the TIE is always upper bounded
+      to alpha by theory.
+    - Function power.2TOST() now based on simulations to obtain the power 
+      of 2 TOSTs (statistical flaw in 4-dimensional t-distribution approach).
+    - sampleN.2TOST and man page adapted according to this change.
+    - regulator="FDA" implemented in scABEL.ad().
+    - New function power.RSABE2L.sds() which implements the 'exact' based
+      method for RSABE (ncTOST) of the two Laszlos.
+      Documentation included.
 
 Version 1.4-6
 Released 2017-08-17
-      - Bug fixed in functions relying on simulations if nsims>1e7.
-      - Functions CVwRfromU() / U2CVwR() to calculate CVwR from the upper expanded 
-        limit of an ABEL study according to EMA's or Health Canada's rules.
-      - Power and sample size for TOST: Argument alpha restricted to scalar.
-        Internal functions now allow length = 2 (different alpha's
-        for the two null hypotheses).
-      - Man pages for non-inferiority again updated.
-      - Deprecated argument dfCV in expected power functions now completely removed.
-      - Data lazy loading (allows access by the name)
+    - Bug fixed in functions relying on simulations if nsims>1e7.
+    - Functions CVwRfromU() / U2CVwR() to calculate CVwR from the upper expanded 
+      limit of an ABEL study according to EMA's or Health Canada's rules.
+    - Power and sample size for TOST: Argument alpha restricted to scalar.
+      Internal functions now allow length = 2 (different alpha's
+      for the two null hypotheses).
+    - Man pages for non-inferiority again updated.
+    - Deprecated argument dfCV in expected power functions now completely removed.
+    - Data lazy loading (allows access by the name)
 
 Version 1.4-5
 Released 2017-05-19
-      - Man pages for non-inferiority functions updated to include a
-        description of the underlying hypotheses.
-      - Remaining man pages updated where term 'Null (true) ratio' was
-        mentioned instead of 'True ratio'.
-      - Two new test scrips in /test subdirectory added: test_ABEL.R and
-        test_RSABE which recalculate the sample size tables given in 
-        Tothfalusi & Endrenyi "Sample Sizes for Designing Bioequivalence Studies 
-        for Highly Variable Drugs". Contributed by Helmut.
-      - power.scABEL.sdsims() now has an argument design_dta to specify the
-        design via a data.frame. May be useful for considering missing data.
-        Attention! This feature is experimental because the data.frame is not 
-        checked at moment.
-      - Bug in power.scABEL.sdsims() fixed which gave power=NA if alpha=0.
-      - Internal change of coding in design helpers (repeated creation of 
-        data.frame with design characteristics avoided).
-      - Typo corrected in Expected_Power_for_TOST.pdf.
-      - Updated functions scABEL.ad() and sampleN.scABEL.ad() to allow
-        subject data simulations via power.scABEL.sdsims() if regulator = "EMA".
-        Removed regulator = "ANVISA".
-        Changed the order of sequences to be consistent with the other
-        functions of PowerTOST.
-      - Renamed the variable 'adj. alpha' in sampleN.scABEL.ad() to 'alpha.adj'
-        for consistency with scABEL.ad(). Bug corrected if pre-specified
-        alpha gives TIE <0.05.
-      - Removed regulator = "ANVISA" from pa.scABE().
-      - Small bug in the S3 method plot for class 'pwrA' corrected (text
-        in the 4th box was truncated on top if saved as a PDF).
-        Replaced text() by TeachingDemos::shadowtext() to enhance legibility
-        (interfered with underlying grid).
+    - Man pages for non-inferiority functions updated to include a
+      description of the underlying hypotheses.
+    - Remaining man pages updated where term 'Null (true) ratio' was
+      mentioned instead of 'True ratio'.
+    - Two new test scrips in /test subdirectory added: test_ABEL.R and
+      test_RSABE which recalculate the sample size tables given in 
+      Tothfalusi & Endrenyi "Sample Sizes for Designing Bioequivalence Studies 
+      for Highly Variable Drugs". Contributed by Helmut.
+    - power.scABEL.sdsims() now has an argument design_dta to specify the
+      design via a data.frame. May be useful for considering missing data.
+      Attention! This feature is experimental because the data.frame is not 
+      checked at moment.
+    - Bug in power.scABEL.sdsims() fixed which gave power=NA if alpha=0.
+    - Internal change of coding in design helpers (repeated creation of 
+      data.frame with design characteristics avoided).
+    - Typo corrected in Expected_Power_for_TOST.pdf.
+    - Updated functions scABEL.ad() and sampleN.scABEL.ad() to allow
+      subject data simulations via power.scABEL.sdsims() if regulator = "EMA".
+      Removed regulator = "ANVISA".
+      Changed the order of sequences to be consistent with the other
+      functions of PowerTOST.
+    - Renamed the variable 'adj. alpha' in sampleN.scABEL.ad() to 'alpha.adj'
+      for consistency with scABEL.ad(). Bug corrected if pre-specified
+      alpha gives TIE <0.05.
+    - Removed regulator = "ANVISA" from pa.scABE().
+    - Small bug in the S3 method plot for class 'pwrA' corrected (text
+      in the 4th box was truncated on top if saved as a PDF).
+      Replaced text() by TeachingDemos::shadowtext() to enhance legibility
+      (interfered with underlying grid).
 
 Version 1.4-4
 Released 2017-03-15
-      - Administrative change for expected power: cubature::adaptIntegrate 
-        replaced by cubature::hcubature to reflect change of function name within
-        package cubature.
-      - Added function power.scABEL.sdsims() to calculate power for the BE decision 
-        via scaled (widened) BE acceptance limits (EMA recommended) based on 
-        subject data simulations.
-      - Low CV (cosmetic) correction in power.scABEL() introduced.
-      - Removed default CV = 0.3 from scABEL.ad() and sampleN.scABEL.ad().
-        Stops execution if CV not specified.
-      - DOI for references added in many man pages. THX to Helmut.
-      - Bens description of expected power added in /doc subdirectory
-      - BE_power_sample_size_excerpt.pdf updated to reflect the changes in
-        computation of OwensQ.
-      - Use of removed functions power.scABEL2() and sampleN.scABEL2() in
-        pa.scABE() corrected.
+    - Administrative change for expected power: cubature::adaptIntegrate 
+      replaced by cubature::hcubature to reflect change of function name within
+      package cubature.
+    - Added function power.scABEL.sdsims() to calculate power for the BE decision 
+      via scaled (widened) BE acceptance limits (EMA recommended) based on 
+      subject data simulations.
+    - Low CV (cosmetic) correction in power.scABEL() introduced.
+    - Removed default CV = 0.3 from scABEL.ad() and sampleN.scABEL.ad().
+      Stops execution if CV not specified.
+    - DOI for references added in many man pages. THX to Helmut.
+    - Bens description of expected power added in /doc subdirectory
+    - BE_power_sample_size_excerpt.pdf updated to reflect the changes in
+      computation of OwensQ.
+    - Use of removed functions power.scABEL2() and sampleN.scABEL2() in
+      pa.scABE() corrected.
 
 Version 1.4-3
 Released 2016-11-01
-      - Little bug in power.TOST() removed which caused power <0 for large degrees
-        of freedom.
-      - Functions for expected power of the TOST procedure and sample size based
-        on expected power reworked to deal also with uncertainty of theta0 or
-        dealing with both uncertainties of CV and theta0.
-        Contributed mainly by Benjamin Lang.
-      - Functions for expected power of non-inferiority testing and sample size
-        based on that expected power reworked to deal also with uncertainty of
-        theta0 or dealing with both uncertainties of CV and theta0.
-        Contributed mainly by Benjamin Lang.
-      - Deprecated functions power.scABEL2() and sampleN.scABEL2() now removed.
-        regulator = "ANVISA" no longer allowed in the scaled ABEL functions.
-      - OwensQ() simpler/faster implemented. Now based soleyly on numerical
-        integrataion in combination with non-central t.
-      - Owen's T-function, used in OwensQOwen() now based on algorithm AS76 and
-        remarks to that algorithm to avoid numerical errors of the implementation
-        via integrate(). 
-      - Data.frame ct9.6.6 in data("data2x2x3") added which was missing a long
-        time ago.
-      - Little inconsistency resolved (by Helmut) in output of power analysis 
-        functions w.r.t. ratio or percent. Thanks to user myttiri of BEBA forum
-        for pointing out this inconsistency.
+    - Little bug in power.TOST() removed which caused power <0 for large degrees
+      of freedom.
+    - Functions for expected power of the TOST procedure and sample size based
+      on expected power reworked to deal also with uncertainty of theta0 or
+      dealing with both uncertainties of CV and theta0.
+      Contributed mainly by Benjamin Lang.
+    - Functions for expected power of non-inferiority testing and sample size
+      based on that expected power reworked to deal also with uncertainty of
+      theta0 or dealing with both uncertainties of CV and theta0.
+      Contributed mainly by Benjamin Lang.
+    - Deprecated functions power.scABEL2() and sampleN.scABEL2() now removed.
+      regulator = "ANVISA" no longer allowed in the scaled ABEL functions.
+    - OwensQ() simpler/faster implemented. Now based soleyly on numerical
+      integrataion in combination with non-central t.
+    - Owen's T-function, used in OwensQOwen() now based on algorithm AS76 and
+      remarks to that algorithm to avoid numerical errors of the implementation
+      via integrate(). 
+    - Data.frame ct9.6.6 in data("data2x2x3") added which was missing a long
+      time ago.
+    - Little inconsistency resolved (by Helmut) in output of power analysis 
+      functions w.r.t. ratio or percent. Thanks to user myttiri of BEBA forum
+      for pointing out this inconsistency.
         
 Version 1.4-2
 Released 2016-07-14
-      - Implementation_scaledABE_sims.pdf in \doc subdirectory updated to
-        reflect the changes in code of the scaled ABE functions.
-      - The S3 method plot for class 'pwrA' now has an argument ratiolabel for
-        labeling the axis concerning theta0. Wish of B. Lang.
-      - Various enhancements in man pages.
-      - Power and sample size for FDA RSABE now take into account a CVcap
-        if defined as finite.
-      - Deprecated argument point in functions CI2CV()/CVfromCI() now removed
-      - Misleading term 'Null (true) ratio' in output of sample size functions
-        changed to 'True ratio'.
-      - Minor bug in sampleN.2TOST() fixed.
+    - Implementation_scaledABE_sims.pdf in \doc subdirectory updated to
+      reflect the changes in code of the scaled ABE functions.
+    - The S3 method plot for class 'pwrA' now has an argument ratiolabel for
+      labeling the axis concerning theta0. Wish of B. Lang.
+    - Various enhancements in man pages.
+    - Power and sample size for FDA RSABE now take into account a CVcap
+      if defined as finite.
+    - Deprecated argument point in functions CI2CV()/CVfromCI() now removed
+    - Misleading term 'Null (true) ratio' in output of sample size functions
+      changed to 'True ratio'.
+    - Minor bug in sampleN.2TOST() fixed.
 
 Version 1.4-1
 Published on GitHub 2016-06-14
-      - Objects of class 'regSet' now have an additional component 'est_method'
-        which controls the simulations via key statistics of the evaluation using
-        EMA's ANOVA or FDA's recommended ISC in xyz.scABEL() functions.
-      - power.scABEL()/power.scABEL2() as well as sampleN.scABEL()/sampleN.scABEL2()
-        are now unified. The regulator component 'est_method' is used for switching
-        between sims based on EMA's ANOVA evaluation or ISC evaluation, respectively.
-      - power.scABEL2()/sampleN.scABEL2() are therefore deprecated and will be
-        removed in future versions. A corresponding warning is thrown.
-      - URL of PowerTOST on GitHub added, URL for bug reports added.
+    - Objects of class 'regSet' now have an additional component 'est_method'
+      which controls the simulations via key statistics of the evaluation using
+      EMA's ANOVA or FDA's recommended ISC in xyz.scABEL() functions.
+    - power.scABEL()/power.scABEL2() as well as sampleN.scABEL()/sampleN.scABEL2()
+      are now unified. The regulator component 'est_method' is used for switching
+      between sims based on EMA's ANOVA evaluation or ISC evaluation, respectively.
+    - power.scABEL2()/sampleN.scABEL2() are therefore deprecated and will be
+      removed in future versions. A corresponding warning is thrown.
+    - URL of PowerTOST on GitHub added, URL for bug reports added.
 
 Version 1.3-7
 Published on GitHub 2016-6-10
-      - Bug fix in functions scABEL.ad() and sampleN.scABEL.ad() if former
-        regulator="ANVISA" settings are used.
+    - Bug fix in functions scABEL.ad() and sampleN.scABEL.ad() if former
+      regulator="ANVISA" settings are used.
 
 Version 1.3-6
 Released 2016-06-06 via CRAN
 Released 2016-05-04 to beta-testers
-      - Functions for power and sample size of BE decision of highly variable
-        drugs or drug products via ABEL (average BE with expanding limits)
-        updated to incorporate the reagulatory settings of Health Canada
-        (new functions power.scABEL2() and sampleN.scABEL2(), based on simulations
-        of intra-subject contrasts evaluation).
-      - The same functions now accept as regulator argument an object of class
-        'regSet' and allow via this way User definitions of regulatory settings.
-      - New function reg_const made visible to define objects of 'regSet'.
-        Class 'regSet' has an S3 print method.
-      - Default value of argument theta0 in functions power.scABEL(),
-        power.scABEL2() and power.RSABE() changed to 0.90 to be in agreement
-        with the setting in the corresponding sample size functions.
-      - Function scABEL (calculation of widened acceptance limits) no longer
-        accepts regulator="USER". This case may be handled via an object
-        with class 'regSet', defined by help of function reg_const().
-      - Functions CVfromCI()/CI2CV now use pe instead of point as argument due
-        to more consistency with their dual CI.BE(). For backward compatibility
-        point may be used also but then a warning is thrown. Argument point will
-        be removed in future versions.
-      - Functions for expected power for TOST and non-inferiority updated
-        to avoid numerical dificulties with integrate() if method="exact".
-      - Documentation (typos in man pages) rigorously enhanced.
-        Thanks to Helmut and Ben. 
+    - Functions for power and sample size of BE decision of highly variable
+      drugs or drug products via ABEL (average BE with expanding limits)
+      updated to incorporate the reagulatory settings of Health Canada
+      (new functions power.scABEL2() and sampleN.scABEL2(), based on simulations
+      of intra-subject contrasts evaluation).
+    - The same functions now accept as regulator argument an object of class
+      'regSet' and allow via this way User definitions of regulatory settings.
+    - New function reg_const made visible to define objects of 'regSet'.
+      Class 'regSet' has an S3 print method.
+    - Default value of argument theta0 in functions power.scABEL(),
+      power.scABEL2() and power.RSABE() changed to 0.90 to be in agreement
+      with the setting in the corresponding sample size functions.
+    - Function scABEL (calculation of widened acceptance limits) no longer
+      accepts regulator="USER". This case may be handled via an object
+      with class 'regSet', defined by help of function reg_const().
+    - Functions CVfromCI()/CI2CV now use pe instead of point as argument due
+      to more consistency with their dual CI.BE(). For backward compatibility
+      point may be used also but then a warning is thrown. Argument point will
+      be removed in future versions.
+    - Functions for expected power for TOST and non-inferiority updated
+      to avoid numerical dificulties with integrate() if method="exact".
+    - Documentation (typos in man pages) rigorously enhanced.
+      Thanks to Helmut and Ben. 
 
 Version 1.3-5
 Released 2016-04-12
-      - Functions for expected power for TOST and non-inferiority updated
-        (including corresponding sample size functions). Functions now include
-        an exact method that calculates the expected value of the power with
-        respect to the (prior) distribution of sigma^2 (inverse gamma distribution).
-        Former only an approximation according to Julious/Owen was implemented.
-        Exact implementation contributed by B. Lang.
-      - The functions for iteratively adjusting alpha for the EMA recommended
-        ABEL method now have a new argument tol for convergence tolerance of the
-        internal used uniroot(). Was former hardcoded as tol=1e-5.
-        Contributed by H. Schütz.
-      - plot method of 'pwrA' objects reworked by H. Schütz to avoid some
-        ugly overlays.
+    - Functions for expected power for TOST and non-inferiority updated
+      (including corresponding sample size functions). Functions now include
+      an exact method that calculates the expected value of the power with
+      respect to the (prior) distribution of sigma^2 (inverse gamma distribution).
+      Former only an approximation according to Julious/Owen was implemented.
+      Exact implementation contributed by B. Lang.
+    - The functions for iteratively adjusting alpha for the EMA recommended
+      ABEL method now have a new argument tol for convergence tolerance of the
+      internal used uniroot(). Was former hardcoded as tol=1e-5.
+      Contributed by H. Schütz.
+    - plot method of 'pwrA' objects reworked by H. Schütz to avoid some
+      ugly overlays.
 
 Version 1.3-4
 Released 2016-03-09
-      - Bug removed in all sample size estimation functions for scaled ABE which
-        resulted for very low variability in NA for sample size.
-        Thanks to Shuanghe for detecting this bug.
-      - All functions for scaled ABE now have an argument imax=100 for the maximum
-        number of steps for sample size search. Wish of Helmut Schütz.
+    - Bug removed in all sample size estimation functions for scaled ABE which
+      resulted for very low variability in NA for sample size.
+      Thanks to Shuanghe for detecting this bug.
+    - All functions for scaled ABE now have an argument imax=100 for the maximum
+      number of steps for sample size search. Wish of Helmut Schütz.
 
 Version 1.3-3
 Released 2016-01-15 via CRAN
 Released 2016-01-04 to alpha testers
-      - New functions scABEL.ad() and sampleN.scABEL.ad() introduced to
-        iteratively adjust alpha in order to maintain the consumer risk
-        and adapt the sample size to compensate for the possible loss in
-        power for the EMA method of scaled ABE (ABEL).
-        Contributed by Helmut Schütz.
-      - Default theta0 changed to 0.9 in sample size estimation for scaled ABE
-        (as recommended by the Two Laszlos).
+    - New functions scABEL.ad() and sampleN.scABEL.ad() introduced to
+      iteratively adjust alpha in order to maintain the consumer risk
+      and adapt the sample size to compensate for the possible loss in
+      power for the EMA method of scaled ABE (ABEL).
+      Contributed by Helmut Schütz.
+    - Default theta0 changed to 0.9 in sample size estimation for scaled ABE
+      (as recommended by the Two Laszlos).
 
 Version 1.3-02
 Released 2015-12-02
-      - New functions for calculation of power, type 1 errror and sample size
-        for 2 TOST instances. Contributed by Benjamin Lang.
+    - New functions for calculation of power, type 1 errror and sample size
+      for 2 TOST instances. Contributed by Benjamin Lang.
 
 Version 1.3-01
 Released 2015-09-30 
 Released 2015-09-23 to alpha testers
-      - New functions power.HVNTID() and sampleN.HVNTID() introduced to calculate
-        power and sample size for the BE decision via the FDA procedure for
-        highly variable NTID's (see FDA Dabigatran / rivaroxaban guidances).
-      - power.HVNTID() and power.NTIDFDA() now return the power (p(BE)) and
-        the components for the scaled ABE criterion, the conventional ABE test
-        and the test for the ratio swT/swR <= 2.5 if the argument details=TRUE
-        (wish of Helmut Schütz).
-      - power.RSABE() now returns the power (p(BE)) and the components for the
-        scaled ABE criterion, for the point estimate criterion and for the
-        conventional ABE test alone if the argument details=TRUE.
-        Analogous changes were made in power.scABEL(). See man pages.
+    - New functions power.HVNTID() and sampleN.HVNTID() introduced to calculate
+      power and sample size for the BE decision via the FDA procedure for
+      highly variable NTID's (see FDA Dabigatran / rivaroxaban guidances).
+    - power.HVNTID() and power.NTIDFDA() now return the power (p(BE)) and
+      the components for the scaled ABE criterion, the conventional ABE test
+      and the test for the ratio swT/swR <= 2.5 if the argument details=TRUE
+      (wish of Helmut Schütz).
+    - power.RSABE() now returns the power (p(BE)) and the components for the
+      scaled ABE criterion, for the point estimate criterion and for the
+      conventional ABE test alone if the argument details=TRUE.
+      Analogous changes were made in power.scABEL(). See man pages.
 
 Version 1.2-09
 Released 2015-08-26
-      - power.TOST() with method="exact" reworked to give correct values in
-        case alpha>0.5. OwensQOwen adapted to deal with upper integration
-        limit R==Inf.
-      - New power calculation method introduced, direct integration of the
-        bivariate non-central t-distribution (pmvt() from package mvtnorm),
-        also an exact calculation method but with somewhat lower precision
-        and longer run-time. Contributed by Benjamin Lang.
-      - New function power.TOST.sim() to obtain the power via simulations of
-        the TOST. Only intended for checking purposes.
+    - power.TOST() with method="exact" reworked to give correct values in
+      case alpha>0.5. OwensQOwen adapted to deal with upper integration
+      limit R==Inf.
+    - New power calculation method introduced, direct integration of the
+       bivariate non-central t-distribution (pmvt() from package mvtnorm),
+       also an exact calculation method but with somewhat lower precision
+       and longer run-time. Contributed by Benjamin Lang.
+    - New function power.TOST.sim() to obtain the power via simulations of
+       the TOST. Only intended for checking purposes.
 
 Version 1.2-08
 Released 2015-07-10
-      - Maintenance release with NAMESPACE adapted to import the necessary
-        functions from base R installation (CRAN request).
-      - power.NTIDFDA() and sampleN.NTIDFDA() now have an design argument to
-        choose between 2x2x4 (full replicate 4-period) and 2x2x3 (full replicate
-        3-period design).
-      - Some minor documentation improvements.
+    - Maintenance release with NAMESPACE adapted to import the necessary
+       functions from base R installation (CRAN request).
+    - power.NTIDFDA() and sampleN.NTIDFDA() now have an design argument to
+       choose between 2x2x4 (full replicate 4-period) and 2x2x3 (full replicate
+       3-period design).
+    - Some minor documentation improvements.
 
 Version 1.2-07
 Released 2015-06-03
-      - Functions power.scABEL(), sampleN.scABEL() now allow the power and
-        sample size calculations for scaled ABEL according to the (inofficial)
-        regulatory settings of Brasilian ANVISA.
-      - Function pa.scABE() also allows regulator="ANVISA".
-      - New helper function scABEL for calculation of the (widened) ABE acceptance
-        limits.
-      - Function power2.TOST() now removed.
+    - Functions power.scABEL(), sampleN.scABEL() now allow the power and
+      sample size calculations for scaled ABEL according to the (inofficial)
+      regulatory settings of Brasilian ANVISA.
+    - Function pa.scABE() also allows regulator="ANVISA".
+    - New helper function scABEL for calculation of the (widened) ABE acceptance
+      limits.
+    - Function power2.TOST() now removed.
 
 Version 1.2-06
 Released 2015-01-23
-      - Function power.TOST() now handles balanced as well as unbalanced studies
-      - Function power2.TOST() is therefore depreciated and will not be contained
-        in later versions.
-      - Internal change in interface to the (hidden) 'raw' power functions
-        (sem used in function calls instead of se, n, bk).
-      - BE_power_sample_size_excerpt.pdf in subdirectory doc changed to reflect
-        the internal changes.
+    - Function power.TOST() now handles balanced as well as unbalanced studies
+    - Function power2.TOST() is therefore depreciated and will not be contained
+      in later versions.
+    - Internal change in interface to the (hidden) 'raw' power functions
+      (sem used in function calls instead of se, n, bk).
+    - BE_power_sample_size_excerpt.pdf in subdirectory doc changed to reflect
+      the internal changes.
 
 Version 1.2-05
 Released 2015-01-07
-      - Bug in OwensQOwen() removed (debug code left over), THX to Helmut
-        for discovering this.
-      - Function CVfromCI() and alias CI2CV() now handle unbalanced studies,
-        contributed by Benjamin Lang.
-      - Some typos in BE_power_sample_size_excerpt.pdf, found by Ben, corrected.
+    - Bug in OwensQOwen() removed (debug code left over), THX to Helmut
+      for discovering this.
+    - Function CVfromCI() and alias CI2CV() now handle unbalanced studies,
+      contributed by Benjamin Lang.
+    - Some typos in BE_power_sample_size_excerpt.pdf, found by Ben, corrected.
 
 Version 1.2-04
 Released 2014-12-19
-      - Bug in OwensT(h,a) for the case of a=-Inf removed. Thanks to
-        Benjamin Lang for discovering that nasty bug.
-      - Functions power.noninf(), exppower.TOST(), exppower.noninf() adapted to
-        deal with unbalanced studies.
-      - Function pvalue.TOST() introduced to calculate the two p-values of the
-        TOST procedure. Contributed by Benjamin Lang.
+    - Bug in OwensT(h,a) for the case of a=-Inf removed. Thanks to
+      Benjamin Lang for discovering that nasty bug.
+    - Functions power.noninf(), exppower.TOST(), exppower.noninf() adapted to
+      deal with unbalanced studies.
+    - Function pvalue.TOST() introduced to calculate the two p-values of the
+      TOST procedure. Contributed by Benjamin Lang.
 
 Version 1.2-03
 Released 2014-11-13
-      - sampleN.dp() / power.dp() now cover "incomplete block designs"
-      - minimum sample size in sampleN.dp() introduced to avoid errors for
-        small CV <= 0.1 for the crossover design.
-      - partitition of n(total) to (sequence) groups reworked in most power
-        functions if design is unbalanced.
-      - Liu's 2x2x2 design with 2 repeated measurements in each period added
-        (see ?known.designs under Notes).
+    - sampleN.dp() / power.dp() now cover "incomplete block designs"
+    - minimum sample size in sampleN.dp() introduced to avoid errors for
+      small CV <= 0.1 for the crossover design.
+    - partitition of n(total) to (sequence) groups reworked in most power
+      functions if design is unbalanced.
+    - Liu's 2x2x2 design with 2 repeated measurements in each period added
+      (see ?known.designs under Notes).
        
 Version 1.2-02
 Released 2014-10-06
-      - functions pa.XYZ() adapted so that they also function under R < 3.1.1
-        (request of U. Ligges from CRAN) although with minpower>=0.5
+    - functions pa.XYZ() adapted so that they also function under R < 3.1.1
+      (request of U. Ligges from CRAN) although with minpower>=0.5
 
 Version 1.2-01
 Released 2014-09-30
-      - Some minor bugs removed and spelling in man pages corrected.
-      - print method for class pwrA now calls plot().
-      - power analysis in case of n=12 for the plan now drops n below 12 subjects.
+    - Some minor bugs removed and spelling in man pages corrected.
+    - print method for class pwrA now calls plot().
+    - power analysis in case of n=12 for the plan now drops n below 12 subjects.
 
 Version 1.2-00
 Build 2014-09-19, released to alpha/beta testers only
-      - Contains now functions for power analysis of a sample size plan
-        for ABE (pa.ABE()), scaled ABE (pa.sABE()) and scaled ABE for NTID's
-        (pa.NTIDFDA()) analyzing power for deviations from assumptions for
-        the sample size estimation.
-      - Contains further experimental functions for power calculations / samplesize
-        estimation for dose proportionality studies using the Power model.
+    - Contains now functions for power analysis of a sample size plan
+      for ABE (pa.ABE()), scaled ABE (pa.sABE()) and scaled ABE for NTID's
+      (pa.NTIDFDA()) analyzing power for deviations from assumptions for
+      the sample size estimation.
+    - Contains further experimental functions for power calculations / samplesize
+      estimation for dose proportionality studies using the Power model.
 
 Version 1.1-13
 Released 2014-08-12
-      - Design constant bk(ni) for design="paired" corrected.
-        THX to Helmut Schütz who detected that bug.
+    - Design constant bk(ni) for design="paired" corrected.
+      THX to Helmut Schütz who detected that bug.
 
 Version 1.1-12
 Released 2014-07-02
-      - Some minor improvements in documentation.
-      - Function power.TOST() now throws a warning if used with imbalanced
-        designs (n not an even multiple of no. of sequences).
-      - Internal change of start value of sample size search in sampleN.TOST()
-        to avoid failed searches if variability is high and theta0 is near 1.
+    - Some minor improvements in documentation.
+    - Function power.TOST() now throws a warning if used with imbalanced
+      designs (n not an even multiple of no. of sequences).
+    - Internal change of start value of sample size search in sampleN.TOST()
+      to avoid failed searches if variability is high and theta0 is near 1.
 
 Version 1.1-11
 Released 2014-04-30
-      - Utility function added which calculates 1-2*alpha confidence interval(s)
-        given point est., CV and n using log-tansformed evaluation.
-      - Utility function added which calculates 1-2*alpha Fieller confidence
-        interval(s) given point est., CV (, CVb) and n for the ratio of
-        un-transformed means.
+    - Utility function added which calculates 1-2*alpha confidence interval(s)
+      given point est., CV and n using log-tansformed evaluation.
+    - Utility function added which calculates 1-2*alpha Fieller confidence
+      interval(s) given point est., CV (, CVb) and n for the ratio of
+      un-transformed means.
 
 Version 1.1-10
 Released 2014-01-31
-      - The package is now pre-compiled to 'byte code' via the compiler
-        package for speed reasons. F.i. OwensQOwen() gains a sixfold boost.
-      - Some bulk code changes to make the power calculations for extreme
-        cases more bullet proof without computation time burden.
-      - Bug removed where noncentrality parameters in the power calculations
-        became NaN (not a number).
-      - OwensQ() now tries to return a value via nct-approximation if its value
-        is due to numeric difficulties falsely equal zero.
-        This approximation is up to 6 decimals correct as far as tested.
-        OwensQ() issues a warning if the nct-approximation is used.
-      - Some improvements in documentation (man pages and *.pdf) to
-        reflect the code changes.
+    - The package is now pre-compiled to 'byte code' via the compiler
+      package for speed reasons. F.i. OwensQOwen() gains a sixfold boost.
+    - Some bulk code changes to make the power calculations for extreme
+      cases more bullet proof without computation time burden.
+    - Bug removed where noncentrality parameters in the power calculations
+      became NaN (not a number).
+    - OwensQ() now tries to return a value via nct-approximation if its value
+      is due to numeric difficulties falsely equal zero.
+      This approximation is up to 6 decimals correct as far as tested.
+      OwensQ() issues a warning if the nct-approximation is used.
+    - Some improvements in documentation (man pages and *.pdf) to
+      reflect the code changes.
 
 Version 1.1-09
 Build 2014-01-03 Not released to the public.
-      - OwensQ() now uses OwensQOwen() in case of high delta and/or high upper
-        integration limit. Thus extreme cases can be handled properly where
-        the former implementation via integrate() was prone to fail.
-        Thanks to Jiri Hofmann and Helmut Schütz for pointing me to
-        such extreme cases.
+    - OwensQ() now uses OwensQOwen() in case of high delta and/or high upper
+      integration limit. Thus extreme cases can be handled properly where
+      the former implementation via integrate() was prone to fail.
+      Thanks to Jiri Hofmann and Helmut Schütz for pointing me to
+      such extreme cases.
 
 Version 1.1-08
 Released 2013-12-27
-      - Dates typo in the history (NEWS) corrected from PowerTOST 1.1-00 on.
-        THX to Julien Grassot.
-      - CVfromCI() now accepts either both CLs or one CL and the point
-        estimator, programmed by Helmut Schütz.
-      - power.RatioF() and sampleN.RatioF() now have an argument setseed=TRUE
-        which avoids the dependence if the power from the state of the
-        random number generator (due to the calculation method of pmvt()
-        from package mvtnorm). Thanks to Benjamin Lang.
+    - Dates typo in the history (NEWS) corrected from PowerTOST 1.1-00 on.
+      THX to Julien Grassot.
+    - CVfromCI() now accepts either both CLs or one CL and the point
+      estimator, programmed by Helmut Schütz.
+    - power.RatioF() and sampleN.RatioF() now have an argument setseed=TRUE
+      which avoids the dependence if the power from the state of the
+      random number generator (due to the calculation method of pmvt()
+      from package mvtnorm). Thanks to Benjamin Lang.
 
 Version 1.1-07
 Released 2013-09-02
