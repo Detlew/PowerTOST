@@ -79,7 +79,7 @@ For all methods the sample size can be *estimated* based on
 <!-- end list -->
 
 ``` r
-PowerTOST:::power.TOST(CV = 0.36, theta0 = 0.93,
+PowerTOST::power.TOST(CV = 0.36, theta0 = 0.93,
                        n = c(75, 70), design = "parallel")
 #> [1] 0.8256362
 ```
@@ -93,7 +93,7 @@ PowerTOST:::power.TOST(CV = 0.36, theta0 = 0.93,
 <!-- end list -->
 
 ``` r
-PowerTOST:::sampleN.TOST(CV = 0.20)
+PowerTOST::sampleN.TOST(CV = 0.20)
 #> 
 #> +++++++++++ Equivalence test - TOST +++++++++++
 #>             Sample size estimation
@@ -121,7 +121,7 @@ PowerTOST:::sampleN.TOST(CV = 0.20)
 <!-- end list -->
 
 ``` r
-PowerTOST:::sampleN.scABEL(CV = c(0.40, 0.50), design = "2x2x4")
+PowerTOST::sampleN.scABEL(CV = c(0.40, 0.50), design = "2x2x4")
 #> 
 #> +++++++++++ scaled (widened) ABEL +++++++++++
 #>             Sample size estimation
@@ -152,8 +152,18 @@ PowerTOST:::sampleN.scABEL(CV = c(0.40, 0.50), design = "2x2x4")
 
 ### Installation
 
+You can install the released version of PowerTOST from
+[CRAN](https://CRAN.R-project.org) with:
+
 ``` r
 package <- "PowerTOST"
 inst    <- package %in% installed.packages()
 if (length(package[!inst]) > 0) install.packages(package[!inst])
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("Detlew/PowerTOST")
 ```
