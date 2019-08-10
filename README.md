@@ -152,7 +152,8 @@ PowerTOST::sampleN.scABEL(CV = c(0.40, 0.50), design = "2x2x4")
 
 ### Installation
 
-Install the released version from CRAN
+You can install the released version of PowerTOST from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 package <- "PowerTOST"
@@ -160,9 +161,9 @@ inst    <- package %in% installed.packages()
 if (length(package[!inst]) > 0) install.packages(package[!inst])
 ```
 
-Install the development version from GitHub:
+And the development version from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools", repos = "https://cloud.r-project.org/")
-# devtools::install_github("Detlew/PowerTOST")
+# install.packages("devtools")
+devtools::install_github("Detlew/PowerTOST")
 ```
