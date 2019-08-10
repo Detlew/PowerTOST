@@ -3,26 +3,26 @@
 print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
 {
 
-  if(interactive() && plotit) plot(x)
+  if (interactive() && plotit) plot(x)
 
   min.pwr  <- x$minpower
-  CV.max   <- max(x$paCV[,"CV"])
-  CVmaxI   <- which(x$paCV[,"CV"]==CV.max)
-  CV.min   <- min(x$paCV[,"CV"])
-  CVminI   <- which(x$paCV[,"CV"]==CV.min)
-  min.pwrN <- min(x$paN[,"pwr"])
-  min.N    <- min(x$paN[,"N"])
+  CV.max   <- max(x$paCV[, "CV"])
+  CVmaxI   <- which(x$paCV[, "CV"]==CV.max)
+  CV.min   <- min(x$paCV[, "CV"])
+  CVminI   <- which(x$paCV[, "CV"]==CV.min)
+  min.pwrN <- min(x$paN[, "pwr"])
+  min.N    <- min(x$paN[, "N"])
 
-  if (abs(x$paCV[CVmaxI,"pwr"]-min.pwr)>1e-4) CV.max <- NA
-  if (abs(x$paCV[CVminI,"pwr"]-min.pwr)>1e-4) CV.min <- NA
+  if (abs(x$paCV[CVmaxI, "pwr"]-min.pwr)>1e-4) CV.max <- NA
+  if (abs(x$paCV[CVminI, "pwr"]-min.pwr)>1e-4) CV.min <- NA
 
-  if (x$plan[1,"theta0"]<=1) {
-    min.theta0 <- min(x$paGMR[,"theta0"])
+  if (x$plan[1, "theta0"]<=1) {
+    min.theta0 <- min(x$paGMR[, "theta0"])
   } else {
-    min.theta0 <- max(x$paGMR[,"theta0"])
+    min.theta0 <- max(x$paGMR[, "theta0"])
   }
   method <- x$method
-  if (method=="scABE") {
+  if (method == "scABE") {
     meth <- switch(x$regulator,
                    EMA=   " (EMA/ABEL)",
                    HC =   " (HC/ABEL2)",
@@ -85,8 +85,8 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   n <- nrow(x$paCV)
   # Attention next functiones only if last value is minpower
   minpower    <- fact*x$minpower
-  CV.max      <- fact*max(x$paCV[,"CV"])
-  CV.min      <- fact*min(x$paCV[,"CV"])
+  CV.max      <- fact*max(x$paCV[, "CV"])
+  CV.min      <- fact*min(x$paCV[, "CV"])
 
   # CV of call of pa.XXX() function
   if (x$method=="ABE") {
@@ -95,14 +95,14 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     # Attention this functions only if CVwT==CVwR!!!
     CV  <- fact*x$plan[1,"CVwR"]
   }
-  GMR         <- x$plan[1,"theta0"]
-  theta1      <- x$plan[1,"theta1"]
-  theta2      <- x$plan[1,"theta2"]
-  n.est       <- x$plan[1,"Sample size"]
-  pwr.est     <- fact*x$plan[1,"Achieved power"]
-  targetpower <- fact*x$plan[1,"Target power"]
+  GMR         <- x$plan[1, "theta0"]
+  theta1      <- x$plan[1, "theta1"]
+  theta2      <- x$plan[1, "theta2"]
+  n.est       <- x$plan[1, "Sample size"]
+  pwr.est     <- fact*x$plan[1, "Achieved power"]
+  targetpower <- fact*x$plan[1, "Target power"]
   reg         <- x$regulator
-  design      <- x$plan[1,"Design"]
+  design      <- x$plan[1, "Design"]
 
   mklegend <- function(method){
     if (method=="scABE"){
@@ -117,8 +117,9 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   }
 
   op <- par(no.readonly=TRUE) # save par() options
-  par(mar=c(c(3.5, 3.5, 2.5, 0.75))+0.1) # bottom, left, top, right
-  par(cex.main=0.95, cex.axis=0.95, cex.lab=0.95, mgp=c(2, 0.75, 0), tcl=-0.2)
+  par(mar =c(c(3.5, 3.5, 2.5, 0.75))+0.1) # bottom, left, top, right
+  par(cex.main=0.95, cex.axis=0.95, cex.lab=0.95,
+      mgp =c(2, 0.75, 0), tcl = -0.2)
 
   # plot on a panel of 4 pieces
   split.screen(c(2, 2))
@@ -167,7 +168,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     txt <- paste0("CV = ", signif(CV.max, 4), pctsign, " (",
                   round(minpower, dec), pctsign, ")")
     if  (x$method=="RSABE NTID") {
-      if(abs(pwr[1]-minpower)/minpower<=1e-4) {
+      if (abs(pwr[1]-minpower)/minpower <= 1e-4) {
         #we have also CV.min with power=minpower
         points(CV.min, pwr[1], col=clr[seg], pch=16, cex=1.1)
         txt <- paste0("CV = (", signif(CV.min, 4),", ", signif(CV.max, 4),
@@ -180,8 +181,8 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   box()
   
   screen(2) ### 'Sensitivity' of GMR (CV and n constant) ###
-  pwr <- as.numeric(fact*x$paGMR[,"pwr"])
-  GMRs <- as.numeric(x$paGMR[,"theta0"])
+  pwr <- as.numeric(fact*x$paGMR[, "pwr"])
+  GMRs <- as.numeric(x$paGMR[, "theta0"])
   #GMR.min <- ifelse(GMR<=1, GMRs[1], GMRs[length(GMRs)])
   GMR.min <- GMRs[1] # or better min(GMRs) or max(GMRs)?
   seg <- length(pwr); s <- seq(seg-1)
@@ -232,13 +233,13 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   box()
   
   screen(3) ### Sensitivity of n (GMR and CV constant) ###
-  pwr <- as.numeric(fact*x$paN[,"pwr"])
-  Ns  <- as.numeric(x$paN[,"N"])
+  pwr <- as.numeric(fact*x$paN[, "pwr"])
+  Ns  <- as.numeric(x$paN[, "N"])
   clr <- mkColors()
-  if(length(clr)==1) clr <- cols[1]
+  if (length(clr) == 1) clr <- cols[1]
   xticks <- NULL
   nNs    <- length(Ns)
-  if(nNs<5 & nNs>1) xticks <- c(max(Ns), min(Ns), nNs-1)
+  if (nNs<5 & nNs>1) xticks <- c(max(Ns), min(Ns), nNs-1)
   plot(Ns, pwr, type="n",
        main=paste0("Dropouts\n",
                    "constant: ", ratiolabel, " = ", GMRmain,
@@ -275,7 +276,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     }
   } else {
     # CVtxt <- "" # why?
-    if(abs(fact*x$paCV[1,"pwr"]-minpower)/minpower<=1e-4) {
+    if (abs(fact*x$paCV[1, "pwr"]-minpower)/minpower <= 1e-4) {
       # we have also CV.min with power=minpower
       if (fact == 1) {
         CVtxt <- sprintf("  CVmin = %.5f (%+5.1f%%)", CV.min, 100*(CV.min-CV)/CV)
@@ -303,9 +304,9 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                                   100*theta1, "...", 100*theta2))
    }
  }
- if(x$method=="scABE") {
+ if (x$method == "scABE") {
    # (widened) acceptance range
-   if(x$regulator=="FDA"){
+   if (x$regulator == "FDA"){
      Ltxt <-"  implied BE margins:"
      wtheta1 <- min(theta1,exp(CV2se(CV/fact)*log(theta1)/0.25))
      wtheta2 <- max(theta2,exp(CV2se(CV/fact)*log(theta2)/0.25))
@@ -323,7 +324,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                                 100*wtheta1, "...", 100*wtheta2))
    }
  }
- if(x$method=="RSABE NTID") {
+ if (x$method == "RSABE NTID") {
    Ltxt <-"  implied BE margins:"
    wtheta1 <- max(theta1,exp(CV2se(CV/fact)*log(0.9)/0.1))
    wtheta2 <- min(theta2,exp(-CV2se(CV/fact)*log(0.9)/0.1))
@@ -336,6 +337,11 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
    }
  }
  plot(1, type="n", axes=F, xlab="", ylab="")
+ if (x$method != "RSABE NTID") {
+   cex <- 0.9
+ } else {
+   cex <- 0.88 # more lines, smaller font
+ }
  if (fact == 100) { # percent
    legend("topleft", inset=-0.055,
           legend=c(paste0(design, " design", "; assumed:"),
@@ -353,7 +359,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                            ratiolabel, " =", 100*GMR.min, 100*(GMR.min-GMR)/GMR),
                    sprintf("  %s %i (%+5.1f%%)",
                            "N =", min(Ns), 100*(min(Ns)-n.est)/n.est)),
-          bty="n", cex=0.9)
+          bty="n", cex=cex)
   } else { # ratios
     legend("topleft", inset=-0.065,
            legend=c(paste0(design, " design", "; assumed:"),
@@ -370,7 +376,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                             ratiolabel, " =", GMR.min, 100*(GMR.min-GMR)/GMR),
                     sprintf("  %s %i (%+5.1f%%)",
                             "N =", min(Ns), 100*(min(Ns)-n.est)/n.est)),
-           bty="n", cex=0.9)
+           bty="n", cex=cex)
   }
 
   close.screen(all.screens=TRUE)
