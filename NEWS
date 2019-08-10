@@ -1,4 +1,5 @@
 Version 1.4.7.9000
+    - Smaller font in 4th screen of pa.X() for NTIDFDA (more lines required).
     - New: README.md (knitted from README.Rmd).
     - Broken FDA URL in many man pages corrected.
     - Bug fix in expsampleN.noninf() wrt operator && with vector arguments 

@@ -8,8 +8,7 @@ output: github_document
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
+  comment = "#>"
 )
 ```
 
@@ -20,7 +19,7 @@ The package contains functions to calculate power and sample size for various st
 ### Supported designs
 
 ```{r, echo = FALSE}
-designs <- PowerTOST:::known.designs()
+designs <- PowerTOST::known.designs()
 print(designs[, c(2, 9, 3)], row.names = FALSE)
 ```
 
@@ -58,20 +57,27 @@ For all methods the sample size can be *estimated* based on
 
   1. Power of a paralled design (group sizes 75 and 70), total *CV* 0.36, *θ*<sub>0</sub> 0.925. The defaults for *α* (0.05) and {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25) are automatically employed.
 ```{r}
-PowerTOST:::power.TOST(CV = 0.36, theta0 = 0.93,
-                       n = c(75, 70), design = "parallel")
+PowerTOST::power.TOST(CV = 0.36, theta0 = 0.93,
+                      n = c(75, 70), design = "parallel")
 ```
   2. Sample size for a 2×2×2 crossover study, assumed intra-subject *CV* 0.20, and desired power 0.80. The defaults for *α* (0.05), *θ*<sub>0</sub> (0.95), {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25), targetpower (0.80), and design ("2x2") are automatically employed.
 ```{r}
-PowerTOST:::sampleN.TOST(CV = 0.20)
+PowerTOST::sampleN.TOST(CV = 0.20)
 ```
   3. Sample size for a four-period replicate study intended for the EMA’s average bioequivalence with expanding limits (ABEL), assumed heteroscedasticity (*CV<sub>wT</sub>* 0.40, *CV<sub>wR</sub>* 0.50). The defaults for *α* (0.05), *θ*<sub>0</sub> (0.90 for highly variable drugs / drug products), and targetpower (0.80) are automatically employed. The expanded limits {*θ*<sub>1</sub>, *θ*<sub>2</sub>} are calculated based on *CV<sub>wR</sub>*.
 ```{r}
-PowerTOST:::sampleN.scABEL(CV = c(0.40, 0.50), design = "2x2x4")
+PowerTOST::sampleN.scABEL(CV = c(0.40, 0.50), design = "2x2x4")
 ```
 ### Installation
+Install the released version from CRAN
 ```{r}
 package <- "PowerTOST"
 inst    <- package %in% installed.packages()
 if (length(package[!inst]) > 0) install.packages(package[!inst])
+```
+
+Install the development version from GitHub:
+```{r}
+# install.packages("devtools", repos = "https://cloud.r-project.org/")
+# devtools::install_github("Detlew/PowerTOST")
 ```
