@@ -5,4 +5,5 @@ stuff
 .Rhistory
 .git
 .gitignore
-^README\.Rmd$
+#^README\.Rmd$
+*stuff
