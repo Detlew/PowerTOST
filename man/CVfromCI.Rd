@@ -14,9 +14,10 @@ CI2CV(pe, lower, upper, n, design = "2x2", alpha = 0.05, robust = FALSE)
 }
 \arguments{
   \item{pe}{
-Point estimate of the BE ratio.\cr
+Point estimate of the T/R ratio.\cr
 The \code{pe} may be missing. In that case it will be calculated as geometric 
-mean of \code{lower} and \code{upper}.
+mean\cr
+of \code{lower} and \code{upper}.
   }
   \item{lower}{
 Lower confidence limit of the BE ratio.
@@ -44,15 +45,14 @@ if the CI was evaluated via a mixed model or via intra-subject contrasts
   }
 }
 \details{
-See Helmut \enc{Schütz}{Schuetz}’ \href{http://bebac.at/lectures/Bucharest2013WS1.pdf#page=26}{lecture} for a description of the algebra underlying this function.
+See Helmut \enc{Schütz}{Schuetz}’ \href{http://bebac.at/lectures/Bucharest2013WS1.pdf#page=26}{presentation} for the algebra underlying this function.
 }
 \value{
 Numeric value of the CV as ratio.
 }
 
 \references{
-Yuan J, Tong T, Tang M-L. \emph{Sample Size Calculation for Bioequivalence Studies Assessing Drug Effect and Food Effect at the Same Time With a 3-Treatment Williams Design.}\cr
-Regul Sci. 2013;47(2):242--7. \doi{10.1177/2168479012474273}
+Yuan J, Tong T, Tang M-L. \emph{Sample Size Calculation for Bioequivalence Studies Assessing Drug Effect and Food Effect at the Same Time With a 3-Treatment Williams Design.} Regul Sci. 2013;47(2):242--7. \doi{10.1177/2168479012474273}
 }
 
 \author{Original by D. Labes with suggestions by H. \enc{Schütz}{Schuetz}.\cr
@@ -64,8 +64,8 @@ treatments in replicate crossover studies or parallel group study, respectively.
 In case of argument \code{n} given as n(total) and is not divisible by the number
 of (sequence) groups the total sample size is partitioned to the (sequence) groups
 to have small imbalance only. A message is given in such cases.\cr
-The estimated CV is conservative (i.e. greater than actually observed) in case of 
-greater unbalancedness.\cr\cr
+The estimated CV is conservative (\emph{i.e.}, higher than actually observed) in case of 
+unbalancedness.\cr\cr
 \code{CI2CV()} is simply an alias to \code{CVfromCI()}.
 }
 

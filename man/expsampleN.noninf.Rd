@@ -7,7 +7,7 @@ Sample size based on expected power for the non-inferiority test
 
 \description{
   Calculates the sample size based on the expected power for a variety
-  of designs used in bioequivalence studies. See \code{known.designs()}
+  of designs used in bioequivalence studies. See \link{known.designs}
   for the study designs covered.
 }
 
@@ -155,42 +155,33 @@ expsampleN.noninf(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
 \value{
   A data.frame with the input values and the result of the sample
   size estimation.\cr
-  The \verb{Sample size} column contains the \emph{total} sample
+  The \code{Sample size} column contains the \emph{total} sample
   size in case of all designs implemented.
 }
 
 \author{
-  B. Lang, D. Labes
+B. Lang, D. Labes
 }
 
 \references{
-Grieve AP. \emph{Confidence Intervals and Sample Sizes.}\cr
-Biometrics. 1991;47:1597--603. \doi{10.2307/2532411}
+Grieve AP. \emph{Confidence Intervals and Sample Sizes.} Biometrics. 1991;47:1597--603. \doi{10.2307/2532411}
 
-O\enc{’}{'}Hagan et al. \emph{Assurance in Clinical Trial Design.}\cr
-Pharm Stat. 2005;4:187--201. \doi{10.1002/pst.175}
+O’Hagan, Stevens, JW, Campell MJ. \emph{Assurance in Clinical Trial Design.} Pharm Stat. 2005;4:187--201. \doi{10.1002/pst.175}
 
-Julious SA, Owen RJ. \emph{Sample size calculations for clinical studies allowing for uncertainty in variance.}\cr
-Pharm Stat. 2006;5:29--37. \doi{10.1002/pst.197}
+Julious SA, Owen RJ. \emph{Sample size calculations for clinical studies allowing for uncertainty in variance.} Pharm Stat. 2006;5:29--37. \doi{10.1002/pst.197}
 
-Julious SA. \emph{Sample sizes for Clinical Trials.}\cr
-Boca Raton: CRC Press; 2010.
+Julious SA. \emph{Sample sizes for Clinical Trials.} Boca Raton: CRC Press; 2010.
 
-Bertsche et al. \emph{The predictive distribution of the residual variability in
-the linear-fixed effects model for clinical cross-over trials.}\cr
-Biom J. 2016;58(4):797--809. \doi{10.1002/bimj.201500245}
+Bertsche A, Nehmitz G, Beyersmann J, Grieve AP. \emph{The predictive distribution of the residual variability in
+the linear-fixed effects model for clinical cross-over trials.} Biom J. 2016;58(4):797--809. \doi{10.1002/bimj.201500245}
 
-Box GEP, Tiao GC. \emph{Bayesian Inference in Statistical Analysis.}\cr
-Boston: Addison-Wesley; 1992.
+Box GEP, Tiao GC. \emph{Bayesian Inference in Statistical Analysis.} Boston: Addison-Wesley; 1992.
 
-Held L, Sabanes Bove D. \emph{Applied Statistical Inference. Likelihood and Bayes.}\cr
-Berlin, Heidelberg: Springer; 2014. \doi{10.1007/978-3-642-37887-4}
+Held L, Sabanes Bove D. \emph{Applied Statistical Inference. Likelihood and Bayes.} Berlin, Heidelberg: Springer; 2014. \doi{10.1007/978-3-642-37887-4}
 
-Senn S. \emph{Cross-over Trials in Clinical Research.}\cr
-Chichester: Wiley; 2002.
+Senn S. \emph{Cross-over Trials in Clinical Research.} Chichester: John Wiley & Sons; 2\ifelse{html}{\out{<sup>nd</sup>}}{\eqn{^{nd}}} edition 2002.
 
-Zierhut ML et al. \emph{Ignorance is not bliss: Statistical power is not probability of trial success.}\cr
-Clin Pharmacol Ther. 2015;99:356--9. \doi{10.1002/cpt.257}
+Zierhut ML, Bycott P, Gibbs MA, Smith BP, Vicini P. \emph{Ignorance is not bliss: Statistical power is not probability of trial success.} Clin Pharmacol Ther. 2015;99:356--9. \doi{10.1002/cpt.257}
 }
 
 \seealso{
@@ -206,7 +197,7 @@ expsampleN.noninf(theta0 = 0.95, margin = 0.8, CV = 0.3, design = "2x2",
 # gives n = 58 with achieved expected power 0.809148 
 # Compare this to the usual sample size with CV assumed
 # as 'carved in stone'
-sampleN.noninf(theta0 = 0.95, margin = 0.8, CV=0.3)
+sampleN.noninf(theta0 = 0.95, margin = 0.8, CV = 0.3)
 
 # Perform 'non-superiority' (lower is better) with assumed
 # true ratio = 105\% and margin 125\%
@@ -226,7 +217,7 @@ expsampleN.noninf(theta0 = 0.95, margin = 0.8, CV = CVs,
 
 # Uncertainty is accounted for CV and theta0
 \dontrun{
-expsampleN.noninf(CV=0.3, prior.type = "both",
+expsampleN.noninf(CV = 0.3, prior.type = "both",
                   prior.parm = list(m = 12, design = "2x2"))
 # gives a dramatic increase in sample size (n = 194)
 # due to small pilot trial}

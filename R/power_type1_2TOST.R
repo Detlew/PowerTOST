@@ -96,10 +96,13 @@ prob.2TOST <- function(alpha=c(0.05,0.05), logscale=TRUE, theta0, theta1,
     warning("Only one rho must be given. First entry used.")
     rho <- rho[1]
   }
-  if (rho <= -1 || rho >= 1)
-    stop("Correlation must be > -1 and < 1.")
+  if (rho < -1 || rho > 1)
+    stop("Correlation must be within {-1, +1}.")
+  # allow -1, +1 within machine epsilon [HS]
+  if (rho == -1) rho <- -1 + .Machine $double.eps
+  if (rho == +1) rho <- +1 - .Machine $double.eps
 
-    # design characteristics
+  # design characteristics
   # check if design is implemented
   d.no <- .design.no(design)
   if (is.na(d.no)) stop("Design ",design, " unknown!", call.=FALSE)

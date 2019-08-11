@@ -2,7 +2,7 @@
 \name{CI.RatioF}
 \alias{CI.RatioF}
 \title{
-1--2*alpha Fieller CI given point est., CV (,CVb) and n
+1--2*alpha Fieller CI given point estimate, CV (, CVb) and n
 }
 
 \description{
@@ -25,7 +25,7 @@ CI.RatioF(alpha = 0.025, pe, CV, CVb, n, design = c("2x2", "parallel"))
     with clinical endpoints. 
   }
   \item{pe}{
-    Point estimate of ratio T/R.
+    Point estimate of T/R ratio.
   }
   \item{CV}{
     Coefficient of variation as ratio (not percent). In case of \code{design="parallel"}
@@ -49,7 +49,7 @@ CI.RatioF(alpha = 0.025, pe, CV, CVb, n, design = c("2x2", "parallel"))
 
 \details{
   The CV(within) and CVb(etween) in case of \code{design="2x2"} are
-  obtained  via an appropriate ANOVA from the error term and from the
+  obtainedvia an appropriate ANOVA from the error term and from the
   difference \code{(MS(subject within sequence)-MS(error))/2}.
 }
 
@@ -69,7 +69,7 @@ CI.RatioF(alpha = 0.025, pe, CV, CVb, n, design = c("2x2", "parallel"))
   Whether the function vectorizes properly is not thoroughly tested.\cr\cr
   This function is intended for studies with clinical endpoints. In such
   studies the 95\% confidence intervals are usually used for equivalence 
-  testing. Therefore alpha defaults here to 0.025 (see \acronym{EMA} 2000).
+  testing. Therefore, alpha defaults here to 0.025 (see \acronym{EMA} 2000).
 }
 
 \author{
@@ -78,16 +78,11 @@ CI.RatioF(alpha = 0.025, pe, CV, CVb, n, design = c("2x2", "parallel"))
 
 \references{
 Locke CS. \emph{An exact confidence interval from untransformed data for the ratio of 
-two formulation means.}\cr
-J Pharmacokin Biopharm. 1984;12(6):649--55. \doi{10.1007/BF01059558}
+two formulation means.} J Pharmacokin Biopharm. 1984;12(6):649--55. \doi{10.1007/BF01059558}
 
-Hauschke D, Steinijans VW, Pigeot I. \emph{Bioequivalence Studies in Drug Development.}\cr
-Chichester: John Wiley; 2007. Chapter 10. \doi{10.1002/9780470094778.fmatter}
+Hauschke D, Steinijans VW, Pigeot I. \emph{Bioequivalence Studies in Drug Development.} Chichester: John Wiley; 2007. Chapter 10. \doi{10.1002/9780470094778.fmatter}
 
-European Medicines Agency, Committee for Proprietary Medicinal Products.\cr
-\emph{Points to consider on switching between superiority and non-inferiority}\cr
-London, 27 July 2000.
-\href{https://www.ema.europa.eu/documents/scientific-guideline/points-consider-switching-between-superiority-non-inferiority_en.pdf}{CPMP/EWP/482/99}
+European Medicines Agency, Committee for Proprietary Medicinal Products. \emph{Points to consider on switching between superiority and non-inferiority.} London, 27 July 2000. \href{https://www.ema.europa.eu/documents/scientific-guideline/points-consider-switching-between-superiority-non-inferiority_en.pdf}{CPMP/EWP/482/99}
 }
 
 \seealso{
@@ -96,5 +91,5 @@ London, 27 July 2000.
 
 \examples{
 # 95\% Fieller CI for the 2x2 crossover
-CI.RatioF(pe=1.05, CV=0.3, CVb=0.6, n=24)
+CI.RatioF(pe = 1.05, CV = 0.3, CVb = 0.6, n = 24)
 }

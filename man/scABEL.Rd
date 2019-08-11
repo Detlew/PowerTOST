@@ -1,3 +1,4 @@
+\encoding{utf-8}
 \name{scABEL}
 \alias{scABEL}
 \title{
@@ -16,48 +17,48 @@ Coefficient of variation (of the Reference) as ratio.
 }
   \item{regulator}{
 Regulatory body settings for the widening of the BE acceptance limits.\cr
-May be given as character from the choices "EMA", "HC", "FDA" or as an object of
-class 'regSet' (see \verb{\link{reg_const}}).\cr
-Defaults to \code{regulator="EMA"} if missing.\cr\cr
-The former \code{regulator="ANVISA"} is no longer allowed. Use "EMA" since ANVISA 
-now recommends the use of EMA regulatory settings.\cr\cr
+May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"FDA"} or as an object of
+class 'regSet' (see \code{\link{reg_const}}).\cr
+Defaults to \code{regulator="EMA"} if missing.\cr
+The former \code{regulator="ANVISA"} is no longer allowed. The ANVISA 
+recommends since 2016 the EMA’s regulatory settings.\cr
 The former \code{regulator="USER"} is no longer accepted but can be handled now
 via function \code{reg_const()} to define an object with class 'regSet'.
 }
 }
 \value{
 Returns a vector of lenghth 2 if one CV is given or a matrix if CV is given as vector 
-with named components "lower" and "upper" of the scaled acceptance limits.
+with named components \code{lower} and \code{upper} of the scaled acceptance limits.
 }
 \details{
 The widened BE acceptance limits will be calculated by the formula\cr
-   \code{[lBEL,uBEL] =exp(-+ r_const*sWR)}\cr
+\verb{  [L, U] = exp(± r_const * sWR)}\cr
 with r_const the regulatory constant and sWR the standard deviation of the within
 subjects variability of the Reference.\cr 
-r_const=0.76 (~log(1.25)/0.29356) is used in case of \code{regulator="EMA"} or 
+\code{r_const = 0.76} (~log(1.25)/0.29356) is used in case of \code{regulator="EMA"} or 
 \code{regulator="HC"} and in case of \code{regulator="FDA"} 
-r_const=0.89257...(=log(1.25)/0.25).\cr
+\code{r_const = 0.89257...} (=log(1.25)/0.25).\cr
 If the CVwR of the Reference is < CVswitch=0.3 the conventional ABE limits 
 apply (mixed procedure).\cr\cr 
 In case of \code{regulator="EMA"} a cap is placed on the widened limits if 
 CVwr>0.5, i.e. the widened limits are held at value calculated for CVwR=0.5.
 In case of \code{regulator="HC"} the capping is done such that the acceptance
 limits are 0.6666 ... 1.5 at maximum, i.e. CVcap=0.57382. 
-Literally it was given rounded to 3 significant digits as 57.4\%.\cr
-See \url{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/announcements/notice-policy-bioequivalence-standards-highly-variable-drug-products.html} \cr\cr
+Literally it is given by Health Canada rounded to 3 significant digits as 57.4\%.
 
 }
 \note{
 The scaled acceptance limits are not used directly in the BE evaluation 
 for highly variable drugs recommended by the FDA. They are included here
 for comparative purposes. Moreover there are controversies where to locate the 
-'implied' BE acceptance limits. See reference below.
+\sQuote{implied} BE acceptance limits. See reference below.
 }
 \references{
-Davit et al.\cr
-\emph{Implementation of a Reference-Scaled Average Bioequivalence Approach for 
-Highly Variable Generic Drug Products by the US Food and Drug Administration}\cr
+Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf FT, Nwakama PE, Patel DT, Schuirmann DJ, Yu LX. \emph{Implementation of a Reference-Scaled Average Bioequivalence Approach for 
+Highly Variable Generic Drug Products by the US Food and Drug Administration.}\cr
 AAPS J. 2012;14(4):915--24. \doi{10.1208/s12248-012-9406-x}
+
+Health Canada, Therapeutic Products Directorate. \emph{Notice: Policy on Bioequivalence Standards for Highly Variable Drug Products.} April 18, 2016. \href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/announcements/notice-policy-bioequivalence-standards-highly-variable-drug-products.html}{16-104293-140}
 }
 \author{
 D. Labes
@@ -66,19 +67,20 @@ D. Labes
 \code{\link{power.scABEL}, \link{sampleN.scABEL}, \link{reg_const}}
 }
 \examples{
-scABEL(CV=0.3, regulator="EMA")
+scABEL(CV = 0.3, regulator = "EMA")
 # should give the usual BE limits:
 # lower  upper
 #  0.80   1.25
-scABEL(CV=0.4, regulator="EMA")
+scABEL(CV = 0.4, regulator = "EMA")
 # should give the widened limits:
 #   lower     upper
 # 0.746177 1.340165
 #
 # define old ANVISA settings via reg_const()
-rc <- reg_const("USER", r_const=0.76, CVswitch=0.4, CVcap=0.5)
+rc      <- reg_const("USER", r_const = 0.76,
+                     CVswitch = 0.4, CVcap = 0.5)
 rc$name <- "ANVISAold"
-scABEL(CV=0.4, regulator=rc)
+scABEL(CV = 0.4, regulator = rc)
 # should give the not widened limits:
 # lower upper 
 #  0.80  1.25 

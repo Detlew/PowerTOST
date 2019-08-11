@@ -74,10 +74,10 @@ the color changes gradually to \code{cols[2]}.}
 }
 \details{
 Power calculations are done via \code{power.TOST()} and calculations of CV and theta0
-which gave a power=\code{minpower} are derived via R base \code{uniroot()}.
+which gave a power=\code{minpower} are derived via R base \code{\link{uniroot}}.
 While one of the parameters (CV, theta0, N) is varied, the respective two others are
 kept constant. The tool shows the relative impact of single parameters on power.\cr
-The tool takes a minimum of 12 subjects as demanded in most BE guidances into account.\cr\cr
+The tool takes a minimum of 12 subjects as required in most BE guidances into account.\cr\cr
 It should be kept in mind that this is \bold{not} a substitute for the \dQuote{Sensitivity Analysis}
 recommended in ICH-E9. In a real study a combination of all effects occurs simultaneously.
 It is up to \emph{you} to decide on reasonable combinations and analyze their respective power.
@@ -99,11 +99,11 @@ The class \code{'pwrA'} has the S3 methods \code{print()} and \code{plot()}.
 See \code{\link{pa.scABE}} for usage.
 }
 \references{
-See \url{http://forum.bebac.at/mix_entry.php?id=13353}.
+\enc{Schütz}{Schuetz} H. \emph{Deviating from assumptions.} August 08, 2014. \href{https://forum.bebac.at/mix_entry.php?id=13353}{BEBA Forum}
+
 }
 \author{
-Idea and original code by H. \enc{Schütz}{Schuetz}\cr
-with modifications by D. Labes to use PowerTOST infrastructure.
+Idea and original code by H. \enc{Schütz}{Schuetz} with modifications by D. Labes to use PowerTOST infrastructure.
 }
 \note{
 The code of deviations from planned sample size tries to keep the degree of
@@ -118,10 +118,10 @@ This results in a lesser decrease of power than more extreme dropout-patterns.
 # design="2x2", targetpower=0.8, minpower=0.7, theta0/GMR=0.95
 # BE margins from defaults of sampleN.TOST() 0.8 ... 1.25
 # print & plot implicitly
-pa.ABE(CV=0.2)
+pa.ABE(CV = 0.2)
 # print & plot
 \dontrun{
-res <- pa.ABE(CV=0.2)
-print(res, plotit=FALSE)               # print only
-plot(res, pct=FALSE, ratiolabel="GMR") # changed from defaults}
+res <- pa.ABE(CV = 0.2)
+print(res, plotit = FALSE)                 # print only
+plot(res, pct = FALSE, ratiolabel = "GMR") # changed from defaults}
 }

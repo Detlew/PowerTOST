@@ -20,9 +20,8 @@ power.2TOST(alpha = c(0.05, 0.05), logscale = TRUE, theta0, theta1, theta2,
   For one TOST, by convention mostly set to 0.05.
 }
   \item{logscale}{
-Should the data used on log-transformed (\verb{TRUE}) or on original
-scale (\verb{FALSE})?\cr
-Defaults to \verb{TRUE}.
+Should the data used on log-transformed (\code{TRUE}, default) or on original
+scale (\code{FALSE})?
 }
   \item{theta1}{
 Vector; contains lower bioequivalence limit for each of the two TOSTs.\cr
@@ -33,7 +32,7 @@ if \code{logscale=FALSE}.
   \item{theta2}{
 Vector; contains upper bioequivalence limit for each of the two TOSTS.\cr
 If not given theta2 will be calculated as \code{1/theta1} if \code{logscale=TRUE}\cr
-or as \verb{-theta1} if \code{logscale=FALSE}.
+or as \code{-theta1} if \code{logscale=FALSE}.
 }
   \item{theta0}{
 Vector; contains \sQuote{true} assumed bioequivalence ratio for each of the two TOSTs.\cr
@@ -52,22 +51,22 @@ deviation.
   \item{n}{
 Number of subjects under study.\cr
 Is total number if given as scalar, else number of subjects in the (sequence) 
-groups. In the latter case the length of \verb{n} vector has to be equal to the 
+groups. In the latter case the length of \code{n} vector has to be equal to the 
 number of (sequence) groups.
 }
   \item{rho}{
 Correlation between the two PK metrics (\emph{e.g.}, AUC and Cmax) under consideration.
 This is defined as correlation between the estimator of the treatment difference of
-PK metric one and the estimator of the treatment difference of PK metric two.
+PK metric one and the estimator of the treatment difference of PK metric two. Has to be within \{--1, +1\}.
 }
   \item{design}{
 Character string describing the study design.\cr
 See \code{known.designs()} for designs covered in this package.
 }
   \item{robust}{
-Defaults to \verb{FALSE}. With that value the usual degrees of freedom will be used.\cr
-Setting to \verb{TRUE} will use the degrees of freedom according to the \sQuote{robust} 
-evaluation (aka Senn\enc{’}{'}s basic estimator). These df are calculated as \code{n-seq}.\cr
+Defaults to \code{FALSE}. With that value the usual degrees of freedom will be used.\cr
+Setting to \code{TRUE} will use the degrees of freedom according to the \sQuote{robust} 
+evaluation (aka Senn\enc{’}{'}s basic estimator). These degrees of freedom are calculated as \code{n-seq}.\cr
 See \code{known.designs()$df2} for designs covered in this package.\cr
 Has only effect for higher-order crossover designs.
   }
@@ -75,16 +74,16 @@ Has only effect for higher-order crossover designs.
 Number of studies to simulate. Defaults to 1E5.
   }
   \item{setseed}{
-  Logical; if \verb{TRUE}, the default, a seed of 1234567 is set.
+  Logical; if \code{TRUE}, the default, a seed of 1234567 is set.
 }
   \item{details}{
-Logical; if \verb{TRUE}, run time will be printed. Defaults to \verb{FALSE}.
+Logical; if \code{TRUE}, run time will be printed. Defaults to \code{FALSE}.
 }
 }
 \details{
 Calculations are based on simulations and follow the distributional
 properties as described in Phillips. This is in contrast to the calculations
-via the 4-dimensional non-central t-distribution as described in Hua et al
+via the 4-dimensional non-central \emph{t}-distribution as described in Hua \emph{et al.}
 which was implemented in versions up to 1.4-6.\cr\cr
 The formulas cover balanced and unbalanced studies w.r.t (sequence) groups.\cr\cr
 In case of parallel group design and higher order crossover designs 
@@ -104,24 +103,18 @@ divisible by the number of (sequence) groups of the design an unbalanced design
 with small imbalance is assumed. A corresponding message is thrown showing the 
 assumed numbers of subjects in (sequence) groups.\cr
 The function does not vectorize properly if design is a vector. Moreover,
-\verb{theta0} and \verb{CV} must be of length two, thus further vectorizing is not possible.\cr
+\code{theta0} and \code{CV} must be of length two, thus further vectorizing is not possible.\cr
 Other vector input is not tested yet.\cr\cr
 }
 \references{
-Phillips KF.\cr 
-\emph{Power for Testing Multiple Instances of the Two One-Sided Tests Procedure}\cr
-Int J Biostat. 2009;5(1):Article 15. \doi{10.2202/1557-4679.1169}
+Phillips KF. \emph{Power for Testing Multiple Instances of the Two One-Sided Tests Procedure.} Int J Biostat. 2009;5(1):Article 15. \doi{10.2202/1557-4679.1169}
 
-Hua SY, Xu S, D\enc{’}{'}Agostino RB Sr.\cr
-\emph{Multiplicity adjustments in testing for bioequivalence}\cr
-Stat Med. 2015;34(2):215--31. \doi{10.1002/sim.6247}
+Hua SY, Xu S, D\enc{’}{'}Agostino RB Sr. \emph{Multiplicity adjustments in testing for bioequivalence.} Stat Med. 2015;34(2):215--31. \doi{10.1002/sim.6247}
 
-Lang B, Fleischer F.\cr
-\emph{Letter to the Editor: Comments on \sQuote{Multiplicity adjustments in testing for bioequivalence}}\cr
-Stat Med. 2016;35(14):2479--80. \doi{10.1002/sim.6488}
+Lang B, Fleischer F. \emph{Letter to the Editor: Comments on \sQuote{Multiplicity adjustments in testing for bioequivalence.}} Stat Med. 2016;35(14):2479--80. \doi{10.1002/sim.6488}
 }
 \author{
-Benjamin Lang and Detlew Labes\cr
+B. Lang, D. Labes\cr
 }
 \seealso{
  \code{\link{sampleN.2TOST}, \link{known.designs}}
@@ -134,10 +127,11 @@ Benjamin Lang and Detlew Labes\cr
 power.2TOST(theta0 = rep(1.05, 2), CV = rep(se2CV(0.3), 2),
             n = 24, rho = 0.75)
 # should give: 0.38906
-
-# Setting as before but use rho ~ 1 to replicate result of power.TOST()
+\dontrun{
+# Setting as before but use rho 1 and high number of simulations
+# to reproduce result of power.TOST()
 p1 <- power.2TOST(theta0 = rep(1.05, 2), CV = rep(se2CV(0.3), 2),
-                  n = 24, rho = 0.99999999, nsims=1E6)
+                  n = 24, rho = 1, nsims=1E7)
 p2 <- power.TOST(theta0 = 1.05, CV = se2CV(0.3), n = 24)
-all.equal(p1, p2, tolerance = 1e-03)
+all.equal(p1, p2, tolerance = 1e-04)}
 }

@@ -18,7 +18,7 @@ pa.scABE(CV, theta0 = 0.9, targetpower = 0.8, minpower = 0.7,
 \arguments{
   \item{CV}{
 Coefficient of variation of the intra-subject variability as ratio.\cr
-Here only the case CVwT=CVwR is implemented, i.e. CV has to be a scalar.
+Here only the case CVwT=CVwR is implemented, \emph{i.e.}, CV has to be a scalar.
 }
   \item{theta0}{
 \sQuote{True} or assumed T/R ratio. Often named GMR.\cr
@@ -41,22 +41,22 @@ Defaults to \code{2x3x3}, the partial replicate design (TRR|RTR|RRT).
 }
   \item{regulator}{
 Character string describing the scaled ABE method recommended by the regulatory
-bodies EMA, HC, or FDA.\cr
-Defaults to \code{EMA}, method of scaled (widened) bioequivalence limits.
+bodies \code{"EMA"}, \code{"HC"}, or \code{"FDA"}.\cr
+Defaults to \code{"EMA"}, method of scaled (expanded) bioequivalence limits.
 }
   \item{\dots}{
 More arguments to pass to \code{power.scABEL()} or \code{power.RSABE()}.\cr
-F.i. \code{alpha}, \code{theta1}, \code{theta2} or \code{nsims} if other values
-then the defaults for these arguments are needed.\cr
+F.i., \code{alpha}, \code{theta1}, \code{theta2} or \code{nsims} if other values
+than the defaults for these arguments are needed.\cr
 See man pages of \code{power.scABEL()} or \code{power.RSABE()}.
 }
 }
 \details{
 Power calculations are done via \code{power.scABEL()} or \code{power.RSABE()} and
-calculations of CV and theta0 which result in \code{minpower} are derived via \code{uniroot()}.\cr
+calculations of CV and theta0 which result in \code{minpower} derived via R base \code{\link{uniroot}}.\cr
 While one of the parameters (CV, GMR, N) is varied, the respective two others are
 kept constant. The tool shows the relative impact of single parameters on power.\cr
-The tool takes a minimum of 12 subjects as demanded in most BE guidances into account.
+The tool takes a minimum of 12 subjects as required in most BE guidances into account.
 However, it should be kept in mind that
   \itemize{
     \item the FDA requires at least 24 subjects \emph{enrolled} in studies intended for reference-scaling;
@@ -68,7 +68,7 @@ It is up to \emph{you} to decide on reasonable combinations and analyze their re
 }
 \value{
 Returns a list with class \code{'pwrA'} with the components
-  \item{plan}{A data.frame with the result of the sample size estimation.
+  \item{plan}{A data.frame with the result of the sample size estimation.\cr
               See output of \code{sampleN.scABEL()} or \code{sampleN.RSABE()}.}
   \item{paCV}{A data.frame with value pairs CV, pwr for impact of
               deviations from CV.}
@@ -84,11 +84,10 @@ The class \code{'pwrA'} has the S3 methods \code{print()} and \code{plot()}.
 See \code{\link{pa.ABE}} for usage.
 }
 \references{
-See \url{http://forum.bebac.at/mix_entry.php?id=13376}.
+\enc{Schütz}{Schuetz} H. \emph{Deviating from assumptions.} August 08, 2014. \href{https://forum.bebac.at/mix_entry.php?id=13353}{BEBA Forum}
 }
 \author{
-Idea and original code by H. \enc{Schütz}{Schuetz}\cr
-with modifications by D. Labes to use PowerTOST infrastructure.
+Idea and original code by H. \enc{Schütz}{Schuetz} with modifications by D. Labes to use PowerTOST infrastructure.
 }
 \note{
 The code for impact of deviations from planned sample size tries to
@@ -100,12 +99,13 @@ This results in a lesser decrease of power than more extreme dropout-patterns.
   \link{print.pwrA}, \link{plot.pwrA}, \link{pa.ABE}, \link{pa.NTIDFDA}}
 }
 \examples{
-# using the defaults:
-# design="2x3x3", targetpower=0.8, minpower=0.7, theta0/GMR=0.90
+# Implicitely using the defaults:
+# design = "2x3x3", targetpower = 0.8, minpower = 0.7,
+# theta0 = 0.9, GMR = 0.90, regulator = "EMA"
 # widened BE margins from defaults of sampleN.scABEL() 0.7462 ... 1.3402
 # 1E5 sims in power.scABEL()
 # not run due to timing policy of CRAN, may run some ten seconds
 \dontrun{
-# implicit print & plot
-pa.scABE(CV=0.4)}
+# Implicit print & plot
+pa.scABE(CV = 0.4)}
 }

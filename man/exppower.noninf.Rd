@@ -1,10 +1,11 @@
+\encoding{utf-8}
 \name{exppower.noninf}
 \alias{exppower.noninf}
 \title{
 Expected power of the non-inferiority test
 }
 \description{
-Calculates the so-called expected, i.e. unconditional, power for a variety of
+Calculates the so-called expected, \emph{i.e.}, unconditional, power for a variety of
 study designs used in bioequivalence studies.
 }
 \usage{
@@ -18,8 +19,7 @@ exppower.noninf(alpha = 0.025, logscale = TRUE, theta0, margin, CV, n,
 Significance level (one-sided). Defaults here to 0.025.
   }
   \item{logscale}{
-Should the data be used on log-transformed or on original scale? TRUE or FALSE.\cr
-Defaults to TRUE.
+Should the data be used on log-transformed or on original scale? \code{TRUE} (default) or \code{FALSE}.
   }  
   \item{theta0}{
 Assumed \sQuote{true} (or \sQuote{observed} in case of \code{prior.type != "CV"}) ratio 
@@ -49,7 +49,7 @@ See \code{known.designs()} for designs covered in this package.
 }
   \item{robust}{
 Defaults to FALSE. Set to \code{TRUE} will use the degrees of freedom according 
-to the \sQuote{robust} evaluation (aka Senn's basic estimator). These df are calculated
+to the \sQuote{robust} evaluation (aka Senn’s basic estimator). These degrees of freedom are calculated
 as \code{n-seq}.\cr 
 See \code{known.designs()$df2} for designs covered in this package.
 }
@@ -103,7 +103,7 @@ components:
 coincide with \code{power.noninf(...)}.\cr
 Note: This corresponds to the df of both the CV and the difference of means.}
 \item{\code{SEM}}{Standard error of the difference of means from the prior trial; 
-must always be on additive scale (i.e. usually log-scale).}
+must always be on additive scale (\emph{i.e.}, usually log-scale).}
 \item{\code{m}}{Number of subjects from prior trial. Specification is analogous to
 the main argument \code{n}.}
 \item{\code{design}}{Study design of prior trial. Specification is analogous to the 
@@ -120,31 +120,31 @@ Kenward-Roger method was used).
 
 Details on argument \code{prior.type}:
 \describe{
-\item{\code{CV}}{The expectation is calculated with respect to the 
-Inverse-gamma distribution.}
-\item{\code{theta0}}{The expectation is calculated with respect to the
-conditional distribution theta0 | \eqn{\sigma^2} = s^2 
-of the posteriori distribution of (theta0, \eqn{\sigma^2}) from the prior
-trial.}
-\item{\code{both}}{The expectation is calculated with respect to the posteriori
-distribution of (theta0, \eqn{\sigma^2}) from the prior trial. Numerical calculation
-of the two-dimensional integral is performed via \code{cubature::hcubature}.}
+  \item{\code{CV}}{The expectation is calculated with respect to the 
+  Inverse-gamma distribution.}
+  \item{\code{theta0}}{The expectation is calculated with respect to the
+  conditional distribution theta0 | \eqn{\sigma^2} = s^2 
+  of the posteriori distribution of (theta0, \eqn{\sigma^2}) from the prior
+  trial.}
+  \item{\code{both}}{The expectation is calculated with respect to the posteriori
+  distribution of (theta0, \eqn{\sigma^2}) from the prior trial. Numerical calculation
+  of the two-dimensional integral is performed via \code{cubature::hcubature}.}
 }
 \strong{Notes on the underlying hypotheses}\cr
 If the supplied margin is < 0 (\code{logscale=FALSE}) or < 1 (\code{logscale=TRUE}), 
 then it is assumed higher response values are better. The hypotheses are\cr
-\code{H0: theta0 <= margin vs. H1: theta0 > margin}\cr
+\verb{  H0: theta0 <= margin vs. H1: theta0 > margin}\cr
 where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
-or \cr
-\code{H0: log(theta0) <= log(margin) vs. H1: log(theta0) > log(margin)}\cr
+or\cr
+\verb{  H0: log(theta0) <= log(margin) vs. H1: log(theta0) > log(margin)}\cr
 where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr
 
 If the supplied margin is > 0 (\code{logscale=FALSE}) or > 1 (\code{logscale=TRUE}), 
 then it is assumed lower response values are better. The hypotheses are\cr
-\code{H0: theta0 >= margin vs. H1: theta0 < margin}\cr
+\verb{  H0: theta0 >= margin vs. H1: theta0 < margin}\cr
 where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
 or \cr
-\code{H0: log(theta0) >= log(margin) vs. H1: log(theta0) < log(margin)}\cr
+\verb{  H0: log(theta0) >= log(margin) vs. H1: log(theta0) < log(margin)}\cr
 where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr
 This latter case may also be considered as \sQuote{non-superiority}.
 }
@@ -153,45 +153,27 @@ This latter case may also be considered as \sQuote{non-superiority}.
 Value of expected power according to the input.
 }
 \references{
-Grieve AP.\cr 
-\emph{Confidence Intervals and Sample Sizes}\cr
-Biometrics. 1991;47:1597--603. \doi{10.2307/2532411}
+Grieve AP. \emph{Confidence Intervals and Sample Sizes.} Biometrics. 1991;47:1597--603. \doi{10.2307/2532411}
 
-O'Hagan et al.\cr 
-\emph{Assurance in Clinical Trial Design}\cr
-Pharm Stat. 2005;4:187--201. \doi{10.1002/pst.175}
+O’Hagan, Stevens, JW, Campell MJ. \emph{Assurance in Clinical Trial Design.} Pharm Stat. 2005;4:187--201. \doi{10.1002/pst.175}
 
-Julious SA, Owen RJ.\cr
-\emph{Sample size calculations for clinical studies allowing for uncertainty in variance}\cr
-Pharm Stat. 2006;5:29--37. \doi{10.1002/pst.197}
+Julious SA, Owen RJ. \emph{Sample size calculations for clinical studies allowing for uncertainty in variance.} Pharm Stat. 2006;5:29--37. \doi{10.1002/pst.197}
 
-Julious SA.\cr 
-\emph{Sample sizes for Clinical Trials}\cr
-Boca Raton: CRC Press / Chapman & Hall; 2010.
+Julious SA. \emph{Sample sizes for Clinical Trials.} Boca Raton: CRC Press / Chapman & Hall; 2010.
 
-Bertsche et al.\cr
-\emph{The predictive distribution of the residual variability in
-the linear-fixed effects model for clinical cross-over trials}\cr
-Biom J. 2016;58(4):797--809. \doi{10.1002/bimj.201500245}
+Bertsche A, Nehmitz G, Beyersmann J, Grieve AP. \emph{The predictive distribution of the residual variability in
+the linear-fixed effects model for clinical cross-over trials.} Biom J. 2016;58(4):797--809. \doi{10.1002/bimj.201500245}
 
-Box GEP, Tiao GC.\cr 
-\emph{Bayesian Inference in Statistical Analysis}\cr
-Boston: Addison-Wesley; 1992.
+Box GEP, Tiao GC. \emph{Bayesian Inference in Statistical Analysis.} Boston: Addison-Wesley; 1992.
 
-Held L, Sabanes Bove D.\cr
-\emph{Applied Statistical Inference. Likelihood and Bayes}\cr
-Berlin, Heidelberg: Springer; 2014. \doi{10.1007/978-3-642-37887-4}
+Held L, Sabanes Bove D. \emph{Applied Statistical Inference. Likelihood and Bayes.} Berlin, Heidelberg: Springer; 2014. \doi{10.1007/978-3-642-37887-4}
 
-Senn S.\cr
-\emph{Cross-over Trials in Clinical Research}\cr
-Chichester: Wiley; 2002.
+Senn S. \emph{Cross-over Trials in Clinical Research.} Chichester: John Wiley & Sons; 2\ifelse{html}{\out{<sup>nd</sup>}}{\eqn{^{nd}}} edition 2002.
 
-Zierhut ML et al.\cr
-\emph{Ignorance is not bliss: Statistical power is not probability of trial success}\cr
-Clin Pharmacol Ther. 2015;99:356--9. \doi{10.1002/cpt.257}
+Zierhut ML, Bycott P, Gibbs MA, Smith BP, Vicini P. \emph{Ignorance is not bliss: Statistical power is not probability of trial success.} Clin Pharmacol Ther. 2015;99:356--9. \doi{10.1002/cpt.257}
 }
 \author{
-B. Lang & D. Labes
+B. Lang, D. Labes
 }
 \seealso{
  \code{\link{expsampleN.noninf}, \link{power.noninf}}

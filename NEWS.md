@@ -1,6 +1,6 @@
 # PowerTOST 1.4-7.9000
 
-Published on GitHub 2019-08-10
+Published on GitHub 2019-08-11
 
 ## Bug fixes
 
@@ -15,6 +15,10 @@ Published on GitHub 2019-08-10
   * `README.md` (knitted from `README.Rmd`).
   * Function to simulate subject data & evaluate via models with group effect implemented. Not yet public.
   * Unified Code base for the scaled ABE functions.
+
+## Minor changes
+
+  * References in man pages reworked.
 
 # PowerTOST 1.4-7
 

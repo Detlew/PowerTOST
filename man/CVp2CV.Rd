@@ -11,11 +11,10 @@ assuming a ratio of the intra-subject variances.
 CVp2CV(CV, ratio = 1.5)
 }
 \arguments{
-  \item{CV}{
-'pooled' CV of T/R.
+  \item{CV}{\sQuote{pooled} CV of T and R.
 }
   \item{ratio}{
-Ratio of the intra-subject variances s^2(T)/s^2(R).\cr
+Ratio of the intra-subject variances \code{s^2(T)/s^2(R)}.\cr
 May be a vector.
 }
 }
@@ -25,12 +24,12 @@ calculate the components CV(T) and CV(R) assuming a ratio of the
 intra-subject variances.\cr
 The formula the function is based on:\cr
 \code{log(1.0 + CV^2) = (sWT^2 + sWR^2)/2}\cr
-Insert sWT^2 = ratio* sWR^2 and solve for sWR^2.
+Insert \code{sWT^2 = ratio * sWR^2} and solve for \code{sWR^2}.
 }
 \value{
 Returns a numeric vector of the CV values for Test and Reference if only
 one ratio is given.\cr
-Returns a matrix with named columns 'CVwT' and C'VwR' if ratio is given as vector.
+Returns a matrix with named columns \code{CVwT} and \code{CVwR} if ratio is given as vector.
 }
 \author{
 D. Labes

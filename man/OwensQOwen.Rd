@@ -1,40 +1,38 @@
+\encoding{utf-8}
 \name{OwensQOwen}
 \alias{OwensQOwen}
 \title{
 Owen's Q-function via repeated integration by parts
 }
 \description{
-This is an implementation of the algorithm given in Owen's original paper 
-(Biometrica 1965) via repeated integration by parts. 
+This is an implementation of the algorithm given by Owen via repeated integration by parts. 
 }
 \usage{
 OwensQOwen(nu, t, delta, a=0, b)
 }
 \arguments{
-  \item{nu}{degree of Owen's Q}
+  \item{nu}{degree of Owen’s Q}
   \item{t}{parameter t}
   \item{delta}{parameter delta}
   \item{a}{lower integration limit.\cr
-           Only a=0 implemented, other values give an error.}
+           Only \code{a=0} implemented, other values give an error.}
   \item{b}{upper integration limit}
 }
 \value{
-numeric value of Owen's Q function.
+Numeric value of Owen’s Q function.
 }
 \note{
 The argument \code{a=0} could be dropped but is retained for sake of completeness. 
 }
 \references{
-Owen DB.\cr
-\emph{A special case of a bivariate non-central t-distribution}\cr
-Biometrika. 1965;52(3/4):437--46. \doi{10.2307/2333696}
+Owen DB. \emph{A special case of a bivariate non-central t-distribution.} Biometrika. 1965;52(3/4):437--46. \doi{10.2307/2333696}
 }
 \author{
 D. Labes
 }
 \note{
 This function is mainly for comparative / validation purposes.\cr
-The function needs \code{OwensT()} function.
+The function requireds \code{\link{OwensT}} function.
 }
 
 \seealso{

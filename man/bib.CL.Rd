@@ -26,17 +26,16 @@ bib.CL(trt, p)
 \value{
   Matrix containing the sequences in rows and periods in columns.\cr 
   The entry \verb{(i, j)} of the matrix corresponds to the treatment or
-  dose (index) a subject within \verb{i}-th sequence gets in the
-  \verb{j}-th period.
+  dose (index) a subject within \emph{i}-th sequence gets in the
+  \emph{j}-th period.
 }
 
 \author{
-  D. Labes
+D. Labes
 }
 
 \references{
-Chow SC, Liu JP. \emph{Design and Analysis of Bioavailability and Bioequivalence Studies.}\cr
-Boca Raton: CRC Press; 3\ifelse{html}{\out{<sup>rd</sup>}}{\eqn{^{rd}}} edition 2009. Chapter 2.6.
+Chow SC, Liu JP. \emph{Design and Analysis of Bioavailability and Bioequivalence Studies.} Boca Raton: CRC Press; 3\ifelse{html}{\out{<sup>rd</sup>}}{\eqn{^{rd}}} edition 2009. Chapter 2.6.
 }
 
 \examples{

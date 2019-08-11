@@ -35,57 +35,57 @@ Conventional upper \acronym{ABE} limit to be applied in the mixed procedure if
 Defaults to 1.25 if not given explicitly.
 }
   \item{theta0}{
-\sQuote{True} or assumed bioequivalence ratio. \cr
-Defaults to 0.90 according to the two Laszlos if not given explicitly.
+\sQuote{True} or assumed T/R ratio.\cr
+Defaults to 0.90 according to the two \enc{Laszlós}{Laszlos} if not given explicitly.
 }
   \item{CV}{
 Coefficient(s) of variation as ratio.\cr
 If \code{length(CV) = 1} the same CV is assumed for Test and Reference.\cr
-If \code{length(CV) = 2} the CV for Test must be given in \verb{CV[1]} and for 
-Reference in \verb{CV[2]}.
+If \code{length(CV) = 2} the CV for Test must be given in \code{CV[1]} and for 
+Reference in \code{CV[2]}.
 }
   \item{n}{
 Number of subjects under study.\cr
-May be given as vector. In that case it is assumed that n contains the number
+May be given as vector. In that case it is assumed that \code{n} contains the number
 of subjects in the sequence groups.\cr
 If \verb{n} is given as single number (total sample size) and this number is not 
 divisible by the number of sequences of the design an unbalanced design is 
 assumed. A corresponding message is thrown (showing the numbers of subjects 
 in sequence groups).\cr
-Attention! In case of the \verb{"2x2x3"} (TRT|RTR) design the order of sample sizes
-per sequence is important if given as vector. \verb{n[1]} is for sequence group
-'TRT' and \verb{n[2]} is for sequence group 'RTR'. 
+Attention! In case of the \code{"2x2x3"} (TRT|RTR) design the order of sample sizes
+per sequence is important if given as vector. \code{n[1]} is for sequence group
+'TRT' and \code{n[2]} is for sequence group 'RTR'. 
 }
   \item{design}{
 Design of the study to be planned.\cr
-\verb{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\verb{"2x2x4"} is the full replicate design with 2 sequences and 4 periods (TRTR|RTRT).\cr
-\verb{"2x2x3"} is the 3-period design with sequences TRT|RTR.\cr
-Defaults to \verb{design="2x3x3"}.
+\code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
+\code{"2x2x4"} is the full replicate design with 2 sequences and 4 periods (TRTR|RTRT).\cr
+\code{"2x2x3"} is the 3-period design with sequences TRT|RTR.\cr
+Defaults to \code{design="2x3x3"}.
 }
   \item{design_dta}{
-Alternatively to using the arguments \verb{design} and \verb{n} the design may 
-be defined via a data.frame with columns \verb{subject, sequence, period} and
+Alternatively to using the arguments \code{design} and \code{n} the design may 
+be defined via a data.frame with columns \code{subject, sequence, period} and
 \verb{tmt}. This feature is experimental in the sense that the data.frame is
 not checked for complying with the assumed structure.\cr
-If you use the argument \verb{design_dta} you don\enc{’}{'}t need to specify the arguments
-\verb{design} and \verb{n}.\cr
+If you use the argument \code{design_dta} you don\enc{’}{'}t need to specify the arguments
+\code{design} and \code{n}.\cr
 The default \code{design_dta=NULL} means that \verb{design} and \verb{n} are used
 for the internal construction of the design data.frame.
 }
   \item{SABE_test}{
 This argument specifies the test method to be used for the reference scaled
 \acronym{ABE} decision.\cr
-Default is the \verb{"exact"} ncTOST method of the two Laszlos. Other choices are \verb{"ABEL"},
-\verb{"hyslop"} and \verb{"fda"}. See Details.
+Default is the \code{"exact"} \sQuote{ncTOST} method of the two \enc{Laszlós}{Laszlos}. Other choices are \code{"ABEL"},
+\code{"hyslop"} and \code{"fda"}. See Details.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
-May be given as character \verb{"EMA"} or as an object of
+May be given as character \code{"EMA"} or as an object of
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr\cr
-If given as object of class 'regSet' the component \code{est_method} can not be \verb{"ISC"}. 
+If given as object of class 'regSet' the component \code{est_method} can not be \code{"ISC"}. 
 }
   \item{nsims}{
 Number of simulations to be performed to obtain the empirical power.
@@ -102,22 +102,22 @@ for the BE decision.\cr
 }
   \item{setseed}{
 Simulations are dependent on the starting point of the (pseudo) random number 
-generator. To avoid differences in power for different runs a \verb{set.seed()} 
+generator. To avoid differences in power for different runs a \code{set.seed()} 
 is issued if \code{setseed=TRUE}, the default. 
 }
   \item{progress}{
-Should a progressbar be shown? Defaults to \verb{TRUE} if missing and \code{nsims >5e5}.
+Should a progressbar be shown? Defaults to \code{TRUE} if missing and \code{nsims >5e5}.
 }
 }
 \details{
 The methods rely on the analysis of log-transformed data, \emph{i.e.}, assumes a 
 log-normal distribution on the original scale.\cr\cr
-The data.frame with columns \verb{subject, sequence, period} and \verb{tmt} 
+The data.frame with columns \code{subject, sequence, period} and \code{tmt} 
 necessary for evalution of simulated subject data is constructed internally from 
-the arguments \verb{design} and \verb{n} or may be given user defined via the argument 
-\verb{design_dta}. The last option is usefull if missing data have to be considered
+the arguments \code{design} and \code{n} or may be given user defined via the argument 
+\code{design_dta}. The last option is usefull if missing data have to be considered
 or if designs have to be evaluated which are not in the list of argument 
-\verb{design}.\cr\cr
+\code{design}.\cr\cr
 The estimation method for obtaining the statistics necessary to perform the
 reference scaled ABE decision is the usual \acronym{ANOVA} with effects treatment, period,
 sequence and subject within sequence for the evaluation of all data and period,
@@ -125,13 +125,14 @@ sequence and subject within sequence for the evaluation of the Reference formula
 data only.\cr\cr
 The SABE tests implemented are:\cr
 \tabular{ll}{
-\verb{"exact"} \tab - 'exact' based method of the two Laszlos (see references, 
-called there ncTOST)\cr
-\verb{"ABEL"} \tab - Average bioequivalence with expanding limits\cr
-\verb{"hyslop"} \tab - BE decision via the linearized RSABE criterion and its 
-upper 95\% CI\cr
-\verb{"fda"} \tab - Hyslop with an additional bias correction term as implemented 
-in the \acronym{SAS} code of the \acronym{FDA} Guidance on Progesterone.
+  \code{"exact"} \tab \sQuote{exact} based method of the two \enc{Laszlós}{Laszlos} (see references, 
+  called there \sQuote{ncTOST})\cr
+  \code{"ABEL"} \tab Average bioequivalence with expanding limits\cr
+  \code{"hyslop"} \tab BE decision via the linearized RSABE criterion and its 
+  upper 95\% CI\cr
+  \code{"fda"} \tab Hyslop with an additional bias correction term as implemented 
+  in the \acronym{SAS} code of the\cr
+  \tab \acronym{FDA}’s Guidance on Progesterone.
 }
 }
 \value{
@@ -139,23 +140,15 @@ Returns the value of the (empirical) power if argument \code{details=FALSE}.\cr\
 Returns a named vector if argument \code{details=TRUE}.\cr
 \verb{p(BE)} is the power, \verb{p(BE-RSABE)} is the power of using the reference
 scaled \acronym{ABE} alone, and \verb{p(BE-pe)} is the power of the criterion
-'point estimat within acceptance range' alone. \verb{p(BE-ABE)} is the power of
+\sQuote{point estimate within acceptance range} alone. \verb{p(BE-ABE)} is the power of
 the conventional \acronym{ABE} test given for comparative purposes.
 }
 \references{
-FDA. \emph{Draft Guidance on Progesterone}\cr
-Recommended Apr 2010. Revised Feb 2011. 
-\href{https://www.accessdata.fda.gov/drugsatfda_docs/psg/Progesterone_caps_19781_RC02-11.pdf}{download}
+Food and Drug Administration, Office of Generic Drugs (OGD). \emph{Draft Guidance on Progesterone.} Recommended Apr 2010. Revised Feb 2011. \href{https://www.accessdata.fda.gov/drugsatfda_docs/psg/Progesterone_caps_19781_RC02-11.pdf}{download}
 
-\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L.\cr
-\emph{An Exact Procedure for the Evaluation of Reference-Scaled Average
-Bioequivalence}\cr
-AAPS J. 2016;18(2):476--89. \doi{10.1208/s12248-016-9873-6}.
+\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L. \emph{An Exact Procedure for the Evaluation of Reference-Scaled Average Bioequivalence.} AAPS J. 2016;18(2):476--89. \doi{10.1208/s12248-016-9873-6}.
 
-\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L.\cr
-\emph{Algorithms for evaluating reference scaled average bioequivalence: power, 
-bias, and consumer risk}\cr
-Stat Med. 2017;36(27):4378--4390. \doi{10.1002/sim.7440}
+\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L. \emph{Algorithms for evaluating reference scaled average bioequivalence: power, bias, and consumer risk.} Stat Med. 2017;36(27):4378--4390. \doi{10.1002/sim.7440}
 }
 \author{
 D. Labes
@@ -180,8 +173,8 @@ reg$CVswitch  <- 0
 reg$CVcap     <- Inf
 reg$pe_constr <- FALSE
 reg$name      <- "EMA pure"
-power.RSABE2L.sds(CV=0.4, n=12, theta0=exp(0.05), design="2x2x4",
-                  regulator=reg, nsims=50000)
+power.RSABE2L.sds(CV = 0.4, n = 12, theta0 = exp(0.05),
+                  design = "2x2x4", regulator = reg, nsims = 50000)
 # should give:
 # [1] 0.46504 (compared to 47.1\% in the 2017 reference)}
 }

@@ -1,10 +1,11 @@
+\encoding{utf-8}
 \name{exppower.TOST}
 \alias{exppower.TOST}
 \title{
 Expected power of the TOST procedure
 }
 \description{
-Calculates the so-called expected, i.e. unconditional, power for a variety of
+Calculates the so-called expected, \emph{i.e.}, unconditional, power for a variety of
 study designs used in bioequivalence studies.
 }
 \usage{
@@ -18,8 +19,7 @@ exppower.TOST(alpha = 0.05, logscale = TRUE, theta0, theta1, theta2,
 Significance level (one-sided). Commonly set to 0.05.
   }
   \item{logscale}{
-Should the data be used on log-transformed or on original scale? TRUE or FALSE.\cr
-Defaults to TRUE.
+Should the data be used on log-transformed or on original scale? \code{TRUE} (default) or \code{FALSE}.
   }  
   \item{theta0}{
 Assumed \sQuote{true} (or \sQuote{observed} in case of \code{prior.type != "CV"}) bioequivalence 
@@ -49,11 +49,11 @@ number of (sequence) groups.
 }
   \item{design}{
 Character string describing the study design.
-See \code{known.designs()} for designs covered in this package.
+See \link{known.designs} for designs covered in this package.
 }
   \item{robust}{
-Defaults to FALSE. Set to \code{TRUE} will use the degrees of freedom according 
-to the \sQuote{robust} evaluation (aka Senn's basic estimator). These df are calculated
+Defaults to \code{FALSE}. Set to \code{TRUE} will use the degrees of freedom according 
+to the \sQuote{robust} evaluation (aka Senn’s basic estimator). These df are calculated
 as \code{n-seq}.\cr 
 See \code{known.designs()$df2} for designs covered in this package.
 }
@@ -108,7 +108,7 @@ components:
 coincide with \code{power.TOST(...)}.\cr
 Note: This corresponds to the df of both the CV and the difference of means.}
 \item{\code{SEM}}{Standard error of the difference of means from the prior trial; 
-must always be on additive scale (i.e. usually log-scale).}
+must always be on additive scale (\emph{i.e.}, usually log-scale).}
 \item{\code{m}}{Number of subjects from prior trial. Specification is analogous to
 the main argument \code{n}.}
 \item{\code{design}}{Study design of prior trial. Specification is analogous to the 
@@ -118,9 +118,9 @@ main argument \code{design}.}
 For \code{prior.parm}, the combination consisting of \code{df} and \code{SEM} 
 requires a somewhat advanced knowledge of the prior trial (provided in the raw
 output from for example the software \acronym{SAS}, or may be obtained via
-\code{emmeans::emmeans}). However, it has the advantage that if there were 
+\code{\link[emmeans]{emmeans}}. However, it has the advantage that if there were 
 missing data the exact degrees of freedom and standard error of the difference 
-can be used, the former possibly being non-integer valued (e.g. if the 
+can be used, the former possibly being non-integer valued (\emph{e.g.}, if the 
 Kenward-Roger method was used).
 
 Details on argument \code{prior.type}:
@@ -133,54 +133,35 @@ of the posteriori distribution of (theta0, \eqn{\sigma^2}) from the prior
 trial.}
 \item{\code{both}}{The expectation is calculated with respect to the posteriori
 distribution of (theta0, \eqn{\sigma^2}) from the prior trial. Numerical calculation
-of the two-dimensional integral is performed via \code{cubature::hcubature}.}
+of the two-dimensional integral is performed via \code{\link[cubature]{hcubature}}.}
 }
 }
 \value{
 Value of expected power according to the input.
 }
 \references{
-Grieve AP.\cr 
-\emph{Confidence Intervals and Sample Sizes}\cr
-Biometrics. 1991;47:1597--603. \doi{10.2307/2532411}
+Grieve AP. \emph{Confidence Intervals and Sample Sizes.} Biometrics. 1991;47:1597--603. \doi{10.2307/2532411}
 
-O'Hagan et al.\cr 
-\emph{Assurance in Clinical Trial Design}\cr 
-Pharm Stat. 2005;4:187--201. \doi{10.1002/pst.175}
+O’Hagan, Stevens, JW, Campell MJ. \emph{Assurance in Clinical Trial Design.} Pharm Stat. 2005;4:187--201. \doi{10.1002/pst.175}
 
-Julious SA, Owen RJ.\cr 
-\emph{Sample size calculations for clinical studies allowing for 
-uncertainty in variance} \cr
-Pharm Stat. 2006;5:29--37. \doi{10.1002/pst.197}
+Julious SA, Owen RJ. \emph{Sample size calculations for clinical studies allowing for 
+uncertainty in variance.} Pharm Stat. 2006;5:29--37. \doi{10.1002/pst.197}
 
-Julious SA.\cr 
-\emph{Sample sizes for Clinical Trials}\cr 
-Boca Raton: CRC Press / Chapman & Hall; 2010.
+Julious SA. \emph{Sample sizes for Clinical Trials.} Boca Raton: CRC Press / Chapman & Hall; 2010.
 
-Bertsche et al.\cr
-\emph{The predictive distribution of the residual variability in
-the linear-fixed effects model for clinical cross-over trials}\cr
-Biom J. 2016;58(4):797--809. \doi{10.1002/bimj.201500245}
+Bertsche A, Nehmitz G, Beyersmann J, Grieve AP. \emph{The predictive distribution of the residual variability in
+the linear-fixed effects model for clinical cross-over trials.} Biom J. 2016;58(4):797--809. \doi{10.1002/bimj.201500245}
 
-Box GEP, Tiao GC.\cr 
-\emph{Bayesian Inference in Statistical Analysis}\cr
-Boston: Addison-Wesley; 1992.
+Box GEP, Tiao GC. \emph{Bayesian Inference in Statistical Analysis.} Boston: Addison-Wesley; 1992.
 
-Held L, Sabanes Bove D.\cr
-\emph{Applied Statistical Inference. Likelihood and Bayes}\cr 
-Berlin, Heidelberg: Springer; 2014. \doi{10.1007/978-3-642-37887-4}
+Held L, Sabanes Bove D. \emph{Applied Statistical Inference. Likelihood and Bayes.} Berlin, Heidelberg: Springer; 2014. \doi{10.1007/978-3-642-37887-4}
 
-Senn S.\cr
-\emph{Cross-over Trials in Clinical Research}\cr
-Chichester: Wiley; 2002.
+Senn S. \emph{Cross-over Trials in Clinical Research.} Chichester: John Wiley & Sons; 2\ifelse{html}{\out{<sup>nd</sup>}}{\eqn{^{nd}}} edition 2002.
 
-Zierhut ML et al.\cr
-\emph{Ignorance is not bliss: Statistical power is not probability of trial success}\cr
-Clin Pharmacol Ther. 2015;99:356--9. \doi{10.1002/cpt.257}
+Zierhut ML, Bycott P, Gibbs MA, Smith BP, Vicini P. \emph{Ignorance is not bliss: Statistical power is not probability of trial success.} Clin Pharmacol Ther. 2015;99:356--9. \doi{10.1002/cpt.257}
 }
 \author{
-B. Lang (thanks to G. Nehmiz for the helpful discussions)\cr
-D. Labes
+B. Lang (thanks to G. Nehmiz for the helpful discussions), D. Labes
 }
 \seealso{
  \code{\link{expsampleN.TOST}, \link{power.TOST}} 
