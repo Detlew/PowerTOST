@@ -54,8 +54,9 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     Emse  <- (s2wT + 2.0*s2wR)/3
     # warning in case of CVwR != CVwT
     if (abs(s2wT-s2wR)>1e-4){
-      warning(paste("Heteroscedasticity in the 2x3x3 design may led", 
-                    "to poor accuracy of power!"), call.=FALSE)
+      warning(paste("Heteroscedasticity in the 2x3x3 design may lead", 
+                    "to poor accuracy of power;\nconsider the function",
+                    "power.scABEL.sdsims() instead."), call.=FALSE)
     }
   }
   if (design=="2x2x4") {
