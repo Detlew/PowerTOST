@@ -140,7 +140,7 @@ minor degree -- the sample size. Algorithm:
   and compared to the nominal level of the test \code{alpha}.
   \item If no inflation of the \acronym{TIE} is found, the algorithm stops.
   \item Otherwise, alpha is iteratively adjusted (\emph{i.e.}, \code{alpha.adj <alpha})
-  until no more relevant inflation of the \acronym{TIE} is detected (i.e.,
+  until no more relevant inflation of the \acronym{TIE} is detected (\emph{i.e.},
   \code{abs(TIE - alpha) <= tol}).
 }
 }
@@ -156,8 +156,7 @@ Wonnemann M, \enc{Frömke}{Froemke} C, Koch A. \emph{Inflation of the Type I Err
 
 \enc{Muñoz}{Munoz} J, Alcaide D, \enc{Ocaña}{Ocana} J. \emph{Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence in highly variable drugs.} Stat Med. 2015;35(12):1933--43. \doi{10.1002/sim.6834}
 
-Labes D, \enc{Schütz}{Schuetz} H. \emph{Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, 
-and a Method for its Control.} Pharm Res. 2016;33(11):2805--14. \doi{10.1007/s11095-016-2006-1}
+Labes D, \enc{Schütz}{Schuetz} H. \emph{Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.} Pharm Res. 2016;33(11):2805--14. \doi{10.1007/s11095-016-2006-1}
 
 \enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L. \emph{Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.} Stat Med. 2017;36(27):4378--90. \doi{10.1002/sim.7440}
 
@@ -180,8 +179,8 @@ of 0.80 (both for \code{alpha} and adjusted alpha) will be estimated. If
 \code{theta0} \emph{is} specified, its value will be used; again for target power 0.80.\cr
 If you are interested in other levels of power, use \code{\link{sampleN.scABEL.ad}}.
 
-The EMA’s method is currently recommended in other jurisdictions as well (\emph{e.g.}, the WHO;
-ASEAN States, Australia, Brazil, Egypt, the Eurasian Economic Union, New Zealand, the Russian Federation, the East African Community).
+The EMA’s method is currently recommended in other jurisdictions as well (\emph{e.g.}, by the WHO;
+in ASEAN States, Australia, Brazil, Egypt, the Eurasian Economic Union, New Zealand, the Russian Federation, and the East African Community).
 }
 
 \section{Warning }{

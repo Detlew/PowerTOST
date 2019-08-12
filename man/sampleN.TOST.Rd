@@ -95,7 +95,7 @@ Of course it is highly recommended to use the default \verb{method="exact"}. :-)
 There is no reason besides testing and for comparative purposes to use an 
 approximation if the exact method is available at no extra costs.
 }
-\section{Warning }{
+\section{Warning}{
 The function does not vectorize properly.\cr
 If you need sample sizes with varying CVs, use f.i. for-loops or the apply-family.
 }

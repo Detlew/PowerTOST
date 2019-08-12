@@ -1,6 +1,6 @@
 # PowerTOST 1.4-7.9000
 
-Published on GitHub 2019-08-11
+Published on GitHub 2019-08-12
 
 ## Bug fixes
 
@@ -22,7 +22,7 @@ Published on GitHub 2019-08-11
 
 # PowerTOST 1.4-7
 
-On CRAN 2018-04-12 (dedicated to the birthday of Alfie Schuetz. :-))
+On CRAN 2018-04-12 (dedicated to the birthday of Alfie Schütz. :-)
 
 ## Bug fixes
 
@@ -31,7 +31,7 @@ On CRAN 2018-04-12 (dedicated to the birthday of Alfie Schuetz. :-))
 ## Major changes
 
   * Function `type1error.2TOST()` no longer available since it suffers from insufficient precision to obtain the type 1 error (TIE) via simulations. Due to the intersection-union principle the TIE is always upper bounded to alpha by theory.
-  * Function `power.2TOST()` based on simulations to obtain the power  of 2 TOSTs (statistical flaw in 4-dimensional *t*-distribution approach). `sampleN.2TOST()` and man page adapted according to this change.
+  * Function `power.2TOST()` based on simulations to obtain the power of 2 TOSTs (statistical flaw in 4-dimensional *t*-distribution approach). `sampleN.2TOST()` and man page adapted according to this change.
   * Argument `regulator="FDA"` implemented in `scABEL.ad()`.
   * New function `power.RSABE2L.sds()` which implements the 'exact' based method for RSABE (ncTOST) of the two Lászlós. Documentation included.
 
@@ -45,7 +45,7 @@ On CRAN 2017-08-17
 
 ## Major changes
 
-  * Functions `CVwRfromU()` / `U2CVwR()` to calculate CVwR from the upper expanded  limit of an ABEL study according to EMA’s or Health Canada’s rules.
+  * Functions `CVwRfromU()` / `U2CVwR()` to calculate CV~wR~ from the upper expanded  limit of an ABEL study according to the EMA’s or Health Canada’s rules.
   * Power and sample size for TOST: Argument `alpha` restricted to scalar. Internal functions now allow length = 2 (different alphas for the two null hypotheses).
   * Deprecated argument `dfCV` in expected power functions completely removed.
 
@@ -115,8 +115,8 @@ On CRAN 2016-11-01
   * Functions for expected power of the TOST procedure and sample size based on expected power reworked to deal also with uncertainty of theta0 or dealing with both uncertainties of CV and theta0. Contributed mainly by Benjamin Lang.
   * Deprecated functions `power.scABEL2()` and `sampleN.scABEL2()` removed.
   * `regulator = "ANVISA"` no longer allowed in the scaled ABEL functions.
-  * `OwensQ()` simpler/faster implemented. Now based soleyly on numerical integrataion in combination with non-central t.
-  * Owen’s T-function, used in `OwensQOwen()` now based on algorithm AS76 and remarks to that algorithm to avoid numerical errors of the implementation via `integrate().
+  * `OwensQ()` simpler/faster implemented. Now based solely on numerical integrataion in combination with non-central *t*.
+  * Owen’s T-function, used in `OwensQOwen()` now based on algorithm AS76 and remarks to that algorithm to avoid numerical errors of the implementation via `integrate()`.
 
 ## Minor changes
 
@@ -136,7 +136,7 @@ On CRAN 2016-07-14
 
 ## Minor changes
 
-  * Implementation_scaledABE_sims.pdf in `\doc` subdirectory updated to reflect the changes in code of the scaled ABE functions.
+  * Implementation_scaledABE_sims.pdf in `/doc` subdirectory updated to reflect changes in code of the scaled ABE functions.
   * The S3 method plot for class `'pwrA'` now has an argument `ratiolabel` for labeling the axis concerning theta0. Wish of Benjamin Lang.
   * Various enhancements in man pages.
   * Power and sample size for FDA RSABE now take into account a CVcap if defined as finite.
@@ -148,7 +148,7 @@ Published on GitHub 2016-06-14
 
 ## Major changes
 
-  * Objects of class `'regSet'` now have an additional component `'est_method'` which controls the simulations via key statistics of the evaluation using the EMA’s ANOVA or the FDA’s recommended ISC in `xyz.scABEL()` functions.
+  * Objects of class `'regSet'` have an additional component `'est_method'` which controls the simulations via key statistics of the evaluation using the EMA’s ANOVA or the FDA’s recommended ISC in `xyz.scABEL()` functions.
   * `power.scABEL()`/`power.scABEL2()` as well as `sampleN.scABEL()`/`sampleN.scABEL2()` are now unified. The regulator component `'est_method'` is used for switching between simulations based on the EMA’s ANOVA evaluation or ISC evaluation, respectively.  
     `power.scABEL2()`/`sampleN.scABEL2()` are therefore deprecated and will be removed in future versions. A corresponding warning is thrown.
 

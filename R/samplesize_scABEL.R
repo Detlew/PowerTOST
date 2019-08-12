@@ -62,7 +62,7 @@ sampleN.scABEL1 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   if (missing(theta1) & missing(theta2)) theta1 <- 0.8
   if (missing(theta2)) theta2 <- 1/theta1
   if (missing(theta1)) theta1 <- 1/theta2
-  # the two Laszlo's recommend theta0=0.9 for HVD's
+  # the two Laszlos recommend theta0=0.9 for HVDs
   if (missing(theta0)) theta0 <- 0.9
   if ( (theta0<=theta1) | (theta0>=theta2) ) {
     stop("True ratio ",theta0," not between margins ",theta1," / ",
@@ -161,12 +161,10 @@ sampleN.scABEL1 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
                      se=sqrt(Emse), steps=seqs, bk=bk)
     # empirical correction in the vicinity of CV=0.3 for ratios 
     # outside 0.86 ... 1/0.86
-    # does this fit also for CVswitch in case of ANVISA = 0.4?
     if(Emse < CV2mse(CVswitch+0.005) & Emse > CV2mse(CVswitch-0.005) 
         & abs(mlog)>log(1/0.865)) {
       if (reg$name=="EMA")     n01 <- 0.9*n01
       if (reg$name=="FDA")     n01 <- 0.65*n01
-      if (reg$name=="ANVISA")  n01 <- 0.6*n01
       n01 <- seqs*trunc(n01/seqs)
     }
     

@@ -134,11 +134,12 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     }
   }
   # Simulate subject data (if sdsims=TRUE)
-  opt2 <- function(x) power.scABEL.sdsims(alpha = x, CV = CV, theta0 = U,
-                                          n = n, regulator = reg,
-                                          design = design, nsims = nsims,
-                                          setseed = setseed,
-                                          progress = progress) - alpha
+  opt2 <- function(x) {
+    power.scABEL.sdsims(alpha = x, CV = CV, theta0 = U, n = n,
+                        regulator = reg, design = design,
+                        nsims = nsims, setseed = setseed,
+                        progress = progress) - alpha
+  }
   sig <- binom.test(x = round(alpha*nsims, 0), n = nsims,
                     alternative = "less",
                     conf.level = 1 - alpha)$conf.int[2]

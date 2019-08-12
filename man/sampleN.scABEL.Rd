@@ -85,17 +85,17 @@ is issued if \code{setseed=TRUE}, the default.
 \details{
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on ABEL (\sQuote{Average Bioequivalence with Expanded Limits}). For more details see
-a description in the \code{\\doc} sub-directory of the package.\cr\cr
+a description in the \code{/doc} sub-directory of the package.\cr\cr
 Function \code{sampleN.scABEL()} is based on power calculations via simulations 
-using the distributional characteristics of the 'key' statistics obtained from 
+using the distributional characteristics of the \sQuote{key} statistics obtained from 
 the EMA recommended evaluation via ANOVA if \code{regulator="EMA"} or if the
-regulator component \code{est_method} is set to "ANOVA" if regulator is an object 
+regulator component \code{est_method} is set to \code{"ANOVA"} if regulator is an object 
 of class 'regSet'.\cr
-Otherwise the simulations are based on the distributional characteristis of the 
-'key' statistics obtained from evaluation via intra-subject contrasts (ISC), 
+Otherwise, the simulations are based on the distributional characteristis of the 
+\sQuote{key} statistics obtained from evaluation via intra-subject contrasts (ISC), 
 as recommended by the FDA.\cr\cr
 Function \code{sampleN.scABEL2()} is soleyly based on power calculations via 
-simulation using the distributional characteristics of the 'key' statistics 
+simulation using the distributional characteristics of the \sQuote{key} statistics 
 obtained from evaluation via ISC. This function is deprecated.
 }
 \value{
@@ -119,10 +119,10 @@ FDA method. Thus the sample size should be comparable.\cr
 Consider in case of \code{regulator="FDA"} to use the function 
 \code{sampleN.RSABE()}.\cr\cr
 In case of \code{regulator="HC"} the underlying power is only approximative 
-since the Health Canada recommends as evaluation method a mixed model approach. 
+since the Health Canada recommends evaluation by a mixed model approach. 
 But this could only implemented via subject data simulations which are very 
 time consuming.\cr\cr
-The minimum sample size is n=6, even if the power is higher than the intended 
+The minimum sample size is 6, even if the power is higher than the intended 
 targetpower.
 }
 
@@ -155,7 +155,7 @@ sampleN.scABEL(CV = 0.3)
 #
 # now with former (inofficial) ANVISA settings, CVswitch=40\%
 # (since 2016 ANVISA uses the same settings as EMA)
-reg <- reg_const("USER", r_const = 0.76, CVswitch = 0.4, CVcap = 0.5)
+reg      <- reg_const("USER", r_const = 0.76, CVswitch = 0.4, CVcap = 0.5)
 reg$name <- "Old ANVISA"
 sampleN.scABEL(CV = 0.3, regulator = reg)
 # should result in n=60, power=0.8101

@@ -76,8 +76,8 @@ For deciding BE the study must pass the conventional ABE test (90\% CI within th
 acceptance range) and additional the test that the ratio of sWT/sWR is < 2.5.\cr\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on this method.\cr
-Details can be found in a document "Implementation_scaledABE_sims" located in 
-the \code{\\doc} sub-directory of the package.
+Details can be found in a document \verb{Implementation_scaledABE_sims} located in 
+the \code{/doc} sub-directory of the package.
 }
 \value{
 Returns the value of the (empirical) power if argument \code{details=FALSE}.\cr

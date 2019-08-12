@@ -44,8 +44,8 @@ Reference in \code{CV[2]}.
 }
   \item{design}{
 Design of the study to be planned.\cr
-\code{"2x2x4"} is the full replicate design with 2 sequences and 4 periods (TRTR|RTRT).\cr
-\code{"2x2x3"} is the 3-period ful replicate design with sequences TRT|RTR.\cr
+\code{"2x2x4"} is the full replicate with 2 sequences and 4 periods (TRTR|RTRT).\cr
+\code{"2x2x3"} is the full replicate with 2 sequences and 3 periods (TRT|RTR).\cr
 Defaults to \code{design="2x2x4"}.
 }
   \item{nsims}{
@@ -77,8 +77,8 @@ For deciding BE the study must pass the conventional ABE test and additionally
 the test that the ratio of sWT/sWR is <= 2.5.\cr\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on these method.\cr
-Details can be found in a document "Implementation_scaledABE_sims" located in 
-the \code{\\doc} sub-directory of the package.
+Details can be found in a document \verb{Implementation_scaledABE_sims} located in 
+the \code{/doc} sub-directory of the package.
 }
 \value{
 Returns a data.frame with the input and sample size results.\cr
@@ -94,13 +94,13 @@ Food and Drug Administration, Office of Generic Drugs (OGD). \emph{Draft Guidanc
 D. Labes
 }
 \note{
-The design recommended by the FDA is the full replicate design 2x2x4.\cr 
+The design recommended by the FDA is the full replicate design \code{"2x2x4"}.\cr 
 The sample size estimation is done only for balanced studies since the 
 break down of the total subject number in case of unbalanced sequence groups
 is not unique. Moreover the formulas used are only valid for balanced designs.\cr
 The FDA method is described for the ABE limits 0.8 ... 1.25 only. Setting theta1, theta2
 to other values may not be reasonable and is not tested.\cr
-The minimum sample size is n=6, even if the power is higher than the intended 
+The minimum sample size is 6, even if the power is higher than the intended 
 targetpower.
 }
 \section{Warning }{
@@ -112,7 +112,7 @@ In case of a failed sample size search you may restart with setting the argument
 }
 
 \seealso{ 
-\code{\link{power.HVNTID}} \cr 
+\code{\link{power.HVNTID}}\cr
 and \code{\link{power.NTIDFDA}}, \code{\link{sampleN.NTIDFDA}} for NTIDs with
 low variability
 }
@@ -128,4 +128,3 @@ sampleN.HVNTID(CV = CVs)
 # should give (no distinct difference to example above)
 # n=22 with an (empirical) power of 0.837520
 }
-

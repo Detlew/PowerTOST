@@ -84,7 +84,7 @@ The linearized scaled ABE criterion is calculated according to the SAS code
 given in the FDA progesterone guidance.\cr\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on scaled ABE.\cr
-For more details see a document "Implementation_scaledABE_simsVx.yy.pdf" in the \code{\\doc} sub-directory of 
+For more details see a document \verb{Implementation_scaledABE_simsVx.yy.pdf} in the \code{/doc} sub-directory of 
 the package.\cr\cr
 If a CVcap is defined for the regulator, the BE decision is based on the inclusion
 of the CI in the capped widened acceptance limits in case of CVwR > CVcap. This

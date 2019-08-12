@@ -44,8 +44,8 @@ Reference in \code{CV[2]}.
 }
   \item{design}{
 Design of the study to be planned.\cr
-\code{"2x2x4"} is the full replicate design with 2 sequences and 4 periods (TRTR|RTRT).\cr
-\code{"2x2x3"} is the 3-period ful replicate design with sequences TRT|RTR.\cr
+\code{"2x2x4"} is the full replicate with 2 sequences and 4 periods (TRTR|RTRT).\cr
+\code{"2x2x3"} is the full replicate with 2 sequences and 3 periods (TRT|RTR).\cr
 Defaults to \code{design="2x2x4"}.
 }
   \item{nsims}{
@@ -60,8 +60,7 @@ May be missing.
 Maximum number of steps in sample size search. Defaults to 100.
 }
   \item{print}{
-If \code{TRUE} (default) the function prints its results.\cr 
-If \code{FALSE} only the resulting dataframe will be returned. 
+If \code{TRUE} (default) the function prints its results. If \code{FALSE} only the resulting dataframe will be returned.
 }
   \item{details}{
 If set to \code{TRUE}, the default, the steps during sample size search are shown.
@@ -70,18 +69,18 @@ Moreover the details of the method settings are printed.
   \item{setseed}{
 Simulations are dependent on the starting point of the (pseudo) random number 
 generator. To avoid differences in power values for different runs a 
-\code{set.seed(123456)} is issued if \code{setseed=TRUE}, the default. 
+\code{set.seed(123456)} is issued if \code{setseed=TRUE}, the default.
 }
 }
 \details{
 The linearized scaled ABE criterion is calculated according to the SAS code
 given in the FDA Warfarine guidance. For deciding BE the study must pass that criterion, 
 the conventional ABE test and additional the test that the ratio of 
-sWT/sWR is <= 2.5.\cr\cr
+\code{sWT/sWR <= 2.5.}\cr\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on these method.\cr
-Details can be found in a document "Implementation_scaledABE_sims" located in 
-the \code{\\doc} sub-directory of the package.
+Details can be found in a document \verb{Implementation_scaledABE_sims} located in 
+the \code{/doc} sub-directory of the package.
 }
 \value{
 Returns a data.frame with the input settings and sample size results.\cr
@@ -101,18 +100,18 @@ Jiang W, Makhlouf F, Schuirmann DJ, Zhang X, Zheng N, Conner D, Yu LX, Lionberge
 D. Labes
 }
 \note{
-The design recommended by the FDA is the full replicate design 2x2x4.\cr 
+The design recommended by the FDA is the full replicate design \code{"2x2x4"}.\cr 
 The sample size estimation is done only for balanced studies since the 
 break down of the total subject number in case of unbalanced sequence groups
 is not unique. Moreover the formulas used are only valid for balanced designs.\cr
 The FDA method is described for the ABE limits 0.8 ... 1.25 only. Setting theta1, 
 theta2 to other values may not be reasonable and is not tested.\cr\cr
-The results for the design "2x2x3" are to be considered as experimental since
+The results for the design \code{"2x2x3"} are to be considered as experimental since
 at present not thorougly tested.\cr
-The minimum sample size is n=6, even if the power is higher than the intended 
+The minimum sample size is 6, even if the power is higher than the intended 
 targetpower.
 }
-\section{Warning }{
+\section{Warning}{
 For some input constellations the sample size search may be very time 
 consuming and will eventually also fail since the start values chosen may
 not really reasonable for them. This applies especially for theta0 values
@@ -131,17 +130,17 @@ and \code{\link{power.HVNTID}}, \code{\link{sampleN.HVNTID}} for NTIDs with
 high variability
 }
 \examples{
-sampleN.NTIDFDA(CV=0.04,theta0=0.975)
+sampleN.NTIDFDA(CV = 0.04,theta0 = 0.975)
 # should give
 # n=54 with an (empirical) power of 0.809590
 #
 # Test formulation with lower variability
-sampleN.NTIDFDA(CV=c(0.04,0.06),theta0=0.975)
+sampleN.NTIDFDA(CV = c(0.04,0.06),theta0 = 0.975)
 # should give
 # n=20 with an (empirical) power of 0.0.814610
 #
 # alternative 3-period design
-sampleN.NTIDFDA(CV=0.04,theta0=0.975, design="2x2x3")
+sampleN.NTIDFDA(CV = 0.04,theta0 = 0.975, design="2x2x3")
 # should give
 # n=86 with power = 0.80364
 }

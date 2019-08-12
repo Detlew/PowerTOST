@@ -54,8 +54,8 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
   \item{design}{
 Design of the study to be planned.\cr
 \code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x3"} is the 2-sequence 3-period full replicate design (TRT|RTR).\cr
-\code{"2x2x4"} is the 2-sequence 4-period full replicate design (TRTR|RTRT).\cr
+\code{"2x2x4"} is the full replicate with 4 periods (TRTR|RTRT).\cr
+\code{"2x2x3"} is the full replicate with 3 periods (TRT|RTR).\cr
 Defaults to \code{"2x3x3"}.
 }
   \item{regulator}{
@@ -130,9 +130,9 @@ of the acceptance range. Due to the symmetry around 1 results are valid for the 
 scABEL(CV=0.5, reg="EMA")[["upper"]]; scABEL(CV=0.57382, reg="HC")[["upper"]]
 [1] 1.43191
 [1] 1.5}
-Simulated studies are evaluated by ANOVA (\sQuote{Method A}) as recommended in the
+Simulated studies are evaluated by ANOVA (Method A) as recommended in the
 \acronym{EMA}’s Q&A-document and by intra-subject contrasts if \code{regulator="HC"}.
-Health Canada requires a mixed-effects model which cannot be implemented in R. However,
+Health Canada requires a mixed effects model which cannot be implemented in R. However,
 intra-subjects contrasts are a sufficiently close approximation.\cr
 
 If an inflation of the \acronym{TIE} is expected (\emph{i.e.}, \code{>alpha}), alpha is

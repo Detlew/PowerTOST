@@ -52,8 +52,8 @@ sequence group 'RTR'.
   \item{design}{
 Design of the study to be planned.\cr
 \code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x4"} is the full replicate design with 2 sequences and 4 periods.\cr
-\code{"2x2x3"} is the 3-period design with sequences TRT|RTR.\cr
+\code{"2x2x4"} is the full replicate with 2 sequences and 4 periods (TRTR|RTRT).\cr
+\code{"2x2x3"} is the full replicate with 2 sequences and 3 periods (TRT|RTR).\cr
 Defaults to \code{design="2x3x3"}.
 }
   \item{regulator}{
@@ -94,13 +94,13 @@ in case of \code{regulator="EMA"} or \code{regulator="HC"} and in case of
 If the CVwR of the Reference is < CVswitch=0.3 the conventional ABE limits 
 apply (mixed procedure).\cr\cr 
 In case of \code{regulator="EMA"} a cap is placed on the widened limits if 
-CVwR>0.5, i.e. the widened limits are held at value calculated for CVwR=0.5.
+CVwR>0.5, \emph{i.e.}, the widened limits are held at value calculated for CVwR=0.5.
 In case of \code{regulator="HC"} the capping is done such that the acceptance
 limits are 0.6666 ... 1.5 at maximum.\cr\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on widened ABEL.\cr
-For more details see a document "Implementation_scaledABE_simsVx.yy.pdf" in the 
-\code{//doc} sub-directory of the package.\cr\cr
+For more details see the document \verb{Implementation_scaledABE_simsVx.yy.pdf} in the 
+\code{/doc} sub-directory of the package.\cr\cr
 Function \code{power.scABEL()} implements the simulation via distributional 
 characteristics of the \sQuote{key} statistics obtained from the EMA recommended 
 evaluation via ANOVA if \code{regulator="EMA"} or if the regulator component 
@@ -125,24 +125,21 @@ D. Labes
 }
 \note{
 In case of \code{regulator="FDA"} the (empirical) power is only approximate since
-the BE decision method is not exactly what is expected by the FDA. But the \dQuote{Two
-Laszlos} state that the scABEL method should be \sQuote{operational equivalent} to the
+the BE decision method is not exactly what is expected by the FDA. But the \dQuote{Two \enc{Laszlós}{Laszlos}} state that the scABEL method should be \sQuote{operational equivalent} to the
 FDA method.\cr
 To get the power for the FDA favored method via linearized scaled ABE criterion
 use function \code{\link{power.RSABE}}.\cr\cr
-In case of \code{regulator="HC"} in function \code{power.scABEL()}, based on
-ISC, power is also only approximative since Health Canada recommends an 
-evaluation via mixed model approach. This could only implemented via 
+In case of \code{regulator="HC"} (based on ISC), power is also only approximative since Health Canada recommends an evaluation via mixed model approach. This could only implemented via 
 subject data simulations which are very time consuming. But ISC may be a good 
 substitute.
 }
 \section{Warning }{
 Cross-validation of the simulations as implemented here and via the \sQuote{classical} 
 subject data simulation have shown somewhat unsatisfactory results for the 
-2x3x3 design if the variabilities for Test and Reference are different.\cr
+2x3x3 design if the variabilities for Test and Reference are different and/or sequences exteremly unbalanced.\cr
 The function \code{power.scABEL()} therefore gives a warning if calculations 
-with different CVwT and CVwR are requested for the 2x3x3 partial replicate design.
-For more details see the above mentioned document "Implementation_scaledABE_simsVy.xx.pdf".
+with different CVwT and CVwR are requested for the 2x3x3 partial replicate design. For \code{"EMA"} subject simulations are provided in \code{\link{power.scABEL.sdsims}}.
+For more details see the above mentioned document \verb{Implementation_scaledABE_simsVy.xx.pdf}.
 }
 \seealso{
 \code{\link{sampleN.scABEL}, \link{power.RSABE}, \link{reg_const}}
@@ -165,9 +162,9 @@ power.scABEL(CV = 0.5, n = 54, theta0 = 1.15, details = TRUE)
 #      p(BE) p(BE-wABEL)    p(BE-pe)   p(BE-ABE) 
 #    0.81727     0.82078     0.85385     0.27542
 #
-# exploring pure ABEL with the EMA regulatory constant
+# exploring 'pure ABEL' with the EMA regulatory constant
 # (without mixed method, without capping, without pe constraint)
-rs <- reg_const("EMA")
+rs           <- reg_const("EMA")
 rs$CVswitch  <- 0
 rs$CVcap     <- Inf
 rs$pe_constr <- FALSE
