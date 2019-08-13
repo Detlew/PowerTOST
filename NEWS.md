@@ -48,7 +48,7 @@ On CRAN 2017-08-17
 
 ## Major changes
 
-  * Functions `CVwRfromU()` / `U2CVwR()` to calculate CV~wR~ from the upper expanded  limit of an ABEL study according to the EMA’s or Health Canada’s rules.
+  * Functions `CVwRfromU()` / `U2CVwR()` to calculate CV<sub>wR</sub> from the upper expanded  limit of an ABEL study according to the EMA’s or Health Canada’s rules.
   * Power and sample size for TOST: Argument `alpha` restricted to scalar. Internal functions now allow length = 2 (different alphas for the two null hypotheses).
   * Deprecated argument `dfCV` in expected power functions completely removed.
 
