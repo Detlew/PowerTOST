@@ -31,34 +31,36 @@ Returns a vector of lenghth 2 if one CV is given or a matrix if CV is given as v
 with named components \code{lower} and \code{upper} of the scaled acceptance limits.
 }
 \details{
-The widened BE acceptance limits will be calculated by the formula\cr
+The widened BE acceptance limits are calculated by the formula\cr
 \verb{  [L, U] = exp(± r_const * sWR)}\cr
-with r_const the regulatory constant and sWR the standard deviation of the within
-subjects variability of the Reference.\cr 
-\code{r_const = 0.76} (~log(1.25)/0.29356) is used in case of \code{regulator="EMA"} or 
-\code{regulator="HC"} and in case of \code{regulator="FDA"} 
-\code{r_const = 0.89257...} (=log(1.25)/0.25).\cr
+with \code{r_const} the regulatory constant and \code{sWR} the standard deviation of the within
+subjects variability of the Reference.\cr
+\itemize{
+  \item \code{regulator="EMA"} or \code{regulator="HC"}\cr
+  \code{r_const = 0.76} (~ log(1.25)/0.29356)
+  \item \code{regulator="FDA"}\cr
+  \code{r_const = 0.89257\dots} (= log(1.25)/0.25)
+}
 If the CVwR of the Reference is < CVswitch=0.3 the conventional ABE limits 
 apply (mixed procedure).\cr\cr 
 In case of \code{regulator="EMA"} a cap is placed on the widened limits if 
-CVwr>0.5, i.e. the widened limits are held at value calculated for CVwR=0.5.
+CVwR>0.5, \emph{i.e.}, the widened limits are held at the value calculated for CVwR=0.5.\cr
 In case of \code{regulator="HC"} the capping is done such that the acceptance
-limits are 0.6666 ... 1.5 at maximum, i.e. CVcap=0.57382. 
-Literally it is given by Health Canada rounded to 3 significant digits as 57.4\%.
-
+limits are 0.6666 \dots 1.5 at maximum, \emph{i.e.}, CVcap=0.57382. 
+Literally it is given by Health Canada rounded to three significant digits as 57.4\%.
 }
 \note{
-The scaled acceptance limits are not used directly in the BE evaluation 
+The scaled acceptance limits are not directly used in the BE evaluation 
 for highly variable drugs recommended by the FDA. They are included here
-for comparative purposes. Moreover there are controversies where to locate the 
-\sQuote{implied} BE acceptance limits. See reference below.
+for comparative purposes. Moreover, there are controversies where to locate the 
+so-called \sQuote{implied} BE acceptance limits. See reference below.
 }
 \references{
 Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf FT, Nwakama PE, Patel DT, Schuirmann DJ, Yu LX. \emph{Implementation of a Reference-Scaled Average Bioequivalence Approach for 
-Highly Variable Generic Drug Products by the US Food and Drug Administration.}\cr
-AAPS J. 2012;14(4):915--24. \doi{10.1208/s12248-012-9406-x}
+Highly Variable Generic Drug Products by the US Food and Drug Administration.} AAPS J. 2012;14(4):915--24. \doi{10.1208/s12248-012-9406-x}
 
-Health Canada, Therapeutic Products Directorate. \emph{Notice: Policy on Bioequivalence Standards for Highly Variable Drug Products.} April 18, 2016. \href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/announcements/notice-policy-bioequivalence-standards-highly-variable-drug-products.html}{16-104293-140}
+Health Canada, Therapeutic Products Directorate. \emph{Guidance Document. Comparative Bioavailability Standards:
+Formulations Used for Systemic Effects.} 2018/06/08. \href{https://www.canada.ca/content/dam/hc-sc/migration/hc-sc/dhp-mps/alt_formats/pdf/prodpharma/applic-demande/guide-ld/bio/comparative-bioavailability-standards-formulations-used-systemic-effects.pdf}{ISBN: 978‐0‐660‐25514‐9}
 }
 \author{
 D. Labes
