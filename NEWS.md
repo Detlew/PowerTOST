@@ -396,8 +396,8 @@ On CRAN 2014-04-30
 
 ## Major changes
 
-  * Utility function added which calculates 1--2α confidence interval(s) given point est., CV and n using log-tansformed evaluation.
-  * Utility function added which calculates 1--2α Fieller confidence interval(s) given point est., CV (, CVb) and n for the ratio of untransformed means.
+  * Utility function added which calculates 1&ndash;2α confidence interval(s) given point est., CV and n using log-tansformed evaluation.
+  * Utility function added which calculates 1&ndash;2α Fieller confidence interval(s) given point est., CV (, CVb) and n for the ratio of untransformed means.
 
 # PowerTOST 1.1-10
 
@@ -598,7 +598,7 @@ On CRAN 2012-03-26
 ## Major changes
 
   * Functions added for power and sample size calculations based on non-inferiority t-test. This is not a TOST procedure but eventually useful if the question of 'non-superiority' within a BE study must be evaluated.  
-    Hint: Evaluation of Fluctuation in the EMA MR NfG (1999) between modified release formulation and immediate release product
+    Hint: Evaluation of Fluctuation in the EMA MR NfG (1999) between modified release formulation and immediate release product.
 
 # PowerTOST 0.9-4
 
@@ -637,7 +637,7 @@ On CRAN 2011-12-24
   * Sample size tables added for the `"2x2"` crossover and for the `"parallel"` group design to alleviate validation/qualification of the package.  
     See `data(package="PowerTOST")`.
   * Scripts added in the `/test` sub-directory that create the sample size tables from the data section.
-  * Updated `BE_power_sample_size_excerpt.pdf in the `/doc` sub-directory.
+  * Updated `BE_power_sample_size_excerpt.pdf` in the `/doc` sub-directory.
 
 # PowerTOST 0.9-0
 
