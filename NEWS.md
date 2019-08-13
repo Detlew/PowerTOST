@@ -4,6 +4,7 @@ Published on GitHub 2019-08-13
 
 ## Bug fixes
 
+  * In `scABEL.ad.R` `regulator`was `NULL`. Corrected to `reg$name`.
   * Smaller font in 4^th^ screen of `pwrA_S3methods.R` of `pa.NTID()` (more lines required).
   * Broken FDA URL in many man pages corrected.
   * In `expsampleN.noninf()` wrt operator `&&` with vector arguments (new check in R 3.6.0).

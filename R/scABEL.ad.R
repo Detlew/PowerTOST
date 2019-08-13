@@ -145,10 +145,13 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
                     conf.level = 1 - alpha)$conf.int[2]
   method <- "ABE"
   if (CVwR > reg$CVswitch) {
-    if (regulator != "FDA") method <- "ABEL"
-    if (regulator == "FDA") method <- "RSABE"
+    if (reg$name == "FDA") {
+      method <- "RSABE"
+    } else {
+      method  <- "ABEL" 
+    }
   }
-  limits <- as.numeric(scABEL(CV = CVwR, regulator = reg))
+  limits <- as.numeric(scABEL(CV = CVwR, regulator = reg$name))
   U <- limits[2] # Simulate at the upper (expanded) limit. For CVwR
   # 30% that's 1.25. Due to the symmetry simulations
   # at the lower limit (0.80) should work as well.
@@ -166,7 +169,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     if (reg$name == "EMA") cat("   (simulations based on ANOVA evaluation)\n")
     if (reg$name %in% c("HC", "FDA")) cat("(simulations based on intra-subject contrasts)\n")
     cat("----------------------------------------------\n")
-    cat("Study design: ")
+    cat("Study design:")
     cat(paste0(design, " (", type[match(design, designs)], ")\n"))
     cat("log-transformed data (multiplicative model)\n")
     cat(formatC(nsims, format = "d", big.mark = ",", decimal.mark = "."),
