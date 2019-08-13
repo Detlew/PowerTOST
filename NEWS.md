@@ -5,7 +5,7 @@ Published on GitHub 2019-08-13
 ## Bug fixes
 
   * In `scABEL.ad.R` `regulator`was `NULL`. Corrected to `reg$name`.
-  * Smaller font in 4^th^ screen of `pwrA_S3methods.R` of `pa.NTID()` (more lines required).
+  * Smaller font in 4<sup>th</sup> screen of `pwrA_S3methods.R` of `pa.NTID()` (more lines required).
   * Broken FDA URL in many man pages corrected.
   * In `expsampleN.noninf()` wrt operator `&&` with vector arguments (new check in R 3.6.0).
   * `CI.RatioF()` fixed. Thanks to Michael (mittyri).
@@ -65,11 +65,11 @@ On CRAN 2017-05-19
 
   * `power.scABEL.sdsims()` fixed which gave `power=NA` if `alpha=0`.
   * Correction in `sampleN.scABEL.ad()` if pre-specified alpha gives TIE <0.05.
-  * Small bug in the S3 method plot for class `'pwrA'` corrected (text in the 4^th^ screen was truncated on top if saved as a PDF). Replaced `text()` by `TeachingDemos::shadowtext()` to enhance legibility (interfered with underlying grid before).
+  * Small bug in the S3 method plot for class `'pwrA'` corrected (text in the 4<sup>th</sup> screen was truncated on top if saved as a PDF). Replaced `text()` by `TeachingDemos::shadowtext()` to enhance legibility (interfered with underlying grid before).
 
 ## Major changes
 
-  * Two new test scripts in `/test` subdirectory added: `test_ABEL.R` and `test_RSABE.R` which recalculate the sample size tables given in Tóthfalusi & Endrényi “Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs”. Contributed by Helmut.
+  * Two new test scripts in `/test` subdirectory added: `test_ABEL.R` and `test_RSABE.R` which recalculate the sample size tables given in Tóthfalusi & Endrényi “*[Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489)*”. Contributed by Helmut.
   * `power.scABEL.sdsims()` now has an argument `design_dta` to specify the design via a data.frame. May be useful for considering missing data.  
     **Attention!** This feature is experimental because the data.frame is currently not checked.
   * Updated functions `scABEL.ad()` and `sampleN.scABEL.ad()` to allow subject data simulations via `power.scABEL.sdsims()` if `regulator = "EMA"`. Removed `regulator = "ANVISA"`. Changed the order of sequences to be consistent with the other functions of PowerTOST.
@@ -80,7 +80,7 @@ On CRAN 2017-05-19
   * Man pages for non-inferiority functions updated to include a description of the underlying hypotheses.
   * Remaining man pages updated where term `'Null (true) ratio'` was mentioned instead of `'True ratio'`.
   * Internal change of coding in design helpers (repeated creation of data.frame with design characteristics avoided).
-  * Typo corrected in Expected_Power_for_TOST.pdf.
+  * Typo corrected in `Expected_Power_for_TOST.pdf`.
   * Renamed the variable `'adj. alpha'` in `sampleN.scABEL.ad()` to `'alpha.adj'`for consistency with `scABEL.ad()`.
 
 # PowerTOST 1.4-4
@@ -102,7 +102,7 @@ On CRAN 2017-03-15
   * Low CV (cosmetic) correction in `power.scABEL()` introduced.
   * DOI for references added in many man pages. THX to Helmut.
   * Ben’s description of expected power added in `/doc` subdirectory.
-  * BE_power_sample_size_excerpt.pdf updated to reflect the changes in computation of OwensQ. 
+  * `BE_power_sample_size_excerpt.pdf` updated to reflect the changes in computation of OwensQ. 
 
 # PowerTOST 1.4-3
 
@@ -139,7 +139,7 @@ On CRAN 2016-07-14
 
 ## Minor changes
 
-  * Implementation_scaledABE_sims.pdf in `/doc` subdirectory updated to reflect changes in code of the scaled ABE functions.
+  * `Implementation_scaledABE_sims.pdf` in `/doc` subdirectory updated to reflect changes in code of the scaled ABE functions.
   * The S3 method plot for class `'pwrA'` now has an argument `ratiolabel` for labeling the axis concerning theta0. Wish of Benjamin Lang.
   * Various enhancements in man pages.
   * Power and sample size for FDA RSABE now take into account a CVcap if defined as finite.
@@ -196,7 +196,7 @@ On CRAN 2016-04-12
 
 ## Major changes
 
-  * Functions for expected power for TOST and non-inferiority updated (including corresponding sample size functions). Functions now include an exact method which calculates the expected value of the power with respect to the (prior) distribution of σ^2^ (inverse Γ distribution). Formerly only an approximation according to Julious/Owen was implemented. Contributed by Benjamin Lang.
+  * Functions for expected power for TOST and non-inferiority updated (including corresponding sample size functions). Functions now include an exact method which calculates the expected value of the power with respect to the (prior) distribution of σ<sup>2</sup> (inverse Γ distribution). Formerly only an approximation according to Julious/Owen was implemented. Contributed by Benjamin Lang.
 
 ## Minor changes
 
@@ -246,7 +246,7 @@ Released 2015-09-23 to alpha testers
 
 ## Minor changes
 
-  * `power.HVNTID()` and `power.NTIDFDA()` now return the power (`p(BE)`) and the components for the scaled ABE criterion, the conventional ABE test and the test for the ratio s~wT~/s~wR~ <= 2.5 if the argument `details=TRUE` (wish of Helmut Schütz).
+  * `power.HVNTID()` and `power.NTIDFDA()` now return the power (`p(BE)`) and the components for the scaled ABE criterion, the conventional ABE test and the test for the ratio s<sub>wT</sub>/s<sub>wR</sub> <= 2.5 if the argument `details=TRUE` (wish of Helmut Schütz).
   * `power.RSABE()` now returns the power (`p(BE)`) and the components for the scaled ABE criterion, for the point estimate criterion and for the conventional ABE test alone if the argument `details=TRUE`. Analogous changes were made in `power.scABEL()`. See man pages.
 
 # PowerTOST 1.2-9
@@ -294,7 +294,7 @@ On CRAN 2015-01-23
 ## Minor changes
 
   * Internal change in interface to the (hidden) 'raw' power functions (sem used in function calls instead of se, n, bk).
-  * BE_power_sample_size_excerpt.pdf in subdirectory `\doc` changed to reflect the internal changes.
+  * `BE_power_sample_size_excerpt.pdf` in subdirectory `/doc` changed to reflect the internal changes.
 
 # PowerTOST 1.2-5
 
@@ -307,7 +307,7 @@ On CRAN 2015-01-07
 ## Minor changes
 
   * Function `CVfromCI()` and alias `CI2CV()` now handle unbalanced studies. Contributed by Benjamin Lang.
-  * Typos in BE_power_sample_size_excerpt.pdf (discovered by Ben) corrected.
+  * Typos in `BE_power_sample_size_excerpt.pdf` (discovered by Ben) corrected.
 
 # PowerTOST 1.2-4
 
@@ -448,7 +448,7 @@ On CRAN 2013-09-02
 
 ## Minor changes
 
-  * `power.scABEL()` now throws a warning if CV~wT~ ≠ CV~wR~ in the design `"2x3x3"` (partial replicate).
+  * `power.scABEL()` now throws a warning if CV<sub>wT</sub> ≠ CV<sub>wR</sub> in the design `"2x3x3"` (partial replicate).
   * Simulation details for the full replicate design slightly changed to obtain better numeric agreement of power to subject data sims.
 
 # PowerTOST 1.1-6
@@ -493,7 +493,7 @@ On CRAN 2013-05-03
 
 ## Minor changes
 
-  * Methods and implementation details of the simulations for scaled ABE  documented in a PDF file in the `/doc` subdirectory of the package.
+  * Methods and implementation details of the simulations for scaled ABE documented in a PDF file in the `/doc` subdirectory of the package.
   * Simulation method for the EMA scaled ABEL changed to conform better with power values from simulations via subject data.
   * Warning section in the help file of `power.scABEL()` introduced to reflect the fact that simulations via subject data and via the methods implemented in `power.scABEL()` gave empirical power values that are only approximately in agreement.
 
@@ -551,7 +551,7 @@ On CRAN 2012-08-07
 
 ## Bug fixes
 
-  * In `power.TOST()`, `power2.TOST()` and `power.noninf()` to use the correct df depending on argument `robust`. `robust=FALSE` wrongly used the robust dfs. Thanks to Ben.
+  * In `power.TOST()`, `power2.TOST()` and `power.noninf()` to use the correct degrees of freedom depending on argument `robust`. `robust=FALSE` wrongly used the robust dfs. Thanks to Ben.
 
 # PowerTOST 0.9-10
 
@@ -582,7 +582,7 @@ On CRAN 2012-04-05 (Easter egg)
 ## Major changes
 
   * Functions added for 'expected' power and sample size calculations based on it for the non-inferiority test for sake of completeness.
-  * Functions `CVpooled()`, `exppower.TOST()` and `expsampleN.TOST()` now also implemented for `logscale=FALSE`, i.e. contain this argument in their calls.
+  * Functions `CVpooled()`, `exppower.TOST()` and `expsampleN.TOST()` now also implemented for `logscale=FALSE`, *i.e.*, contain this argument in their calls.
   * Function `OwensQOwen()` made public. This is an implementation of the algorithm given by Owen in the original paper (Biometrica 1965) via repeated integration by parts.  
     This function is only for comparative purposes.
   * Function `OwensT()` made public. It is needed internally in `OwensQOwen()` but may be useful for other purposes.
@@ -618,8 +618,8 @@ On CRAN 2012-02-13
 
 ## Minor changes
 
-  * Sample size tables for replicate design `"2x2x3"` in `\data` sub-directory added.
-  * Sample size tables for replicate design `"2x4x4"` in `\data` sub-directory added.
+  * Sample size tables for replicate design `"2x2x3"` in `/data` sub-directory added.
+  * Sample size tables for replicate design `"2x4x4"` in `/data` sub-directory added.
   * Scripts in the `/test` sub-directory made public.
 
 # PowerTOST 0.9-2
@@ -637,7 +637,7 @@ On CRAN 2011-12-24
   * Sample size tables added for the `"2x2"` crossover and for the `"parallel"` group design to alleviate validation/qualification of the package.  
     See `data(package="PowerTOST")`.
   * Scripts added in the `/test` sub-directory that create the sample size tables from the data section.
-  * Updated BE_power_sample_size_excerpt.pdf in the `/doc` sub-directory.
+  * Updated `BE_power_sample_size_excerpt.pdf in the `/doc` sub-directory.
 
 # PowerTOST 0.9-0
 
@@ -738,7 +738,7 @@ On CRAN 2010-08-12
 
 ## Major changes
 
-  * Functions added for the power and sample size for the ratio of two means with normally distributed data on the original scale (based on Fieller’s confidence (fiducial) interval).  
+  * Functions added for the power and sample size for the ratio of two means with normally distributed data on the original scale (based on Fieller’s confidence (‘fiducial’) interval).  
     AFAIK, until now only implemented in the commercial nQuery.
 
 ## Minor changes
@@ -757,7 +757,7 @@ On CRAN 2010-07-21
 
   * Some internal code consolidation
   * Minor enhancements in help pages, more examples.
-  * Short documentation of used statistical apparatus BE_power_sample_size_excerpt.pdf for classical power / sample size in directory `/doc` added.
+  * Short documentation of used statistical apparatus `BE_power_sample_size_excerpt.pdf` for classical power / sample size in directory `/doc` added.
 
 # PowerTOST 0.5-1
 
