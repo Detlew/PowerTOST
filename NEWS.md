@@ -1,6 +1,6 @@
 # PowerTOST 1.4-7.9000
 
-Published on GitHub 2019-08-12
+Published on GitHub 2019-08-13
 
 ## Bug fixes
 
@@ -18,7 +18,9 @@ Published on GitHub 2019-08-12
 
 ## Minor changes
 
-  * References in man pages reworked.
+  * `power.scABEL()`: More informative warning about heteroscedasticity in the partial replicate design (use of `power.scABEL.sdsims()` suggested).
+  * Add/subtract `.Machine$double.eps` if `rho` is -1 or +1 given in `power_type1_2TOST.R` (similar to `sampleN_2TOST_sim.R`). Removed warning in the latter. Less confusing for users and the example in the man-page looks nicer.
+  * Man pages reworked.
 
 # PowerTOST 1.4-7
 

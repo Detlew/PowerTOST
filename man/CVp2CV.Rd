@@ -11,7 +11,7 @@ assuming a ratio of the intra-subject variances.
 CVp2CV(CV, ratio = 1.5)
 }
 \arguments{
-  \item{CV}{\sQuote{pooled} CV of T and R.
+  \item{CV}{\sQuote{pooled} CV of T and R (as ratio, not percent).
 }
   \item{ratio}{
 Ratio of the intra-subject variances \code{s^2(T)/s^2(R)}.\cr

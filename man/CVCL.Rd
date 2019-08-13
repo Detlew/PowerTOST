@@ -13,7 +13,7 @@ distribution of the error variance the CV is based on.
 CVCL(CV, df, side = c("upper", "lower", "2-sided"), alpha = 0.05)
 }
 \arguments{
-  \item{CV}{Coefficient of variation}
+  \item{CV}{Coefficient of variation as ratio (not percent)}
   \item{df}{degrees of freedom of the CV (error variance)}
   \item{side}{Side(s) to calculate the confidence limits for, defaults to \code{upper}}
   \item{alpha}{Type I error probability, aka significance level}

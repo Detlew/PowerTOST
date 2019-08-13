@@ -14,21 +14,21 @@ CV2mse(CV)
 mse2CV(mse)
 }
 \arguments{
-  \item{CV}{coefficient of variation}
+  \item{CV}{coefficient of variatio as ratio (not percent)}
   \item{se}{standard error}
-  \item{mse}{mean squared error}
+  \item{mse}{mean squared error (aka residual variance)}
 }
 
 \value{
-  Returns \code{se = sqrt(log(CV^2+1))}\cr
-  or \code{CV = sqrt(exp(se*se)-1)}\cr
-  or \code{mse = log(CV^2+1)}\cr
-  or \code{CV = sqrt(exp(mse)-1)}
+  Returns\cr
+  \verb{  se  = sqrt(log(CV^2+1))}\cr
+  \verb{  CV  = sqrt(exp(se^2)-1)}\cr
+  \verb{  mse = log(CV^2+1)}\cr
+  \verb{  CV  = sqrt(exp(mse)-1)}
 }
 
 \note{
-These functions were originally intended for internal use only.\cr
-But may be useful for others.
+These functions were originally intended for internal use only but may be useful for others.
 }
 
 \author{
@@ -38,12 +38,13 @@ But may be useful for others.
 \examples{
 # these functions are one liners:
 CV2se <- function(CV) return(sqrt(log(1.0 + CV^2)))
-se2CV <- function(se) return(sqrt(exp(se*se)-1))
+se2CV <- function(se) return(sqrt(exp(se^2)-1))
 
 CV2se(0.3)
-# should give: [1] 0.2935604 
+# should give:
+# [1] 0.2935604 
 
 se2CV(0.2935604)
-#[1] 0.3 
+# [1] 0.3 
 }
 

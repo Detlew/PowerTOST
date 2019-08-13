@@ -24,7 +24,7 @@ CI.BE(alpha = 0.05, pe, CV, n, design = "2x2", robust = FALSE)
     Point estimate (GMR).
   }
   \item{CV}{
-    Coefficient of variation of error variability as ratio (not percent). 
+    Coefficient of variation as ratio (not percent). 
   }
   \item{n}{
     Total number of subjects if a scalar is given.\cr

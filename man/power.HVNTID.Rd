@@ -32,10 +32,13 @@ Defaults to 1.25 if not given explicitly.
 Defaults to 0.95 if not given explicitly.
 }
   \item{CV}{
-Coefficient(s) of variation as ratio.\cr
-If \code{length(CV) = 1} the same CV is assumed for Test and Reference.\cr
-If \code{length(CV) = 2} the CV for Test must be given in \verb{CV[1]} and for 
-Reference in \verb{CV[2]}.
+Intra-subject coefficient(s) of variation as ratio (not percent).
+  \itemize{
+    \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
+          and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
+    \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
+          heteroscedasticity, the CV of the Test \strong{must} be given in \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
+  }
 }
   \item{n}{
 Number of subjects under study.\cr

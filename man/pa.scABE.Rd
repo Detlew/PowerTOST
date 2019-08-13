@@ -17,7 +17,7 @@ pa.scABE(CV, theta0 = 0.9, targetpower = 0.8, minpower = 0.7,
 }
 \arguments{
   \item{CV}{
-Coefficient of variation of the intra-subject variability as ratio.\cr
+Coefficient of variation of the intra-subject variability as ratio (not percent).\cr
 Here only the case CVwT=CVwR is implemented, \emph{i.e.}, CV has to be a scalar.
 }
   \item{theta0}{

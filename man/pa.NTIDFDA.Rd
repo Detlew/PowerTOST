@@ -18,8 +18,8 @@ pa.NTIDFDA(CV, theta0 = 0.975, targetpower = 0.8, minpower = 0.7, ...)
 \arguments{
   \item{CV}{
 Coefficient of variation of the intra-subject variabilities of Test and Reference
-as ratio.\cr
-Here only the case CVwT=CVwR is implemented, i.e. CV has to be a scalar.
+as ratio (not percent).\cr
+Here only the case CVwT=CVwR is implemented, \emph{i.e.}, CV has to be a scalar.
 }
   \item{theta0}{
 \sQuote{True} or assumed T/R ratio. Often named GMR.\cr

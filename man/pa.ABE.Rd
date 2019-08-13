@@ -19,7 +19,7 @@ pa.ABE(CV, theta0 = 0.95, targetpower = 0.8, minpower = 0.7, design = "2x2", \do
 }
 \arguments{
   \item{CV}{
-Coefficient of variation as ratio.\cr
+Coefficient of variation as ratio (not percent).\cr
 In case of cross-over studies this is the within-subject CV.\cr
 }
   \item{theta0}{

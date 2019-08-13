@@ -43,7 +43,7 @@ If not given \code{theta2} will be calculated as \code{1/theta1} if \code{logsca
 else as \code{-theta1}.
   }
   \item{CV}{
-Assumed true or observed coefficient of variation as ratio. Only values > 0 are allowed.\cr
+Assumed true or observed coefficient of variation as ratio (not percent). Only values > 0 are allowed.\cr
 If \code{prior.type="CV"} may be given as vector: The CVs are then pooled (as a 
 weighted mean with their degrees of freedoms as weights).
   }

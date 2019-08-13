@@ -63,9 +63,9 @@ Defaults to \code{FALSE} for the function \code{pvalue.TOST()} and to
 Returns the \emph{p}-value(s).\cr
 Returns a vector with named elements \code{p.left}, \code{p.right} if arguments \code{pe} and \code{CV} 
 are scalars, else a matrix with columns \code{p.left}, \code{p.right}. \cr
-p.left gives the \emph{p}-value of testing\cr
+\code{p.left} gives the \emph{p}-value of testing\cr
 \verb{  HA1: theta >= theta1}\cr
-p.right the \emph{p}-value of testing\cr
+and \code{p.right} the \emph{p}-value of testing\cr
 \verb{  HA2: theta <= theta2}\cr
 against their respective Nulls.
 }

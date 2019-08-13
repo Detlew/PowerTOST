@@ -38,12 +38,9 @@ constraint. Defaults to 1.25 if not given explicitly.
 Intra-subject coefficient(s) of variation as ratio (not percent).
   \itemize{
     \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
-          and Reference is assumed\cr
-          (homoscedasticity: \code{CVwT==CVwR}).
-    \item If given as a vector (\code{length(CV)==2}) -- assuming
-          heteroscedasticity --\cr
-          the CV of Test \strong{must} be given in the \emph{first} element
-          and the one of Reference in the \emph{second}.
+          and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
+    \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
+          heteroscedasticity, the CV of the Test \strong{must} be given in \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
   }
 }
   \item{design}{
@@ -60,12 +57,13 @@ may also be given in lower case.
 }
   \item{n}{
 Total sample size of the study or a vector of sample size / sequences.
-If \code{n} leads to an unbalanced design (i.e., is not a multiple of two
+If \code{n} leads to an unbalanced design (\emph{i.e.}, is not a multiple of two
 in the full replicate designs or not a multiple of three in the partial
 replicate), the code tries to keep subjects / sequence as balanced as possible.\cr
 In evaluating a particular \emph{unbalanced} study \strong{always} give \code{n}
-as a vector. If \code{design="2x2x3"} (TRT|RTR) the \emph{order} of sample sizes
-is important. \code{n[1]} is for sequence TRT and \code{n[2]} is for sequence RTR.\cr
+as a vector.\cr
+Only if \code{design="2x2x3"} (TRT|RTR) the \emph{order} of sample sizes
+is important. \code{n[1]} is for sequence TRT and \code{n[2]} for sequence RTR.\cr
 If \code{n} is missing, a sample size is estimated with target power 0.80 and pre-specified
 alpha if defined. Otherwise, alpha is used.
 }

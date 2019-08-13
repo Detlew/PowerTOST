@@ -56,7 +56,7 @@ up to 1.5. Literally it is given rounded to 3 significant digits (\href{https://
 # to retrieve the EMA settings
 reg_const("EMA")
 # to define the old ANVISA settings
-reg <- reg_const("USER", r_const = 0.76, CVswitch = 0.4, CVcap = 0.5)
+reg      <- reg_const("USER", r_const = 0.76, CVswitch = 0.4, CVcap = 0.5)
 reg$name <- "Old ANVISA"
 # Use reg as argument in the power / sample size functions
 }

@@ -7,13 +7,13 @@ narrow therapeutic index drugs (NTIDs)
 }
 \description{
 This function performs the sample size estimation for the BE decision via 
-the FDA’s method for highly variable NTIDs as described in respective guidances based on simulations. \cr
+the FDA’s method for highly variable NTIDs as described in respective guidances based on simulations.\cr
 The study designs may be the full replicate design 2x2x4 with 4 periods (TRTR|RTRT) and 
 the 3-period replicate design 2x2x3 with sequences RTR|TRT.
 }
 \usage{
 sampleN.HVNTID(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, CV, 
-               design = c("2x2x4", "2x2x3"), nsims = 1e+05, nstart, imax = 100, 
+               design = c("2x2x4", "2x2x3"), nsims = 1e+05, nstart, imax = 100,
                print = TRUE, details = TRUE, setseed = TRUE)
 }
 \arguments{
@@ -37,10 +37,13 @@ Conventional upper ABE limit to be applied in the FDA procedure.\cr
 Defaults to 1.25 if not given explicitly.
 }
   \item{CV}{
-Coefficient(s) of variation as ratio.\cr
-If \code{length(CV) = 1} the same CV is assumed for Test and Reference.\cr
-If \code{length(CV) = 2} the CV for Test must be given in \code{CV[1]} and for 
-Reference in \code{CV[2]}.
+Intra-subject coefficient(s) of variation as ratio (not percent).
+  \itemize{
+    \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
+          and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
+    \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
+          heteroscedasticity, the CV of the Test \strong{must} be given in \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
+  }
 }
   \item{design}{
 Design of the study to be planned.\cr

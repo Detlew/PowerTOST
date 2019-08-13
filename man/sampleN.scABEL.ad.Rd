@@ -54,8 +54,8 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
   \item{design}{
 Design of the study to be planned.\cr
 \code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x4"} is the full replicate with 4 periods (TRTR|RTRT).\cr
-\code{"2x2x3"} is the full replicate with 3 periods (TRT|RTR).\cr
+\code{"2x2x4"} is the full replicate design with 2 sequences and 4 periods (TRTR|RTRT).\cr
+\code{"2x2x3"} is the full replicate design with 2 sequences and 3 periods (TRT|RTR).\cr
 Defaults to \code{"2x3x3"}.
 }
   \item{regulator}{

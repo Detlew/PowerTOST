@@ -34,7 +34,7 @@ difference.\cr
 Defaults to 0.8 if \code{logscale=TRUE} or to -0.2 if \code{logscale=FALSE}.
   }
   \item{CV}{
-Assumed true or observed coefficient of variation as ratio. Only values > 0 are
+Assumed true or observed coefficient of variation as ratio (not percent). Only values > 0 are
 allowed.
   }
   \item{n}{
