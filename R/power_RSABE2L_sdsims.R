@@ -167,7 +167,7 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
   s2switch <- CV2mse(CVswitch)
   s2cap    <- CV2mse(CVcap)
   
-  # make a first evaluation via lm.fit to obtain degrees of freedom
+  # make a first evaluation via lm to obtain degrees of freedom
   model  <- lm(logval~tmt+period+subject, data=dta)
   df     <- model$df.residual
   

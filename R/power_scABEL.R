@@ -18,17 +18,15 @@ power.scABEL <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     if (sdsims) {
       # power via subject data sims
       # additional to the args of power.scABEL1 / power.scABEL2 
-      # are design_dta, progress
+      # are the argumets design_dta, progress
       r <- power.scABEL.sdsims(alpha, theta1, theta2, theta0, CV, n, design=desi,  
                                design_dta=NULL, regulator=reg, nsims, details, 
                                setseed)
-      
     } else {
       # power via key statistic sims with empirical adaptions to obtain
       # better agreement to sims based on subject data
       r <- power.scABEL1(alpha, theta1, theta2, theta0, CV, n, design=desi, reg, 
                          nsims, details, setseed)
-      
     }
   } else {
     # power via key statistic sims
