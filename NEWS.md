@@ -49,7 +49,7 @@ On CRAN 2017-08-17
 
 ## Major changes
 
-  * Functions `CVwRfromU()` / `U2CVwR()` to calculate CV~wR~ from the upper expanded  limit of an ABEL study according to the EMA’s or Health Canada’s rules.
+  * Functions `CVwRfromU()` / `U2CVwR()` to calculate CV<sub>wR</sub> from the upper expanded  limit of an ABEL study according to the EMA’s or Health Canada’s rules.
   * Power and sample size for TOST: Argument `alpha` restricted to scalar. Internal functions now allow length = 2 (different alphas for the two null hypotheses).
   * Deprecated argument `dfCV` in expected power functions completely removed.
 
@@ -119,8 +119,8 @@ On CRAN 2016-11-01
   * Functions for expected power of the TOST procedure and sample size based on expected power reworked to deal also with uncertainty of theta0 or dealing with both uncertainties of CV and theta0. Contributed mainly by Benjamin Lang.
   * Deprecated functions `power.scABEL2()` and `sampleN.scABEL2()` removed.
   * `regulator = "ANVISA"` no longer allowed in the scaled ABEL functions.
-  * `OwensQ()` simpler/faster implemented. Now based solely on numerical integrataion in combination with non-central *t*.
-  * Owen’s T-function, used in `OwensQOwen()` now based on algorithm AS76 and remarks to that algorithm to avoid numerical errors of the implementation via `integrate()`.
+  * `OwensQ()` simpler/faster implemented. Now based solely on numerical integration in combination with non-central *t*.
+  * Owen’s T-function, used in `OwensQOwen()` now based on algorithm AS76 and remarks to that algorithm to avoid numeric errors of the implementation via `integrate()`.
 
 ## Minor changes
 
@@ -175,7 +175,7 @@ Released to beta-testers 2016-05-04
 
 ## Major changes
 
-  * Functions for power and sample size of BE decision of highly variable drugs or drug products via ABEL (average BE with expanding limits) updated to incorporate the reagulatory settings of Health Canada (new functions `power.scABEL2()` and `sampleN.scABEL2()` based on simulations of intra-subject contrasts evaluation).
+  * Functions for power and sample size of BE decision of highly variable drugs or drug products via ABEL (average BE with expanding limits) updated to incorporate the regulatory settings of Health Canada (new functions `power.scABEL2()` and `sampleN.scABEL2()` based on simulations of intra-subject contrasts evaluation).
   * The same functions now accept as regulator argument an object of class `'regSet'` and allow via this way User definitions of regulatory settings.
   * New function `reg_const` made visible to define objects of `'regSet'`. Class `'regSet'` has an S3 print method.
 
@@ -184,7 +184,7 @@ Released to beta-testers 2016-05-04
   * Default value of argument `theta0` in functions `power.scABEL()`, `power.scABEL2()` and `power.RSABE()` changed to 0.90 to be in agreement with the setting in the corresponding sample size functions.
   * Function `scABEL()` (calculation of widened acceptance limits) no longer accepts `regulator="USER"`. This case may be handled via an object with class `'regSet'`, as defined by help of function `reg_const()`.
   * Functions `CVfromCI()`/`CI2CV` now use `pe` instead of `point` as argument due to more consistency with their dual `CI.BE()`. For backward compatibility `point` may be used also but then a warning is thrown. Argument point will be removed in future versions.
-  * Functions for expected power for TOST and non-inferiority updated to avoid numerical dificulties with `integrate()` if `method="exact"`.
+  * Functions for expected power for TOST and non-inferiority updated to avoid numeric dificulties with `integrate()` if `method="exact"`.
   * Documentation (typos in man pages) rigorously enhanced. Thanks to Helmut and Ben.
 
 # PowerTOST 1.3-5
@@ -336,7 +336,7 @@ On CRAN 2014-11-13
 
 ## Major changes
 
-  * Functions `sampleN.dp()` / `power.dp()` cover "incomplete block designs".
+  * Functions `power.dp()` / `sampleN.dp()` cover "incomplete block designs".
   * Liu’s 2x2x2 design with 2 repeated measurements in each period added (see `?known.designs` under Notes).
 
 ## Minor changes
@@ -397,8 +397,8 @@ On CRAN 2014-04-30
 
 ## Major changes
 
-  * Utility function added which calculates 1--2α confidence interval(s) given point est., CV and n using log-tansformed evaluation.
-  * Utility function added which calculates 1--2α Fieller confidence interval(s) given point est., CV (, CVb) and n for the ratio of untransformed means.
+  * Utility function added which calculates 1&ndash;2α confidence interval(s) given point est., CV and n using log-tansformed evaluation.
+  * Utility function added which calculates 1&ndash;2α Fieller confidence interval(s) given point est., CV (, CVb) and n for the ratio of untransformed means.
 
 # PowerTOST 1.1-10
 
@@ -416,7 +416,7 @@ On CRAN 2014-01-31
 
 ## Minor changes
 
-  * Improvements in documentation (man pages and *.pdf) to reflect the code changes.
+  * Improvements in documentation (man pages and \*.pdf) to reflect the code changes.
 
 # PowerTOST 1.1-9
 
@@ -599,7 +599,7 @@ On CRAN 2012-03-26
 ## Major changes
 
   * Functions added for power and sample size calculations based on non-inferiority t-test. This is not a TOST procedure but eventually useful if the question of 'non-superiority' within a BE study must be evaluated.  
-    Hint: Evaluation of Fluctuation in the EMA MR NfG (1999) between modified release formulation and immediate release product
+    Hint: Evaluation of Fluctuation in the EMA MR NfG (1999) between modified release formulation and immediate release product.
 
 # PowerTOST 0.9-4
 
@@ -638,7 +638,7 @@ On CRAN 2011-12-24
   * Sample size tables added for the `"2x2"` crossover and for the `"parallel"` group design to alleviate validation/qualification of the package.  
     See `data(package="PowerTOST")`.
   * Scripts added in the `/test` sub-directory that create the sample size tables from the data section.
-  * Updated `BE_power_sample_size_excerpt.pdf in the `/doc` sub-directory.
+  * Updated `BE_power_sample_size_excerpt.pdf` in the `/doc` sub-directory.
 
 # PowerTOST 0.9-0
 
