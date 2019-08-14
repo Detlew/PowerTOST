@@ -72,11 +72,11 @@ for the internal construction of the design data.frame.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
-May be given as character == "EMA" or as an object of
+May be given as \code{"EMA"} or as an object of
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr\cr
-If given as object of class 'regSet' the component \code{est_method} can not be "ISC". 
+If given as object of class 'regSet' the component \code{est_method} must not be \code{"ISC"}. 
 }
   \item{nsims}{
 Number of simulations to be performed to obtain the empirical power.
@@ -110,9 +110,9 @@ in case of \code{regulator="EMA"}.
 If the CVwR of the Reference is < CVswitch=0.3 the conventional ABE limits 
 apply (mixed procedure).\cr 
 In case of \code{regulator="EMA"} a cap is placed on the widened limits if 
-CVwr>0.5, i.e. the widened limits are held at value calculated for CVwR=0.5.\cr\cr
+CVwr>0.5, \emph{i.e.}, the widened limits are held at value calculated for CVwR=0.5.\cr\cr
 The simulations are done by simulating subject data (all effects fixed except the
-residuals) and evaluating these data via ANOVA of all data to get the point esimate
+residuals) and evaluating these data via ANOVA of all data to get the point estimate
 of T vs. R along with its 90\% CI and an ANOVA of the data under R(eference) only
 to get an estimate of s2wR.\cr
 The data.frame with columns  \code{subject, sequence, period} and \code{tmt} 

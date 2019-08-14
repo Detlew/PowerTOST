@@ -69,6 +69,7 @@ export(
   , sampleN.HVNTID
   , sampleN.RSABE
   , sampleN.scABEL
+  , sampleN.scABEL.sdsims
   , sampleN.scABEL.ad
   , sampleN.dp
   , scABEL
