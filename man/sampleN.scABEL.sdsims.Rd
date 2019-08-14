@@ -9,10 +9,10 @@ These functions performs the sample size estimation via power calculations of th
 BE decision via scaled (expanded) BE acceptance limits, based on simulations.
 }
 \usage{
-sampleN.scABEL(alpha=0.05, targetpower=0.8, theta0, theta1, theta2, CV,
-               design=c("2x3x3", "2x2x4", "2x2x3"), regulator, nsims=1e5,
-               nstart, imax=100, print=TRUE, details=TRUE, setseed=TRUE,
-               progress)
+sampleN.scABEL.sdsims(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, CV,
+                      design = c("2x3x3", "2x2x4", "2x2x3"), regulator, nsims = 1e5,
+                      nstart, imax = 100, print = TRUE, details = TRUE,
+                      setseed = TRUE, progress)
 }
 \arguments{
   \item{alpha}{

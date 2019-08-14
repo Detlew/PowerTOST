@@ -12,7 +12,7 @@ Published on GitHub 2019-08-14
   
 ## Major changes
 
-  * New function `sampleN.scABEL.sdsims()` for subject simulations. Useful in case of assumed heteroscedasticity in the partial replicae (TRT|RTR|RRT). Not thoroughly tested yet.
+  * New function `sampleN.scABEL.sdsims()` for subject simulations. Useful in case of assumed heteroscedasticity in the partial replicae (TRT|RTR|RRT). (Helmut)
   * `NEWS.md` instead of `NEWS`.
   * `README.md` (knitted from `README.Rmd`).
   * Function to simulate subject data & evaluate via models with group effect implemented. Not yet public.

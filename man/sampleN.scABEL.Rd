@@ -10,8 +10,9 @@ BE decision via scaled (expanded) BE acceptance limits, based on simulations.
 }
 \usage{
 sampleN.scABEL(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, CV, 
-               design = c("2x3x3", "2x2x4", "2x2x3"), regulator, nsims = 1e+05, 
-               nstart, imax = 100, print = TRUE, details = TRUE, setseed = TRUE)
+               design = c("2x3x3", "2x2x4", "2x2x3"), regulator,
+               nsims = 1e+05, nstart, imax = 100, print = TRUE, details = TRUE,
+               setseed = TRUE)
 }
 \arguments{
   \item{alpha}{
