@@ -7,7 +7,8 @@ Sample size estimation for BE decision via scaled (expanded) BE acceptance limit
 }
 \description{
 These functions performs the sample size estimation via power calculations of the 
-BE decision via scaled (expanded) BE acceptance limits, based on simulations.\cr
+BE decision via scaled (expanded) BE acceptance limits, based on \bold{subject data} 
+simulations. \cr
 This function has an alias sampleN.scABEL.sds().
 }
 \usage{

@@ -118,7 +118,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
 
   op <- par(no.readonly=TRUE) # save par() options
   par(mar =c(c(3.5, 3.5, 2.5, 0.75))+0.1) # bottom, left, top, right
-  par(cex.main=0.95, cex.axis=0.95, cex.lab=0.95,
+  par(cex.main=0.95, font.main=1, cex.axis=0.95, cex.lab=0.95,
       mgp =c(2, 0.75, 0), tcl = -0.2)
 
   # plot on a panel of 4 pieces
