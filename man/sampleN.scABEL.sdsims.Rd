@@ -51,10 +51,10 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
 }
   \item{design}{
 Design of the study to be planned.\cr
-\code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x4"} is the full replicate design with 2 sequences and 4 periods (TRTR|RTRT).\cr
-\code{"2x2x3"} is the full replicate design with 2 sequences and 3 periods (TRT|RTR).\cr
-Defaults to \code{design="2x3x3"}
+\code{"2x3x3"} is the partial replicate design.\cr
+\code{"2x2x4"} is a full replicate design with 2 sequences and 4 periods.\cr
+\code{"2x2x3"} is a full replicate design with 2 sequences and 3 periods.\cr
+Defaults to \code{design="2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
@@ -131,7 +131,17 @@ replicate design (TRR|RTR|RRT) assuming heteroscedasticity, especially if \code{
 Thus be patient and go for a cup of coffee if you use this function with high 
 sample sizes!
 }
-
+\section{Designs}{
+Although some designs are more \sQuote{popular} than others, sample size estimations are valid for \emph{all} of the following designs:
+  \tabular{ll}{
+    \code{"2x2x4"} \tab TRTR | RTRT\cr
+    \tab TRRT | RTTR\cr
+    \tab TTRR | RRTT\cr
+    \code{"2x2x3"} \tab TRT | RTR\cr
+    \tab TRR | RTT\cr
+    \code{"2x3x3"} \tab TRR | RTR | RRT
+  }
+}
 \section{Warning }{
 The sample size estimation for very extreme theta0 (<0.83 or >1.21) may be very 
 time consuming and will eventually also fail since the start values chosen are 
