@@ -11,8 +11,7 @@ scaled (widened) BE acceptance limits by simulations.
 \usage{
 power.scABEL(alpha = 0.05, theta1, theta2, theta0, CV, n, 
              design = c("2x3x3", "2x2x4", "2x2x3"), regulator,
-             sdsims = FALSE,  nsims = 1e+05, details = FALSE,
-             setseed = TRUE)
+             nsims = 1e+05, details = FALSE, setseed = TRUE)
 }
 \arguments{
   \item{alpha}{
@@ -67,9 +66,6 @@ class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr
 The former \code{regulator="ANVISA"} is no longer allowed. Since 2016 the ANVISA recommends the EMA’s regulatory settings. 
-}
-  \item{sdsims}{
-Should subject simulations be performed? Defaults to \code{FALSE}. Not implemented yet.
 }
   \item{nsims}{
 Number of simulations to be performed to obtain the empirical power.
