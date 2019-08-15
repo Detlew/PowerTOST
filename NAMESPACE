@@ -57,6 +57,7 @@ export(
   , power.RSABE2L.sds
   , power.scABEL
   , power.scABEL.sdsims
+  , power.scABEL.sds       # alias
   , power.dp
   , pvalue.TOST
   , pvalues.TOST
@@ -70,6 +71,7 @@ export(
   , sampleN.RSABE
   , sampleN.scABEL
   , sampleN.scABEL.sdsims
+  , sampleN.scABEL.sds
   , sampleN.scABEL.ad
   , sampleN.dp
   , scABEL

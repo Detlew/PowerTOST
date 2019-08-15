@@ -104,3 +104,6 @@ sampleN.scABEL.sdsims <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
                  "Target power", "nlast")
   if (print | details) return(invisible(res)) else return(res)
 }
+
+# alias 
+sampleN.scABEL.sds <- sampleN.scABEL.sdsims

@@ -1,12 +1,14 @@
 \encoding{utf-8}
-\name{power.scABEL.sdsims}
+\name{power.scABEL.sds}
 \alias{power.scABEL.sdsims}
+\alias{power.scABEL.sds}
 \title{
 (Empirical) Power of BE decision via scaled (widened) BE acceptance limits
 }
 \description{
 These function performs the power calculation of the BE decision via 
-scaled (widened) BE acceptance limits based on \bold{subject data} simulations.
+scaled (widened) BE acceptance limits based on \bold{subject data} simulations.\cr
+This function has an alias power.scABEL.sds().
 }
 \usage{
 power.scABEL.sdsims(alpha = 0.05, theta1, theta2, theta0, CV, n, 
