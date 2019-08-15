@@ -150,12 +150,21 @@ error trap.
 # ABE limits, PE constraint 0.8 - 1.25
 # EMA regulatory settings
 \dontrun{
-sampleN.scABEL.sdsims(CV = c(0.4, 0.3), print = FALSE,
-                      details = FALSE)[8:9]}
-# should result in a sample size n=69, power=0.80198
-#
-# compare to simulating the 'key' statistics
-sampleN.scABEL(CV = c(0.4, 0.3), print = FALSE,
-               details = FALSE)[8:9]
-# should result in a sample size n=66, power=0.80775
+CV           <- c(0.4, 0.3)
+design       <- "2x3x3"
+expl         <- data.frame(method = rep("", 2), n = NA,
+                           power = NA, seconds = NA)
+expl$method  <- c("subject simulations", "key statistics")
+start        <- proc.time()[[3]]
+expl[1, 2:3] <- sampleN.scABEL.sdsims(CV = CV, print = FALSE,
+                                      details = FALSE)[8:9]
+expl[1, 4]   <- proc.time()[[3]] - start
+start        <- proc.time()[[3]]
+expl[2, 2:3] <- sampleN.scABEL(CV = CV, print = FALSE,
+                               details = FALSE)[8:9]
+expl[2, 4]   <- proc.time()[[3]] - start
+print(expl, row.names = FALSE)}
+# should result in a sample size n=69, power=0.80198 for
+# the subject simulations and n=66, power=0.80775 for the
+# 'key' statistics
 }
