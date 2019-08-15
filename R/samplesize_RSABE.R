@@ -10,10 +10,9 @@
 sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1, 
                           theta2, CV, design=c("2x3x3", "2x2x4", "2x2x3"),
                           regulator = c("FDA", "EMA"), nsims=1E5, nstart, imax=100,
-                          print=TRUE, details=TRUE, setseed=TRUE)
-{
+                          print=TRUE, details=TRUE, setseed=TRUE) {
   if (missing(theta1) & missing(theta2)) theta1 <- 0.8
-  # according to the two Laszlo's paper 0.9 (alas 1.10) should be considered
+  # according to the two Laszlos' paper 0.9 (alas 1.10) should be considered
   if (missing(theta0)) theta0 <- 0.90
   if (missing(theta2)) theta2=1/theta1
   if ( (theta0<=theta1) | (theta0>=theta2) ) {
@@ -25,13 +24,13 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   # regulator here only FDA, EMA
   # other regulatory bodies ("HC", "ANVISA") use all the EMA regulatory constant
   if (missing(regulator)) regulator <- "FDA"
-  rc <- reg_check(regulator, choices=c("FDA", "EMA"))
-  CVswitch  <- rc$CVswitch
-  r_const   <- rc$r_const
-  pe_constr <- rc$pe_constr
+  reg <- reg_check(regulator, choices=c("FDA", "EMA"))
+  CVswitch  <- reg$CVswitch
+  r_const   <- reg$r_const
+  pe_constr <- reg$pe_constr
   # CVcap doesn't apply to the FDA recommended method
   # but in Munoz et al. method= Howe-EMA
-  CVcap     <- rc$CVcap
+  CVcap     <- reg$CVcap
   
   # for later enhancement taking into account the 
   # subject-by-formulation interaction
@@ -46,8 +45,8 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   # we are treating only balanced designs
   # thus we use here bk - design constant for ntotal
   # expressions for the df's
-  if (design=="2x3x3") {
-    desi <- "2x3x3 (partial replicate)"
+  if (design == "2x3x3") {
+    desi <- "2x3x3 (TRR|RTR|RRT)"
     seqs <- 3
     bk   <- 1.5    # needed for n0?
     # in case of the FDA we are using the 'robust' df's
@@ -61,8 +60,8 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     # according to McNally et al., verified via simulations:
     Emse  <- s2D + s2wT + s2wR/2
   }
-  if (design=="2x2x4") {
-    desi <- "2x2x4 (full replicate)"
+  if (design == "2x2x4") {
+    desi <- "2x2x4 (TRTR|RTRT)"
     seqs <- 2
     bk   <- 1.0    # needed for n0
     dfe   <- parse(text="n-2", srcfile=NULL)
@@ -86,25 +85,25 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     cat("\n++++++++ Reference scaled ABE crit. +++++++++\n")
     cat("           Sample size estimation\n")
     cat("---------------------------------------------\n")
-    cat("Study design: ",desi,"\n")
+    cat("Study design:",desi,"\n")
     cat("log-transformed data (multiplicative model)\n")
     cat(nsims,"studies for each step simulated.\n\n")
     cat("alpha  = ",alpha,", target power = ", targetpower,"\n", sep="")
     cat("CVw(T) = ",CVwT,"; CVw(R) = ",CVwR,"\n", sep="")
     cat("True ratio = ",theta0,"\n", sep="")
     cat("ABE limits / PE constraints =",theta1,"...", theta2,"\n")
-    if (details | rc$name=="USER") { 
-      rc$CVcap <- NULL # CVcap doesn't apply here
-      print(rc)
+    if (details | reg$name=="USER") { 
+      reg$CVcap <- NULL # CVcap doesn't apply here
+      print(reg)
       cat("\n")
     } else {
-      cat("Regulatory settings:", rc$name,"\n")
+      cat("Regulatory settings:", reg$name,"\n")
     }
   }
   
   # -----------------------------------------------------------------
   # nstart from sampleN0 with widened limits
-  # does'nt fit really good if theta0>=1.2 or <=0.85! ways out?
+  # doesn't fit really good if theta0>=1.2 or <=0.85! ways out?
   ltheta1 <- -r_const*sqrt(s2wR)
   ltheta2 <- -ltheta1
   # this does not function in case of CVwR=0.3 for the original code
@@ -118,11 +117,11 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     
     # try to use the empirical alpha for start sample size, some sort of
     al <- alpha
-    if (rc$name=="FDA") {
+    if (reg$name=="FDA") {
       if(Emse/bk <= CV2mse(0.30001) & Emse/bk >= CV2mse(0.2975)) al=0.12
       if(Emse/bk > CV2mse(0.30001)) al <- 0.035   
     }
-    if (rc$name=="EMA") {
+    if (reg$name=="EMA") {
       #does not fit!
       #if(Emse/bk <= CV2mse(0.321) & Emse/bk >= CV2mse(0.28)) al=0.065
     }
@@ -244,5 +243,3 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   
   if (print | details) return(invisible(res)) else return(res)
 } # end function
-
-

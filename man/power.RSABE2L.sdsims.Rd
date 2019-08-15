@@ -15,8 +15,8 @@ is the usual \acronym{ANOVA}.
 }
 \usage{
 power.RSABE2L.sdsims(alpha = 0.05, theta1, theta2, theta0, CV, n, 
-                     design = c("2x3x3", "2x2x4", "2x2x3"), design_dta=NULL,
-                     SABE_test="exact", regulator, nsims = 1e+05, 
+                     design = c("2x3x3", "2x2x4", "2x2x3"), design_dta = NULL,
+                     SABE_test = "exact", regulator, nsims = 1e+05, 
                      details = FALSE, setseed = TRUE, progress)
 }
 \arguments{
@@ -79,8 +79,7 @@ for the internal construction of the design data.frame.
   \item{SABE_test}{
 This argument specifies the test method to be used for the reference scaled
 \acronym{ABE} decision.\cr
-Default is the \code{"exact"} \sQuote{ncTOST} method of the two \enc{Laszlós}{Laszlos}. Other choices are \code{"ABEL"},
-\code{"hyslop"} and \code{"fda"}. See Details.
+Default is the \code{"exact"} \sQuote{ncTOST} method of the two \enc{Laszlós}{Laszlos}. Other choices are \code{"ABEL"}, \code{"hyslop"} and \code{"fda"}. See Details.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr

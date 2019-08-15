@@ -119,6 +119,17 @@ is not unique. Moreover the formulas used are only for balanced designs.\cr
 The minimum sample size is n=6, even if the power is higher than the intended 
 targetpower.
 }
+\section{Designs}{
+Although some designs are more \sQuote{popular} than others, sample size estimations are valid for \emph{all} of the following designs:
+  \tabular{ll}{
+    \code{"2x2x4"} \tab TRTR | RTRT\cr
+    \tab TRRT | RTTR\cr
+    \tab TTRR | RRTT\cr
+    \code{"2x2x3"} \tab TRT | RTR\cr
+    \tab TRR | RTT\cr
+    \code{"2x3x3"} \tab TRR | RTR | RRT
+  }
+}
 \section{Warning }{
 The sample size estimation for theta0 >1.2 and <0.85 may be very time consuming 
 and will eventually also fail since the start values chosen are not really 

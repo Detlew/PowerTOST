@@ -7,7 +7,7 @@ Sample size estimation for BE decision via the FDA's method for narrow therapeut
 \description{
 This function performs the sample size estimation for the BE decision for 
 the FDA’s method for NTIDs based on simulations. The study design is the full 
-replicate design 2x2x4 (TRTR|RTRT) or the 3-period replicate design with sequeences TRT|RTR.
+replicate design 2x2x4 (TRTR|RTRT) or the 3-period replicate design with sequences TRT|RTR.
 }
 \usage{
 sampleN.NTIDFDA(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, CV, 

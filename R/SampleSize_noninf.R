@@ -45,7 +45,7 @@ sampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
     cat("\n++++++++++++ Non-inferiority test +++++++++++++\n")
     cat("            Sample size estimation\n")
     cat("-----------------------------------------------\n")
-    cat("Study design: ",d.name,"\n")
+    cat("Study design:",d.name,"\n")
     if (details) { 
       cat("Design characteristics:\n")
       if (robust & (ades$df2 != ades$df)) {

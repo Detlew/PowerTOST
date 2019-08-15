@@ -93,7 +93,7 @@ sampleN.scABEL1 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   # thus we use here bk - design constant for ntotal
   # expressions for the df's
   if (design=="2x3x3") {
-    desi <- "2x3x3 (partial replicate)"
+    desi <- "2x3x3 (TRT|RTR)"
     bk <- 1.5; seqs <- 3
     dfe   <- parse(text="2*n-3", srcfile=NULL)
     dfRRe <- parse(text="n-2", srcfile=NULL)
@@ -102,7 +102,7 @@ sampleN.scABEL1 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     Emse  <- (s2wT + 2.0*s2wR)/3
   }
   if (design=="2x2x4") {
-    desi <- "2x2x4 (full replicate)"
+    desi <- "2x2x4 (TRR|RTR|RRT)"
     bk <- 1.0; seqs <- 2
     # only EMA settings
     dfe   <- parse(text="3*n-4", srcfile=NULL)

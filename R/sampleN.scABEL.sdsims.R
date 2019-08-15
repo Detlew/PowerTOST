@@ -2,7 +2,7 @@
 # Sample size estimation based on replicate design subject data simulations
 # and evaluation via EMA ABEL method (ANOVA & average BE with expanding limits)
 #
-# Author H.Schütz
+# Author H.Schütz based on code by D.Labes
 # ----------------------------------------------------------------------------
 sampleN.scABEL.sdsims <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
                                   theta2, CV,
@@ -37,13 +37,13 @@ sampleN.scABEL.sdsims <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     if (nsims >= 5e5 | (nsims >= 1e5 & n > 72)) progress <- TRUE
   }
   if (design == "2x3x3") {
-    desi <- "2x3x3 (partial replicate)"
+    desi <- "2x3x3 (partial replicate TRR|RTR|RRT)"
   }
   if (design == "2x2x4") {
-    desi <- "2x2x4 (full replicate)"
+    desi <- "2x2x4 (full replicate TRTR|RTRT)"
   }
   if (design == "2x2x3") {
-    desi <- "2x2x3 (TRT|RTR)"
+    desi <- "2x2x3 (full replicate TRT|RTR)"
   }
   if (print){
     cat("\nBe patient. Simulating subject data may take a good while!\n\n")
@@ -76,7 +76,7 @@ sampleN.scABEL.sdsims <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
                                regulator=regulator, nsims=nsims, details=FALSE,
                                setseed=setseed, progress=progress)
     if (details) {
-      cat(n, " ", formatC(pwr, digits = pd, format="f"), "\n")
+      cat(n, " ", formatC(pwr, digits = pd, format = "f"), "\n")
     }
     if (pwr >= targetpower) {
       break
@@ -91,7 +91,7 @@ sampleN.scABEL.sdsims <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   if (print && !details) {
     cat("\nSample size\n")
     cat(" n   power\n")
-    cat(n," ", formatC(pwr, digits = pd, format="f"),"\n")
+    cat(n," ", formatC(pwr, digits = pd, format = "f"),"\n")
     if (is.na(n)) cat("Sample size search failed!\n")
   }
   if (print) cat("\n")

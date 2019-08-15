@@ -64,7 +64,7 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
     cat("+++++++++++ Equivalence test - 2 TOSTs +++++++++++\n")
     cat("            Sample size estimation\n")
     cat("--------------------------------------------------\n")
-    cat("Study design: ",d.name,"\n")
+    cat("Study design:",d.name,"\n")
     if (details) { 
       cat("Design characteristics:\n")
       if (robust & (ades$df2 != ades$df)) {

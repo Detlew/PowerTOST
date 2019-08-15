@@ -12,7 +12,8 @@ Published on GitHub 2019-08-15
   
 ## Major changes
 
-  * New function `sampleN.scABEL.sdsims()` for subject simulations. Useful in case of assumed heteroscedasticity in the partial replicate (TRT|RTR|RRT).
+  * New function `sampleN.RSABE2L.sdsims()` for sample size estimation via  subject simulations for the ‘exact’ method of Tóthfalusi & Endrényi “*[Algorithms for evaluating reference scaled average bioequivalence: power, bias, and consumer risk](https://doi.org/10.1002/sim.7440)*”.
+  * New function `sampleN.scABEL.sdsims()` for sample size estimation for ABEL via subject simulations. Useful in case of assumed heteroscedasticity in the partial replicate design (TRT|RTR|RRT).
   * `NEWS.md` instead of `NEWS`.
   * `README.md` (knitted from `README.Rmd`).
   * Function to simulate subject data & evaluate via models with group effect implemented. Not yet public.

@@ -29,9 +29,9 @@ export(
   , CV2se
   , CV2mse
   , CVfromCI
-  , CI2CV
+  , CI2CV                 # alias
   , CVwRfromU
-  , U2CVwR
+  , U2CVwR                # alias
   , CVp2CV
   , CVpooled
   , exppower.noninf
@@ -58,6 +58,8 @@ export(
   , power.scABEL
   , power.scABEL.sdsims
   , power.scABEL.sds       # alias
+  , sampleN.RSABE2L.sdsims
+  , sampleN.RSABE2L.sds    # alias
   , power.dp
   , pvalue.TOST
   , pvalues.TOST
@@ -71,7 +73,7 @@ export(
   , sampleN.RSABE
   , sampleN.scABEL
   , sampleN.scABEL.sdsims
-  , sampleN.scABEL.sds
+  , sampleN.scABEL.sds    # alias
   , sampleN.scABEL.ad
   , sampleN.dp
   , scABEL

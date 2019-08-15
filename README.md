@@ -306,7 +306,7 @@ PowerTOST::sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4",
 #> ++++++++ Reference scaled ABE crit. +++++++++
 #>            Sample size estimation
 #> ---------------------------------------------
-#> Study design:  2x2x4 (full replicate) 
+#> Study design: 2x2x4 (TRTR|RTRT) 
 #> log-transformed data (multiplicative model)
 #> 1e+05 studies for each step simulated.
 #> 
@@ -437,7 +437,7 @@ print(res)
 #>  N = 16 (power= 0.7354)
 ```
 
-If the study starts with 26 subjects (power \~0.91), the *CV* can
+If the study starts with 26 subjects (power \~0.92), the *CV* can
 increase to \~0.27 **or** *θ*<sub>0</sub> decrease to \~0.90 **or** the
 sample size decrease to 10 whilst power will still be ≥0.70.  
 However, this is **not** a substitute for the “Sensitivity Analysis”
@@ -472,9 +472,9 @@ for (i in 1:nrow(expl)) {
 print(expl, digits = 6, row.names = FALSE)
 #>      method  n    power seconds
 #>       owenq 14 0.805683  0.0015
-#>         mvt 14 0.805690  0.1220
-#>  noncentral 14 0.805683  0.0005
-#>     shifted 16 0.852301  0.0020
+#>         mvt 14 0.805690  0.1210
+#>  noncentral 14 0.805683  0.0015
+#>     shifted 16 0.852301  0.0005
 ```
 
 The 2<sup>nd</sup> exact method is substantially slower than the
@@ -510,7 +510,7 @@ expl[2, 4]   <- proc.time()[[3]] - start
 print(expl, row.names = FALSE)
 #>               method  n   power seconds
 #>       key statistics 28 0.81116    0.16
-#>  subject simulations 28 0.81196    2.46
+#>  subject simulations 28 0.81196    2.45
 ```
 
 Simulating via the ‘key’ statistics is the method of choice. However,
