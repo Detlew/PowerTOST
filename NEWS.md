@@ -1,18 +1,18 @@
 # PowerTOST 1.4-7.9000
 
-Published on GitHub 2019-08-14
+Published on GitHub 2019-08-15
 
 ## Bug fixes
 
   * In `scABEL.ad.R` `regulator`was `NULL`. Corrected to `reg$name`.
-  * Smaller font in 4<sup>th</sup> screen of `pwrA_S3methods.R` of `pa.NTID()` (more lines required).
+  * Smaller font in 4<sup>th</sup> screen of `pwrA_S3methods.R` of `pa.NTID()` (more lines required). Plain font instead of bold in main.
   * Broken FDA URL in many man pages corrected.
   * In `expsampleN.noninf()` wrt operator `&&` with vector arguments (new check in R 3.6.0).
   * `CI.RatioF()` fixed. Thanks to Michael (mittyri).
   
 ## Major changes
 
-  * New function `sampleN.scABEL.sdsims()` for subject simulations. Useful in case of assumed heteroscedasticity in the partial replicae (TRT|RTR|RRT). (Helmut)
+  * New function `sampleN.scABEL.sdsims()` for subject simulations. Useful in case of assumed heteroscedasticity in the partial replicate (TRT|RTR|RRT).
   * `NEWS.md` instead of `NEWS`.
   * `README.md` (knitted from `README.Rmd`).
   * Function to simulate subject data & evaluate via models with group effect implemented. Not yet public.
@@ -20,6 +20,7 @@ Published on GitHub 2019-08-14
 
 ## Minor changes
 
+  * Updated `test_ABEL.R` in `inst/tests` to support subject simulations.
   * `power.scABEL()`: More informative warning about heteroscedasticity in the partial replicate design (use of `power.scABEL.sdsims()` suggested).
   * Add/subtract `.Machine$double.eps` if `rho` is -1 or +1 given in `power_type1_2TOST.R` (similar to `sampleN_2TOST_sim.R`). Removed warning in the latter. Less confusing for users and the example in the man-page looks nicer.
   * Man pages reworked.
