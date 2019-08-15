@@ -426,12 +426,6 @@ intra-subject *CV* 0.20, target power 0.90.
 
 ``` r
 res <- PowerTOST::pa.ABE(CV = 0.20, targetpower = 0.90)
-plot(res, pct = FALSE)
-```
-
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
-
-``` r
 print(res)
 #> Sample size plan ABE
 #>  Design alpha  CV theta0 theta1 theta2 Sample size Achieved power
@@ -477,10 +471,10 @@ for (i in 1:nrow(expl)) {
 }
 print(expl, digits = 6, row.names = FALSE)
 #>      method  n    power seconds
-#>       owenq 14 0.805683  0.0020
-#>         mvt 14 0.805690  0.1225
-#>  noncentral 14 0.805683  0.0015
-#>     shifted 16 0.852301  0.0005
+#>       owenq 14 0.805683  0.0015
+#>         mvt 14 0.805690  0.1220
+#>  noncentral 14 0.805683  0.0005
+#>     shifted 16 0.852301  0.0020
 ```
 
 The 2<sup>nd</sup> exact method is substantially slower than the
@@ -515,8 +509,8 @@ expl[2, 2:3] <- PowerTOST::sampleN.scABEL.sdsims(CV = CV, design = design,
 expl[2, 4]   <- proc.time()[[3]] - start
 print(expl, row.names = FALSE)
 #>               method  n   power seconds
-#>       key statistics 28 0.81116    0.14
-#>  subject simulations 28 0.81196    2.41
+#>       key statistics 28 0.81116    0.16
+#>  subject simulations 28 0.81196    2.46
 ```
 
 Simulating via the ‘key’ statistics is the method of choice. However,

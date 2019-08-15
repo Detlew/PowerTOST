@@ -202,7 +202,6 @@ Explore impact of deviations from assumptions (higher *CV*, higher deviation of 
 
 ```{r}
 res <- PowerTOST::pa.ABE(CV = 0.20, targetpower = 0.90)
-plot(res, pct = FALSE)
 print(res)
 ```
 
