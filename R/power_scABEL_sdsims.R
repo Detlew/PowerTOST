@@ -115,3 +115,6 @@ power.scABEL.sdsims <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
                        setseed=setseed, details=details, progress=progress)
   pwr
 }
+
+# alias
+power.scABEL.sds <- power.scABEL.sdsims

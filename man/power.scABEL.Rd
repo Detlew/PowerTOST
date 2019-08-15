@@ -10,8 +10,8 @@ scaled (widened) BE acceptance limits by simulations.
 }
 \usage{
 power.scABEL(alpha = 0.05, theta1, theta2, theta0, CV, n, 
-             design = c("2x3x3", "2x2x4", "2x2x3"), regulator,
-             nsims = 1e+05, details = FALSE, setseed = TRUE)
+             design = c("2x3x3", "2x2x4", "2x2x3"), regulator, nsims = 1e+05, 
+             details = FALSE, setseed = TRUE)
 }
 \arguments{
   \item{alpha}{
