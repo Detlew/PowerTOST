@@ -28,6 +28,17 @@ designs <- PowerTOST::known.designs()
 print(designs[, c(2, 9, 3)], row.names = FALSE)
 ```
 
+Although some replicate designs are more ‘popular’ than others, sample size estimations are valid for <u>all</u> of the following designs:
+
+|design|type|sequences|
+|:----:|:----:|---------|
+|`2x2x4`|full|TRTR / RTRT|
+|`2x2x4`|full|TRRT / RTTR|
+|`2x2x4`|full|TTRR / RRTT|
+|`2x2x3`|full|TRT / RTR|
+|`2x2x3`|full|TRT / RTR|
+|`2x3x3`|partial|TRR / RTR / RRT|
+
 ## Purpose
 
 For various methods power can be *calculated* based on
@@ -40,7 +51,7 @@ For all methods the sample size can be *estimated* based on
 
 ## Supported
 ### Power and Sample Size
-Power covers balanced as well as unbalanced sequences in crossover designs and equal/unequal group sizes in two-group parallel designs. Sample sizes are always rounded up to achieve balanced sequences or equal group sizes.
+Power covers balanced as well as unbalanced sequences in crossover or replicate designs and equal/unequal group sizes in two-group parallel designs. Sample sizes are always rounded up to achieve balanced sequences or equal group sizes.
 
   - Average Bioequivalence (with arbitrary *fixed* limits).
   - Two simultaneous TOST procedures.
