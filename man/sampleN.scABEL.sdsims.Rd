@@ -8,7 +8,7 @@ Sample size estimation for BE decision via scaled (expanded) BE acceptance limit
 \description{
 These functions performs the sample size estimation via power calculations of the 
 BE decision via scaled (expanded) BE acceptance limits, based on \bold{subject data} 
-simulations. \cr
+simulations.\cr
 This function has an alias sampleN.scABEL.sds().
 }
 \usage{
@@ -144,20 +144,19 @@ error trap.
 }
 
 \seealso{
-\code{\link{sampleN.scABEL}}, \code{\link{reg_const}}
+\code{\link{power.scABEL.sdsims}}, \code{\link{sampleN.scABEL}}, \code{\link{reg_const}}
 }
 \examples{
-# using some of the defaults:
+# using the defaults:
 # partial replicate design, targetpower=80\%,
 # true assumed ratio = 0.90, 1E+5 simulated studies
 # ABE limits, PE constraint 0.8 - 1.25
 # EMA regulatory settings
+# compare results and run times
 \dontrun{
 CV           <- c(0.4, 0.3)
-design       <- "2x3x3"
-expl         <- data.frame(method = rep("", 2), n = NA,
-                           power = NA, seconds = NA)
-expl$method  <- c("subject simulations", "key statistics")
+expl         <- data.frame(method = c("subject simulations", "key statistics"),
+                           n = NA, power = NA, seconds = NA)
 start        <- proc.time()[[3]]
 expl[1, 2:3] <- sampleN.scABEL.sdsims(CV = CV, print = FALSE,
                                       details = FALSE)[8:9]
