@@ -1,7 +1,7 @@
 README
 ================
 Helmut Schütz
-2019-08-15
+2019-08-16
 
   - [PowerTOST](#powertost)
       - [Supported Designs](#supported-designs)
@@ -31,7 +31,7 @@ Helmut Schütz
 
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
-studies.
+studies. Built with R 3.6.1.
 
 ## Supported Designs
 
@@ -49,6 +49,18 @@ studies.
     #>     2x4x2            Balaam's (2x4x2)   n-2
     #>    2x2x2r Liu's 2x2x2 repeated x-over 3*n-2
     #>    paired                paired means   n-1
+
+Although some replicate designs are more ‘popular’ than others, sample
+size estimations are valid for <u>all</u> of the following designs:
+
+| design  |  type   | sequences       |
+| :-----: | :-----: | --------------- |
+| `2x2x4` |  full   | TRTR / RTRT     |
+| `2x2x4` |  full   | TRRT / RTTR     |
+| `2x2x4` |  full   | TTRR / RRTT     |
+| `2x2x3` |  full   | TRT / RTR       |
+| `2x2x3` |  full   | TRT / RTR       |
+| `2x3x3` | partial | TRR / RTR / RRT |
 
 ## Purpose
 
@@ -68,10 +80,10 @@ For all methods the sample size can be *estimated* based on
 
 ### Power and Sample Size
 
-Power covers balanced as well as unbalanced sequences in crossover
-designs and equal/unequal group sizes in two-group parallel designs.
-Sample sizes are always rounded up to achieve balanced sequences or
-equal group sizes.
+Power covers balanced as well as unbalanced sequences in crossover or
+replicate designs and equal/unequal group sizes in two-group parallel
+designs. Sample sizes are always rounded up to achieve balanced
+sequences or equal group sizes.
 
   - Average Bioequivalence (with arbitrary *fixed* limits).
   - Two simultaneous TOST procedures.
@@ -119,12 +131,12 @@ equal group sizes.
 
 ## Defaults
 
-Details of the sample size search (and the regulatory settings in
-reference-scaled average bioequivalence) are printed.
+*α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25), Details of
+the sample size search (and the regulatory settings in reference-scaled
+average bioequivalence) are printed.
 
 ### Average Bioequivalence
 
-*α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25),
 *θ*<sub>0</sub> 0.95, target power 0.80, design "2x2" (TR|RT), exact
 method (Owen’s Q).
 
@@ -166,16 +178,14 @@ confidence interval of *s<sub>wT</sup>*/*s<sub>wR</sup>* ≤2.5.
 
 ### Dose-Proportionality
 
-*α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25),
-*β*<sub>0</sub> (slope) `1+log(0.95)/log(rd)` where `rd` is the ratio
-of the highest and lowest dose, target power 0.80, crossover design,
+*β*<sub>0</sub> (slope) `1+log(0.95)/log(rd)` where `rd` is the ratio of
+the highest and lowest dose, target power 0.80, crossover design,
 details of the sample size search suppressed.
 
 ### Power Analysis
 
-*α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25), target power
-0.80, minimum acceptable power 0.70. *θ*<sub>0</sub>, design,
-conditions, and sample size method dependent on defaults of the
+Target power 0.80, minimum acceptable power 0.70. *θ*<sub>0</sub>,
+design, conditions, and sample size method dependent on defaults of the
 respective approaches (ABE, ABEL, RSABE, NTID).
 
 ## Examples
@@ -203,7 +213,7 @@ PowerTOST::sampleN.TOST(CV = 0.20)
 #> +++++++++++ Equivalence test - TOST +++++++++++
 #>             Sample size estimation
 #> -----------------------------------------------
-#> Study design:  2x2 crossover 
+#> Study design: 2x2 crossover 
 #> log-transformed data (multiplicative model)
 #> 
 #> alpha = 0.05, target power = 0.8
@@ -228,7 +238,7 @@ PowerTOST::sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
 #> +++++++++++ Equivalence test - TOST +++++++++++
 #>             Sample size estimation
 #> -----------------------------------------------
-#> Study design:  2x2x3 replicate crossover 
+#> Study design: 2x2x3 replicate crossover 
 #> log-transformed data (multiplicative model)
 #> 
 #> alpha = 0.05, target power = 0.8
@@ -270,7 +280,7 @@ PowerTOST::sampleN.scABEL(CV = 0.45, details = TRUE)
 #>             Sample size estimation
 #>    (simulation based on ANOVA evaluation)
 #> ---------------------------------------------
-#> Study design: 2x3x3 (partial replicate) 
+#> Study design: 2x3x3 (TRT|RTR) 
 #> log-transformed data (multiplicative model)
 #> 1e+05 studies for each step simulated.
 #> 
@@ -324,9 +334,9 @@ PowerTOST::sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4",
 #### NTIDs
 
 Sample size assuming heteroscedasticity (*CV<sub>wT</sub>* 0.15,
-*CV<sub>wR</sub>* 0.10). Assess which one of the three conditions
-(scaled, ABE, *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives the sample
-size.
+*CV<sub>wR</sub>* 0.10). Assess additionally which one of the three
+conditions (scaled, ABE, *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives
+the sample size.
 
 ``` r
 CV <- c(0.15, 0.10)
@@ -335,7 +345,7 @@ n  <- PowerTOST::sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 #> +++++++++++ FDA method for NTIDs ++++++++++++
 #>            Sample size estimation
 #> ---------------------------------------------
-#> Study design:  2x2x4 
+#> Study design:  2x2x4 (TRTR|RTRT) 
 #> log-transformed data (multiplicative model)
 #> 1e+05 studies for each step simulated.
 #> 
@@ -366,7 +376,7 @@ n  <- PowerTOST::sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 #> +++++++++++ FDA method for NTIDs ++++++++++++
 #>            Sample size estimation
 #> ---------------------------------------------
-#> Study design:  2x2x4 
+#> Study design:  2x2x4 (TRTR|RTRT) 
 #> log-transformed data (multiplicative model)
 #> 1e+05 studies for each step simulated.
 #> 
@@ -471,10 +481,10 @@ for (i in 1:nrow(expl)) {
 }
 print(expl, digits = 6, row.names = FALSE)
 #>      method  n    power seconds
-#>       owenq 14 0.805683  0.0015
-#>         mvt 14 0.805690  0.1210
-#>  noncentral 14 0.805683  0.0015
-#>     shifted 16 0.852301  0.0005
+#>       owenq 14 0.805683  0.0025
+#>         mvt 14 0.805690  0.1215
+#>  noncentral 14 0.805683  0.0005
+#>     shifted 16 0.852301  0.0010
 ```
 
 The 2<sup>nd</sup> exact method is substantially slower than the
@@ -510,7 +520,7 @@ expl[2, 4]   <- proc.time()[[3]] - start
 print(expl, row.names = FALSE)
 #>               method  n   power seconds
 #>       key statistics 28 0.81116    0.16
-#>  subject simulations 28 0.81196    2.45
+#>  subject simulations 28 0.81196    2.46
 ```
 
 Simulating via the ‘key’ statistics is the method of choice. However,
