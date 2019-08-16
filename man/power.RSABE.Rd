@@ -52,11 +52,11 @@ Attention! In case of the \code{"2x2x3"} (TRT|RTR) design the order of sample si
 sequence group 'RTR'. 
 }
   \item{design}{
-Design of the study to be planned.\cr
-\code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x4"} is the full replicate design with 2 sequences and 4 periods (TRTR|RTRT).\cr
-\code{"2x2x3"} is the full replicate design with 2 sequences and 3 periods (TRT|RTR).\cr
-Defaults to \code{design="2x3x3"}.
+Design of the study.\cr
+\code{"2x3x3"} is the partial replicate design.\cr
+\code{"2x2x4"} is a full replicate design with 2 sequences and 4 periods.\cr
+\code{"2x2x3"} is a full replicate design with 2 sequences and 3 periods.\cr
+Defaults to \code{"2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for RSABE.\cr
@@ -107,6 +107,17 @@ p(BE) is the power, p(BE-sABEc) is the power of the scaled ABE criterion alone
 and p(BE-pe) is the power of the criterion \sQuote{point estimat within acceptance 
 range} alone.\cr
 p(BE-ABE) is the power of the conventional ABE test given for comparative purposes.
+}
+\section{Designs}{
+Although some designs are more \sQuote{popular} than others, power calculations are valid for \emph{all} of the following designs:
+  \tabular{ll}{
+    \code{"2x2x4"} \tab TRTR | RTRT\cr
+    \tab TRRT | RTTR\cr
+    \tab TTRR | RRTT\cr
+    \code{"2x2x3"} \tab TRT | RTR\cr
+    \tab TRR | RTT\cr
+    \code{"2x3x3"} \tab TRR | RTR | RRT
+  }
 }
 \section{Warning }{
 In case of the design \code{"2x2x3"}" heteroscedasticity (\emph{i.e.}, CVwT != CVwR) may 

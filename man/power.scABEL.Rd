@@ -53,11 +53,11 @@ if given as vector. \code{n[1]} is for sequence group 'TRT' and \code{n[2]} is f
 sequence group 'RTR'. 
 }
   \item{design}{
-Design of the study to be planned.\cr
-\code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x4"} is the full replicate with 2 sequences and 4 periods (TRTR|RTRT).\cr
-\code{"2x2x3"} is the full replicate with 2 sequences and 3 periods (TRT|RTR).\cr
-Defaults to \code{design="2x3x3"}.
+Design of the study.\cr
+\code{"2x3x3"} is the partial replicate design.\cr
+\code{"2x2x4"} is a full replicate design with 2 sequences and 4 periods.\cr
+\code{"2x2x3"} is a full replicate design with 2 sequences and 3 periods.\cr
+Defaults to \code{"2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
@@ -135,6 +135,17 @@ use function \code{\link{power.RSABE}}.\cr\cr
 In case of \code{regulator="HC"} (based on ISC), power is also only approximative since Health Canada recommends an evaluation via mixed model approach. This could only implemented via 
 subject data simulations which are very time consuming. But ISC may be a good 
 substitute.
+}
+\section{Designs}{
+Although some designs are more \sQuote{popular} than others, power calculations are valid for \emph{all} of the following designs:
+  \tabular{ll}{
+    \code{"2x2x4"} \tab TRTR | RTRT\cr
+    \tab TRRT | RTTR\cr
+    \tab TTRR | RRTT\cr
+    \code{"2x2x3"} \tab TRT | RTR\cr
+    \tab TRR | RTT\cr
+    \code{"2x3x3"} \tab TRR | RTR | RRT
+  }
 }
 \section{Warning }{
 Cross-validation of the simulations as implemented here and via the \sQuote{classical} 

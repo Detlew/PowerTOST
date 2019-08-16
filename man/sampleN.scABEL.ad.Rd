@@ -53,10 +53,10 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
 }
   \item{design}{
 Design of the study to be planned.\cr
-\code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x4"} is the full replicate design with 2 sequences and 4 periods (TRTR|RTRT).\cr
-\code{"2x2x3"} is the full replicate design with 2 sequences and 3 periods (TRT|RTR).\cr
-Defaults to \code{"2x3x3"}.
+\code{"2x3x3"} is the partial replicate design.\cr
+\code{"2x2x4"} is a full replicate design with 2 sequences and 4 periods.\cr
+\code{"2x2x3"} is a full replicate design with 2 sequences and 3 periods.\cr
+Defaults to \code{"2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for the widening of the \acronym{BE} acceptance limits.
@@ -106,12 +106,13 @@ random number generator. To avoid differences in power for different
 runs \code{set.seed(123456)} is issued if \code{setseed=TRUE} (default).
 }
 \item{sdsims}{
-If \verb{FALSE} (default) power is estimated by the respective statistics.
-Recommended for the full replicate designs for speed reasons.\cr
-Set to \verb{TRUE} if results of \code{\link{power.scABEL}} are expected to be inaccurate
-(small sample sizes and/or heteroscedasticity) and subject data (via \code{\link{power.scABEL.sdsims}}) should be simulated instead. Very time consuming (easily 100times slower)!\cr
-If \code{design="2x3x3"} subject simulations are recommended -- even if homoscedasticity is assumed.\cr
-Subject data simulations are not supported for \code{regulator="HC"}.
+If \code{FALSE} (default) power is estimated by the respective \sQuote{key} statistics.
+Recommended for speed reasons.\cr
+Set to \code{TRUE} if results of \code{\link{power.scABEL}} are expected to
+be inaccurate (partial replicate design with unbalanced sequences and/or heteroscedasticity
+where CVwT > CVwR) and subject data via \code{\link{power.scABEL.sdsims}} should
+be simulated instead. Very time consuming (easily 100times slower)! Subject data
+simulations are only supported for \code{regulator="EMA"}.
 }
 \item{progress}{
 Set to \code{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims=FALSE}.
@@ -167,7 +168,17 @@ since the break down of the total subject number in case of unbalanced
 sequences is not unique. Moreover the formulas used are only for
 balanced designs.
 }
-
+\section{Designs}{
+Although some designs are more \sQuote{popular} than others, sample size estimations are valid for \emph{all} of the following designs:
+  \tabular{ll}{
+    \code{"2x2x4"} \tab TRTR | RTRT\cr
+    \tab TRRT | RTTR\cr
+    \tab TTRR | RRTT\cr
+    \code{"2x2x3"} \tab TRT | RTR\cr
+    \tab TRR | RTT\cr
+    \code{"2x3x3"} \tab TRR | RTR | RRT
+  }
+}
 \section{Warning }{
 The sample size estimation for extreme \code{theta0} (<0.83 or >1.21) may be time
 consuming and will eventually also fail since the start values chosen are

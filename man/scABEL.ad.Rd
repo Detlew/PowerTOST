@@ -45,10 +45,10 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
 }
   \item{design}{
 Design of the study.\cr
-\code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x3"} is the 2-sequence 3-period full replicate design (TRT|RTR).\cr
-\code{"2x2x4"} is the 2-sequence 4-period full replicate design (TRTR|RTRT).\cr
-Defaults to \code{"2x3x3"}.
+\code{"2x3x3"} is the partial replicate design.\cr
+\code{"2x2x4"} is a full replicate design with 2 sequences and 4 periods.\cr
+\code{"2x2x3"} is a full replicate design with 2 sequences and 3 periods.\cr
+Defaults to \code{"2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for the widening of the \acronym{BE} acceptance limits.
@@ -101,14 +101,13 @@ Number of simulations to be performed to estimate the (empirical)
 1,000,000 = 1E+6 should not be lowered.
 }
   \item{sdsims}{
-If \code{FALSE} (default) power is estimated by the respective statistics.
-Recommended for the full replicate designs for speed reasons.\cr
+If \code{FALSE} (default) power is estimated by the respective \sQuote{key} statistics.
+Recommended for speed reasons.\cr
 Set to \code{TRUE} if results of \code{\link{power.scABEL}} are expected to
-be inaccurate (small sample sizes and/or heteroscedasticity) and subject data
-(via \code{\link{power.scABEL.sdsims}}) should be simulated instead. Very time consuming (easily 100times slower)!\cr
-If \code{design="2x3x3"} subject simulations are recommended -- even if
-homoscedasticity is assumed.\cr
-Subject data simulations are only supported for \code{regulator="EMA"}.
+be inaccurate (partial replicate design with unbalanced sequences and/or heteroscedasticity
+where CVwT > CVwR) and subject data via \code{\link{power.scABEL.sdsims}} should
+be simulated instead. Very time consuming (easily 100times slower)! Subject data
+simulations are only supported for \code{regulator="EMA"}.
 }
   \item{progress}{
 Set to \code{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims=FALSE}.
@@ -180,7 +179,17 @@ If you are interested in other levels of power, use \code{\link{sampleN.scABEL.a
 The EMA’s method is currently recommended in other jurisdictions as well (\emph{e.g.}, by the WHO;
 in ASEAN States, Australia, Brazil, Egypt, the Eurasian Economic Union, New Zealand, the Russian Federation, and the East African Community).
 }
-
+\section{Designs}{
+Although some designs are more \sQuote{popular} than others, power calculations are valid for \emph{all} of the following designs:
+  \tabular{ll}{
+    \code{"2x2x4"} \tab TRTR | RTRT\cr
+    \tab TRRT | RTTR\cr
+    \tab TTRR | RRTT\cr
+    \code{"2x2x3"} \tab TRT | RTR\cr
+    \tab TRR | RTT\cr
+    \code{"2x3x3"} \tab TRR | RTR | RRT
+  }
+}
 \section{Warning }{
 See the Warning section of the function \code{\link{power.scABEL}} concerning
 the power value agreement to the one obtained by simulations via subject data.
