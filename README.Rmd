@@ -85,7 +85,7 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
   - Construct design matrices of incomplete block designs.
 
 ## Defaults
-*α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25), Details of the sample size search (and the regulatory settings in reference-scaled average bioequivalence) are  printed.
+*α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25). Details of the sample size search (and the regulatory settings in reference-scaled average bioequivalence) are  printed.
 
 ### Average Bioequivalence  
 *θ*<sub>0</sub> 0.95, target power 0.80, design \"2x2\" (TR|RT), exact method (Owen’s Q).
@@ -115,7 +115,7 @@ Regulatory constant 0.10, *θ*<sub>0</sub> 0.975, design \"2x2x4\" (TRTR|RTRT),
 *β*<sub>0</sub> (slope) `1+log(0.95)/log(rd)` where `rd` is the ratio of the highest and lowest dose, target power 0.80, crossover design, details of the sample size search suppressed.
 
 ### Power Analysis
-Target power 0.80, minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and sample size method dependent on defaults of the respective approaches (ABE, ABEL, RSABE, NTID).
+Minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and sample size method dependent on defaults of the respective approaches (ABE, ABEL, RSABE, NTID).
 
 ## Examples
 If not noted otherwise, defaults are employed.

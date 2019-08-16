@@ -131,7 +131,7 @@ sequences or equal group sizes.
 
 ## Defaults
 
-*α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25), Details of
+*α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25). Details of
 the sample size search (and the regulatory settings in reference-scaled
 average bioequivalence) are printed.
 
@@ -184,9 +184,9 @@ details of the sample size search suppressed.
 
 ### Power Analysis
 
-Target power 0.80, minimum acceptable power 0.70. *θ*<sub>0</sub>,
-design, conditions, and sample size method dependent on defaults of the
-respective approaches (ABE, ABEL, RSABE, NTID).
+Minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and
+sample size method dependent on defaults of the respective approaches
+(ABE, ABEL, RSABE, NTID).
 
 ## Examples
 
@@ -481,8 +481,8 @@ for (i in 1:nrow(expl)) {
 }
 print(expl, digits = 6, row.names = FALSE)
 #>      method  n    power seconds
-#>       owenq 14 0.805683  0.0025
-#>         mvt 14 0.805690  0.1215
+#>       owenq 14 0.805683  0.0015
+#>         mvt 14 0.805690  0.1210
 #>  noncentral 14 0.805683  0.0005
 #>     shifted 16 0.852301  0.0010
 ```
@@ -520,7 +520,7 @@ expl[2, 4]   <- proc.time()[[3]] - start
 print(expl, row.names = FALSE)
 #>               method  n   power seconds
 #>       key statistics 28 0.81116    0.16
-#>  subject simulations 28 0.81196    2.46
+#>  subject simulations 28 0.81196    2.48
 ```
 
 Simulating via the ‘key’ statistics is the method of choice. However,
