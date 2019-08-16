@@ -162,10 +162,11 @@ error trap.
 # true assumed ratio = 0.90, 1E+5 simulated studies
 # ABE limits, PE constraint 0.8 - 1.25
 # EMA regulatory settings
+# Heterogenicity (CVwT 0.4, CVwR 0.3)
 # compare results and run times
 \dontrun{
 CV           <- c(0.4, 0.3)
-expl         <- data.frame(method = c("subject simulations", "key statistics"),
+expl         <- data.frame(method = c("subject simulations", "\'key\' statistics"),
                            n = NA, power = NA, seconds = NA)
 start        <- proc.time()[[3]]
 expl[1, 2:3] <- sampleN.scABEL.sdsims(CV = CV, print = FALSE,
