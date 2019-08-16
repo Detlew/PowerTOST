@@ -198,8 +198,7 @@ Power for total *CV* 0.35, *θ*<sub>0</sub> 0.95, group sizes 52 and 49,
 design "parallel".
 
 ``` r
-PowerTOST::power.TOST(CV = 0.35, theta0 = 0.95,
-                      n = c(52, 49), design = "parallel")
+power.TOST(CV = 0.35, theta0 = 0.95, n = c(52, 49), design = "parallel")
 #> [1] 0.8011186
 ```
 
@@ -208,7 +207,7 @@ PowerTOST::power.TOST(CV = 0.35, theta0 = 0.95,
 Sample size for assumed intra-subject *CV* 0.20.
 
 ``` r
-PowerTOST::sampleN.TOST(CV = 0.20)
+sampleN.TOST(CV = 0.20)
 #> 
 #> +++++++++++ Equivalence test - TOST +++++++++++
 #>             Sample size estimation
@@ -233,7 +232,7 @@ Sample size for assumed intra-subject *CV* 0.45, *θ*<sub>0</sub> 0.90,
 3-period full replicate design "2x2x3" (TRT|RTR).
 
 ``` r
-PowerTOST::sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
+sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
 #> 
 #> +++++++++++ Equivalence test - TOST +++++++++++
 #>             Sample size estimation
@@ -257,11 +256,11 @@ methods for reference-scaled ABE. We assume a σ<sup>2</sup> ratio of ⅔
 data.frame shown.
 
 ``` r
-reg <- PowerTOST::reg_const("USER", r_const = NA, CVswitch = Inf,
-                            CVcap = Inf, pe_constr = FALSE)
-CV  <- round(PowerTOST::CVp2CV(CV = 0.45, ratio = 2/3), 4)
-res <- PowerTOST::sampleN.scABEL(CV=CV, design = "2x2x3", regulator = reg,
-                                 details = FALSE, print = FALSE)
+reg <- reg_const("USER", r_const = NA, CVswitch = Inf,
+                 CVcap = Inf, pe_constr = FALSE)
+CV  <- round(CVp2CV(CV = 0.45, ratio = 2/3), 4)
+res <- sampleN.scABEL(CV=CV, design = "2x2x3", regulator = reg,
+                      details = FALSE, print = FALSE)
 print(res[c(3:4, 8:9)], row.names = FALSE)
 #>    CVwT   CVwR Sample size Achieved power
 #>  0.3987 0.4977         126        0.80515
@@ -274,7 +273,7 @@ Similar sample size because the pooled *CV* is still 0.45.
 Sample size assuming homoscedasticity (*CV<sub>w</sub>* = 0.45).
 
 ``` r
-PowerTOST::sampleN.scABEL(CV = 0.45, details = TRUE)
+sampleN.scABEL(CV = 0.45, details = TRUE)
 #> 
 #> +++++++++++ scaled (widened) ABEL +++++++++++
 #>             Sample size estimation
@@ -310,8 +309,7 @@ heteroscedasticity (*CV<sub>wT</sub>* 0.40, *CV<sub>wR</sub>* 0.50).
 Details of the sample size search suppressed.
 
 ``` r
-PowerTOST::sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4",
-                         details = FALSE)
+sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 #> 
 #> ++++++++ Reference scaled ABE crit. +++++++++
 #>            Sample size estimation
@@ -340,7 +338,7 @@ the sample size.
 
 ``` r
 CV <- c(0.15, 0.10)
-n  <- PowerTOST::sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
+n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 #> 
 #> +++++++++++ FDA method for NTIDs ++++++++++++
 #>            Sample size estimation
@@ -358,7 +356,7 @@ n  <- PowerTOST::sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 #> Sample size
 #>  n     power
 #> 32   0.817560
-suppressMessages(PowerTOST::power.NTIDFDA(CV = CV, n = n, details = TRUE))
+suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 #>        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
 #>      0.81756      0.92270      1.00000      0.87137
 ```
@@ -371,7 +369,7 @@ Compare that with homoscedasticity (*CV<sub>wT</sub>* =
 
 ``` r
 CV <- 0.10
-n  <- PowerTOST::sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
+n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 #> 
 #> +++++++++++ FDA method for NTIDs ++++++++++++
 #>            Sample size estimation
@@ -389,7 +387,7 @@ n  <- PowerTOST::sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 #> Sample size
 #>  n     power
 #> 18   0.841790
-suppressMessages(PowerTOST::power.NTIDFDA(CV = CV, n = n, details = TRUE))
+suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 #>        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
 #>      0.84179      0.85628      1.00000      0.97210
 ```
@@ -399,11 +397,10 @@ sample size, which is much lower than in the previous example.
 
 ### Dose-Proportionality
 
-Doses 1, 2, 8 units, *CV* 0.20, *β*<sub>0</sub> 1, target power 0.90.
+*CV* 0.20, Doses 1, 2, 8 units, *β*<sub>0</sub> 1, target power 0.90.
 
 ``` r
-PowerTOST::sampleN.dp(CV = 0.20, doses = c(1, 2, 8),
-                      beta0 = 1, targetpower = 0.90)
+sampleN.dp(CV = 0.20, doses = c(1, 2, 8), beta0 = 1, targetpower = 0.90)
 #> 
 #> ++++ Dose proportionality study, power model ++++
 #>             Sample size estimation
@@ -435,7 +432,7 @@ deviation of *θ*<sub>0</sub> from 1, dropouts) on power. Assumed
 intra-subject *CV* 0.20, target power 0.90.
 
 ``` r
-res <- PowerTOST::pa.ABE(CV = 0.20, targetpower = 0.90)
+res <- pa.ABE(CV = 0.20, targetpower = 0.90)
 print(res)
 #> Sample size plan ABE
 #>  Design alpha  CV theta0 theta1 theta2 Sample size Achieved power
@@ -473,9 +470,8 @@ runs <- 20
 for (i in 1:nrow(expl)) {
   start <- proc.time()[[3]]
   for (j in 1:runs) { # repeat to get better estimate of run times
-    expl[i, 2:3] <- PowerTOST::sampleN.TOST(CV = CV,
-                                            method = expl$method[i],
-                                            print = FALSE)[7:8]
+    expl[i, 2:3] <- sampleN.TOST(CV = CV, method = expl$method[i],
+                                 print = FALSE)[7:8]
   }
   expl[i, 4] <- (proc.time()[[3]] - start) / runs
 }
@@ -508,14 +504,12 @@ expl         <- data.frame(method = rep("", 2), n = NA,
                            power = NA, seconds = NA)
 expl$method  <- c("key statistics", "subject simulations")
 start        <- proc.time()[[3]]
-expl[1, 2:3] <- PowerTOST::sampleN.scABEL(CV = CV, design = design,
-                                          print = FALSE,
-                                          details = FALSE)[8:9]
+expl[1, 2:3] <- sampleN.scABEL(CV = CV, design = design,
+                               print = FALSE, details = FALSE)[8:9]
 expl[1, 4]   <- proc.time()[[3]] - start
 start        <- proc.time()[[3]]
-expl[2, 2:3] <- PowerTOST::sampleN.scABEL.sdsims(CV = CV, design = design,
-                                                 print = FALSE,
-                                                 details = FALSE)[8:9]
+expl[2, 2:3] <- sampleN.scABEL.sdsims(CV = CV, design = design,
+                                      print = FALSE, details = FALSE)[8:9]
 expl[2, 4]   <- proc.time()[[3]] - start
 print(expl, row.names = FALSE)
 #>               method  n   power seconds
