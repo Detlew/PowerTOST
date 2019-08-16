@@ -23,7 +23,7 @@ CVpooled <- function(CVdata, alpha=0.2, logscale=TRUE, robust=FALSE)
   }
   if (!("design" %in% names(CVdata))) {
     CVdata$design <- "2x2"
-    message("Classical 2x2 cross-over designs assumed for all entries.")
+    message("Classical 2x2 crossover designs assumed for all entries.")
   }  
   if (!("df" %in% names(CVdata))) {
     CVdata$df <- 0

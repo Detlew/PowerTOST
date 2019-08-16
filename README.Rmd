@@ -138,6 +138,11 @@ Sample size for assumed intra-subject *CV* 0.20.
 ```{r}
 sampleN.TOST(CV = 0.20)
 ```
+Sample size for equivalence of the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval. *CV<sub>w</sub>* 0.20, *CV<sub>b</sub>* 0.40.  
+Note the default *α* 0.025 (95\% CI) of this function because it is intended for studies with clinical endpoints.
+```{r}
+sampleN.RatioF(CV = 0.20, CVb = 0.40)
+```
 ### Replicate Designs
 
 #### ABE

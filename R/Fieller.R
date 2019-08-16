@@ -16,7 +16,7 @@ power.RatioF <- function(alpha=0.025, theta1=0.8, theta2, theta0=0.95, CV, CVb,
                          n, design="2x2", setseed=TRUE)
 {
   if (!(tolower(design) %in% c("2x2","parallel"))) {
-    design <- "2x2"; warning("Design unknown. Will use 2x2 cross-over.\n",
+    design <- "2x2"; warning("Design unknown. Will use 2x2 crossover.\n",
         call.=FALSE, immediate.=TRUE)
   }
   if (missing(CV)) stop("CV must be given!")
@@ -142,7 +142,7 @@ sampleN.RatioF <- function(alpha=0.025, targetpower=0.8, theta1=0.8, theta2,
 {
   if (!(tolower(design) %in% c("2x2","parallel"))) {
     design <- "2x2"
-    warning("Design unknown. Will use 2x2 cross-over.",
+    warning("Design unknown. Will use 2x2 crossover.",
             call.=FALSE, immediate.=TRUE)
   }
   if (missing(theta2)) theta2 <- 1/theta1
@@ -166,7 +166,7 @@ sampleN.RatioF <- function(alpha=0.025, targetpower=0.8, theta1=0.8, theta2,
     if (tolower(design=="parallel")) {
       cat("Study design: 2-group parallel\n")
     } else {
-      cat("Study design: 2x2 cross-over\n")
+      cat("Study design: 2x2 crossover\n")
     }
     cat("Ratio of means with normality on original scale\n")
     cat("alpha = ",alpha,", target power = ", targetpower,"\n", sep="")

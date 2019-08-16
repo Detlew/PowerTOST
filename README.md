@@ -233,6 +233,30 @@ sampleN.TOST(CV = 0.20)
 #> 20   0.834680
 ```
 
+Sample size for equivalence of the ratio of two means with normality on
+original scale based on Fieller’s (‘fiducial’) confidence interval.
+*CV<sub>w</sub>* 0.20, *CV<sub>b</sub>* 0.40.  
+Note the default *α* 0.025 (95% CI) of this function because it is
+intended for studies with clinical endpoints.
+
+``` r
+sampleN.RatioF(CV = 0.20, CVb = 0.40)
+#> 
+#> +++++++++++ Equivalence test - TOST +++++++++++
+#>     based on Fieller's confidence interval
+#>             Sample size estimation
+#> -----------------------------------------------
+#> Study design: 2x2 crossover
+#> Ratio of means with normality on original scale
+#> alpha = 0.025, target power = 0.8
+#> BE margins = 0.8 ... 1.25 
+#> True ratio = 0.95,  CVw = 0.2,  CVb = 0.4
+#> 
+#> Sample size
+#>  n     power
+#> 28   0.807774
+```
+
 ### Replicate Designs
 
 #### ABE
@@ -496,7 +520,7 @@ for (i in 1:nrow(expl)) {
 print(expl, digits = 6, row.names = FALSE)
 #>      method  n    power seconds
 #>       owenq 14 0.805683  0.0015
-#>         mvt 14 0.805690  0.1220
+#>         mvt 14 0.805690  0.1215
 #>  noncentral 14 0.805683  0.0010
 #>     shifted 16 0.852301  0.0005
 ```
@@ -530,8 +554,8 @@ expl[2, 2:3] <- sampleN.scABEL.sdsims(CV = CV, design = design,
 expl[2, 4]   <- proc.time()[[3]] - start
 print(expl, row.names = FALSE)
 #>               method  n   power seconds
-#>       key statistics 28 0.81116    0.16
-#>  subject simulations 28 0.81196    2.47
+#>       key statistics 28 0.81116    0.15
+#>  subject simulations 28 0.81196    2.46
 ```
 
 Simulating via the ‘key’ statistics is the method of choice for speed
