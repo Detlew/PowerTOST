@@ -98,7 +98,7 @@ of class 'regSet'.\cr
 Otherwise, the simulations are based on the distributional characteristis of the 
 \sQuote{key} statistics obtained from evaluation via intra-subject contrasts (ISC), 
 as recommended by the FDA.\cr\cr
-Function \code{sampleN.scABEL2()} is soleyly based on power calculations via 
+Function \code{sampleN.scABEL2()} is solely based on power calculations via 
 simulation using the distributional characteristics of the \sQuote{key} statistics 
 obtained from evaluation via ISC. This function is deprecated.
 }
@@ -150,12 +150,15 @@ size estimation via the argument nstart.\cr
 Since the dependence of power from n is very flat in the mentioned region you may 
 also consider to adapt the number of simulations not to tap in the simulation 
 error trap.\cr\cr
-See also the Warning section of the function \code{power.scABEL()} concerning
-the power value agreement to those obtained from simulations via subject data.
+If results of \code{\link{power.scABEL}} are expected to be inaccurate (partial
+replicate design with unbalanced sequences and/or heteroscedasticity
+where CVwT > CVwR), subject data via \code{\link{sampleN.scABEL.sdsims}} should
+be simulated instead. Very time consuming (easily 100times slower)! Subject data
+simulations are only supported for \code{regulator="EMA"}.
 }
 
 \seealso{
-\code{\link{power.scABEL}}, \code{\link{power.RSABE}}, \code{\link{sampleN.RSABE}},
+\code{\link{power.scABEL}}, \code{\link{sampleN.scABEL.sdsims}}, \code{\link{sampleN.RSABE}},
 \code{\link{reg_const}}
 }
 \examples{

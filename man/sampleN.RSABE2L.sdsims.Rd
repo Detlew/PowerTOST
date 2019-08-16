@@ -155,7 +155,6 @@ Since the dependence of power from n is very flat in the mentioned region you ma
 also consider to adapt the number of simulations not to tap in the simulation 
 error trap.
 }
-
 \seealso{
 \code{\link{power.RSABE2L.sdsims}}, \code{\link{sampleN.scABEL}}, \code{\link{reg_const}}
 }

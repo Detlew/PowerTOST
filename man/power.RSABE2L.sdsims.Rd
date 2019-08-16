@@ -60,11 +60,11 @@ per sequence is important if given as vector. \code{n[1]} is for sequence group
 'TRT' and \code{n[2]} is for sequence group 'RTR'. 
 }
   \item{design}{
-Design of the study to be planned.\cr
-\code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
-\code{"2x2x4"} is the full replicate design with 2 sequences and 4 periods (TRTR|RTRT).\cr
-\code{"2x2x3"} is the full replicate design with 2 sequences and 3 periods (TRT|RTR).\cr
-Defaults to \code{design="2x3x3"}.
+Design of the study.\cr
+\code{"2x3x3"} is the partial replicate design.\cr
+\code{"2x2x4"} is a full replicate design with 2 sequences and 4 periods.\cr
+\code{"2x2x3"} is a full replicate design with 2 sequences and 3 periods.\cr
+Defaults to \code{design="2x3x3"}. Details are given the section about Designs.
 }
   \item{design_dta}{
 Alternatively to using the arguments \code{design} and \code{n} the design may 
@@ -161,6 +161,17 @@ is between ~ 1 up to 6 minutes for n=12 or n=120 and 1 Mio. sim\enc{’}{'}s
 (see the call under examples) on a machine with an Intel core i7 processor.\cr
 Thus be patient and go for a cup of coffee if you use this function with higher 
 sample sizes and aim for estimating the type 1 error!
+}
+\section{Designs}{
+Although some designs are more \sQuote{popular} than others, power calculations are valid for \emph{all} of the following designs:
+  \tabular{ll}{
+    \code{"2x2x4"} \tab TRTR | RTRT\cr
+    \tab TRRT | RTTR\cr
+    \tab TTRR | RRTT\cr
+    \code{"2x2x3"} \tab TRT | RTR\cr
+    \tab TRR | RTT\cr
+    \code{"2x3x3"} \tab TRR | RTR | RRT
+  }
 }
 \seealso{
 \code{\link{power.RSABE}, \link{reg_const}}
