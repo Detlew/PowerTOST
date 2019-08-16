@@ -112,7 +112,9 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     al <- alpha     # If not, use alpha (commonly 0.05).
   }
   designs <- c("2x2x4", "2x2x3", "2x3x3")
-  type    <- c("TRTR|RTRT", "TRT|RTR", "TRR|RTR|RRT") # clear words
+  type    <- c("4 period full replicate",
+               "3 period full replicate",
+               "partial replicate") # clear words
   if (print) { # Show input to keep the spirits of the user high.
     if (sdsims) cat("\nBe patient. Simulating subject data will take a good while!\n")  
     cat("\n+++++++++++ scaled (widened) ABEL ++++++++++++\n")

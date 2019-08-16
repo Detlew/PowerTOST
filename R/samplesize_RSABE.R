@@ -46,7 +46,6 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   # thus we use here bk - design constant for ntotal
   # expressions for the df's
   if (design == "2x3x3") {
-    desi <- "2x3x3 (TRR|RTR|RRT)"
     seqs <- 3
     bk   <- 1.5    # needed for n0?
     # in case of the FDA we are using the 'robust' df's
@@ -61,7 +60,6 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     Emse  <- s2D + s2wT + s2wR/2
   }
   if (design == "2x2x4") {
-    desi <- "2x2x4 (TRTR|RTRT)"
     seqs <- 2
     bk   <- 1.0    # needed for n0
     dfe   <- parse(text="n-2", srcfile=NULL)
@@ -70,7 +68,6 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     Emse  <- (s2D + (s2wT + s2wR)/2) 
   }
   if (design=="2x2x3") {
-    desi <- "2x2x3 (TRT|RTR)"
     seqs <- 2
     bk   <- 1.5    # needed for n0?
     dfe   <- parse(text="n-2", srcfile=NULL)
@@ -82,10 +79,15 @@ sampleN.RSABE <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   mlog <- log(theta0)
   
   if (print){
+    designs <- c("2x2x4", "2x2x3", "2x3x3")
+    type    <- c("4 period full replicate",
+                 "3 period full replicate",
+                 "partial replicate") # clear words
     cat("\n++++++++ Reference scaled ABE crit. +++++++++\n")
     cat("           Sample size estimation\n")
     cat("---------------------------------------------\n")
-    cat("Study design:",desi,"\n")
+    cat("Study design: ")
+    cat(paste0(design, " (", type[match(design, designs)], ")\n"))
     cat("log-transformed data (multiplicative model)\n")
     cat(nsims,"studies for each step simulated.\n\n")
     cat("alpha  = ",alpha,", target power = ", targetpower,"\n", sep="")

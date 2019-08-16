@@ -49,21 +49,17 @@ sampleN.RSABE2L.sdsims <- function(alpha = 0.05, targetpower = 0.8, theta0,
     progress <- FALSE
     if (nsims >= 5e5 | (nsims >= 1e5 & n > 72)) progress <- TRUE
   }
-  if (design == "2x3x3") {
-    desi <- "2x3x3 (TRR|RTR|RRT)"
-  }
-  if (design == "2x2x4") {
-    desi <- "2x2x4 (TRTR|RTRT)"
-  }
-  if (design == "2x2x3") {
-    desi <- "2x2x3 (TRT|RTR)"
-  }
   if (print){
+    designs <- c("2x2x4", "2x2x3", "2x3x3")
+    type    <- c("4 period full replicate",
+                 "3 period full replicate",
+                 "partial replicate") # clear words
     cat("\nBe patient. Simulating subject data may take a good while!\n\n")
     cat("\n++++++++ Reference scaled ABE crit. +++++++++\n")
     cat("           Sample size estimation\n")
     cat("---------------------------------------------\n")
-    cat("Study design:", desi, "\n")
+    cat("Study design: ")
+    cat(paste0(design, " (", type[match(design, designs)], ")\n"))
     cat("log-transformed data (multiplicative model)\n")
     cat(nsims, "studies for each step simulated.\n\n")
     cat("alpha  = ", alpha, ", target power = ", targetpower, "\n", sep="")
