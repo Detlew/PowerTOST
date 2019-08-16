@@ -483,8 +483,8 @@ print(expl, digits = 6, row.names = FALSE)
 #>      method  n    power seconds
 #>       owenq 14 0.805683  0.0015
 #>         mvt 14 0.805690  0.1210
-#>  noncentral 14 0.805683  0.0005
-#>     shifted 16 0.852301  0.0010
+#>  noncentral 14 0.805683  0.0010
+#>     shifted 16 0.852301  0.0005
 ```
 
 The 2<sup>nd</sup> exact method is substantially slower than the
@@ -520,7 +520,7 @@ expl[2, 4]   <- proc.time()[[3]] - start
 print(expl, row.names = FALSE)
 #>               method  n   power seconds
 #>       key statistics 28 0.81116    0.16
-#>  subject simulations 28 0.81196    2.48
+#>  subject simulations 28 0.81196    2.46
 ```
 
 Simulating via the ‘key’ statistics is the method of choice. However,
