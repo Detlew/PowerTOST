@@ -483,7 +483,7 @@ print(expl, digits = 6, row.names = FALSE)
 #>      method  n    power seconds
 #>       owenq 14 0.805683  0.0025
 #>         mvt 14 0.805690  0.1215
-#>  noncentral 14 0.805683  0.0005
+#>  noncentral 14 0.805683  0.0015
 #>     shifted 16 0.852301  0.0010
 ```
 
