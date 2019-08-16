@@ -1,7 +1,6 @@
 README
 ================
 Helmut Schütz
-2019-08-16
 
   - [PowerTOST](#powertost)
       - [Supported Designs](#supported-designs)
@@ -31,7 +30,8 @@ Helmut Schütz
 
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
-studies. Built with R 3.6.1.
+studies.  
+Built 2019-08-16 with R 3.6.1.
 
 ## Supported Designs
 
@@ -51,7 +51,7 @@ studies. Built with R 3.6.1.
     #>    paired                paired means   n-1
 
 Although some replicate designs are more ‘popular’ than others, sample
-size estimations are valid for <u>all</u> of the following designs:
+size estimations are valid for *all* of the following designs:
 
 | design  |  type   | sequences       |
 | :-----: | :-----: | --------------- |
@@ -131,13 +131,15 @@ sequences or equal group sizes.
 
 ## Defaults
 
-*α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25). Details of
-the sample size search (and the regulatory settings in reference-scaled
-average bioequivalence) are printed.
+  - *α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25). Details
+    of the sample size search (and the regulatory settings in
+    reference-scaled average bioequivalence) are printed.
+  - Note: In all functions values have to be given as ratios, not in
+    percent.
 
 ### Average Bioequivalence
 
-*θ*<sub>0</sub> 0.95, target power 0.80, design "2x2" (TR|RT), exact
+*θ*<sub>0</sub> 0.95, target power 0.80, design "2x2" (TR|RT), exact
 method (Owen’s Q).
 
 ### Reference-Scaled Average Bioequivalence
@@ -153,27 +155,28 @@ approximation by the non-central *t*-distribution, 100,000 simulations.
 
 #### Highly Variable Drugs / Drug Products
 
-*θ*<sub>0</sub> 0.90.
+*θ*<sub>0</sub> 0.90.
 
 ###### EMA
 
-Regulatory constant 0.76, upper cap of scaling at *CV<sub>wR</sup>* 50%,
-evaluation by ANOVA.
+Regulatory constant `0.76`, upper cap of scaling at *CV<sub>wR</sup>*
+50%, evaluation by ANOVA.
 
 ###### Health Canada
 
-Regulatory constant 0.76, upper cap of scaling at *CV<sub>wR</sup>*
-57.4%, evaluation by intra-subject contrasts.
+Regulatory constant `0.76`, upper cap of scaling at *CV<sub>wR</sup>*
+\~57.4%, evaluation by intra-subject contrasts.
 
 ###### FDA
 
 Regulatory constant `log(1.25)/0.25`, linearized scaled ABE (Howe’s
-method).
+approximation).
 
 #### Narrow Therapeutic Index Drugs (FDA)
 
-Regulatory constant 0.10, *θ*<sub>0</sub> 0.975, design "2x2x4"
-(TRTR|RTRT), linearized scaled ABE (Howe’s method), upper limit of the
+*θ*<sub>0</sub> 0.975, regulatory constant `log(1.11111)/0.1`, upper cap
+of scaling at *CV<sub>wR</sup>* \~21.4%, design "2x2x4" (TRTR|RTRT),
+linearized scaled ABE (Howe’s approximation), upper limit of the
 confidence interval of *s<sub>wT</sup>*/*s<sub>wR</sup>* ≤2.5.
 
 ### Dose-Proportionality
@@ -185,10 +188,16 @@ details of the sample size search suppressed.
 ### Power Analysis
 
 Minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and
-sample size method dependent on defaults of the respective approaches
-(ABE, ABEL, RSABE, NTID).
+sample size method depend on defaults of the respective approaches (ABE,
+ABEL, RSABE, NTID).
 
 ## Examples
+
+Before running the examples attach the library.
+
+``` r
+library(PowerTOST)
+```
 
 If not noted otherwise, defaults are employed.
 
@@ -331,14 +340,15 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 
 #### NTIDs
 
-Sample size assuming heteroscedasticity (*CV<sub>wT</sub>* 0.15,
-*CV<sub>wR</sub>* 0.10). Assess additionally which one of the three
-conditions (scaled, ABE, *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives
+Sample size assuming heteroscedasticity (*CV<sub>w</sub>* 0.125,
+σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher
+variability than R). Assess additionally which one of the three
+components (scaled, ABE, *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives
 the sample size.
 
 ``` r
-CV <- c(0.15, 0.10)
-n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
+CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
+n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
 #> 
 #> +++++++++++ FDA method for NTIDs ++++++++++++
 #>            Sample size estimation
@@ -348,27 +358,34 @@ n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 #> 1e+05 studies for each step simulated.
 #> 
 #> alpha  = 0.05, target power = 0.8
-#> CVw(T) = 0.15, CVw(R) = 0.1
+#> CVw(T) = 0.1497, CVw(R) = 0.09433
 #> True ratio     = 0.975 
 #> ABE limits     = 0.8 ... 1.25 
+#> Implied scABEL = 0.9056 ... 1.1043 
 #> Regulatory settings: FDA 
+#> - Regulatory const. = 1.053605 
+#> - 'CVcap'           = 0.2142 
 #> 
-#> Sample size
+#> Sample size search
 #>  n     power
-#> 32   0.817560
+#> 28   0.665530 
+#> 30   0.701440 
+#> 32   0.734240 
+#> 34   0.764500 
+#> 36   0.792880 
+#> 38   0.816080
 suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 #>        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
-#>      0.81756      0.92270      1.00000      0.87137
+#>      0.81608      0.93848      1.00000      0.85794
 ```
 
 The *s<sub>wT</sub>*/*s<sub>wR</sub>* component shows the lowest power
-and hence, drives the sample size.
-
+and hence, drives the sample size.  
 Compare that with homoscedasticity (*CV<sub>wT</sub>* =
-*CV<sub>wR</sub>* = 0.10):
+*CV<sub>wR</sub>* = 0.125):
 
 ``` r
-CV <- 0.10
+CV <- 0.125
 n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 #> 
 #> +++++++++++ FDA method for NTIDs ++++++++++++
@@ -379,17 +396,17 @@ n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 #> 1e+05 studies for each step simulated.
 #> 
 #> alpha  = 0.05, target power = 0.8
-#> CVw(T) = 0.1, CVw(R) = 0.1
+#> CVw(T) = 0.125, CVw(R) = 0.125
 #> True ratio     = 0.975 
 #> ABE limits     = 0.8 ... 1.25 
 #> Regulatory settings: FDA 
 #> 
 #> Sample size
 #>  n     power
-#> 18   0.841790
+#> 16   0.822780
 suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 #>        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
-#>      0.84179      0.85628      1.00000      0.97210
+#>      0.82278      0.84869      1.00000      0.95128
 ```
 
 Here the scaled ABE component shows the lowest power and drives the
@@ -397,7 +414,8 @@ sample size, which is much lower than in the previous example.
 
 ### Dose-Proportionality
 
-*CV* 0.20, Doses 1, 2, 8 units, *β*<sub>0</sub> 1, target power 0.90.
+*CV* 0.20, Doses 1, 2, and 8 units, *β*<sub>0</sub> 1, target power
+0.90.
 
 ``` r
 sampleN.dp(CV = 0.20, doses = c(1, 2, 8), beta0 = 1, targetpower = 0.90)
@@ -478,7 +496,7 @@ for (i in 1:nrow(expl)) {
 print(expl, digits = 6, row.names = FALSE)
 #>      method  n    power seconds
 #>       owenq 14 0.805683  0.0015
-#>         mvt 14 0.805690  0.1210
+#>         mvt 14 0.805690  0.1220
 #>  noncentral 14 0.805683  0.0010
 #>     shifted 16 0.852301  0.0005
 ```
@@ -500,9 +518,8 @@ simulations).
 ``` r
 CV           <- c(0.45, 0.45)
 design       <- "2x2x4"
-expl         <- data.frame(method = rep("", 2), n = NA,
-                           power = NA, seconds = NA)
-expl$method  <- c("key statistics", "subject simulations")
+expl         <- data.frame(method = c("key statistics", "subject simulations"),
+                           n = NA, power = NA, seconds = NA)
 start        <- proc.time()[[3]]
 expl[1, 2:3] <- sampleN.scABEL(CV = CV, design = design,
                                print = FALSE, details = FALSE)[8:9]
@@ -514,11 +531,11 @@ expl[2, 4]   <- proc.time()[[3]] - start
 print(expl, row.names = FALSE)
 #>               method  n   power seconds
 #>       key statistics 28 0.81116    0.16
-#>  subject simulations 28 0.81196    2.46
+#>  subject simulations 28 0.81196    2.47
 ```
 
-Simulating via the ‘key’ statistics is the method of choice. However,
-subject simulations are recommended if
+Simulating via the ‘key’ statistics is the method of choice for speed
+reasons. However, subject simulations are recommended if
 
   - the partial replicate design (TRR|RTR|RRT) is planned *and*
   - the special case of heterogenicity *CV<sub>wT</sub>* \>
@@ -537,7 +554,5 @@ if (length(package[!inst]) > 0) install.packages(package[!inst])
 
 And the development version from [GitHub](https://github.com/) with:
 
-``` r
-# install.packages("devtools")
-devtools::install_github("Detlew/PowerTOST")
-```
+    # install.packages("devtools")
+    devtools::install_github("Detlew/PowerTOST")

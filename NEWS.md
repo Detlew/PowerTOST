@@ -1,6 +1,6 @@
 # PowerTOST 1.4-7.9000
 
-Published on GitHub 2019-08-15
+Published on GitHub 2019-08-16
 
 ## Bug fixes
 
@@ -12,7 +12,7 @@ Published on GitHub 2019-08-15
   
 ## Major changes
 
-  * New function `sampleN.RSABE2L.sdsims()` for sample size estimation via  subject simulations for the ‘exact’ method of Tóthfalusi & Endrényi “*[Algorithms for evaluating reference scaled average bioequivalence: power, bias, and consumer risk](https://doi.org/10.1002/sim.7440)*”.
+  * New function `sampleN.RSABE2L.sdsims()` for sample size estimation via subject simulations for the ‘exact’ method of Tóthfalusi & Endrényi “*[Algorithms for evaluating reference scaled average bioequivalence: power, bias, and consumer risk](https://doi.org/10.1002/sim.7440)*”.
   * New function `sampleN.scABEL.sdsims()` for sample size estimation for ABEL via subject simulations. Useful in case of assumed heteroscedasticity in the partial replicate design (TRT|RTR|RRT).
   * `NEWS.md` instead of `NEWS`.
   * `README.md` (knitted from `README.Rmd`).
@@ -23,7 +23,7 @@ Published on GitHub 2019-08-15
 
   * Updated `test_ABEL.R` in `inst/tests` to support subject simulations.
   * `power.scABEL()`: More informative warning about heteroscedasticity in the partial replicate design (use of `power.scABEL.sdsims()` suggested).
-  * Add/subtract `.Machine$double.eps` if `rho` is -1 or +1 given in `power_type1_2TOST.R` (similar to `sampleN_2TOST_sim.R`). Removed warning in the latter. Less confusing for users and the example in the man-page looks nicer.
+  * Add/subtract `.Machine$double.eps` if `rho` is -1 or +1 given in `power_type1_2TOST.R` (similar to `sampleN_2TOST_sim.R`). Removed warning in the latter function. Less confusing for users and the example in the man-page looks nicer.
   * Man pages reworked.
 
 # PowerTOST 1.4-7
