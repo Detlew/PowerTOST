@@ -291,12 +291,12 @@ data.frame shown.
 ``` r
 reg <- reg_const("USER", r_const = NA, CVswitch = Inf,
                  CVcap = Inf, pe_constr = FALSE)
-CV  <- round(CVp2CV(CV = 0.45, ratio = 2/3), 4)
+CV  <- CVp2CV(CV = 0.45, ratio = 2/3)
 res <- sampleN.scABEL(CV=CV, design = "2x2x3", regulator = reg,
                       details = FALSE, print = FALSE)
-print(res[c(3:4, 8:9)], row.names = FALSE)
-#>    CVwT   CVwR Sample size Achieved power
-#>  0.3987 0.4977         126        0.80515
+print(res[c(3:4, 8:9)], digits = 5, row.names = FALSE)
+#>    CVwT    CVwR Sample size Achieved power
+#>  0.3987 0.49767         126         0.8052
 ```
 
 Similar sample size because the pooled *CV* is still 0.45.
@@ -500,19 +500,17 @@ and analyze their respective power.
 
 #### ABE
 
-"2x2" crossover design, intra-subject *CV* 0.17. Explore sample sizes
-and achieved power for the supported methods (the 1<sup>st</sup> one is
-the default).
+"2x2" crossover design, *CV* 0.17. Explore sample sizes and achieved
+power for the supported methods (the 1<sup>st</sup> one is the default).
 
 ``` r
-CV   <- 0.17
 expl <- data.frame(method = c("owenq", "mvt", "noncentral", "shifted"),
                    n = NA, power = NA, seconds = NA)
 runs <- 20
 for (i in 1:nrow(expl)) {
   start <- proc.time()[[3]]
-  for (j in 1:runs) { # repeat to get better estimate of run times
-    expl[i, 2:3] <- sampleN.TOST(CV = CV, method = expl$method[i],
+  for (j in 1:runs) { # repeat to get better estimate of runtimes
+    expl[i, 2:3] <- sampleN.TOST(CV = 0.17, method = expl$method[i],
                                  print = FALSE)[7:8]
   }
   expl[i, 4] <- (proc.time()[[3]] - start) / runs
@@ -540,26 +538,24 @@ achieved power for the supported methods (‘key’ statistics or subject
 simulations).
 
 ``` r
-CV           <- c(0.45, 0.45)
-design       <- "2x2x4"
 expl         <- data.frame(method = c("key statistics", "subject simulations"),
                            n = NA, power = NA, seconds = NA)
 start        <- proc.time()[[3]]
-expl[1, 2:3] <- sampleN.scABEL(CV = CV, design = design,
+expl[1, 2:3] <- sampleN.scABEL(CV = 0.45, design = "2x2x4",
                                print = FALSE, details = FALSE)[8:9]
 expl[1, 4]   <- proc.time()[[3]] - start
 start        <- proc.time()[[3]]
-expl[2, 2:3] <- sampleN.scABEL.sdsims(CV = CV, design = design,
+expl[2, 2:3] <- sampleN.scABEL.sdsims(CV = 0.45, design = "2x2x4",
                                       print = FALSE, details = FALSE)[8:9]
 expl[2, 4]   <- proc.time()[[3]] - start
 print(expl, row.names = FALSE)
 #>               method  n   power seconds
-#>       key statistics 28 0.81116    0.15
+#>       key statistics 28 0.81116    0.16
 #>  subject simulations 28 0.81196    2.46
 ```
 
 Simulating via the ‘key’ statistics is the method of choice for speed
-reasons. However, subject simulations are recommended if
+reasons. However, subject simulations are recommended *if*
 
   - the partial replicate design (TRR|RTR|RRT) is planned *and*
   - the special case of heterogenicity *CV<sub>wT</sub>* \>
