@@ -31,7 +31,7 @@ Helmut Schütz
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Built 2019-08-16 with R 3.6.1.
+Built 2019-08-18 with R 3.6.1.
 
 ## Supported Designs
 
@@ -312,7 +312,7 @@ sampleN.scABEL(CV = 0.45, details = TRUE)
 #>             Sample size estimation
 #>    (simulation based on ANOVA evaluation)
 #> ---------------------------------------------
-#> Study design: 2x3x3 (TRT|RTR) 
+#> Study design: 2x3x3 (partial replicate)
 #> log-transformed data (multiplicative model)
 #> 1e+05 studies for each step simulated.
 #> 
@@ -347,7 +347,7 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 #> ++++++++ Reference scaled ABE crit. +++++++++
 #>            Sample size estimation
 #> ---------------------------------------------
-#> Study design: 2x2x4 (TRTR|RTRT) 
+#> Study design: 2x2x4 (4 period full replicate)
 #> log-transformed data (multiplicative model)
 #> 1e+05 studies for each step simulated.
 #> 
@@ -500,59 +500,33 @@ and analyze their respective power.
 
 #### ABE
 
-"2x2" crossover design, *CV* 0.17. Explore sample sizes and achieved
-power for the supported methods (the 1<sup>st</sup> one is the default).
+"2x2" crossover design, *CV* 0.17. Sample sizes and achieved power for
+the supported methods (the 1<sup>st</sup> one is the default).
 
-``` r
-expl <- data.frame(method = c("owenq", "mvt", "noncentral", "shifted"),
-                   n = NA, power = NA, seconds = NA)
-runs <- 20
-for (i in 1:nrow(expl)) {
-  start <- proc.time()[[3]]
-  for (j in 1:runs) { # repeat to get better estimate of runtimes
-    expl[i, 2:3] <- sampleN.TOST(CV = 0.17, method = expl$method[i],
-                                 print = FALSE)[7:8]
-  }
-  expl[i, 4] <- (proc.time()[[3]] - start) / runs
-}
-print(expl, digits = 6, row.names = FALSE)
-#>      method  n    power seconds
-#>       owenq 14 0.805683  0.0015
-#>         mvt 14 0.805690  0.1215
-#>  noncentral 14 0.805683  0.0010
-#>     shifted 16 0.852301  0.0005
-```
+    #>      method  n    power seconds
+    #>       owenq 14 0.805683  0.0015
+    #>         mvt 14 0.805690  0.1210
+    #>  noncentral 14 0.805683  0.0010
+    #>     shifted 16 0.852301  0.0005
 
 The 2<sup>nd</sup> exact method is substantially slower than the
 1<sup>st</sup>. The approximation based on the noncentral
 *t*-distribution is slightly faster but matches the 1<sup>st</sup> exact
 method closely. The approximation based on the shifted central
-*t*-distribution is the fastest but might estimate a sample size higher
-than necessary. Hence, it should be used only for comparative purposes.
+*t*-distribution is the fastest but *might* estimate a sample size
+higher than necessary. Hence, it should be used only for comparative
+purposes.
 
 #### ABEL
 
 "2x2x4" full replicate design (TRTR|RTRT), homogenicity
-(*CV<sub>wT</sub>* = *CV<sub>wR</sub>* 0.45). Explore sample sizes and
-achieved power for the supported methods (‘key’ statistics or subject
+(*CV<sub>wT</sub>* = *CV<sub>wR</sub>* 0.45). Sample sizes and achieved
+power for the supported methods (‘key’ statistics or subject
 simulations).
 
-``` r
-expl         <- data.frame(method = c("key statistics", "subject simulations"),
-                           n = NA, power = NA, seconds = NA)
-start        <- proc.time()[[3]]
-expl[1, 2:3] <- sampleN.scABEL(CV = 0.45, design = "2x2x4",
-                               print = FALSE, details = FALSE)[8:9]
-expl[1, 4]   <- proc.time()[[3]] - start
-start        <- proc.time()[[3]]
-expl[2, 2:3] <- sampleN.scABEL.sdsims(CV = 0.45, design = "2x2x4",
-                                      print = FALSE, details = FALSE)[8:9]
-expl[2, 4]   <- proc.time()[[3]] - start
-print(expl, row.names = FALSE)
-#>               method  n   power seconds
-#>       key statistics 28 0.81116    0.16
-#>  subject simulations 28 0.81196    2.46
-```
+    #>               method  n   power seconds
+    #>     'key' statistics 28 0.81116    0.16
+    #>  subject simulations 28 0.81196    2.45
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons. However, subject simulations are recommended *if*
