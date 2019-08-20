@@ -2,7 +2,7 @@ README
 ================
 Helmut Schütz
 
-  - [PowerTOST](#top)
+  - [PowerTOST](#TOC_link)
       - [Supported Designs](#supported-designs)
       - [Purpose](#purpose)
       - [Supported](#supported)
@@ -66,7 +66,7 @@ Whilst "2x4x4" four period full replicate designs with four sequences
 (TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they
 should be avoided due to confounded effects.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ## Purpose
 
@@ -82,7 +82,7 @@ For all methods the sample size can be *estimated* based on
     reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
     *θ*<sub>2</sub>}, target power, and design.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ## Supported
 
@@ -109,7 +109,7 @@ sequences or equal group sizes.
     RSABE.
   - Dose-Proportionality using the power model.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ### Methods
 
@@ -121,7 +121,7 @@ sequences or equal group sizes.
       - Non-central *t*-distribution.
       - ‘Shifted’ central *t*-distribution.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ### Helpers
 
@@ -141,7 +141,7 @@ sequences or equal group sizes.
     dropouts) on power of BE decision.
   - Construct design matrices of incomplete block designs.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ## Defaults
 
@@ -207,7 +207,7 @@ Minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and
 sample size method depend on defaults of the respective approaches (ABE,
 ABEL, RSABE, NTID).
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ## Examples
 
@@ -275,7 +275,7 @@ sampleN.RatioF(CV = 0.20, CVb = 0.40)
 #> 28   0.807774
 ```
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ### Replicate Designs
 
@@ -321,7 +321,7 @@ print(res[c(3:4, 8:9)], digits = 5, row.names = FALSE)
 
 Similar sample size because the pooled *CV* is still 0.45.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 #### ABEL
 
@@ -395,7 +395,7 @@ Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to
 estimate the sample size which both controls the TIE and maintains the
 target power. In this example 34 subjects will be required.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 #### RSABE
 
@@ -427,7 +427,7 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 #> 20   0.81509
 ```
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 #### NTIDs
 
@@ -504,7 +504,7 @@ suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 Here the scaled ABE component shows the lowest power and drives the
 sample size, which is much lower than in the previous example.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ### Dose-Proportionality
 
@@ -537,7 +537,7 @@ In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>,
 this example to an acceptance range of `0.66667 ... 1.3333` and a sample
 size of only six subjects.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ### Power Analysis
 
@@ -568,7 +568,7 @@ since in a real study a combination of all effects occurs
 simultaneously. It is up to *you* to decide on reasonable combinations
 and analyze their respective power.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ### Speed Comparisons
 
@@ -579,7 +579,7 @@ the supported methods (the 1<sup>st</sup> one is the default).
 
     #>      method  n    power seconds
     #>       owenq 14 0.805683  0.0015
-    #>         mvt 14 0.805690  0.1235
+    #>         mvt 14 0.805690  0.1225
     #>  noncentral 14 0.805683  0.0010
     #>     shifted 16 0.852301  0.0005
 
@@ -609,7 +609,7 @@ However, subject simulations are recommended *if*
   - the special case of heterogenicity *CV<sub>wT</sub>* \>
     *CV<sub>wR</sub>* is expected.
 
-<small>[↑ TOC](#top)</small>
+<small>[↑ TOC](#TOC_link)</small>
 
 ## Installation
 
