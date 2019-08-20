@@ -2,7 +2,7 @@ README
 ================
 Helmut Schütz
 
-  - [PowerTOST](#TOC_link)
+  - [PowerTOST](#powertost)
       - [Supported Designs](#supported-designs)
       - [Purpose](#purpose)
       - [Supported](#supported)
@@ -66,7 +66,7 @@ Whilst "2x4x4" four period full replicate designs with four sequences
 (TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they
 should be avoided due to confounded effects.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ## Purpose
 
@@ -82,7 +82,7 @@ For all methods the sample size can be *estimated* based on
     reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
     *θ*<sub>2</sub>}, target power, and design.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ## Supported
 
@@ -109,7 +109,7 @@ sequences or equal group sizes.
     RSABE.
   - Dose-Proportionality using the power model.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ### Methods
 
@@ -121,7 +121,7 @@ sequences or equal group sizes.
       - Non-central *t*-distribution.
       - ‘Shifted’ central *t*-distribution.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ### Helpers
 
@@ -141,7 +141,7 @@ sequences or equal group sizes.
     dropouts) on power of BE decision.
   - Construct design matrices of incomplete block designs.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ## Defaults
 
@@ -207,7 +207,7 @@ Minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and
 sample size method depend on defaults of the respective approaches (ABE,
 ABEL, RSABE, NTID).
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ## Examples
 
@@ -275,7 +275,7 @@ sampleN.RatioF(CV = 0.20, CVb = 0.40)
 #> 28   0.807774
 ```
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ### Replicate Designs
 
@@ -321,7 +321,7 @@ print(res[c(3:4, 8:9)], digits = 5, row.names = FALSE)
 
 Similar sample size because the pooled *CV* is still 0.45.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 #### ABEL
 
@@ -395,7 +395,7 @@ Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to
 estimate the sample size which both controls the TIE and maintains the
 target power. In this example 34 subjects will be required.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 #### RSABE
 
@@ -427,7 +427,7 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 #> 20   0.81509
 ```
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 #### NTIDs
 
@@ -504,7 +504,7 @@ suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 Here the scaled ABE component shows the lowest power and drives the
 sample size, which is much lower than in the previous example.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ### Dose-Proportionality
 
@@ -537,7 +537,7 @@ In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>,
 this example to an acceptance range of `0.66667 ... 1.3333` and a sample
 size of only six subjects.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ### Power Analysis
 
@@ -568,7 +568,7 @@ since in a real study a combination of all effects occurs
 simultaneously. It is up to *you* to decide on reasonable combinations
 and analyze their respective power.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ### Speed Comparisons
 
@@ -599,7 +599,7 @@ supported methods (‘key’ statistics or subject simulations).
 
     #>               method  n   power seconds
     #>     'key' statistics 28 0.81116    0.14
-    #>  subject simulations 28 0.81196    2.34
+    #>  subject simulations 28 0.81196    2.36
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons.  
@@ -609,7 +609,7 @@ However, subject simulations are recommended *if*
   - the special case of heterogenicity *CV<sub>wT</sub>* \>
     *CV<sub>wR</sub>* is expected.
 
-<small>[↑ TOC](#TOC_link)</small>
+<small>[↑ TOC](#readme)</small>
 
 ## Installation
 
