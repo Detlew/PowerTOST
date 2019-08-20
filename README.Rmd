@@ -29,16 +29,16 @@ designs <- known.designs()
 print(designs[, c(2, 9, 3)], row.names = FALSE)
 ```
 
-Although some replicate designs are more ‘popular’ than others, sample size estimations are valid for *all* of the following designs:<!-- Workaround: upper Iota since pipe not allowed in table -->
+Although some replicate designs are more ‘popular’ than others, sample size estimations are valid for *all* of the following designs:
 
-|design|type|sequences|
-|:----:|:----:|---------|
-|`2x2x4`|full|TRTR Ι RTRT|
-|`2x2x4`|full|TRRT Ι RTTR|
-|`2x2x4`|full|TTRR Ι RRTT|
-|`2x2x3`|full|TRT Ι RTR|
-|`2x2x3`|full|TRR Ι RTT|
-|`2x3x3`|partial|TRR Ι RTR Ι RRT |
+|design|type|sequences|periods|
+|:----:|:----:|---------|:-:|
+|`2x2x4`|full|2 `TRTR|RTRT`|4|
+|`2x2x4`|full|2 `TRRT|RTTR`|4|
+|`2x2x4`|full|2 `TTRR|RRTT`|4|
+|`2x2x3`|full|2 `TRT|RTR`|3|
+|`2x2x3`|full|2 `TRR|RTT`|3|
+|`2x3x3`|partial|3 `TRR|RTR|RRT`|3|
 
 Whilst \"2x4x4\" four period full replicate designs with four sequences (TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they should be avoided due to confounded effects.
 

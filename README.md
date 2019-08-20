@@ -51,17 +51,16 @@ Built 2019-08-20 with R 3.6.1.
     #>    paired                paired means   n-1
 
 Although some replicate designs are more ‘popular’ than others, sample
-size estimations are valid for *all* of the following
-designs:<!-- Workaround: upper Iota since pipe not allowed in table -->
+size estimations are valid for *all* of the following designs:
 
-| design  |  type   | sequences       |
-| :-----: | :-----: | --------------- |
-| `2x2x4` |  full   | TRTR Ι RTRT     |
-| `2x2x4` |  full   | TRRT Ι RTTR     |
-| `2x2x4` |  full   | TTRR Ι RRTT     |
-| `2x2x3` |  full   | TRT Ι RTR       |
-| `2x2x3` |  full   | TRR Ι RTT       |
-| `2x3x3` | partial | TRR Ι RTR Ι RRT |
+| design  |  type   | sequences         | periods |
+| :-----: | :-----: | ----------------- | :-----: |
+| `2x2x4` |  full   | 2 `TRTR\|RTRT`    |    4    |
+| `2x2x4` |  full   | 2 `TRRT\|RTTR`    |    4    |
+| `2x2x4` |  full   | 2 `TTRR\|RRTT`    |    4    |
+| `2x2x3` |  full   | 2 `TRT\|RTR`      |    3    |
+| `2x2x3` |  full   | 2 `TRR\|RTT`      |    3    |
+| `2x3x3` | partial | 3 `TRR\|RTR\|RRT` |    3    |
 
 Whilst "2x4x4" four period full replicate designs with four sequences
 (TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they
@@ -511,7 +510,7 @@ the supported methods (the 1<sup>st</sup> one is the default).
 
     #>      method  n    power seconds
     #>       owenq 14 0.805683  0.0015
-    #>         mvt 14 0.805690  0.1210
+    #>         mvt 14 0.805690  0.1220
     #>  noncentral 14 0.805683  0.0010
     #>     shifted 16 0.852301  0.0005
 
@@ -530,8 +529,8 @@ Four period full replicate study, homogenicity (*CV<sub>wT</sub>* =
 supported methods (‘key’ statistics or subject simulations).
 
     #>               method  n   power seconds
-    #>     'key' statistics 28 0.81116    0.14
-    #>  subject simulations 28 0.81196    2.48
+    #>     'key' statistics 28 0.81116    0.16
+    #>  subject simulations 28 0.81196    2.46
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons. However, subject simulations are recommended *if*
