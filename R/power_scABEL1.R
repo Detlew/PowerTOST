@@ -2,7 +2,7 @@
 # small CV correction of the ABE contribution (CV<=0.2)
 power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                           design=c("2x3x3", "2x2x4", "2x2x3"), regulator,
-                          nsims=1E5, details=FALSE, setseed=TRUE)
+                          nsims, details=FALSE, setseed=TRUE)
 {
   if (missing(CV)) stop("CV must be given!")
   if (missing(n))  stop("Number of subjects n must be given!")
@@ -23,6 +23,15 @@ power.scABEL1 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   # since the model doesn't allow such term
   CVwT <- CV[1]
   if (length(CV)==2) CVwR <- CV[2] else CVwR <- CVwT
+  
+  if (missing(nsims)) { # not given
+    if (theta0 == scABEL(CVwR)[["lower"]] | theta0 == scABEL(CVwR)[["upper"]]) {
+      nsims <- 1e6 # simulating TIE
+    } else {
+      nsims <- 1e5 # simulating power
+    }
+  }
+
   s2wT <- log(1.0 + CVwT^2)
   s2wR <- log(1.0 + CVwR^2)
   

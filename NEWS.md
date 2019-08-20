@@ -22,6 +22,7 @@ Published on GitHub 2019-08-20
 
 ## Minor changes
 
+  * In `power.scABEL()`: If `nsims` not given, defaults to 1e5 (like before). If `theta0` equals one of the expanded limits, deafault s to 1e6. Man-page updated.
   * Output of `sampleN.TOST()`: Same name of replicate designs like in the scaled functions.
   * In `power.scABEL()` name of scaled component `"p(BE-ABEL)"` instead of `"p(BE-wABEL)"`.
   * Updated `test_ABEL.R` in `inst/tests` to support subject simulations.

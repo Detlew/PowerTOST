@@ -10,8 +10,8 @@ scaled (widened) BE acceptance limits by simulations.
 }
 \usage{
 power.scABEL(alpha = 0.05, theta1, theta2, theta0, CV, n, 
-             design = c("2x3x3", "2x2x4", "2x2x3"), regulator, nsims = 1e+05, 
-             details = FALSE, setseed = TRUE)
+             design = c("2x3x3", "2x2x4", "2x2x3"), regulator, 
+             nsims, details = FALSE, setseed = TRUE)
 }
 \arguments{
   \item{alpha}{
@@ -70,7 +70,7 @@ The former \code{regulator="ANVISA"} is no longer allowed. Since 2016 the ANVISA
   \item{nsims}{
 Number of simulations to be performed to obtain the empirical power.
 Defaults to 100,000 = 1e+05.\cr
-If simulations are aimed for empirical alpha \code{nsims=1e+06} is recommended.
+If not given and \code{theta0} equals one of the expanded limits (\emph{i.e.}, simulating empirical alpha), defaults to \code{nsims=1e+06}.
 }
   \item{details}{
 If set to \code{TRUE} the computational time is shown as well as the components
