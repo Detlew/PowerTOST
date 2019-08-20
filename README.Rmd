@@ -206,10 +206,10 @@ Note that the acceptance range of the slope depends on the ratio of the highest 
 In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.50, 2.00) are recommended, which would translate in this example to an acceptance range of `0.66667 ... 1.3333` and a sample size of only six subjects.
 
 ### Power Analysis
-Explore impact of deviations from assumptions (higher *CV*, higher deviation of *θ*<sub>0</sub> from 1, dropouts) on power. Assumed intra-subject *CV* 0.20, target power 0.90.
+Explore impact of deviations from assumptions (higher *CV*, higher deviation of *θ*<sub>0</sub> from 1, dropouts) on power. Assumed intra-subject *CV* 0.20, target power 0.90. Suppress the plot.
 ```{r}
 res <- pa.ABE(CV = 0.20, targetpower = 0.90)
-print(res)
+print(res, plotit = FALSE)
 ```
 If the study starts with 26 subjects (power \~0.92), the *CV* can increase to \~0.27 **or** *θ*<sub>0</sub> decrease to \~0.90 **or** the sample size decrease to 10 whilst power will still be ≥0.70.    
 However, this is **not** a substitute for the “Sensitivity Analysis” recommended in [ICH-E9](https://www.ich.org/fileadmin/Public_Web_Site/ICH_Products/Guidelines/Efficacy/E9/Step4/E9_Guideline.pdf), since in a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.

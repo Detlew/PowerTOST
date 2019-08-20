@@ -519,11 +519,11 @@ size of only six subjects.
 
 Explore impact of deviations from assumptions (higher *CV*, higher
 deviation of *θ*<sub>0</sub> from 1, dropouts) on power. Assumed
-intra-subject *CV* 0.20, target power 0.90.
+intra-subject *CV* 0.20, target power 0.90. Suppress the plot.
 
 ``` r
 res <- pa.ABE(CV = 0.20, targetpower = 0.90)
-print(res)
+print(res, plotit = FALSE)
 #> Sample size plan ABE
 #>  Design alpha  CV theta0 theta1 theta2 Sample size Achieved power
 #>     2x2  0.05 0.2   0.95    0.8   1.25          26      0.9176333

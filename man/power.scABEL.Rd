@@ -70,7 +70,7 @@ The former \code{regulator="ANVISA"} is no longer allowed. Since 2016 the ANVISA
   \item{nsims}{
 Number of simulations to be performed to obtain the empirical power.
 Defaults to 100,000 = 1e+05.\cr
-If not given and \code{theta0} equals one of the expanded limits (\emph{i.e.}, simulating empirical alpha), defaults to \code{nsims=1e+06}.
+If not given and \code{theta0} equals one of the expanded limits (\emph{i.e.}, simulating empirical alpha), defaults to 1e+06.
 }
   \item{details}{
 If set to \code{TRUE} the computational time is shown as well as the components
