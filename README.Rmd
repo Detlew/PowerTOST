@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# PowerTOST
+# PowerTOST {#top}
 
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies.  
 Built `r Sys.Date()` with R `r getRversion()`.
@@ -42,6 +42,8 @@ Although some replicate designs are more ‘popular’ than others, sample size 
 
 Whilst \"2x4x4\" four period full replicate designs with four sequences (TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they should be avoided due to confounded effects.
 
+<small>[↑ TOC](#top)</small>
+
 ## Purpose
 
 For various methods power can be *calculated* based on
@@ -51,6 +53,8 @@ For various methods power can be *calculated* based on
 For all methods the sample size can be *estimated* based on
 
   - nominal *α*, coefficient of variation (*CV*), deviation of test from reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>, *θ*<sub>2</sub>}, target power, and design.
+
+<small>[↑ TOC](#top)</small>
 
 ## Supported
 ### Power and Sample Size
@@ -67,6 +71,8 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
   - Iteratively adjust *α* to control the type I error in ABEL and RSABE.
   - Dose-Proportionality using the power model.
 
+<small>[↑ TOC](#top)</small>
+
 ### Methods
   - Exact
     - Owen’s Q.
@@ -74,6 +80,8 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
   - Approximations
     - Non-central *t*-distribution.
     - ‘Shifted’ central *t*-distribution.
+
+<small>[↑ TOC](#top)</small>
 
 ### Helpers
   - Calculate *CV* from *MSE* or *SE* (and vice versa).
@@ -86,6 +94,8 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
   - *p*-values of the TOST procedure.
   - Analysis tool for exploration/visualization of the impact of expected values (*CV*, *θ*<sub>0</sub>, reduced sample size due to dropouts) on power of BE decision.
   - Construct design matrices of incomplete block designs.
+
+<small>[↑ TOC](#top)</small>
 
 ## Defaults
   * *α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25). Details of the sample size search (and the regulatory settings in reference-scaled average bioequivalence) are printed.
@@ -121,6 +131,8 @@ Regulatory constant `log(1.25)/0.25`, linearized scaled ABE (Howe’s approximat
 ### Power Analysis
 Minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and sample size method depend on defaults of the respective approaches (ABE, ABEL, RSABE, NTID).
 
+<small>[↑ TOC](#top)</small>
+
 ## Examples
 Before running the examples attach the library.
 
@@ -145,6 +157,9 @@ Note the default *α* 0.025 (95\% CI) of this function because it is intended fo
 ```{r}
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
 ```
+
+<small>[↑ TOC](#top)</small>
+
 ### Replicate Designs
 
 #### ABE
@@ -163,6 +178,8 @@ print(res[c(3:4, 8:9)], digits = 5, row.names = FALSE)
 ```
 Similar sample size because the pooled *CV* is still 0.45.
 
+<small>[↑ TOC](#top)</small>
+
 #### ABEL
 Sample size assuming homoscedasticity (*CV<sub>w</sub>* = 0.45).
 ```{r}
@@ -175,12 +192,16 @@ scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4", n = 30)
 With the nominal *α* 0.05 the Type I Error will be inflated (0.0665). With the adjusted *α* 0.0354 (*i.e.*, the 92.92\% confidence interval) the TIE will be controlled, although with a slight loss in power (decreases from 0.814 to 0.771).  
 Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to estimate the sample size which both controls the TIE and maintains the target power. In this example 34 subjects will be required.
 
+<small>[↑ TOC](#top)</small>
+
 #### RSABE
 #### HVD(P)s
 Sample size for a four period full replicate \"2x2x4\" study (any of TRTR|RTRT, TRRT|RTTR, TTRR|RRTT) assuming heteroscedasticity (*CV<sub>wT</sub>* 0.40, *CV<sub>wR</sub>* 0.50). Details of the sample size search suppressed.
 ```{r}
 sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 ```
+<small>[↑ TOC](#top)</small>
+
 #### NTIDs
 Sample size assuming heteroscedasticity (*CV<sub>w</sub>* 0.125, σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher variability than R). TRTR|RTRT according to the [FDA’s guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf). Assess additionally which one of the three components (scaled, ABE, *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives the sample size.
 ```{r}
@@ -197,6 +218,8 @@ suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 ```    
 Here the scaled ABE component shows the lowest power and drives the sample size, which is much lower than in the previous example.
 
+<small>[↑ TOC](#top)</small>
+
 ### Dose-Proportionality
 *CV* 0.20, Doses 1, 2, and 8 units, *β*<sub>0</sub> 1, target power 0.90.
 ```{r}
@@ -204,6 +227,8 @@ sampleN.dp(CV = 0.20, doses = c(1, 2, 8), beta0 = 1, targetpower = 0.90)
 ```
 Note that the acceptance range of the slope depends on the ratio of the highest and lowest doses (*i.e.*, it gets tighter for wider dose ranges and therefore, higher sample sizes will be required).  
 In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.50, 2.00) are recommended, which would translate in this example to an acceptance range of `0.66667 ... 1.3333` and a sample size of only six subjects.
+
+<small>[↑ TOC](#top)</small>
 
 ### Power Analysis
 Explore impact of deviations from assumptions (higher *CV*, higher deviation of *θ*<sub>0</sub> from 1, dropouts) on power. Assumed intra-subject *CV* 0.20, target power 0.90. Suppress the plot.
@@ -213,6 +238,8 @@ print(res, plotit = FALSE)
 ```
 If the study starts with 26 subjects (power \~0.92), the *CV* can increase to \~0.27 **or** *θ*<sub>0</sub> decrease to \~0.90 **or** the sample size decrease to 10 whilst power will still be ≥0.70.    
 However, this is **not** a substitute for the “Sensitivity Analysis” recommended in [ICH-E9](https://www.ich.org/fileadmin/Public_Web_Site/ICH_Products/Guidelines/Efficacy/E9/Step4/E9_Guideline.pdf), since in a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
+
+<small>[↑ TOC](#top)</small>
 
 ### Speed Comparisons
 #### ABE
@@ -248,10 +275,13 @@ expl[2, 2:3] <- sampleN.scABEL.sdsims(CV = 0.45, design = "2x2x4",
 expl[2, 4]   <- proc.time()[[3]] - start
 print(expl, row.names = FALSE)
 ```
-Simulating via the ‘key’ statistics is the method of choice for speed reasons. However, subject simulations are recommended *if*
+Simulating via the ‘key’ statistics is the method of choice for speed reasons.  
+However, subject simulations are recommended *if*
 
   - the partial replicate design (TRR|RTR|RRT) is planned *and*
   - the special case of heterogenicity *CV<sub>wT</sub>* > *CV<sub>wR</sub>* is expected.
+
+<small>[↑ TOC](#top)</small>
 
 ## Installation
 You can install the released version of PowerTOST from [CRAN](https://CRAN.R-project.org) with:

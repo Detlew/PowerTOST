@@ -2,7 +2,7 @@ README
 ================
 Helmut Schütz
 
-  - [PowerTOST](#powertost)
+  - [PowerTOST](#top)
       - [Supported Designs](#supported-designs)
       - [Purpose](#purpose)
       - [Supported](#supported)
@@ -66,6 +66,8 @@ Whilst "2x4x4" four period full replicate designs with four sequences
 (TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they
 should be avoided due to confounded effects.
 
+<small>[↑ TOC](#top)</small>
+
 ## Purpose
 
 For various methods power can be *calculated* based on
@@ -79,6 +81,8 @@ For all methods the sample size can be *estimated* based on
   - nominal *α*, coefficient of variation (*CV*), deviation of test from
     reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
     *θ*<sub>2</sub>}, target power, and design.
+
+<small>[↑ TOC](#top)</small>
 
 ## Supported
 
@@ -105,6 +109,8 @@ sequences or equal group sizes.
     RSABE.
   - Dose-Proportionality using the power model.
 
+<small>[↑ TOC](#top)</small>
+
 ### Methods
 
   - Exact
@@ -114,6 +120,8 @@ sequences or equal group sizes.
   - Approximations
       - Non-central *t*-distribution.
       - ‘Shifted’ central *t*-distribution.
+
+<small>[↑ TOC](#top)</small>
 
 ### Helpers
 
@@ -132,6 +140,8 @@ sequences or equal group sizes.
     expected values (*CV*, *θ*<sub>0</sub>, reduced sample size due to
     dropouts) on power of BE decision.
   - Construct design matrices of incomplete block designs.
+
+<small>[↑ TOC](#top)</small>
 
 ## Defaults
 
@@ -196,6 +206,8 @@ details of the sample size search suppressed.
 Minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and
 sample size method depend on defaults of the respective approaches (ABE,
 ABEL, RSABE, NTID).
+
+<small>[↑ TOC](#top)</small>
 
 ## Examples
 
@@ -263,6 +275,8 @@ sampleN.RatioF(CV = 0.20, CVb = 0.40)
 #> 28   0.807774
 ```
 
+<small>[↑ TOC](#top)</small>
+
 ### Replicate Designs
 
 #### ABE
@@ -306,6 +320,8 @@ print(res[c(3:4, 8:9)], digits = 5, row.names = FALSE)
 ```
 
 Similar sample size because the pooled *CV* is still 0.45.
+
+<small>[↑ TOC](#top)</small>
 
 #### ABEL
 
@@ -379,6 +395,8 @@ Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to
 estimate the sample size which both controls the TIE and maintains the
 target power. In this example 34 subjects will be required.
 
+<small>[↑ TOC](#top)</small>
+
 #### RSABE
 
 #### HVD(P)s
@@ -408,6 +426,8 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 #>  n    power
 #> 20   0.81509
 ```
+
+<small>[↑ TOC](#top)</small>
 
 #### NTIDs
 
@@ -484,6 +504,8 @@ suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 Here the scaled ABE component shows the lowest power and drives the
 sample size, which is much lower than in the previous example.
 
+<small>[↑ TOC](#top)</small>
+
 ### Dose-Proportionality
 
 *CV* 0.20, Doses 1, 2, and 8 units, *β*<sub>0</sub> 1, target power
@@ -515,6 +537,8 @@ In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>,
 this example to an acceptance range of `0.66667 ... 1.3333` and a sample
 size of only six subjects.
 
+<small>[↑ TOC](#top)</small>
+
 ### Power Analysis
 
 Explore impact of deviations from assumptions (higher *CV*, higher
@@ -544,6 +568,8 @@ since in a real study a combination of all effects occurs
 simultaneously. It is up to *you* to decide on reasonable combinations
 and analyze their respective power.
 
+<small>[↑ TOC](#top)</small>
+
 ### Speed Comparisons
 
 #### ABE
@@ -553,7 +579,7 @@ the supported methods (the 1<sup>st</sup> one is the default).
 
     #>      method  n    power seconds
     #>       owenq 14 0.805683  0.0015
-    #>         mvt 14 0.805690  0.1210
+    #>         mvt 14 0.805690  0.1235
     #>  noncentral 14 0.805683  0.0010
     #>     shifted 16 0.852301  0.0005
 
@@ -576,11 +602,14 @@ supported methods (‘key’ statistics or subject simulations).
     #>  subject simulations 28 0.81196    2.34
 
 Simulating via the ‘key’ statistics is the method of choice for speed
-reasons. However, subject simulations are recommended *if*
+reasons.  
+However, subject simulations are recommended *if*
 
   - the partial replicate design (TRR|RTR|RRT) is planned *and*
   - the special case of heterogenicity *CV<sub>wT</sub>* \>
     *CV<sub>wR</sub>* is expected.
+
+<small>[↑ TOC](#top)</small>
 
 ## Installation
 
