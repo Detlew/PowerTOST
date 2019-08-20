@@ -31,7 +31,7 @@ Helmut Schütz
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Built 2019-08-18 with R 3.6.1.
+Built 2019-08-20 with R 3.6.1.
 
 ## Supported Designs
 
@@ -51,16 +51,21 @@ Built 2019-08-18 with R 3.6.1.
     #>    paired                paired means   n-1
 
 Although some replicate designs are more ‘popular’ than others, sample
-size estimations are valid for *all* of the following designs:
+size estimations are valid for *all* of the following
+designs:<!-- Workaround: upper Iota since pipe not allowed in table -->
 
 | design  |  type   | sequences       |
 | :-----: | :-----: | --------------- |
-| `2x2x4` |  full   | TRTR / RTRT     |
-| `2x2x4` |  full   | TRRT / RTTR     |
-| `2x2x4` |  full   | TTRR / RRTT     |
-| `2x2x3` |  full   | TRT / RTR       |
-| `2x2x3` |  full   | TRT / RTR       |
-| `2x3x3` | partial | TRR / RTR / RRT |
+| `2x2x4` |  full   | TRTR Ι RTRT     |
+| `2x2x4` |  full   | TRRT Ι RTTR     |
+| `2x2x4` |  full   | TTRR Ι RRTT     |
+| `2x2x3` |  full   | TRT Ι RTR       |
+| `2x2x3` |  full   | TRR Ι RTT       |
+| `2x3x3` | partial | TRR Ι RTR Ι RRT |
+
+Whilst "2x4x4" four period full replicate designs with four sequences
+(TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they
+should be avoided due to confounded effects.
 
 ## Purpose
 
@@ -262,7 +267,7 @@ sampleN.RatioF(CV = 0.20, CVb = 0.40)
 #### ABE
 
 Sample size for assumed intra-subject *CV* 0.45, *θ*<sub>0</sub> 0.90,
-3-period full replicate design "2x2x3" (TRT|RTR).
+three period full replicate study "2x2x3" (TRT|RTR *or* TRR|RTT).
 
 ``` r
 sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
@@ -270,7 +275,7 @@ sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
 #> +++++++++++ Equivalence test - TOST +++++++++++
 #>             Sample size estimation
 #> -----------------------------------------------
-#> Study design: 2x2x3 replicate crossover 
+#> Study design: 2x2x3 (3 period full replicate) 
 #> log-transformed data (multiplicative model)
 #> 
 #> alpha = 0.05, target power = 0.8
@@ -337,9 +342,10 @@ sampleN.scABEL(CV = 0.45, details = TRUE)
 
 #### HVD(P)s
 
-Sample size for a four-period full replicate study (TRTR|RTRT) assuming
-heteroscedasticity (*CV<sub>wT</sub>* 0.40, *CV<sub>wR</sub>* 0.50).
-Details of the sample size search suppressed.
+Sample size for a four period full replicate "2x2x4" study (any of
+TRTR|RTRT, TRRT|RTTR, TTRR|RRTT) assuming heteroscedasticity
+(*CV<sub>wT</sub>* 0.40, *CV<sub>wR</sub>* 0.50). Details of the sample
+size search suppressed.
 
 ``` r
 sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
@@ -366,9 +372,9 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 
 Sample size assuming heteroscedasticity (*CV<sub>w</sub>* 0.125,
 σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher
-variability than R). Assess additionally which one of the three
-components (scaled, ABE, *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives
-the sample size.
+variability than R). TRTR|RTRT according to the FDA’s guidance. Assess
+additionally which one of the three components (scaled, ABE,
+*s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives the sample size.
 
 ``` r
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
@@ -519,14 +525,13 @@ purposes.
 
 #### ABEL
 
-"2x2x4" full replicate design (TRTR|RTRT), homogenicity
-(*CV<sub>wT</sub>* = *CV<sub>wR</sub>* 0.45). Sample sizes and achieved
-power for the supported methods (‘key’ statistics or subject
-simulations).
+Four period full replicate study, homogenicity (*CV<sub>wT</sub>* =
+*CV<sub>wR</sub>* 0.45). Sample sizes and achieved power for the
+supported methods (‘key’ statistics or subject simulations).
 
     #>               method  n   power seconds
-    #>     'key' statistics 28 0.81116    0.16
-    #>  subject simulations 28 0.81196    2.45
+    #>     'key' statistics 28 0.81116    0.14
+    #>  subject simulations 28 0.81196    2.48
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons. However, subject simulations are recommended *if*

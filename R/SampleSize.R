@@ -124,12 +124,26 @@ sampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE, theta0,
   # make a multiple of steps
   nmin <- as.integer(steps*trunc(n/steps)) 
   nmin <- nmin + steps*(nmin<n)
+  # design names like in the functions for scaling
+  desi <- ""
+  if (desi == "" & d.name == "2x2x4 replicate crossover") {
+    desi <- "2x2x4 (4 period full replicate)"
+  }
+  if (desi == "" & d.name == "2x2x3 replicate crossover") {
+    desi <- "2x2x3 (3 period full replicate)"
+  }
+  if (desi == "" & d.name == "partial replicate (2x3x3)") {
+    desi <- "2x3x3 (partial replicate)"
+  } else { # keep all others
+    if (desi == "") desi <- d.name
+  }
+
   # print the configuration:
   if (print) {
     cat("\n+++++++++++ Equivalence test - TOST +++++++++++\n")
     cat("            Sample size estimation\n")
     cat("-----------------------------------------------\n")
-    cat("Study design:",d.name,"\n")
+    cat("Study design:", desi, "\n")
     if (details) { 
       cat("Design characteristics:\n")
       if (robust & (ades$df2 != ades$df)) {

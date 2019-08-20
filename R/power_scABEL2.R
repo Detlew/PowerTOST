@@ -127,7 +127,7 @@ power.scABEL2 <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
             formatC(ptm["elapsed"], digits=2), "\n")
     #print(ptm)
     # return also the components
-    names(p) <- c("p(BE)", "p(BE-wABEL)", "p(BE-pe)", "p(BE-ABE)")
+    names(p) <- c("p(BE)", "p(BE-ABEL)", "p(BE-pe)", "p(BE-ABE)")
     if (!pe_constr) p <- p[-3] # without pe constraint
     p
   } else {

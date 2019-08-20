@@ -29,16 +29,18 @@ designs <- known.designs()
 print(designs[, c(2, 9, 3)], row.names = FALSE)
 ```
 
-Although some replicate designs are more ‘popular’ than others, sample size estimations are valid for *all* of the following designs:
+Although some replicate designs are more ‘popular’ than others, sample size estimations are valid for *all* of the following designs:<!-- Workaround: upper Iota since pipe not allowed in table -->
 
 |design|type|sequences|
 |:----:|:----:|---------|
-|`2x2x4`|full|TRTR / RTRT|
-|`2x2x4`|full|TRRT / RTTR|
-|`2x2x4`|full|TTRR / RRTT|
-|`2x2x3`|full|TRT / RTR|
-|`2x2x3`|full|TRT / RTR|
-|`2x3x3`|partial|TRR / RTR / RRT|
+|`2x2x4`|full|TRTR Ι RTRT|
+|`2x2x4`|full|TRRT Ι RTTR|
+|`2x2x4`|full|TTRR Ι RRTT|
+|`2x2x3`|full|TRT Ι RTR|
+|`2x2x3`|full|TRR Ι RTT|
+|`2x3x3`|partial|TRR Ι RTR Ι RRT |
+
+Whilst \"2x4x4\" four period full replicate designs with four sequences (TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they should be avoided due to confounded effects.
 
 ## Purpose
 
@@ -146,7 +148,7 @@ sampleN.RatioF(CV = 0.20, CVb = 0.40)
 ### Replicate Designs
 
 #### ABE
-Sample size for assumed intra-subject *CV* 0.45, *θ*<sub>0</sub> 0.90, 3-period full replicate design \"2x2x3\" (TRT|RTR).
+Sample size for assumed intra-subject *CV* 0.45, *θ*<sub>0</sub> 0.90, three period full replicate study \"2x2x3\" (TRT|RTR *or* TRR|RTT).
 ```{r}
 sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
 ```
@@ -169,12 +171,12 @@ sampleN.scABEL(CV = 0.45, details = TRUE)
 
 #### RSABE
 #### HVD(P)s
-Sample size for a four-period full replicate study (TRTR|RTRT) assuming heteroscedasticity (*CV<sub>wT</sub>* 0.40, *CV<sub>wR</sub>* 0.50). Details of the sample size search suppressed.
+Sample size for a four period full replicate \"2x2x4\" study (any of TRTR|RTRT, TRRT|RTTR, TTRR|RRTT) assuming heteroscedasticity (*CV<sub>wT</sub>* 0.40, *CV<sub>wR</sub>* 0.50). Details of the sample size search suppressed.
 ```{r}
 sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 ```
 #### NTIDs
-Sample size assuming heteroscedasticity (*CV<sub>w</sub>* 0.125, σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher variability than R). Assess additionally which one of the three components (scaled, ABE, *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives the sample size.
+Sample size assuming heteroscedasticity (*CV<sub>w</sub>* 0.125, σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher variability than R). TRTR|RTRT according to the FDA’s guidance. Assess additionally which one of the three components (scaled, ABE, *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives the sample size.
 ```{r}
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
 n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
@@ -226,7 +228,7 @@ print(expl, digits = 6, row.names = FALSE)
 The 2<sup>nd</sup> exact method is substantially slower than the 1<sup>st</sup>. The approximation based on the noncentral *t*-distribution is slightly faster but matches the 1<sup>st</sup> exact method closely. The approximation based on the shifted central *t*-distribution is the fastest but *might* estimate a sample size higher than necessary. Hence, it should be used only for comparative purposes.
 
 #### ABEL
-\"2x2x4\" full replicate design (TRTR|RTRT), homogenicity (*CV<sub>wT</sub>* = *CV<sub>wR</sub>* 0.45). Sample sizes and achieved power for the supported methods (‘key’ statistics or subject simulations).
+Four period full replicate study, homogenicity (*CV<sub>wT</sub>* = *CV<sub>wR</sub>* 0.45). Sample sizes and achieved power for the supported methods (‘key’ statistics or subject simulations).
 ```{r, echo = FALSE}
 expl         <- data.frame(method = c("'key' statistics", "subject simulations"),
                            n = NA, power = NA, seconds = NA)
