@@ -159,7 +159,9 @@ approximation by the non-central *t*-distribution, 100,000 simulations.
 
 #### Highly Variable Drugs / Drug Products
 
-*θ*<sub>0</sub> 0.90.
+*θ*<sub>0</sub> 0.90 as recommended by [Tóthfalusi and
+Endrényi](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489)
+(2011).
 
 ###### EMA
 
@@ -337,6 +339,46 @@ sampleN.scABEL(CV = 0.45, details = TRUE)
 #> 39   0.8059
 ```
 
+Iteratively adjust *α* to control the Type I Error ([Labes,
+Schütz](https://doi.org/10.1007/s11095-016-2006-1)). Slight
+heteroscedasticity (*CV<sub>wT</sub>* 0.30, *CV<sub>wR</sub>* 0.35),
+four period full replicate "2x2x4" study, 30 subjects, balanced
+sequences.
+
+``` r
+scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4", n = 30)
+#> +++++++++++ scaled (widened) ABEL ++++++++++++
+#>          iteratively adjusted alpha
+#>    (simulations based on ANOVA evaluation)
+#> ----------------------------------------------
+#> Study design: 2x2x4 (4 period full replicate)
+#> log-transformed data (multiplicative model)
+#> 1,000,000 studies in each iteration simulated.
+#> 
+#> CVwR 0.35, CVwT 0.3, n(i) 15|15 (N 30)
+#> Nominal alpha                 : 0.05 
+#> True ratio                    : 0.9000 
+#> Regulatory settings           : EMA (ABEL)
+#> Switching CVwR                : 0.3 
+#> Regulatory constant           : 0.76 
+#> Expanded limits               : 0.7723 ... 1.2948
+#> Upper scaling cap             : CVwR > 0.5 
+#> PE constraints                : 0.8000 ... 1.2500
+#> Empiric TIE for alpha 0.0500  : 0.06651
+#> Power for theta0 0.9000       : 0.814
+#> Iteratively adjusted alpha    : 0.03540
+#> Empiric TIE for adjusted alpha: 0.05000
+#> Power for theta0 0.9000       : 0.771
+```
+
+With the nominal *α* 0.05 the Type I Error will be inflated (0.0665).
+With the adjusted *α* 0.0354 (*i.e.*, the 92.92% confidence interval)
+the TIE will be controlled, although with a slight loss in power
+(decreases from 0.814 to 0.771).  
+Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to
+estimate the sample size which both controls the TIE and maintains the
+target power. In this example 34 subjects will be required.
+
 #### RSABE
 
 #### HVD(P)s
@@ -371,8 +413,9 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 
 Sample size assuming heteroscedasticity (*CV<sub>w</sub>* 0.125,
 σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher
-variability than R). TRTR|RTRT according to the FDA’s guidance. Assess
-additionally which one of the three components (scaled, ABE,
+variability than R). TRTR|RTRT according to the [FDA’s
+guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf).
+Assess additionally which one of the three components (scaled, ABE,
 *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives the sample size.
 
 ``` r
@@ -510,7 +553,7 @@ the supported methods (the 1<sup>st</sup> one is the default).
 
     #>      method  n    power seconds
     #>       owenq 14 0.805683  0.0015
-    #>         mvt 14 0.805690  0.1220
+    #>         mvt 14 0.805690  0.1210
     #>  noncentral 14 0.805683  0.0010
     #>     shifted 16 0.852301  0.0005
 
@@ -529,8 +572,8 @@ Four period full replicate study, homogenicity (*CV<sub>wT</sub>* =
 supported methods (‘key’ statistics or subject simulations).
 
     #>               method  n   power seconds
-    #>     'key' statistics 28 0.81116    0.16
-    #>  subject simulations 28 0.81196    2.46
+    #>     'key' statistics 28 0.81116    0.14
+    #>  subject simulations 28 0.81196    2.34
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons. However, subject simulations are recommended *if*

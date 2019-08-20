@@ -161,7 +161,9 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     al <- alpha     # If not, use alpha (commonly 0.05).
   }
   designs <- c("2x2x4", "2x2x3", "2x3x3")
-  type    <- c("TRTR|RTRT", "TRT|RTR", "TRR|RTR|RRT") # clear words
+  type    <- c("4 period full replicate",
+               "3 period full replicate",
+               "partial replicate")
   if (print) { # Show input to keep the spirits of the user high.
     if (sdsims) cat("Be patient. Simulating subject data will take a good while!\n\n")  
     cat("+++++++++++ scaled (widened) ABEL ++++++++++++\n")
@@ -169,17 +171,13 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     if (reg$name == "EMA") cat("   (simulations based on ANOVA evaluation)\n")
     if (reg$name %in% c("HC", "FDA")) cat("(simulations based on intra-subject contrasts)\n")
     cat("----------------------------------------------\n")
-    cat("Study design:")
+    cat("Study design: ")
     cat(paste0(design, " (", type[match(design, designs)], ")\n"))
     cat("log-transformed data (multiplicative model)\n")
     cat(formatC(nsims, format = "d", big.mark = ",", decimal.mark = "."),
         "studies in each iteration simulated.\n\n")
     txt <- paste0("CVwR ", sprintf("%.4g", CVwR))
-    if (length(CV) == 2) {
-      txt <- paste0(txt, ", CVwT ", sprintf("%.4g", CVwT), ", ")
-    } else {
-      txt <- paste0(txt, ", ")
-    }
+    txt <- paste0(txt, ", CVwT ", sprintf("%.4g", CVwT), ", ")
     cat(paste0(txt, "n(i) ", paste0(n, collapse = "|"), " (N ", sum(n),
                ")\n"))
     txt <- paste0("Nominal alpha                 : ", signif(alpha, 5))

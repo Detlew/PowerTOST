@@ -4,6 +4,7 @@ Published on GitHub 2019-08-20
 
 ## Bug fixes
 
+  * `scABEL.ad()`, `sampleN.scABEL.ad()`: `CVwT` was not given in output if `CV`was a vector.
   * In `scABEL.ad.R` `regulator`was `NULL`. Corrected to `reg$name`.
   * Smaller font in 4<sup>th</sup> screen of `pwrA_S3methods.R` of `pa.NTID()` (more lines required). Plain font instead of bold in main.
   * Broken FDA URL in many man pages corrected.

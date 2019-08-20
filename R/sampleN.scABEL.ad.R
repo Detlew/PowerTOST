@@ -128,14 +128,10 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     cat("log-transformed data (multiplicative model)\n")
     cat(formatC(nsims, format = "d", big.mark = ",", decimal.mark = "."),
         "studies in each iteration simulated.\n\n")
-    txt <- paste0("Expected CVwR ", sprintf("%.4g", CVwR))
-    if (length(CV) == 2) {
-      txt <- paste0(txt, ", CVwT ", sprintf("%.4g", CVwT), "\n")
-    } else {
-      txt <- paste0(txt, "\n")
-    }
+    txt <- paste0("Assumed CVwR ", sprintf("%.4g", CVwR))
+    txt <- paste0(txt, ", CVwT ", sprintf("%.4g", CVwT))
     cat(txt)
-    txt <- paste0("Nominal alpha      : ", signif(alpha, 5))
+    txt <- paste0("\nNominal alpha      : ", signif(alpha, 5))
     if (!is.na(alpha.pre) && (alpha.pre != alpha)) {
       txt <- paste0(txt, ", pre-specified alpha ", alpha.pre, "\n")
     } else {

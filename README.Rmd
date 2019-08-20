@@ -101,7 +101,7 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
   - FDA: RSABE.
 
 #### Highly Variable Drugs / Drug Products  
-*θ*<sub>0</sub> 0.90.
+*θ*<sub>0</sub> 0.90 as recommended by [Tóthfalusi and Endrényi](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489) (2011).
 
 ###### EMA
 Regulatory constant `0.76`, upper cap of scaling at *CV<sub>wR</sup>* 50\%, evaluation by ANOVA.
@@ -168,6 +168,12 @@ Sample size assuming homoscedasticity (*CV<sub>w</sub>* = 0.45).
 ```{r}
 sampleN.scABEL(CV = 0.45, details = TRUE)
 ```
+Iteratively adjust *α* to control the Type I Error ([Labes, Schütz](https://doi.org/10.1007/s11095-016-2006-1)). Slight heteroscedasticity (*CV<sub>wT</sub>* 0.30, *CV<sub>wR</sub>* 0.35), four period full replicate \"2x2x4\" study, 30 subjects, balanced sequences.
+```{r}
+scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4", n = 30)
+```
+With the nominal *α* 0.05 the Type I Error will be inflated (0.0665). With the adjusted *α* 0.0354 (*i.e.*, the 92.92\% confidence interval) the TIE will be controlled, although with a slight loss in power (decreases from 0.814 to 0.771).  
+Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to estimate the sample size which both controls the TIE and maintains the target power. In this example 34 subjects will be required.
 
 #### RSABE
 #### HVD(P)s
@@ -176,7 +182,7 @@ Sample size for a four period full replicate \"2x2x4\" study (any of TRTR|RTRT, 
 sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 ```
 #### NTIDs
-Sample size assuming heteroscedasticity (*CV<sub>w</sub>* 0.125, σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher variability than R). TRTR|RTRT according to the FDA’s guidance. Assess additionally which one of the three components (scaled, ABE, *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives the sample size.
+Sample size assuming heteroscedasticity (*CV<sub>w</sub>* 0.125, σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher variability than R). TRTR|RTRT according to the [FDA’s guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf). Assess additionally which one of the three components (scaled, ABE, *s<sub>wT</sub>*/*s<sub>wR</sub>* ratio) drives the sample size.
 ```{r}
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
 n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
