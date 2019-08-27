@@ -51,6 +51,7 @@ export(
   , power.RatioF
   , power.TOST
   , power.TOST.sim
+  , power.TOST.sds
   , power.NTIDFDA
   , power.HVNTID
   , power.RSABE

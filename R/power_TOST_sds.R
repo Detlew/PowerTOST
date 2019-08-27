@@ -136,8 +136,7 @@ power.ABE.sds <- power.TOST.sds
 
 # ------ working horse ----------------------------------------------------
 .pwr.ABE.sds <- function(muR=log(10), design_dta, ldiff, s2WR, s2WT, C2, 
-                        nsims, ln_lBEL, ln_uBEL, alpha=0.05, gmodel, 
-                        p.level=0.1,
+                        nsims, ln_lBEL, ln_uBEL, alpha=0.05, gmodel, p.level=0.1,
                         setseed=TRUE, details=FALSE, progress=FALSE)
 {
   # start time measurement

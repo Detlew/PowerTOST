@@ -1,6 +1,6 @@
 # PowerTOST 1.4-7.9000
 
-Published on GitHub 2019-08-20
+Published on GitHub 2019-08-27
 
 ## Bug fixes
 
@@ -17,7 +17,7 @@ Published on GitHub 2019-08-20
   * New function `sampleN.scABEL.sdsims()` for sample size estimation for ABEL via subject simulations. Useful in case of assumed heteroscedasticity in the partial replicate design (TRT|RTR|RRT).
   * `NEWS.md` instead of `NEWS`.
   * `README.md` (knitted from `README.Rmd`).
-  * Function to simulate subject data & evaluate via models with group effect implemented. Not yet public.
+  * Function `power.TOST.sds()` to simulate subject data & evaluate via models with group effect implemented. 
   * Unified Code base for the scaled ABE functions.
 
 ## Minor changes
