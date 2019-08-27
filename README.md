@@ -31,7 +31,7 @@ Helmut Schütz
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Built 2019-08-20 with R 3.6.1.
+Built 2019-08-25 with R 3.6.1.
 
 ## Supported Designs
 
@@ -578,8 +578,8 @@ and analyze their respective power.
 the supported methods (the 1<sup>st</sup> one is the default).
 
     #>      method  n    power seconds
-    #>       owenq 14 0.805683  0.0015
-    #>         mvt 14 0.805690  0.1225
+    #>       owenq 14 0.805683  0.0025
+    #>         mvt 14 0.805690  0.1220
     #>  noncentral 14 0.805683  0.0010
     #>     shifted 16 0.852301  0.0005
 
@@ -598,8 +598,8 @@ Four period full replicate study, homogenicity (*CV<sub>wT</sub>* =
 supported methods (‘key’ statistics or subject simulations).
 
     #>               method  n   power seconds
-    #>     'key' statistics 28 0.81116    0.14
-    #>  subject simulations 28 0.81196    2.36
+    #>     'key' statistics 28 0.81116    0.16
+    #>  subject simulations 28 0.81196    2.90
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons.  

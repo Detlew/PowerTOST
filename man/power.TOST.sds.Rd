@@ -7,8 +7,8 @@ Power calculation of the BE decision with models incorporating groups
 \description{
 The power is calculated via subject data simulations.\cr
 Three models are implemented:\cr
-gmodel==1 is full FDA model but only for testing grptreatment interaction\cr
-gmodel==2 is full FDA model but without group by treatment interaction\cr
+gmodel==1 is full FDA model but only for testing group-by-treatment interaction\cr
+gmodel==2 is full FDA model but without group-by-treatment interaction\cr
 gmodel==3 is model with pooled groups, i.e. without any group term
 }
 \usage{
@@ -121,10 +121,8 @@ for complying with the assumed structure.
 Returns the value of the (empirical) power
 }
 \references{
-Schütz H.\cr
-\emph{Multi-Group Studies in Bioequivalence.To pool or not to pool?}\cr
-Lecture hold at BioBriges 2018, Prague\cr
-\url{https://bebac.at/lectures/Prague2018.pdf}
+Schütz H. \emph{Multi-Group Studies in Bioequivalence. To pool or not to pool?}\cr
+Presentation at BioBriges 2018, Prague. \url{https://bebac.at/lectures/Prague2018.pdf}
 }
 \author{
 D. Labes
