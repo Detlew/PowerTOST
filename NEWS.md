@@ -1,5 +1,5 @@
 # PowerTOST 1.4-8
-on CRAN
+on CRAN 2019-08-27
 
 ## Bug fixes
 
