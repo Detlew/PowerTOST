@@ -66,7 +66,7 @@ Logical; if \verb{TRUE}, the default, a seed of 1234567 is set.
   \item{robust}{
 Defaults to \verb{FALSE}. With that value the usual degrees of freedom will be used.\cr
 Set to \verb{TRUE} will use the degrees of freedom according to the \sQuote{robust} evaluation
-(aka Senn’s basic estimator). These degrees of freedom are calculated as \code{n-seq}.\cr
+(aka \enc{Senn’s}{Senn's} basic estimator). These degrees of freedom are calculated as \code{n-seq}.\cr
 See \code{known.designs()$df2} for designs covered in this package.\cr
 Has only effect for higher-order crossover designs.
   }

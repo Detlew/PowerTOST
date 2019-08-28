@@ -6,7 +6,7 @@
 }
 \description{
 This function performs the power calculation of the BE decision via 
-the FDA’s method for narrow therapeutic index drugs (NTIDs) by simulations.
+the FDA\enc{’}{'}s method for narrow therapeutic index drugs (NTIDs) by simulations.
 The study design could be the full replicate design 2x2x4 with 4-periods (TRTR|RTRT) or the
 2x2x3 replicate design with sequences TRT|RTR.
 }
@@ -105,7 +105,7 @@ Jiang W, Makhlouf F, Schuirmann DJ, Zhang X, Zheng N, Conner D, Yu LX, Lionberge
 D. Labes
 }
 \note{
-The FDA’s method is described for the \acronym{ABE} limits 0.8 ... 1.25 only. Setting theta1,
+The FDA\enc{’}{'}s method is described for the \acronym{ABE} limits 0.8 ... 1.25 only. Setting theta1,
 theta2 to other values may not be reasonable and is not tested.\cr\cr
 The results for the design \code{"2x2x3"} are to be considered as experimental since
 at present not thorougly tested.

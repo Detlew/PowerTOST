@@ -53,7 +53,7 @@ See \code{known.designs()} for designs covered in this package.
   \item{robust}{
 Defaults to \code{FALSE}. With that value the usual degrees of freedom will be used.\cr
 Set to \code{TRUE} will use the degrees of freedom according to the \sQuote{robust} evaluation
-(aka Senn’s basic estimator). These degrees of freedom are calculated as \code{n-seq}.
+(aka \enc{Senn’s}{Senn's} basic estimator). These degrees of freedom are calculated as \code{n-seq}.
 See \code{known.designs()$df2} for designs covered in this package.\cr
 Has only effect for higher-order crossover designs.
 }

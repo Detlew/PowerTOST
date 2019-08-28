@@ -7,7 +7,7 @@
 \alias{ct5.4.1}
 \title{Sample Size Tables for the Classical 2x2 Crossover Design}
 \description{These data.frames give sample size tables calculated with 
-\code{sampleN.TOST()} for the 2×2 design.}
+\code{sampleN.TOST()} for the 2\enc{×}{x}2 design.}
 
 \details{
 The data.frames can be accessed by their names.\cr

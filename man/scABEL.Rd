@@ -21,7 +21,7 @@ May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"FDA
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 The former \code{regulator="ANVISA"} is no longer allowed. The ANVISA 
-recommends since 2016 the EMA’s regulatory settings.\cr
+recommends since 2016 the EMA\enc{’}{'}s regulatory settings.\cr
 The former \code{regulator="USER"} is no longer accepted but can be handled now
 via function \code{reg_const()} to define an object with class 'regSet'.
 }
@@ -32,7 +32,7 @@ with named components \code{lower} and \code{upper} of the scaled acceptance lim
 }
 \details{
 The widened BE acceptance limits are calculated by the formula\cr
-\verb{  [L, U] = exp(± r_const * sWR)}\cr
+\verb{  [L, U] = exp(-/+ r_const * sWR)}\cr
 with \code{r_const} the regulatory constant and \code{sWR} the standard deviation of the within
 subjects variability of the Reference.\cr
 \itemize{

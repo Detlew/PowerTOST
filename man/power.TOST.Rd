@@ -53,11 +53,11 @@ See \code{known.designs()} for designs covered in this package.
   \item{method}{
 Method for calculation of the power.\cr  
 Defaults to \code{"exact"} in which case the calculation is done based on formulas 
-with Owen’s Q. The calculation via Owen’s Q can also be choosen with 
+with \enc{Owen’s}{Owen's} Q. The calculation via \enc{Owen’s}{Owen's} Q can also be choosen with 
 \code{method="owenq"}.\cr
 Another exact method via direct integration of the bivariate non-central 
 \emph{t}-distribution may be chosen with \code{method="mvt"}. This may have somewhat 
-lower precision compared to Owen’s Q and longer run-time.\cr
+lower precision compared to \enc{Owen’s}{Owen's} Q and longer run-time.\cr
 Approximate calculations can be choosen via \code{method="noncentral"} or 
 \code{method="nct"} for the approximation using the non-central \emph{t}-distribution.
 With \code{method="central"} or \code{method="shifted"} the relative crude
@@ -67,13 +67,13 @@ The strings for \code{method} may be abbreviated.
   \item{robust}{
 Defaults to \code{FALSE}. With that value the usual degrees of freedom will be used.\cr
 Set to \code{TRUE} will use the degrees of freedom according to the \sQuote{robust} 
-evaluation (aka Senn’s basic estimator). These degrees of freedom are calculated as \code{n-seq}.\cr
+evaluation (aka \enc{Senn’s}{Senn's} basic estimator). These degrees of freedom are calculated as \code{n-seq}.\cr
 See \code{known.designs()$df2} for designs covered in this package.\cr
 Has only effect for higher-order crossover designs.
   }
 }
 \details{
-The exact calculations of power are based on Owen’s Q-function or by direct 
+The exact calculations of power are based on \enc{Owen’s}{Owen's} Q-function or by direct 
 integration of the bivariate non-central \emph{t}-distribution via function
 \code{\link[mvtnorm]{pmvt}} of package \code{mvtnorm}.\cr
 Approximate power is implemented via the non-central \emph{t}-distribution

@@ -5,7 +5,7 @@
 \alias{ct9.6.6}
 \title{Sample Size Tables for the 2x2x3 Replicate Crossover Design}
 \description{These data.frames give sample size tables calculated with 
-\code{sampleN.TOST()} for the 2×2×3 replicate crossover design
+\code{sampleN.TOST()} for the \enc{2×2×3}{2x3x3} replicate crossover design
 (2-treatment 2-sequence 3-period design.}
 
 \details{

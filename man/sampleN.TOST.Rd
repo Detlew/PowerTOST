@@ -50,11 +50,11 @@ See \code{known.designs()} for designs covered in this package.
   \item{method}{
 Method for calculation of the power.\cr  
 Defaults to \code{"exact"} in which case the calculation is done based on formulas 
-with Owen’s Q. The calculation via Owen’s Q can also be choosen with 
+with \enc{Owen’s}{Owen's} Q. The calculation via \enc{Owen’s}{Owen's} Q can also be choosen with 
 \code{method="owenq"}.\cr
 Another exact method via direct use of the bivariate non-central \emph{t}-distribution
 may be chosen with \verb{method="mvt"}. This may have somewhat lower precision
-compared to Owen’s Q and has a much longer run-time.\cr  
+compared to \enc{Owen’s}{Owen's} Q and has a much longer run-time.\cr  
 Approximate calculations can be choosen via \verb{method="noncentral"} or 
 \verb{method="nct"} for the approximation using the non-central \emph{t}-distribution.
 With \verb{method="central"} or \verb{method="shifted"} the relatively crude
@@ -64,7 +64,7 @@ The strings for \verb{method} may be abbreviated.
   \item{robust}{
 Defaults to \code{FALSE}. With that value the usual degrees of freedom will be used.\cr
 Set to \code{TRUE} will use the degrees of freedom according to the \sQuote{robust} evaluation
-(aka Senn’s basic estimator). These df are calculated as \code{n-seq}.\cr
+(aka \enc{Senn’s}{Senn's} basic estimator). These df are calculated as \code{n-seq}.\cr
 See \code{known.designs()$df2} for designs covered in this package.\cr
 Has only effect for higher-order crossover designs.
   }

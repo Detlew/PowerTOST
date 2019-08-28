@@ -71,7 +71,7 @@ alpha if defined. Otherwise, alpha is used.
 Pre-specified alpha (optional). Must be \code{<=alpha}. \acronym{ABEL} will be
 performed at level \verb{alpha.pre} and the \acronym{TIE} assessed at level \verb{alpha}.\cr
 Less powerful than adjusting alpha but an alternative in the critical region
-of maximum inflation of the \acronym{TIE}. In certain scenarios Bonferroni’s
+of maximum inflation of the \acronym{TIE}. In certain scenarios \enc{Bonferroni’s}{Bonferroni's}
 0.025 is not sufficient to preserve the Type I Error (\emph{e.g.}, the third example).\cr
 Not recommended if \code{CVwR >= 0.45} due to poor power characteristics.
 }
@@ -119,7 +119,7 @@ quantities necessary for assessing \acronym{BE} based on \acronym{ABEL}.
 Simulations for the \acronym{TIE} are performed at the upper (expanded) limit \emph{U}
 of the acceptance range. Due to the symmetry around 1 results are valid for the lower
 (expanded) limit \emph{L} as well.\cr
-\emph{U} at the \acronym{EMA}’s and Health Canada’s \code{CVswitch} and
+\emph{U} at the \acronym{EMA}\enc{’}{'} and Health Canada\enc{’}{'}s \code{CVswitch} and
 \code{CVcap}:\preformatted{scABEL(CV=0.3, reg="EMA")[["upper"]]; scABEL(CV=0.3, reg="HC")[["upper"]]
 [1] 1.25
 [1] 1.25
@@ -127,7 +127,7 @@ scABEL(CV=0.5, reg="EMA")[["upper"]]; scABEL(CV=0.57382, reg="HC")[["upper"]]
 [1] 1.43191
 [1] 1.5}
 Simulated studies are evaluated by ANOVA (Method A) as recommended in the
-\acronym{EMA}’s Q&A-document and by intra-subject contrasts if \code{regulator="HC"}.
+\acronym{EMA}\enc{’}{'} Q&A-document and by intra-subject contrasts if \code{regulator="HC"}.
 Health Canada requires a mixed-effects model which cannot be implemented in R.
 However, intra-subjects contrasts are a sufficiently close approximation.\cr
 The Type I Error in \acronym{ABEL} depends only on \code{CVwR} and -- to a
@@ -176,7 +176,7 @@ of 0.80 (both for \code{alpha} and adjusted alpha) will be estimated. If
 \code{theta0} \emph{is} specified, its value will be used; again for target power 0.80.\cr
 If you are interested in other levels of power, use \code{\link{sampleN.scABEL.ad}}.
 
-The EMA’s method is currently recommended in other jurisdictions as well (\emph{e.g.}, by the WHO;
+The EMA\enc{’s}{'s} method is currently recommended in other jurisdictions as well (\emph{e.g.}, by the WHO;
 in ASEAN States, Australia, Brazil, Egypt, the Eurasian Economic Union, New Zealand, the Russian Federation, and the East African Community).
 }
 \section{Designs}{

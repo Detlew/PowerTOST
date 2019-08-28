@@ -90,7 +90,7 @@ is issued if \code{setseed=TRUE}, the default.
 }
 \details{
 The linearized scaled ABE criterion is calculated according to the SAS code
-given in the FDA’s progesterone guidance.\cr
+given in the FDA\enc{’}{'}s progesterone guidance.\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on scaled ABE criterion.\cr
 Details can be found in a document \verb{Implementation_scaledABE_simsVx.yy.pdf} 

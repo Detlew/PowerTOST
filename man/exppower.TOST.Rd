@@ -53,7 +53,7 @@ See \link{known.designs} for designs covered in this package.
 }
   \item{robust}{
 Defaults to \code{FALSE}. Set to \code{TRUE} will use the degrees of freedom according 
-to the \sQuote{robust} evaluation (aka Senn’s basic estimator). These df are calculated
+to the \sQuote{robust} evaluation (aka Senn\enc{’}{'}s basic estimator). These df are calculated
 as \code{n-seq}.\cr 
 See \code{known.designs()$df2} for designs covered in this package.
 }
@@ -142,7 +142,7 @@ Value of expected power according to the input.
 \references{
 Grieve AP. \emph{Confidence Intervals and Sample Sizes.} Biometrics. 1991;47:1597--603. \doi{10.2307/2532411}
 
-O’Hagan, Stevens, JW, Campell MJ. \emph{Assurance in Clinical Trial Design.} Pharm Stat. 2005;4:187--201. \doi{10.1002/pst.175}
+\enc{O’Hagan}{O'Hagan}, Stevens, JW, Campell MJ. \emph{Assurance in Clinical Trial Design.} Pharm Stat. 2005;4:187--201. \doi{10.1002/pst.175}
 
 Julious SA, Owen RJ. \emph{Sample size calculations for clinical studies allowing for 
 uncertainty in variance.} Pharm Stat. 2006;5:29--37. \doi{10.1002/pst.197}

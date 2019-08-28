@@ -65,7 +65,7 @@ May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"FDA
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr
-The former \code{regulator="ANVISA"} is no longer allowed. Since 2016 the ANVISA recommends the EMA’s regulatory settings. 
+The former \code{regulator="ANVISA"} is no longer allowed. Since 2016 the ANVISA recommends the EMA\enc{’}{'} regulatory settings. 
 }
   \item{nsims}{
 Number of simulations to be performed to obtain the empirical power.
@@ -89,7 +89,7 @@ is issued if \code{setseed=TRUE}, the default.
 The methods rely on the analysis of log-transformed data, \emph{i.e.}, assume a 
 log-normal distribution on the original scale.\cr\cr
 The widened BE acceptance limits will be calculated by the formula\cr
-\verb{  [L, U] = exp(± r_const * sWR)}\cr
+\verb{  [L, U] = exp(-/+ r_const * sWR)}\cr
 with \code{r_const} the regulatory constant and \code{sWR} the standard deviation of the within
 subjects variability of the Reference. \code{r_const = 0.76} (~log(1.25)/0.29356) is used 
 in case of \code{regulator="EMA"} or \code{regulator="HC"} and in case of 

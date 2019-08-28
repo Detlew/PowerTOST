@@ -41,11 +41,11 @@ With \code{robust=FALSE} (the default) usual degrees of freedom of the designs a
 With \code{robust=TRUE} the degrees of freedom for the so-called robust
 evaluation (df2 in known.designs()) will be used. This may be helpful
 if the CI was evaluated via a mixed model or via intra-subject contrasts 
-(aka Senn’s basic estimator).
+(aka \enc{Senn’s}{Senn's} basic estimator).
   }
 }
 \details{
-See Helmut \enc{Schütz}{Schuetz}’ \href{http://bebac.at/lectures/Bucharest2013WS1.pdf#page=26}{presentation} for the algebra underlying this function.
+See Helmut \enc{Schütz’}{Schuetz'} \href{http://bebac.at/lectures/Bucharest2013WS1.pdf#page=26}{presentation} for the algebra underlying this function.
 }
 \value{
 Numeric value of the CV as ratio.

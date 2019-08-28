@@ -31,13 +31,13 @@ CI.BE(alpha = 0.05, pe, CV, n, design = "2x2", robust = FALSE)
     Number of subjects in (sequence) groups if given as vector.
   }
   \item{design}{
-    Character string describing the study’s design.\cr
+    Character string describing the \enc{study’s}{study's} design.\cr
     See \code{known.designs()} for designs covered in this package.
   }
   \item{robust}{
     Defaults to \code{FALSE}.\cr
     Setting to \code{TRUE} will use the degrees of freedom according
-    to the \sQuote{robust} evaluation (aka Senn’s basic
+    to the \sQuote{robust} evaluation (aka \enc{Senn’s}{Senn's} basic
     estimator). These degrees of freedom are calculated as \code{n-seq}.\cr
     See \code{known.designs()$df2} for designs covered in this package.
   }

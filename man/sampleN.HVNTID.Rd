@@ -7,7 +7,7 @@ narrow therapeutic index drugs (NTIDs)
 }
 \description{
 This function performs the sample size estimation for the BE decision via 
-the FDA’s method for highly variable NTIDs as described in respective guidances based on simulations.\cr
+the FDA\enc{’}{'}s method for highly variable NTIDs as described in respective guidances based on simulations.\cr
 The study designs may be the full replicate design 2x2x4 with 4 periods (TRTR|RTRT) and 
 the 3-period replicate design 2x2x3 with sequences RTR|TRT.
 }

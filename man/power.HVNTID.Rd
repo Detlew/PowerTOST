@@ -6,7 +6,7 @@
 }
 \description{
 This function performs the power calculation of the BE decision via 
-the FDA’s method for highly variable narrow therapeutic index drugs (NTIDs) 
+the FDA\enc{’}{'}s method for highly variable narrow therapeutic index drugs (NTIDs) 
 as described in respective guidances based on simulations.
 The study design could be the full replicate design 2x2x4 with 4-periods (TRTR|RTRT) or the
 2x2x3 replicate design with 3-periods and sequences TRT|RTR.
@@ -97,7 +97,7 @@ Food and Drug Administration, Office of Generic Drugs (OGD). \emph{Draft Guidanc
 D. Labes
 }
 \note{
-The FDA’s guidances recommend only the full replicate design "2x2x4" (TRTR|RTRT).
+The FD\enc{’}{'}s guidances recommend only the full replicate design "2x2x4" (TRTR|RTRT).
 The results for the design "2x2x3" (TRT|RTR) are to be considered as experimental since
 at present not thorougly tested.
 }

@@ -33,9 +33,9 @@ Chen \emph{et al.} used models with carry-over, \emph{i.e.}, one df lower than h
 The design constant bk in case of design 2x2x4 is here bk=1.\cr
 Chen \emph{et al.} used bk=1.1 due to carry-over in the model.\cr\cr
 n is the \bold{total} number of subjects for all designs implemented.\cr
-df2 = degrees of freedom for the so-called \sQuote{robust} analysis (aka Senn’s basic estimator).\cr
+df2 = degrees of freedom for the so-called \sQuote{robust} analysis (aka \enc{Senn’s}{Senn's} basic estimator).\cr
 These degrees of freedom are often also more appropriate in case of evaluation via a \sQuote{true} 
-mixed model (\emph{e.g.} the FDA’s for replicate designs).\cr\cr
+mixed model (\emph{e.g.} the FDA\enc{’}{'} for replicate designs).\cr\cr
 The design \code{2x2x2r} is the 2-treatment-2-sequence-2-period design with 
 2 repeated targets determined in each period (sequences TT|RR or RR|TT) described 
 by Liu. Implemented are the characteristics of this design for the evaluation 

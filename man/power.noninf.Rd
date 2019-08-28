@@ -47,7 +47,7 @@ See \code{\link{known.designs}} for designs covered in this package.
   \item{robust}{
 Defaults to \code{FALSE}. With that value the usual degrees of freedom will be used.\cr
 Set to \code{TRUE} will use the degrees of freedom according to the \sQuote{robust} evaluation
-(aka Senn’s basic estimator). These degrees of freedom are calculated as \code{n-seq}.\cr
+(aka \enc{Senn’s}{Senn's} basic estimator). These degrees of freedom are calculated as \code{n-seq}.\cr
 See \code{known.designs()$df2} for designs covered in this package.\cr
 Has only effect for higher-order crossover designs.
 }
@@ -89,8 +89,8 @@ D. Labes
 }
 \note{
 This function does not rely on TOST but may be useful in planning BE studies 
-if the question is not equivalence but \sQuote{non-superiority}. \cr
-Hint: Evaluation of Fluctuation in the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/note-guidance-modified-release-oral-transdermal-dosage-forms-section-ii-pharmacokinetic-clinical_en.pdf}{EMEA’s Note for Guidance} between a modified release 
+if the question is not equivalence but \sQuote{non-superiority}.\cr
+Hint: Evaluation of Fluctuation in the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/note-guidance-modified-release-oral-transdermal-dosage-forms-section-ii-pharmacokinetic-clinical_en.pdf}{\enc{EMEA’s}{EMEA's} Note for Guidance} between a modified release 
 formulation and an immediate release product.
 }
 
