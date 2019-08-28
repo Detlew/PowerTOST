@@ -12,6 +12,7 @@ on CRAN 2019-08-27
   
 ## Major changes
 
+  * New function `power.TOST.sds` for the BE decision with models incorporating groups.
   * New function `sampleN.RSABE2L.sdsims()` for sample size estimation via subject simulations for the ‘exact’ method of Tóthfalusi & Endrényi “*[Algorithms for evaluating reference scaled average bioequivalence: power, bias, and consumer risk](https://doi.org/10.1002/sim.7440)*”.
   * New function `sampleN.scABEL.sdsims()` for sample size estimation for ABEL via subject simulations. Useful in case of assumed heteroscedasticity in the partial replicate design (TRT|RTR|RRT).
   * `NEWS.md` instead of `NEWS`.
