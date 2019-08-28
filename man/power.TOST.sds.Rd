@@ -6,10 +6,14 @@ Power calculation of the BE decision with models incorporating groups
 }
 \description{
 The power is calculated via subject data simulations.\cr
-Three models are implemented:\cr
-gmodel==1 is full FDA model but only for testing group-by-treatment interaction\cr
-gmodel==2 is full FDA model but without group-by-treatment interaction\cr
-gmodel==3 is model with pooled groups, i.e. without any group term
+Three models are implemented:
+\itemize{
+\item gmodel==1 is full FDA model for testing group-by-treatment interaction
+          followed by gmodel==2 or gmodel==3 with data of the biggest group
+          depending on the test of the treatment by group interaction
+\item gmodel==2 is full FDA model but without group-by-treatment interaction
+\item gmodel==3 is model with pooled groups, i.e. without any group term
+}
 }
 \usage{
 power.TOST.sds(alpha = 0.05, theta1, theta2, theta0, CV, n, 
@@ -78,13 +82,14 @@ Number of (logistical) groups. Defaults to 2.
 Vector of number of subjects in groups.
 }
   \item{gmodel}{
-\code{gmodel=1} is full FDA model for testing grp x treatment interaction
-followed by an evaluation with gmodel=2 if the interaction is not significant 
-at p=0.1. If significant gmodel=3 with the data from the largest group is used
-for the BE decision.\cr
-\code{gmodel=2} is full FDA model but without group by treatment interaction,
-i.e. poolability of groups assumed but groups considered in the model.\cr
-\code{gmodel=3} is model with pooled groups, i.e. without any group term.\cr
+  Number describing the model incorporating group effects
+  \itemize{
+  \item \code{gmodel=1} is full FDA model for testing group-by-treatment interaction
+  followed by \code{gmodel=2} or \code{gmodel=3} with data of the biggest group
+  depending on the test of the treatment by group interaction
+  \item \code{gmodel=2} is full FDA model but without group-by-treatment interaction
+  \item \code{gmodel=3} is model with pooled groups, i.e. without any group term
+}
 Defaults to \code{gmodel=2}.
 }
   \item{nsims}{
