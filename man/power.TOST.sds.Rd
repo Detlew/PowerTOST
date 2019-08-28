@@ -126,7 +126,8 @@ for complying with the assumed structure.
 Returns the value of the (empirical) power
 }
 \references{
-Schütz H. \emph{Multi-Group Studies in Bioequivalence. To pool or not to pool?}\cr
+\enc{Schütz}{Schuetz} H. \cr 
+\emph{Multi-Group Studies in Bioequivalence. To pool or not to pool?}\cr
 Presentation at BioBriges 2018, Prague. \url{https://bebac.at/lectures/Prague2018.pdf}
 }
 \author{
