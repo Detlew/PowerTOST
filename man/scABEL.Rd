@@ -60,7 +60,7 @@ Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf 
 Highly Variable Generic Drug Products by the US Food and Drug Administration.} AAPS J. 2012;14(4):915--24. \doi{10.1208/s12248-012-9406-x}
 
 Health Canada, Therapeutic Products Directorate. \emph{Guidance Document. Comparative Bioavailability Standards:
-Formulations Used for Systemic Effects.} 2018/06/08. \href{https://www.canada.ca/content/dam/hc-sc/migration/hc-sc/dhp-mps/alt_formats/pdf/prodpharma/applic-demande/guide-ld/bio/comparative-bioavailability-standards-formulations-used-systemic-effects.pdf}{ISBN: 978‐0‐660‐25514‐9}
+Formulations Used for Systemic Effects.} 2018/06/08. \href{https://www.canada.ca/content/dam/hc-sc/migration/hc-sc/dhp-mps/alt_formats/pdf/prodpharma/applic-demande/guide-ld/bio/comparative-bioavailability-standards-formulations-used-systemic-effects.pdf}{ISBN: 978-0-660-25514-9}
 }
 \author{
 D. Labes
