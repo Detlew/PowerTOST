@@ -13,9 +13,9 @@ gmodel==3 is model with pooled groups, i.e. without any group term
 }
 \usage{
 power.TOST.sds(alpha = 0.05, theta1, theta2, theta0, CV, n, 
-               design = c("2x2", "2x3x3", "2x2x4", "2x2x3"), design_dta = NULL, 
-               grps = 2, ngrp = NULL, gmodel = 2, nsims = 1e+05, 
-               details = FALSE, setseed = TRUE, progress)
+               design = c("2x2", "2x2x2", 2x3x3", "2x2x4", "2x2x3"),
+               design_dta = NULL, grps = 2, ngrp = NULL, gmodel = 2,
+               nsims = 1e+05, details = FALSE, setseed = TRUE, progress)
 }
 \arguments{
   \item{alpha}{
@@ -55,7 +55,7 @@ sequence group 'RTR'.
 }
   \item{design}{
 Design of the study to be planned.\cr
-\code{"2x2"} is the conventional cross-over design.\cr
+\code{"2x2"} or \code{"2x2x2"} is the conventional cross-over design.\cr
 \code{"2x3x3"} is the partial replicate design (TRR|RTR|RRT).\cr
 \code{"2x2x4"} is the full replicate design with 2 sequences and 4 periods.\cr
 \code{"2x2x3"} is the 3-period design with sequences TRT|RTR.\cr

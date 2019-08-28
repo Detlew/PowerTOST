@@ -7,7 +7,7 @@
 # Author D. Labes based on power.scABEL.sdsims()
 # ----------------------------------------------------------------------------
 power.TOST.sds <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
-                           design=c("2x2", "2x3x3", "2x2x4", "2x2x3"), 
+                           design=c("2x2", "2x2x2", "2x3x3", "2x2x4", "2x2x3"), 
                            design_dta=NULL, grps=2, ngrp = NULL, gmodel=2,
                            nsims=1E5, details=FALSE, setseed=TRUE, progress)
 {
@@ -38,7 +38,7 @@ power.TOST.sds <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     desi <- match.arg(design)
     # degrees of freedom no longer set here
     # will be determined in the working horse via a first, single call of lm()
-    if(desi=="2x2"){
+    if(desi=="2x2" | desi=="2x2x2"){
       bk <- 2
       bkni <- 1/2
       seqs <- c("TR", "RT")
