@@ -13,7 +13,7 @@ gmodel==3 is model with pooled groups, i.e. without any group term
 }
 \usage{
 power.TOST.sds(alpha = 0.05, theta1, theta2, theta0, CV, n, 
-               design = c("2x2", "2x2x2", 2x3x3", "2x2x4", "2x2x3"),
+               design = c("2x2", "2x2x2", "2x3x3", "2x2x4", "2x2x3"),
                design_dta = NULL, grps = 2, ngrp = NULL, gmodel = 2,
                nsims = 1e+05, details = FALSE, setseed = TRUE, progress)
 }
