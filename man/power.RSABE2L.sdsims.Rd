@@ -178,7 +178,7 @@ Although some designs are more \sQuote{popular} than others, power calculations 
 }
 \examples{
 # Not run due to timing policy of CRAN
-\dontrun{
+\donttest{
 # pure EMA settings without mixed procedure, cap on widening and PE constraint
 # as in the reference from 2017
 reg           <- reg_const("EMA")

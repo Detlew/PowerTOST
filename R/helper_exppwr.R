@@ -3,11 +3,8 @@
 #------------------------------------------------------------------------
 #------------------------------------------------------------------------
 # Densitiy of inverse gamma distriubtion
-# Adapted dinvgamma() from R package MCMCpack (1.3-3)
 # Author B. Lang, slightly modified by D. Labes
 #
-# MCMCpack:dinvgamma() authored by Andrew D. Martin, Kevin M. Quinn, 
-# and Jong Hee Park
 #------------------------------------------------------------------------
 dinvgamma <- function(x, shape, scale = 1) {
   stopifnot(is.numeric(shape), shape > 0, is.numeric(scale), scale > 0,

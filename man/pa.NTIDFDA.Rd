@@ -104,6 +104,6 @@ to values nearer to 1 to not run into errors and/or long execution times.
 # 1E5 sims in power.NTIDFDA()
 # not run due to timing policy of CRAN for examples
 # may run some ten seconds or more
-\dontrun{
+\donttest{
 plot(pa.NTIDFDA(CV=0.1))}
 }

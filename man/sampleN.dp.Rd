@@ -110,7 +110,7 @@ Especially for \code{design="IBD"} reliable test cases are missing.
 sampleN.dp(CV = 0.2, doses = c(1, 2, 8), beta0 = 1.02)
 # should give n=18, power=0.854528
 
-\dontrun{
+\donttest{
 # incomplete block design mentioned in Sethuraman et al.
 # with 5 doses, 20 sequences, 3 periods
 # (I hope at least that the design is that they used)

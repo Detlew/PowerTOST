@@ -164,7 +164,7 @@ error trap.
 # EMA regulatory settings
 # Heterogenicity (CVwT 0.4, CVwR 0.3)
 # compare results and run times
-\dontrun{
+\donttest{
 CV           <- c(0.4, 0.3)
 expl         <- data.frame(method = c("subject simulations", "\'key\' statistics"),
                            n = NA, power = NA, seconds = NA)

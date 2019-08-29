@@ -159,7 +159,7 @@ sampleN.TOST(CV=0.3)
 # -> gives n = 40 subjects
 # Compare this to the case where uncertainty is accounted for CV and theta0
 # Not run due to timing policy of CRAN - may run several seconds
-\dontrun{
+\donttest{
 expsampleN.TOST(CV=0.3, prior.parm = list(m = 30, design = "2x2"), 
                 prior.type = "both")}
 # -> gives n = 72 subjects

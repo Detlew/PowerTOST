@@ -165,7 +165,7 @@ error trap.
 # ABE limits, PE constraint 0.8 - 1.25
 # EMA regulatory settings
 # compare results
-\dontrun{
+\donttest{
 CV     <- 0.4
 method <- c("exact", "abel", "hyslop", "fda")
 res    <- data.frame(SABE_test = c("ncTOST", "ABEL",

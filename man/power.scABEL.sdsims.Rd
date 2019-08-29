@@ -157,7 +157,7 @@ sample sizes!
 # design="2x3x3", EMA regulatory settings
 # PE constraint 0.8-1.25, cap on widening if CV>0.5
 # true ratio=0.90, 1E+5 simulations
-\dontrun{power.scABEL.sdsims(CV = 0.4, n = 36)}
+\donttest{power.scABEL.sdsims(CV = 0.4, n = 36)}
 # should give:
 # [1] 0.74321
 }

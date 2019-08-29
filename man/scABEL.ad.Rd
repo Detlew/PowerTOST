@@ -204,22 +204,22 @@ the power value agreement to the one obtained by simulations via subject data.
 # EMA regulatory settings (ABE limits and PE constraint 0.80 - 1.25),
 # 1E+6 simulated studies.
 # Not run: due to timing policy of CRAN for examples
-\dontrun{
+\donttest{
 scABEL.ad(CV = 0.3)}
 # Should result in adjusted alpha 0.03389 (TIE 0.5000, TIE for nominal alpha 0.07189).
 #
 # As above but subject data simulations.
-\dontrun{
+\donttest{
 scABEL.ad(CV = 0.3, sdsims = TRUE)}
 # Should result in adjusted alpha 0.03336 (TIE 0.5000, TIE for nominal alpha 0.07237).
 #
 # TRT|RTR, heteroscedasticity, sample size 48 (unbalanced), subject data simulations.
-\dontrun{
+\donttest{
 scABEL.ad(CV = c(0.25, 0.3), design = "2x2x3", n = c(23, 25), sdsims = TRUE)}
 # Should result in adjusted alpha 0.02465 (TIE 0.5000, TIE for nominal alpha 0.09050).
 #
 # TRTR|RTRT, CV 0.35, sample size 33 (unbalanced).
-\dontrun{
+\donttest{
 scABEL.ad(CV = 0.35, design = "2x2x4", n = c(16, 17))}
 # Should result in adjusted alpha 0.03632 (TIE 0.5000, TIE for nominal alpha 0.06544).
 }

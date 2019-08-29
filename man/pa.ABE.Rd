@@ -120,7 +120,7 @@ This results in a lesser decrease of power than more extreme dropout-patterns.
 # print & plot implicitly
 pa.ABE(CV = 0.2)
 # print & plot
-\dontrun{
+\donttest{
 res <- pa.ABE(CV = 0.2)
 print(res, plotit = FALSE)                 # print only
 plot(res, pct = FALSE, ratiolabel = "GMR") # changed from defaults}

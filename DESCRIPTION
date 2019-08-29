@@ -20,7 +20,9 @@ Author: Detlew Labes [aut, cre] (<https://orcid.org/0000-0003-2169-426X>),
   Benjamin Lang [aut]
 Maintainer: Detlew Labes <DetlewLabes@gmx.de>
 Description: Contains functions to calculate power and sample size for
-    various study designs used in bioequivalence studies.  
+    various study designs used in bioequivalence studies. Use known.designs() to
+    see the designs supported. Power and sample size can be obtained based on
+    different methods, among them prominently the TOST procedure (two-onesided-t-tests).
     See README and NEWS for further information.
 Imports: mvtnorm, stats, utils, graphics, grDevices, cubature (>= 1.3-6), TeachingDemos
 Suggests: crossdes, knitr, rmarkdown

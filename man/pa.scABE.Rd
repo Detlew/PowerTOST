@@ -105,7 +105,7 @@ This results in a lesser decrease of power than more extreme dropout-patterns.
 # widened BE margins from defaults of sampleN.scABEL() 0.7462 ... 1.3402
 # 1E5 sims in power.scABEL()
 # not run due to timing policy of CRAN, may run some ten seconds
-\dontrun{
+\donttest{
 # Implicit print & plot
 pa.scABE(CV = 0.4)}
 }

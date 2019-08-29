@@ -1,5 +1,4 @@
 # find root of a function to the nearest integer in multiple of step
-# code based on ssanv::uniroot.integer, author Michael P. Fay 
 uniroot.step <- function (f, interval, lower = min(interval), upper = max(interval), 
                           step=2, step.power = 6, step.up = TRUE, 
                           pos.side = FALSE, maxiter = 100, ...) 
