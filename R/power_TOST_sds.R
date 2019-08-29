@@ -161,7 +161,7 @@ power.ABE.sds <- power.TOST.sds
   nR <- length(dta_tmt[dta_tmt==1])
 
   oc <- options(contrasts=c("contr.treatment","contr.poly"))
-
+  on.exit(options(oc))
   # make a first evaluation via lm() to obtain degrees of freedom
   if(gmodel==2 || gmodel==1) {
     mudel <- lm(logval ~ tmt + grp + sequence + subject%in%(grp:sequence) 
@@ -302,8 +302,6 @@ power.ABE.sds <- power.TOST.sds
     j1 <- j1 + no_rhs
     j2 <- j2 + no_rhs
   } 
-  # reset options
-  options(oc)
   
   # done with the progressbar
   if(progress) close(pb)

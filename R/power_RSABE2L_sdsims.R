@@ -155,6 +155,7 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
   nR <- length(dta_tmt[dta_tmt==1])
 
   oc <- options(contrasts=c("contr.treatment","contr.poly"))
+  on.exit(options(oc))
   # save the model matrices for reuse in the simulation loop
   # the inclusion of sequence doesn't change the residual ms
   # model.matrix full
@@ -237,8 +238,7 @@ power.RSABE2L.sds <- power.RSABE2L.sdsims
     j1 <- j1 + no_rhs
     j2 <- j2 + no_rhs
   } 
-  # reset options
-  options(oc)
+
   # standard error of the difference T-R
   seD  <- sqrt(C2*mses)
   # ABE test = 1-2*alpha CI, df are the df of the ANOVA

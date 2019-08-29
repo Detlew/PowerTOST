@@ -209,13 +209,11 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
       # different, also the effect size
       # see f.i. eqn (17a, 17b) of the 2016 paper
       #
-      # avoid warnings wrt to full precision in pnt
-      #op2 <- options(warn=-1)
       # df for non-central t-distri; Which one?
       # here dfRR equals df, except for TRT|RTR
         #Ltheta <- qt(p=1-alpha, df=dfRR, ncp=-(Hf/k)*r_const)
-        # next line avoids warnings
-        Ltheta <- -qt(p=alpha, df=dfRR, ncp=(Hf/k)*r_const)
+        # suppress warnings wrt to full precision in pnt
+        Ltheta <- suppressWarnings(-qt(p=alpha, df=dfRR, ncp=(Hf/k)*r_const))
         # using non-central f distribution
         # doesn't give the same values!!!
         #Ltheta <- -sqrt(qf(p=alpha, df1=1, df2=dfRR, ncp=(r_const*Hf/k)^2))
@@ -226,7 +224,6 @@ power.RSABE2L.isc <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
         #Utheta <- qt(alpha, dfRR, +r_const/k)
         #Ltheta <- -qt(alpha, dfRR, +r_const/k)
         Utheta <- -Ltheta # is this in all cases correct?
-      #options(op2)
       # effect size
       es <- (pes/sqrt(s2wRs))/k
       # 2016 paper
