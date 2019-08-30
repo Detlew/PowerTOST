@@ -31,7 +31,7 @@ Helmut Schütz
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Built 2019-08-25 with R 3.6.1.
+Built 2019-08-30 with R 3.6.1.
 
 ## Supported Designs
 
@@ -49,6 +49,9 @@ Built 2019-08-25 with R 3.6.1.
     #>     2x4x2            Balaam's (2x4x2)   n-2
     #>    2x2x2r Liu's 2x2x2 repeated x-over 3*n-2
     #>    paired                paired means   n-1
+
+The code of designs follow this pattern: `treatments x sequences x
+periods`.
 
 Although some replicate designs are more ‘popular’ than others, sample
 size estimations are valid for *all* of the following designs:
@@ -572,13 +575,16 @@ and analyze their respective power.
 
 ### Speed Comparisons
 
+Double Xeon E3-1245v3 3.4GHz, 8MB cache, 16GB RAM, R 3.6.1 64bit on
+Windows 7.
+
 #### ABE
 
 "2x2" crossover design, *CV* 0.17. Sample sizes and achieved power for
 the supported methods (the 1<sup>st</sup> one is the default).
 
     #>      method  n    power seconds
-    #>       owenq 14 0.805683  0.0025
+    #>       owenq 14 0.805683  0.0020
     #>         mvt 14 0.805690  0.1220
     #>  noncentral 14 0.805683  0.0010
     #>     shifted 16 0.852301  0.0005
@@ -598,8 +604,8 @@ Four period full replicate study, homogenicity (*CV<sub>wT</sub>* =
 supported methods (‘key’ statistics or subject simulations).
 
     #>               method  n   power seconds
-    #>     'key' statistics 28 0.81116    0.16
-    #>  subject simulations 28 0.81196    2.90
+    #>     'key' statistics 28 0.81116    0.14
+    #>  subject simulations 28 0.81196    2.57
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons.  

@@ -1,0 +1,81 @@
+---
+title: "PowerTOST"
+subtitle: "Main Vignette"
+author: "Helmut Schütz"
+date: "`r Sys.Date()`"
+lang: "en"
+output:
+  rmarkdown::html_vignette:
+    css: vignette.css
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{PowerTOST}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+```{r setup}
+library(PowerTOST) # attach the library
+```
+# Introduction{#intro}
+The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies.\
+Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST")` with R `r getRversion()`.
+
+For an overview of supported designs, methods, and defaults together with some basic examples see
+
+  * [README](https://cran.r-project.org/web/packages/PowerTOST/readme/README.html) of the released version on CRAN;
+  * [README](https://github.com/Detlew/PowerTOST/blob/master/README.md) of the development version on GitHub.
+
+<small>[TOC ↩](#TOC)</small>
+
+# Installation
+You can install the released version of PowerTOST from [CRAN](https://CRAN.R-project.org) with:
+```{r}
+package <- "PowerTOST"
+inst    <- package %in% installed.packages()
+if (length(package[!inst]) > 0) install.packages(package[!inst])
+```
+… and the development version from [GitHub](https://github.com/) with …
+```
+# install.packages("devtools")
+devtools::install_github("Detlew/PowerTOST")
+```
+<small>[TOC ↩](#TOC)</small>
+
+# Examples{#expl}
+* [Average Bioequivalence](library/doc/ABE.html){#ABE}
+* [Reference-Scaled Average Bioequivalence](library/doc/RSABE.html){#RSABE}
+* [Non-Inferiority](library/doc/NI.html){#NI}
+* [Dose-Proportionality](library/doc/DP.html){#DP}
+* [Power Analysis](library/doc/PA.html){#PA}
+
+Figures as Placeholder.
+
+![**Fig. 1** Average Bioequivalence](figure1.png){width=651px}
+
+![**Fig. 2** Average Bioequivalence with Expanding Limits](figure2.png){width=651px}
+
+<small>[TOC ↩](#TOC)</small>
+
+# Contributors{#contr}
+- Detlew Labes (author, maintainer)
+- Helmut Schütz (author)
+- Benjamin Lang (author)
+
+<small>[TOC ↩](#TOC)</small>
+
+# Session Information{#session}
+Inspect this information for reproducibility. Of particular importance are the versions of R and the packages used to create this workflow. It is considered good practice to record this information with every analysis.
+
+```{r, sessioninfo}
+options(width = 80)
+devtools::session_info()
+```
+<small>[TOC ↩](#TOC)</small>

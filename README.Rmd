@@ -29,6 +29,8 @@ designs <- known.designs()
 print(designs[, c(2, 9, 3)], row.names = FALSE)
 ```
 
+The code of designs follow this pattern: `treatments x sequences x periods`.
+
 Although some replicate designs are more ‘popular’ than others, sample size estimations are valid for *all* of the following designs:
 
 |design|type|sequences|periods|
@@ -242,6 +244,8 @@ However, this is **not** a substitute for the “Sensitivity Analysis” recomme
 <small>[↑ TOC](#readme)</small>
 
 ### Speed Comparisons
+Double Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R `r getRversion()` 64 bit on Windows 7.
+
 #### ABE
 \"2x2\" crossover design, *CV* 0.17. Sample sizes and achieved power for the supported methods (the 1<sup>st</sup> one is the default).
 ```{r, echo = FALSE}
