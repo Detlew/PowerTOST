@@ -17,7 +17,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#"
 )
 ```
 ```{r setup}
@@ -51,7 +51,7 @@ Man-pages of functions used in this vignette:
 | robust | `robust` | ‘Robust’ evaluation (Senn’s basic estimator) | FALSE |
 | print | `print` | Show information in the console? | TRUE |
 | details | `details` | Show details of the sample size search? | FALSE |
-| imax | `imax` | Maximum naumber of iterations | 100 |
+| imax | `imax` | Maximum number of iterations | 100 |
 
 Defaults depending on the argument `logscale`:
 
@@ -62,9 +62,9 @@ Defaults depending on the argument `logscale`:
 | $\theta_{2}$ | `theta2` | 1.25 | +0.20 |
 
 Arguments have to be given as ratios, not percent.\
-The *CV* is generally the within-subject coefficient of variation. Only for `design="parallel"` it is the total (a.k.a. pooled) *CV*.
+The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (a.k.a. pooled) *CV*.
 
-With `sampleN.TOST(..., print = FALSE)` results are given as a data.frame with eight columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `foo[7]` or `foo[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are given as a data.frame with eight columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `foo[7]` or `foo[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
@@ -77,14 +77,12 @@ Estimate the sample size for assumed intra-subject *CV* 0.30.
 ```{r}
 sampleN.TOST(CV = 0.30)
 ```
-
 Note that the sample size is always rounded up to give balanced sequences (here a multiple of 2). Since power is higher than our target, likely this was the case here. Let us check that.\
 Which power will we get with a sample size of 39?
 
 ```{r}
 power.TOST(CV = 0.30, n = 39)
 ```
-
 Confirmed that with 39 subjects we will already reach the target power. That means also that one dropout will not compromise power. We can explore that further in a [Power Analysis](library/doc/PA.html).
 
 <small>[TOC ↩](#TOC)</small>
@@ -93,9 +91,8 @@ Maybe the clinical site has a limited capacity. Any study can also be performed 
 ```{r}
 designs <- c("2x2x2", "2x2x3", "2x3x3", "2x2x4")
 # data.frame of results
-res <- data.frame(design = designs,
-                  n = NA, power = NA, n.do = NA, power.do = NA,
-                  stringsAsFactors = FALSE)
+res <- data.frame(design = designs, n = NA, power = NA, n.do = NA,
+                  power.do = NA, stringsAsFactors = FALSE)
 for (i in 1:4) {
   # print = FALSE and details = FALSE suppress the output to the console
   # we are only interested in columns 7-8
@@ -169,8 +166,7 @@ ngrp <- function(capacity, n) {
 }
 CV        <- 0.30
 capacity  <- 24
-res       <- data.frame(n = NA, grps = NA, pwr.1 = NA, pwr.2 = NA,
-                        rel.loss = NA)
+res       <- data.frame(n = NA, grps = NA, pwr.1 = NA, pwr.2 = NA)
 x         <- sampleN.TOST(CV = CV, print = FALSE, details = FALSE)
 res$n     <- x[["Sample size"]]
 res$pwr.1 <- x[["Achieved power"]]
@@ -179,10 +175,9 @@ res$grps  <- x[["grps"]]
 ngrp      <- x[["ngrp"]]
 res$pwr.2 <- power.TOST.sds(CV = CV, n = res$n, grps = res$grps,
                             ngrp = ngrp, gmodel = 2, progress = FALSE)
-res$rel.loss <- signif(100*(res$pwr.2 - res$pwr.1)/res$pwr.1, 5)
+res$loss  <- signif(100*(res$pwr.2 - res$pwr.1)/res$pwr.1, 5)
 print(signif(res, 6), row.names = FALSE)
 ```
-
 With ~0.5\% the relative loss in power is practically negligble.
 
 <small>[TOC ↩](#TOC)</small>
@@ -192,7 +187,6 @@ Estimate the sample size for equivalence of the ratio of two means with normalit
 ```{r}
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
 ```
-
 In this function the default $\alpha$ is 0.025, since it is intended for studies with clinical endpoints, where the 95\% confidence interval is usually used for equivalence testing.^[EMEA, CPMP. *Points to Consider on Switching between Superiority and Non-Inferiority.* London, 27 July 2000. [CPMP/EWP/482/99](https://www.ema.europa.eu/en/documents/scientific-guideline/points-consider-switching-between-superiority-non-inferiority_en.pdf).]
 
 <small>[TOC ↩](#TOC)</small>
@@ -208,7 +202,7 @@ sampleN.TOST(CV = 0.20, theta0 = 0.92)
 ```
 This approach is called by some people ‘carved in stone’ because it relies on very strong assumptions which likely are not justified. Although power curves are relatively flat close to unity (*i.e.*, the impact on power is small when moving from say, $\theta_{0}$ 1 to 0.95) but they are getting increasingly steep when moving away more from unity.
 
-![**Fig. 1** Power curve (2×2×2 design, $\alpha$ 0.05)](figure3.png){width=356px}
+![**Fig. 1** Power curve ($\alpha$ 0.05, 2×2×2 design, *CV* 0.20)](figure3.png){width=358px}
 
 <small>[TOC ↩](#TOC)</small>
 
@@ -241,7 +235,7 @@ power.TOST(CV = CL.upper, theta0 = 0.92, n = 28)
 ```
 There will be a drop in power from the ~0.82 the management expects to only ~0.67. That’s just slightly higher than betting for two dozens in Roulette…
 
-![**Fig. 2** Power for *CV* 0.244](figure4.png){width=353px}
+![**Fig. 2** Power for *CV* 0.244](figure4.png){width=354px}
 
 As mentioned above, if the *CV* turns out to be lower than assumed, we gain headroom for the T/R ratio. Let us explore that. We perform the study with 40 subjects, the *CV* will be 0.22 (*less* than the ~0.24 we assumed), and the T/R with 0.90 *worse* than the 0.92 we assumed.
 
@@ -255,17 +249,16 @@ Below our target but still acceptable.
 ### Advanced{#expl3adv}
 In the [basic approach](#expl3basic) we concentrated mainly on the uncertainty of the *CV*. But this is not the end of the story. Clearly the $\theta_{0}$ is uncertain as well. With the function `expsampleN.TOST()` we can dive deeper into this area. Let us start with only the *CV*.
 ```{r}
-expsampleN.TOST(CV=0.20, theta0 = 0.92, prior.type = "CV",
+expsampleN.TOST(CV = 0.20, theta0 = 0.92, prior.type = "CV",
                 prior.parm = list(m = 16, design = "2x2x2"))
 ```
-
 Not that bad. The sample size increases from the 22 of the ‘carved in stone’ approach to 30 but is substantially lower than the 40 we estimated based on the upper confidence limit of the *CV*.
 
 <small>[TOC ↩](#TOC)</small>
 
 Let us keep the *CV* ‘fixed’ and take only the uncertainty of $\theta_{0}$ into account.
 ```{r}
-expsampleN.TOST(CV=0.20, theta0 = 0.92, prior.type = "theta0",
+expsampleN.TOST(CV = 0.20, theta0 = 0.92, prior.type = "theta0",
                 prior.parm = list(m = 16, design = "2x2x2"))
 ```
 It starts to hurt. We learned already that power curves are getting steep when the T/R ratio is not close to unity. Our $\theta_{0}$ 0.92 was not very nice but in the pivotal study it might be even lower as well – which has a larger impact on power than the *CV*.
@@ -274,13 +267,13 @@ It starts to hurt. We learned already that power curves are getting steep when t
 
 Now for the ‘worst case scenario’ where we take both uncertainties into account.
 ```{r}
-expsampleN.TOST(CV=0.20, theta0 = 0.92, prior.type = "both",
+expsampleN.TOST(CV = 0.20, theta0 = 0.92, prior.type = "both",
                 prior.parm = list(m = 16, design = "2x2x2"), details = FALSE)
 ```
 This sample size is almost twice the 28 your boss got from his [Excel-Sheet](http://individual.utoronto.ca/ddubins/ "FARTSSIE"). If you are not fired when suggesting such a study, take it as a warning what might happen.\
 At least, if the pivotal study fails in a lower sample size, *you* know why.
 
-![**Fig. 3** Expected power for uncertain estimates (from top: *CV*, $\theta_{0}$, both)](figure5.png){width=353px}
+![**Fig. 3** Expected power for uncertain estimates (from top: *CV*, $\theta_{0}$, both)](figure5.png){width=354px}
 
 If you are adventurous consider an Adaptive Two-Stage Sequential Design with sample size re-estimation. Various methods are supported in the package [Power2Stage](https://cran.r-project.org/package=Power2Stage).
 
@@ -289,43 +282,44 @@ If you are adventurous consider an Adaptive Two-Stage Sequential Design with sam
 # Power{#power}
 Let us first recap the hypotheses in bioequivalence.
 
-  1. The confidence inclusion approach (preferred in regulatory guidelines)
-  $$H_0:\frac{\mu_T}{\mu_R}\notin \left [ \theta_1, \theta_2 \right]\:vs\:H_1:\theta_1<\frac{\mu_T}{\mu_R}<\theta_2$$
-
-  2. The two one-sided testing procedure (TOST)^[Schuirmann DJ. *A Comparison of the Two One-Sided Tests Procedure and the Power Approach for Assessing the Equivalence of Average Bioavailability.* J. Pharmacokin. Biopharm. 1987; 15(6): 657--80. [doi:10.1007/BF01068419](https://doi.org/10.1007/BF01068419).]
+  1. The two one-sided testing procedure (TOST)^[Schuirmann DJ. *A Comparison of the Two One-Sided Tests Procedure and the Power Approach for Assessing the Equivalence of Average Bioavailability.* J Pharmacokin Biopharm. 1987; 15(6): 657--80. [doi:10.1007/BF01068419](https://doi.org/10.1007/BF01068419).]
   $$H_{0L}:\frac{\mu_T}{\mu_R} \leq \theta_1\:vs\:H_{1L}:\frac{\mu_T}{\mu_R}>\theta_1$$
   $$H_{0U}:\frac{\mu_T}{\mu_R} \geq \theta_2\:vs\:H_{1U}:\frac{\mu_T}{\mu_R}<\theta_2$$
+
+  2. The confidence inclusion approach (preferred in regulatory guidelines)
+  $$H_0:\frac{\mu_T}{\mu_R}\notin \left [ \theta_1, \theta_2 \right]\:vs\:H_1:\theta_1<\frac{\mu_T}{\mu_R}<\theta_2$$
 
 Note that the Null hypotheses are bio**in**equivalence.
 
 <small>[TOC ↩](#TOC)</small>
 
-From a regulatory perspective the outcome of a comparative BA study is dichotomous. *Either* the study demonstrated BE (CI entirely within $\theta_{1},\theta_{2}$) *or* not. Only if the CI lies entirely outside $\theta_{1},\theta_{2}$ the Null hypothesis is not rejected and further studies not warranted.\
-In any case, calculation of *post hoc* (a.k.a. *a posteriori*, retrospective) power is futile.^[Lenth RV. [*Two Sample-Size Practices that I don’t Recommend.*](http://homepage.divms.uiowa.edu/~rlenth/Power/2badHabits.pdf) University of Iowa, October 2000.] ^[Hoenig JM, Heisey DM. [*The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.*](https://www.vims.edu/people/hoenig_jm/pubs/hoenig2.pdf) Amer. Stat. 2001; 55(1): 19--24]
+From a regulatory perspective the outcome of a comparative BA study is dichotomous. **Either** the study demonstrated BE (CI entirely within $\theta_{1},\theta_{2}$) **or** not.^[If the CI overlaps $\theta_{1},\theta_{2}$, the outcome is indecisive (called ‘the grey zone’ by some). As long as $\theta_{0}$ lies within $\theta_{1},\theta_{2}$ you can hope to show BE in a larger sample size. However, once $\theta_{0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
+`sampleN.TOST(CV = 0.075, theta0 = 0.81)` and then\
+`sampleN.TOST(CV = 0.075, theta0 = 0.80)` to get an idea.] Only if the CI lies entirely outside $\theta_{1},\theta_{2}$ the Null hypothesis is not rejected and further studies not warranted.
+In any case, calculation of *post hoc* (a.k.a. *a posteriori*, retrospective) power is futile.^[Hoenig JM, Heisey DM. [*The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.*](https://www.vims.edu/people/hoenig_jm/pubs/hoenig2.pdf) Am Stat. 2001; 55(1): 19--24]
 
 > There is simple intuition behind results like these: If my car made it to the top of the hill, then it is powerful enough to climb that hill; if it didn’t, then it obviously isn’t powerful enough. Retrospective power is an obvious answer to a rather uninteresting question. A more meaningful question is to ask whether the car is powerful enough to climb a particular hill never climbed before; or whether a different car can climb that new hill. Such questions are prospective, not retrospective.
-> `r tufte::quote_footer('--- Russell V. Lenth')`
+> `r tufte::quote_footer('--- Russell V. Lenth, [*Two Sample-Size Practices that I Don’t Recommend*](http://homepage.divms.uiowa.edu/~rlenth/Power/2badHabits.pdf)')`
 
 If a study passes – despite lower than desired power – there is [no reason to reject the study](https://forum.bebac.at/forum_entry.php?id=13277#top13277 "Being lucky is not a crime. (ElMaestro)"). It only means that assumptions (!) in sample size estimation were not realized. The *CV* might have been higher, the T/R-ratio worse, or the dropout-rate higher than anticipated. On the other hand, if *post hoc* power is higher than desired, this does not further support a study which already showed BE.
 
 Nevertheless, exploring power is useful when trying to understand why a study failed and to plan another study. Let us continue with the [example](#expl3) from above. Ignoring our concerns, the pivotal study was performed with 28 subjects. The T/R-ratio was slightly worse (0.90), the *CV* higher (0.25), and we had one dropout in the first sequence and two in the second. The function `CI.BE()` comes handy.
 ```{r}
 n     <- 28
-n.seq <- n/2
-round(100*CI.BE(pe = 0.90, CV = 0.25,
-                n = c(n.seq - 1, n.seq - 2)), 2)
+n.seq <- rep(n/2, 2) - c(1, 2)
+round(100*CI.BE(pe = 0.90, CV = 0.25, n = n.seq), 2)
 ```
-The study failed although by a small margin. One might be tempted to repeat the study in a – only slightly – higher sample size. But what was the *post hoc* power of the failed study?
+The study failed although by a small margin. One might be tempted to repeat the study with an – only slightly – higher sample size. But what was the *post hoc* power of the failed study?
 ```{r}
 power.TOST(CV = 0.25, theta0 = 0.90, n = c(13, 12))
 ```
-Actually the chance of passing was worse than a bet on flipping a coin.
+Actually the chance of passing was worse than flipping a coin.
 
 <span title="nota bene">NB</span>, in calculating *post hoc* power the *observed* T/R ratio has to be used. In some reports high *‘power’* is given even for a *failed* study, which is [not even wrong](https://en.wikipedia.org/wiki/Not_even_wrong). Unfortunately a T/R of 1 is still used in some software packages.
 ```{r}
 power.TOST(CV = 0.25, theta0 = 1, n = c(13, 12))
 ```
-Since all parameters were worse than assumed, how could we have a ‘power’ even higher than desired, despite the fact that the study failed? Nonsense.
+Since all estimates were worse than assumed, how could we have a ‘power’ even higher than desired, despite the fact that the study failed? Nonsense.
 
 <small>[TOC ↩](#TOC)</small>
 
@@ -342,26 +336,136 @@ data   <- read.table(txtcon, header = TRUE, sep = "|",
 close(txtcon)
 print(CVpooled(data, alpha = 0.20), digits = 4, verbose = TRUE)
 ```
-
 Before pooling, variances are weighted by the degrees of freedom. Hence, the new estimate is with ~0.23 closer to the 0.25 of the larger study. Note also that the upper confidence limit is with ~0.26 higher than the one of the pilot study with ~0.24.
 
-**Caveats**
+<small>[TOC ↩](#TOC)</small>
 
+## Caveats{#cave}
 Don’t pool data blindly. In the ideal situation you know the entire background of all studies (clinical performance, bioanalytics). Even if all studies were performed at the same CRO, more things are important. One purpose of pilot studies is to find a suitable sampling schedule. If the schedule of the pilot was not ideal (*e.g.*, you get the impression that *C~max~* was not sufficiently enough described), pooling is not a good idea. It might well be that in the pivotal study – with a ‘better’ schedule – this *CV* is more reliable. On the other hand, the *AUC* is less sensitive to different sampling schedule.
 
 Pooling data from the literature should be done with great caution (if at all). Possibly critical information is missing. Consider using a *CV* from the upper end of values instead. Common sense helps.
 
-**Hint**
+> Which sided of the great divide are you on? Do you believe that meta is better or do you hold instead that pooling is fooling? Well, to nail my colours to the mast, I belong to the former school. It seems to me that there is no other topic in medical statistics, with the possible exceptions of cross-over trials, bioequivalence and n-of-1 studies, which has the same capacity as this one to rot the brains.
+> `r tufte::quote_footer('--- Stephen Senn, *[A Dip in the Pool](http://www.senns.demon.co.uk/wprose.html#Pool)*')`
 
-Sometimes the *CV* is not given in the literature. By means of the function `CVfromCI` you can [calculate it](https://bebac.at/lectures/Bucharest2013WS1.pdf#page=26 "underlying algebra") from the confidence interval. Example for a 90% confidence interval 0.91 – 1.15, 2×2×2 crossover with 22 subjects. 
+<small>[TOC ↩](#TOC)</small>
 
-```{r}
-CVfromCI(lower = 0.91, upper = 1.15, n = 22)
+# Higher-order studies{#higher}
+Designs with three and four periods are supported.
+```{r, echo = FALSE}
+res        <- data.frame(design = rep(NA, 3), name = NA, df = NA)
+res[1:3, ] <- known.designs()[4:6, c(2, 9, 3)]
+print(res)
 ```
+`3x3` denotes the Latin Square (`ABC|BCA|CAB`), `3x6x3` a 6-sequence Williams’ design (`ABC|ACB|BAC|BCA|CAB|CBA`), and `4x4` the Latin Square (`ABCD|BCDA|CDAB|DABC`) or *any one* of the possible Williams’ designs with four periods (`ADBC|BACD|CBDA|DCAB`, `ADCB|BCDA|CABD|DBAC`, `ACDB|BDCA|CBAD|DABC`, `ACBD|BADC|CDAB|DBCA`, `ABDC|BCAD|CDBA|DACB`, `ABCD|BDAC|CADB|DCBA`).
+
+Which `design` argument in studies with more than two periods you should use depends on the planned evaluation.
+
+> Suppose we have a bioequivalence study with three treatments – A, B, and C – and the objective of the study is to make pairwise comparisons among the treatments. Suppose further that treatment C is different in kind from A and B, so that the assumption of homogeneous variance among the three treatments is questionable. One way to do the analyses, under normality assumptions, is Two at a Time – e.g., to test hypotheses about A and B, use only the data from A and B. Another way is All at Once – include the data from all three treatments in a single analysis, making pairwise comparisons within this analysis. If the assumption of homogeneous variance is correct, the All at Once approach will provide more <span title="degrees of freedom">d.f.</span> for estimating the common variance, resulting in increased power. If the variance of C differs from that of A and B, the All at Once approach may have reduced power or an inflated type I error rate, depending on the direction of the difference in variances.
+> `r tufte::quote_footer('--- Donald J. Schuirmann, *[Two at a Time? Or All at Once?](https://www.enar.org/meetings/meetings2004/enar_final_program_2004.pdf#page=204)*')`
+
+  * **All at Once**
+
+    In this approach you assume homogenicity in the ANOVA of pooled data and get one residual variance.\
+    To plan for this approach specify one of the `design` arguments given above.
+  
+  * **Two at a Time**
+
+    In this approach – which is at preferred by some agencies, *e.g.*, the EMA^[EMA, CHMP. *Guideline on the Investigation of Bioequivalence.* London, 20 January 2010. [CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf#page=14).] – you exclude one treatment and perform the analysis on the remaing two. That means you have two *separate* Incomplete Block Designs (IBD).\
+    Say, you have one test (`A`) and two references from different regions (`B`, `C`). You get two separate within-subject variances (in the comparisons `A` *vs* `C` and `B` *vs* `C`).\
+    To plan for this approach specify `design=2x2x2`.
+
+I suggest to opt for the latter since the former may lead to biased estimates and an inflated type I error.^[D’Angelo P. *Testing for Bioequivalence in Higher‐Order Crossover Designs: Two‐at‐a‐Time Principle Versus Pooled ANOVA.* 2^nd^ Conference of the Global Bioequivalence Harmonisation Initiative. Rockville, 15--16 September, 2016.]
+
+<small>[TOC ↩](#TOC)</small>
+
+Three treatments like in the ‘Two at a Time’ example above.
+```{r}
+CV  <- 0.20
+res <- data.frame(design = c("3x6x3", "2x2x2"), n = NA, power = NA,
+                  stringsAsFactors = FALSE)
+for (i in 1:2) {
+  res[i, 2:3] <- signif(sampleN.TOST(CV = CV, design = res$design[i],
+                                     details = FALSE, print = FALSE)[7:8], 5)
+}
+print(res, row.names = FALSE)
+```
+Four treatments (*e.g.*, T fasting/fed, R fasting/fed).
+```{r}
+CV  <- 0.20
+res <- data.frame(design = c("4x4", "2x2x2"), n = NA, power = NA,
+                  stringsAsFactors = FALSE)
+for (i in 1:2) {
+  res[i, 2:3] <- signif(sampleN.TOST(CV = CV, design = res$design[i],
+                                     details = FALSE, print = FALSE)[7:8], 5)
+}
+print(res, row.names = FALSE)
+```
+<small>[TOC ↩](#TOC)</small>
+
+# Hints{#hints}
+## Power Analysis{#pa}
+Although we suggest to explore the various options shown in [Example 3](#expl3), a first look with the function `pa.ABE()` is worthwhile.
+```{r}
+pa.ABE(CV = 0.20, theta0 = 0.92)
+```
+![**Fig. 4** Power Analysis (in each pannel one argument is varied and others kept constant)](figure6.png){width=469px}
+
+This excercise confirms what we already know. The most critical parameter is $\theta_{0}$, whereas dropouts are the least important.
+
+More details are given in the respective [vignette](library/doc/PA.html).
+
+<small>[TOC ↩](#TOC)</small>
+
+## Dropouts{#do}
+As we have seen, the impact of dropouts on power is rather limited. Regulary CROs suggest additional subjects to ‘compensate for the potential loss in power’. IMHO, milking sponsors to make wealthy CROs richer. Note that the dropout-rate is based on *dosed* subjects. Hence, the correct formula for an adjusted sample size is <small>$n_{adj}=n / (1-{dropout\:rate})$</small>, and *not* <small>$n_{adj}=n \times (1+{dropout\:rate})$</small>.
+```{r}
+balance <- function(x, seqs) {
+  x <- ceiling(x) + ceiling(x) %% seqs
+  return(x)
+}
+do.rate   <- 0.10
+seqs      <- 3
+n         <- seq(12, 120, 12)
+res       <- data.frame(n = n,
+                        ad1 = balance(n * (1 + do.rate), seqs),
+                        el1 = NA, diff1 = NA,
+                        ad2 = balance(n / (1 - do.rate), seqs),
+                        el2 = NA, diff2 = NA)
+res$el1   <- floor(res$ad1 * (1 - do.rate))
+res$diff1 <- sprintf("%+i", res$el1 - n)
+res$el2   <- floor(res$ad2 * (1 - do.rate))
+res$diff2 <- sprintf("%+i", res$el2 - n)
+invisible(ifelse(res$el2 - n >=0, res$opt <- res$el2, res$opt <- res$el1))
+res$diff  <- sprintf("%+i", res$opt - n)
+print(res, row.names = FALSE)
+```
+With the wrong formula – especially for high droput rates – you might end up with less eligible subjects than planned. On the other hand, with the correct one (due to rounding up to get balanced sequences) you may end up with slightly too many. Of course, if you want to be one the safe side, you can select the ‘best’ (column `opt`).
+
+<small>[TOC ↩](#TOC)</small>
+
+## Literature Data{#CI2CV}
+Sometimes the *CV* is not given in the literature. By means of the function `CVfromCI()` we can [calculate it](https://bebac.at/lectures/Bucharest2013WS1.pdf#page=26 "underlying algebra") from the confidence interval, the design, and the sample size.
+```{r}
+CVfromCI(lower = 0.8323, upper = 1.0392, n = 26,
+         design = "2x2x4")
+```
+The method is exact if the subjects/sequence are known. In the literature generally only the total sample size is given. What if the study was unbalanced?
+```{r}
+CVfromCI(lower = 0.8323, upper = 1.0392, n = c(14, 12),
+         design = "2x2x4")
+```
+The true value is lower. That means, if we use the *CV* assuming balanced sequences our sample size estimations will be conservative.
 
 <small>[TOC ↩](#TOC)</small>
 
 # Authors{#authors}
 `sampleN.TOST`, `power.TOST`, `power.TOST.sds`, `sampleN.RatioF`, `CVCL`, `CI.BE`, `CVpooled`: Detlew Labes\
 `expsampleN.TOST`: Benjamin Lang, Detlew Labes\
-`CVfromCI`: Detlew Labes, Helmut Schütz, Benjamin Lang
+`CVfromCI`: Detlew Labes, Helmut Schütz, Benjamin Lang\
+`pa.ABE`: Helmut Schütz, Detlew Labes
+
+# License{#license}
+[GPL-2](https://cran.r-project.org/web/licenses/GPL-2) | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3)
+
+<small>[TOC ↩](#TOC)</small>
