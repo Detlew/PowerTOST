@@ -97,12 +97,18 @@ power.TOST.sds <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
     # for comparative purposes only
     C2   <- NULL
   }
+  
   # groups, ngrp= number if subjects in groups
   if (is.null(ngrp)){
     ngrp <- nvec(n=n, grps=grps)
   } else {
     # check the giving in ngrp
     # TODO
+    grps <- length(ngrp)
+    if (n != sum(ngrp)) {
+      stop("Givings in n and ngrps contradict.")
+      # or better choose
+    }  
   }
   
   # grp no of subjects
@@ -118,8 +124,7 @@ power.TOST.sds <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   # progressbar or not
   if(missing(progress)) {
     progress <- FALSE
-    if(nsims>=5E5) progress <- TRUE
-    if(nsims>=1E5 & n>72) progress <- TRUE #???
+    if(nsims>=1E5) progress <- TRUE
     if(gmodel==1) progress <- TRUE
   }
   
@@ -141,7 +146,7 @@ power.ABE.sds <- power.TOST.sds
 {
   # start time measurement
   ptm <- proc.time()
-  
+  #browser()
   if(progress) pb <- txtProgressBar( min = 0, max = 1, style = 3)
 
   if(setseed) set.seed(123456)
