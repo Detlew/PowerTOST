@@ -2,6 +2,10 @@
 
 Published on GitHub 2019-08-31.
 
+## Bug fixes
+
+  * Fix in power.TOST.sds() for `gmodel==1`, case of `gmodel=3` with data of the largest group (group by treatment interaction significant at p=0.1)
+  
 ## Major changes
 
   * Started work on vignettes.
