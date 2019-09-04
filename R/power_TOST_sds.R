@@ -216,7 +216,7 @@ power.ABE.sds <- power.TOST.sds
   
   p.GxT <- vector(mode="numeric", length=nsims) # p-vals of grp by tmt interaction
   gmod  <- vector(mode="numeric", length=nsims) # which model after check if significance
-  #browser()
+
   if (gmodel==1) {
     # determine largest group(s?)
     largest <- as.numeric(which(summary(dta$grp) == max(summary(dta$grp))))
@@ -268,7 +268,6 @@ power.ABE.sds <- power.TOST.sds
       } else {
         # interaction significant, not allowed to pool
         # use model 3 with data of group with max. group size
-        #browser()
         # if logval isn't a matrix qr.coeff only returns a named numeric vector
         logval3G <- as.matrix(logval[dta$grp==largest, 1])
         gmod[j1:j2] <- 3
@@ -314,7 +313,6 @@ power.ABE.sds <- power.TOST.sds
   
   # done with the progressbar
   if(progress) close(pb)
-  browser()
   pwr <- sum(BE_ABE)/nsims
 
   if (details){
