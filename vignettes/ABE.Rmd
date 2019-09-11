@@ -8,6 +8,7 @@ output:
   rmarkdown::html_vignette:
     css: vignette.css
     toc: true
+    toc_depth: 4
 vignette: >
   %\VignetteIndexEntry{PowerTOST}
   %\VignetteEngine{knitr::rmarkdown}
@@ -20,6 +21,8 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
+| [Main Vignette](library/doc/vignette.html) | <span title="You are here">ABE</span> | [RSABE](library/doc/RSABE.html) | [Non-Inferiority](library/doc/NI.html) | [Dose-Proportionality](library/doc/DP.html) | [Power Analysis](library/doc/PA.html) |
+|:-:|:-:|:-:|:-:|:-:|:-:|
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -34,6 +37,8 @@ Man-pages of functions used in this vignette:
   * [CI.BE](library/html/CI.BE.html)
   * [CVpooled](library/html/CVpooled.html)
   * [CVfromCI](library/html/CVfromCI.html)
+
+[Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
 # Defaults{#defaults}
 
@@ -64,20 +69,34 @@ Defaults depending on the argument `logscale`:
 Arguments have to be given as ratios, not percent.\
 The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (a.k.a. pooled) *CV*.
 
-With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are given as a data.frame with eight columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `foo[7]` or `foo[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (a.k.a. AB|BA) design can be abbreviated as `2x2`. Some call the `parallel` design a ‘one-sequence’ design. The `paired` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note, that the underlying model assumes no period effects.
+
+With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are provided as a data.frame with eight columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `foo[7]` or `foo[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
 <small>[TOC ↩](#TOC)</small>
 
 # Sample size{#splsze}
-## Example 1{#expl1}
 
+## Two-Treatment Designs{#twotrt}
+Designs with one (parallel) to four periods (replicates) are supported.
+```{r, echo = FALSE}
+res        <- data.frame(design = rep(NA, 10), name = NA, df = NA)
+res[1:10, ] <- known.designs()[c(1:3, 7:13), c(2, 9, 3)]
+print(res, row.names = FALSE)
+```
+
+### Example 1{#expl1}
 Estimate the sample size for assumed intra-subject *CV* 0.30.
 ```{r}
 sampleN.TOST(CV = 0.30)
 ```
-Note that the sample size is always rounded up to give balanced sequences (here a multiple of 2). Since power is higher than our target, likely this was the case here. Let us check that.\
+To get only the sample size:
+```{r}
+sampleN.TOST(CV = 0.30, details = FALSE, print = FALSE)[["Sample size"]]
+```
+Note that the sample size is always rounded up to give balanced sequences (here a multiple of two). Since power is higher than our target, likely this was the case here. Let us check that.\
 Which power will we get with a sample size of 39?
 
 ```{r}
@@ -97,12 +116,14 @@ for (i in 1:4) {
   # print = FALSE and details = FALSE suppress the output to the console
   # we are only interested in columns 7-8
   # let's also calculate power for one dropout
-  res[i, 2:3] <- signif(sampleN.TOST(CV = 0.30, design = res$design[i],
-                                     print = FALSE, details = FALSE)[7:8], 6)
+  res[i, 2:3] <- signif(
+                   sampleN.TOST(CV = 0.30, design = res$design[i],
+                                print = FALSE, details = FALSE)[7:8], 6)
   res[i, 4]   <-  res[i, 2] - 1
   res[i, 5]   <- suppressMessages(
-                   signif(power.TOST(CV = 0.30, design = res$design[i],
-                                     n = res[i, 4]), 6))
+                   signif(
+                     power.TOST(CV = 0.30, design = res$design[i],
+                                n = res[i, 4]), 6))
 }
 print(res, row.names = FALSE)
 ```
@@ -182,8 +203,8 @@ With ~0.5\% the relative loss in power is practically negligble.
 
 <small>[TOC ↩](#TOC)</small>
 
-## Example 2{#expl2}
-Estimate the sample size for equivalence of the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval. Crossover design, within-subject *CV~w~* 0.20, between-subject *CV~b~* 0.40.
+### Example 2{#expl2}
+Estimate the sample size for equivalence of the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval.^[Fieller EC. *Some Problems in Interval Estimation.* J Royal Stat Soc B. 1954; 16(2): 175--85. [JSTOR:2984043](https://www.jstor.org/stable/2984043).] Crossover design, within-subject *CV~w~* 0.20, between-subject *CV~b~* 0.40.
 ```{r}
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
 ```
@@ -191,16 +212,16 @@ In this function the default $\alpha$ is 0.025, since it is intended for studies
 
 <small>[TOC ↩](#TOC)</small>
 
-## Example 3{#expl3}
+### Example 3{#expl3}
 Estimate the sample size based on the results of a 2×2×2 pilot study in 16 subjects where we found an intra-subject *CV* 0.20 and $\theta_{0}$ 0.92.
 
-### Basic{#expl3basic}
+#### Basic{#expl3basic}
 If we believe [*sic*] that in the pivotal study both the $\theta_{0}$ and *CV* will be *exactly* like in the pilot, this is a straightforward excercise. We simply plug in the necessary arguments.
 
 ```{r}
 sampleN.TOST(CV = 0.20, theta0 = 0.92)
 ```
-This approach is called by some people ‘carved in stone’ because it relies on very strong assumptions which likely are not justified. Although power curves are relatively flat close to unity (*i.e.*, the impact on power is small when moving from say, $\theta_{0}$ 1 to 0.95) but they are getting increasingly steep when moving away more from unity.
+This approach is called by some ‘carved in stone’ because it relies on very strong assumptions which likely are not justified. Although power curves are relatively flat close to unity (*i.e.*, the impact on power is small when moving from say, $\theta_{0}$ 1 to 0.95) but they are getting increasingly steep when moving away more from unity.
 
 ![**Fig. 1** Power curve ($\alpha$ 0.05, 2×2×2 design, *CV* 0.20)](figure3.png){width=358px}
 
@@ -246,7 +267,7 @@ Below our target but still acceptable.
 
 <small>[TOC ↩](#TOC)</small>
 
-### Advanced{#expl3adv}
+#### Advanced{#expl3adv}
 In the [basic approach](#expl3basic) we concentrated mainly on the uncertainty of the *CV*. But this is not the end of the story. Clearly the $\theta_{0}$ is uncertain as well. With the function `expsampleN.TOST()` we can dive deeper into this area. Let us start with only the *CV*.
 ```{r}
 expsampleN.TOST(CV = 0.20, theta0 = 0.92, prior.type = "CV",
@@ -268,7 +289,8 @@ It starts to hurt. We learned already that power curves are getting steep when t
 Now for the ‘worst case scenario’ where we take both uncertainties into account.
 ```{r}
 expsampleN.TOST(CV = 0.20, theta0 = 0.92, prior.type = "both",
-                prior.parm = list(m = 16, design = "2x2x2"), details = FALSE)
+                prior.parm = list(m = 16, design = "2x2x2"),
+                details = FALSE)
 ```
 This sample size is almost twice the 28 your boss got from his [Excel-Sheet](http://individual.utoronto.ca/ddubins/ "FARTSSIE"). If you are not fired when suggesting such a study, take it as a warning what might happen.\
 At least, if the pivotal study fails in a lower sample size, *you* know why.
@@ -277,6 +299,62 @@ At least, if the pivotal study fails in a lower sample size, *you* know why.
 
 If you are adventurous consider an Adaptive Two-Stage Sequential Design with sample size re-estimation. Various methods are supported in the package [Power2Stage](https://cran.r-project.org/package=Power2Stage).
 
+<small>[TOC ↩](#TOC)</small>
+
+## Higher-Order Designs{#higher}
+Designs with three and four periods are supported.
+```{r, echo = FALSE}
+res        <- data.frame(design = rep(NA, 3),
+                         name = NA, df = NA)
+res[1:3, ] <- known.designs()[4:6, c(2, 9, 3)]
+print(res, row.names = FALSE)
+```
+`3x3` denotes the Latin Square (`ABC|BCA|CAB`), `3x6x3` a 6-sequence Williams’ design (`ABC|ACB|BAC|BCA|CAB|CBA`), and `4x4` the Latin Square (`ABCD|BCDA|CDAB|DABC`) or *any one* of the possible Williams’ designs with four periods (`ADBC|BACD|CBDA|DCAB`, `ADCB|BCDA|CABD|DBAC`, `ACDB|BDCA|CBAD|DABC`, `ACBD|BADC|CDAB|DBCA`, `ABDC|BCAD|CDBA|DACB`, `ABCD|BDAC|CADB|DCBA`).
+
+Which `design` argument in studies with more than two periods you should use depends on the planned evaluation.
+
+> Suppose we have a bioequivalence study with three treatments – A, B, and C – and the objective of the study is to make pairwise comparisons among the treatments. Suppose further that treatment C is different in kind from A and B, so that the assumption of homogeneous variance among the three treatments is questionable. One way to do the analyses, under normality assumptions, is Two at a Time – e.g., to test hypotheses about A and B, use only the data from A and B. Another way is All at Once – include the data from all three treatments in a single analysis, making pairwise comparisons within this analysis. If the assumption of homogeneous variance is correct, the All at Once approach will provide more <span title="degrees of freedom">d.f.</span> for estimating the common variance, resulting in increased power. If the variance of C differs from that of A and B, the All at Once approach may have reduced power or an inflated type I error rate, depending on the direction of the difference in variances.
+> `r tufte::quote_footer('--- Donald J. Schuirmann, *[Two at a Time? Or All at Once?](https://www.enar.org/meetings/meetings2004/enar_final_program_2004.pdf#page=204)*')`
+
+  * **All at Once**
+
+    In this approach you assume homogenicity in the ANOVA of pooled data and get one residual variance.\
+    To plan for this approach specify one of the `design` arguments given above.
+  
+  * **Two at a Time**
+
+    In this approach – which is preferred by some agencies, *e.g.*, the EMA^[EMA, CHMP. *Guideline on the Investigation of Bioequivalence.* London, 20 January 2010. [CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf#page=14).] – you exclude one treatment and perform the analysis on the remaing two. That means you have two *separate* Incomplete Block Designs (IBD).\
+    Say, you have one test (`A`) and two references from different regions (`B`, `C`). You get two separate within-subject variances (in the comparisons `A` *vs* `C` and `B` *vs* `C`).\
+    To plan for this approach specify `design=2x2x2`.
+
+I suggest to opt for the latter since the former may lead to biased estimates and an inflated type I error.^[D’Angelo P. *Testing for Bioequivalence in Higher‐Order Crossover Designs: Two‐at‐a‐Time Principle Versus Pooled ANOVA.* 2^nd^ Conference of the Global Bioequivalence Harmonisation Initiative. Rockville, 15--16 September, 2016.]
+
+<small>[TOC ↩](#TOC)</small>
+
+Three treatments like in the ‘Two at a Time’ example above.
+```{r}
+CV  <- 0.20
+res <- data.frame(design = c("3x6x3", "2x2x2"), n = NA, power = NA,
+                  stringsAsFactors = FALSE)
+for (i in 1:2) {
+  res[i, 2:3] <- signif(
+                   sampleN.TOST(CV = CV, design = res$design[i],
+                                details = FALSE, print = FALSE)[7:8], 5)
+}
+print(res, row.names = FALSE)
+```
+Four treatments (*e.g.*, T fasting/fed, R fasting/fed).
+```{r}
+CV  <- 0.20
+res <- data.frame(design = c("4x4", "2x2x2"), n = NA, power = NA,
+                  stringsAsFactors = FALSE)
+for (i in 1:2) {
+  res[i, 2:3] <- signif(
+                  sampleN.TOST(CV = CV, design = res$design[i],
+                               details = FALSE, print = FALSE)[7:8], 5)
+}
+print(res, row.names = FALSE)
+```
 <small>[TOC ↩](#TOC)</small>
 
 # Power{#power}
@@ -294,8 +372,8 @@ Note that the Null hypotheses are bio**in**equivalence.
 <small>[TOC ↩](#TOC)</small>
 
 From a regulatory perspective the outcome of a comparative BA study is dichotomous. **Either** the study demonstrated BE (CI entirely within $\theta_{1},\theta_{2}$) **or** not.^[If the CI overlaps $\theta_{1},\theta_{2}$, the outcome is indecisive (called ‘the grey zone’ by some). As long as $\theta_{0}$ lies within $\theta_{1},\theta_{2}$ you can hope to show BE in a larger sample size. However, once $\theta_{0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
-`sampleN.TOST(CV = 0.075, theta0 = 0.81)` and then\
-`sampleN.TOST(CV = 0.075, theta0 = 0.80)` to get an idea.] Only if the CI lies entirely outside $\theta_{1},\theta_{2}$ the Null hypothesis is not rejected and further studies not warranted.
+  `sampleN.TOST(CV = 0.075, theta0 = 0.81)` and then\
+  `sampleN.TOST(CV = 0.075, theta0 = 0.80)` to get an idea.] Only if the CI lies entirely outside $\theta_{1},\theta_{2}$ the Null hypothesis is not rejected and further studies not warranted.
 In any case, calculation of *post hoc* (a.k.a. *a posteriori*, retrospective) power is futile.^[Hoenig JM, Heisey DM. [*The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.*](https://www.vims.edu/people/hoenig_jm/pubs/hoenig2.pdf) Am Stat. 2001; 55(1): 19--24]
 
 > There is simple intuition behind results like these: If my car made it to the top of the hill, then it is powerful enough to climb that hill; if it didn’t, then it obviously isn’t powerful enough. Retrospective power is an obvious answer to a rather uninteresting question. A more meaningful question is to ask whether the car is powerful enough to climb a particular hill never climbed before; or whether a different car can climb that new hill. Such questions are prospective, not retrospective.
@@ -345,71 +423,24 @@ Don’t pool data blindly. In the ideal situation you know the entire background
 
 Pooling data from the literature should be done with great caution (if at all). Possibly critical information is missing. Consider using a *CV* from the upper end of values instead. Common sense helps.
 
+An example where pooling could be missleading: *C~max~* data of pilot and pivotal studies in five different designs with 11 to 39 subjects, fasting/fed, three different bioanalytical methods (GC/ECD, LC-MS/MS, GC/MS), chiral and achiral (which is not relevant for this drug since the active enantiomer is ~95\% of the total drug and there is no *in vivo* interconversion). Note that most pivotal studies were ‘overpowered’.
+
+![**Fig. 4** Blue deltoid the pooled *CV* 0.163; dotted line upper CL 0.167.](figure7.png){width=407px}
+
+This is an apples-and-oranges comparison. Red squares show *CV*s which were above the upper CL of the pooled *CV*. Given, only in three studies the lower CL did not overlapp with the upper one of the pooled *CV*.
+
 > Which sided of the great divide are you on? Do you believe that meta is better or do you hold instead that pooling is fooling? Well, to nail my colours to the mast, I belong to the former school. It seems to me that there is no other topic in medical statistics, with the possible exceptions of cross-over trials, bioequivalence and n-of-1 studies, which has the same capacity as this one to rot the brains.
 > `r tufte::quote_footer('--- Stephen Senn, *[A Dip in the Pool](http://www.senns.demon.co.uk/wprose.html#Pool)*')`
 
 <small>[TOC ↩](#TOC)</small>
 
-# Higher-order studies{#higher}
-Designs with three and four periods are supported.
-```{r, echo = FALSE}
-res        <- data.frame(design = rep(NA, 3), name = NA, df = NA)
-res[1:3, ] <- known.designs()[4:6, c(2, 9, 3)]
-print(res)
-```
-`3x3` denotes the Latin Square (`ABC|BCA|CAB`), `3x6x3` a 6-sequence Williams’ design (`ABC|ACB|BAC|BCA|CAB|CBA`), and `4x4` the Latin Square (`ABCD|BCDA|CDAB|DABC`) or *any one* of the possible Williams’ designs with four periods (`ADBC|BACD|CBDA|DCAB`, `ADCB|BCDA|CABD|DBAC`, `ACDB|BDCA|CBAD|DABC`, `ACBD|BADC|CDAB|DBCA`, `ABDC|BCAD|CDBA|DACB`, `ABCD|BDAC|CADB|DCBA`).
-
-Which `design` argument in studies with more than two periods you should use depends on the planned evaluation.
-
-> Suppose we have a bioequivalence study with three treatments – A, B, and C – and the objective of the study is to make pairwise comparisons among the treatments. Suppose further that treatment C is different in kind from A and B, so that the assumption of homogeneous variance among the three treatments is questionable. One way to do the analyses, under normality assumptions, is Two at a Time – e.g., to test hypotheses about A and B, use only the data from A and B. Another way is All at Once – include the data from all three treatments in a single analysis, making pairwise comparisons within this analysis. If the assumption of homogeneous variance is correct, the All at Once approach will provide more <span title="degrees of freedom">d.f.</span> for estimating the common variance, resulting in increased power. If the variance of C differs from that of A and B, the All at Once approach may have reduced power or an inflated type I error rate, depending on the direction of the difference in variances.
-> `r tufte::quote_footer('--- Donald J. Schuirmann, *[Two at a Time? Or All at Once?](https://www.enar.org/meetings/meetings2004/enar_final_program_2004.pdf#page=204)*')`
-
-  * **All at Once**
-
-    In this approach you assume homogenicity in the ANOVA of pooled data and get one residual variance.\
-    To plan for this approach specify one of the `design` arguments given above.
-  
-  * **Two at a Time**
-
-    In this approach – which is at preferred by some agencies, *e.g.*, the EMA^[EMA, CHMP. *Guideline on the Investigation of Bioequivalence.* London, 20 January 2010. [CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf#page=14).] – you exclude one treatment and perform the analysis on the remaing two. That means you have two *separate* Incomplete Block Designs (IBD).\
-    Say, you have one test (`A`) and two references from different regions (`B`, `C`). You get two separate within-subject variances (in the comparisons `A` *vs* `C` and `B` *vs* `C`).\
-    To plan for this approach specify `design=2x2x2`.
-
-I suggest to opt for the latter since the former may lead to biased estimates and an inflated type I error.^[D’Angelo P. *Testing for Bioequivalence in Higher‐Order Crossover Designs: Two‐at‐a‐Time Principle Versus Pooled ANOVA.* 2^nd^ Conference of the Global Bioequivalence Harmonisation Initiative. Rockville, 15--16 September, 2016.]
-
-<small>[TOC ↩](#TOC)</small>
-
-Three treatments like in the ‘Two at a Time’ example above.
-```{r}
-CV  <- 0.20
-res <- data.frame(design = c("3x6x3", "2x2x2"), n = NA, power = NA,
-                  stringsAsFactors = FALSE)
-for (i in 1:2) {
-  res[i, 2:3] <- signif(sampleN.TOST(CV = CV, design = res$design[i],
-                                     details = FALSE, print = FALSE)[7:8], 5)
-}
-print(res, row.names = FALSE)
-```
-Four treatments (*e.g.*, T fasting/fed, R fasting/fed).
-```{r}
-CV  <- 0.20
-res <- data.frame(design = c("4x4", "2x2x2"), n = NA, power = NA,
-                  stringsAsFactors = FALSE)
-for (i in 1:2) {
-  res[i, 2:3] <- signif(sampleN.TOST(CV = CV, design = res$design[i],
-                                     details = FALSE, print = FALSE)[7:8], 5)
-}
-print(res, row.names = FALSE)
-```
-<small>[TOC ↩](#TOC)</small>
-
 # Hints{#hints}
 ## Power Analysis{#pa}
-Although we suggest to explore the various options shown in [Example 3](#expl3), a first look with the function `pa.ABE()` is worthwhile.
+Although we suggest to explore the various options shown in [Example 3](#expl3), it is worthwhile to have a first look with the function `pa.ABE()`.
 ```{r}
 pa.ABE(CV = 0.20, theta0 = 0.92)
 ```
-![**Fig. 4** Power Analysis (in each pannel one argument is varied and others kept constant)](figure6.png){width=469px}
+![**Fig. 4** Power Analysis (in each panel one argument is varied and others kept constant)](figure6.png){width=469px}
 
 This excercise confirms what we already know. The most critical parameter is $\theta_{0}$, whereas dropouts are the least important.
 
@@ -436,7 +467,8 @@ res$el1   <- floor(res$ad1 * (1 - do.rate))
 res$diff1 <- sprintf("%+i", res$el1 - n)
 res$el2   <- floor(res$ad2 * (1 - do.rate))
 res$diff2 <- sprintf("%+i", res$el2 - n)
-invisible(ifelse(res$el2 - n >=0, res$opt <- res$el2, res$opt <- res$el1))
+invisible(
+  ifelse(res$el2 - n >=0, res$opt <- res$el2, res$opt <- res$el1))
 res$diff  <- sprintf("%+i", res$opt - n)
 print(res, row.names = FALSE)
 ```

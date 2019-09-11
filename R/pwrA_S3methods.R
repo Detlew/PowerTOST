@@ -12,6 +12,7 @@ print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
   CVminI   <- which(x$paCV[, "CV"]==CV.min)
   min.pwrN <- min(x$paN[, "pwr"])
   min.N    <- min(x$paN[, "N"])
+  incr     <- x$incr
 
   if (abs(x$paCV[CVmaxI, "pwr"]-min.pwr)>1e-4) CV.max <- NA
   if (abs(x$paCV[CVminI, "pwr"]-min.pwr)>1e-4) CV.min <- NA
@@ -37,7 +38,7 @@ print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
   cat("CV, theta0 and number of subjects which lead to min. acceptable ",
       "power of at least ", round(min.pwr, digits), ":\n", sep="")
   #react to RSABE NTID where there may be a CV.min, CV.max which
-  if (method!="RSABE NTID"){
+  if (method!="RSABE NTID") {
     # let to power=minpower
     cat(" CV= ", round(CV.max, digits), ", theta0= ",
         round(min.theta0, digits),"\n", sep="")
@@ -47,6 +48,10 @@ print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
           "), theta0= ", round(min.theta0, digits),"\n", sep="")
   }
   cat(" N = ", min.N, " (power= ", round(min.pwrN, digits), ")\n", sep="")
+  if (incr) {
+    cat("Sample size was increased from the estimated one in order to comply",
+        "\nwith regulatory requirements.")
+  }
   cat("\n")
 }
 
@@ -346,7 +351,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
  if (fact == 100) { # percent
    legend("topleft", inset=-0.055,
           legend=c(paste0(design, " design", "; assumed:"),
-                   sprintf("  %s %1.0f%%%s%s%s %.2f%%", "CV =", CV, ", ", ratiolabel, " =", 100*GMR),
+                   sprintf("  %s %.2f%%%s%s%s %.2f%%", "CV =", CV, ", ", ratiolabel, " =", 100*GMR),
                    BEARtxt,
                    "power:",
                    sprintf("  %s %2.0f%%", "target =", targetpower),
@@ -364,7 +369,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   } else { # ratios
     legend("topleft", inset=-0.065,
            legend=c(paste0(design, " design", "; assumed:"),
-                    sprintf("  %s %5.4f%s%s%s %.4f", "CV =", CV, ", ", ratiolabel, " =", GMR),
+                    sprintf("  %s %.4f%s%s%s %.4f", "CV =", CV, ", ", ratiolabel, " =", GMR),
                     BEARtxt,
                     "power:",
                     sprintf("  %s %5.4f", "target =", targetpower),

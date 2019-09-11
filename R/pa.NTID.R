@@ -25,7 +25,7 @@ pa.NTIDFDA <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   }
   if (targetpower>=1 | minpower>=1 | targetpower<=0 | minpower<=0 ) 
     stop("Power values have to be within 0...1") 
-  if(minpower>=targetpower) stop("Minimum acceptable power must < than target.")
+  if (minpower>=targetpower) stop("Minimum acceptable power must < than target.")
   if (Rver<"3.1.0"){
     if (minpower < 0.5) stop("Minimum acceptable power must be >=0.5.")
     if (targetpower < 0.5) stop("Target power must be >=0.5.")
@@ -52,7 +52,9 @@ pa.NTIDFDA <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   pwr.est <- res[1, "Achieved power"]
   # don't allow below 12 subjects
   # may not necessary, have upto now 14 seen as min.
-  if(n.est<12){
+  incr <- FALSE
+  if (n.est < 12) {
+    incr  <- TRUE
     n.est <- 12
     pwr.est <- power.NTIDFDA(CV=CV, n=n.est, ...)
     res[,"Sample size"] <- n.est
@@ -147,7 +149,7 @@ pa.NTIDFDA <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
              paN=data.frame(N=n.min, pwr=pBEn),
              minpower=minpower,
              method="RSABE NTID",
-             regulator="FDA"
+             regulator="FDA", incr=incr
              )
   class(ret) <- c("pwrA", class(ret))
 

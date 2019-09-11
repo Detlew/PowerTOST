@@ -49,7 +49,9 @@ pa.ABE <- function(CV, theta0=0.95, targetpower=0.8, minpower=0.7,
   pwr.est <- res[1, "Achieved power"]
   
   # don't allow below 12 subjects
-  if(n.est<12){
+  incr <- FALSE
+  if (n.est < 12){
+    incr  <- TRUE
     n.est <- 12
     pwr.est <- power.TOST(CV=CV, n=n.est, design=design, ...)
     res[,"Sample size"] <- n.est
@@ -61,7 +63,7 @@ pa.ABE <- function(CV, theta0=0.95, targetpower=0.8, minpower=0.7,
   ########################################
   # max. CV for minimum acceptable power #
   ########################################
-  if(Rver<"3.1.0"){
+  if (Rver<"3.1.0"){
     CV.max <- uniroot(pwrCV,  c(CV, 10*CV), tol=1e-7, 
                       n=n.est, theta0=GMR, design=design, ...)$root
   } else {
@@ -82,10 +84,10 @@ pa.ABE <- function(CV, theta0=0.95, targetpower=0.8, minpower=0.7,
   # min. GMR for minimum accept. power #
   ######################################
                           # original was here (0.8, 1)
-  if(GMR <= 1) interval <- c(0.8, GMR) else interval <- c(GMR, 1.25)
+  if (GMR <= 1) interval <- c(0.8, GMR) else interval <- c(GMR, 1.25)
   # extending interval for extrem cases
-  if(GMR <= 1) updown   <- "upX" else updown <- "downX"
-  if(Rver<"3.1.0"){
+  if (GMR <= 1) updown   <- "upX" else updown <- "downX"
+  if (Rver<"3.1.0"){
     GMR.min  <- uniroot(pwrGMR, interval, tol=1e-7, 
                         n=n.est, CV=CV, design=design, ...)$root
   } else {
@@ -96,7 +98,7 @@ pa.ABE <- function(CV, theta0=0.95, targetpower=0.8, minpower=0.7,
   GMRs     <- seq(GMR.min, GMR, length.out=seg)
   pBEGMR   <- vector("numeric", length=length(GMRs))
   # replace eventually with apply/sapply
-  for(j in seq_along(GMRs)) {
+  for (j in seq_along(GMRs)) {
     pBEGMR[j] <- power.TOST(CV=CV, n=n.est, theta0=GMRs[j], design=design, ...)
   }
   
@@ -107,7 +109,7 @@ pa.ABE <- function(CV, theta0=0.95, targetpower=0.8, minpower=0.7,
   ####################################
   #Ns <- seq(n.est, 12, by=-1) # don't drop below 12 subjects
   Ns  <- seq(n.est, 12)
-  if(n.est==12) Ns <- seq(n.est, 2*seqs)
+  if (n.est==12) Ns <- seq(n.est, 2*seqs)
   nNs <-length(Ns)
   j   <- 0
   pwrN <- pwr.est
@@ -115,12 +117,12 @@ pa.ABE <- function(CV, theta0=0.95, targetpower=0.8, minpower=0.7,
   n.min <- NULL; pBEn <- NULL
   n <- vector("numeric", length=seqs)
   ni <- 1:seqs
-  while(pwrN >= minpower & j<nNs){
+  while (pwrN >= minpower & j<nNs) {
     j <- j+1
     n[-seqs] <- diff(floor(Ns[j]*ni/seqs))
     n[seqs]  <- Ns[j] -sum(n[-seqs])
     pwrN <- power.TOST(CV=CV, n=n, theta0=GMR, design=design, ...)
-    if(pwrN >= minpower) {
+    if (pwrN >= minpower) {
       n.min <- c(n.min, sum(n))
       pBEn <- c(pBEn, pwrN)
     } else {
@@ -136,7 +138,7 @@ pa.ABE <- function(CV, theta0=0.95, targetpower=0.8, minpower=0.7,
              paGMR=data.frame(theta0=GMRs, pwr=pBEGMR),
              paN=data.frame(N=n.min, pwr=pBEn),
              minpower=minpower,
-             method="ABE"
+             method="ABE", incr=incr
              )
   class(ret) <- c("pwrA", class(ret))
 

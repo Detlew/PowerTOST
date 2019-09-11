@@ -55,12 +55,11 @@ See man pages of \code{power.scABEL()} or \code{power.RSABE()}.
 Power calculations are done via \code{power.scABEL()} or \code{power.RSABE()} and
 calculations of CV and theta0 which result in \code{minpower} derived via R base \code{\link{uniroot}}.\cr
 While one of the parameters (CV, GMR, N) is varied, the respective two others are
-kept constant. The tool shows the relative impact of single parameters on power.\cr
-The tool takes a minimum of 12 subjects as required in most BE guidances into account.
-However, it should be kept in mind that
+kept constant. The tool shows the relative impact of single parameters on power.\cr\cr
+The tool takes a minimum of 12 subjects as required in most BE guidances into account. However, the sample size will be increased from the estimated one if one of the following conditions is applicable:
   \itemize{
-    \item the FDA requires at least 24 subjects \emph{enrolled} in studies intended for reference-scaling;
-    \item the EMA requires at least 12 \emph{eligible} subjects in the sequence RTR of the TRT|RTR-design.
+    \item The FDA requires at least 24 subjects \emph{enrolled} in studies intended for reference-scaling.
+    \item The EMA requires at least 12 \emph{eligible} subjects in the sequence RTR of the TRT|RTR-design (hence the minimum sample size is 24).
   }
 You should be aware that this is \bold{not} a substitute for the \dQuote{Sensitivity Analysis}
 recommended in ICH-E9. In a real study a combination of all effects occurs simultaneously.

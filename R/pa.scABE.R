@@ -20,7 +20,7 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
   
   if (targetpower>=1 | minpower>=1 | targetpower<=0 | minpower<=0 ) 
     stop("Power values have to be within 0...1") 
-  if(minpower>=targetpower) stop("Minimum acceptable power must be < than target")
+  if (minpower>=targetpower) stop("Minimum acceptable power must be < than target")
   
   if (Rver<"3.1.0"){
     if (minpower < 0.5) stop("Minimum acceptable power must be >=0.5.")
@@ -42,34 +42,24 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
   
   # functions to be used with uniroot
   # reg is visible as long as these functions are defined within pa.scABE()
-	pwrCV <- function(x, ...) 
-  {
+	pwrCV <- function(x, ...) {
     if (reg=="FDA") {
       power.RSABE(CV=x, ...) - minpower
-    # } else if (reg=="HC") {
-    #   power.scABEL2(CV=x, ...)- minpower
     } else {
       power.scABEL(CV=x, ...)- minpower
     }
 	}
-  pwrGMR <- function(x, ...) 
-  {
+  pwrGMR <- function(x, ...) {
     if (reg == "FDA"){
       power.RSABE(theta0=x, ...) - minpower
-    # } else if(reg=="HC"){
-    #   power.scABEL2(theta0=x, ...) - minpower
     } else {
       power.scABEL(theta0=x, ...) - minpower
     }
   }
   
-  if(reg == "FDA") {
+  if (reg == "FDA") {
     res <- sampleN.RSABE(CV=CV, theta0=GMR, targetpower=targetpower, 
                          design=design, print=FALSE, details=FALSE, ...)
-  # } else if (reg=="HC") {
-  #   res <- sampleN.scABEL2(CV=CV, theta0=GMR, targetpower=targetpower, 
-  #                          design=design, regulator=reg,
-  #                          print=FALSE, details=FALSE, ...)
   } else {
 	  res <- sampleN.scABEL(CV=CV, theta0=GMR, targetpower=targetpower, 
 	                        design=design, regulator=reg,
@@ -78,22 +68,33 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
 	n.est   <- res[1, "Sample size"   ]
 	pwr.est <- res[1, "Achieved power"]
   
-  # don't allow below 12 subjects
-  if(n.est<12){
-    n.est <- 12
-    if(reg == "FDA") {
-      pwr.est <- power.RSABE(CV=CV, n=n.est, theta0=GMR,  design=design, ...)
-    # } else if (reg=="HC"){
-    #   pwr.est <- power.scABEL2(CV=CV, n=n.est, theta0=GMR, design=design, 
-    #                            regulator=reg, ...)
-    } else {
-      pwr.est <- power.scABEL(CV=CV, n=n.est, theta0=GMR, design=design, 
-                              regulator=reg, ...)
-    }
-    res[,"Sample size"] <- n.est
-    res[,"Achieved power"] <- pwr.est
-  }
-  
+  # various minimum sample size conditions
+	# generally 12
+	# EMA: 24 if 2x2x3
+	# FDA: 24
+  incr <- FALSE
+	if (reg == "EMA" & design == "2x2x3")  {
+    incr <- TRUE
+	  n.est <- 24
+	  res[1, "Sample size"]    <- n.est
+	  pwr.est <- power.scABEL(CV=CV, n=n.est, theta0=GMR, design=design, 
+	                          regulator="EMA", ...)
+	}
+	if (reg == "FDA") {
+	  incr <- TRUE
+	  n.est   <- 24
+	  pwr.est <- power.RSABE(CV=CV, n=n.est, theta0=GMR,  design=design, ...)
+	} else {
+	  if (n.est < 12) {
+	    incr <- TRUE
+	    n.ext   <- 12
+	    pwr.est <- power.scABEL(CV=CV, n=n.est, theta0=GMR, design=design, 
+	                            regulator=reg, ...)
+	  }
+	}
+  res[1, "Sample size"]    <- n.est
+  res[1, "Achieved power"] <- pwr.est
+
   ########################################
 	# max. CV for minimum acceptable power #
 	########################################
@@ -113,8 +114,8 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
   CVs    <- c(seq(CV*2/3, CV, length.out=seg*.25), seq(CV, CV.max, length.out=seg*.75))
   CVs    <- c(head(CVs, floor(seg*0.25)), tail(CVs, seg*0.75)) 
 	pBECV  <- vector("numeric", length=length(CVs))
-	for(j in seq_along(CVs)) {
-		if(reg == "FDA") {
+	for (j in seq_along(CVs)) {
+		if (reg == "FDA") {
 		  pBECV[j] <- power.RSABE(CV=CVs[j], n=n.est, theta0=GMR,  design=design, ...)
 		# } else if (reg == "HC"){
 		#   pBECV[j] <- power.scABEL2(CV=CVs[j], n=n.est, theta0=GMR, design=design,
@@ -128,10 +129,10 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
   ##################################################################
 	# min. GMR for minimum accept. power, may also be max if GMR>1!  #
 	##################################################################
-# 	if(reg == "EMA") { 
+# 	if (reg == "EMA") { 
 #     # scABEL (rounded switch acc. to BE-GL and Q&A document)
 # 		ifelse(CV <= 0.5, UL <- exp(0.76*CV2se(CV)), UL <- exp(0.76*CV2se(0.5)))
-# 		if(CV <= 0.3) UL <- 1.25
+# 		if (CV <= 0.3) UL <- 1.25
 # 	} else {       
 #     # RSABE (exact switching cond.: 0.8925742...)
 # 		ifelse(CV > 0.3, UL <- exp(log(1.25)/0.25*CV2se(CV)), UL <- 1.25)
@@ -151,13 +152,10 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
   seg    <- 50 # save some speed compared to Helmuts always 75
 	GMRs   <- seq(GMR.min, GMR, length.out=seg)
 	pBEGMR <- vector("numeric", length=length(GMRs))
-	for(j in seq_along(GMRs)) {
-		if(reg == "FDA") {
+	for (j in seq_along(GMRs)) {
+		if (reg == "FDA") {
 		  pBEGMR[j] <- power.RSABE(CV=CV, n=n.est, theta0=GMRs[j], 
 		                           design=design, ...)
-		# } else if(reg == "HC"){
-		#   pBEGMR[j] <- power.scABEL2(CV=CV, n=n.est, theta0=GMRs[j], 
-		#                             design=design, regulator=reg, ...)
 		} else {
 		  pBEGMR[j] <- power.scABEL(CV=CV, n=n.est, theta0=GMRs[j], 
 		                            design=design, regulator=reg, ...)
@@ -170,7 +168,7 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
 	####################################
 	#Ns <- seq(n.est, 12, by=-1) # don't drop below 12 subjects (original)
   Ns    <- seq(n.est, 12)
-  if(n.est==12) Ns <- seq(n.est, 6)
+  if (n.est==12) Ns <- seq(n.est, 6)
 	pwrN  <- pwr.est
 	n.min <- NULL; pBEn <- NULL
   #######################################################
@@ -195,17 +193,14 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
 # 		n[seqs]  <- Ns[j] -sum(n[-seqs])
     # suppress messages regarding unbalanced designs
     suppressMessages(
-  		if(reg == "FDA") {
+  		if (reg == "FDA") {
   		  pwrN <- power.RSABE(CV=CV, n=Ns[j], theta0=GMR, design=design, ...)
-  		# } else if(reg == "HC"){
-  		#   pwrN <- power.scABEL2(CV=CV, n=Ns[j], theta0=GMR, design=design, 
-  		#                         regulator=reg, ...)
   		} else {
   		  pwrN <- power.scABEL(CV=CV, n=Ns[j], theta0=GMR, design=design, 
                              regulator=reg, ...)
   		}
     )  
-		if(pwrN >= minpower) {
+		if (pwrN >= minpower) {
 			n.min <- c(n.min, Ns[j])
 			pBEn  <- c(pBEn, pwrN)
 		} else {
@@ -213,7 +208,7 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
 		}
 	}
   
-# plots are now contained in the S3 method plot
+# plots are contained in the S3 method plot
 
 # return what?
   ret <-list(plan=res, 
@@ -221,7 +216,8 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
              paGMR=data.frame(theta0=GMRs, pwr=pBEGMR),
              paN=data.frame(N=n.min, pwr=pBEn),
              minpower=minpower,
-             method="scABE", regulator=reg
+             method="scABE", regulator=reg,
+             incr=incr
              )
   class(ret) <- c("pwrA", class(ret))
   return(ret)

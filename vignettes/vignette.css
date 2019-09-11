@@ -32,8 +32,7 @@ pre, code{background-color:#f7f7f7;border-radius:3px;color:#333;
 white-space:pre-wrap}
 pre{border-radius:3px;margin:5px 0px 10px 0px;padding:10px}
 pre:not([class]){background-color:#f7f7f7}
-code{font-size:85%;
-  font-family:Consolas, Monaco, 'Lucida Console',
+code{font-size:85%; font-family:Consolas, Monaco, 'Lucida Console',
   'Courier New', 'Courier', monospace}
 p > code, li > code{padding:2px 0px}
 div.figure{text-align:center}
