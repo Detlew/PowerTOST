@@ -26,29 +26,36 @@ Helmut Schütz
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![cran
+checks](https://cranchecks.info/badges/summary/PowerTOST)](https://cran.r-project.org/web/checks/check_results_PowerTOST.html)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](https://r-pkg.org/pkg/PowerTOST)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
+
 # PowerTOST
 
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Built 2019-08-30 with R 3.6.1.
+Built 2019-09-14 with R 3.6.1.
 
 ## Supported Designs
 
-    #>    design                        name    df
-    #>  parallel           2 parallel groups   n-2
-    #>       2x2               2x2 crossover   n-2
-    #>     2x2x2             2x2x2 crossover   n-2
-    #>       3x3               3x3 crossover 2*n-4
-    #>     3x6x3             3x6x3 crossover 2*n-4
-    #>       4x4               4x4 crossover 3*n-6
-    #>     2x2x3   2x2x3 replicate crossover 2*n-3
-    #>     2x2x4   2x2x4 replicate crossover 3*n-4
-    #>     2x4x4   2x4x4 replicate crossover 3*n-4
-    #>     2x3x3   partial replicate (2x3x3) 2*n-3
-    #>     2x4x2            Balaam's (2x4x2)   n-2
-    #>    2x2x2r Liu's 2x2x2 repeated x-over 3*n-2
-    #>    paired                paired means   n-1
+    #    design                        name    df
+    #  parallel           2 parallel groups   n-2
+    #       2x2               2x2 crossover   n-2
+    #     2x2x2             2x2x2 crossover   n-2
+    #       3x3               3x3 crossover 2*n-4
+    #     3x6x3             3x6x3 crossover 2*n-4
+    #       4x4               4x4 crossover 3*n-6
+    #     2x2x3   2x2x3 replicate crossover 2*n-3
+    #     2x2x4   2x2x4 replicate crossover 3*n-4
+    #     2x4x4   2x4x4 replicate crossover 3*n-4
+    #     2x3x3   partial replicate (2x3x3) 2*n-3
+    #     2x4x2            Balaam's (2x4x2)   n-2
+    #    2x2x2r Liu's 2x2x2 repeated x-over 3*n-2
+    #    paired                paired means   n-1
 
 The code of designs follow this pattern: `treatments x sequences x
 periods`.
@@ -69,7 +76,7 @@ Whilst "2x4x4" four period full replicate designs with four sequences
 (TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they
 should be avoided due to confounded effects.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ## Purpose
 
@@ -85,7 +92,7 @@ For all methods the sample size can be *estimated* based on
     reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
     *θ*<sub>2</sub>}, target power, and design.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ## Supported
 
@@ -112,7 +119,7 @@ sequences or equal group sizes.
     RSABE.
   - Dose-Proportionality using the power model.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ### Methods
 
@@ -124,7 +131,7 @@ sequences or equal group sizes.
       - Non-central *t*-distribution.
       - ‘Shifted’ central *t*-distribution.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ### Helpers
 
@@ -144,7 +151,7 @@ sequences or equal group sizes.
     dropouts) on power of BE decision.
   - Construct design matrices of incomplete block designs.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ## Defaults
 
@@ -210,7 +217,7 @@ Minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and
 sample size method depend on defaults of the respective approaches (ABE,
 ABEL, RSABE, NTID).
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ## Examples
 
@@ -229,7 +236,7 @@ design "parallel".
 
 ``` r
 power.TOST(CV = 0.35, theta0 = 0.95, n = c(52, 49), design = "parallel")
-#> [1] 0.8011186
+# [1] 0.8011186
 ```
 
 ### Crossover Design
@@ -238,20 +245,20 @@ Sample size for assumed intra-subject *CV* 0.20.
 
 ``` r
 sampleN.TOST(CV = 0.20)
-#> 
-#> +++++++++++ Equivalence test - TOST +++++++++++
-#>             Sample size estimation
-#> -----------------------------------------------
-#> Study design: 2x2 crossover 
-#> log-transformed data (multiplicative model)
-#> 
-#> alpha = 0.05, target power = 0.8
-#> BE margins = 0.8 ... 1.25 
-#> True ratio = 0.95,  CV = 0.2
-#> 
-#> Sample size (total)
-#>  n     power
-#> 20   0.834680
+# 
+# +++++++++++ Equivalence test - TOST +++++++++++
+#             Sample size estimation
+# -----------------------------------------------
+# Study design: 2x2 crossover 
+# log-transformed data (multiplicative model)
+# 
+# alpha = 0.05, target power = 0.8
+# BE margins = 0.8 ... 1.25 
+# True ratio = 0.95,  CV = 0.2
+# 
+# Sample size (total)
+#  n     power
+# 20   0.834680
 ```
 
 Sample size for equivalence of the ratio of two means with normality on
@@ -262,23 +269,23 @@ intended for studies with clinical endpoints.
 
 ``` r
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
-#> 
-#> +++++++++++ Equivalence test - TOST +++++++++++
-#>     based on Fieller's confidence interval
-#>             Sample size estimation
-#> -----------------------------------------------
-#> Study design: 2x2 crossover
-#> Ratio of means with normality on original scale
-#> alpha = 0.025, target power = 0.8
-#> BE margins = 0.8 ... 1.25 
-#> True ratio = 0.95,  CVw = 0.2,  CVb = 0.4
-#> 
-#> Sample size
-#>  n     power
-#> 28   0.807774
+# 
+# +++++++++++ Equivalence test - TOST +++++++++++
+#     based on Fieller's confidence interval
+#             Sample size estimation
+# -----------------------------------------------
+# Study design: 2x2 crossover
+# Ratio of means with normality on original scale
+# alpha = 0.025, target power = 0.8
+# BE margins = 0.8 ... 1.25 
+# True ratio = 0.95,  CVw = 0.2,  CVb = 0.4
+# 
+# Sample size
+#  n     power
+# 28   0.807774
 ```
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ### Replicate Designs
 
@@ -289,20 +296,20 @@ three period full replicate study "2x2x3" (TRT|RTR *or* TRR|RTT).
 
 ``` r
 sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
-#> 
-#> +++++++++++ Equivalence test - TOST +++++++++++
-#>             Sample size estimation
-#> -----------------------------------------------
-#> Study design: 2x2x3 (3 period full replicate) 
-#> log-transformed data (multiplicative model)
-#> 
-#> alpha = 0.05, target power = 0.8
-#> BE margins = 0.8 ... 1.25 
-#> True ratio = 0.9,  CV = 0.45
-#> 
-#> Sample size (total)
-#>  n     power
-#> 124   0.800125
+# 
+# +++++++++++ Equivalence test - TOST +++++++++++
+#             Sample size estimation
+# -----------------------------------------------
+# Study design: 2x2x3 (3 period full replicate) 
+# log-transformed data (multiplicative model)
+# 
+# alpha = 0.05, target power = 0.8
+# BE margins = 0.8 ... 1.25 
+# True ratio = 0.9,  CV = 0.45
+# 
+# Sample size (total)
+#  n     power
+# 124   0.800125
 ```
 
 Note that the conventional model assumes homoscedasticity. For
@@ -318,13 +325,13 @@ CV  <- CVp2CV(CV = 0.45, ratio = 2/3)
 res <- sampleN.scABEL(CV=CV, design = "2x2x3", regulator = reg,
                       details = FALSE, print = FALSE)
 print(res[c(3:4, 8:9)], digits = 5, row.names = FALSE)
-#>    CVwT    CVwR Sample size Achieved power
-#>  0.3987 0.49767         126         0.8052
+#    CVwT    CVwR Sample size Achieved power
+#  0.3987 0.49767         126         0.8052
 ```
 
 Similar sample size because the pooled *CV* is still 0.45.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 #### ABEL
 
@@ -332,30 +339,30 @@ Sample size assuming homoscedasticity (*CV<sub>w</sub>* = 0.45).
 
 ``` r
 sampleN.scABEL(CV = 0.45, details = TRUE)
-#> 
-#> +++++++++++ scaled (widened) ABEL +++++++++++
-#>             Sample size estimation
-#>    (simulation based on ANOVA evaluation)
-#> ---------------------------------------------
-#> Study design: 2x3x3 (partial replicate)
-#> log-transformed data (multiplicative model)
-#> 1e+05 studies for each step simulated.
-#> 
-#> alpha  = 0.05, target power = 0.8
-#> CVw(T) = 0.45; CVw(R) = 0.45
-#> True ratio = 0.9
-#> ABE limits / PE constraint = 0.8 ... 1.25 
-#> EMA regulatory settings
-#> - CVswitch            = 0.3 
-#> - cap on scABEL if CVw(R) > 0.5
-#> - regulatory constant = 0.76 
-#> - pe constraint applied
-#> 
-#> 
-#> Sample size search
-#>  n     power
-#> 36   0.7755 
-#> 39   0.8059
+# 
+# +++++++++++ scaled (widened) ABEL +++++++++++
+#             Sample size estimation
+#    (simulation based on ANOVA evaluation)
+# ---------------------------------------------
+# Study design: 2x3x3 (partial replicate)
+# log-transformed data (multiplicative model)
+# 1e+05 studies for each step simulated.
+# 
+# alpha  = 0.05, target power = 0.8
+# CVw(T) = 0.45; CVw(R) = 0.45
+# True ratio = 0.9
+# ABE limits / PE constraint = 0.8 ... 1.25 
+# EMA regulatory settings
+# - CVswitch            = 0.3 
+# - cap on scABEL if CVw(R) > 0.5
+# - regulatory constant = 0.76 
+# - pe constraint applied
+# 
+# 
+# Sample size search
+#  n     power
+# 36   0.7755 
+# 39   0.8059
 ```
 
 Iteratively adjust *α* to control the Type I Error ([Labes,
@@ -366,28 +373,28 @@ sequences.
 
 ``` r
 scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4", n = 30)
-#> +++++++++++ scaled (widened) ABEL ++++++++++++
-#>          iteratively adjusted alpha
-#>    (simulations based on ANOVA evaluation)
-#> ----------------------------------------------
-#> Study design: 2x2x4 (4 period full replicate)
-#> log-transformed data (multiplicative model)
-#> 1,000,000 studies in each iteration simulated.
-#> 
-#> CVwR 0.35, CVwT 0.3, n(i) 15|15 (N 30)
-#> Nominal alpha                 : 0.05 
-#> True ratio                    : 0.9000 
-#> Regulatory settings           : EMA (ABEL)
-#> Switching CVwR                : 0.3 
-#> Regulatory constant           : 0.76 
-#> Expanded limits               : 0.7723 ... 1.2948
-#> Upper scaling cap             : CVwR > 0.5 
-#> PE constraints                : 0.8000 ... 1.2500
-#> Empiric TIE for alpha 0.0500  : 0.06651
-#> Power for theta0 0.9000       : 0.814
-#> Iteratively adjusted alpha    : 0.03540
-#> Empiric TIE for adjusted alpha: 0.05000
-#> Power for theta0 0.9000       : 0.771
+# +++++++++++ scaled (widened) ABEL ++++++++++++
+#          iteratively adjusted alpha
+#    (simulations based on ANOVA evaluation)
+# ----------------------------------------------
+# Study design: 2x2x4 (4 period full replicate)
+# log-transformed data (multiplicative model)
+# 1,000,000 studies in each iteration simulated.
+# 
+# CVwR 0.35, CVwT 0.3, n(i) 15|15 (N 30)
+# Nominal alpha                 : 0.05 
+# True ratio                    : 0.9000 
+# Regulatory settings           : EMA (ABEL)
+# Switching CVwR                : 0.3 
+# Regulatory constant           : 0.76 
+# Expanded limits               : 0.7723 ... 1.2948
+# Upper scaling cap             : CVwR > 0.5 
+# PE constraints                : 0.8000 ... 1.2500
+# Empiric TIE for alpha 0.0500  : 0.06651
+# Power for theta0 0.9000       : 0.814
+# Iteratively adjusted alpha    : 0.03540
+# Empiric TIE for adjusted alpha: 0.05000
+# Power for theta0 0.9000       : 0.771
 ```
 
 With the nominal *α* 0.05 the Type I Error will be inflated (0.0665).
@@ -398,7 +405,7 @@ Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to
 estimate the sample size which both controls the TIE and maintains the
 target power. In this example 34 subjects will be required.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 #### RSABE
 
@@ -411,26 +418,26 @@ size search suppressed.
 
 ``` r
 sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
-#> 
-#> ++++++++ Reference scaled ABE crit. +++++++++
-#>            Sample size estimation
-#> ---------------------------------------------
-#> Study design: 2x2x4 (4 period full replicate)
-#> log-transformed data (multiplicative model)
-#> 1e+05 studies for each step simulated.
-#> 
-#> alpha  = 0.05, target power = 0.8
-#> CVw(T) = 0.4; CVw(R) = 0.5
-#> True ratio = 0.9
-#> ABE limits / PE constraints = 0.8 ... 1.25 
-#> Regulatory settings: FDA 
-#> 
-#> Sample size
-#>  n    power
-#> 20   0.81509
+# 
+# ++++++++ Reference scaled ABE crit. +++++++++
+#            Sample size estimation
+# ---------------------------------------------
+# Study design: 2x2x4 (4 period full replicate)
+# log-transformed data (multiplicative model)
+# 1e+05 studies for each step simulated.
+# 
+# alpha  = 0.05, target power = 0.8
+# CVw(T) = 0.4; CVw(R) = 0.5
+# True ratio = 0.9
+# ABE limits / PE constraints = 0.8 ... 1.25 
+# Regulatory settings: FDA 
+# 
+# Sample size
+#  n    power
+# 20   0.81509
 ```
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 #### NTIDs
 
@@ -444,34 +451,34 @@ Assess additionally which one of the three components (scaled, ABE,
 ``` r
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
 n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
-#> 
-#> +++++++++++ FDA method for NTIDs ++++++++++++
-#>            Sample size estimation
-#> ---------------------------------------------
-#> Study design:  2x2x4 (TRTR|RTRT) 
-#> log-transformed data (multiplicative model)
-#> 1e+05 studies for each step simulated.
-#> 
-#> alpha  = 0.05, target power = 0.8
-#> CVw(T) = 0.1497, CVw(R) = 0.09433
-#> True ratio     = 0.975 
-#> ABE limits     = 0.8 ... 1.25 
-#> Implied scABEL = 0.9056 ... 1.1043 
-#> Regulatory settings: FDA 
-#> - Regulatory const. = 1.053605 
-#> - 'CVcap'           = 0.2142 
-#> 
-#> Sample size search
-#>  n     power
-#> 28   0.665530 
-#> 30   0.701440 
-#> 32   0.734240 
-#> 34   0.764500 
-#> 36   0.792880 
-#> 38   0.816080
+# 
+# +++++++++++ FDA method for NTIDs ++++++++++++
+#            Sample size estimation
+# ---------------------------------------------
+# Study design:  2x2x4 (TRTR|RTRT) 
+# log-transformed data (multiplicative model)
+# 1e+05 studies for each step simulated.
+# 
+# alpha  = 0.05, target power = 0.8
+# CVw(T) = 0.1497, CVw(R) = 0.09433
+# True ratio     = 0.975 
+# ABE limits     = 0.8 ... 1.25 
+# Implied scABEL = 0.9056 ... 1.1043 
+# Regulatory settings: FDA 
+# - Regulatory const. = 1.053605 
+# - 'CVcap'           = 0.2142 
+# 
+# Sample size search
+#  n     power
+# 28   0.665530 
+# 30   0.701440 
+# 32   0.734240 
+# 34   0.764500 
+# 36   0.792880 
+# 38   0.816080
 suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
-#>        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
-#>      0.81608      0.93848      1.00000      0.85794
+#        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
+#      0.81608      0.93848      1.00000      0.85794
 ```
 
 The *s<sub>wT</sub>*/*s<sub>wR</sub>* component shows the lowest power
@@ -482,32 +489,32 @@ Compare that with homoscedasticity (*CV<sub>wT</sub>* =
 ``` r
 CV <- 0.125
 n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
-#> 
-#> +++++++++++ FDA method for NTIDs ++++++++++++
-#>            Sample size estimation
-#> ---------------------------------------------
-#> Study design:  2x2x4 (TRTR|RTRT) 
-#> log-transformed data (multiplicative model)
-#> 1e+05 studies for each step simulated.
-#> 
-#> alpha  = 0.05, target power = 0.8
-#> CVw(T) = 0.125, CVw(R) = 0.125
-#> True ratio     = 0.975 
-#> ABE limits     = 0.8 ... 1.25 
-#> Regulatory settings: FDA 
-#> 
-#> Sample size
-#>  n     power
-#> 16   0.822780
+# 
+# +++++++++++ FDA method for NTIDs ++++++++++++
+#            Sample size estimation
+# ---------------------------------------------
+# Study design:  2x2x4 (TRTR|RTRT) 
+# log-transformed data (multiplicative model)
+# 1e+05 studies for each step simulated.
+# 
+# alpha  = 0.05, target power = 0.8
+# CVw(T) = 0.125, CVw(R) = 0.125
+# True ratio     = 0.975 
+# ABE limits     = 0.8 ... 1.25 
+# Regulatory settings: FDA 
+# 
+# Sample size
+#  n     power
+# 16   0.822780
 suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
-#>        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
-#>      0.82278      0.84869      1.00000      0.95128
+#        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
+#      0.82278      0.84869      1.00000      0.95128
 ```
 
 Here the scaled ABE component shows the lowest power and drives the
 sample size, which is much lower than in the previous example.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ### Dose-Proportionality
 
@@ -516,20 +523,20 @@ sample size, which is much lower than in the previous example.
 
 ``` r
 sampleN.dp(CV = 0.20, doses = c(1, 2, 8), beta0 = 1, targetpower = 0.90)
-#> 
-#> ++++ Dose proportionality study, power model ++++
-#>             Sample size estimation
-#> -------------------------------------------------
-#> Study design: crossover (3x3 Latin square) 
-#> alpha = 0.05, target power = 0.9
-#> Equivalence margins of R(dnm) = 0.8 ... 1.25 
-#> Doses = 1 2 8 
-#> True slope = 1, CV = 0.2
-#> Slope acceptance range = 0.89269 ... 1.1073 
-#> 
-#> Sample size (total)
-#>  n     power
-#> 18   0.915574
+# 
+# ++++ Dose proportionality study, power model ++++
+#             Sample size estimation
+# -------------------------------------------------
+# Study design: crossover (3x3 Latin square) 
+# alpha = 0.05, target power = 0.9
+# Equivalence margins of R(dnm) = 0.8 ... 1.25 
+# Doses = 1 2 8 
+# True slope = 1, CV = 0.2
+# Slope acceptance range = 0.89269 ... 1.1073 
+# 
+# Sample size (total)
+#  n     power
+# 18   0.915574
 ```
 
 Note that the acceptance range of the slope depends on the ratio of the
@@ -540,7 +547,7 @@ In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>,
 this example to an acceptance range of `0.66667 ... 1.3333` and a sample
 size of only six subjects.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ### Power Analysis
 
@@ -551,14 +558,14 @@ intra-subject *CV* 0.20, target power 0.90. Suppress the plot.
 ``` r
 res <- pa.ABE(CV = 0.20, targetpower = 0.90)
 print(res, plotit = FALSE)
-#> Sample size plan ABE
-#>  Design alpha  CV theta0 theta1 theta2 Sample size Achieved power
-#>     2x2  0.05 0.2   0.95    0.8   1.25          26      0.9176333
-#> 
-#> Power analysis
-#> CV, theta0 and number of subjects which lead to min. acceptable power of at least 0.7:
-#>  CV= 0.2729, theta0= 0.9044
-#>  N = 16 (power= 0.7354)
+# Sample size plan ABE
+#  Design alpha  CV theta0 theta1 theta2 Sample size Achieved power
+#     2x2  0.05 0.2   0.95    0.8   1.25          26      0.9176333
+# 
+# Power analysis
+# CV, theta0 and number of subjects which lead to min. acceptable power of at least 0.7:
+#  CV= 0.2729, theta0= 0.9044
+#  N = 16 (power= 0.7354)
 ```
 
 If the study starts with 26 subjects (power \~0.92), the *CV* can
@@ -571,23 +578,23 @@ since in a real study a combination of all effects occurs
 simultaneously. It is up to *you* to decide on reasonable combinations
 and analyze their respective power.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ### Speed Comparisons
 
-Double Xeon E3-1245v3 3.4GHz, 8MB cache, 16GB RAM, R 3.6.1 64bit on
-Windows 7.
+Performed on a double Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 3.6.1 64 bit on
+Windows 7.
 
 #### ABE
 
 "2x2" crossover design, *CV* 0.17. Sample sizes and achieved power for
 the supported methods (the 1<sup>st</sup> one is the default).
 
-    #>      method  n    power seconds
-    #>       owenq 14 0.805683  0.0020
-    #>         mvt 14 0.805690  0.1220
-    #>  noncentral 14 0.805683  0.0010
-    #>     shifted 16 0.852301  0.0005
+    #      method  n    power seconds
+    #       owenq 14 0.805683  0.0015
+    #         mvt 14 0.805690  0.1220
+    #  noncentral 14 0.805683  0.0010
+    #     shifted 16 0.852301  0.0005
 
 The 2<sup>nd</sup> exact method is substantially slower than the
 1<sup>st</sup>. The approximation based on the noncentral
@@ -603,9 +610,9 @@ Four period full replicate study, homogenicity (*CV<sub>wT</sub>* =
 *CV<sub>wR</sub>* 0.45). Sample sizes and achieved power for the
 supported methods (‘key’ statistics or subject simulations).
 
-    #>               method  n   power seconds
-    #>     'key' statistics 28 0.81116    0.14
-    #>  subject simulations 28 0.81196    2.57
+    #               method  n   power seconds
+    #     'key' statistics 28 0.81116    0.16
+    #  subject simulations 28 0.81196    2.32
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons.  
@@ -615,7 +622,7 @@ However, subject simulations are recommended *if*
   - the special case of heterogenicity *CV<sub>wT</sub>* \>
     *CV<sub>wR</sub>* is expected.
 
-<small>[↑ TOC](#readme)</small>
+<small>[TOC ↩](#readme)</small>
 
 ## Installation
 
@@ -632,3 +639,5 @@ And the development version from [GitHub](https://github.com/) with:
 
     # install.packages("devtools")
     devtools::install_github("Detlew/PowerTOST")
+
+<small>[TOC ↩](#readme)</small>
