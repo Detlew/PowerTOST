@@ -1,8 +1,5 @@
 ---
-title: "PowerTOST"
-subtitle: "Average Bioequivalence"
-author: "Helmut Schütz"
-date: "`r Sys.Date()`"
+title: "Average Bioequivalence"
 lang: "en"
 output:
   rmarkdown::html_vignette:
@@ -10,11 +7,10 @@ output:
     toc: true
     toc_depth: 4
 vignette: >
-  %\VignetteIndexEntry{PowerTOST}
+  %\VignetteIndexEntry{ABE}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -26,21 +22,8 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
-# Man-pages{#mans}
-Man-pages of functions used in this vignette:
 
-  * [sampleN.TOST](library/html/sampleN.TOST.html)
-  * [power.TOST](library/html/power.TOST.html)
-  * [power.TOST.sds](library/html/power.TOST.sds.html)
-  * [CVCL](library/html/CVCL.html)
-  * [expsampleN.TOST](library/html/expsampleN.TOST.html)
-  * [CI.BE](library/html/CI.BE.html)
-  * [CVpooled](library/html/CVpooled.html)
-  * [CVfromCI](library/html/CVfromCI.html)
-
-[Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
-
-# Defaults{#defaults}
+# Defaults
 
 | Parameter | Argument | Purpose | Default |
 |-|----|--------------|-------|
@@ -63,7 +46,7 @@ Defaults depending on the argument `logscale`:
 | Parameter | Argument | `logscale=TRUE` | `logscale=FALSE` |
 |-|----|:--------:|:--------:|
 | $\theta_{0}$ | `theta0` | 0.95 | +0.05 |
-| $\theta_{1}$ | `theta1` | 0.80 | –0.20 |
+| $\theta_{1}$ | `theta1` | 0.80 | −0.20 |
 | $\theta_{2}$ | `theta2` | 1.25 | +0.20 |
 
 Arguments have to be given as ratios, not percent.\
@@ -71,15 +54,15 @@ The *CV* is generally the *within*-subject coefficient of variation. Only for `d
 
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (a.k.a. AB|BA) design can be abbreviated as `2x2`. Some call the `parallel` design a ‘one-sequence’ design. The `paired` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note, that the underlying model assumes no period effects.
 
-With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are provided as a data.frame with eight columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `foo[7]` or `foo[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are provided as a data.frame with eight columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `foo[1, 7]` or `foo[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
 <small>[TOC ↩](#TOC)</small>
 
-# Sample size{#splsze}
+# Sample size
 
-## Two-Treatment Designs{#twotrt}
+## Two-Treatment Designs
 Designs with one (parallel) to four periods (replicates) are supported.
 ```{r, echo = FALSE}
 res        <- data.frame(design = rep(NA, 10), name = NA, df = NA)
@@ -87,7 +70,7 @@ res[1:10, ] <- known.designs()[c(1:3, 7:13), c(2, 9, 3)]
 print(res, row.names = FALSE)
 ```
 
-### Example 1{#expl1}
+### Example 1
 Estimate the sample size for assumed intra-subject *CV* 0.30.
 ```{r}
 sampleN.TOST(CV = 0.30)
@@ -203,7 +186,7 @@ With ~0.5\% the relative loss in power is practically negligble.
 
 <small>[TOC ↩](#TOC)</small>
 
-### Example 2{#expl2}
+### Example 2
 Estimate the sample size for equivalence of the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval.^[Fieller EC. *Some Problems in Interval Estimation.* J Royal Stat Soc B. 1954; 16(2): 175--85. [JSTOR:2984043](https://www.jstor.org/stable/2984043).] Crossover design, within-subject *CV~w~* 0.20, between-subject *CV~b~* 0.40.
 ```{r}
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
@@ -301,7 +284,7 @@ If you are adventurous consider an Adaptive Two-Stage Sequential Design with sam
 
 <small>[TOC ↩](#TOC)</small>
 
-## Higher-Order Designs{#higher}
+## Higher-Order Designs
 Designs with three and four periods are supported.
 ```{r, echo = FALSE}
 res        <- data.frame(design = rep(NA, 3),
@@ -357,7 +340,7 @@ print(res, row.names = FALSE)
 ```
 <small>[TOC ↩](#TOC)</small>
 
-# Power{#power}
+# Power
 Let us first recap the hypotheses in bioequivalence.
 
   1. The two one-sided testing procedure (TOST)^[Schuirmann DJ. *A Comparison of the Two One-Sided Tests Procedure and the Power Approach for Assessing the Equivalence of Average Bioavailability.* J Pharmacokin Biopharm. 1987; 15(6): 657--80. [doi:10.1007/BF01068419](https://doi.org/10.1007/BF01068419).]
@@ -401,7 +384,7 @@ Since all estimates were worse than assumed, how could we have a ‘power’ eve
 
 <small>[TOC ↩](#TOC)</small>
 
-# Pooling{#pooling}
+# Pooling
 When planning the next study one can use the entire arsenal from [above](#expl3). Since we have more accurate estimates (from 25 subjects instead of the 16 of the pilot) the situation is more clear now.\
 As a further step we can take the information of both studies into account with the function `CVpooled()`.
 ```{r}
@@ -418,7 +401,7 @@ Before pooling, variances are weighted by the degrees of freedom. Hence, the new
 
 <small>[TOC ↩](#TOC)</small>
 
-## Caveats{#cave}
+## Caveats
 Don’t pool data blindly. In the ideal situation you know the entire background of all studies (clinical performance, bioanalytics). Even if all studies were performed at the same CRO, more things are important. One purpose of pilot studies is to find a suitable sampling schedule. If the schedule of the pilot was not ideal (*e.g.*, you get the impression that *C~max~* was not sufficiently enough described), pooling is not a good idea. It might well be that in the pivotal study – with a ‘better’ schedule – this *CV* is more reliable. On the other hand, the *AUC* is less sensitive to different sampling schedule.
 
 Pooling data from the literature should be done with great caution (if at all). Possibly critical information is missing. Consider using a *CV* from the upper end of values instead. Common sense helps.
@@ -434,8 +417,8 @@ This is an apples-and-oranges comparison. Red squares show *CV*s which were abov
 
 <small>[TOC ↩](#TOC)</small>
 
-# Hints{#hints}
-## Power Analysis{#pa}
+# Hints
+## Power Analysis
 Although we suggest to explore the various options shown in [Example 3](#expl3), it is worthwhile to have a first look with the function `pa.ABE()`.
 ```{r}
 pa.ABE(CV = 0.20, theta0 = 0.92)
@@ -448,7 +431,7 @@ More details are given in the respective [vignette](library/doc/PA.html).
 
 <small>[TOC ↩](#TOC)</small>
 
-## Dropouts{#do}
+## Dropouts
 As we have seen, the impact of dropouts on power is rather limited. Regulary CROs suggest additional subjects to ‘compensate for the potential loss in power’. IMHO, milking sponsors to make wealthy CROs richer. Note that the dropout-rate is based on *dosed* subjects. Hence, the correct formula for an adjusted sample size is <small>$n_{adj}=n / (1-{dropout\:rate})$</small>, and *not* <small>$n_{adj}=n \times (1+{dropout\:rate})$</small>.
 ```{r}
 balance <- function(x, seqs) {
@@ -476,7 +459,7 @@ With the wrong formula – especially for high droput rates – you might end 
 
 <small>[TOC ↩](#TOC)</small>
 
-## Literature Data{#CI2CV}
+## Literature Data
 Sometimes the *CV* is not given in the literature. By means of the function `CVfromCI()` we can [calculate it](https://bebac.at/lectures/Bucharest2013WS1.pdf#page=26 "underlying algebra") from the confidence interval, the design, and the sample size.
 ```{r}
 CVfromCI(lower = 0.8323, upper = 1.0392, n = 26,
@@ -491,13 +474,31 @@ The true value is lower. That means, if we use the *CV* assuming balanced sequen
 
 <small>[TOC ↩](#TOC)</small>
 
-# Authors{#authors}
-`sampleN.TOST`, `power.TOST`, `power.TOST.sds`, `sampleN.RatioF`, `CVCL`, `CI.BE`, `CVpooled`: Detlew Labes\
-`expsampleN.TOST`: Benjamin Lang, Detlew Labes\
-`CVfromCI`: Detlew Labes, Helmut Schütz, Benjamin Lang\
-`pa.ABE`: Helmut Schütz, Detlew Labes
+# Man-pages
+Man-pages of functions used in this vignette:
 
-# License{#license}
+  * [sampleN.TOST](library/html/sampleN.TOST.html)
+  * [power.TOST](library/html/power.TOST.html)
+  * [power.TOST.sds](library/html/power.TOST.sds.html)
+  * [CVCL](library/html/CVCL.html)
+  * [expsampleN.TOST](library/html/expsampleN.TOST.html)
+  * [CI.BE](library/html/CI.BE.html)
+  * [CVpooled](library/html/CVpooled.html)
+  * [CVfromCI](library/html/CVfromCI.html)
+
+[Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
+
+<small>[TOC ↩](#TOC)</small>
+
+# Authors
+|function|author(s)|
+|-------|----|
+|`sampleN.TOST`, `power.TOST`, `power.TOST.sds`, `sampleN.RatioF`,<br />`CVCL`, `CI.BE`, `CVpooled`|Detlew Labes|
+|`expsampleN.TOST`|<span style="white-space:nowrap">Benjamin Lang, Detlew Labes</span>|
+|`CVfromCI`|<span style="white-space:nowrap">Detlew Labes, Helmut Schütz, Benjamin Lang</span>|
+|`pa.ABE`|<span style="white-space:nowrap">Helmut Schütz, Detlew Labes</span>|
+
+# License
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2) | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3)
 
 <small>[TOC ↩](#TOC)</small>

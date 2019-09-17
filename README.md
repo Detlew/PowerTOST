@@ -38,7 +38,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Built 2019-09-14 with R 3.6.1.
+Built 2019-09-16 with R 3.6.1.
 
 ## Supported Designs
 
@@ -582,8 +582,8 @@ and analyze their respective power.
 
 ### Speed Comparisons
 
-Performed on a double Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 3.6.1 64 bit on
-Windows 7.
+Performed on a double Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R
+3.6.1 64 bit on Windows 7.
 
 #### ABE
 
@@ -611,7 +611,7 @@ Four period full replicate study, homogenicity (*CV<sub>wT</sub>* =
 supported methods (‘key’ statistics or subject simulations).
 
     #               method  n   power seconds
-    #     'key' statistics 28 0.81116    0.16
+    #     ‘key’ statistics 28 0.81116    0.16
     #  subject simulations 28 0.81196    2.32
 
 Simulating via the ‘key’ statistics is the method of choice for speed
@@ -627,7 +627,7 @@ However, subject simulations are recommended *if*
 ## Installation
 
 You can install the released version of PowerTOST from
-[CRAN](https://CRAN.R-project.org) with:
+[CRAN](https://CRAN.R-project.org) with
 
 ``` r
 package <- "PowerTOST"
@@ -635,7 +635,7 @@ inst    <- package %in% installed.packages()
 if (length(package[!inst]) > 0) install.packages(package[!inst])
 ```
 
-And the development version from [GitHub](https://github.com/) with:
+… and the development version from [GitHub](https://github.com/) with
 
     # install.packages("devtools")
     devtools::install_github("Detlew/PowerTOST")

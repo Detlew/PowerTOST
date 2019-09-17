@@ -41,7 +41,7 @@ sampleN.scABEL.sdsims <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     type    <- c("4 period full replicate",
                  "3 period full replicate",
                  "partial replicate") # clear words
-    cat("\nBe patient. Simulating subject data may take a good while!\n\n")
+    cat("Be patient. Simulating subject data may take a while!\n")
     cat("\n+++++++++++ scaled (widened) ABEL +++++++++++\n")
     cat("            Sample size estimation\n")
     cat("   (simulation based on ANOVA evaluation)\n")

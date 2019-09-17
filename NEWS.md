@@ -1,9 +1,10 @@
 # PowerTOST 1.4-8.9000
 
-Published on GitHub 2019-09-11.
+Published on GitHub 2019-09-17.
 
 ## Bug fixes
 
+  * Fix in `scABEL.ad()` (& instead of &&). Logical has to have length 1 for &&.
   * Assumed CV in fourth panel of `pwrA_S3methods.R` in the same precison like others.
   * Fix in `power.TOST.sds()` for `gmodel==1`, case of `gmodel=3` with data of the largest group (group by treatment interaction significant at p=0.1)
   

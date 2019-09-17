@@ -72,7 +72,9 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
   # check regulator arg
   if(missing(regulator)) regulator <- "EMA"
   reg <- reg_check(regulator, choices=c("EMA", "HC", "FDA"))
-  if (regulator %in% c("HC", "FDA") && sdsims)
+  # if (regulator %in% c("HC", "FDA") && sdsims)
+  # Otherwise: 'Fatal error: length > 1 in coercion to logical' in vignette-building
+  if (regulator %in% c("HC", "FDA") & sdsims)
     stop("Subject data simulations are not supported for regulator=\'HC\' or \'FDA\'.")
   # set iteration tolerance for uniroot().
   if (missing(tol)) tol <- 1e-6

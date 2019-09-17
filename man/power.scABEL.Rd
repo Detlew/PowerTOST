@@ -115,7 +115,7 @@ as recommended by the FDA.
 \value{
 Returns the value of the (empirical) power if argument \code{details=FALSE}.\cr\cr
 Returns a named vector if argument \code{details=TRUE}.\cr
-p(BE) is the power, p(BE-wABEL) is the power of the widened ABEL criterion alone 
+p(BE) is the power, p(BE-ABEL) is the power of the widened ABEL criterion alone 
 and p(BE-pe) is the power of the criterion \sQuote{point estimate within acceptance 
 range} alone. p(BE-ABE) is the power of the conventional ABE test given for 
 comparative purposes.
