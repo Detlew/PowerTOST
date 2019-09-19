@@ -17,12 +17,11 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-| [Main Vignette](library/doc/vignette.html) | <span title="You are here">ABE</span> | [RSABE](library/doc/RSABE.html) | [Non-Inferiority](library/doc/NI.html) | [Dose-Proportionality](library/doc/DP.html) | [Power Analysis](library/doc/PA.html) |
+| [Main Vignette](vignette.html) | <span title="You are here">ABE</span> | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
-
 # Defaults
 
 | Parameter | Argument | Purpose | Default |
@@ -96,7 +95,7 @@ designs <- c("2x2x2", "2x2x3", "2x3x3", "2x2x4")
 res <- data.frame(design = designs, n = NA, power = NA, n.do = NA,
                   power.do = NA, stringsAsFactors = FALSE)
 for (i in 1:4) {
-  # print = FALSE and details = FALSE suppress the output to the console
+  # print = FALSE and details = FALSE suppress output to the console
   # we are only interested in columns 7-8
   # let's also calculate power for one dropout
   res[i, 2:3] <- signif(
@@ -110,7 +109,6 @@ for (i in 1:4) {
 }
 print(res, row.names = FALSE)
 ```
-
 As expected, and as a bonus we get a small gain in power, though in the 4-period with one dropout power will be slightly compromised.\
 But why is power in the replicate designs higher than in the 2×2×2? If residual variances are equal, the width of the confidence interval depends only on the *t*-value and in particular on the degrees of freedom – which themselves depend on the design and the sample size.
 
@@ -131,7 +129,6 @@ for (i in 1:4) {
 res <- res[with(res, order(-n, design)), ]
 print(res, row.names = FALSE)
 ```
-
 If the capacity is 24 beds, we would opt for a 4-period full replicate.
 
 <small>[TOC ↩](#TOC)</small>
@@ -150,7 +147,7 @@ period(group) + group × sequence + treatment
 Since we have more terms in the model, we will loose some degrees of freedom. Let us explore in simulations how that would impact power. By default function `power.TOST.sds()` performs 100,000 simulations.
 ```{r}
 ngrp <- function(capacity, n) {
-  # split sample size into >=2 groups based on clinical capacity
+  # split sample size into >=2 groups based on capacity
   if (n <= capacity) { # make equal groups
     ngrp <- rep(ceiling(n/2), 2)
   } else {             # at least one = capacity
@@ -169,7 +166,7 @@ ngrp <- function(capacity, n) {
   return(ngrp = list(grps = length(ngrp), ngrp = ngrp))
 }
 CV        <- 0.30
-capacity  <- 24
+capacity  <- 24 # clinical capacity
 res       <- data.frame(n = NA, grps = NA, pwr.1 = NA, pwr.2 = NA)
 x         <- sampleN.TOST(CV = CV, print = FALSE, details = FALSE)
 res$n     <- x[["Sample size"]]
@@ -231,7 +228,6 @@ Of course, this has a massive impact on the sample size, which increases from 28
 <small>[TOC ↩](#TOC)</small>
 
 However, we can also explore how power would be affected if our assumption is true and the study will nevertheless be performed with only 28 subjects.
-
 ```{r}
 CL.upper <- CVCL(CV = 0.20, df = 16 - 2, side = "upper",
                  alpha = 0.20)[["upper CL"]]
@@ -401,7 +397,7 @@ Before pooling, variances are weighted by the degrees of freedom. Hence, the new
 
 <small>[TOC ↩](#TOC)</small>
 
-## Caveats
+<h2>Caveats</h2>
 Don’t pool data blindly. In the ideal situation you know the entire background of all studies (clinical performance, bioanalytics). Even if all studies were performed at the same CRO, more things are important. One purpose of pilot studies is to find a suitable sampling schedule. If the schedule of the pilot was not ideal (*e.g.*, you get the impression that *C~max~* was not sufficiently enough described), pooling is not a good idea. It might well be that in the pivotal study – with a ‘better’ schedule – this *CV* is more reliable. On the other hand, the *AUC* is less sensitive to different sampling schedule.
 
 Pooling data from the literature should be done with great caution (if at all). Possibly critical information is missing. Consider using a *CV* from the upper end of values instead. Common sense helps.
@@ -423,7 +419,7 @@ Although we suggest to explore the various options shown in [Example 3](#expl3),
 ```{r}
 pa.ABE(CV = 0.20, theta0 = 0.92)
 ```
-![**Fig. 4** Power Analysis (in each panel one argument is varied and others kept constant)](figure6.png){width=469px}
+![**Fig. 5** Power Analysis (in each panel one argument is varied and others kept constant)](figure6.png){width=469px}
 
 This excercise confirms what we already know. The most critical parameter is $\theta_{0}$, whereas dropouts are the least important.
 
@@ -470,7 +466,7 @@ The method is exact if the subjects/sequence are known. In the literature genera
 CVfromCI(lower = 0.8323, upper = 1.0392, n = c(14, 12),
          design = "2x2x4")
 ```
-The true value is lower. That means, if we use the *CV* assuming balanced sequences our sample size estimations will be conservative.
+The true value is lower. That means, if we use the *CV* -- falsely -- assuming balanced sequences our sample size estimations will be conservative.
 
 <small>[TOC ↩](#TOC)</small>
 

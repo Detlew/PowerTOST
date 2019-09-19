@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-| [Main Vignette](library/doc/vignette.html) | [ABE](library/doc/ABE.html) | <span title="You are here">RSABE</span> | [Non-Inferiority](library/doc/NI.html) | [Dose-Proportionality](library/doc/DP.html) | [Power Analysis](library/doc/PA.html) |
+| [Main Vignette](vignette.html) | [ABE](ABE.html) | <span title="You are here">RSABE</span> | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 ```{r setup}
 library(PowerTOST) # attach the library
@@ -42,7 +42,7 @@ library(PowerTOST) # attach the library
 | setseed | `setseed` | Issue a fixed seed of the random number generator? | TRUE |
 
 Arguments have to be given as ratios, not percent.\
-The *CV* is the within-subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV~wT~* = *CV~wR~*. If two values are given (*i.e.*, `CV=c(x, y)`) heteroscedasticity (unequal variances) is assumed, and the first value has to be *CV~wT~* and the second *CV~wR~*.  
+The *CV* is the within-subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV~wT~* = *CV~wR~*. If two values are given (*i.e.*, `CV=c(x, y)`) heteroscedasticity (unequal variances) is assumed, where the first value has to be *CV~wT~* and the second *CV~wR~*.  
 
 If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100,000. If simulating for the empiric type I error (`theta0` set to one of the BE limits), `nsims` defaults to 1 million.
 
@@ -171,9 +171,8 @@ Power can by calculated by the counterparts of the respective sample size functi
 `power.scABEL()`, `power.RSABE()`, `power.NTIDFDA()`, and `power.HVNTID()`.  
 
 # Type I Error
-
 Wonnemann *et al.*^[Wonnemann M, Frömke C, Koch A. *Inflation of the Type I Error: Investigations on Regulatory Recommendations for Bioequivalence of Highly Variable Drugs.* Pharm Res. 2015: 32(1); 135--43. [doi:10.1007/s11095-014-1450-z](https://doi.org/10.1007/s11095-014-1450-z).], Muñoz *et al.*^[Muñoz J, Alcaide D, Ocaña J. *Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence in highly variable drugs.* Stat Med. 2016: 35(12); 1933--43. [doi:10.1002/sim.6834](https://doi.org/10.1002/sim.6834).],
-Labes and Schütz^[Labes D, Schütz H. *Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.* Pharm Res. 2016: 33(11); 2805--14. [doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).], Tóthfalusi and Endrényi^[Tóthfalusi L, Endrényi L. *Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.* Stat Med. 2017: 36(27); 4378--90. [doi:10.1002/sim.7440](https://doi.org/10.1002/sim.7440).], and Molins *et al.*^[Molins E, Cobo E, Ocaña J. *Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?* Stat Med. 2017: 36(27); 4378--90. [doi:10.1002/sim.7452](https://doi.org/10.1002/sim.7452).] showed that under certain conditions (EMA, Health Canada: *CV~wR~* \~0.22--0.42, FDA: *CV~wR~* <0.30) the type I error will be inflated.
+Labes and Schütz^[Labes D, Schütz H. *Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.* Pharm Res. 2016: 33(11); 2805--14. [doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).], Tóthfalusi and Endrényi^[Tóthfalusi L, Endrényi L. *An Exact Procedure for the Evaluation of Reference-Scaled Average Bioequivalence.* AAPS J. 2016: 18(2); 476--89. [doi:10.1208/s12248-016-9873-6](https://doi.org/10.1208/s12248-016-9873-6).]<sup>,</sup> ^[Tóthfalusi L, Endrényi L. *Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.* Stat Med. 2017: 36(27); 4378--90. [doi:10.1002/sim.7440](https://doi.org/10.1002/sim.7440).], and Molins *et al.*^[Molins E, Cobo E, Ocaña J. *Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?* Stat Med. 2017: 36(30); 4777--88. [doi:10.1002/sim.7452](https://doi.org/10.1002/sim.7452).] showed that under certain conditions (EMA, Health Canada: *CV~wR~* \~0.22--0.42, FDA: *CV~wR~* ≤0.30) the type&nbsp;I error will be substantially inflated. Below the inflation region the study will be evaluated for ABE and the type&nbsp;I error controlled by the TOST. Above the inflation region the type&nbsp;I error is controlled by the PE restriction and for the EMA and Health Canada additionally by the upper cap of scaling.
 
 ```{r}
 CV      <- 0.35
@@ -186,72 +185,105 @@ print(res, row.names = FALSE)
 ```
 With \~0.0656 the type I error is inflated (significantly larger than the nominal $\alpha$ 0.05).
 
-![**Fig. 1** Empiric type I error for the EMA’s ABEL, 4-period full replicate design](figure8.png){width=450px}
+![**Fig. 1** Empiric type I error for the EMA’s ABEL, 4-period full replicate design.<br />Pink plane at nominal $\alpha$ 0.05. Contour lines enclose region of inflation.](figure8.png){width=450px}
 
 Various approaches were suggested to control the patient’s risk.
 
 <small>[TOC ↩](#TOC)</small>
 
-## Iteratively adjusted $\alpha$
-Based on the observed *CV~wR~*, $\alpha$ is adjusted and the study should be evaluated with a wider confidence interval (Labes and Schütz 2016).
+## Iteratively adjusted α
+Based on the observed *CV~wR~*, $\alpha$ is adjusted and the study should be evaluated with a wider confidence interval (Labes and Schütz 2016).\
+No adjustment is suggested if the study’s conditions (*CV~wR~*, sample size, design) will not lead to an inflated type&nbsp;I error.
+```{r}
+CV <- 0.45
+n  <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
+                     details = FALSE)[["Sample size"]]
+scABEL.ad(CV = CV, design = "2x2x4", n = n)
+```
+
+<small>[TOC ↩](#TOC)</small>
+
+Inside the region of inflated type I errors.
 ```{r}
 CV <- 0.35
 n  <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
                      details = FALSE)[["Sample size"]]
 scABEL.ad(CV = CV, design = "2x2x4", n = n)
 ```
-An adjusted $\alpha$ of 0.0363 (*i.e.*, the 92.74\% CI) controls the patient’s risk. However, a slightly lower power can be expected (0.773 instead of 0.812).
+An adjusted $\alpha$ of 0.0363 (*i.e.*, the 92.74\% CI) controls the patient’s risk. However, it leads to a slightly lower power (0.773 instead of 0.812).
 
-In order to counteract this loss in power, one can estimate the sample size with the function <span style="white-space:nowrap">`sampleN.scABEL.ad()`</span>.
+<small>[TOC ↩](#TOC)</small>
+
+In order to counteract this loss in power, we can adjust the sample size with the function `sampleN.scABEL.ad()`.
 ```{r}
 CV <- 0.35
 sampleN.scABEL.ad(CV = CV, design = "2x2x4")
 ```
-Instead of with 34 subjects the study should be performed with 38 subjects.
+We have to increase the sample size to 38 in order to maintain power. Since the type I error depends to a minor degree on the sample size as well, we have to adjust slightly more ($\alpha$ 0.0361 instead of 0.0363 with 34 subjects).
 
 <small>[TOC ↩](#TOC)</small>
 
-Since the observed *CV~wR~* is not the true – unknown – one, Molins *et al.* suggested to assume the worst and adjust for *CV~wR~* 0.30 in all cases. Whilst the most conservative approach, it will negatively impact power, esp. for true high variability (say, >0.42).
-```{r}
-CV <- 0.35
-n  <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
-                     details = FALSE)[["Sample size"]]
-scABEL.ad(CV = 0.30, design = "2x2x4", n = n)
-```
-Whilst the adjusted $\alpha$ of 0.02857 (94.29\% CI) controls the patient’s risk, it leads to an even lower power.
-
-Example with a *CV~wR~* of 0.80, which is far above the region where an inflated type I error can be expected. 4-period full replicate design, 50 subjects.
+Since the observed *CV~wR~* is not the true – unknown – one, Molins *et al.* suggested to ‘assume the worst’ and adjust for *CV~wR~* 0.30 in all cases.
 ```{r, echo=FALSE}
-CV  <- 0.80
-n   <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
+CV  <- 0.35
+des <- "2x2x4"
+n   <- sampleN.scABEL(CV = CV, design = des, print = FALSE,
                       details = FALSE)[["Sample size"]]
-res <- data.frame(method = c("Labes and Schütz", "Molins et al."),
-                  adjustment = "no", alpha = 0.05, TIE = NA, power = NA,
+res <- data.frame(method = c("EMA (nominal alpha)",
+                             "Labes and Schütz",
+                             "Molins et al."), adj = "yes",
+                  alpha = 0.05, TIE = NA, power = NA,
                   stringsAsFactors = FALSE)
-x   <- scABEL.ad(CV = CV, n = n, design = "2x2x4", print = FALSE)
+x <- scABEL.ad(CV = CV, n = n, design = "2x2x4", print = FALSE)
+res$adj[1]   <- "no"
 res$TIE[1]   <- x$TIE.unadj
 res$power[1] <- x$pwr.unadj
-x   <- scABEL.ad(CV = 0.30, n = n, design = "2x2x4", print = FALSE)
-res$adjustment[2] <- "yes"
+res$alpha[2] <- x$alpha.adj
+res$TIE[2]   <- x$TIE.adj
+res$power[2] <- x$pwr.adj
+x <- scABEL.ad(CV = 0.30, design = des, n = n, print = FALSE)
+res$alpha[3] <- x$alpha.adj
+res$TIE[3]   <- x$TIE.adj
+res$power[3] <- power.scABEL(alpha = x$alpha.adj, CV = CV,
+                             n = n, design = des)
+cat(paste0("CV = ", CV, ", n = ", n, ", design = \"", des, "\"\n")); print(res, row.names = FALSE)
+```
+Although Molin’s adjusted $\alpha$ controls the patient’s risk, it leads to a further loss power.
+
+The negative impact on power is substantial for high variability. Example with a *CV~wR~* far above the region of inflated type&nbsp;I errors (*i.e.*, >0.42).
+```{r, echo=FALSE}
+CV  <- 0.80
+des <- "2x2x4"
+n   <- sampleN.scABEL(CV = CV, design = des, print = FALSE,
+                      details = FALSE)[["Sample size"]]
+res <- data.frame(method = c("Labes and Schütz", "Molins et al."),
+                  adj = "no", alpha = 0.05, TIE = NA, power = NA,
+                  stringsAsFactors = FALSE)
+x   <- scABEL.ad(CV = CV, n = n, design = des, print = FALSE)
+res$TIE[1]   <- x$TIE.unadj
+res$power[1] <- x$pwr.unadj
+x   <- scABEL.ad(CV = 0.30, n = n, design = des, print = FALSE)
+res$adj[2]   <- "yes"
 res$alpha[2] <- x$alpha.adj
 res$TIE[2]   <- x$TIE.adj
 res$power[2] <- power.scABEL(alpha = x$alpha.adj, CV = CV,
                              n = n, design = "2x2x4")
-print(res, row.names = FALSE)
+cat(paste0("CV = ", CV, ", n = ", n, ", design = \"", des, "\"\n")); print(res, row.names = FALSE)
 ```
-The loss in power is substantial.
 
 <small>[TOC ↩](#TOC)</small>
 
 ## ‘Exact’ Procedure
-Proposed by Tóthfalusi and Endrényi^[Tóthfalusi L, Endrényi L. *An Exact Procedure for the Evaluation of Reference-Scaled Average Bioequivalence.* AAPS J. 2016: 18(2); 476--89. [doi:10.1208/s12248-016-9873-6](https://doi.org/10.1208/s12248-016-9873-6).] and improved by the same authors in 2017.
+Proposed by Tóthfalusi and Endrényi (2016). Example of the ‘ncTOST’ method by the same authors (2017).
 ```{r}
 CV <- 0.35
 n  <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
                      details = FALSE)[["Sample size"]]
 U  <- scABEL(CV = CV)[["upper"]]
+# subject simulations and therefore, relatively slow
 power.RSABE2L.sds(CV = CV, design = "2x2x4", theta0 = U,
-                  n = n, nsims = 1e6, progress = FALSE) # patience, please...
+                  n = n, SABE_test = "exact", nsims = 1e6,
+                  progress = FALSE)
 ```
 With \~0.0482 the patient’s risk is controlled. However, the regulatory acceptance is unclear.
 

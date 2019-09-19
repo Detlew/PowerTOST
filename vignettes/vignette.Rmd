@@ -46,11 +46,11 @@ devtools::install_github("Detlew/PowerTOST")
 <small>[TOC ↩](#TOC)</small>
 
 # Examples
-* [Average Bioequivalence](library/doc/ABE.html){#ABE}
-* [Reference-Scaled Average Bioequivalence](library/doc/RSABE.html){#RSABE}
-* [Non-Inferiority](library/doc/NI.html){#NI}
-* [Dose-Proportionality](library/doc/DP.html){#DP}
-* [Power Analysis](library/doc/PA.html){#PA}
+* [Average Bioequivalence](ABE.html){#ABE}
+* [Reference-Scaled Average Bioequivalence](RSABE.html){#RSABE}
+* [Non-Inferiority](NI.html){#NI}
+* [Dose-Proportionality](DP.html){#DP}
+* [Power Analysis](PA.html){#PA}
 
 <small>[TOC ↩](#TOC)</small>
 

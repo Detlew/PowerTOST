@@ -13,49 +13,6 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
                               alpha.pre = 0.05, setseed = TRUE,
                               sdsims = FALSE, progress)
 {
-  ## Arguments:
-  ##   alpha       Nominal alpha (in BE generally fixed to 0.05).
-  ##               Lower value only if needed (e.g. to correct for
-  ##               multiplicity).
-  ##   targetpower Desired power.
-  ##   theta0      Expected T/R-ratio. Defaults to 0.9.
-  ##   theta1      Lower margin. Defaults to 0.8.
-  ##   theta2      Upper margin. Defaults to 1/theta1.
-  ##   CV          Intra-subject CV(s) obtained in a replicate design.
-  ##               (ratio, /not/ percent).
-  ##               If given as a scalar, the CV of R.
-  ##               If given as a vector, CV[1] /must/ be the CV of T and
-  ##               CV[2] the CV of R. Important!
-  ##   design      "2x2x4", "2x2x3", "2x3x3"
-  ##   regulator  "EMA" or "HC".
-  ##   nstart      If given, the starting sample size.
-  ##   nsims       Simulations for the TIE. Should not be <1e6.
-  ##   imax        Max. number of steps in sample size search.
-  ##   tol         Desired accuracy (convergence tolerance of uniroot);
-  ##               defaults to 1e-6.
-  ##   print       Logical. If FALSE, returns a data.frame of results.
-  ##   details     Logical (intermediates, runtime, number of sim's).
-  ##   alpha.pre   Pre-specified level.
-  ##   setseed     Logical (default TRUE uses set.seed(123456)).
-  ## Returns:
-  ##   n           Sample size which maintains the TIE for the
-  ##               adjusted (or pre-specified) alpha.
-  ##   alpha.adj   Iteratively adjusted alpha.
-  ##   pwr         Achieved power.
-  ##   TIE         Empiric Type I Error (aka rejection rate).
-  ## Algo:
-  ##   1. Estimate the TIE for the /unadjusted/ alpha (alpha) or
-  ##      the /pre-specified/ alpha (alpha.pre).
-  ##   2. If no inflation of TIE, stop. Othewise, continue with 3 - 5.
-  ##   3. Iteratively adjust alpha to preserve the consumer risk.
-  ##   4. Get a new sample size for /this/ alpha (might be higher) and
-  ##      estimate the TIE.
-  ##   5. Increase the sample size and repeat steps 3 & 4 until the
-  ##      target power is reached.
-  ################################################################
-  ## Tested on Win 7 Pro SP1 64bit                              ##
-  ##   R 3.3.3 64bit (2017-03-06), PowerTOST 1.4-4 (2017-03-15) ##
-  ################################################################
   env <- as.character(Sys.info()[1]) # get info about the OS
   ifelse ((env == "Windows") || (env == "Darwin"), flushable <- TRUE,
     flushable <- FALSE) # supress flushing on other OS's
@@ -69,7 +26,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   # check regulator arg
   if (missing(regulator)) regulator <- "EMA"
   reg <- reg_check(regulator, choices=c("EMA", "HC"))
-  if (regulator == "HC" && sdsims)
+  if (regulator == "HC" & sdsims)
     stop("Subject data simulations are not supported for regulator='HC'.")
   if (length(nstart) == 2) nstart <- sum(nstart)
   design <- match.arg(design)
@@ -321,43 +278,3 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     return(res)
   }
 }
-# Examples
-#   sampleN.scABEL.ad(regulator="EMA", design="2x2x4", CV=0.3, theta0=0.9, targetpower=0.8, details=TRUE)
-# should return:
-#   +++++++++++ scaled (widened) ABEL ++++++++++++
-#              Sample size estimation
-#           for iteratively adjusted alpha
-#      (simulations based on ANOVA evaluation)
-#   ----------------------------------------------
-#   Study design: 2x2x4 (TRTR|RTRT)
-#   log-transformed data (multiplicative model)
-#   1,000,000 studies in each iteration simulated.
-#
-#   Expected CVwR 0.3
-#   Nominal alpha      : 0.05
-#   Significance limit : 0.05036
-#   True ratio         : 0.900
-#   Regulatory settings: EMA (ABE)
-#   Switching CVwR     : 0.30
-#   BE limits          : 0.8000...1.2500
-#   Upper scaling cap  : CVwR > 0.5 
-#   PE constraints     : 0.8000 ... 1.2500
-#
-#   n  34, nomin. alpha: 0.0500 (power 0.8028), TIE: 0.0816
-#
-#   Sample size search and iteratively adjusting alpha
-#   n  34,   adj. alpha: 0.0286 (power 0.7251), rel. impact on power: -9.68%
-#   n  42,   adj. alpha: 0.0283 (power 0.8022), TIE: 0.0500
-#   Compared to nominal alpha's sample size increase of 23.5% (~study costs).
-#
-#   Runtime    : 11.6 seconds
-#   Simulations: 10,400,000
-#
-#   Pre-specified alpha 0.03
-#   x <- sampleN.scABEL.ad(regulator="EMA", design="2x2x3", CV=c(0.35, 0.40), nstart=42, targetpower=0.8, print=FALSE, alpha.pre=0.03)
-#   Show the results:
-#   print(x, row.names=FALSE)
-#   Design Regulator Method  Eval theta0 CVwT CVwR alpha alpha.pre alpha.adj      TIE Sample size Target power Achieved power
-#    2x2x3       EMA   ABEL ANOVA    0.9 0.35  0.4  0.05      0.03        NA 0.041359          48          0.8        0.80052
-#   Show the sample size only: x[["Sample size"]]
-#   [1] 48

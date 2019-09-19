@@ -11,54 +11,6 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
                      details = FALSE, setseed = TRUE, nsims = 1e6,
                      sdsims = FALSE, progress)
 {
-  ## Arguments:
-  ##   alpha      Nominal alpha (in BE generally fixed to 0.05).
-  ##              Lower value only if needed (e.g. to correct for
-  ##              multiplicity).
-  ##   theta0     If given, power is estimated for this expected ratio.
-  ##              Defaults to 0.90.
-  ##   theta1     Lower margin. Defaults to 0.80.
-  ##   theta2     Upper margin. Defaults to 1/theta1.
-  ##   CV         Intra-subject CV(s) obtained in a replicate design.
-  ##              (ratio, /not/ percent).
-  ##              If given as a scalar, the CV of R.
-  ##              If given as a vector, CV[1] /must/ be the CV of T and
-  ##              CV[2] the CV of R. Important!
-  ##   design     "2x2x4", "2x2x3", "2x3x3". Defaults to "2x3x3".
-  ##   regulator  "EMA", "HC", "FDA".
-  ##   n          Total sample size or a vector of subjects/sequences.
-  ##   nsims      Simulations for the TIE. Should not be <1E6.
-  ##   imax       Max. steps in sample size search.
-  ##   tol        Desired accuracy (convergence tolerance of uniroot);
-  ##              defaults to 1E-6.
-  ##   print      Logical (FALSE returns a list of results).
-  ##   details    Logical (runtime, number of simulations).
-  ##   alpha.pre  Pre-specified level.
-  ##   setseed    Logical (default TRUE uses set.seed(123456)).
-  ##   sdsims     Logical (default FALSE). If TRUE subject data are
-  ##              simulated. Consider especially for the partial replicate,
-  ##              low sample sizes and/or heteroscedasticity. Time consuming!
-  ##   progress   Displays a progress bar (only if sdsims=TRUE).
-  ## Returns:
-  ##   alpha.adj  Iteratively adjusted alpha which does not inflate the
-  ##              TIE (for given CVwR and n).
-  ##   CI.adj     The adjusted confidence interval in percent, where
-  ##              CI.adj = 100(1-2*alpha.adj).
-  ##   TIE.unadj  The empiric Type I Error based on nominal alpha.
-  ##   TIE.adj    TIE based on adjusted alpha.
-  ##   rel.change Relative change in risk (%) compared to nominal alpha.
-  ##   If theta0 is given:
-  ##   pwr.unadj  Power for alpha (or, if given, alpha.pre).
-  ##   pwr.adj    Power for adjusted alpha.
-  ##   rel.loss   Relative loss in power if the sample size was planned
-  ##              for alpha and will be evaluated with alpha.adj,
-  ##              where rel.loss = 100(pwr.adj - pwr.unadj)/pwr.unadj
-  ##   If alpha.pre is given:
-  ##   Assessment of TIE; alpha.pre is justified if not > alpha.
-  ################################################################
-  ## Tested on Win 7 Pro SP1 64bit                              ##
-  ##   R 3.4.2 64bit (2017-09-28), PowerTOST 1.4-6 (2017-08-17) ##
-  ################################################################
   env <- as.character(Sys.info()[1]) # get info about the OS
   ifelse ((env == "Windows") || (env == "Darwin"), flushable <- TRUE,
           flushable <- FALSE) # supress flushing on other OS's
@@ -72,10 +24,10 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
   # check regulator arg
   if(missing(regulator)) regulator <- "EMA"
   reg <- reg_check(regulator, choices=c("EMA", "HC", "FDA"))
-  # if (regulator %in% c("HC", "FDA") && sdsims)
-  # Otherwise: 'Fatal error: length > 1 in coercion to logical' in vignette-building
-  if (regulator %in% c("HC", "FDA") & sdsims)
-    stop("Subject data simulations are not supported for regulator=\'HC\' or \'FDA\'.")
+  # if (regulator %in% c("HC", "FDA") && sdsims) # bug!
+  if (reg$name %in% c("HC", "FDA") && sdsims) {
+    stop("Subject data simulations are not supported for regulator='HC' or 'FDA'.")
+  }
   # set iteration tolerance for uniroot().
   if (missing(tol)) tol <- 1e-6
   design <- match.arg(design)
@@ -323,7 +275,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
                       " iterations)\n\n")
       }
     } else {
-      txt <- paste0(txt, "\nTIE not > nominal alpha; ")
+      txt <- paste0(txt, "\nTIE \u2264 nominal alpha; ")
       ifelse(alpha.pre == alpha,
              txt <- paste0(txt, "no adjustment of alpha is required.\n\n"),
              txt <- paste0(txt, "the chosen pre-specified alpha is ",
