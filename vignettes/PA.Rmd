@@ -49,7 +49,7 @@ With `x <- pa.ABE(...)` results are given as an S3-object which can be printed, 
 # Examples
 ## Average Bioequivalence
 <h3>[Example 1](#expl1)</h3>
-[Example 3 of the vignette ABE](library/doc/ABE.html#expl3). Assumed $\theta_{0}$ 0.92, *CV* 0.20, all defaults employed.
+[Example 3 of the vignette ABE](ABE.html#expl3). Assumed $\theta_{0}$ 0.92, *CV* 0.20, all defaults employed.
 ```{r}
 pa.ABE(CV = 0.20, theta0 = 0.92)
 ```
@@ -125,7 +125,7 @@ With decreasing variability power decreases because the scaled limits become nar
 
 # Authors
 |function|author(s)|
-|---|-----------|
+|-|----|
 |`pa.ABE`, `pa.scABE`|Idea and original code by Helmut Schütz with modifications by Detlew Labes|
 |`pa.NTIDFDA`|Detlew Labes acc. to code by Helmut Schütz for `pa.ABE` and `pa.scABE`|
 
@@ -139,6 +139,6 @@ Man-pages of functions used in this vignette:
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
 # License
-[GPL-2](https://cran.r-project.org/web/licenses/GPL-2) | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3)
+[GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
 
 <small>[TOC ↩](#TOC)</small>

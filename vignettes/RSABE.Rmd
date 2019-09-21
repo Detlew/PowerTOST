@@ -25,24 +25,24 @@ library(PowerTOST) # attach the library
 # Defaults
 
 | Parameter | Argument | Purpose | Default |
-|-|----|--------------|-------|
-| $\alpha$ | `alpha` | Nominal level of the test | 0.05 |
-| $\pi$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | 0.80 |
-| $\theta_{0}$ | `theta0` | ‘True’ or assumed T/R ratio | 0.90 |
-| $\theta_{1}$ | `theta1` | Lower BE limit and PE constraint | 0.80 |
-| $\theta_{2}$ | `theta2` | Upper BE limit and PE constraint | 1.25 |
+|-|-|-------|-|
+| $\alpha$ | `alpha` | Nominal level of the test | `0.05` |
+| $\pi$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
+| $\theta_{0}$ | `theta0` | ‘True’ or assumed T/R ratio | `0.90` |
+| $\theta_{1}$ | `theta1` | Lower BE limit and PE constraint | `0.80` |
+| $\theta_{2}$ | `theta2` | Upper BE limit and PE constraint | `1.25` |
 | *CV* | `CV` | CV | none |
 | design | `design` | Planned replicate design | <span title="partial replicate">`"2x3x3"`</span> |
 | regulator | `regulator` | ‘target’ jurisdiction | `"EMA"` |
 | nsims | `nsims` | Number of simulations | see below |
 | nstart | `nstart` | Start if a previous run failed | none |
-| imax | `imax` | Maximum number of iterations | 100 |
-| print | `print` | Show information in the console? | TRUE |
-| details | `details` | Show details of the sample size search? | FALSE |
-| setseed | `setseed` | Issue a fixed seed of the random number generator? | TRUE |
+| imax | `imax` | Maximum number of iterations | `100` |
+| print | `print` | Show information in the console? | `TRUE` |
+| details | `details` | Show details of the sample size search? | `FALSE` |
+| setseed | `setseed` | Issue a fixed seed of the random number generator? | `TRUE` |
 
 Arguments have to be given as ratios, not percent.\
-The *CV* is the within-subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV~wT~* = *CV~wR~*. If two values are given (*i.e.*, `CV=c(x, y)`) heteroscedasticity (unequal variances) is assumed, where the first value has to be *CV~wT~* and the second *CV~wR~*.  
+The *CV* is the within-subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV~wT~* = *CV~wR~*. If two values are given (*i.e.*, `CV=c(x, y)`) heteroscedasticity (unequal variances) is assumed, where the first value has to be *CV~wT~* and the second *CV~wR~*.
 
 If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100,000. If simulating for the empiric type I error (`theta0` set to one of the BE limits), `nsims` defaults to 1 million.
 
@@ -53,7 +53,9 @@ If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100
 cols <- c(2, 9, 3)
 print(known.designs()[7:12, cols], row.names = FALSE)
 ```
-With `foo(..., details = FALSE, print = FALSE)` results are given as a data.frame with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo[1, 8]` or `foo[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
+
+With `foo(..., details = FALSE, print = FALSE)` results are given as a data.frame with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence).
 
@@ -187,12 +189,18 @@ With \~0.0656 the type I error is inflated (significantly larger than the nomin
 
 ![**Fig. 1** Empiric type I error for the EMA’s ABEL, 4-period full replicate design.<br />Pink plane at nominal $\alpha$ 0.05. Contour lines enclose region of inflation.](figure8.png){width=450px}
 
+<small>[TOC ↩](#TOC)</small>
+
+An even higher inflation of the type&nbsp;I error was reported for the FDA’s model. However, Davit *et al.*^[Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf FT, Nwakama PE, Patel DT, Schuirmann DJ, Yu LX. *Implementation of a Reference-Scaled Average Bioequivalence Approach for Highly Variable Generic Drug Products by the US Food and Drug Administration.* AAPS J. 2012: 14(4); 915--24. [doi:10.1208/s12248-012-9406-x](https://doi.org/10.1208/s12248-012-9406-x).] assessed the type&nbsp;I error not at the [‘implied limits’](#ImpLim) but with the ‘desired consumer risk model’ if the *CV~wR~* is ≥*s*~0~ (0.25 or \~25.4\%) at <small>$\exp (\log (1.25)/0.25 \sqrt{\log (CV_{wR}^2+1})$</small>. Some statisticians call the latter ‘hocus-pocus’.
+
+![**Fig. 2** Empiric type I error for the FDA’s RSABE, 4-period full replicate design, n = 32.<br />Thick line ‘implied limits’ (max. TIE 0.147 at *CV~wR~* 30\%).<br />Thin line ‘desired consumer risk model’ (max. TIE 0.0640 at *CV~wR~* 25.4\%).](figure12.png){width=449px}
+
 Various approaches were suggested to control the patient’s risk.
 
 <small>[TOC ↩](#TOC)</small>
 
 ## Iteratively adjusted α
-Based on the observed *CV~wR~*, $\alpha$ is adjusted and the study should be evaluated with a wider confidence interval (Labes and Schütz 2016).\
+Based on the observed *CV~wR~*, $\alpha$ is adjusted and the study should be evaluated with a wider confidence interval (Labes and Schütz 2016). Implemented designs: `"2x3x3"` (default), `"2x2x3"`, `"2x2x4"`.\
 No adjustment is suggested if the study’s conditions (*CV~wR~*, sample size, design) will not lead to an inflated type&nbsp;I error.
 ```{r}
 CV <- 0.45
@@ -246,11 +254,13 @@ res$alpha[3] <- x$alpha.adj
 res$TIE[3]   <- x$TIE.adj
 res$power[3] <- power.scABEL(alpha = x$alpha.adj, CV = CV,
                              n = n, design = des)
+res[, 3:4]   <- round(res[, 3:4], 5)
+res[, 5]     <- round(res[, 5], 3)
 cat(paste0("CV = ", CV, ", n = ", n, ", design = \"", des, "\"\n")); print(res, row.names = FALSE)
 ```
-Although Molin’s adjusted $\alpha$ controls the patient’s risk, it leads to a further loss power.
+Although Molin’s adjusted $\alpha$ controls the patient’s risk, it leads to a further loss in power.
 
-The negative impact on power is substantial for high variability. Example with a *CV~wR~* far above the region of inflated type&nbsp;I errors (*i.e.*, >0.42).
+Example with a *CV~wR~* far above the region of inflated type&nbsp;I errors (*i.e.*, >0.42).
 ```{r, echo=FALSE}
 CV  <- 0.80
 des <- "2x2x4"
@@ -268,13 +278,16 @@ res$alpha[2] <- x$alpha.adj
 res$TIE[2]   <- x$TIE.adj
 res$power[2] <- power.scABEL(alpha = x$alpha.adj, CV = CV,
                              n = n, design = "2x2x4")
+res$TIE      <- round(res$TIE, 4)
+res$power    <- round(res$TIE, 3)
 cat(paste0("CV = ", CV, ", n = ", n, ", design = \"", des, "\"\n")); print(res, row.names = FALSE)
 ```
+The negative impact on power is for high variability substantial.
 
 <small>[TOC ↩](#TOC)</small>
 
 ## ‘Exact’ Procedure
-Proposed by Tóthfalusi and Endrényi (2016). Example of the ‘ncTOST’ method by the same authors (2017).
+Proposed by Tóthfalusi and Endrényi (2016). Example of the ‘ncTOST’ method by the same authors (2017).  Implemented designs: `"2x3x3"` (default), `"2x2x3"`, `"2x2x4"`.
 ```{r}
 CV <- 0.35
 n  <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
@@ -290,8 +303,8 @@ With \~0.0482 the patient’s risk is controlled. However, the regulatory accept
 <small>[TOC ↩](#TOC)</small>
 
 # Helpers
-
-<h2>Expanded Limits</h2><!-- not in the TOC -->
+## BE limits
+### Expanded Limits{#ExpLim}
 ```{r}
 CV  <- c(0.30, 0.40898, 0.50, 0.57382)
 res <- data.frame(CV = CV, EMA.L = NA, EMA.U = NA, EMA.cap = "",
@@ -310,7 +323,7 @@ Both for the EMA and Health Canada the lower cap for scaling is 30\%. Whereas th
 
 <small>[TOC ↩](#TOC)</small>
 
-<h2>‘Implied’ Limits</h2><!-- not in the TOC -->
+### ‘Implied’ Limits{#ImpLim}
 ```{r}
 CV  <- c(0.30, 0.50, 1.0)
 res <- data.frame(CV = CV, L = NA, U = NA, cap = "",
@@ -325,7 +338,7 @@ For the FDA there is no upper cap (scaling is unlimited).
 
 <small>[TOC ↩](#TOC)</small>
 
-<h2>Regulatory Settings</h2><!-- not in the TOC -->
+## Regulatory Settings
 ```{r}
 reg <- c("EMA", "HC", "FDA")
 for (i in 1:3) {
@@ -337,10 +350,10 @@ for (i in 1:3) {
 
 # Authors{#authors}
 |function|author(s)|
-|--------|---|
+|---|-|
 |`sampleN.scABEL`, `sampleN.RSABE`, `sampleN.NTIDFDA`, `sampleN.HVNTID`,<br />`power.scABEL`, `power.RSABE2L.sdsims`, `scABEL`, `reg_const`|Detlew Labes|
 |`power.scABEL.sdsims`|<span style="white-space:nowrap">Detlew Labes, Benjamin Lang</span>|
-|`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`,<br />`sampleN.RSABE2L.sdsims`, `scABEL.ad`, `U2CVwR`|Helmut Schütz|
+|`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`, `U2CVwR`|Helmut Schütz|
 
 # Man-pages
 Man-pages of functions used in examples of this vignette:
@@ -356,8 +369,8 @@ Man-pages of functions used in examples of this vignette:
     * [power.scABEL](library/html/power.scABEL.html)
     * [power.RSABE2L.sds](library/html/power.RSABE2L.sds.html)
   * Helpers
-    * [scABEL](library/html/scABEL.html)
     * [scABEL.ad](library/html/scABEL.ad.html)
+    * [scABEL](library/html/scABEL.html)
     * [reg_const](library/html/reg_const.html)
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
@@ -365,6 +378,6 @@ Man-pages of functions used in examples of this vignette:
 <small>[TOC ↩](#TOC)</small>
 
 # License{#license}
-[GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 2")
+[GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
 
 <small>[TOC ↩](#TOC)</small>

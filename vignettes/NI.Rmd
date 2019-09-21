@@ -1,0 +1,200 @@
+---
+title: "Non-Inferiority"
+lang: "en"
+output:
+  rmarkdown::html_vignette:
+    css: vignette.css
+    toc: true
+    toc_depth: 1
+vignette: >
+  %\VignetteIndexEntry{NI}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#"
+)
+```
+| [Main Vignette](vignette.html) | [ABE](ABE.html) | [RSABE](RSABE.html) | <span title="You are here">Non-Inferiority</span> | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+```{r setup}
+library(PowerTOST) # attach the library
+```
+# Defaults
+
+| Parameter | Argument | Purpose | Default |
+|-|-|-------|-|
+| $\alpha$ | `alpha` | Nominal level of the test | `0.025` |
+| $\pi$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
+| logscale | `logscale` | Analysis on log-transformed or original scale? | `TRUE` |
+| margin | `margin` | Non-inferiority margin | see below |
+| $\theta_{0}$ | `theta0` | ‘True’ or assumed T/R ratio | see below |
+| *CV* | `CV` | CV | none |
+| design | `design` | Planned design | `"2x2"` |
+| imax | `imax` | Maximum number of iterations | `100` |
+| print | `print` | Show information in the console? | `TRUE` |
+| details | `details` | Show details of the sample size search? | `FALSE` |
+
+Note that contrary to the other functions of the package a one-sided *t*-test  (instead of TOST) is employed. Hence, $\alpha$ defaults to 0.025.\
+Defaults depending on the argument `logscale`:
+
+| Parameter | Argument | `logscale=TRUE` | `logscale=FALSE` |
+|-|----|:--------:|:--------:|
+| margin | `margin` | `0.80` | `–0.20` |
+| $\theta_{0}$ | `theta0` | `0.95` | `+0.05` |
+
+Arguments have to be given as ratios, not percent.\
+The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (a.k.a. pooled) *CV*.
+
+Designs with one (parallel) to four periods (replicates) are supported.
+```{r, echo = FALSE}
+res        <- data.frame(design = rep(NA, 10), name = NA, df = NA)
+res[1:10, ] <- known.designs()[c(1:3, 7:13), c(2, 9, 3)]
+print(res, row.names = FALSE)
+```
+The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (a.k.a. AB|BA) design can be abbreviated as `"2x2"`. Some call the `parallel` design a ‘one-sequence’ design. The `paired` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note, that the underlying model assumes no period effects.
+
+With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided as a data.frame with eight columns `Design`, `alpha`,  `CV`, `theta0`, `Margin`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `sampleN.noninf[1, 6]` or `sampleN.noninf[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+
+The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
+
+<small>[TOC ↩](#TOC)</small>
+
+# Non-Inferiority
+If the supplied margin is < 1 (`logscale=TRUE`) or < 0 (`logscale=FALSE`), then it is assumed that *higher* response values are <u>better</u>. The hypotheses are
+
+* `logscale=TRUE`
+$$H_{0}:\theta_0 \leq \log({margin})\:vs\:H_{1}:\theta_0>\log({margin})$$
+    where $\theta_0=\mu_T/\mu_R$
+
+* `logscale=FALSE`
+$$H_{0}:\theta_0 \leq {margin}\:vs\:H_{1}:\theta_0>{margin}$$
+
+    where $\theta_0=\mu_T-\mu_R$
+
+## Example 1
+Estimate the sample size for assumed intra-subject *CV* 0.25. Defaults `margin` 0.80 and $\theta_{0}$ 0.95 employed.
+```{r}
+sampleN.noninf(CV = 0.25)
+```
+To get only the sample size:
+```{r}
+sampleN.noninf(CV = 0.25, details = FALSE, print = FALSE)[["Sample size"]]
+```
+Note that the sample size is always rounded up to give balanced sequences (here a multiple of two). Since power is higher than our target, likely this was the case here. Let us check that.\
+Which power will we get with a sample size of 35?
+
+```{r}
+power.noninf(CV = 0.25, n = 35)
+```
+Confirmed that with 35 subjects we will already reach the target power. That means also that one dropout will not compromise power.
+
+<small>[TOC ↩](#TOC)</small>
+
+# Non-Superiority
+If the supplied margin is > 1 (`logscale=TRUE`) or > 0 (`logscale=FALSE`), then it is assumed that *lower* response values are <u>better</u>. The hypotheses are
+
+* `logscale=TRUE`
+$$H_{0}:\theta_0 \geq \log({margin})\:vs\:H_{1}:\theta_0<\log({margin})$$
+    where $\theta_0=\mu_T/\mu_R$
+
+* `logscale=FALSE`
+$$H_{0}:\theta_0 \geq {margin}\:vs\:H_{1}:\theta_0<{margin}$$
+
+    where $\theta_0=\mu_T-\mu_R$
+
+## Example 2
+Estimate the sample size for assumed intra-subject *CV* 0.25.
+```{r}
+sampleN.noninf(CV = 0.25, margin = 1.25, theta0 = 1/0.95)
+```
+Same sample size like in [example 1](#example-1) since reciprocal values of both `margin` 0.80 and $\theta_{0}$ are specified.
+
+# Bracketing Approach
+Compare a new modified release formulation (regimen once a day) with an intermediate release formulation (twice a day).^[European Agency for the Evaluation of Medicinal Products, Committee for Proprietary Medicinal Products. *Note for Guidance on Modified Release Oral and Transdermal Dosage Forms: Section II (Pharmacokinetic and Clinical Evaluation).* London, 28 July 1999. [CPMP/EWP/280/96 Corr *](https://www.ema.europa.eu/en/documents/scientific-guideline/note-guidance-modified-release-oral-transdermal-dosage-forms-section-ii-pharmacokinetic-clinical_en.pdf).] *C~min~* is the target metric for efficacy (non-inferiority) and *C~max~* for safety (non-superiority). Margins are 0.80 for *C~min~* and 1.25 for *C~max~*. *CV*s are 0.35 for *C~min~* and 0.20 for *C~max~*; $\theta_{0}$ 0.95 for *C~min~* and 1.05 for *C~max~*. Full replicate design due to the high variability of *C~min~*.\
+Which PK metric leads the sample size? 
+```{r}
+res <- data.frame(design = "2x2x4", metric = c("Cmin", "Cmax"),
+                  margin = c(0.80, 1.25), CV = c(0.35, 0.20),
+                  theta0 = c(0.95, 1.05), n = NA, power = NA)
+for (i in 1:2) {
+  res[i, 6:7] <- sampleN.noninf(design = res$design[i],
+                                margin = res$margin[i],
+                                theta0 = res$theta0[i],
+                                CV = res$CV[i],
+                                details = FALSE,
+                                print = FALSE)[6:7]
+}
+print(res, row.names = FALSE)
+```
+The sample size depends on *C~min~*. Hence the study is ‘overpowered’ for *C~max~*.
+```{r}
+power.noninf(design = "2x2x4", margin = 1.25, CV = 0.20,
+             theta0 = 1.05, n = 32)
+```
+This gives us some ‘headroom’ for *C~max~*.
+```{r}
+power.noninf(design = "2x2x4", margin = 1.25, CV = 0.25,
+             theta0 = 1.10, n = 32) # higher CV, worse theta0
+```
+<small>[TOC ↩](#TOC)</small>
+
+The bracketing approach does not necessarily give lower sample sizes than tests for equivalence. In this example we could aim at reference-scaling for the highly variable *C~min~*^[European Medicines Agency, Committee for Medicinal Products for Human Use. *Guideline on the pharmacokinetic and clinical evaluation of modified release dosage forms.* London, 20 November 2014. [EMA/CPMP/EWP/280/96 Corr1](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-pharmacokinetic-clinical-evaluation-modified-release-dosage-forms_en.pdf).] and at conventional ABE for *C~max~*.
+
+```{r}
+res <- data.frame(design = "2x2x4", indended = c("ABEL", "ABE"),
+                  metric = c("Cmin", "Cmax"), CV = c(0.35, 0.20),
+                  theta0 = c(0.90, 1.05), n = NA, power = NA,
+                  stringsAsFactors = FALSE)
+res[1, 6:7] <- sampleN.scABEL(CV = res$CV[1], theta0 = res$theta0[1],
+                              design = res$design[1], print = FALSE,
+                              details = FALSE)[8:9]
+res[2, 6:7] <- sampleN.TOST(CV = res$CV[2], theta0 = res$theta0[2],
+                            design = res$design[2], print = FALSE,
+                            details = FALSE)[7:8]
+print(res, row.names = FALSE)
+```
+Which method is optimal is a case-to-case decision. Although in the this example the bracketing approach seems to be the ‘winner’ (32 subjects instead of 34), we might fail if the *CV* of *C~min~* is larger than assumed, whereas in reference-scaling we might still pass due to the expanded limits.
+```{r}
+n <- sampleN.scABEL(CV = 0.35, theta0 = 0.90, design = "2x2x4",
+                    print = FALSE, details = FALSE)[["Sample size"]]
+# CV and theta0 of both metrics worse than assumed
+res <- data.frame(design = "2x2x4", indended = c("ABEL", "ABE"),
+                  metric = c("Cmin", "Cmax"), CV = c(0.50, 0.25),
+                  theta0 = c(0.88, 1.12), n = n, power = NA,
+                  stringsAsFactors = FALSE)
+res[1, 7] <- power.scABEL(CV = res$CV[1], theta0 = res$theta0[1],
+                            design = res$design[1], n = n)
+res[2, 7] <- power.TOST(CV = res$CV[2], theta0 = res$theta0[2],
+                          design = res$design[2], n = n)
+print(res, row.names = FALSE)
+```
+See also the vignettes [RSABE](RSABE.html "Reference-scaled Average Bioequivalence"), [ABE](ABE.html "Average Bioequivalence"), and [PA](PA.html "Power Analysis").
+
+<small>[TOC ↩](#TOC)</small>
+
+# Author{#author}
+Detlew Labes
+
+# Man-pages
+Man-pages of functions used in examples of this vignette:
+
+  * Sample Size
+    * [sampleN.noninf](library/html/sampleN.noninf.html)
+    * [sampleN.scABEL](library/html/sampleN.scABEL.html)
+    * [sampleN.TOST](library/html/sampleN.TOST.html)
+  * Power
+    * [power.noninf](library/html/power.noninf.html)
+    * [power.scABEL](library/html/power.scABEL.html)
+    * [power.TOST](library/html/power.TOST.html)
+
+[Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
+
+<small>[TOC ↩](#TOC)</small>
+
+# License{#license}
+[GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
+
+<small>[TOC ↩](#TOC)</small>

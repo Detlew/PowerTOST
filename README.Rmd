@@ -1,6 +1,5 @@
 ---
 title: "README"
-author: Helmut Schütz
 output:
   github_document:
     toc: true
@@ -27,7 +26,7 @@ designs <- known.designs()
 print(designs[, c(2, 9, 3)], row.names = FALSE)
 ```
 
-The code of designs follow this pattern: `treatments x sequences x periods`.
+Codes of designs follow this pattern: `treatments x sequences x periods`.
 
 Although some replicate designs are more ‘popular’ than others, sample size estimations are valid for *all* of the following designs:
 

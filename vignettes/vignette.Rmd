@@ -17,11 +17,8 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-```{r setup}
-library(PowerTOST) # attach the library
-```
 # Introduction
-The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies.\
+The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies. Power and sample size can be obtained based on different methods, amongst them prominently the TOST procedure (two one-sided *t*-tests).\
 Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST")` with R `r getRversion()`.
 
 For an overview of supported designs, methods, and defaults together with some basic examples see
@@ -32,7 +29,7 @@ For an overview of supported designs, methods, and defaults together with some b
 <small>[TOC ↩](#TOC)</small>
 
 # Installation
-You can install the released version of PowerTOST from [CRAN](https://CRAN.R-project.org) with
+You can install the released version of PowerTOST from [CRAN](https://CRAN.R-project.org) with …
 ```{r}
 package <- "PowerTOST"
 inst    <- package %in% installed.packages()
@@ -43,15 +40,6 @@ if (length(package[!inst]) > 0) install.packages(package[!inst])
 # install.packages("devtools")
 devtools::install_github("Detlew/PowerTOST")
 ```
-<small>[TOC ↩](#TOC)</small>
-
-# Examples
-* [Average Bioequivalence](ABE.html){#ABE}
-* [Reference-Scaled Average Bioequivalence](RSABE.html){#RSABE}
-* [Non-Inferiority](NI.html){#NI}
-* [Dose-Proportionality](DP.html){#DP}
-* [Power Analysis](PA.html){#PA}
-
 <small>[TOC ↩](#TOC)</small>
 
 # Contributors

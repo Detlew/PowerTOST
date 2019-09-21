@@ -5,7 +5,7 @@ output:
   rmarkdown::html_vignette:
     css: vignette.css
     toc: true
-    toc_depth: 4
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{ABE}
   %\VignetteEngine{knitr::rmarkdown}
@@ -26,34 +26,38 @@ library(PowerTOST) # attach the library
 
 | Parameter | Argument | Purpose | Default |
 |-|----|--------------|-------|
-| $\alpha$ | `alpha` | Nominal level of the test | 0.05 |
-| $\pi$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | 0.80 |
-| logscale | `logscale` | Analysis on log-transformed or original scale? | TRUE |
+| $\alpha$ | `alpha` | Nominal level of the test | `0.05` |
+| $\pi$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
+| logscale | `logscale` | Analysis on log-transformed or original scale? | `TRUE` |
 | $\theta_{0}$ | `theta0` | ‘True’ or assumed deviation of T from R | see below |
 | $\theta_{1}$ | `theta1` | Lower BE limit | see below |
 | $\theta_{2}$ | `theta2` | Upper BE limit | see below |
 | *CV* | `CV` | CV | none |
-| design | `design` | Planned design | \"2x2\" |
-| method | `method` | Algorithm | exact (Owen’s Q) |
-| robust | `robust` | ‘Robust’ evaluation (Senn’s basic estimator) | FALSE |
-| print | `print` | Show information in the console? | TRUE |
-| details | `details` | Show details of the sample size search? | FALSE |
-| imax | `imax` | Maximum number of iterations | 100 |
+| design | `design` | Planned design | `"2x2"` |
+| method | `method` | Algorithm | `"exact"` |
+| robust | `robust` | ‘Robust’ evaluation (Senn’s basic estimator) | `FALSE` |
+| print | `print` | Show information in the console? | `TRUE` |
+| details | `details` | Show details of the sample size search? | `FALSE` |
+| imax | `imax` | Maximum number of iterations | `100` |
 
 Defaults depending on the argument `logscale`:
 
 | Parameter | Argument | `logscale=TRUE` | `logscale=FALSE` |
 |-|----|:--------:|:--------:|
-| $\theta_{0}$ | `theta0` | 0.95 | +0.05 |
-| $\theta_{1}$ | `theta1` | 0.80 | −0.20 |
-| $\theta_{2}$ | `theta2` | 1.25 | +0.20 |
+| $\theta_{0}$ | `theta0` | `0.95` | `+0.05` |
+| $\theta_{1}$ | `theta1` | `0.80` | `−0.20` |
+| $\theta_{2}$ | `theta2` | `1.25` | `+0.20` |
 
 Arguments have to be given as ratios, not percent.\
 The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (a.k.a. pooled) *CV*.
 
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (a.k.a. AB|BA) design can be abbreviated as `2x2`. Some call the `parallel` design a ‘one-sequence’ design. The `paired` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note, that the underlying model assumes no period effects.
 
-With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are provided as a data.frame with eight columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `foo[1, 7]` or `foo[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+Implemented exact algorithms are `"exact"` / `"owenq"` (Owen’s Q function, default) and `"mvt"` (bivariate non-central *t*-distribution). Approximations are `"noncentral"` / `"nct"` (non-central *t*-distribution) and `"shifted"` / `"central"` (‘shifted’ central *t*-distribution).
+
+`"robust=TRUE"` forces `n-seq` degrees of freedom and is used only in higher-order crossover designs. Could be used if the evaluation was done with a mixed-effects model.
+
+With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are provided as a data.frame with nine columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `foo[1, 7]` or `foo[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
@@ -61,15 +65,15 @@ The estimated sample size gives always the *total* number of subjects (not subje
 
 # Sample size
 
-## Two-Treatment Designs
 Designs with one (parallel) to four periods (replicates) are supported.
 ```{r, echo = FALSE}
 res        <- data.frame(design = rep(NA, 10), name = NA, df = NA)
 res[1:10, ] <- known.designs()[c(1:3, 7:13), c(2, 9, 3)]
 print(res, row.names = FALSE)
 ```
+The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
 
-### Example 1
+## Example 1
 Estimate the sample size for assumed intra-subject *CV* 0.30.
 ```{r}
 sampleN.TOST(CV = 0.30)
@@ -183,7 +187,7 @@ With ~0.5\% the relative loss in power is practically negligble.
 
 <small>[TOC ↩](#TOC)</small>
 
-### Example 2
+## Example 2
 Estimate the sample size for equivalence of the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval.^[Fieller EC. *Some Problems in Interval Estimation.* J Royal Stat Soc B. 1954; 16(2): 175--85. [JSTOR:2984043](https://www.jstor.org/stable/2984043).] Crossover design, within-subject *CV~w~* 0.20, between-subject *CV~b~* 0.40.
 ```{r}
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
@@ -192,10 +196,10 @@ In this function the default $\alpha$ is 0.025, since it is intended for studies
 
 <small>[TOC ↩](#TOC)</small>
 
-### Example 3{#expl3}
+## Example 3{#expl3}
 Estimate the sample size based on the results of a 2×2×2 pilot study in 16 subjects where we found an intra-subject *CV* 0.20 and $\theta_{0}$ 0.92.
 
-#### Basic{#expl3basic}
+### Basic{#expl3basic}
 If we believe [*sic*] that in the pivotal study both the $\theta_{0}$ and *CV* will be *exactly* like in the pilot, this is a straightforward excercise. We simply plug in the necessary arguments.
 
 ```{r}
@@ -203,11 +207,11 @@ sampleN.TOST(CV = 0.20, theta0 = 0.92)
 ```
 This approach is called by some ‘carved in stone’ because it relies on very strong assumptions which likely are not justified. Although power curves are relatively flat close to unity (*i.e.*, the impact on power is small when moving from say, $\theta_{0}$ 1 to 0.95) but they are getting increasingly steep when moving away more from unity.
 
-![**Fig. 1** Power curve ($\alpha$ 0.05, 2×2×2 design, *CV* 0.20)](figure3.png){width=358px}
+![**Fig. 1** Power curve ($\alpha$ 0.05, 2×2×2 design, *CV* 0.20;<br />blue n = 28, black n = 22, red n = 16)](figure3.png){width=355px}
 
 <small>[TOC ↩](#TOC)</small>
 
-Essentially both the $\theta_{0}$ and *CV* carry (as every estimate) some uncertainty, where the degree of uncertainty depends on the sample size. Hence, it might not be good idea to perform very small pilot studies (*e.g.*, in only six subjects). Although it might be possible that in the pivotal study the *CV* is indeed *lower* than the one we observed in the pilot, it would be even more risky than the ‘carved in stone’ approach to assume a lower one in planning the pivotal study.
+Both the $\theta_{0}$ and *CV* carry (as every estimate) some uncertainty, which depends on the degrees of freedom (sample size, design). Hence, it might not be good idea to perform very small pilot studies (*e.g.*, in only six subjects). Although it might be possible that in the pivotal study the *CV* is indeed *lower* than the one we observed in the pilot, it would be even more risky than the ‘carved in stone’ approach to assume a lower one in planning the pivotal study.
 
 With the function `CVCL()` we can calculate confidence limits of the *CV*. It is advisable to use the upper CL as a conservative approach. As a side effect – if the *CV* will be lower than assumed – we get a ‘safety margin’ for the T/R ratio.
 
@@ -246,13 +250,13 @@ Below our target but still acceptable.
 
 <small>[TOC ↩](#TOC)</small>
 
-#### Advanced{#expl3adv}
+### Advanced{#expl3adv}
 In the [basic approach](#expl3basic) we concentrated mainly on the uncertainty of the *CV*. But this is not the end of the story. Clearly the $\theta_{0}$ is uncertain as well. With the function `expsampleN.TOST()` we can dive deeper into this area. Let us start with only the *CV*.
 ```{r}
 expsampleN.TOST(CV = 0.20, theta0 = 0.92, prior.type = "CV",
                 prior.parm = list(m = 16, design = "2x2x2"))
 ```
-Not that bad. The sample size increases from the 22 of the ‘carved in stone’ approach to 30 but is substantially lower than the 40 we estimated based on the upper confidence limit of the *CV*.
+Not that bad. The sample size increases only slightly from the 28 of the ‘carved in stone’ approach to 30 but is substantially lower than the 40 we estimated based on the upper confidence limit of the *CV*.
 
 <small>[TOC ↩](#TOC)</small>
 
@@ -470,6 +474,32 @@ The true value is lower. That means, if we use the *CV* -- falsely -- assuming
 
 <small>[TOC ↩](#TOC)</small>
 
+## Direction of Deviation
+If you are unsure about the direction of the deviation of T from R (lower or higher) always assume $\theta_{0}$ <1.
+```{r}
+CV   <- 0.21
+d    <- 0.05 # delta 5%, direction unknown
+n    <- sampleN.TOST(CV = CV, theta0 = 1 - d, print = FALSE,
+                     details = FALSE)[["Sample size"]]
+res1 <- data.frame(CV = CV, theta0 = c(1 - d, 1 / (1 - d)),
+                   n = n, power = NA)
+for (i in 1:nrow(res1)) {
+  res1$power[i] <- power.TOST(CV = CV, theta0 = res1$theta0[i], n = n)
+}
+n    <- sampleN.TOST(CV = CV, theta0 = 1 + d, print = FALSE,
+                     details = FALSE)[["Sample size"]]
+res2 <- data.frame(CV = CV, theta0 = c(1 + d, 1 / (1 + d)),
+                   n = n, power = NA)
+for (i in 1:nrow(res1)) {
+  res2$power[i] <- power.TOST(CV = CV, theta0 = res2$theta0[i], n = n)
+}
+res <- rbind(res1, res2)
+print(signif(res[order(res$n, res$theta0), ], 4), row.names = FALSE)
+```
+If you use 1.05 (sample size 20) power will be maintained down to its reciprocal (0.9524) but *not* to 0.95 (where you would need already a sample size of 22). One the other hand, 0.95 preserves power up to 1.053. The statement ‘sample size based on a deviation of ±5\%’ seen in many protocol does not make sense.
+
+<small>[TOC ↩](#TOC)</small>
+
 # Man-pages
 Man-pages of functions used in this vignette:
 
@@ -495,6 +525,6 @@ Man-pages of functions used in this vignette:
 |`pa.ABE`|<span style="white-space:nowrap">Helmut Schütz, Detlew Labes</span>|
 
 # License
-[GPL-2](https://cran.r-project.org/web/licenses/GPL-2) | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3)
+[GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
 
 <small>[TOC ↩](#TOC)</small>

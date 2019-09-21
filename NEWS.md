@@ -1,22 +1,23 @@
 # PowerTOST 1.4-8.9000
 
-Published on GitHub 2019-09-19.
+Published on GitHub 2019-09-21.
 
 ## Bug fixes
 
   * Fix in `scABEL.ad()`: `reg$name` instead of `regulator`.
-  * Assumed CV in fourth panel of `pwrA_S3methods.R` in the same precison like others.
+  * CV in 4th panel of `pwrA_S3methods.R` to the same precison like in the others.
   * Fix in `power.TOST.sds()` for `gmodel==1`, case of `gmodel=3` with data of the largest group (group by treatment interaction significant at p=0.1)
   
 ## Major changes
 
-  * Started work on vignettes.
+  * Vignettes.
 
 ## Minor changes
 
-  * Reworked minimum sample sizes in `pa.scABE.R()` according to guidances. Generally 12 (as before) but 24 for the FDA. Also 24 for the EMA if 2x2x3 design (Q&A document). Change `N` to `n` in the S3-methods in conformity with other functions.
+  * Reworked minimum sample sizes in `pa.scABE.R()` according to guidances. Generally 12 (as before) but 24 for the FDA. Also 24 for the EMA if 2x2x3 design (Q&A document). Changed `N` to `n` in the S3-methods in conformity with other functions.
 
 # PowerTOST 1.4-8
+
 on CRAN 2019-08-29.
 
 ## Bug fixes

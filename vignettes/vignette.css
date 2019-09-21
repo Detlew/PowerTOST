@@ -20,7 +20,7 @@ p{margin:0.5em 0}
 /* special stuff (ignored: why?) */
 sup, sub{position:relative;vertical-align:baseline;top:-0.4em}
 sub{top:0.4em}
-blockquote{background-color:#f6f6f6;padding:0.25em 0.75em}
+blockquote{background-color:#fffff6;padding:0.25em 0.75em}
 hr{border-style:solid;border:none;border-top:1px solid #777;margin:28px 0}
 dl{margin-left:0}
 dl dd{margin-bottom:13px;margin-left:13px}

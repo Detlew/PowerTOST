@@ -1,6 +1,5 @@
 README
 ================
-Helmut Schütz
 
   - [PowerTOST](#powertost)
       - [Supported Designs](#supported-designs)
@@ -57,7 +56,7 @@ Built 2019-09-16 with R 3.6.1.
     #    2x2x2r Liu's 2x2x2 repeated x-over 3*n-2
     #    paired                paired means   n-1
 
-The code of designs follow this pattern: `treatments x sequences x
+Codes of designs follow this pattern: `treatments x sequences x
 periods`.
 
 Although some replicate designs are more ‘popular’ than others, sample
