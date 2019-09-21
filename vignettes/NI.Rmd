@@ -156,7 +156,7 @@ res[2, 6:7] <- sampleN.TOST(CV = res$CV[2], theta0 = res$theta0[2],
                             details = FALSE)[7:8]
 print(res, row.names = FALSE)
 ```
-Which method is optimal is a case-to-case decision. Although in the this example the bracketing approach seems to be the ‘winner’ (32 subjects instead of 34), we might fail if the *CV* of *C~min~* is larger than assumed, whereas in reference-scaling we might still pass due to the expanded limits.
+Which method is optimal is a case-to-case decision. Although in this example the bracketing approach seems to be the ‘winner’ (32 subjects instead of 34), we might fail if the *CV* of *C~min~* is larger than assumed, whereas in reference-scaling we might still pass due to the expanded limits.
 ```{r}
 n <- sampleN.scABEL(CV = 0.35, theta0 = 0.90, design = "2x2x4",
                     print = FALSE, details = FALSE)[["Sample size"]]

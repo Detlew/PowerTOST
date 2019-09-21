@@ -74,16 +74,19 @@ pa.scABE   <- function(CV, theta0=0.9, targetpower=0.8, minpower=0.7,
 	# FDA: 24
   incr <- FALSE
 	if (reg == "EMA" & design == "2x2x3")  {
-    incr <- TRUE
-	  n.est <- 24
-	  res[1, "Sample size"]    <- n.est
-	  pwr.est <- power.scABEL(CV=CV, n=n.est, theta0=GMR, design=design, 
-	                          regulator="EMA", ...)
+	  if (n.est < 24) {
+      incr <- TRUE
+	    n.est <- 24
+	    pwr.est <- power.scABEL(CV=CV, n=n.est, theta0=GMR, design=design, 
+	                            regulator="EMA", ...)
+	  }
 	}
 	if (reg == "FDA") {
-	  incr <- TRUE
-	  n.est   <- 24
-	  pwr.est <- power.RSABE(CV=CV, n=n.est, theta0=GMR,  design=design, ...)
+	  if (n.est < 24) {
+	    incr <- TRUE
+	    n.est <- 24
+	    pwr.est <- power.RSABE(CV=CV, n=n.est, theta0=GMR, design=design, ...)
+	  }
 	} else {
 	  if (n.est < 12) {
 	    incr <- TRUE

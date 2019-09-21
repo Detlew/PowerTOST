@@ -279,7 +279,7 @@ res$TIE[2]   <- x$TIE.adj
 res$power[2] <- power.scABEL(alpha = x$alpha.adj, CV = CV,
                              n = n, design = "2x2x4")
 res$TIE      <- round(res$TIE, 4)
-res$power    <- round(res$TIE, 3)
+res$power    <- round(res$power, 3)
 cat(paste0("CV = ", CV, ", n = ", n, ", design = \"", des, "\"\n")); print(res, row.names = FALSE)
 ```
 The negative impact on power is for high variability substantial.
