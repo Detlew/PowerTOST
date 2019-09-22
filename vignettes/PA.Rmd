@@ -48,7 +48,7 @@ With `x <- pa.ABE(...)` results are given as an [S3-object](http://adv-r.had.co.
 
 # Examples
 ## Average Bioequivalence
-<h3>[Example 1](#expl1)</h3>
+<h5>[Example 1](#expl1)</h5>
 [Example 3 of the vignette ABE](ABE.html#expl3). Assumed $\theta_{0}$ 0.92, *CV* 0.20, all defaults employed.
 ```{r}
 pa.ABE(CV = 0.20, theta0 = 0.92)

@@ -64,7 +64,6 @@ The estimated sample size gives always the *total* number of subjects (not subje
 <small>[TOC ↩](#TOC)</small>
 
 # Sample size
-
 Designs with one (parallel) to four periods (replicates) are supported.
 ```{r, echo = FALSE}
 res        <- data.frame(design = rep(NA, 10), name = NA, df = NA)
@@ -115,7 +114,6 @@ print(res, row.names = FALSE)
 ```
 As expected, and as a bonus we get a small gain in power, though in the 4-period with one dropout power will be slightly compromised.\
 But why is power in the replicate designs higher than in the 2×2×2? If residual variances are equal, the width of the confidence interval depends only on the *t*-value and in particular on the degrees of freedom – which themselves depend on the design and the sample size.
-
 ```{r, echo = FALSE}
 designs <- c("2x2x2", "2x2x3", "2x3x3", "2x2x4")
 res <- data.frame(design = rep(NA, 4), name = NA, n = NA, formula = NA,
@@ -214,13 +212,11 @@ This approach is called by some ‘carved in stone’ because it relies on very 
 Both the $\theta_{0}$ and *CV* carry (as every estimate) some uncertainty, which depends on the degrees of freedom (sample size, design). Hence, it might not be good idea to perform very small pilot studies (*e.g.*, in only six subjects). Although it might be possible that in the pivotal study the *CV* is indeed *lower* than the one we observed in the pilot, it would be even more risky than the ‘carved in stone’ approach to assume a lower one in planning the pivotal study.
 
 With the function `CVCL()` we can calculate confidence limits of the *CV*. It is advisable to use the upper CL as a conservative approach. As a side effect – if the *CV* will be lower than assumed – we get a ‘safety margin’ for the T/R ratio.
-
 ```{r}
 df <- 16 - 2 # degrees of freedom of the 2x2x2 crossover pilot
 CVCL(CV = 0.20, df = df, side = "upper", alpha = 0.20)[["upper CL"]]
 ```
 I prefer <small>$\alpha=0.20$</small> in analogy to the producer’s risk <small>$\beta=0.20$</small> when planning for power <small>$\pi=1-\beta=0.80$</small>. Gould^[Gould AL. *Group Sequential Extension of a Standard Bioequivalence Testing Procedure.* J Pharmacokin Biopharm. 1995: 23(1); 57--86. [doi:10.1007/BF02353786](https://doi.org/10.1007/BF02353786).] suggested the more liberal 0.25. Let us repeat the sample size estimation with the upper limit.
-
 ```{r}
 CL.upper <- CVCL(CV = 0.20, df = 16 - 2, side = "upper",
                  alpha = 0.20)[["upper CL"]]

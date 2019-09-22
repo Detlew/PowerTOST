@@ -173,8 +173,11 @@ Power can by calculated by the counterparts of the respective sample size functi
 `power.scABEL()`, `power.RSABE()`, `power.NTIDFDA()`, and `power.HVNTID()`.  
 
 # Type I Error
-Wonnemann *et al.*^[Wonnemann M, Frömke C, Koch A. *Inflation of the Type I Error: Investigations on Regulatory Recommendations for Bioequivalence of Highly Variable Drugs.* Pharm Res. 2015: 32(1); 135--43. [doi:10.1007/s11095-014-1450-z](https://doi.org/10.1007/s11095-014-1450-z).], Muñoz *et al.*^[Muñoz J, Alcaide D, Ocaña J. *Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence in highly variable drugs.* Stat Med. 2016: 35(12); 1933--43. [doi:10.1002/sim.6834](https://doi.org/10.1002/sim.6834).],
-Labes and Schütz^[Labes D, Schütz H. *Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.* Pharm Res. 2016: 33(11); 2805--14. [doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).], Tóthfalusi and Endrényi^[Tóthfalusi L, Endrényi L. *An Exact Procedure for the Evaluation of Reference-Scaled Average Bioequivalence.* AAPS J. 2016: 18(2); 476--89. [doi:10.1208/s12248-016-9873-6](https://doi.org/10.1208/s12248-016-9873-6).]<sup>,</sup> ^[Tóthfalusi L, Endrényi L. *Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.* Stat Med. 2017: 36(27); 4378--90. [doi:10.1002/sim.7440](https://doi.org/10.1002/sim.7440).], and Molins *et al.*^[Molins E, Cobo E, Ocaña J. *Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?* Stat Med. 2017: 36(30); 4777--88. [doi:10.1002/sim.7452](https://doi.org/10.1002/sim.7452).] showed that under certain conditions (EMA, Health Canada: *CV~wR~* \~0.22--0.42, FDA: *CV~wR~* ≤0.30) the type&nbsp;I error will be substantially inflated. Below the inflation region the study will be evaluated for ABE and the type&nbsp;I error controlled by the TOST. Above the inflation region the type&nbsp;I error is controlled by the PE restriction and for the EMA and Health Canada additionally by the upper cap of scaling.
+Contrary to average bioequivalence, where the Null-hypothesis is based on fixed limits, in reference-scaling the Null is generated in face of the data (*i.e*, the limits are random variables).
+
+Endrényi and Tóthfalusi (2009,^[Endrényi L, Tóthfalusi L. *Regulatory and study conditions for the determination of bioequivalence of highly variable drugs.* J Pharm Sci. 2009: 12(1); 138--49. [open access](http://ejournals.library.ualberta.ca/index.php/JPPS/article/viewFile/771/5275).] 2019^[Endrényi L, Tóthfalusi L. *Bioequivalence for highly variable drugs: regulatory agreements, disagreements, and harmonization.* J Pharmacokin Pharmacodyn. 2019: 46(2); 117--26. [doi:s10928-019-09623-w](https://doi.org/10.1002/sim.7440).]), Labes (2013^[Labes D. *‘alpha’ of scaled ABE?* BEBA Forum. Vienna, 2013. [open access](https://forum.bebac.at/mix_entry.php?id=10202#top10202).]), Wonnemann *et al.* (2015^[Wonnemann M, Frömke C, Koch A. *Inflation of the Type I Error: Investigations on Regulatory Recommendations for Bioequivalence of Highly Variable Drugs.* Pharm Res. 2015: 32(1); 135--43. [doi:10.1007/s11095-014-1450-z](https://doi.org/10.1007/s11095-014-1450-z).]), Muñoz *et al.* (2016^[Muñoz J, Alcaide D, Ocaña J. *Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence in highly variable drugs.* Stat Med. 2016: 35(12); 1933--43. [doi:10.1002/sim.6834](https://doi.org/10.1002/sim.6834).]),
+Labes and Schütz (2016^[Labes D, Schütz H. *Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.* Pharm Res. 2016: 33(11); 2805--14. [doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).]), Tóthfalusi and Endrényi (2016,^[Tóthfalusi L, Endrényi L. *An Exact Procedure for the Evaluation of Reference-Scaled Average Bioequivalence.* AAPS J. 2016: 18(2); 476--89. [doi:10.1208/s12248-016-9873-6](https://doi.org/10.1208/s12248-016-9873-6).] 2017^[Tóthfalusi L, Endrényi L. *Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.* Stat Med. 2017: 36(27); 4378--90. [doi:10.1002/sim.7440](https://doi.org/10.1002/sim.7440).]), Molins *et al.* (2017^[Molins E, Cobo E, Ocaña J. *Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?* Stat Med. 2017: 36(30); 4777--88. [doi:10.1002/sim.7452](https://doi.org/10.1002/sim.7452).]), Deng and Zhou (2019^[Deng Y, Zhou X-H. *Methods to control the empirical type I error rate in average bioequivalence tests for highly variable drugs.* Stat Meth Med Res. Epub ahead of print 3 Sep 2019. [doi:10.1177/0962280219871589](https://doi.org/10.1177/0962280219871589).]) showed that under certain conditions (EMA, Health Canada: *CV~wR~* \~0.22--0.45, FDA: *CV~wR~* ≤0.30) the type I error will be substantially inflated.\
+Below the inflation region the study will be evaluated for ABE and the type I error controlled by the TOST. Above the inflation region the type&nbsp;I error is controlled by the PE restriction and for the EMA and Health Canada additionally by the upper cap of scaling.
 
 ```{r}
 CV      <- 0.35
@@ -191,16 +194,35 @@ With \~0.0656 the type I error is inflated (significantly larger than the nomin
 
 <small>[TOC ↩](#TOC)</small>
 
-An even higher inflation of the type&nbsp;I error was reported for the FDA’s model. However, Davit *et al.*^[Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf FT, Nwakama PE, Patel DT, Schuirmann DJ, Yu LX. *Implementation of a Reference-Scaled Average Bioequivalence Approach for Highly Variable Generic Drug Products by the US Food and Drug Administration.* AAPS J. 2012: 14(4); 915--24. [doi:10.1208/s12248-012-9406-x](https://doi.org/10.1208/s12248-012-9406-x).] assessed the type&nbsp;I error not at the [‘implied limits’](#ImpLim) but with the ‘desired consumer risk model’ if the *CV~wR~* is ≥*s*~0~ (0.25 or \~25.4\%) at <small>$\exp (\log (1.25)/0.25 \sqrt{\log (CV_{wR}^2+1})$</small>. Some statisticians call the latter ‘hocus-pocus’.
+A substantially higher inflation of the type I error was reported for the FDA’s model. However, Davit *et al.* (2012^[Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf FT, Nwakama PE, Patel DT, Schuirmann DJ, Yu LX. *Implementation of a Reference-Scaled Average Bioequivalence Approach for Highly Variable Generic Drug Products by the US Food and Drug Administration.* AAPS J. 2012: 14(4); 915--24. [doi:10.1208/s12248-012-9406-x](https://doi.org/10.1208/s12248-012-9406-x).]) assessed the type I error not at the [‘implied limits’](#ImpLim) but with the [‘desired consumer risk model’](#DesCRM) if <small>$s_{wR} \geq s_0$</small> (*CV~wR~* ≥\~25.4\%) at <small>$e^{log(1.25)/s_0\sqrt{log(CV_{wR}^{2}+1)}}$</small>. Some statisticians call the latter ‘hocus-pocus’. However, even with this approach the type I error is still (although less) inflated.
+```{r}
+res <- data.frame(CV = sort(c(seq(0.25, 0.32, 0.01), se2CV(0.25))),
+                  impl.L = NA, impl.U = NA, impl.TIE = NA,
+                  des.L = NA, des.U = NA, des.TIE = NA)
+for (i in 1:nrow(res)) {
+  res[i, 2:3] <- scABEL(CV = res$CV[i], regulator = "FDA")
+  if (CV2se(res$CV[i]) <= 0.25) {
+    res[i, 5:6] <- c(0.80, 1.25)
+  } else {
+    res[i, 5:6] <- exp(c(-1, +1)*(log(1.25)/0.25)*CV2se(res$CV[i]))
+  }
+  res[i, 4] <- power.RSABE(CV = res$CV[i], theta0 = res[i, 3],
+                           design = "2x2x4", n = 32, nsims = 1e6)
+  res[i, 7] <- power.RSABE(CV = res$CV[i], theta0 = res[i, 5],
+                           design = "2x2x4", n = 32, nsims = 1e6)
+}
+print(signif(res, 4), row.names = FALSE)
 
-![**Fig. 2** Empiric type I error for the FDA’s RSABE, 4-period full replicate design, n = 32.<br />Thick line ‘implied limits’ (max. TIE 0.147 at *CV~wR~* 30\%).<br />Thin line ‘desired consumer risk model’ (max. TIE 0.0640 at *CV~wR~* 25.4\%).](figure12.png){width=449px}
+```
 
-Various approaches were suggested to control the patient’s risk.
+![**Fig. 2** Empiric type I error for the FDA’s RSABE, 4-period full replicate design, n = 32.<br />Thick line ‘implied limits’ (max. TIE 0.147 at *CV~wR~* 30\%).<br />Thin line ‘desired consumer risk model’ (max. TIE 0.0636 at *CV~wR~* 25.4\%).](figure12.png){width=449px}
+
+Various approaches were suggested to control the patient’s risk. The methods of Labes and Schütz (2016) and Molins *et al.* (2017) are implemented in the function `scABEL.ad()`. The method of Tóthfalusi and Endrényi (2017) is implemented in the function `power.RSABE2L.sds()`. 
 
 <small>[TOC ↩](#TOC)</small>
 
 ## Iteratively adjusted α
-Based on the observed *CV~wR~*, $\alpha$ is adjusted and the study should be evaluated with a wider confidence interval (Labes and Schütz 2016). Implemented designs: `"2x3x3"` (default), `"2x2x3"`, `"2x2x4"`.\
+If an inflated type I error is expected, $\alpha$ is adjusted based on the observed *CV~wR~* and the study should be evaluated with a wider confidence interval (Labes and Schütz 2016). Implemented designs: `"2x3x3"` (default), `"2x2x3"`, `"2x2x4"`.\
 No adjustment is suggested if the study’s conditions (*CV~wR~*, sample size, design) will not lead to an inflated type&nbsp;I error.
 ```{r}
 CV <- 0.45
@@ -231,7 +253,7 @@ We have to increase the sample size to 38 in order to maintain power. Since the 
 
 <small>[TOC ↩](#TOC)</small>
 
-Since the observed *CV~wR~* is not the true – unknown – one, Molins *et al.* suggested to ‘assume the worst’ and adjust for *CV~wR~* 0.30 in all cases.
+Since the observed *CV~wR~* is not the true – unknown – one, Molins *et al.* recommended to ‘assume the worst’ and adjust for *CV~wR~* 0.30 in all cases.
 ```{r, echo=FALSE}
 CV  <- 0.35
 des <- "2x2x4"
@@ -260,7 +282,7 @@ cat(paste0("CV = ", CV, ", n = ", n, ", design = \"", des, "\"\n")); print(res, 
 ```
 Although Molin’s adjusted $\alpha$ controls the patient’s risk, it leads to a further loss in power.
 
-Example with a *CV~wR~* far above the region of inflated type&nbsp;I errors (*i.e.*, >0.42).
+Example with a *CV~wR~* far above the region of inflated type I errors (*i.e.*, >0.42).
 ```{r, echo=FALSE}
 CV  <- 0.80
 des <- "2x2x4"
@@ -304,7 +326,7 @@ With \~0.0482 the patient’s risk is controlled. However, the regulatory accept
 
 # Helpers
 ## BE limits
-### Expanded Limits{#ExpLim}
+### Expanded Limits (EMA, Health Canada){#ExpLim}
 ```{r}
 CV  <- c(0.30, 0.40898, 0.50, 0.57382)
 res <- data.frame(CV = CV, EMA.L = NA, EMA.U = NA, EMA.cap = "",
@@ -312,30 +334,50 @@ res <- data.frame(CV = CV, EMA.L = NA, EMA.U = NA, EMA.cap = "",
                   stringsAsFactors = FALSE)
 for (i in seq_along(CV)) {
   res[i, 2:3] <- sprintf("%.4f", scABEL(CV[i], regulator = "EMA"))
-  res[i, 5:6] <- sprintf("%.4f", scABEL(CV[i], regulator = "HC"))
+  res[i, 5:6] <- sprintf("%.3f", scABEL(CV[i], regulator = "HC"))
 }
 res$EMA.cap[res$CV <= 0.30]   <- res$HC.cap[res$CV <= 0.30] <- "lower"
 res$EMA.cap[res$CV >= 0.50]   <- "upper"
 res$HC.cap[res$CV >= 0.57382] <- "upper"
 print(res, row.names = FALSE)
 ```
-Both for the EMA and Health Canada the lower cap for scaling is 30\%. Whereas the upper cap for the EMA is at 50\% (expanded limits 69.84--143.19\%), for Health Canada it is at ~57.4\% (expanded limits 50.00--150.00\%).
+For both agencies the lower cap for scaling is 30\%. Whereas the upper cap for the EMA is at 50\% (expanded limits 69.84--143.19\%), for Health Canada it is at ~57.4\% (expanded limits 50.0--150.0\%).
 
 <small>[TOC ↩](#TOC)</small>
 
-### ‘Implied’ Limits{#ImpLim}
-```{r}
-CV  <- c(0.30, 0.50, 1.0)
-res <- data.frame(CV = CV, L = NA, U = NA, cap = "",
-                  stringsAsFactors = FALSE)
-for (i in seq_along(CV)) {
-  res[i, 2:3] <- sprintf("%.4f", scABEL(CV[i], regulator = "FDA"))
-}
-res$cap[res$CV <= 0.30] <- "lower"
-print(res, row.names = FALSE)
-```
+### FDA
 For the FDA there is no upper cap (scaling is unlimited).
 
+#### ‘Implied’ Limits{#ImpLim}
+```{r}
+res <- data.frame(CV = c(0.25, se2CV(0.25), 0.275, 0.3, 0.5, 1.0),
+                  impl.L = NA, impl.U = NA, cap = "",
+                  stringsAsFactors = FALSE)
+for (i in 1:nrow(res)) {
+  res[i, 2:3] <- sprintf("%.4f", scABEL(CV = res$CV[i],
+                                        regulator = "FDA"))
+}
+res$cap[res$CV <= 0.30] <- "lower"
+res$CV <- sprintf("%.3f", res$CV)
+print(res, row.names = FALSE)
+```
+#### Limits of the ‘desired consumer risk model’{#DesCRM}
+```{r}
+res <- data.frame(CV = c(0.25, se2CV(0.25), 0.275, 0.3, 0.5, 1.0),
+                  des.L = NA, des.U = NA, cap = "",
+                  stringsAsFactors = FALSE)
+for (i in 1:nrow(res)) {
+  if (CV2se(res$CV[i]) <= 0.25) {
+    res[i, 2:3] <- sprintf("%.4f", c(0.80, 1.25))
+  } else {
+    res[i, 2:3] <- sprintf("%.4f",
+                     exp(c(-1, +1)*(log(1.25)/0.25)*CV2se(res$CV[i])))
+  }
+}
+res$cap[res$CV <= 0.30] <- "lower"
+res$CV <- sprintf("%.3f", res$CV)
+print(res, row.names = FALSE)
+```
 <small>[TOC ↩](#TOC)</small>
 
 ## Regulatory Settings
