@@ -1,6 +1,6 @@
 # PowerTOST 1.4-8.9000
 
-Published on GitHub 2019-09-23.
+Published on GitHub 2019-09-24.
 
 ## Bug fixes
 
@@ -14,6 +14,7 @@ Published on GitHub 2019-09-23.
 
 ## Minor changes
 
+  * Cosmetics in output of `sampleN.noninf` based on `margin`.
   * Reworked minimum sample sizes in `pa.scABE.R()` according to guidances. Generally 12 (as before) but 24 for the FDA. Also 24 for the EMA if 2x2x3 design (Q&A document). Changed `N` to `n` in the S3-methods in conformity with other functions.
 
 # PowerTOST 1.4-8

@@ -41,19 +41,6 @@ sampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
   # make a multiple of steps
   nmin <- as.integer(steps*trunc(n/steps)) 
   nmin <- nmin + steps*(nmin<n)
-  if (print) {
-    cat("\n++++++++++++ Non-inferiority test +++++++++++++\n")
-    cat("            Sample size estimation\n")
-    cat("-----------------------------------------------\n")
-    cat("Study design:",d.name,"\n")
-    if (details) { 
-      cat("Design characteristics:\n")
-      if (robust & (ades$df2 != ades$df)) {
-        cat("df = ",ades$df2," (robust)", sep="") 
-      } else cat("df = ",ades$df, sep="")
-      cat(", design const. = ", bk, ", step = ", steps,"\n\n",sep="")
-    }
-  }
   # handle the log transformation
   if (logscale) {
     if (missing(margin)) margin <- 0.8
@@ -71,7 +58,6 @@ sampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
     lmargin <- log(margin)
     diffm   <- log(theta0)
     se      <- CV2se(CV)
-    if (print) cat("log-transformed data (multiplicative model)\n\n")
   } else {
     if (missing(margin)) margin <- -0.2
     if (missing(theta0)) theta0 <- -0.05
@@ -84,9 +70,28 @@ sampleN.noninf <- function(alpha=0.025, targetpower=0.8, logscale=TRUE,
     lmargin <- margin
     diffm   <- theta0
     se      <- CV
-    if (print) cat("untransformed data (additive model)\n\n")
   }
   if (print) {
+    if ((logscale & margin <= 1) | (!logscale & margin <= 0)) {
+      cat("\n++++++++++++ Non-inferiority test +++++++++++++\n")
+    } else {
+      cat("\n++++++++++++ Non-superiority test +++++++++++++\n")
+    }
+    cat("            Sample size estimation\n")
+    cat("-----------------------------------------------\n")
+    cat("Study design:",d.name,"\n")
+    if (details) { 
+      cat("Design characteristics:\n")
+      if (robust & (ades$df2 != ades$df)) {
+        cat("df = ",ades$df2," (robust)", sep="") 
+      } else cat("df = ",ades$df, sep="")
+      cat(", design const. = ", bk, ", step = ", steps,"\n\n",sep="")
+    }
+    if (logscale) {
+      cat("log-transformed data (multiplicative model)\n\n")
+    } else {
+      cat("untransformed data (additive model)\n\n")
+    }
     cat("alpha = ",alpha,", target power = ", targetpower,"\n", sep="")
     cat("Non-inf. margin = ", margin, "\n", sep="")
     if (logscale) cat("True ratio = ",theta0,",  CV = ",CV,"\n", sep="")
