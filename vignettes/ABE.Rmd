@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 ```
 | [Main Vignette](vignette.html) | <span style="color:#006400" title="You are here">ABE</span> | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
+<div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -61,8 +62,6 @@ With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are provided as
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
-<small>[TOC ↩](#TOC)</small>
-
 # Sample size
 Designs with one (parallel) to four periods (replicates) are supported.
 ```{r, echo = FALSE}
@@ -88,8 +87,6 @@ Which power will we get with a sample size of 39?
 power.TOST(CV = 0.30, n = 39)
 ```
 Confirmed that with 39 subjects we will already reach the target power. That means also that one dropout will not compromise power. We can explore that further in a [Power Analysis](library/doc/PA.html).
-
-<small>[TOC ↩](#TOC)</small>
 
 Maybe the clinical site has a limited capacity. Any study can also be performed in a replicate design and assessed for ABE. As a rule of thumb the total sample in a 3-period replicate is ~¾ of the 2×2×2 design and the one of a 4-period replicate ~½ of the 2×2×2. The number of treatments and hence, of biosamples – which drives the study’s cost – will be roughly the same.
 ```{r}
@@ -132,8 +129,6 @@ res <- res[with(res, order(-n, design)), ]
 print(res, row.names = FALSE)
 ```
 If the capacity is 24 beds, we would opt for a 4-period full replicate.
-
-<small>[TOC ↩](#TOC)</small>
 
 As another option (*e.g.*, if the blood volume is limited and/or there are concerns about a higher dropout-rate in a multiple-period study) we could stay with the 2×2×2 design but split the sample size into groups. In Europe (and for the FDA if [certain conditions](https://bebac.at/lectures/Prague2018.pdf#page=7) are fulfilled), there are no problems pooling the data and use the conventional model.
 
@@ -183,16 +178,12 @@ print(signif(res, 6), row.names = FALSE)
 ```
 With ~0.5\% the relative loss in power is practically negligble.
 
-<small>[TOC ↩](#TOC)</small>
-
 ## Example 2
 Estimate the sample size for equivalence of the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval.^[Fieller EC. *Some Problems in Interval Estimation.* J Royal Stat Soc B. 1954; 16(2): 175--85. [JSTOR:2984043](https://www.jstor.org/stable/2984043).] Crossover design, within-subject *CV~w~* 0.20, between-subject *CV~b~* 0.40.
 ```{r}
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
 ```
 In this function the default $\alpha$ is 0.025, since it is intended for studies with clinical endpoints, where the 95\% confidence interval is usually used for equivalence testing.^[EMEA, CPMP. *Points to Consider on Switching between Superiority and Non-Inferiority.* London, 27 July 2000. [CPMP/EWP/482/99](https://www.ema.europa.eu/en/documents/scientific-guideline/points-consider-switching-between-superiority-non-inferiority_en.pdf).]
-
-<small>[TOC ↩](#TOC)</small>
 
 ## Example 3{#expl3}
 Estimate the sample size based on the results of a 2×2×2 pilot study in 16 subjects where we found an intra-subject *CV* 0.20 and $\theta_{0}$ 0.92.
@@ -206,8 +197,6 @@ sampleN.TOST(CV = 0.20, theta0 = 0.92)
 This approach is called by some ‘carved in stone’ because it relies on very strong assumptions which likely are not justified. Although power curves are relatively flat close to unity (*i.e.*, the impact on power is small when moving from say, $\theta_{0}$ 1 to 0.95) but they are getting increasingly steep when moving away more from unity.
 
 ![**Fig. 1** Power curve ($\alpha$ 0.05, 2×2×2 design, *CV* 0.20;<br />blue n = 28, black n = 22, red n = 16)](figure3.png){width=355px}
-
-<small>[TOC ↩](#TOC)</small>
 
 Both the $\theta_{0}$ and *CV* carry (as every estimate) some uncertainty, which depends on the degrees of freedom (sample size, design). Hence, it might not be good idea to perform very small pilot studies (*e.g.*, in only six subjects). Although it might be possible that in the pivotal study the *CV* is indeed *lower* than the one we observed in the pilot, it would be even more risky than the ‘carved in stone’ approach to assume a lower one in planning the pivotal study.
 
@@ -224,8 +213,6 @@ res <- sampleN.TOST(CV = CL.upper, theta0 = 0.92, print = FALSE)
 print(res[7:8], row.names = FALSE)
 ```
 Of course, this has a massive impact on the sample size, which increases from 28 to 40. It might be difficult to convice the management to invest ~40\% more than with the ‘carved in stone’ approach.
-
-<small>[TOC ↩](#TOC)</small>
 
 However, we can also explore how power would be affected if our assumption is true and the study will nevertheless be performed with only 28 subjects.
 ```{r}
@@ -244,8 +231,6 @@ power.TOST(CV = 0.22, theta0 = 0.90, n = 40)
 ```
 Below our target but still acceptable.
 
-<small>[TOC ↩](#TOC)</small>
-
 ### Advanced{#expl3adv}
 In the [basic approach](#expl3basic) we concentrated mainly on the uncertainty of the *CV*. But this is not the end of the story. Clearly the $\theta_{0}$ is uncertain as well. With the function `expsampleN.TOST()` we can dive deeper into this area. Let us start with only the *CV*.
 ```{r}
@@ -254,16 +239,12 @@ expsampleN.TOST(CV = 0.20, theta0 = 0.92, prior.type = "CV",
 ```
 Not that bad. The sample size increases only slightly from the 28 of the ‘carved in stone’ approach to 30 but is substantially lower than the 40 we estimated based on the upper confidence limit of the *CV*.
 
-<small>[TOC ↩](#TOC)</small>
-
 Let us keep the *CV* ‘fixed’ and take only the uncertainty of $\theta_{0}$ into account.
 ```{r}
 expsampleN.TOST(CV = 0.20, theta0 = 0.92, prior.type = "theta0",
                 prior.parm = list(m = 16, design = "2x2x2"))
 ```
 It starts to hurt. We learned already that power curves are getting steep when the T/R ratio is not close to unity. Our $\theta_{0}$ 0.92 was not very nice but in the pivotal study it might be even lower as well – which has a larger impact on power than the *CV*.
-
-<small>[TOC ↩](#TOC)</small>
 
 Now for the ‘worst case scenario’ where we take both uncertainties into account.
 ```{r}
@@ -277,8 +258,6 @@ At least, if the pivotal study fails in a lower sample size, *you* know why.
 ![**Fig. 3** Expected power for uncertain estimates (from top: *CV*, $\theta_{0}$, both)](figure5.png){width=354px}
 
 If you are adventurous consider an Adaptive Two-Stage Sequential Design with sample size re-estimation. Various methods are supported in the package [Power2Stage](https://cran.r-project.org/package=Power2Stage).
-
-<small>[TOC ↩](#TOC)</small>
 
 ## Higher-Order Designs
 Designs with three and four periods are supported.
@@ -308,8 +287,6 @@ Which `design` argument in studies with more than two periods you should use dep
 
 I suggest to opt for the latter since the former may lead to biased estimates and an inflated type I error.^[D’Angelo P. *Testing for Bioequivalence in Higher‐Order Crossover Designs: Two‐at‐a‐Time Principle Versus Pooled ANOVA.* 2^nd^ Conference of the Global Bioequivalence Harmonisation Initiative. Rockville, 15--16 September, 2016.]
 
-<small>[TOC ↩](#TOC)</small>
-
 Three treatments like in the ‘Two at a Time’ example above.
 ```{r}
 CV  <- 0.20
@@ -334,7 +311,6 @@ for (i in 1:2) {
 }
 print(res, row.names = FALSE)
 ```
-<small>[TOC ↩](#TOC)</small>
 
 # Power
 Let us first recap the hypotheses in bioequivalence.
@@ -347,8 +323,6 @@ Let us first recap the hypotheses in bioequivalence.
   $$H_0:\frac{\mu_T}{\mu_R}\notin \left [ \theta_1, \theta_2 \right]\:vs\:H_1:\theta_1<\frac{\mu_T}{\mu_R}<\theta_2$$
 
 Note that the Null hypotheses are bio**in**equivalence.
-
-<small>[TOC ↩](#TOC)</small>
 
 From a regulatory perspective the outcome of a comparative BA study is dichotomous. **Either** the study demonstrated BE (CI entirely within $\theta_{1},\theta_{2}$) **or** not.^[If the CI overlaps $\theta_{1},\theta_{2}$, the outcome is indecisive (called ‘the grey zone’ by some). As long as $\theta_{0}$ lies within $\theta_{1},\theta_{2}$ you can hope to show BE in a larger sample size. However, once $\theta_{0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
   `sampleN.TOST(CV = 0.075, theta0 = 0.81)` and then\
@@ -378,8 +352,6 @@ power.TOST(CV = 0.25, theta0 = 1, n = c(13, 12))
 ```
 Since all estimates were worse than assumed, how could we have a ‘power’ even higher than desired, despite the fact that the study failed? Nonsense.
 
-<small>[TOC ↩](#TOC)</small>
-
 # Pooling
 When planning the next study one can use the entire arsenal from [above](#expl3). Since we have more accurate estimates (from 25 subjects instead of the 16 of the pilot) the situation is more clear now.\
 As a further step we can take the information of both studies into account with the function `CVpooled()`.
@@ -395,8 +367,6 @@ print(CVpooled(data, alpha = 0.20), digits = 4, verbose = TRUE)
 ```
 Before pooling, variances are weighted by the degrees of freedom. Hence, the new estimate is with ~0.23 closer to the 0.25 of the larger study. Note also that the upper confidence limit is with ~0.26 higher than the one of the pilot study with ~0.24.
 
-<small>[TOC ↩](#TOC)</small>
-
 <h2>Caveats</h2>
 Don’t pool data blindly. In the ideal situation you know the entire background of all studies (clinical performance, bioanalytics). Even if all studies were performed at the same CRO, more things are important. One purpose of pilot studies is to find a suitable sampling schedule. If the schedule of the pilot was not ideal (*e.g.*, you get the impression that *C~max~* was not sufficiently enough described), pooling is not a good idea. It might well be that in the pivotal study – with a ‘better’ schedule – this *CV* is more reliable. On the other hand, the *AUC* is less sensitive to different sampling schedule.
 
@@ -411,8 +381,6 @@ This is an apples-and-oranges comparison. Red squares show *CV*s which were abov
 > Which sided of the great divide are you on? Do you believe that meta is better or do you hold instead that pooling is fooling? Well, to nail my colours to the mast, I belong to the former school. It seems to me that there is no other topic in medical statistics, with the possible exceptions of cross-over trials, bioequivalence and n-of-1 studies, which has the same capacity as this one to rot the brains.
 > `r tufte::quote_footer('--- Stephen Senn, *[A Dip in the Pool](http://www.senns.demon.co.uk/wprose.html#Pool)*')`
 
-<small>[TOC ↩](#TOC)</small>
-
 # Hints
 ## Power Analysis
 Although we suggest to explore the various options shown in [Example 3](#expl3), it is worthwhile to have a first look with the function `pa.ABE()`.
@@ -424,8 +392,6 @@ pa.ABE(CV = 0.20, theta0 = 0.92)
 This excercise confirms what we already know. The most critical parameter is $\theta_{0}$, whereas dropouts are the least important.
 
 More details are given in the respective [vignette](library/doc/PA.html).
-
-<small>[TOC ↩](#TOC)</small>
 
 ## Dropouts
 As we have seen, the impact of dropouts on power is rather limited. Regulary CROs suggest additional subjects to ‘compensate for the potential loss in power’. IMHO, milking sponsors to make wealthy CROs richer. Note that the dropout-rate is based on *dosed* subjects. Hence, the correct formula for an adjusted sample size is <small>$n_{adj}=n / (1-{dropout\:rate})$</small>, and *not* <small>$n_{adj}=n \times (1+{dropout\:rate})$</small>.
@@ -453,8 +419,6 @@ print(res, row.names = FALSE)
 ```
 With the wrong formula – especially for high droput rates – you might end up with less eligible subjects than planned. On the other hand, with the correct one (due to rounding up to get balanced sequences) you may end up with slightly too many. Of course, if you want to be one the safe side, you can select the ‘best’ (column `opt`).
 
-<small>[TOC ↩](#TOC)</small>
-
 ## Literature Data
 Sometimes the *CV* is not given in the literature. By means of the function `CVfromCI()` we can [calculate it](https://bebac.at/lectures/Bucharest2013WS1.pdf#page=26 "underlying algebra") from the confidence interval, the design, and the sample size.
 ```{r}
@@ -467,8 +431,6 @@ CVfromCI(lower = 0.8323, upper = 1.0392, n = c(14, 12),
          design = "2x2x4")
 ```
 The true value is lower. That means, if we use the *CV* -- falsely -- assuming balanced sequences our sample size estimations will be conservative.
-
-<small>[TOC ↩](#TOC)</small>
 
 ## Direction of Deviation
 If you are unsure about the direction of the deviation of T from R (lower or higher) always assume $\theta_{0}$ <1.
@@ -494,8 +456,6 @@ print(signif(res[order(res$n, res$theta0), ], 4), row.names = FALSE)
 ```
 If you use 1.05 (sample size 20) power will be maintained down to its reciprocal (0.9524) but *not* to 0.95 (where you would need already a sample size of 22). One the other hand, 0.95 preserves power up to 1.053. The statement ‘sample size based on a deviation of ±5\%’ seen in many protocol does not make sense.
 
-<small>[TOC ↩](#TOC)</small>
-
 # Man-pages
 Man-pages of functions used in this vignette:
 
@@ -510,8 +470,6 @@ Man-pages of functions used in this vignette:
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
-<small>[TOC ↩](#TOC)</small>
-
 # Authors
 |function|author(s)|
 |-------|----|
@@ -522,5 +480,3 @@ Man-pages of functions used in this vignette:
 
 # License
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
-
-<small>[TOC ↩](#TOC)</small>

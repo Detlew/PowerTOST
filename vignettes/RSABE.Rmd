@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 ```
 | [Main Vignette](vignette.html) | [ABE](ABE.html) | <span style="color:#006400" title="You are here">RSABE</span> | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
+<div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -46,8 +47,6 @@ The *CV* is the within-subject coefficient of variation. If one value is given, 
 
 If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100,000. If simulating for the empiric type I error (`theta0` set to one of the BE limits), `nsims` defaults to 1 million.
 
-<small>[TOC ↩](#TOC)</small>
-
 <h2>Implemented Designs</h2><!-- not in the TOC -->
 ```{r, echo=FALSE}
 cols <- c(2, 9, 3)
@@ -58,8 +57,6 @@ The terminology of the `design` argument follows this pattern: `treatments x seq
 With `foo(..., details = FALSE, print = FALSE)` results are given as a data.frame with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence).
-
-<small>[TOC ↩](#TOC)</small>
 
 <h2>Conditions and Methods</h2><!-- not in the TOC -->
 
@@ -89,8 +86,6 @@ print(res, row.names = FALSE)
 `CVswitch` is the lower cap of scaling, *i.e.*, if *CV~wR~* is below this value reference-scaling is not acceptable. The upper cap of scaling `CVcap` differes between the EMA and HC, whereas for the FDA scaling is unlimited. The regulatory constant `r_const` is used for calculating the expanded limits (EMA, HC) and ‘implied limits’ (FDA) based on *s~wR~*: <small>$\left[ {L,U} \right] = 100{e^{ \mp 0.760 \cdot {s_{wR}}}}$</small>\
 Here `L` and `U` give the maximum acceptable expansion based on <small>$s^*_{wR}=\sqrt{log({CVcap}^2+1)}$</small>. The point estimate constraint `pe_constr` [0.80, 1.25] is applicable in all regulations. Evaluation has to be performed by ANOVA (EMA) or a mixed-effects model (HC, FDA). For the latter intra-subject contrasts are a suffiently close approximation.
  
-<small>[TOC ↩](#TOC)</small>
-
 # Sample Size
 ## Highly Variable Drugs / Drug Products
 Estimate the sample size for assumed intra-subject *CV* 0.55 (*CV~wT~* = *CV~wR~*). Employ the defaults (`theta0=0.90`, `targetpower=0.80`, `design="2x3x3"`, `nsims=1e5`).
@@ -101,7 +96,6 @@ Note that this approach is recommended in other jurisdictions as well (*e.g.*, t
 ```{r}
 sampleN.scABEL(CV = 0.55)
 ```
-<small>[TOC ↩](#TOC)</small>
 
 <h2>Heterogenicity</h2><!-- not in the TOC -->
 
@@ -117,14 +111,11 @@ sampleN.scABEL.sdsims(CV = CV, details = FALSE)
 ```
 The sample size is slightly larger.
 
-<small>[TOC ↩](#TOC)</small>
-
 ### Health Canada
 Average Bioequivalence with Expanding Limits (ABEL). Defaults as above but `regulator="HC"`.
 ```{r}
 sampleN.scABEL(CV = 0.55, regulator = "HC")
 ```
-<small>[TOC ↩](#TOC)</small>
 
 ### FDA
 Apart from the FDA only required by China’s agency.
@@ -132,8 +123,6 @@ Apart from the FDA only required by China’s agency.
 sampleN.RSABE(CV = 0.55)
 ```
 Note the lower sample size compared to the other approaches (due to the different regulatory constant and unlimited scaling).
-
-<small>[TOC ↩](#TOC)</small>
 
 ## Narrow Therapeutic Index Drugs (FDA)
 Assuming heteroscedasticity (*CV~w~* 0.125, *σ*^2^ ratio 2.5, *i.e.*, T has a substantially higher variability than R). Employ the defaults (`theta0=0.975`, `targetpower=0.80`, `design="2x2x4"`, `nsims=1e5`). Details of the sample size search suppressed. Assess additionally which one of the three components (scaled, ABE, *s~wT~*/*s~wR~* ratio) drives the sample size.
@@ -151,8 +140,6 @@ suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 ```    
 Here the scaled ABE component shows the lowest power and drives the sample size, which is much lower than in the previous example.
 
-<small>[TOC ↩](#TOC)</small>
-
 ## Highly Variable Narrow Therapeutic Index Drugs (FDA)
 Almost a contradiction in itself. Required for [dagibatran](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf "Recommended Jun 2012; Revised Sep 2015, Jul 2017") and [rivaroxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral%20tablet_22406_RC09-15.pdf "Recommended Sep 2015").\
 Assuming homoscedasticity (*CV~wT~* = *CV~wR~* = 0.30). Employ the defaults (`theta0=0.95`, `targetpower=0.80`, <span style="white-space:nowrap">`design="2x2x4"`</span>, `nsims=1e5`). Details of the sample size search suppressed.
@@ -166,8 +153,6 @@ sampleN.HVNTID(CV = CV, details = FALSE)
 ```
 In this case a substantially higher sample size is required since the variability of T is higher than the one of R.
 
-<small>[TOC ↩](#TOC)</small>
-
 # Power
 Power can by calculated by the counterparts of the respective sample size functions (instead the argument `targetpower` use the argument `n` and provide the observed `theta0`), *i.e.*,\
 `power.scABEL()`, `power.RSABE()`, `power.NTIDFDA()`, and `power.HVNTID()`.  
@@ -178,7 +163,6 @@ Contrary to average bioequivalence, where the Null-hypothesis is based on fixed 
 Endrényi and Tóthfalusi (2009,^[Endrényi L, Tóthfalusi L. *Regulatory and study conditions for the determination of bioequivalence of highly variable drugs.* J Pharm Sci. 2009: 12(1); 138--49. [open access](http://ejournals.library.ualberta.ca/index.php/JPPS/article/viewFile/771/5275).] 2019^[Endrényi L, Tóthfalusi L. *Bioequivalence for highly variable drugs: regulatory agreements, disagreements, and harmonization.* J Pharmacokin Pharmacodyn. 2019: 46(2); 117--26. [doi:s10928-019-09623-w](https://doi.org/10.1002/sim.7440).]), Labes (2013^[Labes D. *‘alpha’ of scaled ABE?* BEBA Forum. Vienna, 2013. [open access](https://forum.bebac.at/mix_entry.php?id=10202#top10202).]), Wonnemann *et al.* (2015^[Wonnemann M, Frömke C, Koch A. *Inflation of the Type I Error: Investigations on Regulatory Recommendations for Bioequivalence of Highly Variable Drugs.* Pharm Res. 2015: 32(1); 135--43. [doi:10.1007/s11095-014-1450-z](https://doi.org/10.1007/s11095-014-1450-z).]), Muñoz *et al.* (2016^[Muñoz J, Alcaide D, Ocaña J. *Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence in highly variable drugs.* Stat Med. 2016: 35(12); 1933--43. [doi:10.1002/sim.6834](https://doi.org/10.1002/sim.6834).]),
 Labes and Schütz (2016^[Labes D, Schütz H. *Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.* Pharm Res. 2016: 33(11); 2805--14. [doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).]), Tóthfalusi and Endrényi (2016,^[Tóthfalusi L, Endrényi L. *An Exact Procedure for the Evaluation of Reference-Scaled Average Bioequivalence.* AAPS J. 2016: 18(2); 476--89. [doi:10.1208/s12248-016-9873-6](https://doi.org/10.1208/s12248-016-9873-6).] 2017^[Tóthfalusi L, Endrényi L. *Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.* Stat Med. 2017: 36(27); 4378--90. [doi:10.1002/sim.7440](https://doi.org/10.1002/sim.7440).]), Molins *et al.* (2017^[Molins E, Cobo E, Ocaña J. *Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?* Stat Med. 2017: 36(30); 4777--88. [doi:10.1002/sim.7452](https://doi.org/10.1002/sim.7452).]), Deng and Zhou (2019^[Deng Y, Zhou X-H. *Methods to control the empirical type I error rate in average bioequivalence tests for highly variable drugs.* Stat Meth Med Res. Epub ahead of print 3 Sep 2019. [doi:10.1177/0962280219871589](https://doi.org/10.1177/0962280219871589).]) showed that under certain conditions (EMA, Health Canada: *CV~wR~* \~0.22--0.45, FDA: *CV~wR~* ≤0.30) the type I error will be substantially inflated.\
 Below the inflation region the study will be evaluated for ABE and the type I error controlled by the TOST. Above the inflation region the type&nbsp;I error is controlled by the PE restriction and for the EMA and Health Canada additionally by the upper cap of scaling.
-
 ```{r}
 CV      <- 0.35
 res     <- data.frame(n = NA, CV = CV, TIE = NA)
@@ -191,8 +175,6 @@ print(res, row.names = FALSE)
 With \~0.0656 the type I error is inflated (significantly larger than the nominal $\alpha$ 0.05).
 
 ![**Fig. 1** Empiric type I error for the EMA’s ABEL, 4-period full replicate design.<br />Pink plane at nominal $\alpha$ 0.05. Contour lines enclose region of inflation.](figure8.png){width=450px}
-
-<small>[TOC ↩](#TOC)</small>
 
 A substantially higher inflation of the type I error was reported for the FDA’s model. However, Davit *et al.* (2012^[Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf FT, Nwakama PE, Patel DT, Schuirmann DJ, Yu LX. *Implementation of a Reference-Scaled Average Bioequivalence Approach for Highly Variable Generic Drug Products by the US Food and Drug Administration.* AAPS J. 2012: 14(4); 915--24. [doi:10.1208/s12248-012-9406-x](https://doi.org/10.1208/s12248-012-9406-x).]) assessed the type I error not at the [‘implied limits’](#ImpLim) but with the [‘desired consumer risk model’](#DesCRM) if <small>$s_{wR} \geq s_0$</small> (*CV~wR~* ≥\~25.4\%) at <small>$e^{log(1.25)/s_0\sqrt{log(CV_{wR}^{2}+1)}}$</small>. Some statisticians call the latter ‘hocus-pocus’. However, even with this approach the type I error is still (although less) inflated.
 ```{r}
@@ -219,8 +201,6 @@ print(signif(res, 4), row.names = FALSE)
 
 Various approaches were suggested to control the patient’s risk. The methods of Labes and Schütz (2016) and Molins *et al.* (2017) are implemented in the function `scABEL.ad()`. The method of Tóthfalusi and Endrényi (2017) is implemented in the function `power.RSABE2L.sds()`. 
 
-<small>[TOC ↩](#TOC)</small>
-
 ## Iteratively adjusted α
 If an inflated type I error is expected, $\alpha$ is adjusted based on the observed *CV~wR~* and the study should be evaluated with a wider confidence interval (Labes and Schütz 2016). Implemented designs: `"2x3x3"` (default), `"2x2x3"`, `"2x2x4"`.\
 No adjustment is suggested if the study’s conditions (*CV~wR~*, sample size, design) will not lead to an inflated type&nbsp;I error.
@@ -230,9 +210,6 @@ n  <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
                      details = FALSE)[["Sample size"]]
 scABEL.ad(CV = CV, design = "2x2x4", n = n)
 ```
-
-<small>[TOC ↩](#TOC)</small>
-
 Inside the region of inflated type I errors.
 ```{r}
 CV <- 0.35
@@ -242,16 +219,12 @@ scABEL.ad(CV = CV, design = "2x2x4", n = n)
 ```
 An adjusted $\alpha$ of 0.0363 (*i.e.*, the 92.74\% CI) controls the patient’s risk. However, it leads to a slightly lower power (0.773 instead of 0.812).
 
-<small>[TOC ↩](#TOC)</small>
-
 In order to counteract this loss in power, we can adjust the sample size with the function `sampleN.scABEL.ad()`.
 ```{r}
 CV <- 0.35
 sampleN.scABEL.ad(CV = CV, design = "2x2x4")
 ```
 We have to increase the sample size to 38 in order to maintain power. Since the type I error depends to a minor degree on the sample size as well, we have to adjust slightly more ($\alpha$ 0.0361 instead of 0.0363 with 34 subjects).
-
-<small>[TOC ↩](#TOC)</small>
 
 Since the observed *CV~wR~* is not the true – unknown – one, Molins *et al.* recommended to ‘assume the worst’ and adjust for *CV~wR~* 0.30 in all cases.
 ```{r, echo=FALSE}
@@ -306,8 +279,6 @@ cat(paste0("CV = ", CV, ", n = ", n, ", design = \"", des, "\"\n")); print(res, 
 ```
 The negative impact on power is for high variability substantial.
 
-<small>[TOC ↩](#TOC)</small>
-
 ## ‘Exact’ Procedure
 Proposed by Tóthfalusi and Endrényi (2016). Example of the ‘ncTOST’ method by the same authors (2017).  Implemented designs: `"2x3x3"` (default), `"2x2x3"`, `"2x2x4"`.
 ```{r}
@@ -321,8 +292,6 @@ power.RSABE2L.sds(CV = CV, design = "2x2x4", theta0 = U,
                   progress = FALSE)
 ```
 With \~0.0482 the patient’s risk is controlled. However, the regulatory acceptance is unclear.
-
-<small>[TOC ↩](#TOC)</small>
 
 # Helpers
 ## BE limits
@@ -342,8 +311,6 @@ res$HC.cap[res$CV >= 0.57382] <- "upper"
 print(res, row.names = FALSE)
 ```
 For both agencies the lower cap for scaling is 30\%. Whereas the upper cap for the EMA is at 50\% (expanded limits 69.84--143.19\%), for Health Canada it is at ~57.4\% (expanded limits 50.0--150.0\%).
-
-<small>[TOC ↩](#TOC)</small>
 
 ### FDA
 For the FDA there is no upper cap (scaling is unlimited).
@@ -378,7 +345,6 @@ res$cap[res$CV <= 0.30] <- "lower"
 res$CV <- sprintf("%.3f", res$CV)
 print(res, row.names = FALSE)
 ```
-<small>[TOC ↩](#TOC)</small>
 
 ## Regulatory Settings
 ```{r}
@@ -388,7 +354,6 @@ for (i in 1:3) {
   cat("\n")
 }
 ```
-<small>[TOC ↩](#TOC)</small>
 
 # Authors{#authors}
 |function|author(s)|
@@ -417,9 +382,5 @@ Man-pages of functions used in examples of this vignette:
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
-<small>[TOC ↩](#TOC)</small>
-
 # License{#license}
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
-
-<small>[TOC ↩](#TOC)</small>

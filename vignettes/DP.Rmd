@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 ```
 | [Main Vignette](vignette.html) | [ABE](ABE.html) | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | <span  style="color:#006400" title="You are here">Dose-Proportionality</span> | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
+<div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -51,8 +52,6 @@ With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
-<small>[TOC ↩](#TOC)</small>
-
 # Examples
 Estimate the sample size for a modified Fibonacci dose-escalation study, lowest dose 10, 3 levels. Assumed *CV* 0.20, and <small>$\beta_{0}$</small> slightly higher than 1. Defaults employed.
 ```{r}
@@ -81,8 +80,6 @@ doses  <- mod.fibo(lowest, levels)
 sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02)
 ```
 
-<small>[TOC ↩](#TOC)</small>
-
 As above but with an additional level.
 ```{r}
 levels <- 4
@@ -106,8 +103,6 @@ print(res, row.names = FALSE)
 ```
 As usual nothing to worry about.
 
-<small>[TOC ↩](#TOC)</small>
-
 Rather extreme: 5 levels, but we want only 3 periods. Hence, we opt for an incomplete block design. The design matrix is obtained from the library `crossdes`.
 ```{r}
 levels <- 5
@@ -117,8 +112,6 @@ sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02,
            design = "IBD", dm = dm)
 ```
 The IBD comes with a price since we need at least two blocks.
-
-<small>[TOC ↩](#TOC)</small>
 
 For a wide dose range the acceptance range becomes increasingly difficult to meet.
 ```{r}
@@ -134,8 +127,6 @@ sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02,
            design = "IBD", dm = dm, theta1 = 0.75)
 ```
 Hummel *et al*.^[Hummel J, McKendrick S, Brindley C, French R. *Exploratory assessment of dose proportionality: review of current approaches and proposal for a practical criterion.* Pharm. Stat. 2009; 8(1): 38--49. [doi:10.1002/pst.326](https://doi.org/10.1002/pst.326).] proposed even more liberal {<small>$\theta_{1},\theta_{2}$</small>} of {0.50, 2.0}.
-
-<small>[TOC ↩](#TOC)</small>
 
 # *Cave!*
 There is no guarantee that a desired incomplete block design (for given dose level and number of periods) can be constructed. If you provide your own design matrix (in the argument `dm`) it is not assessed for meaningfulness.
@@ -153,5 +144,3 @@ Man-pages of functions used in this vignette:
 
 # License
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
-
-<small>[TOC ↩](#TOC)</small>

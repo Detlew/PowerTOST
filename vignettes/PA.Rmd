@@ -19,10 +19,10 @@ knitr::opts_chunk$set(
 ```
 | [Main Vignette](vignette.html) | [ABE](ABE.html) | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | <span style="color:#006400" title="You are here">Power Analysis</span> |
 |:-:|:-:|:-:|:-:|:-:|:-:|
+<div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
-
 # Defaults
 
 | Parameter | Argument | Purpose | Default |
@@ -44,8 +44,6 @@ In replicate designs only homoscedasticity (*CV~wT~* = *CV~wR~*) is supported.
 
 With `x <- pa.ABE(...)` results are given as an [S3-object](http://adv-r.had.co.nz/S3.html "Hadley Wickham: The S3 object system") which can be printed, plotted, or both.
 
-<small>[TOC ↩](#TOC)</small>
-
 # Examples
 ## Average Bioequivalence
 <h5>[Example 1](#expl1)</h5>
@@ -56,8 +54,6 @@ pa.ABE(CV = 0.20, theta0 = 0.92)
 ![**Fig. 1** Power Analysis (in each panel one argument is varied and others kept constant)](figure6.png){width=469px}
 
 The most critical parameter is $\theta_{0}$, whereas dropouts are the least important. We will see such a pattern in other approaches as well.
-
-<small>[TOC ↩](#TOC)</small>
 
 ## Reference-scaled Average Bioequivalence
 ### Highly Variable Drugs / Drug Products
@@ -71,8 +67,6 @@ pa.scABE(CV = 0.55)
 
 The idea behing reference-scaling is to preserve power even for high variability without requiring extreme sample sizes. However, we make two interesting observations. At *CV~wR~* 0.55 already the upper cap of scaling (50\%) cuts in and the expanded limits are the same as at *CV~wR~* 0.50. Therefore, if the variability increases, power drops. On the other hand, if the CV decreases, power increases first (because being hit by the upper cap is less likely) and then decreases again (because we can expand the limits less).
 
-<small>[TOC ↩](#TOC)</small>
-
 <h5>[Example 3]{#expl3}</h5>
 Assumed intra-subject *CV* 0.40 (*CV~wT~* = *CV~wR~*), 4-period full replicate design. Defaults (`theta0=0.90`, `targetpower=0.80`, `nsims=1e5`) employed.
 ```{r}
@@ -81,8 +75,6 @@ pa.scABE(CV = 0.40, design = "2x2x4")
 ![**Fig. 3** Power Analysis (in each panel one argument is varied and others kept constant)](figure1.png){width=469px}
 
 Here we see a different pattern. With increasing variability power increases (due to more expanding) up to the cap of scaling where it starts to decrease like in the previous example. If the variability decreases, power decreases as well (less expanding). However, close the the switching CV (30\%) power increases again. Although we cannot scale anymore, with 30 subjects the study is essentially ‘overpowered’ for ABE.
-
-<small>[TOC ↩](#TOC)</small>
 
 #### Health Canada
 <h5>[Example 4]{#expl4}</h5>
@@ -95,8 +87,6 @@ pa.scABE(CV = 0.55, regulator = "HC")
 
 Since we are close to Health Canada’s upper cap of 57.4\%, power drops on both sides. Note that we need three subjects less than for the EMA’s method and *CV~wR~* can increase to \~0.76 until we reach the minimum acceptable power&nbsp;-- which is substantially higher than the \~0.67 for the EMA.
 
-<small>[TOC ↩](#TOC)</small>
-
 #### FDA
 <h5>[Example 5]{#expl5}</h5>
 
@@ -107,8 +97,6 @@ pa.scABE(CV = 0.55, regulator = "FDA")
 ![**Fig. 5** Power Analysis (in each panel one argument is varied and others kept constant)](figure10.png){width=469px}
 
 A similar pattern like the one of Health Canada, although due to the different regulatory constant we need nine subjects less (and twelve less than for the EMA). Caused by unlimited scaling the *CV~wR~* can increase more.
-
-<small>[TOC ↩](#TOC)</small>
 
 ### Narrow Therapeutic Index Drugs (FDA)
 
@@ -121,12 +109,8 @@ pa.NTIDFDA(CV = 0.125)
 
 With decreasing variability power decreases because the scaled limits become narrower. With increasing variability we gain power because we have to scale less until at \~21.4\% the addtional criterion ‘must pass conventional BE limits of 80.00--125.00\%’ cuts in.
 
-<small>[TOC ↩](#TOC)</small>
-
 # *Cave!*
 The power analysis is <u>not</u> a substitute for the ‘Sensitivity Analysis’ recommended by the ICH.^[International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use. *ICH Harmonised Tripartite Guideline. Statistical Principles for Clinical Trials.* 5 February 1998. [E9 Step 4](https://www.ich.org/fileadmin/Public_Web_Site/ICH_Products/Guidelines/Efficacy/E9/Step4/E9_Guideline.pdf).] In a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
-
-<small>[TOC ↩](#TOC)</small>
 
 # Authors
 |function|author(s)|
@@ -145,5 +129,3 @@ Man-pages of functions used in this vignette:
 
 # License
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
-
-<small>[TOC ↩](#TOC)</small>

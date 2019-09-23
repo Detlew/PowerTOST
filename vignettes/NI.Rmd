@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 ```
 | [Main Vignette](vignette.html) | [ABE](ABE.html) | [RSABE](RSABE.html) | <span style="color:#006400" title="You are here">Non-Inferiority</span> | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
+<div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -60,8 +61,6 @@ With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided 
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
-<small>[TOC ↩](#TOC)</small>
-
 # Non-Inferiority
 If the supplied margin is < 1 (`logscale=TRUE`) or < 0 (`logscale=FALSE`), then it is assumed that *higher* response values are <u>better</u>. The hypotheses are
 
@@ -90,8 +89,6 @@ Which power will we get with a sample size of 35?
 power.noninf(CV = 0.25, n = 35)
 ```
 Confirmed that with 35 subjects we will already reach the target power. That means also that one dropout will not compromise power.
-
-<small>[TOC ↩](#TOC)</small>
 
 # Non-Superiority
 If the supplied margin is > 1 (`logscale=TRUE`) or > 0 (`logscale=FALSE`), then it is assumed that *lower* response values are <u>better</u>. The hypotheses are
@@ -139,8 +136,6 @@ This gives us some ‘headroom’ for *C~max~*.
 power.noninf(design = "2x2x4", margin = 1.25, CV = 0.25,
              theta0 = 1.10, n = 32) # higher CV, worse theta0
 ```
-<small>[TOC ↩](#TOC)</small>
-
 The bracketing approach does not necessarily give lower sample sizes than tests for equivalence. In this example we could aim at reference-scaling for the highly variable *C~min~*^[European Medicines Agency, Committee for Medicinal Products for Human Use. *Guideline on the pharmacokinetic and clinical evaluation of modified release dosage forms.* London, 20 November 2014. [EMA/CPMP/EWP/280/96 Corr1](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-pharmacokinetic-clinical-evaluation-modified-release-dosage-forms_en.pdf).] and at conventional ABE for *C~max~*.
 
 ```{r}
@@ -173,8 +168,6 @@ print(res, row.names = FALSE)
 ```
 See also the vignettes [RSABE](RSABE.html "Reference-scaled Average Bioequivalence"), [ABE](ABE.html "Average Bioequivalence"), and [PA](PA.html "Power Analysis").
 
-<small>[TOC ↩](#TOC)</small>
-
 # Author{#author}
 Detlew Labes
 
@@ -192,9 +185,5 @@ Man-pages of functions used in examples of this vignette:
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
-<small>[TOC ↩](#TOC)</small>
-
 # License{#license}
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
-
-<small>[TOC ↩](#TOC)</small>

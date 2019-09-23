@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 ```
 | <span style="color:#006400" title="You are here">Main Vignette</span> | [ABE](ABE.html) | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
+<div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
 
 # Introduction
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies. Power and sample size can be obtained based on different methods, amongst them prominently the TOST procedure (two one-sided *t*-tests).\
@@ -28,8 +29,6 @@ For an overview of supported designs, methods, and defaults together with some b
 
   * [README](https://cran.r-project.org/web/packages/PowerTOST/readme/README.html) of the released version on CRAN;
   * [README](https://github.com/Detlew/PowerTOST/blob/master/README.md) of the development version on GitHub.
-
-<small>[TOC ↩](#TOC)</small>
 
 # Installation
 You can install the released version of PowerTOST from [CRAN](https://CRAN.R-project.org) with …
@@ -43,14 +42,10 @@ if (length(package[!inst]) > 0) install.packages(package[!inst])
 # install.packages("devtools")
 devtools::install_github("Detlew/PowerTOST")
 ```
-<small>[TOC ↩](#TOC)</small>
-
 # Contributors
 - Detlew Labes (author, maintainer)
 - Helmut Schütz (author)
 - Benjamin Lang (author)
-
-<small>[TOC ↩](#TOC)</small>
 
 # Session Information
 Inspect this information for reproducibility. Of particular importance are the versions of R and the packages used to create this workflow. It is considered good practice to record this information with every analysis.
@@ -58,4 +53,3 @@ Inspect this information for reproducibility. Of particular importance are the v
 options(width = 80)
 devtools::session_info()
 ```
-<small>[TOC ↩](#TOC)</small>
