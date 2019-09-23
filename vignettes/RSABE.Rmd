@@ -249,13 +249,14 @@ res$alpha[3] <- x$alpha.adj
 res$TIE[3]   <- x$TIE.adj
 res$power[3] <- power.scABEL(alpha = x$alpha.adj, CV = CV,
                              n = n, design = des)
-res[, 3:4]   <- round(res[, 3:4], 5)
+res[, 3]     <- round(res[, 3], 5)
+res[, 4]     <- round(res[, 4], 4)
 res[, 5]     <- round(res[, 5], 3)
 cat(paste0("CV = ", CV, ", n = ", n, ", design = \"", des, "\"\n")); print(res, row.names = FALSE)
 ```
 Although Molin’s adjusted $\alpha$ controls the patient’s risk, it leads to a further loss in power.
 
-Example with a *CV~wR~* far above the region of inflated type I errors (*i.e.*, >0.42).
+Example with a *CV~wR~* far above the region of inflated type I errors (*i.e.*, >0.45).
 ```{r, echo=FALSE}
 CV  <- 0.80
 des <- "2x2x4"
@@ -273,6 +274,7 @@ res$alpha[2] <- x$alpha.adj
 res$TIE[2]   <- x$TIE.adj
 res$power[2] <- power.scABEL(alpha = x$alpha.adj, CV = CV,
                              n = n, design = "2x2x4")
+res[, 3]     <- round(res[, 3], 5)
 res$TIE      <- round(res$TIE, 4)
 res$power    <- round(res$power, 3)
 cat(paste0("CV = ", CV, ", n = ", n, ", design = \"", des, "\"\n")); print(res, row.names = FALSE)

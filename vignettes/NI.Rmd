@@ -110,7 +110,7 @@ sampleN.noninf(CV = 0.25, margin = 1.25, theta0 = 1/0.95)
 Same sample size like in [example 1](#example-1) since reciprocal values of both `margin` 0.80 and $\theta_{0}$ are specified.
 
 # Bracketing Approach
-Compare a new modified release formulation (regimen once a day) with an intermediate release formulation (twice a day).^[European Agency for the Evaluation of Medicinal Products, Committee for Proprietary Medicinal Products. *Note for Guidance on Modified Release Oral and Transdermal Dosage Forms: Section II (Pharmacokinetic and Clinical Evaluation).* London, 28 July 1999. [CPMP/EWP/280/96 Corr *](https://www.ema.europa.eu/en/documents/scientific-guideline/note-guidance-modified-release-oral-transdermal-dosage-forms-section-ii-pharmacokinetic-clinical_en.pdf).] *C~min~* is the target metric for efficacy (non-inferiority) and *C~max~* for safety (non-superiority). Margins are 0.80 for *C~min~* and 1.25 for *C~max~*. *CV*s are 0.35 for *C~min~* and 0.20 for *C~max~*; $\theta_{0}$ 0.95 for *C~min~* and 1.05 for *C~max~*. Full replicate design due to the high variability of *C~min~*.\
+Compare a new modified release formulation (regimen once a day) with an intermediate release formulation (twice a day).^[European Medicines Agency, Committee for Medicinal Products for Human Use. *Guideline on the pharmacokinetic and clinical evaluation of modified release dosage forms.* London, 20 November 2014. [EMA/CPMP/EWP/280/96 Corr1](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-pharmacokinetic-clinical-evaluation-modified-release-dosage-forms_en.pdf).] *C~min~* is the target metric for efficacy (non-inferiority) and *C~max~* for safety (non-superiority). Margins are 0.80 for *C~min~* and 1.25 for *C~max~*. *CV*s are 0.35 for *C~min~* and 0.20 for *C~max~*; $\theta_{0}$ 0.95 for *C~min~* and 1.05 for *C~max~*. Full replicate design due to the high variability of *C~min~*.\
 Which PK metric leads the sample size? 
 ```{r}
 res <- data.frame(design = "2x2x4", metric = c("Cmin", "Cmax"),
@@ -136,7 +136,7 @@ This gives us some ‘headroom’ for *C~max~*.
 power.noninf(design = "2x2x4", margin = 1.25, CV = 0.25,
              theta0 = 1.10, n = 32) # higher CV, worse theta0
 ```
-The bracketing approach does not necessarily give lower sample sizes than tests for equivalence. In this example we could aim at reference-scaling for the highly variable *C~min~*^[European Medicines Agency, Committee for Medicinal Products for Human Use. *Guideline on the pharmacokinetic and clinical evaluation of modified release dosage forms.* London, 20 November 2014. [EMA/CPMP/EWP/280/96 Corr1](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-pharmacokinetic-clinical-evaluation-modified-release-dosage-forms_en.pdf).] and at conventional ABE for *C~max~*.
+The bracketing approach does not necessarily give lower sample sizes than tests for equivalence. In this example we could aim at reference-scaling for the highly variable *C~min~* and at conventional ABE for *C~max~*.
 
 ```{r}
 res <- data.frame(design = "2x2x4", indended = c("ABEL", "ABE"),

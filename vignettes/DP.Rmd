@@ -129,7 +129,7 @@ sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02,
 Hummel *et al*.^[Hummel J, McKendrick S, Brindley C, French R. *Exploratory assessment of dose proportionality: review of current approaches and proposal for a practical criterion.* Pharm. Stat. 2009; 8(1): 38--49. [doi:10.1002/pst.326](https://doi.org/10.1002/pst.326).] proposed even more liberal {<small>$\theta_{1},\theta_{2}$</small>} of {0.50, 2.0}.
 
 # *Cave!*
-There is no guarantee that a desired incomplete block design (for given dose level and number of periods) can be constructed. If you provide your own design matrix (in the argument `dm`) it is not assessed for meaningfulness.
+There is no guarantee that a desired incomplete block design (for given dose levels and number of periods) can be constructed. If you provide your own design matrix (in the argument `dm`) it is not assessed for meaningfulness.
 
 # Author
 Detlew Labes
