@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-| [Main Vignette](vignette.html) | [ABE](ABE.html) | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | <span title="You are here">Dose-Proportionality</span> | [Power Analysis](PA.html) |
+| [Main Vignette](vignette.html) | [ABE](ABE.html) | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | <span  style="color:#006400" title="You are here">Dose-Proportionality</span> | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 ```{r setup}
 library(PowerTOST) # attach the library
@@ -47,7 +47,7 @@ The ‘true’ or assumed slope of the power model <small>$\beta_{0}$</small> de
 
 Supported designs are `"crossover"` (default; Latin Squares), `"parallel"`, and `"IBD"` (incomplete block design). Note that instead of Latin Squares any Williams’ design can be used as well (identical degrees of freedom).
 
-With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a data.frame with ten (if `design="crossover"`) or eleven (if `design="crossover"` or `design="IBD"`) columns: `Design`, `alpha`, `CV`, [`CVb`], `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
+With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a data.frame with ten (if `design="crossover"`) or eleven (if `design="parallel"` or `design="IBD"`) columns: `Design`, `alpha`, `CV`, [`CVb`], `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 

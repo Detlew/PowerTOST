@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-| [Main Vignette](vignette.html) | [ABE](ABE.html) | [RSABE](RSABE.html) | <span title="You are here">Non-Inferiority</span> | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
+| [Main Vignette](vignette.html) | [ABE](ABE.html) | [RSABE](RSABE.html) | <span style="color:#006400" title="You are here">Non-Inferiority</span> | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 ```{r setup}
 library(PowerTOST) # attach the library

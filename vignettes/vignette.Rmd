@@ -17,6 +17,9 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
+| <span style="color:#006400" title="You are here">Main Vignette</span> | [ABE](ABE.html) | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+
 # Introduction
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies. Power and sample size can be obtained based on different methods, amongst them prominently the TOST procedure (two one-sided *t*-tests).\
 Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST")` with R `r getRversion()`.
