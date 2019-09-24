@@ -30,6 +30,93 @@ For an overview of supported designs, methods, and defaults together with some b
   * [README](https://cran.r-project.org/web/packages/PowerTOST/readme/README.html) of the released version on CRAN;
   * [README](https://github.com/Detlew/PowerTOST/blob/master/README.md) of the development version on GitHub.
 
+# Abbreviations, Definition of Terms, Models
+ABE
+: Average Bioequivalence with *fixed* limits based on a clinically not relevant difference <small>$\Delta$</small>. Commonly <small>$\Delta$</small> is 0.20, which leads to <small>$\theta_1=1-\Delta,\:\theta_2=1/(1-\Delta)$</small> or 80.00--125.00\%. For narrow therapeutic index drugs (EMA and other jurisdicions) <small>$\Delta$</small> 0.10 (90.00--111.11\%). For C~max~ (Russia, Eurasian Economic Union, Gulf Cooperation Council) <small>$\Delta$</small> 0.25 (75.00--133.33\%).<small>$$H_0:\mu_T/\mu_R\notin \left [ \theta_1,\theta_2 \right ]\:vs\:H_1:\theta_1<\mu_T/\mu_R<\theta_2$$</small>
+
+ABEL
+: Average Bioequivalence with *expanding* limits (see also *L*, *U*). Same model like for ABE but <small>$\theta_1,\theta_2$</small> are based on the *CV~wR~* observed in the study.
+
+$\alpha$
+: Nominal level of the test. In tests for equivalence commonly 0.05 (except for the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval in function `sampleN.RatioF()` and for non-inferiority/-superiority  in function `sampleN.noninf()`, where it is 0.025). In the functions `alpha`.
+
+$\beta$
+: Probability that the Null-hypothesis of inequivalence is *falsely not* rejected. Also the type II error or producer’s risk, where <small>$\beta=1-\pi$</small>.
+
+$\beta_0$
+: Assumed or true slope of the (linearized) power model of dose-proportionality <small>$x=\alpha\cdot dose^\beta,\:log(x)=\alpha+\beta\cdot log(dose)$</small>. Argument `beta0`.
+
+CV
+: Coefficient of variation
+
+    : Calculated from the residual error of the model of log-transformed data as <small>$CV=\sqrt{e^{\sigma^2}+1}$</small>.
+    : In crossover designs the intra- (between-) subject CV. Argument `CV`.
+    : In parallel designs the total (pooled) CV. Argument `CV`.
+    : In replicate designs the intra-subject CV (assuming homoscedasticity, argument `CV`). If heteroscedasticity is assumed, `CV` has to given as a vector with two elements `CV=c(x, y)` where `CV[1]` is *CV~wT~* and `CV[2]` is *CV~wR~*.
+
+CV~b~
+: Inter- (between-) subject coefficient of variation. Argument `CVb` required in function `sampleN.dp()` if `design="IBD"` (incomplete block design).
+
+CV~switch~
+: Switching coefficient of variation in reference-scaling. Only above this value RSABE can be applied. For highly variable drugs / drug products 30\%.
+
+CV~cap~
+: Upper cap in ABEL. If *CV~wR~* > CV~cap~, expanding is based on CV~cap~ (and not on *CV~wR~*). In all jurisdiction 50\%, except for Health Canada where CV~cap~ ≈57.4\%.
+
+*k*
+: Regulatory constant in reference-scaling <span style="font-weight:normal">(also <small>$\theta_s$</small>)</span>
+
+    : **ABEL**: Based on the switching coefficient of variation <small>$CV_0=30\%$</small>. <small>$k=log(1.25)/\sqrt{log(CV_{0}^{2}+1)}\approx 0.760$</small>.
+    : **RSABE**: Based on the switching standard deviation <small>$s_0=0.25$</small>. <small>$k=log(1.25)/0.25\approx 0.8926$</small>.
+
+*L*, *U*
+: ABEL, RSABE
+
+    : **ABEL**: Lower and upper expanded limits.
+    : 30% < *CV~wR~* ≤ 50%: Based on <small>$s_{wR}$</small>. <small>$\left[ {L,\,U} \right] = 100{e^{ \mp 0.760 \cdot {s_{wR}}}}$</small>
+    : *CV~wR~* > CV~cap~: Applying <small>$s^*_{wR}=\sqrt{log(CV_{cap}^{2}+1)}$</small> in the expansion formula: <small>$\left[ {L,\,U} \right] = {69.84 - 143.19\%}$</small> (most jurisdictions) or <small>$\left[ {L,\,U} \right] = {66.7 - 150.0\%}$</small> (Health Canada).
+    : **RSABE**: Lower and upper ‘implied limits’.
+    : <small>$\left[ {L,\: U} \right] = 100{e^{ \mp 0.8926 \cdot {s_{wR}}}}$</small>
+
+: Dose-Proportionality
+
+    : <small>$\left[ {L,\,U} \right]=\left[1+log(0.80)/log(rd),\:1+log(1.25)/log(rd) \right]$</small>
+
+margin
+: Non-inferiority/-superiority margin <span style="font-weight:normal">(example for `logscale=TRUE` where <small>$\theta_0=\mu_T/\mu_R$</small>).</span>
+
+    : **Non-inferiority**: If margin < 1, <u>higher</u> responses are are assumed to be better.
+    <small>$$H_0:\,\theta_0 \leq \log({margin})\:vs\:H_1:\,\theta_0>\log({margin})$$</small>
+    : **Non-superiority**: If margin > 1, <u>lower</u> responses are are assumed to be better.
+    <small>$$H_0:\,\theta_0 \geq \log({margin})\:vs\:H_1:\,\theta_0<\log({margin})$$</small>
+
+$\pi$
+: Target (or desired) power in study planning. Commonly set to 0.80--0.90. In the functions `targetpower`.
+
+R
+: Reference (treatment, product).
+
+*rd*
+: Ratio of the highest/lowest dose. In the functions `rd`.
+
+RSABE
+: Reference-scaled Average Bioequivalence (U.S. FDA, China NMPA-CDE). Applicable if the intra-subject variability of the reference treatment *s~wR~* ≥0.294 (*CV~wR~* ≈ 30\%). The linearized model is <small>$$H_0:(\mu_T/\mu_R)^2-\theta_{s}^{2}\cdot s_{wR}^{2}>0\:vs\:H_1:(\mu_T/\mu_R)^2-\theta_{s}^{2}\cdot s_{wR}^{2}\leq 0$$</small>
+
+$\theta_0$
+: Assumed or true T/R-ratio (`logscale=TRUE`) or difference T--R (`logscale=FALSE`). In the functions `theta0`.
+
+$\theta_1,\theta_2$
+: Lower and upper limits of the equivalence range. In the functions `theta1` and `theta2`.
+
+$\theta_s$
+: Regulatory constant in reference-scaling (see *k*).
+
+T
+: Test (treatment, product).
+
+TIE (Type I error)
+: Probability that the Null-hypothesis of inequivalence is *falsely* rejected (*i.e.*, equivalence is concluded). Also the patient’s risk. Can be assessed with the power-functions setting `theta0=theta2` or `theta0=theta1`. Exact, except in reference-scaling based on simulations (`power.scABEL()`, `power.RSABE()`, `power.NTIDFDA()`, `power.HVNTID()`).
+
 # Installation
 You can install the released version of PowerTOST from [CRAN](https://CRAN.R-project.org) with …
 ```{r}
@@ -53,3 +140,5 @@ Inspect this information for reproducibility. Of particular importance are the v
 options(width = 80)
 devtools::session_info()
 ```
+# License{#license}
+[GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")

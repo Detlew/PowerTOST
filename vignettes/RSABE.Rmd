@@ -381,6 +381,7 @@ Man-pages of functions used in examples of this vignette:
     * [scABEL.ad](library/html/scABEL.ad.html)
     * [scABEL](library/html/scABEL.html)
     * [reg_const](library/html/reg_const.html)
+    * [CVp2CV](library/html/CVp2CV.html)
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 

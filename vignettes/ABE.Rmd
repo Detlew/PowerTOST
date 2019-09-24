@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-| [Main Vignette](vignette.html) | <span style="color:#006400" title="You are here">ABE</span> | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
+| [Main Vignette](vignette.html) | <span style="color:#006400" title="You are here">ABE</span> | [RSABE](RSABE.html "Reference-scaled Average Bioequivalence") | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 <div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
 ```{r setup}

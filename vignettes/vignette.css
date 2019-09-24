@@ -70,3 +70,4 @@ code > span.er{color:#a61717;background-color:#e3d2d2} /* ErrorTok */
 .top img{border:none}
 a.toplink:link{background-image:url(toparrow.png);background-repeat:no-repeat;text-decoration:none;background-color:transparent;opacity:.6;filter:alpha(opacity=60);background-position:bottom 7px right;background-size:contain}
 a.toplink:hover,a.toplink:active{background-image:url(toparrow.png);background-repeat:no-repeat;text-decoration:none;background-color:transparent;opacity:.4;filter:alpha(opacity=40);background-position:bottom 7px right;background-size:contain}
+code span.co{font-style:normal}
