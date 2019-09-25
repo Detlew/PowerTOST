@@ -46,14 +46,14 @@ The *CV* is generally the *within*-subject coefficient of variation. Only for `d
 
 The ‘true’ or assumed slope of the power model <small>$\beta_{0}$</small> defaults to `1+log(0.95)/log(rd)`, where `rd` is the ratio of the highest/lowest dose.
 
-Supported designs are `"crossover"` (default; Latin Squares), `"parallel"`, and `"IBD"` (incomplete block design). Note that instead of Latin Squares any Williams’ design can be used as well (identical degrees of freedom).
+Supported designs are `"crossover"` (default; Latin Squares), `"parallel"`, and `"IBD"` (incomplete block design). Note that when `"crossover"` is chosen, instead of Latin Squares any Williams’ design could be used as well (identical degrees of freedom result in the same sample size).
 
-With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a data.frame with ten (if `design="crossover"`) or eleven (if `design="parallel"` or `design="IBD"`) columns: `Design`, `alpha`, `CV`, [`CVb`], `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
+With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a data.frame with ten (`design="crossover"`) or eleven (`design="parallel"` or `design="IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
 # Examples
-Estimate the sample size for a modified Fibonacci dose-escalation study, lowest dose 10, 3 levels. Assumed *CV* 0.20, and <small>$\beta_{0}$</small> slightly higher than 1. Defaults employed.
+Estimate the sample size for a modified Fibonacci dose-escalation study, lowest dose 10, three levels. Assumed *CV* 0.20 and <small>$\beta_{0}$</small> slightly higher than 1. Defaults employed.
 ```{r}
 mod.fibo <- function(lowest, levels) {
   # modified Fibonacci dose-escalation
@@ -103,7 +103,7 @@ print(res, row.names = FALSE)
 ```
 As usual nothing to worry about.
 
-Rather extreme: 5 levels, but we want only 3 periods. Hence, we opt for an incomplete block design. The design matrix is obtained from the library `crossdes`.
+Rather extreme: five levels, but we want only three periods. Hence, we opt for an incomplete block design. The design matrix is obtained from the library `crossdes`.
 ```{r}
 levels <- 5
 doses  <- mod.fibo(lowest, levels)
