@@ -119,7 +119,8 @@ library(crossdes)
 ibd <- des.MOLS(trt=5, k=3)
 CVb <- mse2CV(0.8) # Sethuraman et al.: omega squared
 sampleN.dp(CV = 0.2, doses = c(5, 25, 50, 100, 200),
-          beta0 = 1, design = "IBD", dm = ibd, CVb = CVb)
+           beta0 = 1, design = "IBD", dm = ibd, CVb = CVb, targetpower=0.9)
+# Sethuraman et al. obtain n=80. This is highly questionable           
 # power of that design near 90\% with n=30, sequence group unbalanced 
 power.dp(CV = 0.2, doses = c(5, 25, 50, 100, 200),
          n = 30, beta0 = 1, design = "IBD", dm = ibd, CVb = CVb)}

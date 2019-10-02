@@ -25,7 +25,7 @@ power.dp <- function(alpha=0.05, CV, doses, n, beta0, theta1=0.8, theta2=1/theta
                                     "columns (periods).")
     if(any(dm>grps) | any(dm<1)) stop("Wrong content of 'design' matrix.")
     grps <- nrow(dm) # sequence groups
-    if (missing(CVb)) CVb <- mse2CV(0.8) # sethurahman et al.
+    if(missing(CVb)) CVb <- 2*CV
   } else {
     if (missing(CVb)) CVb <- 0           # don't need CVb for the other designs
   }
