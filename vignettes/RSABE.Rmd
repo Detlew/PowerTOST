@@ -43,7 +43,7 @@ library(PowerTOST) # attach the library
 | setseed | `setseed` | Issue a fixed seed of the random number generator? | `TRUE` |
 
 Arguments have to be given as ratios, not percent.\
-The *CV* is the within-subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV~wT~* = *CV~wR~*. If two values are given (*i.e.*, `CV=c(x, y)`) heteroscedasticity (unequal variances) is assumed, where the first value has to be *CV~wT~* and the second *CV~wR~*.
+The *CV* is the within-subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV~wT~* = *CV~wR~*. If two values are given (*i.e.*, `CV=c(x, y)`) heteroscedasticity (unequal variances) is assumed, where `CV[1]` has to be *CV~wT~* and `CV[2]` *CV~wR~*.
 
 If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100,000. If simulating for the empiric type I error (`theta0` set to one of the BE limits), `nsims` defaults to 1 million.
 
@@ -99,7 +99,7 @@ sampleN.scABEL(CV = 0.55)
 
 <h2>Heterogenicity</h2><!-- not in the TOC -->
 
-Whilst in full replicate designs simulating via the ‘key’ statistics closely matches the ‘gold standard’ of subject simulations, this is less so for unequal variances in the partial replicate design. Let us keep *CV~w~* 0.55 and split variances by a ratio of 1.5 (*i.e.*, T has a higher variance than R).
+Whilst in full replicate designs simulating via the ‘key’ statistics closely matches the ‘gold standard’ of subject simulations, this is less so for unequal variances in the partial replicate design if *CV~wT~* > *CV~wR~*. Let us keep *CV~w~* 0.55 and split variances by a ratio of 1.5 (*i.e.*, T has a higher variance than R).
 ```{r}
 CV <- signif(CVp2CV(CV = 0.55, ratio = 1.5), 4)
 sampleN.scABEL(CV = CV, details = FALSE)
@@ -109,6 +109,42 @@ Although the runtime will be longer, we recommend the function `sampleN.scABEL.s
 sampleN.scABEL.sdsims(CV = CV, details = FALSE)
 ```
 The sample size is slightly larger.
+
+Explore sample sizes for extreme heterogenicity (variance ratio 2.5) via the ‘key’ statistics and subject simulations (4- and 3-period full replicate and partial replicate dedigns).
+```{r}
+CVp <- seq(0.40, 0.70, 0.05)
+CV  <- signif(CVp2CV(CV = CVp, ratio = 2.5), 4)
+res <- data.frame(CVp = CVp, CVwT = CV[, 1], CVwR = CV[, 2],
+                  f4.key = NA, f4.ss = NA, # 4-period full replicate
+                  f3.key = NA, f3.ss = NA, # 3-period full replicate
+                  p3.key = NA, p3.ss = NA) # 3-period partial replicate
+for (i in seq_along(CVp)) {
+  res$f4.key[i] <- sampleN.scABEL(CV = CV[i, ], design = "2x2x4",
+                                  print = FALSE,
+                                  details = FALSE)[["Sample size"]]
+  res$f4.ss[i]  <- sampleN.scABEL.sdsims(CV = CV[i, ], design = "2x2x4",
+                                         print = FALSE,
+                                         details = FALSE,
+                                         progress = FALSE)[["Sample size"]]
+  res$f3.key[i] <- sampleN.scABEL(CV = CV[i, ], design = "2x2x3",
+                                  print = FALSE,
+                                  details = FALSE)[["Sample size"]]
+  res$f3.ss[i]  <- sampleN.scABEL.sdsims(CV = CV[i, ], design = "2x2x3",
+                                         print = FALSE,
+                                         details = FALSE,
+                                         progress = FALSE)[["Sample size"]]
+  res$p3.key[i] <- sampleN.scABEL(CV = CV[i, ], design = "2x3x3",
+                                  print = FALSE,
+                                  details = FALSE)[["Sample size"]]
+  res$p3.ss[i]  <- sampleN.scABEL.sdsims(CV = CV[i, ], design = "2x3x3",
+                                         print = FALSE,
+                                         details = FALSE,
+                                         progress = FALSE)[["Sample size"]]
+}
+print(res, row.names = FALSE)
+```
+As shown in the previous example, subject simulations are recommended for the partial replicate design. For full replicate designs simulations via the ‘key’ statistics give identical results and are recommended for speed reasons. In this example `sampleN.scABEL()` is 60times faster than `sampleN.scABEL.sdsims()`.\
+However, if *CV~wT~* ≤ *CV~wR~* we get the identical result via the ‘key’ statistics.
 
 ### Health Canada
 Average Bioequivalence with Expanding Limits (ABEL). Defaults as above but `regulator="HC"`.
