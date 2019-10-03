@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{PowerTOST}
+  %\VignetteIndexEntry{PowerTOST (Main Vignette)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -80,7 +80,7 @@ CV
 CV~b~
 : Inter- (between-) subject coefficient of variation. Argument `CVb` required in function `sampleN.dp()` if `design="IBD"` (incomplete block design).
 
-CV~cap~
+<span id="CVcap">CV~cap~</span>
 : Upper cap in <a href="#abel">ABEL</a>. If *CV~wR~* > CV~cap~, expanding is based on CV~cap~ (and not on *CV~wR~*). In all jurisdictions 50\%, except for Health Canada where CV~cap~ ≈57.4\%.
 
 CV~switch~
@@ -101,7 +101,7 @@ HVD(P)
     : **<a href="#abel">ABEL</a>**: Lower and upper expanded limits.
     <ul>
       <li>30% < *CV~wR~* ≤ 50%: Based on <small>$s_{wR}$</small>. <small>$\left[ {L,\,U} \right] = 100{e^{ \mp 0.760 \cdot {s_{wR}}}}$</small></li>
-      <li>*CV~wR~* > CV~cap~: Applying <small>$s^*_{wR}=\sqrt{log(CV_{cap}^{2}+1)}$</small> in the expansion formula: <small>$\left[ {L,\,U} \right] = {69.84 - 143.19\%}$</small> (most jurisdictions) or <small>$\left[ {L,\,U} \right] = {66.7 - 150.0\%}$</small> (Health Canada).</li>
+      <li>*CV~wR~* > <a href="#CVcap">CV~cap~</a>: Applying <small>$s^*_{wR}=\sqrt{log(CV_{cap}^{2}+1)}$</small> in the expansion formula: <small>$\left[ {L,\,U} \right] = {69.84 - 143.19\%}$</small>. All jurisdictions except Health Canada, where <small>$\left[ {L,\,U} \right] = {66.7 - 150.0\%}$</small>.</li>
     </ul>
     : **<a href="#rsabe">RSABE</a>**: Lower and upper ‘implied limits’.
     <ul>

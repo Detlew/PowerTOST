@@ -99,14 +99,13 @@ sampleN.scABEL(CV = 0.55)
 
 <h2>Heterogenicity</h2><!-- not in the TOC -->
 
-Whilst in full replicate designs simulating via the ‘key’ statistics closely matches the ‘gold standard’ of subject simulations, this is less so for unequal variances in the partial replicate design. Let us keep *CV~w~* 0.55 and split variances by ratio of 1.5 (*i.e.*, T has a higher variance than R).
+Whilst in full replicate designs simulating via the ‘key’ statistics closely matches the ‘gold standard’ of subject simulations, this is less so for unequal variances in the partial replicate design. Let us keep *CV~w~* 0.55 and split variances by a ratio of 1.5 (*i.e.*, T has a higher variance than R).
 ```{r}
 CV <- signif(CVp2CV(CV = 0.55, ratio = 1.5), 4)
 sampleN.scABEL(CV = CV, details = FALSE)
 ```
 Although the runtime will be longer, we recommend the function `sampleN.scABEL.sdsims()` instead.
 ```{r}
-CV <- signif(CVp2CV(CV = 0.55, ratio = 1.5), 4)
 sampleN.scABEL.sdsims(CV = CV, details = FALSE)
 ```
 The sample size is slightly larger.

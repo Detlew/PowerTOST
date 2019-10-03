@@ -26,7 +26,7 @@ library(PowerTOST) # attach the library
 
 # Defaults
 | Parameter | Argument | Purpose | Default |
-|-|---|---------------|----|
+|---|---|-------------|----|
 | $\alpha$ | `alpha` | Nominal level of the test | `0.05` |
 | *CV* | `CV` | CV | none |
 | doses | `doses` | Vector of doses | see examples |
@@ -96,35 +96,48 @@ for (i in 1:nrow(res)) {
   res$power[i] <- signif(suppressMessages(
                            power.dp(CV = 0.20, doses = doses,
                                     beta0 = 1.02,
-                                    n = res$n[i])), 4)
+                                    n = res$n[i])), 5)
 }
 res <- res[res$power >= 0.80, ]
 print(res, row.names = FALSE)
 ```
 As usual nothing to worry about.
 
-Rather extreme: five levels, but we want only three periods. Hence, we opt for an incomplete block design. The design matrix is obtained from the library `crossdes`.
+Rather extreme: Five levels, but we want only three periods. Hence, we opt for an incomplete block design. The design matrix is obtained from the library `crossdes`.
 ```{r}
 levels <- 5
 doses  <- mod.fibo(lowest, levels)
 dm     <- crossdes::des.MOLS(trt = levels, k = 3)
-sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02,
-           design = "IBD", dm = dm)
+x      <- sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02,
+                     design = "IBD", dm = dm)
 ```
 The IBD comes with a price since we need at least two blocks.
 
-For a wide dose range the acceptance range becomes increasingly difficult to meet.
+```{r}
+res <- data.frame(n = seq(x[["Sample size"]], nrow(dm), -1),
+                  power = NA)
+for (i in 1:nrow(res)) {
+  res$power[i] <- signif(suppressMessages(
+                           power.dp(CV = 0.20, doses = doses,
+                                    beta0 = 1.02, design = "IBD",
+                                    dm = dm, n = res$n[i])), 5)
+}
+res <- res[res$power >= 0.80, ]
+print(res, row.names = FALSE)
+```
+Again, we don’t have to worry about dropouts.
+
+For a wide dose range the acceptance range narrows and becomes increasingly difficult to meet.
 ```{r}
 doses  <- 2^(seq(0, 8, 2))
 levels <- length(doses)
-dm     <- crossdes::des.MOLS(trt = levels, k = 3)
-sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02,
-           design = "IBD", dm = dm)
+sampleN.dp(CV = 0.30, doses = doses, beta0 = 1.02,
+           design = "crossover")
 ```
 In an exploratory setting more liberal limits could be specified (only one has to be specified; the other is calculated as the reciprocal of it).
 ```{r}
-sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02,
-           design = "IBD", dm = dm, theta1 = 0.75)
+sampleN.dp(CV = 0.30, doses = doses, beta0 = 1.02,
+           design = "crossover", theta1 = 0.75)
 ```
 Hummel *et al*.^[Hummel J, McKendrick S, Brindley C, French R. *Exploratory assessment of dose proportionality: review of current approaches and proposal for a practical criterion.* Pharm. Stat. 2009; 8(1): 38--49. [doi:10.1002/pst.326](https://doi.org/10.1002/pst.326).] proposed even more liberal {<small>$\theta_{1},\theta_{2}$</small>} of {0.50, 2.0}.
 
