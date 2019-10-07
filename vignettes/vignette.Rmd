@@ -53,7 +53,7 @@ For an overview of supported designs, methods, and defaults together with some b
 : Higher-order crossover design with 4 treatments, 4 sequences, and 4 periods (Latin Square or a William’s design).
 
 <span id="abe">ABE</span>
-: Average Bioequivalence with *fixed* limits based on a clinically not relevant difference <small>$\Delta$</small>. Commonly <small>$\Delta$</small> is 0.20, which leads to <small>$\theta_1=1-\Delta,\:\theta_2=1/(1-\Delta)$</small> or 80.00--125.00\%. For <a href="ntid">NTIDs</a> (<span title="European Medicines Agency">EMA</span> and other jurisdicions) <small>$\Delta$</small> 0.10 (90.00--111.11\%). For C~max~ (Russian Federation, <span title="Eurasian Economic Union">EEU</span>, <span title="Gulf Cooperation Council">GCC</span>) <small>$\Delta$</small> 0.25 (75.00--133.33\%).<small>$$H_0:\mu_T/\mu_R\notin \left [ \theta_1,\theta_2 \right ]\:vs\:H_1:\theta_1<\mu_T/\mu_R<\theta_2$$</small>
+: Average Bioequivalence with *fixed* limits based on a clinically not relevant difference <small>$\Delta$</small>. Commonly <small>$\Delta$</small> is 0.20, which leads to <small>$\theta_1=1-\Delta,\:\theta_2=1/(1-\Delta)$</small> or 80.00--125.00\%. For <a href="#ntid">NTIDs</a> (<span title="European Medicines Agency">EMA</span> and other jurisdicions) <small>$\Delta$</small> 0.10 (90.00--111.11\%). For C~max~ (Russian Federation, <span title="Eurasian Economic Union">EEU</span>, <span title="Gulf Cooperation Council">GCC</span>) <small>$\Delta$</small> 0.25 (75.00--133.33\%).<small>$$H_0:\mu_T/\mu_R\notin \left [ \theta_1,\theta_2 \right ]\:vs\:H_1:\theta_1<\mu_T/\mu_R<\theta_2$$</small>
 
 <span id="abel">ABEL</span>
 : Average Bioequivalence with *expanding* limits (see also ***<a href="#LU">L, U</a>***). Same model like for <a href="#abe">ABE</a> but <small>$\theta_1,\theta_2$</small> are based on the *CV~wR~* observed in the study.
@@ -85,6 +85,9 @@ CV~b~
 
 CV~switch~
 : Switching coefficient of variation in reference-scaling. Only above this value reference-scaling is acceptable. For highly variable drugs / drug products 30\% (*CV*~0~ 0.30, *s*~0~ 0.294).
+
+<span id="Delta">$\Delta$</span>
+: Clinically not relevant difference.
 
 HVD(P)
 : Highly variable drug (product); commonly defined with an intra-subject *CV* of ≥30\%. HVDs exhibit highly variable clearances (*CV* ≥30\% if administered as a solution), whereas HVDPs may additionally -- or solely -- show highly variable absorption. HVDP(s) generally are ones with a flat dose-response curve.
