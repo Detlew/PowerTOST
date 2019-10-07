@@ -4,7 +4,7 @@ Published on GitHub 2019-10-02.
 
 ## Bug fixes
 
-  * Fix in `power.dp()` w.r.t. setting `CVb if missing in case of `design="IBD"`.
+  * Fix in `power.dp()` w.r.t. setting argument `CVb` if missing in case of `design="IBD"`.
   * Fix in `scABEL.ad()`: `reg$name` instead of `regulator`.
   * CV in 4th panel of `pwrA_S3methods.R` to the same precison like in the others.
   * Fix in `power.TOST.sds()` for `gmodel==1`, case of `gmodel=3` with data of the largest group (group by treatment interaction significant at p=0.1)
@@ -15,6 +15,8 @@ Published on GitHub 2019-10-02.
 
 ## Minor changes
 
+  * Slightly enhanced man pages of `power.dp()` and `sampleN.dp()` w.r.t. the 
+value of `CVb` in case of `design="IBD"`.
   * Cosmetics in output of `sampleN.noninf` based on `margin`.
   * Reworked minimum sample sizes in `pa.scABE.R()` according to guidances. Generally 12 (as before) but 24 for the FDA. Also 24 for the EMA if 2x2x3 design (Q&A document). Changed `N` to `n` in the S3-methods in conformity with other functions.
 
