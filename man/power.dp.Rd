@@ -54,7 +54,9 @@ Can be obtained f.i. via functions of package \code{crossdes} or via function
 }
   \item{CVb}{
 Coefficient of variation of the between-subject variability.\cr
-Only necessary if \code{design="IBD"}. Will be set to 2*CV if missing.\cr
+Only necessary if \code{design="IBD"}. Will be set to 2*CV if missing.
+This is only a crude rule of thumb. Better obtain an estimate of CVb from a 
+previous crossover study.\cr\cr
 Set \code{CVb=0} if an all-effects-fixed model shall be used. This model gives
 higher power than the random subject effects model.
 }

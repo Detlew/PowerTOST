@@ -57,7 +57,8 @@ Function \code{\link{bib.CL}} returns some IBDs described by Chow & Liu.
 }
   \item{CVb}{
 Coefficient of variation of the between-subject variability.\cr
-Only necessary if \code{design="IBD"}. Will be set to \code{2*CV if} missing.\cr
+Only necessary if \code{design="IBD"}. Will be set to 2*CV if missing.
+This is only a crude rule of thumb. Better obtain an estimate of CVb from a previous crossover study.\cr\cr
 Set \code{CVb=0} if all-effects-fixed model shall be used. This model gives
 lower sample sizes than the mixed model with random subject effects 
 (random intercept).  
