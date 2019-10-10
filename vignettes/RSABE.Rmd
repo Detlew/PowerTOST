@@ -98,7 +98,6 @@ sampleN.scABEL(CV = 0.55)
 ```
 
 <h2>Heterogenicity</h2><!-- not in the TOC -->
-
 Whilst in full replicate designs simulating via the ‘key’ statistics closely matches the ‘gold standard’ of subject simulations, this is less so for unequal variances in the partial replicate design if *CV~wT~* > *CV~wR~*. Let us keep *CV~w~* 0.55 and split variances by a ratio of 1.5 (*i.e.*, T has a higher variance than R).
 ```{r}
 CV <- signif(CVp2CV(CV = 0.55, ratio = 1.5), 4)
@@ -421,4 +420,5 @@ Man-pages of functions used in examples of this vignette:
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
 # License{#license}
+<h4>Helmut Schütz `r Sys.Date()`</h4>
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")

@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies. Power and sample size can be obtained based on different methods, amongst them prominently the TOST procedure (two one-sided *t*-tests).\
-Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST")` with R `r getRversion()`.
+Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST", date.fields = "Built")` with R `r getRversion()`.
 
 For an overview of supported designs, methods, and defaults together with some basic examples see
 
@@ -187,4 +187,5 @@ options(width = 80)
 devtools::session_info()
 ```
 # License{#license}
+<h4>Helmut Schütz `r Sys.Date()`</h4>
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")

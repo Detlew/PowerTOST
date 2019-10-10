@@ -1,6 +1,6 @@
 body{background-color:#fff;margin:1em auto;max-width:700px;overflow:visible;
   padding-left:2em;padding-right:2em;
-  font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size:14px;line-height:1.35;hyphens:auto}
 #header{text-align:center}
 #TOC{clear:both;margin:0 0 10px 10px;padding:4px;width:400px;
@@ -30,11 +30,10 @@ ul li{list-style:circle outside}
 ul ul{margin-bottom:0}
 pre, code{background-color:#f7f7f7;border-radius:3px;color:#333;
 white-space:pre-wrap}
-pre{border-radius:3px;margin:5px 0px 10px 0px;padding:10px}
+pre{border-radius:3px;margin:5px 0 10px 0;padding:10px}
 pre:not([class]){background-color:#f7f7f7}
-code{font-size:85%; font-family:Consolas, Monaco, 'Lucida Console',
-  'Courier New', 'Courier', monospace}
-p > code, li > code{padding:2px 0px}
+code{font-size:85%; font-family:Consolas,Monaco,'Lucida Console','Courier New','Courier',monospace}
+p > code, li > code{padding:2px 0}
 div.figure{text-align:center}
 img{background-color:#FFF;padding:2px;border:1px solid #DDD;border-radius:5px;
   border:1px solid #CCC;margin:0 5px}
@@ -66,7 +65,7 @@ code > span.ot{color:#007020} /* OtherToken */
 code > span.al{color:#ff0000;font-weight:bold} /* AlertToken */
 code > span.fu{color:#900;font-weight:bold} /* Function calls */ 
 code > span.er{color:#a61717;background-color:#e3d2d2} /* ErrorTok */
-.top{display:inline;position:fixed;bottom:0px;right:0px;padding:0;font-size:108px;width:30px}
+.top{display:inline;position:fixed;bottom:0;right:0;padding:0;font-size:108px;width:30px}
 .top img{border:none}
 a.toplink:link{background-image:url(toparrow.png);background-repeat:no-repeat;text-decoration:none;background-color:transparent;opacity:.6;filter:alpha(opacity=60);background-position:bottom 7px right;background-size:contain}
 a.toplink:hover,a.toplink:active{background-image:url(toparrow.png);background-repeat:no-repeat;text-decoration:none;background-color:transparent;opacity:.4;filter:alpha(opacity=40);background-position:bottom 7px right;background-size:contain}
