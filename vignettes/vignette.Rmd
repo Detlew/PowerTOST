@@ -187,5 +187,5 @@ options(width = 80)
 devtools::session_info()
 ```
 # License{#license}
-<h4>Helmut Schütz `r Sys.Date()`</h4>
+<h4 class="author">Helmut Schütz `r Sys.Date()`</h4>
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")

@@ -479,5 +479,5 @@ Man-pages of functions used in this vignette:
 |`pa.ABE`|<span style="white-space:nowrap">Helmut Schütz, Detlew Labes</span>|
 
 # License
-<h4>Helmut Schütz `r Sys.Date()`</h4>
+<h4 class="author">Helmut Schütz `r Sys.Date()`</h4>
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")

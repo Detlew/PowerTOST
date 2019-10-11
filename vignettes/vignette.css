@@ -28,8 +28,7 @@ dl dt{font-weight:bold}
 ul{margin-top:0}
 ul li{list-style:circle outside}
 ul ul{margin-bottom:0}
-pre, code{background-color:#f7f7f7;border-radius:3px;color:#333;
-white-space:pre-wrap}
+pre, code{background-color:#f7f7f7;border-radius:3px;color:#333;white-space:pre-wrap}
 pre{border-radius:3px;margin:5px 0 10px 0;padding:10px}
 pre:not([class]){background-color:#f7f7f7}
 code{font-size:85%; font-family:Consolas,Monaco,'Lucida Console','Courier New','Courier',monospace}
@@ -44,6 +43,7 @@ h2{border-bottom:2px solid #f7f7f7;padding-top:10px;padding-bottom:2px;
   font-size:145%}
 h3{border-bottom:1px solid #f7f7f7;padding-top:10px;font-size:120%}
 h4{margin-left:8px;font-size:110%}
+h4.author{font-size:91%;margin-left:0;margin-bottom:0;font-style:normal}
 h5, h6{border-bottom:1px solid #ccc;font-size:105%}
 a{color:#0033dd;text-decoration:none}
 a:hover{color:#6666ff}
