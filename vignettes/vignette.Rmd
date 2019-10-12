@@ -1,5 +1,5 @@
 ---
-title: "Main Vignette"
+title: "PowerTOST &bull; Main Vignette"
 lang: "en"
 output:
   rmarkdown::html_vignette:
@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
+<div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
 | <span style="color:#006400" title="You are here">Main Vignette</span> | [ABE](ABE.html) | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-<div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
 
 # Introduction
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies. Power and sample size can be obtained based on different methods, amongst them prominently the TOST procedure (two one-sided *t*-tests).\
@@ -29,6 +29,8 @@ For an overview of supported designs, methods, and defaults together with some b
 
   * [README](https://cran.r-project.org/web/packages/PowerTOST/readme/README.html) of the released version on CRAN;
   * [README](https://github.com/Detlew/PowerTOST/blob/master/README.md) of the development version on GitHub.
+
+More details and examples in the vignettes accessible via the top-menu and the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
 # Abbreviations, Definition of Terms, Models
 2×2×2
@@ -145,7 +147,7 @@ R
 : Selects degrees of freedom according to Senn’s basic estimator, where *n* -- *n~seq~*.
 
 <span id="rsabe">RSABE</span>
-: Reference-scaled Average Bioequivalence (U.S. <span title="Food and Drug Administration">FDA</a>, China NMPA-CDE). Applicable if the intra-subject variability of the reference treatment *s~wR~* ≥0.294 (*CV~wR~* ≈ 30\%). The linearized model is <small>$$H_0:(\mu_T/\mu_R)^2-\theta_{s}^{2}\cdot s_{wR}^{2}>0\:vs\:H_1:(\mu_T/\mu_R)^2-\theta_{s}^{2}\cdot s_{wR}^{2}\leq 0$$</small>
+: Reference-scaled Average Bioequivalence (U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="National Medical Products Administration, Center for Drug Evaluation">NMPA-CDE</span>). Applicable if the intra-subject variability of the reference treatment *s~wR~* ≥0.294 (*CV~wR~* ≈ 30\%). The linearized model is <small>$$H_0:(\mu_T/\mu_R)^2-\theta_{s}^{2}\cdot s_{wR}^{2}>0\:vs\:H_1:(\mu_T/\mu_R)^2-\theta_{s}^{2}\cdot s_{wR}^{2}\leq 0$$</small>
     See also <a href="#abel">ABEL</a>.
 
 $\theta_0$

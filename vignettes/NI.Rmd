@@ -1,5 +1,5 @@
 ---
-title: "Non-Inferiority"
+title: "PowerTOST &bull; Non-Inferiority"
 lang: "en"
 output:
   rmarkdown::html_vignette:
@@ -17,9 +17,10 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
+<div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
 | [Main Vignette](vignette.html) | [ABE](ABE.html "Average Bioequivalence") | [RSABE](RSABE.html "Reference-scaled Average Bioequivalence") | <span style="color:#006400" title="You are here">Non-Inferiority</span> | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-<div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
+
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -50,10 +51,18 @@ Arguments have to be given as ratios, not percent.\
 The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (a.k.a. pooled) *CV*.
 
 Designs with one (parallel) to four periods (replicates) are supported.
-```{r, echo = FALSE}
-res         <- data.frame(design = rep(NA, 10), name = NA, df = NA)
-res[1:10, ] <- known.designs()[c(1:3, 7:13), c(2, 9, 3)]
-print(res, row.names = FALSE)
+```
+#      design                        name   df
+#  "parallel"           2 parallel groups  n-2
+#       "2x2"               2x2 crossover  n-2
+#     "2x2x2"             2x2x2 crossover  n-2
+#     "2x2x3"   2x2x3 replicate crossover 2n-3
+#     "2x2x4"   2x2x4 replicate crossover 3n-4
+#     "2x4x4"   2x4x4 replicate crossover 3n-4
+#     "2x3x3"   partial replicate (2x3x3) 2n-3
+#     "2x4x2"            Balaam’s (2x4x2)  n-2
+#    "2x2x2r" Liu’s 2x2x2 repeated x-over 3n-2
+#    "paired"                paired means  n-1
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (a.k.a. AB|BA) design can be abbreviated as `"2x2"`. Some call the `parallel` design a ‘one-sequence’ design. The `paired` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note, that the underlying model assumes no period effects.
 
@@ -126,12 +135,12 @@ for (i in 1:2) {
 }
 print(res, row.names = FALSE)
 ```
-The sample size depends on *C~min~*. Hence the study is ‘overpowered’ for *C~max~*.
+The sample size depends on *C~min~*. Hence, the study is ‘overpowered’ for *C~max~*.
 ```{r}
 power.noninf(design = "2x2x4", margin = 1.25, CV = 0.20,
              theta0 = 1.05, n = 32)
 ```
-This gives us some ‘headroom’ for *C~max~*.
+Therefore, that gives us some ‘headroom’ for *C~max~*.
 ```{r}
 power.noninf(design = "2x2x4", margin = 1.25, CV = 0.25,
              theta0 = 1.10, n = 32) # higher CV, worse theta0

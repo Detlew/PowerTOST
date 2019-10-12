@@ -1,6 +1,6 @@
 # PowerTOST 1.4-8.9000
 
-Published on GitHub 2019-10-11.
+Published on GitHub 2019-10-12.
 
 ## Bug fixes
 
@@ -15,8 +15,7 @@ Published on GitHub 2019-10-11.
 
 ## Minor changes
 
-  * Slightly enhanced man pages of `power.dp()` and `sampleN.dp()` w.r.t. the 
-value of `CVb` in case of `design="IBD"`.
+  * Slightly enhanced man pages of `power.dp()` and `sampleN.dp()` w.r.t. the value of `CVb` in case of `design="IBD"`.
   * Cosmetics in output of `sampleN.noninf` based on `margin`.
   * Reworked minimum sample sizes in `pa.scABE.R()` according to guidances. Generally 12 (as before) but 24 for the FDA. Also 24 for the EMA if 2x2x3 design (Q&A document). Changed `N` to `n` in the S3-methods in conformity with other functions.
 

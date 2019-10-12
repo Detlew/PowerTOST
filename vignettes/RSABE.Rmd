@@ -1,5 +1,5 @@
 ---
-title: "Reference-Scaled Average Bioequivalence"
+title: "PowerTOST &bull; Reference-Scaled Average Bioequivalence"
 lang: "en"
 output:
   rmarkdown::html_vignette:
@@ -17,9 +17,10 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
+<div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
 | [Main Vignette](vignette.html) | [ABE](ABE.html) | <span style="color:#006400" title="You are here">RSABE</span> | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-<div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
+
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -47,10 +48,15 @@ The *CV* is the within-subject coefficient of variation. If one value is given, 
 
 If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100,000. If simulating for the empiric type I error (`theta0` set to one of the BE limits), `nsims` defaults to 1 million.
 
-<h2>Implemented Designs</h2><!-- not in the TOC -->
-```{r, echo=FALSE}
-cols <- c(2, 9, 3)
-print(known.designs()[7:12, cols], row.names = FALSE)
+<h2>Implemented Designs</h2>
+```
+#    design                        name   df
+#   "2x2x3"   2x2x3 replicate crossover 2n-3
+#   "2x2x4"   2x2x4 replicate crossover 3n-4
+#   "2x4x4"   2x4x4 replicate crossover 3n-4
+#   "2x3x3"   partial replicate (2x3x3) 2n-3
+#   "2x4x2"            Balaam’s (2x4x2)  n-2
+#  "2x2x2r" Liu’s 2x2x2 repeated x-over 3n-2
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
 
@@ -97,7 +103,7 @@ Note that this approach is recommended in other jurisdictions as well (*e.g.*, t
 sampleN.scABEL(CV = 0.55)
 ```
 
-<h2>Heterogenicity</h2><!-- not in the TOC -->
+<h2>Heterogenicity</h2>
 Whilst in full replicate designs simulating via the ‘key’ statistics closely matches the ‘gold standard’ of subject simulations, this is less so for unequal variances in the partial replicate design if *CV~wT~* > *CV~wR~*. Let us keep *CV~w~* 0.55 and split variances by a ratio of 1.5 (*i.e.*, T has a higher variance than R).
 ```{r}
 CV <- signif(CVp2CV(CV = 0.55, ratio = 1.5), 4)
