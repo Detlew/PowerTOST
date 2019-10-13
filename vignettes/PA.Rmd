@@ -18,9 +18,19 @@ knitr::opts_chunk$set(
 )
 ```
 <div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
-| [Main Vignette](vignette.html) | [ABE](ABE.html "Average Bioequivalence") | [RSABE](RSABE.html "Reference-scaled Average Bioequivalence") | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | <span style="color:#006400" title="You are here">Power Analysis</span> |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-
+<table style="width:100%">
+<thead>
+<tr>
+<th>[Main Vignette](vignette.html)</th>
+<th>[ABE](ABE.html "Average Bioequivalence")</th>
+<th>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</th>
+<th>[Non-Inferiority](NI.html)</th>
+<th>[Dose-Proportionality](DP.html)</th>
+<th><span style="color:#006400" title="You are here">Power Analysis</span></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```

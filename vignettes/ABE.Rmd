@@ -18,9 +18,19 @@ knitr::opts_chunk$set(
 )
 ```
 <div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
-| [Main Vignette](vignette.html) | <span style="color:#006400" title="You are here">ABE</span> | [RSABE](RSABE.html "Reference-scaled Average Bioequivalence") | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-
+<table style="width:100%">
+<thead>
+<tr>
+<th>[Main Vignette](vignette.html)</th>
+<th><span style="color:#006400" title="You are here">ABE</span></th>
+<th>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</th>
+<th>[Non-Inferiority](NI.html)</th>
+<th>[Dose-Proportionality](DP.html)</th>
+<th>[Power Analysis](PA.html)</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -74,7 +84,7 @@ Designs with one (parallel) to four periods (replicates) are supported.
 #     "2x2x4"   2x2x4 replicate crossover 3n-4
 #     "2x4x4"   2x4x4 replicate crossover 3n-4
 #     "2x3x3"   partial replicate (2x3x3) 2n-3
-#     "2x4x2"            Balaam's (2x4x2)  n-2
+#     "2x4x2"            Balaam’s (2x4x2)  n-2
 #    "2x2x2r" Liu’s 2x2x2 repeated x-over 3n-2
 #    "paired"                paired means  n-1
 ```
@@ -270,13 +280,13 @@ If you are adventurous consider an Adaptive Two-Stage Sequential Design with sam
 
 ## Higher-Order Designs
 Designs with three and four periods are supported.
-```{r, echo = FALSE}
-res        <- data.frame(design = rep(NA, 3),
-                         name = NA, df = NA)
-res[1:3, ] <- known.designs()[4:6, c(2, 9, 3)]
-print(res, row.names = FALSE)
 ```
-`3x3` denotes the Latin Square (`ABC|BCA|CAB`), `3x6x3` a 6-sequence Williams’ design (`ABC|ACB|BAC|BCA|CAB|CBA`), and `4x4` the Latin Square (`ABCD|BCDA|CDAB|DABC`) or *any one* of the possible Williams’ designs with four periods (`ADBC|BACD|CBDA|DCAB`, `ADCB|BCDA|CABD|DBAC`, `ACDB|BDCA|CBAD|DABC`, `ACBD|BADC|CDAB|DBCA`, `ABDC|BCAD|CDBA|DACB`, `ABCD|BDAC|CADB|DCBA`).
+#   design            name   df
+#    "3x3"   3x3 crossover 2n-4
+#  "3x6x3" 3x6x3 crossover 2n-4
+#    "4x4"   4x4 crossover 3n-6
+```
+`"3x3"` denotes the Latin Square (`ABC|BCA|CAB`), `"3x6x3"` a 6-sequence Williams’ design (`ABC|ACB|BAC|BCA|CAB|CBA`), and `"4x4"` the Latin Square (`ABCD|BCDA|CDAB|DABC`) or *any one* of the possible Williams’ designs with four periods (`ADBC|BACD|CBDA|DCAB`, `ADCB|BCDA|CABD|DBAC`, `ACDB|BDCA|CBAD|DABC`, `ACBD|BADC|CDAB|DBCA`, `ABDC|BCAD|CDBA|DACB`, `ABCD|BDAC|CADB|DCBA`).
 
 Which `design` argument in studies with more than two periods you should use depends on the planned evaluation.
 
