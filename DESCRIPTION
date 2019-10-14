@@ -3,7 +3,7 @@ Package: PowerTOST
 Type: Package
 Title: Power and Sample Size for (Bio)Equivalence Studies
 Version: 1.4-8.9000
-Date: 2019-10-13
+Date: 2019-10-14
 Authors@R: c(person("Detlew", "Labes",
                role = c("aut","cre"),
                email = "DetlewLabes@gmx.de",

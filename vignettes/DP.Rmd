@@ -114,11 +114,13 @@ print(res, row.names = FALSE)
 ```
 As usual nothing to worry about.
 
-Rather extreme: Five levels, but we want only three periods. Hence, we opt for an incomplete block design. The design matrix is obtained by the function `bib.CL()`.
+Rather extreme: Five levels, but we want only three periods. Hence, we opt for an incomplete block design. The design matrix of a balanced minimal repeated measurements design is obtained by the function `balmin.RMD()` of package `crossdes`.
 ```{r}
 levels <- 5
 doses  <- mod.fibo(lowest, levels)
-dm     <- bib.CL(trt = levels, p = 3)
+per    <- 3
+n      <- levels*(levels-1)/(per-1)
+dm     <- crossdes::balmin.RMD(levels, n, per)
 x      <- sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02,
                      design = "IBD", dm = dm)
 ```
@@ -136,11 +138,8 @@ for (i in 1:nrow(res)) {
 res <- res[res$power >= 0.80, ]
 print(res, row.names = FALSE)
 ```
-Again, we don’t have to worry about dropouts.\
-Note that function `bib.CL()` supports only up to five levels and four periods. If you need more, use\
-```
-dm <- crossdes::des.MOLS(trt = levels, k = periods)
-```
+Again, we don’t have to worry about dropouts.
+
 For a wide dose range the acceptance range narrows and becomes increasingly difficult to meet.
 ```{r}
 doses  <- 2^(seq(0, 8, 2))
@@ -166,7 +165,6 @@ Man-pages of functions used in this vignette:
 
   * [sampleN.dp](library/html/sampleN.dp.html)
   * [power.dp](library/html/power.dp.html)
-  * [bib.CL](library/html/bib.CL.html)
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
