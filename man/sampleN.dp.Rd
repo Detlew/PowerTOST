@@ -112,17 +112,15 @@ sampleN.dp(CV = 0.2, doses = c(1, 2, 8), beta0 = 1.02)
 # should give n=18, power=0.854528
 
 \donttest{
-# incomplete block design mentioned in Sethuraman et al.
-# with 5 doses, 20 sequences, 3 periods
-# (I hope at least that the design is that they used)
-library(crossdes)
-# IBD based on mutually orthogonal Latin squares
-ibd <- des.MOLS(trt=5, k=3)
-CVb <- mse2CV(0.8) # Sethuraman et al.: omega squared
-sampleN.dp(CV = 0.2, doses = c(5, 25, 50, 100, 200),
-           beta0 = 1, design = "IBD", dm = ibd, CVb = CVb, targetpower=0.9)
-# Sethuraman et al. obtain n=80. This is highly questionable           
-# power of that design near 90\% with n=30, sequence group unbalanced 
-power.dp(CV = 0.2, doses = c(5, 25, 50, 100, 200),
-         n = 30, beta0 = 1, design = "IBD", dm = ibd, CVb = CVb)}
-}
+# incomplete block design with 5 doses, 3 periods
+# from library(crossdes)
+doses <- c(5, 25, 50, 100, 200)
+CVb   <- mse2CV(0.8)
+trt   <- length(doses)
+per   <- 3
+n     <- trt*(trt-1)/(per-1)
+# IBD based on balanced minimal repeated measurements design
+# gives n=30 and 10 sequences
+ibd   <- crossdes::balmin.RMD(trt, n, per)
+sampleN.dp(CV = 0.2, doses = doses, beta0 = 1, design = "IBD", dm = ibd, 
+           CVb = CVb, targetpower=0.9)}
