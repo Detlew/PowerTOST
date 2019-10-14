@@ -1,5 +1,5 @@
 ---
-title: "Main Vignette"
+title: "PowerTOST &bull; Main Vignette"
 lang: "en"
 output:
   rmarkdown::html_vignette:
@@ -17,18 +17,30 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-| <span style="color:#006400" title="You are here">Main Vignette</span> | [ABE](ABE.html) | [RSABE](RSABE.html) | [Non-Inferiority](NI.html) | [Dose-Proportionality](DP.html) | [Power Analysis](PA.html) |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-<div class="top"><a class="toplink" href="#" title="▲ top"> </a></div>
-
+<div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
+<table style="width:100%">
+<thead>
+<tr>
+<th><span style="color:#006400" title="You are here">Main Vignette</span></th>
+<th>[ABE](ABE.html "Average Bioequivalence")</th>
+<th>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</th>
+<th>[Non-Inferiority](NI.html)</th>
+<th>[Dose-Proportionality](DP.html)</th>
+<th>[Power Analysis](PA.html)</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
 # Introduction
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies. Power and sample size can be obtained based on different methods, amongst them prominently the TOST procedure (two one-sided *t*-tests).\
-Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST")` with R `r getRversion()`.
+Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST", date.fields = "Built")` with R `r getRversion()`.
 
 For an overview of supported designs, methods, and defaults together with some basic examples see
 
   * [README](https://cran.r-project.org/web/packages/PowerTOST/readme/README.html) of the released version on CRAN;
   * [README](https://github.com/Detlew/PowerTOST/blob/master/README.md) of the development version on GitHub.
+
+More details and examples in the vignettes accessible via the top-menu and the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
 # Abbreviations, Definition of Terms, Models
 2×2×2
@@ -78,7 +90,7 @@ CV
     </ul>
 
 CV~b~
-: Inter- (between-) subject coefficient of variation. Argument `CVb` required in function `sampleN.dp()` if `design="IBD"` (incomplete block design).
+: Inter- (between-) subject coefficient of variation. Argument `CVb` is required in function `sampleN.RatioF()` and in function `sampleN.dp()` if `design="IBD"` (incomplete block design).
 
 <span id="CVcap">CV~cap~</span>
 : Upper cap in <a href="#abel">ABEL</a>. If *CV~wR~* > CV~cap~, expanding is based on CV~cap~ (and not on *CV~wR~*). In all jurisdictions 50\%, except for Health Canada where CV~cap~ ≈57.4\%.
@@ -145,7 +157,7 @@ R
 : Selects degrees of freedom according to Senn’s basic estimator, where *n* -- *n~seq~*.
 
 <span id="rsabe">RSABE</span>
-: Reference-scaled Average Bioequivalence (U.S. <span title="Food and Drug Administration">FDA</a>, China NMPA-CDE). Applicable if the intra-subject variability of the reference treatment *s~wR~* ≥0.294 (*CV~wR~* ≈ 30\%). The linearized model is <small>$$H_0:(\mu_T/\mu_R)^2-\theta_{s}^{2}\cdot s_{wR}^{2}>0\:vs\:H_1:(\mu_T/\mu_R)^2-\theta_{s}^{2}\cdot s_{wR}^{2}\leq 0$$</small>
+: Reference-scaled Average Bioequivalence (U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="National Medical Products Administration, Center for Drug Evaluation">NMPA-CDE</span>). Applicable if the intra-subject variability of the reference treatment *s~wR~* ≥0.294 (*CV~wR~* ≈ 30\%). The linearized model is <small>$$H_0:(\mu_T/\mu_R)^2-\theta_{s}^{2}\cdot s_{wR}^{2}>0\:vs\:H_1:(\mu_T/\mu_R)^2-\theta_{s}^{2}\cdot s_{wR}^{2}\leq 0$$</small>
     See also <a href="#abel">ABEL</a>.
 
 $\theta_0$
@@ -187,4 +199,5 @@ options(width = 80)
 devtools::session_info()
 ```
 # License{#license}
+<h4 class="author">Helmut Schütz `r Sys.Date()`</h4>
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
