@@ -124,3 +124,4 @@ n     <- trt*(trt-1)/(per-1)
 ibd   <- crossdes::balmin.RMD(trt, n, per)
 sampleN.dp(CV = 0.2, doses = doses, beta0 = 1, design = "IBD", dm = ibd, 
            CVb = CVb, targetpower=0.9)}
+}
