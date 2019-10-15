@@ -191,13 +191,13 @@ Detlew Labes
 Man-pages of functions used in examples of this vignette:
 
   * Sample Size
-    * [sampleN.noninf](library/html/sampleN.noninf.html)
-    * [sampleN.scABEL](library/html/sampleN.scABEL.html)
-    * [sampleN.TOST](library/html/sampleN.TOST.html)
+    * [sampleN.noninf](../html/sampleN.noninf.html)
+    * [sampleN.scABEL](../html/sampleN.scABEL.html)
+    * [sampleN.TOST](../html/sampleN.TOST.html)
   * Power
-    * [power.noninf](library/html/power.noninf.html)
-    * [power.scABEL](library/html/power.scABEL.html)
-    * [power.TOST](library/html/power.TOST.html)
+    * [power.noninf](../html/power.noninf.html)
+    * [power.scABEL](../html/power.scABEL.html)
+    * [power.TOST](../html/power.TOST.html)
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 

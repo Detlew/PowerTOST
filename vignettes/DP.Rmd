@@ -160,8 +160,8 @@ Detlew Labes
 # Man-pages
 Man-pages of functions used in this vignette:
 
-  * [sampleN.dp](library/html/sampleN.dp.html)
-  * [power.dp](library/html/power.dp.html)
+  * [sampleN.dp](../html/sampleN.dp.html)
+  * [power.dp](../html/power.dp.html)
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 

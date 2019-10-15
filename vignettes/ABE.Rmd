@@ -483,14 +483,14 @@ If you use 1.05 (sample size 20) power will be maintained down to its reciprocal
 # Man-pages
 Man-pages of functions used in this vignette:
 
-  * [sampleN.TOST](library/html/sampleN.TOST.html)
-  * [power.TOST](library/html/power.TOST.html)
-  * [power.TOST.sds](library/html/power.TOST.sds.html)
-  * [CVCL](library/html/CVCL.html)
-  * [expsampleN.TOST](library/html/expsampleN.TOST.html)
-  * [CI.BE](library/html/CI.BE.html)
-  * [CVpooled](library/html/CVpooled.html)
-  * [CVfromCI](library/html/CVfromCI.html)
+  * [sampleN.TOST](../html/sampleN.TOST.html)
+  * [power.TOST](../html/power.TOST.html)
+  * [power.TOST.sds](../html/power.TOST.sdsims.html)
+  * [CVCL](../html/CVCL.html)
+  * [expsampleN.TOST](../html/expsampleN.TOST.html)
+  * [CI.BE](../html/CI.BE.html)
+  * [CVpooled](../html/CVpooled.html)
+  * [CVfromCI](../html/CVfromCI.html)
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 

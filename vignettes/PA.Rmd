@@ -118,7 +118,7 @@ pa.NTIDFDA(CV = 0.125)
 With decreasing variability power decreases because the scaled limits become narrower. With increasing variability we gain power because we have to scale less until at \~21.4\% the addtional criterion ‘must pass conventional BE limits of 80.00--125.00\%’ cuts in.
 
 # Cave!
-The power analysis is <span style="background-color:#FFFF99">not</span> a substitute for the ‘Sensitivity Analysis’ recommended by the ICH.^[International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use. *ICH Harmonised Tripartite Guideline. Statistical Principles for Clinical Trials.* 5 February 1998. [E9 Step 4](https://database.ich.org/sites/default/files/E9_Guideline.pdf).] In a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
+The power analysis is <span style="background-color:#FFFF99"> not </span> a substitute for the ‘Sensitivity Analysis’ recommended by the ICH.^[International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use. *ICH Harmonised Tripartite Guideline. Statistical Principles for Clinical Trials.* 5 February 1998. [E9 Step 4](https://database.ich.org/sites/default/files/E9_Guideline.pdf).] In a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
 
 # Authors
 |function|author(s)|
@@ -129,9 +129,9 @@ The power analysis is <span style="background-color:#FFFF99">not</span> a substi
 # Man-pages
 Man-pages of functions used in this vignette:
 
-  * [pa.ABE](library/html/pa.ABE.html)
-  * [pa.scABE](library/html/pa.scABE.html)
-  * [pa.NTIDFDA](library/html/pa.NTIDFDA.html)
+  * [pa.ABE](../html/pa.ABE.html)
+  * [pa.scABE](../html/pa.scABE.html)
+  * [pa.NTIDFDA](../html/pa.NTIDFDA.html)
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 

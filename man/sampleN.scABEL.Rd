@@ -5,7 +5,7 @@
 Sample size estimation for BE decision via scaled (expanded) BE acceptance limits
 }
 \description{
-These functions performs the sample size estimation via power calculations of the 
+This function performs the sample size estimation via power calculations of the 
 BE decision via scaled (expanded) BE acceptance limits, based on simulations.
 }
 \usage{

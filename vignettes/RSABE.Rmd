@@ -415,20 +415,20 @@ for (i in 1:3) {
 Man-pages of functions used in examples of this vignette:
 
   * Sample Size
-    * [sampleN.scABEL](library/html/sampleN.scABEL.html)
-    * [sampleN.scABEL.sdsims](library/html/sampleN.scABEL.sdsims.html)
-    * [sampleN.scABEL.ad](library/html/sampleN.scABEL.ad.html)
-    * [sampleN.RSABE](library/html/power.RSABE.html)
-    * [sampleN.NTIDFDA](library/html/sampleN.NTIDFDA.html)
-    * [sampleN.HVNTID](library/html/sampleN.HVNTID.html)
+    * [sampleN.scABEL](../html/sampleN.scABEL.html)
+    * [sampleN.scABEL.sdsims](../html/sampleN.scABEL.sdsims.html)
+    * [sampleN.scABEL.ad](../html/sampleN.scABEL.ad.html)
+    * [sampleN.RSABE](../html/sampleN.RSABE.html)
+    * [sampleN.NTIDFDA](../html/sampleN.NTIDFDA.html)
+    * [sampleN.HVNTID](../html/sampleN.HVNTID.html)
   * Power
-    * [power.scABEL](library/html/power.scABEL.html)
-    * [power.RSABE2L.sds](library/html/power.RSABE2L.sds.html)
+    * [power.scABEL](../html/power.scABEL.html)
+    * [power.RSABE2L.sds](../html/power.RSABE2L.sdsims.html)
   * Helpers
-    * [scABEL.ad](library/html/scABEL.ad.html)
-    * [scABEL](library/html/scABEL.html)
-    * [reg_const](library/html/reg_const.html)
-    * [CVp2CV](library/html/CVp2CV.html)
+    * [scABEL.ad](../html/scABEL.ad.html)
+    * [scABEL](../html/scABEL.html)
+    * [reg_const](../html/reg_const.html)
+    * [CVp2CV](../html/CVp2CV.html)
 
 [Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
