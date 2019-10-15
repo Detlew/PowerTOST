@@ -17,20 +17,17 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-<div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
-<table style="width:100%">
-<thead>
-<tr>
-<th>[Main Vignette](vignette.html)</th>
-<th>[ABE](ABE.html "Average Bioequivalence")</th>
-<th>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</th>
-<th><span style="color:#006400" title="You are here">Non-Inferiority</span></th>
-<th>[Dose-Proportionality](DP.html)</th>
-<th>[Power Analysis](PA.html)</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<div class="top"><a class="toplink" href="#nav" title="&uArr; top">&nbsp;</a></div>
+<div id="nav">
+<ul>
+<li>[Main Vignette](vignette.html)</li>
+<li>[ABE](ABE.html "Average Bioequivalence")</li>
+<li>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</li>
+<li><span title="» You are here «">Non-Inferiority</span></li>
+<li>[Dose-Proportionality](DP.html)</li>
+<li>[Power Analysis](PA.html)</li>
+</ul>
+</div>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -57,10 +54,10 @@ Defaults depending on the argument `logscale`:
 | margin | `margin` | `0.80` | `–0.20` |
 | $\theta_{0}$ | `theta0` | `0.95` | `+0.05` |
 
-Arguments have to be given as ratios, not percent.\
-The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (a.k.a. pooled) *CV*.
+Arguments `targetpower`, `margin`, `theta0`, and `CV` have to be given as fractions, not percent.\
+The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*.
 
-Designs with one (parallel) to four periods (replicates) are supported.
+Designs with one (parallel), two (conventional crossover and paired), and three or four periods (replicates) are supported.
 ```
 #      design                        name   df
 #  "parallel"           2 parallel groups  n-2
@@ -74,9 +71,9 @@ Designs with one (parallel) to four periods (replicates) are supported.
 #    "2x2x2r" Liu’s 2x2x2 repeated x-over 3n-2
 #    "paired"                paired means  n-1
 ```
-The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (a.k.a. AB|BA) design can be abbreviated as `"2x2"`. Some call the `parallel` design a ‘one-sequence’ design. The `paired` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note, that the underlying model assumes no period effects.
+The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design can be abbreviated as `"2x2"`. Some call the `"parallel"` design a ‘one-sequence’ design. The design `"paired"` has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note that the underlying model assumes no period effects.
 
-With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided as a data.frame with eight columns `Design`, `alpha`,  `CV`, `theta0`, `Margin`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `sampleN.noninf[1, 6]` or `sampleN.noninf[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with eight columns `Design`, `alpha`,  `CV`, `theta0`, `Margin`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `sampleN.noninf[1, 6]` or `sampleN.noninf[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 

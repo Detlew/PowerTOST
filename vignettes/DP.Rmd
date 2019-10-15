@@ -17,20 +17,17 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-<div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
-<table style="width:100%">
-<thead>
-<tr>
-<th>[Main Vignette](vignette.html)</th>
-<th>[ABE](ABE.html "Average Bioequivalence")</th>
-<th>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</th>
-<th>[Non-Inferiority](NI.html)</th>
-<th><span  style="color:#006400" title="You are here">Dose-Proportionality</span></th>
-<th>[Power Analysis](PA.html)</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<div class="top"><a class="toplink" href="#nav" title="&uArr; top">&nbsp;</a></div>
+<div id="nav">
+<ul>
+<li>[Main Vignette](vignette.html)</li>
+<li>[ABE](ABE.html "Average Bioequivalence")</li>
+<li>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</li>
+<li>[Non-Inferiority](NI.html)</li>
+<li><span title="» You are here «">Dose-Proportionality</span></li>
+<li>[Power Analysis](PA.html)</li>
+</ul>
+</div>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -47,19 +44,19 @@ library(PowerTOST) # attach the library
 | $\theta_{2}$ | `theta2` | Upper limit for the ratio of dose normalized means *Rdmn* | see below |
 | design | `design` | Planned design | `"crossover"` |
 | dm | `dm` | Design matrix | `NULL` |
-| *CV~b~* | `CVb` | Coefficient of variation of the between-subject variability. | – |
+| *CV~b~* | `CVb` | Coefficient of variation of the between-subject variability | – |
 | print | `print` | Show information in the console? | `TRUE` |
 | details | `details` | Show details of the sample size search? | `FALSE` |
 | imax | `imax` | Maximum number of iterations | `100` |
 
-Arguments have to be given as ratios, not percent.\
-The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (a.k.a. pooled) *CV*. The *between*-subject coefficient of variation *CV~b~* is only neccessary if `design="IBD"` (if missing, it will be set to `2*CV`).
+Arguments `targetpower`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent.\
+The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*. The *between*-subject coefficient of variation *CV~b~* is only neccessary if `design="IBD"` (if missing, it will be set to `2*CV`).
 
 The ‘true’ or assumed slope of the power model <small>$\beta_{0}$</small> defaults to `1+log(0.95)/log(rd)`, where `rd` is the ratio of the highest/lowest dose.
 
 Supported designs are `"crossover"` (default; Latin Squares), `"parallel"`, and `"IBD"` (incomplete block design). Note that when `"crossover"` is chosen, instead of Latin Squares any Williams’ design could be used as well (identical degrees of freedom result in the same sample size).
 
-With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a data.frame with ten (`design="crossover"`) or eleven (`design="parallel"` or `design="IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
+With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with ten (`design="crossover"`) or eleven (`design="parallel"` or `design="IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
@@ -154,7 +151,7 @@ sampleN.dp(CV = 0.30, doses = doses, beta0 = 1.02,
 ```
 Hummel *et al*.^[Hummel J, McKendrick S, Brindley C, French R. *Exploratory assessment of dose proportionality: review of current approaches and proposal for a practical criterion.* Pharm. Stat. 2009; 8(1): 38--49. [doi:10.1002/pst.326](https://doi.org/10.1002/pst.326).] proposed even more liberal {<small>$\theta_{1},\theta_{2}$</small>} of {0.50, 2.0}.
 
-# *Cave!*
+# Cave!
 There is no guarantee that a desired incomplete block design (for given dose levels and number of periods) can be constructed. If you provide your own design matrix (in the argument `dm`) it is not assessed for meaningfulness.
 
 # Author

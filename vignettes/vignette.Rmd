@@ -17,20 +17,18 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-<div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
-<table style="width:100%">
-<thead>
-<tr>
-<th><span style="color:#006400" title="You are here">Main Vignette</span></th>
-<th>[ABE](ABE.html "Average Bioequivalence")</th>
-<th>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</th>
-<th>[Non-Inferiority](NI.html)</th>
-<th>[Dose-Proportionality](DP.html)</th>
-<th>[Power Analysis](PA.html)</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<div class="top"><a class="toplink" href="#nav" title="&uArr; top">&nbsp;</a></div>
+<div id="nav">
+<ul>
+<li><span title="» You are here «">Main Vignette</span></li>
+<li>[ABE](ABE.html "Average Bioequivalence")</li>
+<li>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</li>
+<li>[Non-Inferiority](NI.html)</li>
+<li>[Dose-Proportionality](DP.html)</li>
+<li>[Power Analysis](PA.html)</li>
+</ul>
+</div>
+
 # Introduction
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies. Power and sample size can be obtained based on different methods, amongst them prominently the TOST procedure (two one-sided *t*-tests).\
 Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST", date.fields = "Built")` with R `r getRversion()`.

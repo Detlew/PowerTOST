@@ -17,20 +17,17 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-<div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
-<table style="width:100%">
-<thead>
-<tr>
-<th>[Main Vignette](vignette.html)</th>
-<th><span style="color:#006400" title="You are here">ABE</span></th>
-<th>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</th>
-<th>[Non-Inferiority](NI.html)</th>
-<th>[Dose-Proportionality](DP.html)</th>
-<th>[Power Analysis](PA.html)</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<div class="top"><a class="toplink" href="#nav" title="&uArr; top">&nbsp;</a></div>
+<div id="nav">
+<ul>
+<li>[Main Vignette](vignette.html)</li>
+<li><span title="» You are here «">ABE</span></li>
+<li>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</li>
+<li>[Non-Inferiority](NI.html)</li>
+<li>[Dose-Proportionality](DP.html)</li>
+<li>[Power Analysis](PA.html)</li>
+</ul>
+</div>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -60,16 +57,17 @@ Defaults depending on the argument `logscale`:
 | $\theta_{1}$ | `theta1` | `0.80` | `−0.20` |
 | $\theta_{2}$ | `theta2` | `1.25` | `+0.20` |
 
-Arguments have to be given as ratios, not percent.\
+Arguments `targetpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent.\
 The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (a.k.a. pooled) *CV*.
 
-The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (a.k.a. AB|BA) design can be abbreviated as `2x2`. Some call the `parallel` design a ‘one-sequence’ design. The `paired` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note, that the underlying model assumes no period effects.
+The terminology of the argument `design` follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design can be abbreviated as `"2x2"`. Some call the `"parallel"` design a ‘one-sequence’ design. The design `"paired"` has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note that the underlying model assumes no period effects.
 
 Implemented exact algorithms are `"exact"` / `"owenq"` (Owen’s Q function, default) and `"mvt"` (bivariate non-central *t*-distribution). Approximations are `"noncentral"` / `"nct"` (non-central *t*-distribution) and `"shifted"` / `"central"` (‘shifted’ central *t*-distribution).
 
-`"robust=TRUE"` forces `n-seq` degrees of freedom and is used only in higher-order crossover designs. Could be used if the evaluation was done with a mixed-effects model.
+`"robust=TRUE"` forces the degrees of freedom to `n-seq` and is used only in higher-order crossover designs. It could be used if the evaluation was done with a mixed-effects model.
 
-With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are provided as a data.frame with nine columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `foo[1, 7]` or `foo[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with nine columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`.\
+To access *e.g.*, the sample size use either `sampleN.TOST[1, 7]` or `sampleN.TOST[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
@@ -88,8 +86,6 @@ Designs with one (parallel) to four periods (replicates) are supported.
 #    "2x2x2r" Liu’s 2x2x2 repeated x-over 3n-2
 #    "paired"                paired means  n-1
 ```
-The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
-
 ## Example 1
 Estimate the sample size for assumed intra-subject *CV* 0.30.
 ```{r}
@@ -243,7 +239,7 @@ There will be a drop in power from the ~0.82 the management expects to only ~0.6
 
 ![**Fig. 2** Power for *CV* 0.244](figure4.png){width=354px}
 
-As mentioned above, if the *CV* turns out to be lower than assumed, we gain headroom for the T/R ratio. Let us explore that. We perform the study with 40 subjects, the *CV* will be 0.22 (*less* than the ~0.24 we assumed), and the T/R with 0.90 *worse* than the 0.92 we assumed.
+As mentioned above, if the *CV* turns out to be lower than assumed, we gain ‘headroom’ for the T/R ratio. Let us explore that. We perform the study with 40 subjects, the *CV* will be 0.22 (*less* than the ~0.24 we assumed), and the T/R with 0.90 *worse* than the 0.92 we assumed.
 
 ```{r}
 power.TOST(CV = 0.22, theta0 = 0.90, n = 40)
@@ -286,7 +282,7 @@ Designs with three and four periods are supported.
 #  "3x6x3" 3x6x3 crossover 2n-4
 #    "4x4"   4x4 crossover 3n-6
 ```
-`"3x3"` denotes the Latin Square (`ABC|BCA|CAB`), `"3x6x3"` a 6-sequence Williams’ design (`ABC|ACB|BAC|BCA|CAB|CBA`), and `"4x4"` the Latin Square (`ABCD|BCDA|CDAB|DABC`) or *any one* of the possible Williams’ designs with four periods (`ADBC|BACD|CBDA|DCAB`, `ADCB|BCDA|CABD|DBAC`, `ACDB|BDCA|CBAD|DABC`, `ACBD|BADC|CDAB|DBCA`, `ABDC|BCAD|CDBA|DACB`, `ABCD|BDAC|CADB|DCBA`).
+`"3x3"` denotes the Latin Square (`ABC|BCA|CAB`), `"3x6x3"` a 6-sequence Williams’ design (`ABC|ACB|BAC|BCA|CAB|CBA`), `"4x4"` the Latin Square (`ABCD|BCDA|CDAB|DABC`) or *any* of the possible Williams’ designs with four periods (`ADBC|BACD|CBDA|DCAB`, `ADCB|BCDA|CABD|DBAC`, `ACDB|BDCA|CBAD|DABC`, `ACBD|BADC|CDAB|DBCA`, `ABDC|BCAD|CDBA|DACB`, `ABCD|BDAC|CADB|DCBA`).
 
 Which `design` argument in studies with more than two periods you should use depends on the planned evaluation.
 
@@ -301,7 +297,7 @@ Which `design` argument in studies with more than two periods you should use dep
   * **Two at a Time**
 
     In this approach – which is preferred by some agencies, *e.g.*, the EMA^[EMA, CHMP. *Guideline on the Investigation of Bioequivalence.* London, 20 January 2010. [CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf#page=14).] – you exclude one treatment and perform the analysis on the remaing two. That means you have two *separate* Incomplete Block Designs (IBD).\
-    Say, you have one test (`A`) and two references from different regions (`B`, `C`). You get two separate within-subject variances (in the comparisons `A` *vs* `C` and `B` *vs* `C`).\
+    Say, you have one test (`T`) and two references from different regions (`R1`, `R2`). You get two separate within-subject variances (in the comparisons `T` *vs* `R1` and `T` *vs* `R2`).\
     To plan for this approach specify `design=2x2x2`.
 
 I suggest to opt for the latter since the former may lead to biased estimates and an inflated type I error.^[D’Angelo P. *Testing for Bioequivalence in Higher‐Order Crossover Designs: Two‐at‐a‐Time Principle Versus Pooled ANOVA.* 2^nd^ Conference of the Global Bioequivalence Harmonisation Initiative. Rockville, 15--16 September, 2016.]
@@ -318,7 +314,7 @@ for (i in 1:2) {
 }
 print(res, row.names = FALSE)
 ```
-Four treatments (*e.g.*, T fasting/fed, R fasting/fed).
+Four treatments (*e.g.*, Test fasting/fed, Reference fasting/fed).
 ```{r}
 CV  <- 0.20
 res <- data.frame(design = c("4x4", "2x2x2"), n = NA, power = NA,
@@ -343,10 +339,10 @@ Let us first recap the hypotheses in bioequivalence.
 
 Note that the Null hypotheses are bio**in**equivalence.
 
-From a regulatory perspective the outcome of a comparative BA study is dichotomous. **Either** the study demonstrated BE (CI entirely within $\theta_{1},\theta_{2}$) **or** not.^[If the CI overlaps $\theta_{1},\theta_{2}$, the outcome is indecisive (called ‘the grey zone’ by some). As long as $\theta_{0}$ lies within $\theta_{1},\theta_{2}$ you can hope to show BE in a larger sample size. However, once $\theta_{0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
+From a regulatory perspective the outcome of a comparative BA study is dichotomous. <span style="background-color:#FFFF99">Either</span> the study demonstrated bioequivalence (CI entirely within $\theta_{1},\theta_{2}$) <span style="background-color:#FFFF99">or</span> not.^[If the CI overlaps $\theta_{1},\theta_{2}$, the outcome is indecisive (called ‘the grey zone’ by some). As long as $\theta_{0}$ lies within $\theta_{1},\theta_{2}$ you can hope to show BE in a larger sample size. However, once $\theta_{0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
   `sampleN.TOST(CV = 0.075, theta0 = 0.81)` and then\
   `sampleN.TOST(CV = 0.075, theta0 = 0.80)` to get an idea.] Only if the CI lies entirely outside $\theta_{1},\theta_{2}$ the Null hypothesis is not rejected and further studies not warranted.
-In any case, calculation of *post hoc* (a.k.a. *a posteriori*, retrospective) power is futile.^[Hoenig JM, Heisey DM. [*The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.*](https://www.vims.edu/people/hoenig_jm/pubs/hoenig2.pdf) Am Stat. 2001; 55(1): 19--24]
+In any case, calculation of *post hoc* (<span title="also known as">a.k.a.</span> *a posteriori*, retrospective) power is futile.^[Hoenig JM, Heisey DM. [*The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.*](https://www.vims.edu/people/hoenig_jm/pubs/hoenig2.pdf) Am Stat. 2001; 55(1): 19--24]
 
 > There is simple intuition behind results like these: If my car made it to the top of the hill, then it is powerful enough to climb that hill; if it didn’t, then it obviously isn’t powerful enough. Retrospective power is an obvious answer to a rather uninteresting question. A more meaningful question is to ask whether the car is powerful enough to climb a particular hill never climbed before; or whether a different car can climb that new hill. Such questions are prospective, not retrospective.
 > `r tufte::quote_footer('--- Russell V. Lenth, [*Two Sample-Size Practices that I Don’t Recommend*](http://homepage.divms.uiowa.edu/~rlenth/Power/2badHabits.pdf)')`

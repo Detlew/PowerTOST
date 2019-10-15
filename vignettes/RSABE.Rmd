@@ -17,20 +17,17 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-<div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
-<table style="width:100%">
-<thead>
-<tr>
-<th>[Main Vignette](vignette.html)</th>
-<th>[ABE](ABE.html "Average Bioequivalence")</th>
-<th><span style="color:#006400" title="You are here">RSABE</span></th>
-<th>[Non-Inferiority](NI.html)</th>
-<th>[Dose-Proportionality](DP.html)</th>
-<th>[Power Analysis](PA.html)</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<div class="top"><a class="toplink" href="#nav" title="&uArr; top">&nbsp;</a></div>
+<div id="nav">
+<ul>
+<li>[Main Vignette](vignette.html)</li>
+<li>[ABE](ABE.html "Average Bioequivalence")</li>
+<li><span title="» You are here «">RSABE</span></li>
+<li>[Non-Inferiority](NI.html)</li>
+<li>[Dose-Proportionality](DP.html)</li>
+<li>[Power Analysis](PA.html)</li>
+</ul>
+</div>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -53,7 +50,7 @@ library(PowerTOST) # attach the library
 | details | `details` | Show details of the sample size search? | `FALSE` |
 | setseed | `setseed` | Issue a fixed seed of the random number generator? | `TRUE` |
 
-Arguments have to be given as ratios, not percent.\
+Arguments `targetpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent.\
 The *CV* is the within-subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV~wT~* = *CV~wR~*. If two values are given (*i.e.*, `CV=c(x, y)`) heteroscedasticity (unequal variances) is assumed, where `CV[1]` has to be *CV~wT~* and `CV[2]` *CV~wR~*.
 
 If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100,000. If simulating for the empiric type I error (`theta0` set to one of the BE limits), `nsims` defaults to 1 million.
@@ -70,7 +67,7 @@ If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
 
-With `foo(..., details = FALSE, print = FALSE)` results are given as a data.frame with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `foo(..., details = FALSE, print = FALSE)` results are given as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence).
 

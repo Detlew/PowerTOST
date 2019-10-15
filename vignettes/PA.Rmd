@@ -17,20 +17,17 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-<div class="top"><a class="toplink" href="#" title="&uArr; top">&nbsp;</a></div>
-<table style="width:100%">
-<thead>
-<tr>
-<th>[Main Vignette](vignette.html)</th>
-<th>[ABE](ABE.html "Average Bioequivalence")</th>
-<th>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</th>
-<th>[Non-Inferiority](NI.html)</th>
-<th>[Dose-Proportionality](DP.html)</th>
-<th><span style="color:#006400" title="You are here">Power Analysis</span></th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<div class="top"><a class="toplink" href="#nav" title="&uArr; top">&nbsp;</a></div>
+<div id="nav">
+<ul>
+<li>[Main Vignette](vignette.html)</li>
+<li>[ABE](ABE.html "Average Bioequivalence")</li>
+<li>[RSABE](RSABE.html "Reference-scaled Average Bioequivalence")</li>
+<li>[Non-Inferiority](NI.html)</li>
+<li>[Dose-Proportionality](DP.html)</li>
+<li><span title="» You are here «">Power Analysis</span></li>
+</ul>
+</div>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -43,22 +40,22 @@ library(PowerTOST) # attach the library
 | $\pi$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
 | $\pi$ | `minpower` | Minimum acceptable power | `0.70` |
 | design | `design` | Planned design | `"2x2"` |
-| passed | `...` | Arguments to `power.TOST` | none |
+| passed | `...` | Arguments to `power.TOST()` | none |
 
-If no addtional arguments are passed, the defaults of `power.TOST` are applied: `alpha=0.05`, `theta1=0.80`, `theta2=1.25`. Note that analysis of untransformed data (`logscale=FALSE`) is not supported.
+If no addtional arguments are passed, the defaults of `power.TOST()` are applied, namely `alpha=0.05`, `theta1=0.80`, `theta2=1.25`. Note that analysis of untransformed data (`logscale=FALSE`) is not supported.
 
-Arguments have to be given as ratios, not percent.\
-The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (a.k.a. pooled) *CV*.
+Arguments `targetpower`, `minpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent..\
+The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*.
 
-The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (a.k.a. AB|BA) design can be abbreviated as `"2x2"`. Some call the `parallel` design a ‘one-sequence’ design. The `paired` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note, that the underlying model assumes no period effects.\
+The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design can be abbreviated as `"2x2"`. Some call the `"parallel"` design a ‘one-sequence’ design. The `"paired"` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note that the underlying model assumes no period effects.\
 In replicate designs only homoscedasticity (*CV~wT~* = *CV~wR~*) is supported.
 
 With `x <- pa.ABE(...)` results are given as an [S3-object](http://adv-r.had.co.nz/S3.html "Hadley Wickham: The S3 object system") which can be printed, plotted, or both.
 
 # Examples
 ## Average Bioequivalence
-<h5>[Example 1](#expl1)</h5>
-[Example 3 of the vignette ABE](ABE.html#expl3). Assumed $\theta_{0}$ 0.92, *CV* 0.20, all defaults employed.
+<h5>[Example 1]{#expl1}</h5>
+[Example 3 of vignette ABE](ABE.html#expl3). Assumed $\theta_{0}$ 0.92, *CV* 0.20, all defaults employed.
 ```{r}
 pa.ABE(CV = 0.20, theta0 = 0.92)
 ```
@@ -120,8 +117,8 @@ pa.NTIDFDA(CV = 0.125)
 
 With decreasing variability power decreases because the scaled limits become narrower. With increasing variability we gain power because we have to scale less until at \~21.4\% the addtional criterion ‘must pass conventional BE limits of 80.00--125.00\%’ cuts in.
 
-# *Cave!*
-The power analysis is <u>not</u> a substitute for the ‘Sensitivity Analysis’ recommended by the ICH.^[International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use. *ICH Harmonised Tripartite Guideline. Statistical Principles for Clinical Trials.* 5 February 1998. [E9 Step 4](https://www.ich.org/fileadmin/Public_Web_Site/ICH_Products/Guidelines/Efficacy/E9/Step4/E9_Guideline.pdf).] In a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
+# Cave!
+The power analysis is <span style="background-color:#FFFF99">not</span> a substitute for the ‘Sensitivity Analysis’ recommended by the ICH.^[International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use. *ICH Harmonised Tripartite Guideline. Statistical Principles for Clinical Trials.* 5 February 1998. [E9 Step 4](https://database.ich.org/sites/default/files/E9_Guideline.pdf).] In a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
 
 # Authors
 |function|author(s)|
