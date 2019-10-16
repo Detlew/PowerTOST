@@ -298,7 +298,7 @@ Which `design` argument in studies with more than two periods you should use dep
 
     In this approach – which is preferred by some agencies, *e.g.*, the EMA^[EMA, CHMP. *Guideline on the Investigation of Bioequivalence.* London, 20 January 2010. [CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf#page=14).] – you exclude one treatment and perform the analysis on the remaing two. That means you have two *separate* Incomplete Block Designs (IBD).\
     Say, you have one test (`T`) and two references from different regions (`R1`, `R2`). You get two separate within-subject variances (in the comparisons `T` *vs* `R1` and `T` *vs* `R2`).\
-    To plan for this approach specify `design=2x2x2`.
+    To plan for this approach specify `design="2x2x2"`.
 
 I suggest to opt for the latter since the former may lead to biased estimates and an inflated type I error.^[D’Angelo P. *Testing for Bioequivalence in Higher‐Order Crossover Designs: Two‐at‐a‐Time Principle Versus Pooled ANOVA.* 2^nd^ Conference of the Global Bioequivalence Harmonisation Initiative. Rockville, 15--16 September, 2016.]
 
@@ -337,9 +337,9 @@ Let us first recap the hypotheses in bioequivalence.
   2. The confidence inclusion approach (preferred in regulatory guidelines)
   $$H_0:\frac{\mu_T}{\mu_R}\notin \left [ \theta_1, \theta_2 \right]\:vs\:H_1:\theta_1<\frac{\mu_T}{\mu_R}<\theta_2$$
 
-Note that the Null hypotheses are bio**in**equivalence.
+Note that the Null hypotheses are bio<u>**in**</u>equivalence.
 
-From a regulatory perspective the outcome of a comparative BA study is dichotomous. <span style="background-color:#FFFF99">Either</span> the study demonstrated bioequivalence (CI entirely within $\theta_{1},\theta_{2}$) <span style="background-color:#FFFF99">or</span> not.^[If the CI overlaps $\theta_{1},\theta_{2}$, the outcome is indecisive (called ‘the grey zone’ by some). As long as $\theta_{0}$ lies within $\theta_{1},\theta_{2}$ you can hope to show BE in a larger sample size. However, once $\theta_{0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
+From a regulatory perspective the outcome of a comparative BA study is dichotomous. <span style="background-color:#FFFF99"> Either </span> the study demonstrated bioequivalence (CI entirely within $\theta_{1},\theta_{2}$) <span style="background-color:#FFFF99"> or </span> not.^[If the CI overlaps $\theta_{1},\theta_{2}$, the outcome is indecisive (called ‘the grey zone’ by some). As long as $\theta_{0}$ lies within $\theta_{1},\theta_{2}$ you can hope to show BE in a larger sample size. However, once $\theta_{0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
   `sampleN.TOST(CV = 0.075, theta0 = 0.81)` and then\
   `sampleN.TOST(CV = 0.075, theta0 = 0.80)` to get an idea.] Only if the CI lies entirely outside $\theta_{1},\theta_{2}$ the Null hypothesis is not rejected and further studies not warranted.
 In any case, calculation of *post hoc* (<span title="also known as">a.k.a.</span> *a posteriori*, retrospective) power is futile.^[Hoenig JM, Heisey DM. [*The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.*](https://www.vims.edu/people/hoenig_jm/pubs/hoenig2.pdf) Am Stat. 2001; 55(1): 19--24]
@@ -391,9 +391,9 @@ An example where pooling could be missleading: *C~max~* data of pilot and pivota
 
 ![**Fig. 4** Blue deltoid the pooled *CV* 0.163; dotted line upper CL 0.167.](figure7.png){width=407px}
 
-This is an apples-and-oranges comparison. Red squares show *CV*s which were above the upper CL of the pooled *CV*. Given, only in three studies the lower CL did not overlapp with the upper one of the pooled *CV*.
+This is an apples-and-oranges comparison. Red squares show *CV*s which were above the upper CL of the pooled *CV*. Given, only of two studies the lower CL did not overlap the upper one of the pooled *CV*.
 
-> Which sided of the great divide are you on? Do you believe that meta is better or do you hold instead that pooling is fooling? Well, to nail my colours to the mast, I belong to the former school. It seems to me that there is no other topic in medical statistics, with the possible exceptions of cross-over trials, bioequivalence and n-of-1 studies, which has the same capacity as this one to rot the brains.
+> Which side of the great divide are you on? Do you believe that meta is better or do you hold instead that pooling is fooling? Well, to nail my colours to the mast, I belong to the former school. It seems to me that there is no other topic in medical statistics, with the possible exceptions of cross-over trials, bioequivalence and n-of-1 studies, which has the same capacity as this one to rot the brains.
 > `r tufte::quote_footer('--- Stephen Senn, *[A Dip in the Pool](http://www.senns.demon.co.uk/wprose.html#Pool)*')`
 
 # Hints
@@ -404,7 +404,7 @@ pa.ABE(CV = 0.20, theta0 = 0.92)
 ```
 ![**Fig. 5** Power Analysis (in each panel one argument is varied and others kept constant)](figure6.png){width=469px}
 
-This excercise confirms what we already know. The most critical parameter is $\theta_{0}$, whereas dropouts are the least important.
+This exercise confirms what we already know. The most critical parameter is $\theta_{0}$, whereas dropouts are the least important.
 
 More details are given in the respective [vignette](library/doc/PA.html).
 

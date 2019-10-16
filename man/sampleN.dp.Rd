@@ -114,14 +114,14 @@ sampleN.dp(CV = 0.2, doses = c(1, 2, 8), beta0 = 1.02)
 \donttest{
 # incomplete block design with 5 doses, 3 periods
 # from library(crossdes)
-doses <- c(5, 25, 50, 100, 200)
-CVb   <- mse2CV(0.8)
-trt   <- length(doses)
-per   <- 3
-n     <- trt*(trt-1)/(per-1)
+doses  <- c(5, 25, 50, 100, 200)
+CVb    <- mse2CV(0.8)
+levels <- length(doses)
+per    <- 3
+block  <- levels*(levels-1)/(per-1)
 # IBD based on balanced minimal repeated measurements design
 # gives n=30 and 10 sequences
-ibd   <- crossdes::balmin.RMD(trt, n, per)
+ibd    <- crossdes::balmin.RMD(levels, block, per)
 sampleN.dp(CV = 0.2, doses = doses, beta0 = 1, design = "IBD", dm = ibd, 
            CVb = CVb, targetpower=0.9)}
 }

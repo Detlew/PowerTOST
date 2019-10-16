@@ -326,7 +326,7 @@ res$TIE      <- round(res$TIE, 4)
 res$power    <- round(res$power, 3)
 cat(paste0("CV = ", CV, ", n = ", n, ", design = \"", des, "\"\n")); print(res, row.names = FALSE)
 ```
-The negative impact on power is for high variability substantial.
+For high variability the negative impact on power is substantial.
 
 ## ‘Exact’ Procedure
 Proposed by Tóthfalusi and Endrényi (2016). Example of the ‘ncTOST’ method by the same authors (2017).  Implemented designs: `"2x3x3"` (default), `"2x2x3"`, `"2x2x4"`.

@@ -116,8 +116,8 @@ Rather extreme: Five levels, but we want only three periods. Hence, we opt for a
 levels <- 5
 doses  <- mod.fibo(lowest, levels)
 per    <- 3
-n      <- levels*(levels-1)/(per-1)
-dm     <- crossdes::balmin.RMD(levels, n, per)
+block  <- levels*(levels-1)/(per-1)
+dm     <- crossdes::balmin.RMD(levels, block, per)
 x      <- sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02,
                      design = "IBD", dm = dm)
 ```
