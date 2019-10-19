@@ -278,7 +278,7 @@ if (length(package[!inst]) > 0) install.packages(package[!inst])
 ```
 … and the development version from [GitHub](https://github.com/) with
 ```
-# install.packages("devtools")
-devtools::install_github("Detlew/PowerTOST")
+# install.packages("remotes")
+remotes::install_github("Detlew/PowerTOST")
 ```
 <small>[TOC ↩](#readme)</small>

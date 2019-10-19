@@ -37,7 +37,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Built 2019-09-16 with R 3.6.1.
+Built 2019-10-19 with R 3.6.1.
 
 ## Supported Designs
 
@@ -636,7 +636,7 @@ if (length(package[!inst]) > 0) install.packages(package[!inst])
 
 … and the development version from [GitHub](https://github.com/) with
 
-    # install.packages("devtools")
-    devtools::install_github("Detlew/PowerTOST")
+    # install.packages("remotes")
+    remotes::install_github("Detlew/PowerTOST")
 
 <small>[TOC ↩](#readme)</small>
