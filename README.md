@@ -564,7 +564,7 @@ print(res, plotit = FALSE)
 # Power analysis
 # CV, theta0 and number of subjects which lead to min. acceptable power of at least 0.7:
 #  CV= 0.2729, theta0= 0.9044
-#  N = 16 (power= 0.7354)
+#  n = 16 (power= 0.7354)
 ```
 
 If the study starts with 26 subjects (power \~0.92), the *CV* can
@@ -636,7 +636,22 @@ if (length(package[!inst]) > 0) install.packages(package[!inst])
 
 … and the development version from [GitHub](https://github.com/) with
 
-    # install.packages("remotes")
-    remotes::install_github("Detlew/PowerTOST")
+``` r
+# install.packages("remotes")
+remotes::install_github("Detlew/PowerTOST")
+# Skipping install of 'PowerTOST' from a github remote, the SHA1 (18b42596) has not changed since last install.
+#   Use `force = TRUE` to force installation
+```
+
+For speed reasons this call will *not* (re)build the package vignettes.
+If you want them call
+
+``` r
+remotes::install_github("Detlew/PowerTOST", build_vignettes = TRUE)
+# Skipping install of 'PowerTOST' from a github remote, the SHA1 (18b42596) has not changed since last install.
+#   Use `force = TRUE` to force installation
+```
+
+Be patient. Building the vignettes may last some minutes.
 
 <small>[TOC ↩](#readme)</small>
