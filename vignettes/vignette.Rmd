@@ -35,7 +35,7 @@ Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST", date.f
 
 For an overview of supported designs, methods, and defaults together with some basic examples see
 
-  * [README](https://cran.r-project.org/web/packages/PowerTOST/readme/README.html) of the released version on CRAN;
+  * [README](https://cran.r-project.org/package=PowerTOST/readme/README.html) of the released version on CRAN;
   * [README](https://github.com/Detlew/PowerTOST/blob/master/README.md) of the development version on GitHub.
 
 More details and examples in the vignettes accessible via the top-menu and the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="pandoc">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Helmut Schütz">
+<meta name="date" content="2019-10-20">
+<link rel="icon" href="data:image/x-icon;base64,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" type="image/x-icon">
+<title>PowerTOST • Average Bioequivalence</title>
+<style>code{white-space:pre}</style>
+<style data-origin="pandoc">
+a.sourceLine{display:inline-block;line-height:1.25}
+a.sourceLine{pointer-events:none;color:inherit;text-decoration:inherit}
+a.sourceLine:empty{height:1.2em}
+.sourceCode{overflow:visible}
+code.sourceCode{white-space:pre;position:relative}
+div.sourceCode{margin:1em 0}
+pre.sourceCode{margin:0}
+@media screen{
+div.sourceCode {overflow:auto}
+}
+@media print {
+code.sourceCode{white-space:pre-wrap}
+a.sourceLine{text-indent: -1em; padding-left: 1em}
+}
+pre.numberSource a.sourceLine
+  {position: relative; left: -4em}
+pre.numberSource a.sourceLine::before
+  {content:attr(title);
+    position:relative;left:-1em;text-align:right;vertical-align:baseline;
+    border:none;pointer-events:all;display:inline-block;
+    -webkit-touch-callout:none;-webkit-user-select:none;
+    -khtml-user-select:none;-moz-user-select:none;
+    -ms-user-select:none;user-select:none;
+    padding:0 4px;width:4em;
+    color:#aaaaaa}
+pre.numberSource {margin-left:3em;border-left:1px solid #aaaaaa;padding-left:4px}
+div.sourceCode
+  { }
+@media screen {
+a.sourceLine::before{text-decoration:underline}
+}
+code span.al {color:#ff0000; font-weight:bold} /* Alert */
+code span.an {color:#60a0b0; font-weight:bold; font-style:italic} /* Annotation */
+code span.at {color:#7d9029} /* Attribute */
+code span.bn {color:#40a070} /* BaseN */
+code span.bu {} /* BuiltIn */
+code span.cf {color:#007020; font-weight:bold} /* ControlFlow */
+code span.ch {color:#4070a0} /* Char */
+code span.cn {color:#880000} /* Constant */
+code span.co {color:#60a0b0; font-style:italic} /* Comment */
+code span.cv {color:#60a0b0; font-weight:bold; font-style:italic} /* CommentVar */
+code span.do {color:#ba2121; font-style:italic} /* Documentation */
+code span.dt {color:#902000} /* DataType */
+code span.dv {color:#40a070} /* DecVal */
+code span.er {color:#ff0000; font-weight:bold} /* Error */
+code span.ex {} /* Extension */
+code span.fl {color:#40a070} /* Float */
+code span.fu {color:#06287e} /* Function */
+code span.im {} /* Import */
+code span.in {color:#60a0b0; font-weight:bold; font-style:italic} /* Information */
+code span.kw {color:#007020; font-weight:bold} /* Keyword */
+code span.op {color:#666666} /* Operator */
+code span.ot {color:#007020} /* Other */
+code span.pp {color:#bc7a00} /* Preprocessor */
+code span.sc {color:#4070a0} /* SpecialChar */
+code span.ss {color:#bb6688} /* SpecialString */
+code span.st {color:#4070a0} /* String */
+code span.va {color:#19177c} /* Variable */
+code span.vs {color:#4070a0} /* VerbatimString */
+code span.wa {color:#60a0b0; font-weight:bold; font-style: italic} /* Warning */
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style>body{background-color:#fff;margin:1em auto;max-width:700px;overflow:visible;padding-left:2em;padding-right:2em;font-size:14px;line-height:1.35;hyphens:auto;font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}#header{text-align:center}#TOC{clear:both;margin:0 3em;padding:4px;width:auto;border:1px solid #ccc;border-radius:5px;background-color:#fbfbfb;font-size:13px;line-height:1.2em}#TOC .toctitle{font-weight:bold;font-size:15px;margin-left:5px}#TOC ul{padding-left:40px;margin:5px auto 5px -1.5em}#TOC ul ul{margin-left:-2em}#TOC li{list-style-type:none;line-height:16px}table{margin:1em auto;border-width:1px;border-color:#ddd;border-style:outset;border-collapse:collapse}table th{border-width:2px;padding:5px;border-style:inset}table td{border-width:1px;border-style:inset;line-height:18px;padding:5px 5px}table, table th, table td{border-left-style:none;border-right-style:none}table thead, table .even{background-color:#f7f7f7}p{margin:0.5em 0}sup, sub{position:relative;vertical-align:baseline;top:-0.4em}sub{top:0.4em}blockquote{background-color:#fffff6;padding:0.25em 0.75em}hr{border-style:solid;border:none;border-top:1px solid #777;margin:28px 0}dl{margin-left:0}dl dd{margin-bottom:13px;margin-left:13px}dl dt{font-weight:700}ul{margin-top:0}ul li{list-style:circle outside}ul ul{margin-bottom:0}pre, code{background-color:#f7f7f7;border-radius:3px;color:#333;white-space:pre-wrap}pre{border-radius:3px;margin:5px 0 10px 0;padding:10px}pre:not([class]){background-color:#f7f7f7}code{font-size:85%;font-family:Consolas,Monaco,'Lucida Console','Courier New','Courier',monospace}p > code,li > code{padding:2px 0}figure,.caption{text-align:center}img{display:block;margin:0 auto 0 auto;background-color:#FFF;padding:2px;border-radius:5px;border:1px solid #CCC}h1{margin-top:0;padding-top:10px;padding-bottom:4px;;line-height:30px;letter-spacing:.5px;border-bottom:3px solid #f7f7f7;font-size:175%;hyphens:none}.title{margin-top:1.5em}h2{border-bottom:2px solid #f7f7f7;padding-top:10px;padding-bottom:2px;font-size:145%}h3{border-bottom:1px solid #f7f7f7;padding-top:10px;font-size:120%}h4{margin-left:8px;font-size:110%}.author{font-size:91%;margin-left:0;margin-bottom:0;font-style:normal}h5, h6{border-bottom:1px solid #ccc;font-size:105%}a{color:#0033dd;text-decoration:none}a:hover{color:#6666ff}a:visited{color:#800080}a:visited:hover{color:#BB00BB}a[href^="http:"]{color:#696969;border-bottom:1px dotted #000}a[href^="https:"]{border-bottom:1px dotted #000;color:#696969}code > .kw{color:#555;font-weight:700} code > .dt{color:#902000} code > .dv{color:#40a070} code > .bn{color:#d14} code > .fl{color:#d14} code > .ch{color:#d14} code > .st{color:#d14} code > .co{color:#888888;font-style:italic} code > .ot{color:#007020} code > .al{color:#f00;font-weight:700} code > .fu{color:#900;font-weight:700}  code > .er{color:#a61717;background-color:#e3d2d2} .top{display:inline;position:fixed;bottom:0;right:0;padding:0;font-size:108px}.top img{border:none}a.toplink:link{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAsVBMVEX///9cgJzu7u52k6u1xdLZ4uiGoLWnusn+/v5dgJxkhqGtv81ri6X6+/zv7+/+///M1+Hs7e6XrsBvj6jv7/CUq72itcV4lazX3uO0xNBfgZ3T2+Hk5+pqiqRqi6Xk6Opfgp55l659mbDd4ubt7u+Nprju7++luMevwM3w8PC+y9VkhaBoh6NvjaacscHg5ehujKZtjKaNprnCztiRqbuVrL6Yrr+bsMGfs8OWrL7P2N7+uwg9AAAAAXRSTlMAQObYZgAAAPVJREFUKJGFk+dyQiEQhencbo0lsSRqihq7qe//YCoXFm5xOH9gzzcDy+6CkFHApaBRRIXkASorZQkGJSwt0mYHF9RpOrARh7ikMG4AbZfhTW3D4zqKcazvrZysz1f3p25W/Z6b3y1/5hgP3ezkhOxaDee9w4wQMniGOAkQh+DxiSiNxmBxJM12MiVarRfjSST0brYgoOxVmwJRkxRx9PaeuxRFav1YkqJWyo40Xn9utpbt9odEY2rSOFo8Nx6F1PC5Bgv7sK8aLG1Zvmswt0X9qeJrUaElv1XMnIb+tUD/uaMa6hkH3zD5RtEzyL5v4P1E977gBajPDxLprV36AAAAAElFTkSuQmCC);background-repeat:no-repeat;text-decoration:none;background-color:transparent;opacity:.6;filter:alpha(opacity=60);background-position:bottom 7px right;background-size:contain}a.toplink:hover,a.toplink:active{text-decoration:none;background-color:transparent;opacity:.4;filter:alpha(opacity=40);background-position:bottom 7px right;background-size:contain}code span.co{font-style:normal}#nav{position:absolute;top:0;float:left;background-color:#084262;border:none}#nav ul{width:100%;list-style-type:none;text-align:center;color:#fff;font-size:.75em;letter-spacing:2px;font-weight:700;margin:0;padding:0}#nav ul li{display:inline}#nav ul li a,#nav ul li span{color:#fff;background-color:#084262;text-decoration:none;float:left;border-right:1px solid #7394B4;cursor:pointer;padding:.5em 11.5px}#nav ul li a:hover,#nav ul li span{color:#fff;background-color:#257B9D}@media print{#nav,#TOC,#TOC .toctitle,#TOC ul,#TOC ul ul,#TOC li{display:none}}}</style>
+</head>
+<body>
+<h1 id = "top" class="title toc-ignore">PowerTOST • Average Bioequivalence</h1>
+<div id="TOC">
+<ul>
+<li><a href="#defaults">Defaults</a></li>
+<li><a href="#sample-size">Sample size</a><ul>
+<li><a href="#example-1">Example 1</a></li>
+<li><a href="#example-2">Example 2</a></li>
+<li><a href="#expl3">Example 3</a><ul>
+<li><a href="#expl3basic">Basic</a></li>
+<li><a href="#expl3adv">Advanced</a></li>
+</ul></li>
+<li><a href="#higher-order-designs">Higher-Order Designs</a></li>
+</ul></li>
+<li><a href="#power">Power</a></li>
+<li><a href="#pooling">Pooling</a></li>
+<li><a href="#hints">Hints</a><ul>
+<li><a href="#power-analysis">Power Analysis</a></li>
+<li><a href="#dropouts">Dropouts</a></li>
+<li><a href="#literature-data">Literature Data</a></li>
+<li><a href="#direction-of-deviation">Direction of Deviation</a></li>
+</ul></li>
+<li><a href="#man-pages">Man-pages</a></li>
+<li><a href="#authors">Authors</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+</div>
+<div class="top"><a class="toplink" href="#nav" title="⇑ top">&nbsp;</a></div>
+<div id="nav">
+<ul>
+<li><a href="vignette.html">Main Vignette</a></li>
+<li><span title="» You are here «">ABE</span></li>
+<li><a href="RSABE.html" title="Reference-scaled Average Bioequivalence">RSABE</a></li>
+<li><a href="NI.html">Non-Inferiority</a></li>
+<li><a href="DP.html">Dose-Proportionality</a></li>
+<li><a href="PA.html">Power Analysis</a></li>
+</ul>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(PowerTOST) <span class="co"># attach the library</span></a></code></pre></div>
+<div id="defaults" class="section level1">
+<h1>Defaults</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Argument</th>
+<th>Purpose</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
+<td><code>alpha</code></td>
+<td>Nominal level of the test</td>
+<td><code>0.05</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\pi\)</span></td>
+<td><code>targetpower</code></td>
+<td><span title="typically 0.80 – 0.90">Minimum desired power</span></td>
+<td><code>0.80</code></td>
+</tr>
+<tr class="odd">
+<td>logscale</td>
+<td><code>logscale</code></td>
+<td>Analysis on log-transformed or original scale?</td>
+<td><code>TRUE</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\theta_{0}\)</span></td>
+<td><code>theta0</code></td>
+<td>‘True’ or assumed deviation of T from R</td>
+<td>see below</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\theta_{1}\)</span></td>
+<td><code>theta1</code></td>
+<td>Lower BE limit</td>
+<td>see below</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\theta_{2}\)</span></td>
+<td><code>theta2</code></td>
+<td>Upper BE limit</td>
+<td>see below</td>
+</tr>
+<tr class="odd">
+<td><em>CV</em></td>
+<td><code>CV</code></td>
+<td>CV</td>
+<td>none</td>
+</tr>
+<tr class="even">
+<td>design</td>
+<td><code>design</code></td>
+<td>Planned design</td>
+<td><code>"2x2"</code></td>
+</tr>
+<tr class="odd">
+<td>method</td>
+<td><code>method</code></td>
+<td>Algorithm</td>
+<td><code>"exact"</code></td>
+</tr>
+<tr class="even">
+<td>robust</td>
+<td><code>robust</code></td>
+<td>‘Robust’ evaluation (Senn’s basic estimator)</td>
+<td><code>FALSE</code></td>
+</tr>
+<tr class="odd">
+<td>print</td>
+<td><code>print</code></td>
+<td>Show information in the console?</td>
+<td><code>TRUE</code></td>
+</tr>
+<tr class="even">
+<td>details</td>
+<td><code>details</code></td>
+<td>Show details of the sample size search?</td>
+<td><code>FALSE</code></td>
+</tr>
+<tr class="odd">
+<td>imax</td>
+<td><code>imax</code></td>
+<td>Maximum number of iterations</td>
+<td><code>100</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defaults depending on the argument <code>logscale</code>:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Argument</th>
+<th style="text-align:center"><code>logscale=TRUE</code></th>
+<th style="text-align:center"><code>logscale=FALSE</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\theta_{0}\)</span></td>
+<td><code>theta0</code></td>
+<td style="text-align:center"><code>0.95</code></td>
+<td style="text-align:center"><code>+0.05</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\theta_{1}\)</span></td>
+<td><code>theta1</code></td>
+<td style="text-align:center"><code>0.80</code></td>
+<td style="text-align:center"><code>–0.20</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\theta_{2}\)</span></td>
+<td><code>theta2</code></td>
+<td style="text-align:center"><code>1.25</code></td>
+<td style="text-align:center"><code>+0.20</code></td>
+</tr>
+</tbody>
+</table>
+<p>Arguments <code>targetpower</code>, <code>theta0</code>, <code>theta1</code>, <code>theta2</code>, and <code>CV</code> have to be given as fractions, not percent.<br />
+The <em>CV</em> is generally the <em>within</em>-subject coefficient of variation. Only for <code>design=&quot;parallel&quot;</code> it is the <em>total</em> (<span title="also known as">a.k.a.</span> pooled) <em>CV</em>.</p>
+<p>The terminology of the argument <code>design</code> follows this pattern: <code>treatments x sequences x periods</code>. The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design can be abbreviated as <code>&quot;2x2&quot;</code>. Some call the <code>&quot;parallel&quot;</code> design a ‘one-sequence’ design. The design <code>&quot;paired&quot;</code> has two periods but no sequences, <em>e.g.</em>, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note that the underlying model assumes no period effects.</p>
+<p>Implemented exact algorithms are <code>&quot;exact&quot;</code> / <code>&quot;owenq&quot;</code> (Owen’s Q function, default) and <code>&quot;mvt&quot;</code> (bivariate non-central <em>t</em>-distribution). Approximations are <code>&quot;noncentral&quot;</code> / <code>&quot;nct&quot;</code> (non-central <em>t</em>-distribution) and <code>&quot;shifted&quot;</code> / <code>&quot;central&quot;</code> (‘shifted’ central <em>t</em>-distribution).</p>
+<p><code>&quot;robust=TRUE&quot;</code> forces the degrees of freedom to <code>n-seq</code> and is used only in higher-order crossover designs. It could be used if the evaluation was done with a mixed-effects model.</p>
+<p>With <code>sampleN.TOST(..., details = FALSE, print = FALSE)</code> results are provided as a <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html">data.frame</a> with nine columns <code>Design</code>, <code>alpha</code>, <code>CV</code>, <code>theta0</code>, <code>theta1</code>, <code>theta2</code>, <code>Sample size</code>, <code>Achieved power</code>, and <code>Target power</code>.<br />
+To access <em>e.g.</em>, the sample size use either <code>sampleN.TOST[1, 7]</code> or <code>sampleN.TOST[[&quot;Sample size&quot;]]</code>. We suggest to use the latter in your code for clarity.</p>
+<p>The estimated sample size gives always the <em>total</em> number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).</p>
+
+</div>
+<div id="splsze" class="section level1">
+<h1>Sample size</h1>
+<div id="twotrt" class="section level2">
+<h2>Two-Treatment Designs</h2>
+<p>Designs with one (parallel) to four periods (replicates) are supported.</p>
+<pre><code>#      design                        name   df
+#  &quot;parallel&quot;           2 parallel groups  n-2
+#       &quot;2x2&quot;               2x2 crossover  n-2
+#     &quot;2x2x2&quot;             2x2x2 crossover  n-2
+#     &quot;2x2x3&quot;   2x2x3 replicate crossover 2n-3
+#     &quot;2x2x4&quot;   2x2x4 replicate crossover 3n-4
+#     &quot;2x4x4&quot;   2x4x4 replicate crossover 3n-4
+#     &quot;2x3x3&quot;   partial replicate (2x3x3) 2n-3
+#     &quot;2x4x2&quot;            Balaam’s (2x4x2)  n-2
+#    &quot;2x2x2r&quot; Liu’s 2x2x2 repeated x-over 3n-2
+#    &quot;paired&quot;                paired means  n-1</code></pre>
+<div id="example-1" class="section level3">
+<h3>Example 1</h3>
+<p>Estimate the sample size for assumed intra-subject <em>CV</em> 0.30.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">sampleN.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.30</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co"># </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co"># +++++++++++ Equivalence test - TOST +++++++++++</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#             Sample size estimation</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co"># -----------------------------------------------</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co"># Study design: 2x2 crossover </span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co"># log-transformed data (multiplicative model)</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co"># </span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co"># alpha = 0.05, target power = 0.8</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co"># BE margins = 0.8 ... 1.25 </span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co"># True ratio = 0.95,  CV = 0.3</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co"># </span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co"># Sample size (total)</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="co">#  n     power</span></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="co"># 40   0.815845</span></a></code></pre></div>
+<p>To get only the sample size:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">sampleN.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.30</span>, <span class="dt">details =</span> <span class="ot">FALSE</span>, <span class="dt">print =</span> <span class="ot">FALSE</span>)[[<span class="st">"Sample size"</span>]]</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co"># [1] 40</span></a></code></pre></div>
+<p>Note that the sample size is always rounded up to give balanced sequences (here a multiple of two). Since power is higher than our target, likely this was the case here. Let us check that.<br>
+Which power will we get with a sample size of 39?</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">power.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.30</span>, <span class="dt">n =</span> <span class="dv">39</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co"># Unbalanced design. n(i)=20/19 assumed.</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co"># [1] 0.8056171</span></a></code></pre></div>
+<p>Confirmed that with 39 subjects we will already reach the target power. That means also that one dropout will not compromise power. We can explore that further in a <a href="PA.html">Power Analysis</a>.</p>
+
+<p>Maybe the clinical site has a limited capacity. Any study can also be performed in a replicate design and assessed for ABE. As a rule of thumb the total sample in a 3-period replicate is ~¾ of the 2×2×2 design and the one of a 4-period replicate ~½ of the 2×2×2. The number of treatments and hence, of biosamples – which drives the study’s cost – will be roughly the same.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">designs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"2x2x2"</span>, <span class="st">"2x2x3"</span>, <span class="st">"2x3x3"</span>, <span class="st">"2x2x4"</span>)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co"># data.frame of results</span></a>
+<a class="sourceLine" id="cb6-3" title="3">res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">design =</span> designs, <span class="dt">n =</span> <span class="ot">NA</span>, <span class="dt">power =</span> <span class="ot">NA</span>, <span class="dt">n.do =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb6-4" title="4">                  <span class="dt">power.do =</span> <span class="ot">NA</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {</a>
+<a class="sourceLine" id="cb6-6" title="6">  <span class="co"># print = FALSE and details = FALSE suppress the output to the console</span></a>
+<a class="sourceLine" id="cb6-7" title="7">  <span class="co"># we are only interested in columns 7-8</span></a>
+<a class="sourceLine" id="cb6-8" title="8">  <span class="co"># let&#39;s also calculate power for one dropout</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  res[i, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">signif</span>(</a>
+<a class="sourceLine" id="cb6-10" title="10">                   <span class="kw">sampleN.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.30</span>, <span class="dt">design =</span> res<span class="op">$</span>design[i],</a>
+<a class="sourceLine" id="cb6-11" title="11">                                <span class="dt">print =</span> <span class="ot">FALSE</span>, <span class="dt">details =</span> <span class="ot">FALSE</span>)[<span class="dv">7</span><span class="op">:</span><span class="dv">8</span>], <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb6-12" title="12">  res[i, <span class="dv">4</span>]   &lt;-<span class="st">  </span>res[i, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb6-13" title="13">  res[i, <span class="dv">5</span>]   &lt;-<span class="st"> </span><span class="kw">suppressMessages</span>(</a>
+<a class="sourceLine" id="cb6-14" title="14">                   <span class="kw">signif</span>(</a>
+<a class="sourceLine" id="cb6-15" title="15">                     <span class="kw">power.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.30</span>, <span class="dt">design =</span> res<span class="op">$</span>design[i],</a>
+<a class="sourceLine" id="cb6-16" title="16">                                <span class="dt">n =</span> res[i, <span class="dv">4</span>]), <span class="dv">6</span>))</a>
+<a class="sourceLine" id="cb6-17" title="17">}</a>
+<a class="sourceLine" id="cb6-18" title="18"><span class="kw">print</span>(res, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb6-19" title="19"><span class="co">#  design  n    power n.do power.do</span></a>
+<a class="sourceLine" id="cb6-20" title="20"><span class="co">#   2x2x2 40 0.815845   39 0.805617</span></a>
+<a class="sourceLine" id="cb6-21" title="21"><span class="co">#   2x2x3 30 0.820400   29 0.806873</span></a>
+<a class="sourceLine" id="cb6-22" title="22"><span class="co">#   2x3x3 30 0.820400   29 0.806383</span></a>
+<a class="sourceLine" id="cb6-23" title="23"><span class="co">#   2x2x4 20 0.820240   19 0.799151</span></a></code></pre></div>
+<p>As expected, and as a bonus we get a small gain in power, though in the 4-period with one dropout power will be slightly compromised.<br>
+But why is power in the replicate designs higher than in the 2×2×2? If residual variances are equal, the width of the confidence interval depends only on the <em>t</em>-value and in particular on the degrees of freedom – which themselves depend on the design and the sample size.</p>
+<pre><code>#  design                      name  n formula df t.value
+#   2x2x2           2x2x2 crossover 40     n-2 38   1.686
+#   2x2x3 2x2x3 replicate crossover 30   2*n-3 57   1.672
+#   2x3x3 partial replicate (2x3x3) 30   2*n-3 57   1.672
+#   2x2x4 2x2x4 replicate crossover 20   3*n-4 56   1.673</code></pre>
+<p>If the capacity is 24 beds, we would opt for a 4-period full replicate.</p>
+<p>As another option (<em>e.g.</em>, if the blood volume is limited and/or there are concerns about a higher dropout-rate in a multiple-period study) we could stay with the 2×2×2 design but split the sample size into groups. In Europe (and for the FDA if <a href="https://bebac.at/lectures/Prague2018.pdf#page=7">certain conditions</a> are fulfilled), there are no problems pooling the data and use the conventional model.</p>
+<pre><code>sequence + subject(sequence) + period + treatment</code></pre>
+<p>However, some regulators prefer to incorporate group-terms in the model.</p>
+<pre><code>group + sequence + subject(group × sequence) + 
+period(group) + group × sequence + treatment</code></pre>
+<p>Since we have more terms in the model, we will loose some degrees of freedom. Let us explore in simulations how that would impact power. By default function <code>power.TOST.sds()</code> performs 100,000 simulations.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">ngrp &lt;-<span class="st"> </span><span class="cf">function</span>(capacity, n) {</a>
+<a class="sourceLine" id="cb10-2" title="2">  <span class="co"># split sample size into &gt;=2 groups based on capacity</span></a>
+<a class="sourceLine" id="cb10-3" title="3">  <span class="cf">if</span> (n <span class="op">&lt;=</span><span class="st"> </span>capacity) { <span class="co"># make equal groups</span></a>
+<a class="sourceLine" id="cb10-4" title="4">    ngrp &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">ceiling</span>(n<span class="op">/</span><span class="dv">2</span>), <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb10-5" title="5">  } <span class="cf">else</span> {             <span class="co"># at least one = capacity</span></a>
+<a class="sourceLine" id="cb10-6" title="6">    ngrp    &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">ceiling</span>(n <span class="op">/</span><span class="st"> </span>capacity))</a>
+<a class="sourceLine" id="cb10-7" title="7">    grps    &lt;-<span class="st"> </span><span class="kw">length</span>(ngrp)</a>
+<a class="sourceLine" id="cb10-8" title="8">    ngrp[<span class="dv">1</span>] &lt;-<span class="st"> </span>capacity</a>
+<a class="sourceLine" id="cb10-9" title="9">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>grps) {</a>
+<a class="sourceLine" id="cb10-10" title="10">      n.tot &lt;-<span class="st"> </span><span class="kw">sum</span>(ngrp) <span class="co"># what we have so far</span></a>
+<a class="sourceLine" id="cb10-11" title="11">      <span class="cf">if</span> (n.tot <span class="op">+</span><span class="st"> </span>capacity <span class="op">&lt;=</span><span class="st"> </span>n) {</a>
+<a class="sourceLine" id="cb10-12" title="12">        ngrp[j] &lt;-<span class="st"> </span>capacity</a>
+<a class="sourceLine" id="cb10-13" title="13">      } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb10-14" title="14">        ngrp[j] &lt;-<span class="st"> </span>n <span class="op">-</span><span class="st"> </span>n.tot</a>
+<a class="sourceLine" id="cb10-15" title="15">      }</a>
+<a class="sourceLine" id="cb10-16" title="16">    }</a>
+<a class="sourceLine" id="cb10-17" title="17">  }</a>
+<a class="sourceLine" id="cb10-18" title="18">  <span class="kw">return</span>(<span class="dt">ngrp =</span> <span class="kw">list</span>(<span class="dt">grps =</span> <span class="kw">length</span>(ngrp), <span class="dt">ngrp =</span> ngrp))</a>
+<a class="sourceLine" id="cb10-19" title="19">}</a>
+<a class="sourceLine" id="cb10-20" title="20">CV        &lt;-<span class="st"> </span><span class="fl">0.30</span></a>
+<a class="sourceLine" id="cb10-21" title="21">capacity  &lt;-<span class="st"> </span><span class="dv">24</span> <span class="co"># clinical capacity</span></a>
+<a class="sourceLine" id="cb10-22" title="22">res       &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">n =</span> <span class="ot">NA</span>, <span class="dt">grps =</span> <span class="ot">NA</span>, <span class="dt">pwr.1 =</span> <span class="ot">NA</span>, <span class="dt">pwr.2 =</span> <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb10-23" title="23">x         &lt;-<span class="st"> </span><span class="kw">sampleN.TOST</span>(<span class="dt">CV =</span> CV, <span class="dt">print =</span> <span class="ot">FALSE</span>, <span class="dt">details =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb10-24" title="24">res<span class="op">$</span>n     &lt;-<span class="st"> </span>x[[<span class="st">"Sample size"</span>]]</a>
+<a class="sourceLine" id="cb10-25" title="25">res<span class="op">$</span>pwr<span class="fl">.1</span> &lt;-<span class="st"> </span>x[[<span class="st">"Achieved power"</span>]]</a>
+<a class="sourceLine" id="cb10-26" title="26">x         &lt;-<span class="st"> </span><span class="kw">ngrp</span>(<span class="dt">capacity =</span> capacity, <span class="dt">n =</span> res<span class="op">$</span>n)</a>
+<a class="sourceLine" id="cb10-27" title="27">res<span class="op">$</span>grps  &lt;-<span class="st"> </span>x[[<span class="st">"grps"</span>]]</a>
+<a class="sourceLine" id="cb10-28" title="28">ngrp      &lt;-<span class="st"> </span>x[[<span class="st">"ngrp"</span>]]</a>
+<a class="sourceLine" id="cb10-29" title="29">res<span class="op">$</span>pwr<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">power.TOST.sds</span>(<span class="dt">CV =</span> CV, <span class="dt">n =</span> res<span class="op">$</span>n, <span class="dt">grps =</span> res<span class="op">$</span>grps,</a>
+<a class="sourceLine" id="cb10-30" title="30">                            <span class="dt">ngrp =</span> ngrp, <span class="dt">gmodel =</span> <span class="dv">2</span>, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb10-31" title="31">res<span class="op">$</span>loss  &lt;-<span class="st"> </span><span class="kw">signif</span>(<span class="dv">100</span><span class="op">*</span>(res<span class="op">$</span>pwr<span class="fl">.2</span> <span class="op">-</span><span class="st"> </span>res<span class="op">$</span>pwr<span class="fl">.1</span>)<span class="op">/</span>res<span class="op">$</span>pwr<span class="fl">.1</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb10-32" title="32"><span class="kw">print</span>(<span class="kw">signif</span>(res, <span class="dv">6</span>), <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb10-33" title="33"><span class="co">#   n grps    pwr.1   pwr.2     loss</span></a>
+<a class="sourceLine" id="cb10-34" title="34"><span class="co">#  40    2 0.815845 0.81204 -0.46642</span></a></code></pre></div>
+<p>With ~0.5% the relative loss in power is practically negligble.</p>
+</div>
+<div id="example-2" class="section level2">
+<h2>Example 2</h2>
+<p>Estimate the sample size for equivalence of the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Crossover design, within-subject <em>CV<sub>w</sub></em> 0.20, between-subject <em>CV<sub>b</sub></em> 0.40.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">sampleN.RatioF</span>(<span class="dt">CV =</span> <span class="fl">0.20</span>, <span class="dt">CVb =</span> <span class="fl">0.40</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="co"># </span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="co"># +++++++++++ Equivalence test - TOST +++++++++++</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="co">#     based on Fieller&#39;s confidence interval</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="co">#             Sample size estimation</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="co"># -----------------------------------------------</span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="co"># Study design: 2x2 crossover</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="co"># Ratio of means with normality on original scale</span></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="co"># alpha = 0.025, target power = 0.8</span></a>
+<a class="sourceLine" id="cb11-10" title="10"><span class="co"># BE margins = 0.8 ... 1.25 </span></a>
+<a class="sourceLine" id="cb11-11" title="11"><span class="co"># True ratio = 0.95,  CVw = 0.2,  CVb = 0.4</span></a>
+<a class="sourceLine" id="cb11-12" title="12"><span class="co"># </span></a>
+<a class="sourceLine" id="cb11-13" title="13"><span class="co"># Sample size</span></a>
+<a class="sourceLine" id="cb11-14" title="14"><span class="co">#  n     power</span></a>
+<a class="sourceLine" id="cb11-15" title="15"><span class="co"># 28   0.807774</span></a></code></pre></div>
+<p>In this function the default <span class="math inline">\(\alpha\)</span> is 0.025, since it is intended for studies with clinical endpoints, where the 95% confidence interval is usually used for equivalence testing.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+</div>
+<div id="expl3" class="section level2">
+<h2>Example 3</h2>
+<p>Estimate the sample size based on the results of a 2×2×2 pilot study in 16 subjects where we found an intra-subject <em>CV</em> 0.20 and <span class="math inline">\(\theta_{0}\)</span> 0.92.</p>
+<div id="expl3basic" class="section level3">
+<h3>Basic</h3>
+<p>If we believe [<em>sic</em>] that in the pivotal study both the <span class="math inline">\(\theta_{0}\)</span> and <em>CV</em> will be <em>exactly</em> like in the pilot, this is a straightforward excercise. We simply plug in the necessary arguments.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">sampleN.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.20</span>, <span class="dt">theta0 =</span> <span class="fl">0.92</span>)</a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="co"># </span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="co"># +++++++++++ Equivalence test - TOST +++++++++++</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="co">#             Sample size estimation</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="co"># -----------------------------------------------</span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="co"># Study design: 2x2 crossover </span></a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="co"># log-transformed data (multiplicative model)</span></a>
+<a class="sourceLine" id="cb12-8" title="8"><span class="co"># </span></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="co"># alpha = 0.05, target power = 0.8</span></a>
+<a class="sourceLine" id="cb12-10" title="10"><span class="co"># BE margins = 0.8 ... 1.25 </span></a>
+<a class="sourceLine" id="cb12-11" title="11"><span class="co"># True ratio = 0.92,  CV = 0.2</span></a>
+<a class="sourceLine" id="cb12-12" title="12"><span class="co"># </span></a>
+<a class="sourceLine" id="cb12-13" title="13"><span class="co"># Sample size (total)</span></a>
+<a class="sourceLine" id="cb12-14" title="14"><span class="co">#  n     power</span></a>
+<a class="sourceLine" id="cb12-15" title="15"><span class="co"># 28   0.822742</span></a></code></pre></div>
+<p>This approach is called by some ‘carved in stone’ because it relies on very strong assumptions which likely are not justified. Although power curves are relatively flat close to unity (<em>i.e.</em>, the impact on power is small when moving from say, <span class="math inline">\(\theta_{0}\)</span> 1 to 0.95) but they are getting increasingly steep when moving away more from unity.</p>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Fig. 1 Power curve (\alpha 0.05, 2×2×2 design, CV 0.20; blue n = 28, black n = 22, red n = 16)" width="355">
+<p class="caption"><strong>Fig. 1</strong> Power curve (<span class="math inline">\(\alpha\)</span> 0.05, 2×2×2 design, <em>CV</em> 0.20;<br>blue n = 28, black n = 22, red n = 16)</p>
+</div>
+<p>Both the <span class="math inline">\(\theta_{0}\)</span> and <em>CV</em> carry (as every estimate) some uncertainty, which depends on the degrees of freedom (sample size, design). Hence, it might not be good idea to perform very small pilot studies (<em>e.g.</em>, in only six subjects). Although it might be possible that in the pivotal study the <em>CV</em> is indeed <em>lower</em> than the one we observed in the pilot, it would be even more risky than the ‘carved in stone’ approach to assume a lower one in planning the pivotal study.</p>
+<p>With the function <code>CVCL()</code> we can calculate confidence limits of the <em>CV</em>. It is advisable to use the upper CL as a conservative approach. As a side effect – if the <em>CV</em> will be lower than assumed – we get a ‘safety margin’ for the T/R ratio.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">df &lt;-<span class="st"> </span><span class="dv">16</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="co"># degrees of freedom of the 2x2x2 crossover pilot</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="kw">CVCL</span>(<span class="dt">CV =</span> <span class="fl">0.20</span>, <span class="dt">df =</span> df, <span class="dt">side =</span> <span class="st">"upper"</span>, <span class="dt">alpha =</span> <span class="fl">0.20</span>)[[<span class="st">"upper CL"</span>]]</a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="co"># [1] 0.2443631</span></a></code></pre></div>
+<p>I prefer <small><span class="math inline">\(\alpha=0.20\)</span></small> in analogy to the producer’s risk <small><span class="math inline">\(\beta=0.20\)</span></small> when planning for power <small><span class="math inline">\(\pi=1-\beta=0.80\)</span></small>. Gould<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> suggested the more liberal 0.25. Let us repeat the sample size estimation with the upper limit.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">CL.upper &lt;-<span class="st"> </span><span class="kw">CVCL</span>(<span class="dt">CV =</span> <span class="fl">0.20</span>, <span class="dt">df =</span> <span class="dv">16</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">side =</span> <span class="st">"upper"</span>,</a>
+<a class="sourceLine" id="cb14-2" title="2">                 <span class="dt">alpha =</span> <span class="fl">0.20</span>)[[<span class="st">"upper CL"</span>]]</a>
+<a class="sourceLine" id="cb14-3" title="3">res &lt;-<span class="st"> </span><span class="kw">sampleN.TOST</span>(<span class="dt">CV =</span> CL.upper, <span class="dt">theta0 =</span> <span class="fl">0.92</span>, <span class="dt">print =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="kw">print</span>(res[<span class="dv">7</span><span class="op">:</span><span class="dv">8</span>], <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="co">#  Sample size Achieved power</span></a>
+<a class="sourceLine" id="cb14-6" title="6"><span class="co">#           40       0.816919</span></a></code></pre></div>
+<p>Of course, this has a massive impact on the sample size, which increases from 28 to 40. It might be difficult to convice the management to invest ~40% more than with the ‘carved in stone’ approach.</p>
+<p>However, we can also explore how power would be affected if our assumption is true and the study will nevertheless be performed with only 28 subjects.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">CL.upper &lt;-<span class="st"> </span><span class="kw">CVCL</span>(<span class="dt">CV =</span> <span class="fl">0.20</span>, <span class="dt">df =</span> <span class="dv">16</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">side =</span> <span class="st">"upper"</span>,</a>
+<a class="sourceLine" id="cb15-2" title="2">                 <span class="dt">alpha =</span> <span class="fl">0.20</span>)[[<span class="st">"upper CL"</span>]]</a>
+<a class="sourceLine" id="cb15-3" title="3"><span class="kw">power.TOST</span>(<span class="dt">CV =</span> CL.upper, <span class="dt">theta0 =</span> <span class="fl">0.92</span>, <span class="dt">n =</span> <span class="dv">28</span>)</a>
+<a class="sourceLine" id="cb15-4" title="4"><span class="co"># [1] 0.679253</span></a></code></pre></div>
+<p>There will be a drop in power from the ~0.82 the management expects to only ~0.67. That’s just slightly higher than betting for two dozens in Roulette…</p>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Fig. 2 Power for CV 0.244" width="354">
+<p class="caption"><strong>Fig. 2</strong> Power for <em>CV</em> 0.244</p>
+</div>
+<p>As mentioned above, if the <em>CV</em> turns out to be lower than assumed, we gain ‘headroom’ for the T/R ratio. Let us explore that. We perform the study with 40 subjects, the <em>CV</em> will be 0.22 (<em>less</em> than the ~0.24 we assumed), and the T/R with 0.90 <em>worse</em> than the 0.92 we assumed.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">power.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.22</span>, <span class="dt">theta0 =</span> <span class="fl">0.90</span>, <span class="dt">n =</span> <span class="dv">40</span>)</a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="co"># [1] 0.7686761</span></a></code></pre></div>
+<p>Below our target but still acceptable.</p>
+
+</div>
+<div id="expl3adv" class="section level3">
+<h3>Advanced</h3>
+<p>In the <a href="#expl3basic">basic approach</a> we concentrated mainly on the uncertainty of the <em>CV</em>. But this is not the end of the story. Clearly the <span class="math inline">\(\theta_{0}\)</span> is uncertain as well. With the function <code>expsampleN.TOST()</code> we can dive deeper into this area. Let us start with only the <em>CV</em>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">expsampleN.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.20</span>, <span class="dt">theta0 =</span> <span class="fl">0.92</span>, <span class="dt">prior.type =</span> <span class="st">"CV"</span>,</a>
+<a class="sourceLine" id="cb17-2" title="2">                <span class="dt">prior.parm =</span> <span class="kw">list</span>(<span class="dt">m =</span> <span class="dv">16</span>, <span class="dt">design =</span> <span class="st">"2x2x2"</span>))</a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="co"># </span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="co"># ++++++++++++ Equivalence test - TOST ++++++++++++</span></a>
+<a class="sourceLine" id="cb17-5" title="5"><span class="co">#        Sample size est. with uncertain CV</span></a>
+<a class="sourceLine" id="cb17-6" title="6"><span class="co"># -------------------------------------------------</span></a>
+<a class="sourceLine" id="cb17-7" title="7"><span class="co"># Study design:  2x2 crossover </span></a>
+<a class="sourceLine" id="cb17-8" title="8"><span class="co"># log-transformed data (multiplicative model)</span></a>
+<a class="sourceLine" id="cb17-9" title="9"><span class="co"># </span></a>
+<a class="sourceLine" id="cb17-10" title="10"><span class="co"># alpha = 0.05, target power = 0.8</span></a>
+<a class="sourceLine" id="cb17-11" title="11"><span class="co"># BE margins = 0.8 ... 1.25 </span></a>
+<a class="sourceLine" id="cb17-12" title="12"><span class="co"># Ratio = 0.92</span></a>
+<a class="sourceLine" id="cb17-13" title="13"><span class="co"># CV = 0.2 with 14 df</span></a>
+<a class="sourceLine" id="cb17-14" title="14"><span class="co"># </span></a>
+<a class="sourceLine" id="cb17-15" title="15"><span class="co"># Sample size (ntotal)</span></a>
+<a class="sourceLine" id="cb17-16" title="16"><span class="co">#  n   exp. power</span></a>
+<a class="sourceLine" id="cb17-17" title="17"><span class="co"># 30   0.806069</span></a></code></pre></div>
+<p>Not that bad. The sample size increases only slightly from the 28 of the ‘carved in stone’ approach to 30 but is substantially lower than the 40 we estimated based on the upper confidence limit of the <em>CV</em>.</p>
+<p>Let us keep the <em>CV</em> ‘fixed’ and take only the uncertainty of <span class="math inline">\(\theta_{0}\)</span> into account.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">expsampleN.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.20</span>, <span class="dt">theta0 =</span> <span class="fl">0.92</span>, <span class="dt">prior.type =</span> <span class="st">"theta0"</span>,</a>
+<a class="sourceLine" id="cb18-2" title="2">                <span class="dt">prior.parm =</span> <span class="kw">list</span>(<span class="dt">m =</span> <span class="dv">16</span>, <span class="dt">design =</span> <span class="st">"2x2x2"</span>))</a>
+<a class="sourceLine" id="cb18-3" title="3"><span class="co"># </span></a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="co"># ++++++++++++ Equivalence test - TOST ++++++++++++</span></a>
+<a class="sourceLine" id="cb18-5" title="5"><span class="co">#      Sample size est. with uncertain theta0</span></a>
+<a class="sourceLine" id="cb18-6" title="6"><span class="co"># -------------------------------------------------</span></a>
+<a class="sourceLine" id="cb18-7" title="7"><span class="co"># Study design:  2x2 crossover </span></a>
+<a class="sourceLine" id="cb18-8" title="8"><span class="co"># log-transformed data (multiplicative model)</span></a>
+<a class="sourceLine" id="cb18-9" title="9"><span class="co"># </span></a>
+<a class="sourceLine" id="cb18-10" title="10"><span class="co"># alpha = 0.05, target power = 0.8</span></a>
+<a class="sourceLine" id="cb18-11" title="11"><span class="co"># BE margins = 0.8 ... 1.25 </span></a>
+<a class="sourceLine" id="cb18-12" title="12"><span class="co"># Ratio = 0.92</span></a>
+<a class="sourceLine" id="cb18-13" title="13"><span class="co"># CV = 0.2</span></a>
+<a class="sourceLine" id="cb18-14" title="14"><span class="co"># </span></a>
+<a class="sourceLine" id="cb18-15" title="15"><span class="co"># Sample size (ntotal)</span></a>
+<a class="sourceLine" id="cb18-16" title="16"><span class="co">#  n   exp. power</span></a>
+<a class="sourceLine" id="cb18-17" title="17"><span class="co"># 46   0.805236</span></a></code></pre></div>
+<p>It starts to hurt. We learned already that power curves are getting steep when the T/R ratio is not close to unity. Our <span class="math inline">\(\theta_{0}\)</span> 0.92 was not very nice but in the pivotal study it might be even lower as well – which has a larger impact on power than the <em>CV</em>.</p>
+<p>Now for the ‘worst case scenario’ where we take both uncertainties into account.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">expsampleN.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.20</span>, <span class="dt">theta0 =</span> <span class="fl">0.92</span>, <span class="dt">prior.type =</span> <span class="st">"both"</span>,</a>
+<a class="sourceLine" id="cb19-2" title="2">                <span class="dt">prior.parm =</span> <span class="kw">list</span>(<span class="dt">m =</span> <span class="dv">16</span>, <span class="dt">design =</span> <span class="st">"2x2x2"</span>),</a>
+<a class="sourceLine" id="cb19-3" title="3">                <span class="dt">details =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb19-4" title="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb19-5" title="5"><span class="co"># ++++++++++++ Equivalence test - TOST ++++++++++++</span></a>
+<a class="sourceLine" id="cb19-6" title="6"><span class="co">#   Sample size est. with uncertain CV and theta0</span></a>
+<a class="sourceLine" id="cb19-7" title="7"><span class="co"># -------------------------------------------------</span></a>
+<a class="sourceLine" id="cb19-8" title="8"><span class="co"># Study design:  2x2 crossover </span></a>
+<a class="sourceLine" id="cb19-9" title="9"><span class="co"># log-transformed data (multiplicative model)</span></a>
+<a class="sourceLine" id="cb19-10" title="10"><span class="co"># </span></a>
+<a class="sourceLine" id="cb19-11" title="11"><span class="co"># alpha = 0.05, target power = 0.8</span></a>
+<a class="sourceLine" id="cb19-12" title="12"><span class="co"># BE margins = 0.8 ... 1.25 </span></a>
+<a class="sourceLine" id="cb19-13" title="13"><span class="co"># Ratio = 0.92 with 14 df</span></a>
+<a class="sourceLine" id="cb19-14" title="14"><span class="co"># CV = 0.2 with 14 df</span></a>
+<a class="sourceLine" id="cb19-15" title="15"><span class="co"># </span></a>
+<a class="sourceLine" id="cb19-16" title="16"><span class="co"># Sample size (ntotal)</span></a>
+<a class="sourceLine" id="cb19-17" title="17"><span class="co">#  n   exp. power</span></a>
+<a class="sourceLine" id="cb19-18" title="18"><span class="co"># 54   0.802440</span></a></code></pre></div>
+<p>This sample size is almost twice the 28 your boss got from his <a href="http://individual.utoronto.ca/ddubins/" title="FARTSSIE">Excel-Sheet</a>. If you are not fired when suggesting such a study, take it as a warning what might happen.<br>
+At least, if the pivotal study fails in a lower sample size, <em>you</em> know why.</p>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Fig. 3 Expected power for uncertain estimates (from top: CV, \theta_{0}, both)" width="354">
+<p class="caption"><strong>Fig. 3</strong> Expected power for uncertain estimates (from top: <em>CV</em>, <span class="math inline">\(\theta_{0}\)</span>, both)</p>
+</div>
+<p>If you are adventurous consider an Adaptive Two-Stage Sequential Design with sample size re-estimation. Various methods are supported in the package <a href="https://cran.r-project.org/package=Power2Stage">Power2Stage</a>.</p>
+</div>
+</div>
+</div>
+<div id="higher-order-designs" class="section level2">
+<h2>Higher-Order Designs</h2>
+<p>Designs with three and four periods are supported.</p>
+<pre><code>#   design            name   df
+#    &quot;3x3&quot;   3x3 crossover 2n-4
+#  &quot;3x6x3&quot; 3x6x3 crossover 2n-4
+#    &quot;4x4&quot;   4x4 crossover 3n-6</code></pre>
+<p><code>&quot;3x3&quot;</code> denotes the Latin Square (<code>ABC|BCA|CAB</code>), <code>&quot;3x6x3&quot;</code> a 6-sequence Williams’ design (<code>ABC|ACB|BAC|BCA|CAB|CBA</code>), <code>&quot;4x4&quot;</code> the Latin Square (<code>ABCD|BCDA|CDAB|DABC</code>) or <em>any</em> of the possible Williams’ designs with four periods (<code>ADBC|BACD|CBDA|DCAB</code>, <code>ADCB|BCDA|CABD|DBAC</code>, <code>ACDB|BDCA|CBAD|DABC</code>, <code>ACBD|BADC|CDAB|DBCA</code>, <code>ABDC|BCAD|CDBA|DACB</code>, <code>ABCD|BDAC|CADB|DCBA</code>).</p>
+<p>Which <code>design</code> argument in studies with more than two periods you should use depends on the planned evaluation.</p>
+<blockquote>
+Suppose we have a bioequivalence study with three treatments – A, B, and C – and the objective of the study is to make pairwise comparisons among the treatments. Suppose further that treatment C is different in kind from A and B, so that the assumption of homogeneous variance among the three treatments is questionable. One way to do the analyses, under normality assumptions, is Two at a Time – e.g., to test hypotheses about A and B, use only the data from A and B. Another way is All at Once – include the data from all three treatments in a single analysis, making pairwise comparisons within this analysis. If the assumption of homogeneous variance is correct, the All at Once approach will provide more <span title="degrees of freedom">d.f.</span> for estimating the common variance, resulting in increased power. If the variance of C differs from that of A and B, the All at Once approach may have reduced power or an inflated type I error rate, depending on the direction of the difference in variances.
+<footer>
+— Donald J. Schuirmann, <em><a href="https://www.enar.org/meetings/meetings2004/enar_final_program_2004.pdf#page=204">Two at a Time? Or All at Once?</a></em>
+</footer>
+</blockquote>
+<ul>
+<li><p><strong>All at Once</strong></p>
+<p>In this approach you assume homogenicity in the ANOVA of pooled data and get one residual variance.<br>
+To plan for this approach specify one of the <code>design</code> arguments given above.</p></li>
+<li><p><strong>Two at a Time</strong></p>
+<p>In this approach – which is preferred by some agencies, <em>e.g.</em>, the EMA<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> – you exclude one treatment and perform the analysis on the remaing two. That means you have two <em>separate</em> Incomplete Block Designs (IBD).<br>
+Say, you have one test (<code>T</code>) and two references from different regions (<code>R1</code>, <code>R2</code>). You get two separate within-subject variances (in the comparisons <code>T</code> <em>vs</em> <code>R2</code> and <code>T</code> <em>vs</em> <code>R2</code>).<br>
+To plan for this approach specify <code>design=&quot;2x2x2&quot;</code>.</p></li>
+</ul>
+<p>I suggest to opt for the latter since the former may lead to biased estimates and an inflated type I error.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<p>Three treatments like in the ‘Two at a Time’ example above.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">CV  &lt;-<span class="st"> </span><span class="fl">0.20</span></a>
+<a class="sourceLine" id="cb21-2" title="2">res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">design =</span> <span class="kw">c</span>(<span class="st">"3x6x3"</span>, <span class="st">"2x2x2"</span>), <span class="dt">n =</span> <span class="ot">NA</span>, <span class="dt">power =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb21-3" title="3">                  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb21-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) {</a>
+<a class="sourceLine" id="cb21-5" title="5">  res[i, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">signif</span>(</a>
+<a class="sourceLine" id="cb21-6" title="6">                   <span class="kw">sampleN.TOST</span>(<span class="dt">CV =</span> CV, <span class="dt">design =</span> res<span class="op">$</span>design[i],</a>
+<a class="sourceLine" id="cb21-7" title="7">                                <span class="dt">details =</span> <span class="ot">FALSE</span>, <span class="dt">print =</span> <span class="ot">FALSE</span>)[<span class="dv">7</span><span class="op">:</span><span class="dv">8</span>], <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb21-8" title="8">}</a>
+<a class="sourceLine" id="cb21-9" title="9"><span class="kw">print</span>(res, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb21-10" title="10"><span class="co">#  design  n   power</span></a>
+<a class="sourceLine" id="cb21-11" title="11"><span class="co">#   3x6x3 18 0.80895</span></a>
+<a class="sourceLine" id="cb21-12" title="12"><span class="co">#   2x2x2 20 0.83468</span></a></code></pre></div>
+<p>Four treatments (<em>e.g.</em>, Test fasting/fed, Reference fasting/fed).</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">CV  &lt;-<span class="st"> </span><span class="fl">0.20</span></a>
+<a class="sourceLine" id="cb22-2" title="2">res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">design =</span> <span class="kw">c</span>(<span class="st">"4x4"</span>, <span class="st">"2x2x2"</span>), <span class="dt">n =</span> <span class="ot">NA</span>, <span class="dt">power =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb22-3" title="3">                  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb22-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) {</a>
+<a class="sourceLine" id="cb22-5" title="5">  res[i, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">signif</span>(</a>
+<a class="sourceLine" id="cb22-6" title="6">                  <span class="kw">sampleN.TOST</span>(<span class="dt">CV =</span> CV, <span class="dt">design =</span> res<span class="op">$</span>design[i],</a>
+<a class="sourceLine" id="cb22-7" title="7">                               <span class="dt">details =</span> <span class="ot">FALSE</span>, <span class="dt">print =</span> <span class="ot">FALSE</span>)[<span class="dv">7</span><span class="op">:</span><span class="dv">8</span>], <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb22-8" title="8">}</a>
+<a class="sourceLine" id="cb22-9" title="9"><span class="kw">print</span>(res, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb22-10" title="10"><span class="co">#  design  n   power</span></a>
+<a class="sourceLine" id="cb22-11" title="11"><span class="co">#     4x4 20 0.85280</span></a>
+<a class="sourceLine" id="cb22-12" title="12"><span class="co">#   2x2x2 20 0.83468</span></a></code></pre></div>
+</div>
+</div>
+<div id="power" class="section level1">
+<h1>Power</h1>
+<p>Let us first recap the hypotheses in bioequivalence.</p>
+<ol style="list-style-type: decimal">
+<li><p>The two one-sided testing procedure (TOST)<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> <span class="math display">\[H_{0L}:\frac{\mu_T}{\mu_R} \leq \theta_1\:vs\:H_{1L}:\frac{\mu_T}{\mu_R}&gt;\theta_1\]</span> <span class="math display">\[H_{0U}:\frac{\mu_T}{\mu_R} \geq \theta_2\:vs\:H_{1U}:\frac{\mu_T}{\mu_R}&lt;\theta_2\]</span></p></li>
+<li><p>The confidence inclusion approach (preferred in regulatory guidelines) <span class="math display">\[H_0:\frac{\mu_T}{\mu_R}\notin \left [ \theta_1, \theta_2 \right]\:vs\:H_1:\theta_1&lt;\frac{\mu_T}{\mu_R}&lt;\theta_2\]</span></p></li>
+</ol>
+<p>Note that the Null hypotheses are bio<u><strong>in</strong></u>equivalence.</p>
+<p>From a regulatory perspective the outcome of a comparative BA study is dichotomous. <span style="background-color:#FFFF99"> Either </span> the study demonstrated bioequivalence (CI entirely within <span class="math inline">\(\theta_{1},\theta_{2}\)</span>) <span style="background-color:#FFFF99"> or </span> not.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> Only if the CI lies entirely outside <span class="math inline">\(\theta_{1},\theta_{2}\)</span> the Null hypothesis is not rejected and further studies not warranted. In any case, calculation of <em>post hoc</em> (<span title="also known as">a.k.a.</span> <em>a posteriori</em>, retrospective) power is futile.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<blockquote>
+There is simple intuition behind results like these: If my car made it to the top of the hill, then it is powerful enough to climb that hill; if it didn’t, then it obviously isn’t powerful enough. Retrospective power is an obvious answer to a rather uninteresting question. A more meaningful question is to ask whether the car is powerful enough to climb a particular hill never climbed before; or whether a different car can climb that new hill. Such questions are prospective, not retrospective.
+<footer>
+— Russell V. Lenth, <a href="http://homepage.divms.uiowa.edu/~rlenth/Power/2badHabits.pdf"><em>Two Sample-Size Practices that I Don’t Recommend</em></a>
+</footer>
+</blockquote>
+<p>If a study passes – despite lower than desired power – there is <a href="https://forum.bebac.at/forum_entry.php?id=13277#top13277" title="Being lucky is not a crime. (ElMaestro)">no reason to reject the study</a>. It only means that assumptions (!) in sample size estimation were not realized. The <em>CV</em> might have been higher, the T/R-ratio worse, or the dropout-rate higher than anticipated. On the other hand, if <em>post hoc</em> power is higher than desired, this does not further support a study which already showed BE.</p>
+<p>Nevertheless, exploring power is useful when trying to understand why a study failed and to plan another study. Let us continue with the <a href="#expl3">example</a> from above. Ignoring our concerns, the pivotal study was performed with 28 subjects. The T/R-ratio was slightly worse (0.90), the <em>CV</em> higher (0.25), and we had one dropout in the first sequence and two in the second. The function <code>CI.BE()</code> comes handy.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">n     &lt;-<span class="st"> </span><span class="dv">28</span></a>
+<a class="sourceLine" id="cb23-2" title="2">n.seq &lt;-<span class="st"> </span><span class="kw">rep</span>(n<span class="op">/</span><span class="dv">2</span>, <span class="dv">2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="kw">round</span>(<span class="dv">100</span><span class="op">*</span><span class="kw">CI.BE</span>(<span class="dt">pe =</span> <span class="fl">0.90</span>, <span class="dt">CV =</span> <span class="fl">0.25</span>, <span class="dt">n =</span> n.seq), <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb23-4" title="4"><span class="co">#  lower  upper </span></a>
+<a class="sourceLine" id="cb23-5" title="5"><span class="co">#  79.87 101.42</span></a></code></pre></div>
+<p>The study failed although by a small margin. One might be tempted to repeat the study with an – only slightly – higher sample size. But what was the <em>post hoc</em> power of the failed study?</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">power.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.25</span>, <span class="dt">theta0 =</span> <span class="fl">0.90</span>, <span class="dt">n =</span> <span class="kw">c</span>(<span class="dv">13</span>, <span class="dv">12</span>))</a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="co"># [1] 0.4963175</span></a></code></pre></div>
+<p>Actually the chance of passing was worse than flipping a coin.</p>
+<p><span title="nota bene">NB</span>, in calculating <em>post hoc</em> power the <em>observed</em> T/R ratio has to be used. In some reports high <em>‘power’</em> is given even for a <em>failed</em> study, which is <a href="https://en.wikipedia.org/wiki/Not_even_wrong">not even wrong</a>. Unfortunately a T/R of 1 is still used in some software packages.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">power.TOST</span>(<span class="dt">CV =</span> <span class="fl">0.25</span>, <span class="dt">theta0 =</span> <span class="dv">1</span>, <span class="dt">n =</span> <span class="kw">c</span>(<span class="dv">13</span>, <span class="dv">12</span>))</a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="co"># [1] 0.8558252</span></a></code></pre></div>
+<p>Since all estimates were worse than assumed, how could we have a ‘power’ even higher than desired, despite the fact that the study failed? Nonsense.</p>
+</div>
+<div id="pooling" class="section level1">
+<h1>Pooling</h1>
+<p>When planning the next study one can use the entire arsenal from <a href="#expl3">above</a>. Since we have more accurate estimates (from 25 subjects instead of the 16 of the pilot) the situation is more clear now.<br>
+As a further step we can take the information of both studies into account with the function <code>CVpooled()</code>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">CVs &lt;-<span class="st"> </span>(<span class="st">"  CV |  n | design | study</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="st">         0.20 | 16 |  2x2x2 | pilot</span></a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="st">         0.25 | 25 |  2x2x2 | pivotal"</span>)</a>
+<a class="sourceLine" id="cb26-4" title="4">txtcon &lt;-<span class="st"> </span><span class="kw">textConnection</span>(CVs)</a>
+<a class="sourceLine" id="cb26-5" title="5">data   &lt;-<span class="st"> </span><span class="kw">read.table</span>(txtcon, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">"|"</span>,</a>
+<a class="sourceLine" id="cb26-6" title="6">                     <span class="dt">strip.white =</span> <span class="ot">TRUE</span>, <span class="dt">as.is =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb26-7" title="7"><span class="kw">close</span>(txtcon)</a>
+<a class="sourceLine" id="cb26-8" title="8"><span class="kw">print</span>(<span class="kw">CVpooled</span>(data, <span class="dt">alpha =</span> <span class="fl">0.20</span>), <span class="dt">digits =</span> <span class="dv">4</span>, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb26-9" title="9"><span class="co"># Pooled CV = 0.2322 with 37 degrees of freedom</span></a>
+<a class="sourceLine" id="cb26-10" title="10"><span class="co"># Upper 80% confidence limit of CV = 0.2603</span></a></code></pre></div>
+<p>Before pooling, variances are weighted by the degrees of freedom. Hence, the new estimate is with ~0.23 closer to the 0.25 of the larger study. Note also that the upper confidence limit is with ~0.26 higher than the one of the pilot study with ~0.24.</p>
+<div id="cave" class="section level2">
+<h2>Caveats</h2>
+<p>Don’t pool data blindly. In the ideal situation you know the entire background of all studies (clinical performance, bioanalytics). Even if all studies were performed at the same CRO, more things are important. One purpose of pilot studies is to find a suitable sampling schedule. If the schedule of the pilot was not ideal (<em>e.g.</em>, you get the impression that <em>C<sub>max</sub></em> was not sufficiently enough described), pooling is not a good idea. It might well be that in the pivotal study – with a ‘better’ schedule – this <em>CV</em> is more reliable. On the other hand, the <em>AUC</em> is less sensitive to different sampling schedule.</p>
+<p>Pooling data from the literature should be done with great caution (if at all). Possibly critical information is missing. Consider using a <em>CV</em> from the upper end of values instead. Common sense helps.</p>
+<p>An example where pooling could be missleading: <em>C<sub>max</sub></em> data of pilot and pivotal studies in five different designs with 11 to 39 subjects, fasting/fed, three different bioanalytical methods (GC/ECD, LC-MS/MS, GC/MS), chiral and achiral (which is not relevant for this drug since the active enantiomer is ~95% of the total drug and there is no <em>in vivo</em> interconversion). Note that most pivotal studies were ‘overpowered’.</p>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Fig. 4 Blue deltoid the pooled CV 0.163; dotted line upper CL 0.167." width="407">
+<p class="caption"><strong>Fig. 4</strong> Blue deltoid the pooled <em>CV</em> 0.163; dotted line upper CL 0.167.</p>
+</div>
+<p>This is an apples-and-oranges comparison. Red squares show <em>CV</em>s which were above the upper CL of the pooled <em>CV</em>. Given, only of two studies the lower CL did not overlap the upper one of the pooled <em>CV</em>.</p>
+<blockquote>
+Which side of the great divide are you on? Do you believe that meta is better or do you hold instead that pooling is fooling? Well, to nail my colours to the mast, I belong to the former school. It seems to me that there is no other topic in medical statistics, with the possible exceptions of cross-over trials, bioequivalence and n-of-1 studies, which has the same capacity as this one to rot the brains.
+<footer>
+— Stephen Senn, <em><a href="http://www.senns.demon.co.uk/wprose.html#Pool">A Dip in the Pool</a></em>
+</footer>
+</blockquote>
+</div>
+</div>
+<div id="hints" class="section level1">
+<h1>Hints</h1>
+<div id="power-analysis" class="section level2">
+<h2>Power Analysis</h2>
+<p>Although we suggest to explore the various options shown in <a href="#expl3">Example 3</a>, it is worthwhile to have a first look with the function <code>pa.ABE()</code>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">pa.ABE</span>(<span class="dt">CV =</span> <span class="fl">0.20</span>, <span class="dt">theta0 =</span> <span class="fl">0.92</span>)</a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="co"># Sample size plan ABE</span></a>
+<a class="sourceLine" id="cb27-3" title="3"><span class="co">#  Design alpha  CV theta0 theta1 theta2 Sample size Achieved power</span></a>
+<a class="sourceLine" id="cb27-4" title="4"><span class="co">#     2x2  0.05 0.2   0.92    0.8   1.25          28       0.822742</span></a>
+<a class="sourceLine" id="cb27-5" title="5"><span class="co"># </span></a>
+<a class="sourceLine" id="cb27-6" title="6"><span class="co"># Power analysis</span></a>
+<a class="sourceLine" id="cb27-7" title="7"><span class="co"># CV, theta0 and number of subjects which lead to min. acceptable power of at least 0.7:</span></a>
+<a class="sourceLine" id="cb27-8" title="8"><span class="co">#  CV= 0.2377, theta0= 0.9001</span></a>
+<a class="sourceLine" id="cb27-9" title="9"><span class="co">#  N = 21 (power= 0.7104)</span></a></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Fig. 4 Power Analysis (in each panel one argument is varied and others kept constant)" width="469">
+<p class="caption"><strong>Fig. 5</strong> Power Analysis (in each panel one argument is varied and others kept constant)</p>
+</div>
+<p>This exercise confirms what we already know. The most critical parameter is <span class="math inline">\(\theta_{0}\)</span>, whereas dropouts are the least important.</p>
+<p>More details are given in the respective <a href="PA.html">vignette</a>.</p>
+</div>
+<div id="dropouts" class="section level2">
+<h2>Dropouts</h2>
+<p>As we have seen, the impact of dropouts on power is rather limited. Regulary CROs suggest additional subjects to ‘compensate for the potential loss in power’. IMHO, milking sponsors to make wealthy CROs richer. Note that the dropout-rate is based on <em>dosed</em> subjects. Hence, the correct formula for an adjusted sample size is <small><span class="math inline">\(n_{adj}=n / (1-{dropout\:rate})\)</span></small>, and <em>not</em> <small><span class="math inline">\(n_{adj}=n \times (1+{dropout\:rate})\)</span></small>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">balance &lt;-<span class="st"> </span><span class="cf">function</span>(x, seqs) {</a>
+<a class="sourceLine" id="cb28-2" title="2">  x &lt;-<span class="st"> </span><span class="kw">ceiling</span>(x) <span class="op">+</span><span class="st"> </span><span class="kw">ceiling</span>(x) <span class="op">%%</span><span class="st"> </span>seqs</a>
+<a class="sourceLine" id="cb28-3" title="3">  <span class="kw">return</span>(x)</a>
+<a class="sourceLine" id="cb28-4" title="4">}</a>
+<a class="sourceLine" id="cb28-5" title="5">do.rate   &lt;-<span class="st"> </span><span class="fl">0.10</span></a>
+<a class="sourceLine" id="cb28-6" title="6">seqs      &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb28-7" title="7">n         &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">12</span>, <span class="dv">120</span>, <span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb28-8" title="8">res       &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">n =</span> n,</a>
+<a class="sourceLine" id="cb28-9" title="9">                        <span class="dt">ad1 =</span> <span class="kw">balance</span>(n <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>do.rate), seqs),</a>
+<a class="sourceLine" id="cb28-10" title="10">                        <span class="dt">el1 =</span> <span class="ot">NA</span>, <span class="dt">diff1 =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb28-11" title="11">                        <span class="dt">ad2 =</span> <span class="kw">balance</span>(n <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>do.rate), seqs),</a>
+<a class="sourceLine" id="cb28-12" title="12">                        <span class="dt">el2 =</span> <span class="ot">NA</span>, <span class="dt">diff2 =</span> <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb28-13" title="13">res<span class="op">$</span>el1   &lt;-<span class="st"> </span><span class="kw">floor</span>(res<span class="op">$</span>ad1 <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>do.rate))</a>
+<a class="sourceLine" id="cb28-14" title="14">res<span class="op">$</span>diff1 &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"%+i"</span>, res<span class="op">$</span>el1 <span class="op">-</span><span class="st"> </span>n)</a>
+<a class="sourceLine" id="cb28-15" title="15">res<span class="op">$</span>el2   &lt;-<span class="st"> </span><span class="kw">floor</span>(res<span class="op">$</span>ad2 <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>do.rate))</a>
+<a class="sourceLine" id="cb28-16" title="16">res<span class="op">$</span>diff2 &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"%+i"</span>, res<span class="op">$</span>el2 <span class="op">-</span><span class="st"> </span>n)</a>
+<a class="sourceLine" id="cb28-17" title="17"><span class="kw">invisible</span>(</a>
+<a class="sourceLine" id="cb28-18" title="18">  <span class="kw">ifelse</span>(res<span class="op">$</span>el2 <span class="op">-</span><span class="st"> </span>n <span class="op">&gt;=</span><span class="dv">0</span>, res<span class="op">$</span>opt &lt;-<span class="st"> </span>res<span class="op">$</span>el2, res<span class="op">$</span>opt &lt;-<span class="st"> </span>res<span class="op">$</span>el1))</a>
+<a class="sourceLine" id="cb28-19" title="19">res<span class="op">$</span>diff  &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"%+i"</span>, res<span class="op">$</span>opt <span class="op">-</span><span class="st"> </span>n)</a>
+<a class="sourceLine" id="cb28-20" title="20"><span class="kw">print</span>(res, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb28-21" title="21"><span class="co">#    n ad1 el1 diff1 ad2 el2 diff2 opt diff</span></a>
+<a class="sourceLine" id="cb28-22" title="22"><span class="co">#   12  16  14    +2  16  14    +2  14   +2</span></a>
+<a class="sourceLine" id="cb28-23" title="23"><span class="co">#   24  27  24    +0  27  24    +0  24   +0</span></a>
+<a class="sourceLine" id="cb28-24" title="24"><span class="co">#   36  41  36    +0  41  36    +0  36   +0</span></a>
+<a class="sourceLine" id="cb28-25" title="25"><span class="co">#   48  55  49    +1  54  48    +0  48   +0</span></a>
+<a class="sourceLine" id="cb28-26" title="26"><span class="co">#   60  66  59    -1  68  61    +1  61   +1</span></a>
+<a class="sourceLine" id="cb28-27" title="27"><span class="co">#   72  82  73    +1  82  73    +1  73   +1</span></a>
+<a class="sourceLine" id="cb28-28" title="28"><span class="co">#   84  93  83    -1  95  85    +1  85   +1</span></a>
+<a class="sourceLine" id="cb28-29" title="29"><span class="co">#   96 107  96    +0 109  98    +2  98   +2</span></a>
+<a class="sourceLine" id="cb28-30" title="30"><span class="co">#  108 121 108    +0 120 108    +0 108   +0</span></a>
+<a class="sourceLine" id="cb28-31" title="31"><span class="co">#  120 132 118    -2 136 122    +2 122   +2</span></a></code></pre></div>
+<p>With the wrong formula – especially for high droput rates – you might end up with less eligible subjects than planned. On the other hand, with the correct one (due to rounding up to get balanced sequences) you may end up with slightly too many. Of course, if you want to be one the safe side, you can select the ‘best’ (column <code>opt</code>).</p>
+</div>
+<div id="literature-data" class="section level2">
+<h2>Literature Data</h2>
+<p>Sometimes the <em>CV</em> is not given in the literature. By means of the function <code>CVfromCI()</code> we can <a href="https://bebac.at/lectures/Bucharest2013WS1.pdf#page=26" title="underlying algebra">calculate it</a> from the confidence interval, the design, and the sample size.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">CVfromCI</span>(<span class="dt">lower =</span> <span class="fl">0.8323</span>, <span class="dt">upper =</span> <span class="fl">1.0392</span>,</a>
+<a class="sourceLine" id="cb29-2" title="2">         <span class="dt">design =</span> <span class="st">&quot;2x2x4&quot;</span>, <span class="dt">n =</span> <span class="dv">26</span>)</a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="co"># [1] 0.3498608</span></a></code></pre></div>
+<p>The method is exact if the subjects/sequence are known. In the literature generally only the total sample size is given. What if the study was unbalanced?</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">n     &lt;-<span class="st"> </span><span class="dv">26</span></a>
+<a class="sourceLine" id="cb30-2" title="2">n1    &lt;-<span class="st"> </span><span class="kw">balance</span>(<span class="kw">seq</span>(n, <span class="dv">12</span>, <span class="dv">-1</span>), <span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb30-3" title="3">n2    &lt;-<span class="st"> </span>n <span class="op">-</span><span class="st"> </span>n1</a>
+<a class="sourceLine" id="cb30-4" title="4">nseqs &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">data.frame</span>(<span class="dt">n1 =</span> n1, <span class="dt">n2 =</span> n2, <span class="dt">n =</span> n))</a>
+<a class="sourceLine" id="cb30-5" title="5">res   &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">n1 =</span> nseqs<span class="op">$</span>n1, <span class="dt">n2 =</span> nseqs<span class="op">$</span>n2, <span class="dt">CV =</span> <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb30-6" title="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(res)) {</a>
+<a class="sourceLine" id="cb30-7" title="7">  res<span class="op">$</span>CV[i] &lt;-<span class="st"> </span><span class="kw">CVfromCI</span>(<span class="dt">lower =</span> <span class="fl">0.8323</span>, <span class="dt">upper =</span> <span class="fl">1.0392</span>,</a>
+<a class="sourceLine" id="cb30-8" title="8">                        <span class="dt">design =</span> <span class="st">&quot;2x2x4&quot;</span>,</a>
+<a class="sourceLine" id="cb30-9" title="9">                        <span class="dt">n =</span> <span class="kw">c</span>(res<span class="op">$</span>n1[i], res<span class="op">$</span>n2[i]))</a>
+<a class="sourceLine" id="cb30-10" title="10">}</a>
+<a class="sourceLine" id="cb30-11" title="11"><span class="kw">print</span>(res, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb30-12" title="12"><span class="co">#  n1 n2        CV</span></a>
+<a class="sourceLine" id="cb30-13" title="13"><span class="co">#  13 13 0.3498608</span></a>
+<a class="sourceLine" id="cb30-14" title="14"><span class="co">#  12 14 0.3487635</span></a>
+<a class="sourceLine" id="cb30-15" title="15"><span class="co">#  11 15 0.3454550</span></a>
+<a class="sourceLine" id="cb30-16" title="16"><span class="co">#  10 16 0.3398848</span></a>
+<a class="sourceLine" id="cb30-17" title="17"><span class="co">#   9 17 0.3319624</span></a>
+<a class="sourceLine" id="cb30-18" title="18"><span class="co">#   8 18 0.3215478</span></a>
+<a class="sourceLine" id="cb30-19" title="19"><span class="co">#   7 19 0.3084333</span></a>
+<a class="sourceLine" id="cb30-20" title="20"><span class="co">#   6 20 0.2923127</span></a></code></pre></div>
+<p>The true values of any unbalanced study are lower than what we assumed. That means, if we use the <em>CV</em> – falsely – assuming balanced sequences our sample size estimations will always be conservative.</p>
+</div>
+<div id="direction-of-deviation" class="section level2">
+<h2>Direction of Deviation</h2>
+<p>If you are unsure about the direction of the deviation of T from R (lower or higher) always assume <span class="math inline">\(\theta_{0}\)</span> &lt;1.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">CV   &lt;-<span class="st"> </span><span class="fl">0.21</span></a>
+<a class="sourceLine" id="cb31-2" title="2">d    &lt;-<span class="st"> </span><span class="fl">0.05</span> <span class="co"># delta 5%, direction unknown</span></a>
+<a class="sourceLine" id="cb31-3" title="3">n    &lt;-<span class="st"> </span><span class="kw">sampleN.TOST</span>(<span class="dt">CV =</span> CV, <span class="dt">theta0 =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>d, <span class="dt">print =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb31-4" title="4">                     <span class="dt">details =</span> <span class="ot">FALSE</span>)[[<span class="st">&quot;Sample size&quot;</span>]]</a>
+<a class="sourceLine" id="cb31-5" title="5">res1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">CV =</span> CV, <span class="dt">theta0 =</span> <span class="kw">c</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>d, <span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>d)),</a>
+<a class="sourceLine" id="cb31-6" title="6">                   <span class="dt">n =</span> n, <span class="dt">power =</span> <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb31-7" title="7"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(res1)) {</a>
+<a class="sourceLine" id="cb31-8" title="8">  res1<span class="op">$</span>power[i] &lt;-<span class="st"> </span><span class="kw">power.TOST</span>(<span class="dt">CV =</span> CV, <span class="dt">theta0 =</span> res1<span class="op">$</span>theta0[i], <span class="dt">n =</span> n)</a>
+<a class="sourceLine" id="cb31-9" title="9">}</a>
+<a class="sourceLine" id="cb31-10" title="10">n    &lt;-<span class="st"> </span><span class="kw">sampleN.TOST</span>(<span class="dt">CV =</span> CV, <span class="dt">theta0 =</span> <span class="dv">1</span> <span class="op">+</span><span class="st"> </span>d, <span class="dt">print =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb31-11" title="11">                     <span class="dt">details =</span> <span class="ot">FALSE</span>)[[<span class="st">&quot;Sample size&quot;</span>]]</a>
+<a class="sourceLine" id="cb31-12" title="12">res2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">CV =</span> CV, <span class="dt">theta0 =</span> <span class="kw">c</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>d, <span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>d)),</a>
+<a class="sourceLine" id="cb31-13" title="13">                   <span class="dt">n =</span> n, <span class="dt">power =</span> <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb31-14" title="14"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(res1)) {</a>
+<a class="sourceLine" id="cb31-15" title="15">  res2<span class="op">$</span>power[i] &lt;-<span class="st"> </span><span class="kw">power.TOST</span>(<span class="dt">CV =</span> CV, <span class="dt">theta0 =</span> res2<span class="op">$</span>theta0[i], <span class="dt">n =</span> n)</a>
+<a class="sourceLine" id="cb31-16" title="16">}</a>
+<a class="sourceLine" id="cb31-17" title="17">res &lt;-<span class="st"> </span><span class="kw">rbind</span>(res1, res2)</a>
+<a class="sourceLine" id="cb31-18" title="18"><span class="kw">print</span>(<span class="kw">signif</span>(res[<span class="kw">order</span>(res<span class="op">$</span>n, res<span class="op">$</span>theta0), ], <span class="dv">4</span>), <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb31-19" title="19"><span class="co">#    CV theta0  n  power</span></a>
+<a class="sourceLine" id="cb31-20" title="20"><span class="co">#  0.21 0.9524 20 0.8081</span></a>
+<a class="sourceLine" id="cb31-21" title="21"><span class="co">#  0.21 1.0500 20 0.8081</span></a>
+<a class="sourceLine" id="cb31-22" title="22"><span class="co">#  0.21 0.9500 22 0.8374</span></a>
+<a class="sourceLine" id="cb31-23" title="23"><span class="co">#  0.21 1.0530 22 0.8374</span></a></code></pre></div>
+<p>If you use 1.05 (sample size 20) power will be maintained down to its reciprocal (0.9524) but <em>not</em> to 0.95 (where you would need already a sample size of 22). One the other hand, 0.95 preserves power up to 1.053. The statement ‘sample size based on a deviation of ±5%’ seen in many protocol does not make sense.</p>
+</div>
+</div>
+<div id="man-pages" class="section level1">
+<h1>Man-pages</h1>
+<p>Man-pages of functions used in this vignette:</p>
+<ul>
+<li><a href="../html/sampleN.TOST.html">sampleN.TOST</a></li>
+<li><a href="../html/power.TOST.html">power.TOST</a></li>
+<li><a href="../html/power.TOST.sds.html">power.TOST.sds</a></li>
+<li><a href="../html/CVCL.html">CVCL</a></li>
+<li><a href="../html/expsampleN.TOST.html">expsampleN.TOST</a></li>
+<li><a href="../html/CI.BE.html">CI.BE</a></li>
+<li><a href="../html/CVpooled.html">CVpooled</a></li>
+<li><a href="../html/CVfromCI.html">CVfromCI</a></li>
+</ul>
+<p><a href="https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf" title="PDF">Online manual</a> of all functions.</p>
+</div>
+<div id="authors" class="section level1">
+<h1>Authors</h1>
+<table>
+<colgroup>
+<col style="width:67%">
+<col style="width:33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>function</th>
+<th>author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sampleN.TOST</code>, <code>power.TOST</code>, <code>power.TOST.sds</code>, <code>sampleN.RatioF</code>,<br><code>CVCL</code>, <code>CI.BE</code>, <code>CVpooled</code></td>
+<td>Detlew Labes</td>
+</tr>
+<tr class="even">
+<td><code>expsampleN.TOST</code></td>
+<td><span style="white-space:nowrap">Benjamin Lang, Detlew Labes</span></td>
+</tr>
+<tr class="odd">
+<td><code>CVfromCI</code></td>
+<td><span style="white-space:nowrap">Detlew Labes, Helmut Schütz, Benjamin Lang</span></td>
+</tr>
+<tr class="even">
+<td><code>pa.ABE</code></td>
+<td><span style="white-space:nowrap">Helmut Schütz, Detlew Labes</span></td>
+</tr>
+</tbody>
+</table></div>
+<div id="license" class="section level1">
+<h1>License</h1>
+<h4 class="author">Helmut Schütz 2019-10-20</h4>
+<p><a href="https://cran.r-project.org/web/licenses/GPL-2" title="GNU General Public License, Version 2">GPL-2</a> | <a href="https://cran.r-project.org/web/licenses/GPL-3" title="GNU General Public License, Version 3">GPL-3</a></p>
+</div>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Fieller EC. <em>Some Problems in Interval Estimation.</em> J Royal Stat Soc B. 1954; 16(2): 175–85. <a href="https://www.jstor.org/stable/2984043">JSTOR:2984043</a>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>EMEA, CPMP. <em>Points to Consider on Switching between Superiority and Non-Inferiority.</em> London, 27 July 2000. <a href="https://www.ema.europa.eu/en/documents/scientific-guideline/points-consider-switching-between-superiority-non-inferiority_en.pdf">CPMP/EWP/482/99</a>.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Gould AL. <em>Group Sequential Extension of a Standard Bioequivalence Testing Procedure.</em> J Pharmacokin Biopharm. 1995: 23(1); 57–86. <a href="https://doi.org/10.1007/BF02353786">doi:10.1007/BF02353786</a>.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>EMA, CHMP. <em>Guideline on the Investigation of Bioequivalence.</em> London, 20 January 2010. <a href="https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf#page=14">CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **</a>.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>D’Angelo P. <em>Testing for Bioequivalence in Higher‐Order Crossover Designs: Two‐at‐a‐Time Principle Versus Pooled ANOVA.</em> 2<sup>nd</sup> Conference of the Global Bioequivalence Harmonisation Initiative. Rockville, 15–16 September, 2016.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>Schuirmann DJ. <em>A Comparison of the Two One-Sided Tests Procedure and the Power Approach for Assessing the Equivalence of Average Bioavailability.</em> J Pharmacokin Biopharm. 1987; 15(6): 657–80. <a href="https://doi.org/10.1007/BF01068419">doi:10.1007/BF01068419</a>.<a href="#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn7"><p>If the CI overlaps <span class="math inline">\(\theta_{1},\theta_{2}\)</span>, the outcome is indecisive (called ‘the grey zone’ by some). As long as <span class="math inline">\(\theta_{0}\)</span> lies within <span class="math inline">\(\theta_{1},\theta_{2}\)</span> you can hope to show BE in a larger sample size. However, once <span class="math inline">\(\theta_{0}\)</span> approaches one of the limits, if might be futile – even with a very small <em>CV</em>. Try<br>
+  <code>sampleN.TOST(CV = 0.075, theta0 = 0.81)</code> and then<br>
+  <code>sampleN.TOST(CV = 0.075, theta0 = 0.80)</code> to get an idea.<a href="#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn8"><p>Hoenig JM, Heisey DM. <a href="https://www.vims.edu/people/hoenig_jm/pubs/hoenig2.pdf"><em>The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.</em></a> Am Stat. 2001; 55(1): 19–24<a href="#fnref8" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+<!-- code folding -->
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+</html>

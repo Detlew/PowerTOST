@@ -485,7 +485,7 @@ Man-pages of functions used in this vignette:
 
   * [sampleN.TOST](../html/sampleN.TOST.html)
   * [power.TOST](../html/power.TOST.html)
-  * [power.TOST.sds](../html/power.TOST.sdsims.html)
+  * [power.TOST.sds](../html/power.TOST.sds.html)
   * [CVCL](../html/CVCL.html)
   * [expsampleN.TOST](../html/expsampleN.TOST.html)
   * [CI.BE](../html/CI.BE.html)
