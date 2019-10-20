@@ -1,13 +1,13 @@
 # PowerTOST 1.4-8.9000
 
-Published on GitHub 2019-10-15.
+Published on GitHub 2019-10-21.
 
 ## Bug fixes
 
   * Fix in `power.dp()` w.r.t. setting argument `CVb` if missing in case of `design="IBD"`.
   * Fix in `scABEL.ad()`: `reg$name` instead of `regulator`.
   * CV in 4th panel of `pwrA_S3methods.R` to the same precison like in the others.
-  * Fix in `power.TOST.sds()` for `gmodel==1`, case of `gmodel=3` with data of the largest group (group by treatment interaction significant at p=0.1)
+  * Fix in `power.TOST.sds()` for `gmodel=1`, case of `gmodel=3` with data of the largest group (group by treatment interaction significant at p=0.1)
   
 ## Major changes
 
