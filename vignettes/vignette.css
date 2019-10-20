@@ -72,4 +72,4 @@ code span.co{font-style:normal}
 #nav ul li{display:inline}
 #nav ul li a,#nav ul li span{color:#fff;background-color:#084262;text-decoration:none;float:left;border-right:1px solid #7394B4;cursor:pointer;padding:.5em 11.5px}
 #nav ul li a:hover,#nav ul li span{color:#fff;background-color:#257B9D}
-@media print{#nav{display:none}}
+@media print{#nav,#TOC,#TOC .toctitle,#TOC ul,#TOC ul ul,#TOC li{display:none}}
