@@ -636,22 +636,10 @@ if (length(package[!inst]) > 0) install.packages(package[!inst])
 
 … and the development version from [GitHub](https://github.com/) with
 
-``` r
+```
 # install.packages("remotes")
 remotes::install_github("Detlew/PowerTOST")
-# Skipping install of 'PowerTOST' from a github remote, the SHA1 (18b42596) has not changed since last install.
-#   Use `force = TRUE` to force installation
 ```
-
-For speed reasons this call will *not* (re)build the package vignettes.
-If you want them call
-
-``` r
-remotes::install_github("Detlew/PowerTOST", build_vignettes = TRUE)
-# Skipping install of 'PowerTOST' from a github remote, the SHA1 (18b42596) has not changed since last install.
-#   Use `force = TRUE` to force installation
-```
-
-Be patient. Building the vignettes may last some minutes.
+Skips installation from a github remote if the [SHA-1](https://en.wikipedia.org/wiki/SHA-1) has not changed since last install. Use `force = TRUE` to force installation.
 
 <small>[TOC ↩](#readme)</small>

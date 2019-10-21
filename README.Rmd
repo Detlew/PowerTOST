@@ -277,15 +277,10 @@ inst    <- package %in% installed.packages()
 if (length(package[!inst]) > 0) install.packages(package[!inst])
 ```
 … and the development version from [GitHub](https://github.com/) with
-```{r}
+```
 # install.packages("remotes")
 remotes::install_github("Detlew/PowerTOST")
 ```
-For speed reasons this call will *not* (re)build the package vignettes.
-If you want them call
-```{r}
-remotes::install_github("Detlew/PowerTOST", build_vignettes = TRUE)
-```
-Be patient. Building the vignettes may last some minutes.
+Skips installation from a github remote if the [SHA-1](https://en.wikipedia.org/wiki/SHA-1) has not changed since last install. Use `force = TRUE` to force installation.
 
 <small>[TOC ↩](#readme)</small>

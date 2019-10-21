@@ -121,7 +121,7 @@ code span.wa {color:#60a0b0; font-weight:bold; font-style: italic} /* Warning */
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies. Power and sample size can be obtained based on different methods, amongst them prominently the TOST procedure (two one-sided <em>t</em>-tests).<br>
-Version 1.4.8.9000 built 2019-10-20 with R 3.6.1.</p>
+Version 1.4.8.9000 built 2019-10-21 with R 3.6.1.</p>
 <p>For an overview of supported designs, methods, and defaults together with some basic examples see</p>
 <ul>
 <li><a href="https://cran.r-project.org/package=PowerTOST/readme/README.html">README</a> of the released version on CRAN;</li>
@@ -296,16 +296,8 @@ If <small><span class="math inline">\(s_{wR}\geq 0.294\)</span></small>: <small>
 <a class="sourceLine" id="cb1-3" title="3"><span class="cf">if</span> (<span class="kw">length</span>(package[<span class="op">!</span>inst]) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="kw">install.packages</span>(package[<span class="op">!</span>inst])</a></code></pre></div>
 <p>… and the development version from <a href="https://github.com/">GitHub</a> with</p>
 <pre><code># install.packages(&quot;remotes&quot;)
-remotes::install_github(&quot;Detlew/PowerTOST&quot;)
-# Skipping install of &#39;PowerTOST&#39; from a github remote, the SHA1 (eb75b9b)
-# has not changed since last install.
-# Use `force = TRUE` to force installation</code></pre>
-<p>For speed reasons this call will <em>not</em> (re)build the package vignettes. If you want them call</p>
-<pre><code>remotes::install_github(&quot;Detlew/PowerTOST&quot;, build_vignettes = TRUE)
-# Skipping install of &#39;PowerTOST&#39; from a github remote, the SHA1 (eb75b9b)
-# has not changed since last install.
-# Use `force = TRUE` to force installation</code></pre>
-<p>Be patient. Building the vignettes will take a couple of minutes.</p>
+remotes::install_github(&quot;Detlew/PowerTOST&quot;)</code></pre>
+<p>Skips installation from a github remote if the <a href="https://en.wikipedia.org/wiki/SHA-1">SHA-1</a> has not changed since last install. Use <code>force = TRUE</code> to force installation.</p>
 </div>
 <div id="contr" class="section level1">
 <h1>Contributors</h1>
