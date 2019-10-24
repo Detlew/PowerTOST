@@ -3,7 +3,7 @@ Package: PowerTOST
 Type: Package
 Title: Power and Sample Size for (Bio)Equivalence Studies
 Version: 1.4-8.9000
-Date: 2019-10-21
+Date: 2019-10-25
 Authors@R: c(person("Detlew", "Labes",
                role = c("aut","cre"),
                email = "DetlewLabes@gmx.de",
@@ -30,7 +30,7 @@ Suggests: crossdes, knitr, rmarkdown, devtools
 ByteCompile: yes
 LazyData: true
 VignetteBuilder: knitr
-BuildVignettes: no
+BuildVignettes: false
 URL: https://github.com/Detlew/PowerTOST
 BugReports: https://github.com/Detlew/PowerTOST/issues
 License: GPL (>=2)
