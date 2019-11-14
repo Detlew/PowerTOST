@@ -84,11 +84,11 @@ CV
     <ul>
       <li>In crossover designs the intra- (between-) subject CV. Argument `CV`.</li>
       <li>In parallel designs the total (pooled) CV. Argument `CV`.</li>
-      <li>In replicate designs the intra-subject CV (assuming homoscedasticity, argument `CV`). If heteroscedasticity is assumed, `CV` has to given as a vector with two elements `CV=c(x, y)` where `CV[1]` is *CV~wT~* and `CV[2]` is *CV~wR~*.</li>
+      <li>In replicate designs the intra-subject CV (assuming homoscedasticity, argument `CV`). If heteroscedasticity is assumed, `CV` has to given as a vector with two elements `CV = c(x, y)` where `CV[1]` is *CV~wT~* and `CV[2]` is *CV~wR~*.</li>
     </ul>
 
 CV~b~
-: Inter- (between-) subject coefficient of variation. Argument `CVb` is required in function `sampleN.RatioF()` and in function `sampleN.dp()` if `design="IBD"` (incomplete block design).
+: Inter- (between-) subject coefficient of variation. Argument `CVb` is required in function `sampleN.RatioF()` and in function `sampleN.dp()` if `design = "IBD"` (incomplete block design).
 
 <span id="CVcap">CV~cap~</span>
 : Upper cap in <a href="#abel">ABEL</a>. If *CV~wR~* > CV~cap~, expanding is based on CV~cap~ (and not on *CV~wR~*). In all jurisdictions 50\%, except for Health Canada where CV~cap~ ≈57.4\%.
@@ -126,7 +126,7 @@ HVD(P)
     : <small>$\left[ {L,\,U} \right]=\left[1+log(0.80)/log(rd),\:1+log(1.25)/log(rd) \right]$</small>
 
 margin
-: Non-inferiority/-superiority margin <span style="font-weight:normal">(example for `logscale=TRUE` where <small>$\theta_0=\mu_T/\mu_R$</small>).</span>
+: Non-inferiority/-superiority margin <span style="font-weight:normal">(example for `logscale = TRUE` where <small>$\theta_0=\mu_T/\mu_R$</small>).</span>
 
     : **Non-inferiority**: If margin < 1, <u>higher</u> responses are are assumed to be better.
     <small>$$H_0:\,\theta_0 \leq \log({margin})\:vs\:H_1:\,\theta_0>\log({margin})$$</small>
@@ -159,7 +159,7 @@ R
     See also <a href="#abel">ABEL</a>.
 
 $\theta_0$
-: Assumed or true T/R-ratio (`logscale=TRUE`) or difference T--R (`logscale=FALSE`). In the functions `theta0`.
+: Assumed or true T/R-ratio (`logscale = TRUE`) or difference T--R (`logscale = FALSE`). In the functions `theta0`.
 
 $\theta_1,\theta_2$
 : Lower and upper limits of the equivalence range. In the functions `theta1` and `theta2`.
@@ -171,7 +171,7 @@ T
 : Test (treatment, product).
 
 TIE <span style="font-weight:normal">(type I error)</span>
-: Probability that the Null-hypothesis of inequivalence is *falsely* rejected (*i.e.*, equivalence is concluded). Also the patient’s risk. Can be assessed with the power-functions setting `theta0=theta2` or `theta0=theta1`.<br />Exact, except in reference-scaling based on simulations (`power.scABEL()`, `power.RSABE()`, `power.NTIDFDA()`, `power.HVNTID()`).
+: Probability that the Null-hypothesis of inequivalence is *falsely* rejected (*i.e.*, equivalence is concluded). Also the patient’s risk. Can be assessed with the power-functions setting `theta0 = theta2` or `theta0 = theta1`.<br />Exact, except in reference-scaling based on simulations (`power.scABEL()`, `power.RSABE()`, `power.NTIDFDA()`, `power.HVNTID()`).
 
 # Installation
 You can install the released version of PowerTOST from [CRAN](https://CRAN.R-project.org) with …
