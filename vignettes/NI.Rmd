@@ -55,7 +55,7 @@ Defaults depending on the argument `logscale`:
 | $\theta_{0}$ | `theta0` | `0.95` | `+0.05` |
 
 Arguments `targetpower`, `margin`, `theta0`, and `CV` have to be given as fractions, not percent.\
-The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*.
+The *CV* is generally the *within*-subject coefficient of variation. Only for `design = "parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*.
 
 Designs with one (parallel), two (conventional crossover and paired), and three or four periods (replicates) are supported.
 ```
@@ -78,13 +78,13 @@ With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
 # Non-Inferiority
-If the supplied margin is < 1 (`logscale=TRUE`) or < 0 (`logscale=FALSE`), then it is assumed that *higher* response values are <u>better</u>. The hypotheses are
+If the supplied margin is < 1 (`logscale = TRUE`) or < 0 (`logscale = FALSE`), then it is assumed that *higher* response values are <u>better</u>. The hypotheses are
 
-* `logscale=TRUE`
+* `logscale = TRUE`
 $$H_{0}:\theta_0 \leq \log({margin})\:vs\:H_{1}:\theta_0>\log({margin})$$
     where $\theta_0=\mu_T/\mu_R$
 
-* `logscale=FALSE`
+* `logscale = FALSE`
 $$H_{0}:\theta_0 \leq {margin}\:vs\:H_{1}:\theta_0>{margin}$$
 
     where $\theta_0=\mu_T-\mu_R$
@@ -107,13 +107,13 @@ power.noninf(CV = 0.25, n = 35)
 Confirmed that with 35 subjects we will already reach the target power. That means also that one dropout will not compromise power.
 
 # Non-Superiority
-If the supplied margin is > 1 (`logscale=TRUE`) or > 0 (`logscale=FALSE`), then it is assumed that *lower* response values are <u>better</u>. The hypotheses are
+If the supplied margin is > 1 (`logscale = TRUE`) or > 0 (`logscale = FALSE`), then it is assumed that *lower* response values are <u>better</u>. The hypotheses are
 
-* `logscale=TRUE`
+* `logscale = TRUE`
 $$H_{0}:\theta_0 \geq \log({margin})\:vs\:H_{1}:\theta_0<\log({margin})$$
     where $\theta_0=\mu_T/\mu_R$
 
-* `logscale=FALSE`
+* `logscale = FALSE`
 $$H_{0}:\theta_0 \geq {margin}\:vs\:H_{1}:\theta_0<{margin}$$
 
     where $\theta_0=\mu_T-\mu_R$

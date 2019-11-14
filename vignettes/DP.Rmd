@@ -50,13 +50,13 @@ library(PowerTOST) # attach the library
 | imax | `imax` | Maximum number of iterations | `100` |
 
 Arguments `targetpower`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent.\
-The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*. The *between*-subject coefficient of variation *CV~b~* is only neccessary if `design="IBD"` (if missing, it will be set to `2*CV`).
+The *CV* is generally the *within*-subject coefficient of variation. Only for `design = "parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*. The *between*-subject coefficient of variation *CV~b~* is only neccessary if `design = "IBD"` (if missing, it will be set to `2*CV`).
 
 The ‘true’ or assumed slope of the power model <small>$\beta_{0}$</small> defaults to `1+log(0.95)/log(rd)`, where `rd` is the ratio of the highest/lowest dose.
 
 Supported designs are `"crossover"` (default; Latin Squares), `"parallel"`, and `"IBD"` (incomplete block design). Note that when `"crossover"` is chosen, instead of Latin Squares any Williams’ design could be used as well (identical degrees of freedom result in the same sample size).
 
-With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with ten (`design="crossover"`) or eleven (`design="parallel"` or `design="IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
+With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with ten (`design = "crossover"`) or eleven (`design = "parallel"` or `design = "IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
 
 The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
 
