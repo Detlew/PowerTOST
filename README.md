@@ -34,7 +34,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Version 1.4.8.9000 built 2019-10-21 with R 3.6.1.
+Version 1.4.9 built 2019-10-30 with R 3.6.1.
 
 ## Supported Designs
 
