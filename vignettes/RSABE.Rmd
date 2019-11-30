@@ -51,7 +51,7 @@ library(PowerTOST) # attach the library
 | setseed | `setseed` | Issue a fixed seed of the random number generator? | `TRUE` |
 
 Arguments `targetpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent.\
-The *CV* is the within-subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV~wT~* = *CV~wR~*. If two values are given (*i.e.*, `CV=c(x, y)`) heteroscedasticity (unequal variances) is assumed, where `CV[1]` has to be *CV~wT~* and `CV[2]` *CV~wR~*.
+The *CV* is the within-subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV~wT~* = *CV~wR~*. If two values are given (*i.e.*, `CV = c(x, y)`) heteroscedasticity (unequal variances) is assumed, where `CV[1]` has to be *CV~wT~* and `CV[2]` *CV~wR~*.
 
 If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100,000. If simulating for the empiric type I error (`theta0` set to one of the BE limits), `nsims` defaults to 1 million.
 
@@ -101,10 +101,10 @@ Here `L` and `U` give the maximum acceptable expansion based on <small>$s^*_{wR}
  
 # Sample Size
 ## Highly Variable Drugs / Drug Products
-Estimate the sample size for assumed intra-subject *CV* 0.55 (*CV~wT~* = *CV~wR~*). Employ the defaults (`theta0=0.90`, `targetpower=0.80`, `design="2x3x3"`, `nsims=1e5`).
+Estimate the sample size for assumed intra-subject *CV* 0.55 (*CV~wT~* = *CV~wR~*). Employ the defaults (`theta0 = 0.90`, `targetpower = 0.80`, `design = "2x3x3"`, `nsims = 1e5`).
 
 ### EMA
-Average Bioequivalence with Expanding Limits (ABEL). Default `regulator="EMA"`.\
+Average Bioequivalence with Expanding Limits (ABEL). Default `regulator = "EMA"`.\
 Note that this approach is recommended in other jurisdictions as well (*e.g.*, the WHO; ASEAN States, Australia, Brazil, the East African Community, Egypt, the Eurasian Economic Union, New Zealand, the Russian Federation).
 ```{r}
 sampleN.scABEL(CV = 0.55)
@@ -159,7 +159,7 @@ As shown in the previous example, subject simulations are recommended for the pa
 However, if *CV~wT~* ≤ *CV~wR~* we get the identical result via the ‘key’ statistics.
 
 ### Health Canada
-Average Bioequivalence with Expanding Limits (ABEL). Defaults as above but `regulator="HC"`.
+Average Bioequivalence with Expanding Limits (ABEL). Defaults as above but `regulator = "HC"`.
 ```{r}
 sampleN.scABEL(CV = 0.55, regulator = "HC")
 ```
@@ -172,7 +172,7 @@ sampleN.RSABE(CV = 0.55)
 Note the lower sample size compared to the other approaches (due to the different regulatory constant and unlimited scaling).
 
 ## Narrow Therapeutic Index Drugs (FDA)
-Assuming heteroscedasticity (*CV~w~* 0.125, *σ*^2^ ratio 2.5, *i.e.*, T has a substantially higher variability than R). Employ the defaults (`theta0=0.975`, `targetpower=0.80`, `design="2x2x4"`, `nsims=1e5`). Details of the sample size search suppressed. Assess additionally which one of the three components (scaled, ABE, *s~wT~*/*s~wR~* ratio) drives the sample size.
+Assuming heteroscedasticity (*CV~w~* 0.125, *σ*^2^ ratio 2.5, *i.e.*, T has a substantially higher variability than R). Details of the sample size search suppressed. Assess additionally which one of the three components (scaled, ABE, *s~wT~*/*s~wR~* ratio) drives the sample size.
 ```{r}
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
 n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
@@ -189,7 +189,7 @@ Here the scaled ABE component shows the lowest power and drives the sample size,
 
 ## Highly Variable Narrow Therapeutic Index Drugs (FDA)
 Almost a contradiction in itself. Required for [dagibatran](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf "Recommended Jun 2012; Revised Sep 2015, Jul 2017") and [rivaroxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral%20tablet_22406_RC09-15.pdf "Recommended Sep 2015").\
-Assuming homoscedasticity (*CV~wT~* = *CV~wR~* = 0.30). Employ the defaults (`theta0=0.95`, `targetpower=0.80`, <span style="white-space:nowrap">`design="2x2x4"`</span>, `nsims=1e5`). Details of the sample size search suppressed.
+Assuming homoscedasticity (*CV~wT~* = *CV~wR~* = 0.30). Employ the defaults (`theta0 = 0.95`, `targetpower = 0.80`, `design = "2x2x4"`, `nsims = 1e5`). Details of the sample size search suppressed.
 ```{r}
 sampleN.HVNTID(CV = 0.30, details = FALSE)
 ```
@@ -359,7 +359,7 @@ res$EMA.cap[res$CV >= 0.50]   <- "upper"
 res$HC.cap[res$CV >= 0.57382] <- "upper"
 print(res, row.names = FALSE)
 ```
-For both agencies the lower cap for scaling is 30\%. Whereas the upper cap for the EMA is at 50\% (expanded limits 69.84--143.19\%), for Health Canada it is at ~57.4\% (expanded limits 50.0--150.0\%).
+For both agencies the lower cap for scaling is 30\%. Whereas the upper cap for the EMA is at 50\% (expanded limits 69.84--143.19\%), for Health Canada it is at ~57.4\% (expanded limits 66.7--150.0\%).
 
 ### FDA
 For the FDA there is no upper cap (scaling is unlimited).
@@ -409,7 +409,7 @@ for (i in 1:3) {
 |---|-|
 |`sampleN.scABEL`, `sampleN.RSABE`, `sampleN.NTIDFDA`, `sampleN.HVNTID`,<br />`power.scABEL`, `power.RSABE2L.sdsims`, `scABEL`, `reg_const`|Detlew Labes|
 |`power.scABEL.sdsims`|<span style="white-space:nowrap">Detlew Labes, Benjamin Lang</span>|
-|`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`, `U2CVwR`|Helmut Schütz|
+|`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 
 # Man-pages
 Man-pages of functions used in examples of this vignette:

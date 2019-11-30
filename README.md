@@ -1,27 +1,26 @@
-README
+PowerTOST
 ================
 
-  - [PowerTOST](#powertost)
-      - [Supported Designs](#supported-designs)
-      - [Purpose](#purpose)
-      - [Supported](#supported)
-          - [Power and Sample Size](#power-and-sample-size)
-          - [Methods](#methods)
-          - [Helpers](#helpers)
-      - [Defaults](#defaults)
-          - [Average Bioequivalence](#average-bioequivalence)
-          - [Reference-Scaled Average
-            Bioequivalence](#reference-scaled-average-bioequivalence)
-          - [Dose-Proportionality](#dose-proportionality)
-          - [Power Analysis](#power-analysis)
-      - [Examples](#examples)
-          - [Parallel Design](#parallel-design)
-          - [Crossover Design](#crossover-design)
-          - [Replicate Designs](#replicate-designs)
-          - [Dose-Proportionality](#dose-proportionality-1)
-          - [Power Analysis](#power-analysis-1)
-          - [Speed Comparisons](#speed-comparisons)
-      - [Installation](#installation)
+  - [Supported Designs](#supported-designs)
+  - [Purpose](#purpose)
+  - [Supported](#supported)
+      - [Power and Sample Size](#power-and-sample-size)
+      - [Methods](#methods)
+      - [Helpers](#helpers)
+  - [Defaults](#defaults)
+      - [Average Bioequivalence](#average-bioequivalence)
+      - [Reference-Scaled Average
+        Bioequivalence](#reference-scaled-average-bioequivalence)
+      - [Dose-Proportionality](#dose-proportionality)
+      - [Power Analysis](#power-analysis)
+  - [Examples](#examples)
+      - [Parallel Design](#parallel-design)
+      - [Crossover Design](#crossover-design)
+      - [Replicate Designs](#replicate-designs)
+      - [Dose-Proportionality](#dose-proportionality-1)
+      - [Power Analysis](#power-analysis-1)
+      - [Speed Comparisons](#speed-comparisons)
+  - [Installation](#installation)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -32,12 +31,10 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-# PowerTOST
-
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Built 2019-10-19 with R 3.6.1.
+Version 1.4.8.9000 built 2019-10-21 with R 3.6.1.
 
 ## Supported Designs
 
@@ -75,7 +72,7 @@ Whilst "2x4x4" four period full replicate designs with four sequences
 (TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they
 should be avoided due to confounded effects.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ## Purpose
 
@@ -91,7 +88,7 @@ For all methods the sample size can be *estimated* based on
     reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
     *θ*<sub>2</sub>}, target power, and design.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ## Supported
 
@@ -118,7 +115,7 @@ sequences or equal group sizes.
     RSABE.
   - Dose-Proportionality using the power model.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ### Methods
 
@@ -130,7 +127,7 @@ sequences or equal group sizes.
       - Non-central *t*-distribution.
       - ‘Shifted’ central *t*-distribution.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ### Helpers
 
@@ -150,7 +147,7 @@ sequences or equal group sizes.
     dropouts) on power of BE decision.
   - Construct design matrices of incomplete block designs.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ## Defaults
 
@@ -216,7 +213,7 @@ Minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and
 sample size method depend on defaults of the respective approaches (ABE,
 ABEL, RSABE, NTID).
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ## Examples
 
@@ -284,7 +281,7 @@ sampleN.RatioF(CV = 0.20, CVb = 0.40)
 # 28   0.807774
 ```
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ### Replicate Designs
 
@@ -330,7 +327,7 @@ print(res[c(3:4, 8:9)], digits = 5, row.names = FALSE)
 
 Similar sample size because the pooled *CV* is still 0.45.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 #### ABEL
 
@@ -404,7 +401,7 @@ Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to
 estimate the sample size which both controls the TIE and maintains the
 target power. In this example 34 subjects will be required.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 #### RSABE
 
@@ -436,7 +433,7 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 # 20   0.81509
 ```
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 #### NTIDs
 
@@ -513,7 +510,7 @@ suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 Here the scaled ABE component shows the lowest power and drives the
 sample size, which is much lower than in the previous example.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ### Dose-Proportionality
 
@@ -546,7 +543,7 @@ In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>,
 this example to an acceptance range of `0.66667 ... 1.3333` and a sample
 size of only six subjects.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ### Power Analysis
 
@@ -577,7 +574,7 @@ since in a real study a combination of all effects occurs
 simultaneously. It is up to *you* to decide on reasonable combinations
 and analyze their respective power.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ### Speed Comparisons
 
@@ -621,7 +618,7 @@ However, subject simulations are recommended *if*
   - the special case of heterogenicity *CV<sub>wT</sub>* \>
     *CV<sub>wR</sub>* is expected.
 
-<small>[TOC ↩](#readme)</small>
+<small>[TOC ↩](#powertost)</small>
 
 ## Installation
 
@@ -636,10 +633,11 @@ if (length(package[!inst]) > 0) install.packages(package[!inst])
 
 … and the development version from [GitHub](https://github.com/) with
 
-```
-# install.packages("remotes")
-remotes::install_github("Detlew/PowerTOST")
-```
-Skips installation from a github remote if the [SHA-1](https://en.wikipedia.org/wiki/SHA-1) has not changed since last install. Use `force = TRUE` to force installation.
+    # install.packages("remotes")
+    remotes::install_github("Detlew/PowerTOST")
 
-<small>[TOC ↩](#readme)</small>
+Skips installation from a github remote if the
+[SHA-1](https://en.wikipedia.org/wiki/SHA-1) has not changed since last
+install. Use `force = TRUE` to force installation.
+
+<small>[TOC ↩](#powertost)</small>

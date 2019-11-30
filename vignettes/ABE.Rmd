@@ -58,7 +58,7 @@ Defaults depending on the argument `logscale`:
 | $\theta_{2}$ | `theta2` | `1.25` | `+0.20` |
 
 Arguments `targetpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent.\
-The *CV* is generally the *within*-subject coefficient of variation. Only for `design="parallel"` it is the *total* (a.k.a. pooled) *CV*.
+The *CV* is generally the *within*-subject coefficient of variation. Only for `design = "parallel"` it is the *total* (a.k.a. pooled) *CV*.
 
 The terminology of the argument `design` follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design can be abbreviated as `"2x2"`. Some call the `"parallel"` design a ‘one-sequence’ design. The design `"paired"` has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note that the underlying model assumes no period effects.
 
@@ -298,7 +298,7 @@ Which `design` argument in studies with more than two periods you should use dep
 
     In this approach – which is preferred by some agencies, *e.g.*, the EMA^[EMA, CHMP. *Guideline on the Investigation of Bioequivalence.* London, 20 January 2010. [CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf#page=14).] – you exclude one treatment and perform the analysis on the remaing two. That means you have two *separate* Incomplete Block Designs (IBD).\
     Say, you have one test (`T`) and two references from different regions (`R1`, `R2`). You get two separate within-subject variances (in the comparisons `T` *vs* `R1` and `T` *vs* `R2`).\
-    To plan for this approach specify `design="2x2x2"`.
+    To plan for this approach specify `design = "2x2x2"`.
 
 I suggest to opt for the latter since the former may lead to biased estimates and an inflated type I error.^[D’Angelo P. *Testing for Bioequivalence in Higher‐Order Crossover Designs: Two‐at‐a‐Time Principle Versus Pooled ANOVA.* 2^nd^ Conference of the Global Bioequivalence Harmonisation Initiative. Rockville, 15--16 September, 2016.]
 
