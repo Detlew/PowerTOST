@@ -323,9 +323,7 @@ The <em>CV</em> is generally the <em>within</em>-subject coefficient of variatio
 <h1>Examples</h1>
 <div id="average-bioequivalence" class="section level2">
 <h2>Average Bioequivalence</h2>
-<h5>
-<span id="expl1">Example 1</span>
-</h5>
+<h5><span id="expl1">Example 1</span></h5>
 <p><a href="ABE.html#expl3">Example 3 of vignette ABE</a>. Assumed <span class="math inline">\(\theta_{0}\)</span> 0.92, <em>CV</em> 0.20.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">pa.ABE</span>(<span class="dt">CV =</span> <span class="fl">0.20</span>, <span class="dt">theta0 =</span> <span class="fl">0.92</span>)</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="co"># Sample size plan ABE</span></a>
@@ -348,9 +346,7 @@ The <em>CV</em> is generally the <em>within</em>-subject coefficient of variatio
 <h3>Highly Variable Drugs / Drug Products</h3>
 <div id="ema" class="section level4">
 <h4>EMA</h4>
-<h5>
-<span id="expl2">Example 2</span>
-</h5>
+<h5><span id="expl2">Example 2</span></h5>
 <p>Assumed intra-subject <em>CV</em> 0.55 (<em>CV<sub>wT</sub></em> = <em>CV<sub>wR</sub></em>).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">pa.scABE</span>(<span class="dt">CV =</span> <span class="fl">0.55</span>)</a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="co"># Sample size plan scABE (EMA/ABEL)</span></a>
@@ -368,9 +364,7 @@ The <em>CV</em> is generally the <em>within</em>-subject coefficient of variatio
 <p class="caption"><strong>Fig. 2</strong> Power Analysis (in each panel one argument is varied and others kept constant)</p>
 </div>
 <p>The idea behing reference-scaling is to preserve power even for high variability without requiring extreme sample sizes. However, we make two interesting observations. At <em>CV<sub>wR</sub></em> 0.55 already the upper cap of scaling (50%) cuts in and the expanded limits are the same as at <em>CV<sub>wR</sub></em> 0.50. Therefore, if the variability increases, power decreases. On the other hand, if the CV decreases, power increases first (because being affected by the upper cap is less likely) and then decreases again (because we can expand the limits less).</p>
-<h5>
-<span id="expl3">Example 3</span>
-</h5>
+<h5><span id="expl3">Example 3</span></h5>
 <p>Assumed intra-subject <em>CV</em> 0.40 (<em>CV<sub>wT</sub></em> = <em>CV<sub>wR</sub></em>), 4-period full replicate design.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">pa.scABE</span>(<span class="dt">CV =</span> <span class="fl">0.40</span>, <span class="dt">design =</span> <span class="st">&quot;2x2x4&quot;</span>)</a>
 <a class="sourceLine" id="cb4-2" title="2"><span class="co"># Sample size plan scABE (EMA/ABEL)</span></a>
@@ -391,10 +385,8 @@ The <em>CV</em> is generally the <em>within</em>-subject coefficient of variatio
 </div>
 <div id="health-canada" class="section level4">
 <h4>Health Canada</h4>
-<h5>
-<span id="expl4">Example 4</span>
-</h5>
-<p>Same data like in <a href="expl2">Example 2</a>.</p>
+<h5><span id="expl4">Example 4</span></h5>
+<p>Same data like in <a href="#expl2">Example 2</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">pa.scABE</span>(<span class="dt">CV =</span> <span class="fl">0.55</span>, <span class="dt">regulator =</span> <span class="st">&quot;HC&quot;</span>)</a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="co"># Sample size plan scABE (HC/ABEL2)</span></a>
 <a class="sourceLine" id="cb5-3" title="3"><span class="co">#  Design alpha CVwT CVwR theta0 theta1 theta2 Sample size Achieved power</span></a>
@@ -414,9 +406,7 @@ The <em>CV</em> is generally the <em>within</em>-subject coefficient of variatio
 </div>
 <div id="fda" class="section level4">
 <h4>FDA</h4>
-<h5>
-<span id="expl5">Example 5</span>
-</h5>
+<h5><span id="expl5">Example 5</span></h5>
 <p>Same data like in <a href="#expl2">Example 2</a> and <a href="#expl4">Example 4</a>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">pa.scABE</span>(<span class="dt">CV =</span> <span class="fl">0.55</span>, <span class="dt">regulator =</span> <span class="st">&quot;FDA&quot;</span>)</a>
 <a class="sourceLine" id="cb6-2" title="2"><span class="co"># Sample size plan scABE (FDA/RSABE)</span></a>
@@ -438,9 +428,7 @@ The <em>CV</em> is generally the <em>within</em>-subject coefficient of variatio
 </div>
 <div id="narrow-therapeutic-index-drugs-fda" class="section level3">
 <h3>Narrow Therapeutic Index Drugs (FDA)</h3>
-<h5>
-<span id="expl6">Example 6</span>
-</h5>
+<h5><span id="expl6">Example 6</span></h5>
 <p>Assumed intra-subject <em>CV</em> 0.125.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">pa.NTIDFDA</span>(<span class="dt">CV =</span> <span class="fl">0.125</span>)</a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="co"># Sample size plan RSABE NTID</span></a>
