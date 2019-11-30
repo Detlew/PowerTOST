@@ -1,6 +1,6 @@
-# PowerTOST 1.4-8.9000
+# PowerTOST 1.4-9
 
-Published on GitHub 2019-10-21.
+Submitted to CRAN 2019-10-22.
 
 ## Bug fixes
 
