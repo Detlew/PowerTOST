@@ -1,5 +1,6 @@
 # PowerTOST 1.4-9
-Published on GitHub 2019-11-30.
+Submitted to CRAN 2019-12-16.
+(xmas gift)
 
 ## Bug fixes
 
