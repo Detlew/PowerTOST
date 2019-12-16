@@ -3,7 +3,7 @@ Package: PowerTOST
 Type: Package
 Title: Power and Sample Size for (Bio)Equivalence Studies
 Version: 1.4-9
-Date: 2019-11-30
+Date: 2019-12-16
 Authors@R: c(person("Detlew", "Labes",
                role = c("aut","cre"),
                email = "DetlewLabes@gmx.de",
@@ -25,7 +25,7 @@ Description: Contains functions to calculate power and sample size for
     different methods, amongst them prominently the TOST procedure (two one-sided t-tests).
     See README and NEWS for further information.
 Imports: mvtnorm, stats, utils, graphics, grDevices,
-    cubature (>= 1.3-6), TeachingDemos
+    cubature (>= 1.3-6), TeachingDemos, tufte
 Suggests: crossdes, knitr, rmarkdown, devtools
 ByteCompile: yes
 LazyData: true

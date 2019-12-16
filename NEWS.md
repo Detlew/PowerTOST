@@ -1,5 +1,5 @@
 # PowerTOST 1.4-9
-Published on GitHub 2019-11-30.
+Published on GitHub 2019-12-16.
 
 ## Bug fixes
 
@@ -10,10 +10,11 @@ Published on GitHub 2019-11-30.
   
 ## Major changes
 
-  * Vignettes.
+  * (Pre-compiled) vignettes.
 
 ## Minor changes
 
+  * Imports package `tufte` for nice quotes in Rmarkdown.
   * Slightly enhanced man pages of `power.dp()` and `sampleN.dp()` w.r.t. the value of `CVb` in case of `design="IBD"`.
   * Cosmetics in output of `sampleN.noninf` based on `margin`.
   * Reworked minimum sample sizes in `pa.scABE.R()` according to guidances. Generally 12 (as before) but 24 for the FDA. Also 24 for the EMA if 2x2x3 design (Q&A document). Changed `N` to `n` in the S3-methods in conformity with other functions.
