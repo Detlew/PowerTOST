@@ -33,3 +33,4 @@ VignetteBuilder: knitr
 URL: https://github.com/Detlew/PowerTOST
 BugReports: https://github.com/Detlew/PowerTOST/issues
 License: GPL (>=2)
+License_is_FOSS: yes
