@@ -126,7 +126,7 @@ Here we see a different pattern. With increasing variability power increases (du
 #### Health Canada
 <h5>[Example 4]{#expl4}</h5>
 
-Same data like in [Example 2](expl2).
+Same data like in [Example 2](#expl2).
 ```{r}
 pa.scABE(CV = 0.55, regulator = "HC")
 ```
