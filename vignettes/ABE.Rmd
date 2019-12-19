@@ -406,7 +406,7 @@ pa.ABE(CV = 0.20, theta0 = 0.92)
 
 This exercise confirms what we already know. The most critical parameter is $\theta_{0}$, whereas dropouts are the least important.
 
-More details are given in the respective [vignette](PA.html).
+More details are given in the vignette Power Analysis (accessible via the menu bar).
 
 ## Dropouts
 As we have seen, the impact of dropouts on power is rather limited. Regulary CROs suggest additional subjects to ‘compensate for the potential loss in power’. IMHO, milking sponsors to make wealthy CROs richer. Note that the dropout-rate is based on *dosed* subjects. Hence, the correct formula for an adjusted sample size is <small>$n_{adj}=n / (1-{dropout\:rate})$</small>, and *not* <small>$n_{adj}=n \times (1+{dropout\:rate})$</small>.
