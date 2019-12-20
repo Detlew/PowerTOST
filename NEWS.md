@@ -1,3 +1,9 @@
+# PowerTOST 1.4.9.9999
+
+20.12.2019
+Started new version on GitHub
+
+
 # PowerTOST 1.4-9
 
 Submitted to CRAN 2019-12-16. (xmas gift)
