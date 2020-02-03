@@ -98,6 +98,7 @@ of class 'regSet'.\cr
 Otherwise, the simulations are based on the distributional characteristis of the 
 \sQuote{key} statistics obtained from evaluation via intra-subject contrasts (ISC), 
 as recommended by the FDA.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence -- like in some other software packages).\cr\cr
 Function \code{sampleN.scABEL2()} is solely based on power calculations via 
 simulation using the distributional characteristics of the \sQuote{key} statistics 
 obtained from evaluation via ISC. This function is deprecated.

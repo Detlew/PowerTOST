@@ -77,14 +77,15 @@ sample size calculations will be shown. Defaults to \code{FALSE}.
   }
   \item{imax}{
 Maximum number of steps in sample size search.\cr 
-Defaults to 100. Adaption only in rare cases needed.
+Defaults to 100. Adaption only in rare cases needed.\cr
   }
 }
 \details{
 The sample size is calculated via iterative evaluation of power of the \acronym{TOST} procedure.\cr
 Start value for the sample size search is taken from a large sample approximation
 according to Zhang, modified.\cr
-The sample size is bound to 4 as minimum.
+The sample size is bound to 4 as minimum.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).
 }
 \value{
 A data.frame with the input and results will be returned.\cr

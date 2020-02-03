@@ -105,7 +105,7 @@ and \code{TRUE} otherwise.
 \details{
 The sample size is calculated based on iterative evaluation of expected power.
 The starting value of the sample size search is taken from a large sample 
-approximation if \code{prior.type = "CV"}. Else an empirical start value is
+approximation if \code{prior.type = "CV"}. Otherwise, an empirical start value is
 obtained. Note that in case of \code{prior.type = "both"} the calculation may 
 still take several seconds.
 
@@ -113,11 +113,12 @@ Note also that the expected power is always bounded above by the so-called
 probability of technical success (\acronym{PTS}) which may be a value less than 1. 
 Therefore, it may be possible that it is either not possible to calculate the 
 required sample size at all or that the sample size gets very large 
-if the given targetpower is less but close to the \acronym{PTS}.
+if the given targetpower is less but close to the \acronym{PTS}.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).
 }
 \value{
 A data.frame with the input values and the result of the sample size estimation.\cr
-The \code{Sample size} column contains the \bold{total} sample size in case of all
+The \code{Sample size} column contains the total sample size in case of all
 designs implemented.
 }
 \references{

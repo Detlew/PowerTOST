@@ -28,6 +28,7 @@ knitr::opts_chunk$set(
 <li>[Power Analysis](PA.html)</li>
 </ul>
 </div>
+<h3>Details and examples of other methods are accessible via the menu bar on top of the page and the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.</h3>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -58,7 +59,7 @@ Supported designs are `"crossover"` (default; Latin Squares), `"parallel"`, and 
 
 With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with ten (`design = "crossover"`) or eleven (`design = "parallel"` or `design = "IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
 
-The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
+<span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).</span>
 
 # Examples
 Estimate the sample size for a modified Fibonacci dose-escalation study, lowest dose 10, three levels. Assumed *CV* 0.20 and <small>$\beta_{0}$</small> slightly higher than 1. Defaults employed.

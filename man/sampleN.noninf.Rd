@@ -68,7 +68,8 @@ Defaults to 100. Adaption only in rare cases needed.
 \details{
 The sample size is calculated via iterative evaluation of \code{power.noninf()}.\cr
 Start value for the sample size search is taken from a large sample approximation.\cr
-The sample size is bound to 4 as minimum.\cr
+The sample size is bound to 4 as minimum.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).\cr
 
 \strong{Notes on the underlying hypotheses}\cr
 If the supplied margin is < 0 (\code{logscale=FALSE}) or < 1 (\code{logscale=TRUE}), 

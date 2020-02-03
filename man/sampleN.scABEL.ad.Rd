@@ -139,7 +139,8 @@ intra-subjects contrasts are a sufficiently close approximation.\cr
 If an inflation of the \acronym{TIE} is expected (\emph{i.e.}, \code{>alpha}), alpha is
 iteratively adjusted until at least the target power is reached and the consumer
 risk is maintained (\code{<=alpha}). For details about the algorithm see the
-respective section of \code{\link{scABEL.ad}}.
+respective section of \code{\link{scABEL.ad}}.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence -- like in some other software packages).
 }
 \value{
 Returns a data.frame with the input and results for adjusted alpha,

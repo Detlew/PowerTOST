@@ -91,7 +91,8 @@ Number of studies to simulate. Defaults to 100,000 = 1E5.
 The sample size is calculated via iterative evaluation of power of the two TOSTs.\cr
 Start value for the sample size search is taken from a large sample approximation
 (one TOST) according to Zhang, modified.\cr
-The sample size is bound to 4 as minimum.
+The sample size is bound to 4 as minimum.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).
 }
 \value{
 A list with the input and results will be returned.\cr

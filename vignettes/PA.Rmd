@@ -28,6 +28,7 @@ knitr::opts_chunk$set(
 <li><span title="» You are here «">Power Analysis</span></li>
 </ul>
 </div>
+<h3>Details and examples of other methods are accessible via the menu bar on top of the page and the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.</h3>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -53,6 +54,8 @@ The *CV* is generally the *within*-subject coefficient of variation. Only for `d
 The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design can be abbreviated as `"2x2"`. Some call the `"parallel"` design a ‘one-sequence’ design. The `"paired"` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note that the underlying model assumes no period effects.
 
 With `x <- pa.ABE(...)` results are given as an [S3-object](http://adv-r.had.co.nz/S3.html "Hadley Wickham: The S3 object system") which can be printed, plotted, or both.
+
+<span class="hl">The estimated sample sizes give always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).</span>
 
 ## Function `pa.scABE()`
 
@@ -154,25 +157,16 @@ pa.NTIDFDA(CV = 0.125)
 ```
 ![**Fig. 6** Power Analysis (in each panel one argument is varied and others kept constant)](figure11.png){width=469px}
 
-With decreasing variability power decreases because the scaled limits become narrower. With increasing variability we gain power because we have to scale less until at \~21.4\% the addtional criterion ‘must pass conventional BE limits of 80.00--125.00\%’ cuts in.
+With decreasing variability power decreases because the scaled limits become narrower. With increasing variability we gain power because we have to scale less until at \~21.4\% the additional criterion ‘must pass conventional BE limits of 80.00--125.00\%’ cuts in.
 
 # Cave!
-The power analysis is <span style="background-color:#FFFF99"> not </span> a substitute for the ‘Sensitivity Analysis’ recommended by the ICH.^[International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use. *ICH Harmonised Tripartite Guideline. Statistical Principles for Clinical Trials.* 5 February 1998. [E9 Step 4](https://database.ich.org/sites/default/files/E9_Guideline.pdf).] In a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
+The power analysis is <span class="hl"> not </span> a substitute for the ‘Sensitivity Analysis’ recommended by the ICH.^[International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use. *ICH Harmonised Tripartite Guideline. Statistical Principles for Clinical Trials.* 5 February 1998. [E9 Step 4](https://database.ich.org/sites/default/files/E9_Guideline.pdf).] In a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
 
 # Authors
 |function|author(s)|
 |-|----|
 |`pa.ABE`, `pa.scABE`|Idea and original code by Helmut Schütz with modifications by Detlew Labes|
 |`pa.NTIDFDA`|Detlew Labes acc. to code by Helmut Schütz for `pa.ABE` and `pa.scABE`|
-
-# Man-pages
-Man-pages of functions used in this vignette:
-
-  * [pa.ABE](../html/pa.ABE.html)
-  * [pa.scABE](../html/pa.scABE.html)
-  * [pa.NTIDFDA](../html/pa.NTIDFDA.html)
-
-[Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
 # License
 <h4 class="author">Helmut Schütz `r Sys.Date()`</h4>

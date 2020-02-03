@@ -116,7 +116,8 @@ CVwr>0.5, \emph{i.e.}, the widened limits are held at value calculated for CVwR=
 The simulations are done by simulating subject data (all effects fixed except the
 residuals) and evaluating these data via ANOVA of all data to get the point estimate
 of T vs. R along with its 90\% CI and an ANOVA of the data under R(eference) only
-to get an estimate of s2wR.
+to get an estimate of s2wR.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence -- like in some other software packages).
 }
 \value{
 Returns a data.frame with the input settings and sample size results.\cr

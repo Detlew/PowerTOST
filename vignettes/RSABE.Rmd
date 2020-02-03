@@ -28,6 +28,7 @@ knitr::opts_chunk$set(
 <li>[Power Analysis](PA.html)</li>
 </ul>
 </div>
+<h3>Details and examples of other methods are accessible via the menu bar on top of the page and the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.</h3>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -69,7 +70,7 @@ The terminology of the `design` argument follows this pattern: `treatments x seq
 
 With `foo(..., details = FALSE, print = FALSE)` results are given as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
-The estimated sample size gives always the *total* number of subjects (not subject/sequence).
+<span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence -- like in some other software packages).</span>
 
 <h2>Conditions and Methods</h2><!-- not in the TOC -->
 
@@ -207,7 +208,7 @@ Power can by calculated by the counterparts of the respective sample size functi
 # Type I Error
 Contrary to average bioequivalence, where the Null-hypothesis is based on fixed limits, in reference-scaling the Null is generated in face of the data (*i.e*, the limits are random variables).
 
-Endrényi and Tóthfalusi (2009,^[Endrényi L, Tóthfalusi L. *Regulatory and study conditions for the determination of bioequivalence of highly variable drugs.* J Pharm Sci. 2009: 12(1); 138--49. [open access](http://ejournals.library.ualberta.ca/index.php/JPPS/article/viewFile/771/5275).] 2019^[Endrényi L, Tóthfalusi L. *Bioequivalence for highly variable drugs: regulatory agreements, disagreements, and harmonization.* J Pharmacokin Pharmacodyn. 2019: 46(2); 117--26. [doi:s10928-019-09623-w](https://doi.org/10.1002/sim.7440).]), Labes (2013^[Labes D. *‘alpha’ of scaled ABE?* BEBA Forum. Vienna, 2013. [open access](https://forum.bebac.at/mix_entry.php?id=10202#top10202).]), Wonnemann *et al.* (2015^[Wonnemann M, Frömke C, Koch A. *Inflation of the Type I Error: Investigations on Regulatory Recommendations for Bioequivalence of Highly Variable Drugs.* Pharm Res. 2015: 32(1); 135--43. [doi:10.1007/s11095-014-1450-z](https://doi.org/10.1007/s11095-014-1450-z).]), Muñoz *et al.* (2016^[Muñoz J, Alcaide D, Ocaña J. *Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence in highly variable drugs.* Stat Med. 2016: 35(12); 1933--43. [doi:10.1002/sim.6834](https://doi.org/10.1002/sim.6834).]),
+Endrényi and Tóthfalusi (2009,^[Endrényi L, Tóthfalusi L. *Regulatory and study conditions for the determination of bioequivalence of highly variable drugs.* J Pharm Sci. 2009: 12(1); 138--49. [open access](http://ejournals.library.ualberta.ca/index.php/JPPS/article/viewFile/771/5275).] 2019^[Endrényi L, Tóthfalusi L. *Bioequivalence for highly variable drugs: regulatory agreements, disagreements, and harmonization.* J Pharmacokin Pharmacodyn. 2019: 46(2); 117--26. [doi:10.1007/s10928-019-09623-w](https://doi.org/10.1007/s10928-019-09623-w).]), Labes (2013^[Labes D. *‘alpha’ of scaled ABE?* BEBA Forum. Vienna, 2013. [open access](https://forum.bebac.at/mix_entry.php?id=10202#top10202).]), Wonnemann *et al.* (2015^[Wonnemann M, Frömke C, Koch A. *Inflation of the Type I Error: Investigations on Regulatory Recommendations for Bioequivalence of Highly Variable Drugs.* Pharm Res. 2015: 32(1); 135--43. [doi:10.1007/s11095-014-1450-z](https://doi.org/10.1007/s11095-014-1450-z).]), Muñoz *et al.* (2016^[Muñoz J, Alcaide D, Ocaña J. *Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence in highly variable drugs.* Stat Med. 2016: 35(12); 1933--43. [doi:10.1002/sim.6834](https://doi.org/10.1002/sim.6834).]),
 Labes and Schütz (2016^[Labes D, Schütz H. *Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.* Pharm Res. 2016: 33(11); 2805--14. [doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).]), Tóthfalusi and Endrényi (2016,^[Tóthfalusi L, Endrényi L. *An Exact Procedure for the Evaluation of Reference-Scaled Average Bioequivalence.* AAPS J. 2016: 18(2); 476--89. [doi:10.1208/s12248-016-9873-6](https://doi.org/10.1208/s12248-016-9873-6).] 2017^[Tóthfalusi L, Endrényi L. *Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.* Stat Med. 2017: 36(27); 4378--90. [doi:10.1002/sim.7440](https://doi.org/10.1002/sim.7440).]), Molins *et al.* (2017^[Molins E, Cobo E, Ocaña J. *Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?* Stat Med. 2017: 36(30); 4777--88. [doi:10.1002/sim.7452](https://doi.org/10.1002/sim.7452).]), Deng and Zhou (2019^[Deng Y, Zhou X-H. *Methods to control the empirical type I error rate in average bioequivalence tests for highly variable drugs.* Stat Meth Med Res. Epub ahead of print 3 Sep 2019. [doi:10.1177/0962280219871589](https://doi.org/10.1177/0962280219871589).]) showed that under certain conditions (EMA, Health Canada: *CV~wR~* \~0.22--0.45, FDA: *CV~wR~* ≤0.30) the type I error will be substantially inflated.\
 Below the inflation region the study will be evaluated for ABE and the type I error controlled by the TOST. Above the inflation region the type&nbsp;I error is controlled by the PE restriction and for the EMA and Health Canada additionally by the upper cap of scaling.
 ```{r}
@@ -410,27 +411,6 @@ for (i in 1:3) {
 |`sampleN.scABEL`, `sampleN.RSABE`, `sampleN.NTIDFDA`, `sampleN.HVNTID`,<br />`power.scABEL`, `power.RSABE2L.sdsims`, `scABEL`, `reg_const`|Detlew Labes|
 |`power.scABEL.sdsims`|<span style="white-space:nowrap">Detlew Labes, Benjamin Lang</span>|
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
-
-# Man-pages
-Man-pages of functions used in examples of this vignette:
-
-  * Sample Size
-    * [sampleN.scABEL](../html/sampleN.scABEL.html)
-    * [sampleN.scABEL.sdsims](../html/sampleN.scABEL.sdsims.html)
-    * [sampleN.scABEL.ad](../html/sampleN.scABEL.ad.html)
-    * [sampleN.RSABE](../html/sampleN.RSABE.html)
-    * [sampleN.NTIDFDA](../html/sampleN.NTIDFDA.html)
-    * [sampleN.HVNTID](../html/sampleN.HVNTID.html)
-  * Power
-    * [power.scABEL](../html/power.scABEL.html)
-    * [power.RSABE2L.sds](../html/power.RSABE2L.sdsims.html)
-  * Helpers
-    * [scABEL.ad](../html/scABEL.ad.html)
-    * [scABEL](../html/scABEL.html)
-    * [reg_const](../html/reg_const.html)
-    * [CVp2CV](../html/CVp2CV.html)
-
-[Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
 # License{#license}
 <h4 class="author">Helmut Schütz `r Sys.Date()`</h4>

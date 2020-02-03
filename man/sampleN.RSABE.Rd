@@ -92,7 +92,8 @@ the package.\cr\cr
 If a CVcap is defined for the regulator, the BE decision is based on the inclusion
 of the CI in the capped widened acceptance limits in case of CVwR > CVcap. This
 resembles method \sQuote{Howe-EMA} in \enc{Muñoz}{Munoz} \emph{et al.} and is the standard behavior now if
-\code{regulator="EMA"} is choosen.
+\code{regulator="EMA"} is choosen.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence -- like in some other software packages).
 }
 \value{
 Returns a data.frame with the input and sample size results.\cr

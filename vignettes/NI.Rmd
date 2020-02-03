@@ -28,6 +28,7 @@ knitr::opts_chunk$set(
 <li>[Power Analysis](PA.html)</li>
 </ul>
 </div>
+<h3>Details and examples of other methods are accessible via the menu bar on top of the page and the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.</h3>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -75,7 +76,7 @@ The terminology of the `design` argument follows this pattern: `treatments x seq
 
 With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with eight columns `Design`, `alpha`,  `CV`, `theta0`, `Margin`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `sampleN.noninf[1, 6]` or `sampleN.noninf[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
-The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
+<span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).</span>
 
 # Non-Inferiority
 If the supplied margin is < 1 (`logscale = TRUE`) or < 0 (`logscale = FALSE`), then it is assumed that *higher* response values are <u>better</u>. The hypotheses are
@@ -155,7 +156,7 @@ power.noninf(design = "2x2x4", margin = 1.25, CV = 0.25,
 The bracketing approach does not necessarily give lower sample sizes than tests for equivalence. In this example we could aim at reference-scaling for the highly variable *C~min~* and at conventional ABE for *C~max~*.
 
 ```{r}
-res <- data.frame(design = "2x2x4", indended = c("ABEL", "ABE"),
+res <- data.frame(design = "2x2x4", intended = c("ABEL", "ABE"),
                   metric = c("Cmin", "Cmax"), CV = c(0.35, 0.20),
                   theta0 = c(0.90, 1.05), n = NA, power = NA,
                   stringsAsFactors = FALSE)
@@ -172,34 +173,20 @@ Which method is optimal is a case-to-case decision. Although in this example the
 n <- sampleN.scABEL(CV = 0.35, theta0 = 0.90, design = "2x2x4",
                     print = FALSE, details = FALSE)[["Sample size"]]
 # CV and theta0 of both metrics worse than assumed
-res <- data.frame(design = "2x2x4", indended = c("ABEL", "ABE"),
+res <- data.frame(design = "2x2x4", intended = c("ABEL", "ABE"),
                   metric = c("Cmin", "Cmax"), CV = c(0.50, 0.25),
                   theta0 = c(0.88, 1.12), n = n, power = NA,
                   stringsAsFactors = FALSE)
 res[1, 7] <- power.scABEL(CV = res$CV[1], theta0 = res$theta0[1],
-                            design = res$design[1], n = n)
+                          design = res$design[1], n = n)
 res[2, 7] <- power.TOST(CV = res$CV[2], theta0 = res$theta0[2],
-                          design = res$design[2], n = n)
+                        design = res$design[2], n = n)
 print(res, row.names = FALSE)
 ```
 See also the vignettes [RSABE](RSABE.html "Reference-scaled Average Bioequivalence"), [ABE](ABE.html "Average Bioequivalence"), and [PA](PA.html "Power Analysis").
 
 # Author{#author}
 Detlew Labes
-
-# Man-pages
-Man-pages of functions used in examples of this vignette:
-
-  * Sample Size
-    * [sampleN.noninf](../html/sampleN.noninf.html)
-    * [sampleN.scABEL](../html/sampleN.scABEL.html)
-    * [sampleN.TOST](../html/sampleN.TOST.html)
-  * Power
-    * [power.noninf](../html/power.noninf.html)
-    * [power.scABEL](../html/power.scABEL.html)
-    * [power.TOST](../html/power.TOST.html)
-
-[Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
 # License{#license}
 <h4 class="author">Helmut Schütz `r Sys.Date()`</h4>

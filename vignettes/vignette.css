@@ -13,11 +13,11 @@ table{margin:1em auto;border-width:1px;border-color:#ddd;border-style:outset;
 border-collapse:collapse}
 table th{border-width:2px;padding:5px;border-style:inset}
 table td{border-width:1px;border-style:inset;line-height:18px;padding:5px 5px}
-table, table th, table td{border-left-style:none;border-right-style:none}
+table,table th,table td{border-left-style:none;border-right-style:none}
 table thead, table .even{background-color:#f7f7f7}
 p{margin:0.5em 0}
 /* special stuff (ignored: why?) */
-sup, sub{position:relative;vertical-align:baseline;top:-0.4em}
+sup,sub{position:relative;vertical-align:baseline;top:-0.4em}
 sub{top:0.4em}
 blockquote{background-color:#fffff6;padding:0.25em 0.75em}
 hr{border-style:solid;border:none;border-top:1px solid #777;margin:28px 0}
@@ -27,6 +27,7 @@ dl dt{font-weight:700}
 ul{margin-top:0}
 ul li{list-style:circle outside}
 ul ul{margin-bottom:0}
+.hl{background-color:#FFFF99}
 pre, code{background-color:#f7f7f7;border-radius:3px;color:#333;white-space:pre-wrap}
 pre{border-radius:3px;margin:5px 0 10px 0;padding:10px}
 pre:not([class]){background-color:#f7f7f7}

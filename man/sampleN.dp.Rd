@@ -79,7 +79,8 @@ Defaults to 100. Adaption only in rare cases needed, if any.
 The sample size is calculated via iterative evaluation of \code{power.dp()}.\cr
 Start value for the sample size search is taken from a large sample approximation.\cr
 The sample size is bound to number of dose or sequence groups as minimum.\cr
-Balanced designs are used although this is not absolutely necessary.
+Balanced designs are used although this is not absolutely necessary.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).
 }
 \value{
 A data.frame with the input and results will be returned.\cr

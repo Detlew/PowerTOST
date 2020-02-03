@@ -70,11 +70,12 @@ probabilities are dependent from the state of the random number generator
 within the precision of the power.\cr\cr
 The CV(within) and CVb(etween) in case of \code{design="2x2"} are obtained 
 via an appropriate ANOVA from the error term and from the difference 
-\code{(MS(subject within sequence)-MS(error))/2}.
+\code{(MS(subject within sequence)-MS(error))/2}.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).
 }
 \value{
 A data.frame with the input values and results will be returned.\cr
-The sample size n returned is the \bold{total} sample size for \bold{both} designs.\cr
+The sample size n returned is the total sample size for both designs.\cr
 }
 \references{
 Hauschke D, Kieser M, Diletti E, Burke M. \emph{Sample size determination for proving equivalence based on the ratio of two means for normally distributed data.} Stat Med. 1999;18(1):93--105.\cr

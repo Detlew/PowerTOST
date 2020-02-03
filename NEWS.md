@@ -1,12 +1,14 @@
 # PowerTOST 1.4.9.9999
 
-20.12.2019
-Started new version on GitHub
+New version on GitHub started 2019-12-20.
 
+## Minor changes
+
+  * Clarify in man-pages that all functions return the *total* sample size (and not subjects/sequence in crossovers and subjects/group in parallel designs -- like in some other software packages). Suggested by Amandine Schmutz.
 
 # PowerTOST 1.4-9
 
-Submitted to CRAN 2019-12-16. (xmas gift)
+On CRAN 2019-12-19. (Xmas gift)
 
 ## Bug fixes
 
@@ -24,11 +26,11 @@ Submitted to CRAN 2019-12-16. (xmas gift)
   * Imports package `tufte` for nice quotes in Rmarkdown.
   * Slightly enhanced man pages of `power.dp()` and `sampleN.dp()` w.r.t. the value of `CVb` in case of `design="IBD"`.
   * Cosmetics in output of `sampleN.noninf` based on `margin`.
-  * Reworked minimum sample sizes in `pa.scABE.R()` according to guidances. Generally 12 (as before) but 24 for the FDA. Also 24 for the EMA if 2x2x3 design (Q&A document). Changed `N` to `n` in the S3-methods in conformity with other functions.
+  * Reworked minimum sample sizes in `pa.scABE.R()` according to guidances. Generally 12 (as before) but 24 for the FDA. Also 24 for the EMA if `2x2x3` design (Q&A document). Changed `N` to `n` in the S3-methods in conformity with other functions.
 
 # PowerTOST 1.4-8
 
-on CRAN 2019-08-29.
+On CRAN 2019-08-29.
 
 ## Bug fixes
 
@@ -76,7 +78,7 @@ On CRAN 2018-04-12 (dedicated to the birthday of Alfie Schütz. :-)
 
 # PowerTOST 1.4-6
 
-On CRAN 2017-08-17
+On CRAN 2017-08-17.
 
 ## Bug fixes
 
@@ -90,12 +92,12 @@ On CRAN 2017-08-17
 
 ## Minor changes
 
-  * Man pages for non-inferiority again updated.
+  * Man-pages for non-inferiority again updated.
   * Data lazy loading (allows access by the name).
 
 # PowerTOST 1.4-5
 
-On CRAN 2017-05-19
+On CRAN 2017-05-19.
 
 ## Bug fixes
 
@@ -113,15 +115,15 @@ On CRAN 2017-05-19
 
 ## Minor changes
 
-  * Man pages for non-inferiority functions updated to include a description of the underlying hypotheses.
-  * Remaining man pages updated where term `'Null (true) ratio'` was mentioned instead of `'True ratio'`.
+  * Man-pages for non-inferiority functions updated to include a description of the underlying hypotheses.
+  * Remaining man-pages updated where term `'Null (true) ratio'` was mentioned instead of `'True ratio'`.
   * Internal change of coding in design helpers (repeated creation of data.frame with design characteristics avoided).
   * Typo corrected in `Expected_Power_for_TOST.pdf`.
   * Renamed the variable `'adj. alpha'` in `sampleN.scABEL.ad()` to `'alpha.adj'`for consistency with `scABEL.ad()`.
 
 # PowerTOST 1.4-4
 
-On CRAN 2017-03-15
+On CRAN 2017-03-15.
 
 ## Bug fixes
 
@@ -136,13 +138,13 @@ On CRAN 2017-03-15
 
   * Administrative change for expected power: `cubature::adaptIntegrate` replaced by `cubature::hcubature` to reflect change of function name within package cubature.
   * Low CV (cosmetic) correction in `power.scABEL()` introduced.
-  * DOI for references added in many man pages. THX to Helmut.
+  * DOI for references added in many man-pages. THX to Helmut.
   * Ben’s description of expected power added in `/doc` subdirectory.
   * `BE_power_sample_size_excerpt.pdf` updated to reflect the changes in computation of OwensQ. 
 
 # PowerTOST 1.4-3
 
-On CRAN 2016-11-01
+On CRAN 2016-11-01.
 
 ## Bug fixes
 
@@ -163,7 +165,7 @@ On CRAN 2016-11-01
 
 # PowerTOST 1.4-2
 
-On CRAN 2016-07-14
+On CRAN 2016-07-14.
 
 ## Bug fixes
 
@@ -177,13 +179,13 @@ On CRAN 2016-07-14
 
   * `Implementation_scaledABE_sims.pdf` in `/doc` subdirectory updated to reflect changes in code of the scaled ABE functions.
   * The S3 method plot for class `'pwrA'` now has an argument `ratiolabel` for labeling the axis concerning theta0. Wish of Benjamin Lang.
-  * Various enhancements in man pages.
+  * Various enhancements in man-pages.
   * Power and sample size for FDA RSABE now take into account a CVcap if defined as finite.
   * Misleading term `'Null (true) ratio'` in output of sample size functions changed to `'True ratio'`.
 
 # PowerTOST 1.4-1
 
-Published on GitHub 2016-06-14
+Published on GitHub 2016-06-14.
 
 ## Major changes
 
@@ -197,7 +199,7 @@ Published on GitHub 2016-06-14
 
 # PowerTOST 1.3-7
 
-Published on GitHub 2016-06-10
+Published on GitHub 2016-06-10.
 
 ## Bug fixes
 
@@ -205,8 +207,8 @@ Published on GitHub 2016-06-10
 
 # PowerTOST 1.3-6
 
-On CRAN 2016-06-06  
-Released to beta-testers 2016-05-04
+On CRAN 2016-06-06.  
+Released to beta-testers 2016-05-04.
 
 ## Major changes
 
@@ -220,11 +222,11 @@ Released to beta-testers 2016-05-04
   * Function `scABEL()` (calculation of widened acceptance limits) no longer accepts `regulator="USER"`. This case may be handled via an object with class `'regSet'`, as defined by help of function `reg_const()`.
   * Functions `CVfromCI()`/`CI2CV` now use `pe` instead of `point` as argument due to more consistency with their dual `CI.BE()`. For backward compatibility `point` may be used also but then a warning is thrown. Argument point will be removed in future versions.
   * Functions for expected power for TOST and non-inferiority updated to avoid numeric dificulties with `integrate()` if `method="exact"`.
-  * Documentation (typos in man pages) rigorously enhanced. Thanks to Helmut and Ben.
+  * Documentation (typos in man-pages) rigorously enhanced. Thanks to Helmut and Ben.
 
 # PowerTOST 1.3-5
 
-On CRAN 2016-04-12
+On CRAN 2016-04-12.
 
 ## Bug fixes
 
@@ -240,7 +242,7 @@ On CRAN 2016-04-12
 
 # PowerTOST 1.3-4
 
-On CRAN 2016-03-09
+On CRAN 2016-03-09.
 
 ## Bug fixes
 
@@ -252,8 +254,8 @@ On CRAN 2016-03-09
 
 # PowerTOST 1.3-3
 
-On CRAN 2016-01-15  
-Released 2016-01-04 to alpha testers
+On CRAN 2016-01-15.  
+Released 2016-01-04 to alpha testers.
 
 ## Major changes
 
@@ -265,7 +267,7 @@ Released 2016-01-04 to alpha testers
 
 # PowerTOST 1.3-2
 
-On CRAN 2015-12-02
+On CRAN 2015-12-02.
 
 ## Major changes
 
@@ -273,8 +275,8 @@ On CRAN 2015-12-02
 
 # PowerTOST 1.3-1
 
-On CRAN 2015-09-30  
-Released 2015-09-23 to alpha testers
+On CRAN 2015-09-30.  
+Released 2015-09-23 to alpha testers.
 
 ## Major changes
 
@@ -283,11 +285,11 @@ Released 2015-09-23 to alpha testers
 ## Minor changes
 
   * `power.HVNTID()` and `power.NTIDFDA()` now return the power (`p(BE)`) and the components for the scaled ABE criterion, the conventional ABE test and the test for the ratio s<sub>wT</sub>/s<sub>wR</sub> <= 2.5 if the argument `details=TRUE` (wish of Helmut Schütz).
-  * `power.RSABE()` now returns the power (`p(BE)`) and the components for the scaled ABE criterion, for the point estimate criterion and for the conventional ABE test alone if the argument `details=TRUE`. Analogous changes were made in `power.scABEL()`. See man pages.
+  * `power.RSABE()` now returns the power (`p(BE)`) and the components for the scaled ABE criterion, for the point estimate criterion and for the conventional ABE test alone if the argument `details=TRUE`. Analogous changes were made in `power.scABEL()`. See man-pages.
 
 # PowerTOST 1.2-9
 
-On CRAN 2015-08-26
+On CRAN 2015-08-26.
 
 ## Bug fixes
 
@@ -300,7 +302,7 @@ On CRAN 2015-08-26
 
 # PowerTOST 1.2-8
 
-On CRAN 2015-07-10
+On CRAN 2015-07-10.
 
 ## Minor changes
 
@@ -310,7 +312,7 @@ On CRAN 2015-07-10
 
 # PowerTOST 1.2-7
 
-On CRAN 2015-06-03
+On CRAN 2015-06-03.
 
 ## Major changes
 
@@ -321,7 +323,7 @@ On CRAN 2015-06-03
 
 # PowerTOST 1.2-6
 
-On CRAN 2015-01-23
+On CRAN 2015-01-23.
 
 ## Major changes
 
@@ -334,7 +336,7 @@ On CRAN 2015-01-23
 
 # PowerTOST 1.2-5
 
-On CRAN 2015-01-07
+On CRAN 2015-01-07.
 
 ## Bug fixes
 
@@ -347,7 +349,7 @@ On CRAN 2015-01-07
 
 # PowerTOST 1.2-4
 
-On CRAN 2014-12-19
+On CRAN 2014-12-19.
 
 ## Bug fixes
 
@@ -363,7 +365,7 @@ On CRAN 2014-12-19
 
 # PowerTOST 1.2-3
 
-On CRAN 2014-11-13
+On CRAN 2014-11-13.
 
 ## Bug fixes
 
@@ -380,7 +382,7 @@ On CRAN 2014-11-13
 
 # PowerTOST 1.2-2
 
-On CRAN 2014-10-06
+On CRAN 2014-10-06.
 
 ## Minor changes
 
@@ -388,11 +390,11 @@ On CRAN 2014-10-06
 
 # PowerTOST 1.2-1
 
-On CRAN 2014-09-30
+On CRAN 2014-09-30.
 
 ## Bug fixes
 
-  * Some minor bugs removed and spelling in man pages corrected.
+  * Some minor bugs removed and spelling in man-pages corrected.
 
 ## Minor changes
 
@@ -401,7 +403,7 @@ On CRAN 2014-09-30
 
 # PowerTOST 1.2-0
 
-Build 2014-09-19, released to alpha/beta testers only
+Build 2014-09-19, released to alpha/beta testers only.
 
 ## Major changes
 
@@ -410,7 +412,7 @@ Build 2014-09-19, released to alpha/beta testers only
 
 # PowerTOST 1.1-13
 
-On CRAN 2014-08-12
+On CRAN 2014-08-12.
 
 ## Bug fixes
 
@@ -418,7 +420,7 @@ On CRAN 2014-08-12
 
 # PowerTOST 1.1-12
 
-On CRAN 2014-07-02
+On CRAN 2014-07-02.
 
 ## Minor changes
 
@@ -428,7 +430,7 @@ On CRAN 2014-07-02
 
 # PowerTOST 1.1-11
 
-On CRAN 2014-04-30
+On CRAN 2014-04-30.
 
 ## Major changes
 
@@ -437,7 +439,7 @@ On CRAN 2014-04-30
 
 # PowerTOST 1.1-10
 
-On CRAN 2014-01-31
+On CRAN 2014-01-31.
 
 ## Bug fixes
 
@@ -451,11 +453,11 @@ On CRAN 2014-01-31
 
 ## Minor changes
 
-  * Improvements in documentation (man pages and \*.pdf) to reflect the code changes.
+  * Improvements in documentation (man-pages and \*.pdf) to reflect the code changes.
 
 # PowerTOST 1.1-9
 
-Build 2014-01-03, not released to the public
+Build 2014-01-03, not released to the public.
 
 ## Major changes
 
@@ -463,7 +465,7 @@ Build 2014-01-03, not released to the public
 
 # PowerTOST 1.1-8
 
-On CRAN 2013-12-27
+On CRAN 2013-12-27.
 
 ## Bug fixes
 
@@ -476,7 +478,7 @@ On CRAN 2013-12-27
 
 # PowerTOST 1.1-7
 
-On CRAN 2013-09-02
+On CRAN 2013-09-02.
 
 ## Major changes
 
@@ -489,7 +491,7 @@ On CRAN 2013-09-02
 
 # PowerTOST 1.1-6
 
-On CRAN 2013-06-21
+On CRAN 2013-06-21.
 
 ## Bug fixes
 
@@ -497,7 +499,7 @@ On CRAN 2013-06-21
 
 # PowerTOST 1.1-5
 
-On CRAN 2013-06-17
+On CRAN 2013-06-17.
 
 ## Bug fixes
 
@@ -513,7 +515,7 @@ On CRAN 2013-06-17
 
 # PowerTOST 1.1-4
 
-Build 2013-05-15, relased to alpha testers only
+Build 2013-05-15, relased to alpha testers only.
 
 ## Major changes
 
@@ -521,7 +523,7 @@ Build 2013-05-15, relased to alpha testers only
 
 # PowerTOST 1.1-3
 
-On CRAN 2013-05-03
+On CRAN 2013-05-03.
 
 ## Bug fixes
 
@@ -535,7 +537,7 @@ On CRAN 2013-05-03
 
 # PowerTOST 1.1-2
 
-On CRAN 2013-02-28
+On CRAN 2013-02-28.
 
 ## Major changes
 
@@ -549,7 +551,7 @@ On CRAN 2013-02-28
 
 # PowerTOST 1.1-0
 
-On CRAN 2013-02-08
+On CRAN 2013-02-08.
 
 ## Major changes
 
@@ -570,7 +572,7 @@ Not released, integrated in 1.1-00
 
 # PowerTOST 1.0-0
 
-On CRAN 2012-10-26
+On CRAN 2012-10-26.
 
 ## Bug fixes
 
@@ -583,7 +585,7 @@ On CRAN 2012-10-26
 
 # PowerTOST 0.9-11
 
-On CRAN 2012-08-07
+On CRAN 2012-08-07.
 
 ## Bug fixes
 
@@ -591,7 +593,7 @@ On CRAN 2012-08-07
 
 # PowerTOST 0.9-10
 
-On CRAN 2012-07-20
+On CRAN 2012-07-20.
 
 ## Bug fixes
 
@@ -601,7 +603,7 @@ On CRAN 2012-07-20
 
 # PowerTOST 0.9-9
 
-On CRAN 2012-07-18
+On CRAN 2012-07-18.
 
 ## Bug fixes
 
@@ -613,7 +615,7 @@ On CRAN 2012-07-18
 
 # PowerTOST 0.9-8
 
-On CRAN 2012-04-05 (Easter egg)
+On CRAN 2012-04-05 (Easter egg).
 
 ## Major changes
 
@@ -625,11 +627,11 @@ On CRAN 2012-04-05 (Easter egg)
 
 # PowerTOST 0.9-6/7
 
-On CRAN 2012-03-26
+On CRAN 2012-03-26.
 
 ## Bug fixes
 
-  * PowerTOST 0.9-7 is a small bug fix of PowerTOST required by CRAN. It contains the old release number 0.9-6 in the package man page.
+  * PowerTOST 0.9-7 is a small bug fix of PowerTOST required by CRAN. It contains the old release number 0.9-6 in the package man-page.
 
 ## Major changes
 
@@ -638,7 +640,7 @@ On CRAN 2012-03-26
 
 # PowerTOST 0.9-4
 
-On CRAN 2012-03-05
+On CRAN 2012-03-05.
 
 ## Bug fixes
 
@@ -646,7 +648,7 @@ On CRAN 2012-03-05
 
 # PowerTOST 0.9-3
 
-On CRAN 2012-02-13
+On CRAN 2012-02-13.
 
 ## Bug fixes
 
@@ -660,7 +662,7 @@ On CRAN 2012-02-13
 
 # PowerTOST 0.9-2
 
-On CRAN 2011-12-24
+On CRAN 2011-12-24.
 
 ## Major changes
 
@@ -677,7 +679,7 @@ On CRAN 2011-12-24
 
 # PowerTOST 0.9-0
 
-On CRAN 2011-12-15
+On CRAN 2011-12-15.
 
 ## Major changes
 
@@ -689,7 +691,7 @@ On CRAN 2011-12-15
 
 # PowerTOST 0.8-7
 
-On CRAN 2011-10-20
+On CRAN 2011-10-20.
 
 ## Bug fixes
 
@@ -697,7 +699,7 @@ On CRAN 2011-10-20
 
 # PowerTOST 0.8-6
 
-On CRAN 2011-05-18
+On CRAN 2011-05-18.
 
 ## Bug fixes
 
@@ -706,7 +708,7 @@ On CRAN 2011-05-18
 
 # PowerTOST 0.8-5
 
-On CRAN 2011-05-16
+On CRAN 2011-05-16.
 
 ## Bug fixes
 
@@ -715,7 +717,7 @@ On CRAN 2011-05-16
 
 # PowerTOST 0.8-4
 
-On CRAN 2011-03-11
+On CRAN 2011-03-11.
 
 ## Minor changes
 
@@ -724,7 +726,7 @@ On CRAN 2011-03-11
 
 # PowerTOST 0.8-3
 
-On CRAN 2011-01-18
+On CRAN 2011-01-18.
 
 ## Bug fixes
 
@@ -732,7 +734,7 @@ On CRAN 2011-01-18
 
 # PowerTOST 0.8-2
 
-On CRAN 2011-01-10
+On CRAN 2011-01-10.
 
 ## Bug fixes
 
@@ -744,7 +746,7 @@ On CRAN 2011-01-10
 
 # PowerTOST 0.8-1
 
-On CRAN 2010-11-25
+On CRAN 2010-11-25.
 
 ## Major changes
 
@@ -752,7 +754,7 @@ On CRAN 2010-11-25
 
 # PowerTOST 0.7-3
 
-On CRAN 2010-11-25
+On CRAN 2010-11-25.
 
 ## Major changes
 
@@ -764,13 +766,13 @@ On CRAN 2010-11-25
 
 # PowerTOST 0.7-2
 
-On CRAN 2010-08-27
+On CRAN 2010-08-27.
 
   * Little bug causing warnings in case of the `"2x2"` alias `"2x2x2"` design corrected.
 
 # PowerTOST 0.7-1
 
-On CRAN 2010-08-12
+On CRAN 2010-08-12.
 
 ## Major changes
 
@@ -783,7 +785,7 @@ On CRAN 2010-08-12
 
 # PowerTOST 0.6-2
 
-On CRAN 2010-07-21
+On CRAN 2010-07-21.
 
 ## Major changes
 
@@ -797,5 +799,5 @@ On CRAN 2010-07-21
 
 # PowerTOST 0.5-1
 
-On CRAN 2010-05-07, first public release
+On CRAN 2010-05-07, first public release.
   

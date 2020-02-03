@@ -83,7 +83,8 @@ the conventional ABE test and additional the test that the ratio of
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on these method.\cr
 Details can be found in a document \verb{Implementation_scaledABE_sims} located in 
-the \code{/doc} sub-directory of the package.
+the \code{/doc} sub-directory of the package.\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence -- like in some other software packages).
 }
 \value{
 Returns a data.frame with the input settings and sample size results.\cr

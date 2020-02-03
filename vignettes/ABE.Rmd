@@ -28,6 +28,8 @@ knitr::opts_chunk$set(
 <li>[Power Analysis](PA.html)</li>
 </ul>
 </div>
+<h3>Details and examples of other methods are accessible via the menu bar on top of the page and the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.</h3>
+
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
@@ -69,7 +71,7 @@ Implemented exact algorithms are `"exact"` / `"owenq"` (Owen’s Q function, de
 With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with nine columns `Design`, `alpha`,  `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`.\
 To access *e.g.*, the sample size use either `sampleN.TOST[1, 7]` or `sampleN.TOST[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
-The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs).
+<span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).</span>
 
 # Sample size
 Designs with one (parallel) to four periods (replicates) are supported.
@@ -191,7 +193,7 @@ res$pwr.2 <- power.TOST.sds(CV = CV, n = res$n, grps = res$grps,
 res$loss  <- signif(100*(res$pwr.2 - res$pwr.1)/res$pwr.1, 5)
 print(signif(res, 6), row.names = FALSE)
 ```
-With ~0.5\% the relative loss in power is practically negligble.
+With ~0.5\% the relative loss in power is practically negligible.
 
 ## Example 2
 Estimate the sample size for equivalence of the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval.^[Fieller EC. *Some Problems in Interval Estimation.* J Royal Stat Soc B. 1954; 16(2): 175--85. [JSTOR:2984043](https://www.jstor.org/stable/2984043).] Crossover design, within-subject *CV~w~* 0.20, between-subject *CV~b~* 0.40.
@@ -339,7 +341,7 @@ Let us first recap the hypotheses in bioequivalence.
 
 Note that the Null hypotheses are bio<u>**in**</u>equivalence.
 
-From a regulatory perspective the outcome of a comparative BA study is dichotomous. <span style="background-color:#FFFF99"> Either </span> the study demonstrated bioequivalence (CI entirely within $\theta_{1},\theta_{2}$) <span style="background-color:#FFFF99"> or </span> not.^[If the CI overlaps $\theta_{1},\theta_{2}$, the outcome is indecisive (called ‘the grey zone’ by some). As long as $\theta_{0}$ lies within $\theta_{1},\theta_{2}$ you can hope to show BE in a larger sample size. However, once $\theta_{0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
+From a regulatory perspective the outcome of a comparative BA study is dichotomous. <span class="hl"> Either </span> the study demonstrated bioequivalence (CI entirely within $\theta_{1},\theta_{2}$) <span class="hl"> or </span> not.^[If the CI overlaps $\theta_{1},\theta_{2}$, the outcome is indecisive (called ‘the grey zone’ by some). As long as $\theta_{0}$ lies within $\theta_{1},\theta_{2}$ you can hope to show BE in a larger sample size. However, once $\theta_{0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
   `sampleN.TOST(CV = 0.075, theta0 = 0.81)` and then\
   `sampleN.TOST(CV = 0.075, theta0 = 0.80)` to get an idea.] Only if the CI lies entirely outside $\theta_{1},\theta_{2}$ the Null hypothesis is not rejected and further studies not warranted.
 In any case, calculation of *post hoc* (<span title="also known as">a.k.a.</span> *a posteriori*, retrospective) power is futile.^[Hoenig JM, Heisey DM. [*The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.*](https://www.vims.edu/people/hoenig_jm/pubs/hoenig2.pdf) Am Stat. 2001; 55(1): 19--24]
@@ -479,20 +481,6 @@ res <- rbind(res1, res2)
 print(signif(res[order(res$n, res$theta0), ], 4), row.names = FALSE)
 ```
 If you use 1.05 (sample size 20) power will be maintained down to its reciprocal (0.9524) but *not* to 0.95 (where you would need already a sample size of 22). One the other hand, 0.95 preserves power up to 1.053. The statement ‘sample size based on a deviation of ±5\%’ seen in many protocol does not make sense.
-
-# Man-pages
-Man-pages of functions used in this vignette:
-
-  * [sampleN.TOST](../html/sampleN.TOST.html)
-  * [power.TOST](../html/power.TOST.html)
-  * [power.TOST.sds](../html/power.TOST.sds.html)
-  * [CVCL](../html/CVCL.html)
-  * [expsampleN.TOST](../html/expsampleN.TOST.html)
-  * [CI.BE](../html/CI.BE.html)
-  * [CVpooled](../html/CVpooled.html)
-  * [CVfromCI](../html/CVfromCI.html)
-
-[Online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.
 
 # Authors
 |function|author(s)|
