@@ -2,6 +2,10 @@
 
 New version on GitHub started 2019-12-20.
 
+## Bug fixes
+
+  * Fix in Example 1 of `ABE.Rmd` (not a good idea specify a variable with the same name as a function).
+
 ## Minor changes
 
   * Clarify in man-pages that all functions return the *total* sample size (and not subjects/sequence in crossovers and subjects/group in parallel designs -- like in some other software packages). Suggested by Amandine Schmutz.

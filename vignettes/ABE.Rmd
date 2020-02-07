@@ -160,7 +160,7 @@ period(group) + group × sequence + treatment
 ```
 Since we have more terms in the model, we will loose some degrees of freedom. Let us explore in simulations how that would impact power. By default function `power.TOST.sds()` performs 100,000 simulations.
 ```{r}
-ngrp <- function(capacity, n) {
+grouping <- function(capacity, n) {
   # split sample size into >=2 groups based on capacity
   if (n <= capacity) { # make equal groups
     ngrp <- rep(ceiling(n/2), 2)
@@ -181,17 +181,21 @@ ngrp <- function(capacity, n) {
 }
 CV        <- 0.30
 capacity  <- 24 # clinical capacity
-res       <- data.frame(n = NA, grps = NA, pwr.1 = NA, pwr.2 = NA)
+res       <- data.frame(n = NA, grps = NA, n.grp = NA, m.1 = NA, m.2 = NA)
 x         <- sampleN.TOST(CV = CV, print = FALSE, details = FALSE)
 res$n     <- x[["Sample size"]]
-res$pwr.1 <- x[["Achieved power"]]
-x         <- ngrp(capacity = capacity, n = res$n)
+res$m.1   <- x[["Achieved power"]]
+x         <- grouping(capacity = capacity, n = res$n)
 res$grps  <- x[["grps"]]
 ngrp      <- x[["ngrp"]]
-res$pwr.2 <- power.TOST.sds(CV = CV, n = res$n, grps = res$grps,
+res$n.grp <- paste(ngrp, collapse = "|")
+res$m.2   <- power.TOST.sds(CV = CV, n = res$n, grps = res$grps,
                             ngrp = ngrp, gmodel = 2, progress = FALSE)
-res$loss  <- signif(100*(res$pwr.2 - res$pwr.1)/res$pwr.1, 5)
-print(signif(res, 6), row.names = FALSE)
+res$loss <- 100*(res$m.2 - res$m.1)/res$m.1
+names(res)[2:6] <- c("groups", "n/group", "pooled model",
+                     "group model", "loss (%)")
+res[1, 4:6] <- sprintf("%6.4f", res[1, 4:6])
+cat("Achieved power and relative loss\n"); print(res, row.names = FALSE)
 ```
 With ~0.5\% the relative loss in power is practically negligible.
 
