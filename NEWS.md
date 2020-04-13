@@ -9,6 +9,7 @@ New version on GitHub started 2019-12-20.
 ## Minor changes
 
   * Clarify in man-pages that all functions return the *total* sample size (and not subjects/sequence in crossovers and subjects/group in parallel designs -- like in some other software packages). Suggested by Amandine Schmutz.
+  * Clarification of argument CV (and theta0, theta1, theta2) in case of logscale = FALSE.
 
 # PowerTOST 1.4-9
 

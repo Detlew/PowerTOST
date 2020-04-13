@@ -32,24 +32,27 @@ expsampleN.noninf(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
     Defaults to \code{TRUE}.
   }  
   \item{theta0}{
-    Assumed \sQuote{true} (or \sQuote{observed} in case of
-    \code{prior.type != "CV"}) ratio or difference.\cr
-    Typically set to \verb{0.95} (default if missing) if \code{logscale=TRUE}.
-    Defaults to \verb{-0.05} if \code{logscale=FALSE}.
+    Assumed \sQuote{true} (or \sQuote{observed} in case of \code{prior.type != "CV"}) ratio or difference.\cr
+    In case of \code{logscale=TRUE} it must be given as ratio T/R.\cr
+    If \code{logscale=FALSE}, the difference in means. In this case, the difference may be expressed in two ways: relative to the same (underlying) reference mean, i.e. as (T-R)/R = T/R - 1; or as difference in means T-R. Note that in the former case the units of \code{margin} and \code{CV} need also be given relative to the reference mean (specified as ratio).\cr
+    Defaults to 0.95 if \code{logscale=TRUE} or to -0.05 if \code{logscale=FALSE}
   }
   \item{margin}{
     Non-inferiority margin.\cr
-    In case of \code{logscale=TRUE} it must be given as a ratio, otherwise
-    as a difference.\cr
-    Defaults to \verb{0.8} if \code{logscale=TRUE} or to \verb{-0.2} if
-    \code{logscale=FALSE}.
+    In case of \code{logscale=TRUE} it is given as ratio.\cr
+    If \code{logscale=FALSE}, the limit may be expressed in two ways:
+    difference of means relative to the same (underlying) reference mean or in units of the difference of means.
+    Note that in the former case the units of \code{CV} and \code{theta0} need also be given relative to the reference mean (specified as ratio).\cr
+    Defaults to 0.8 if \code{logscale=TRUE} or to -0.2 if \code{logscale=FALSE}.
   }
   \item{CV}{
-    Assumed true or observed coefficient of variation as ratio (not
-    percent). Only values \verb{> 0} are allowed.
-    If \code{logscale=FALSE} CV is assumed to be the standard deviation.
-    If \code{prior.type="CV"} may be given as vector: The CVs are then
-    pooled (as a weighted mean with their degrees of freedom as weights).
+    In case of \code{logscale=TRUE} the (geometric) coefficient of variation given as ratio.\cr
+    If \code{logscale=FALSE} the argument refers to (residual) standard deviation of the response. In this case, standard deviation may be expressed two ways: relative to a reference mean (specified as ratio sigma/muR), i.e. again as a coefficient of variation; or untransformed, i.e. as standard deviation of the response. Note that in the former case the units of \code{theta0}, \code{theta1} and \code{theta2} need also be given relative to the reference mean (specified as ratio).\cr
+    
+    If \code{prior.type="CV"} may be given as vector: The CVs are then pooled (as a 
+    weighted mean with their degrees of freedoms as weights).\cr
+    
+    In case of cross-over studies this is the within-subject CV, in case of a parallel-group design the CV of the total variability.
   }
   \item{design}{
     Character string describing the study design.\cr

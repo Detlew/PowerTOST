@@ -14,25 +14,30 @@ power.noninf(alpha = 0.025, logscale = TRUE, margin, theta0, CV, n,
 }
 \arguments{
   \item{alpha}{
-Type I error probability, significance level. Defaults here to 0.025.
+Significance level (one-sided). Defaults here to 0.025.
 }
   \item{logscale}{
 Should the data used on log-transformed or on original scale? \code{TRUE} (default) or \code{FALSE}.
 }
+  \item{theta0}{
+\sQuote{True} or assumed T/R ratio or difference.\cr
+In case of \code{logscale=TRUE} it must be given as ratio T/R.\cr
+If \code{logscale=FALSE}, the difference in means. In this case, the difference may be expressed in two ways: relative to the same (underlying) reference mean, i.e. as (T-R)/R = T/R - 1; or as difference in means T-R. Note that in the former case the units of \code{margin} and \code{CV} need also be given relative to the reference mean (specified as ratio).\cr
+Defaults to 0.95 if \code{logscale=TRUE} or to -0.05 if \code{logscale=FALSE}
+}
   \item{margin}{
 Non-inferiority margin.\cr
-In case of \code{logscale=TRUE} it must be given as ratio, otherwise as difference to 1.\cr
+In case of \code{logscale=TRUE} it is given as ratio.\cr
+If \code{logscale=FALSE}, the limit may be expressed in two ways:
+difference of means relative to the same (underlying) reference mean or in units of the difference of means.
+Note that in the former case the units of \code{CV} and \code{theta0} need also be given relative to the reference mean (specified as ratio).\cr
 Defaults to 0.8 if \code{logscale=TRUE} or to -0.2 if \code{logscale=FALSE}.
 }
-  \item{theta0}{
-\sQuote{True} or assumed T/R ratio or difference (T--R). \cr
-In case of \code{logscale=TRUE} it must be given as ratio, \cr
-otherwise as difference to 1. See examples.\cr
-Defaults to 0.95 if \code{logscale=TRUE} or to -0.05 if \code{logscale=FALSE}.
-}
   \item{CV}{
-Coefficient of variation as ratio.\cr
-In case of cross-over studies this is the within-subject CV and in case of a parallel-group design the CV of the total variability.
+In case of \code{logscale=TRUE} the (geometric) coefficient of variation given as ratio.\cr
+If \code{logscale=FALSE} the argument refers to (residual) standard deviation of the response. In this case, standard deviation may be expressed two ways: relative to a reference mean (specified as ratio sigma/muR), i.e. again as a coefficient of variation; or untransformed, i.e. as standard deviation of the response. Note that in the former case the units of \code{theta0}, \code{theta1} and \code{theta2} need also be given relative to the reference mean (specified as ratio).\cr
+
+In case of cross-over studies this is the within-subject CV, in case of a parallel-group design the CV of the total variability.
 }
   \item{n}{
 Number of subjects under study.\cr
