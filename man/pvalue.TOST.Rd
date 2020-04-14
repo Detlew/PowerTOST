@@ -41,7 +41,7 @@ In case of \code{logscale=TRUE} it is given as ratio.\cr
 If \code{logscale=FALSE}, the limit may be expressed in two ways:
 difference of means relative to the same (underlying) reference mean or in units of the difference of means.
 Note that in the former case the units of \code{CV}, \code{pe} and \code{theta2} need also be given relative to the reference mean (specified as ratio).\cr
-Defaults to 0.8 if \code{logscale=TRUE} or to \verb{log(0.8)} if \code{logscale=FALSE}.
+Defaults to 0.8 if \code{logscale=TRUE} or to -0.2 if \code{logscale=FALSE}.
 }
   \item{theta2}{
 Upper (bio-)equivalence limit.\cr

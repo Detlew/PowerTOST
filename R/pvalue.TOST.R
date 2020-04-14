@@ -74,7 +74,7 @@ pvalue.TOST <- function(pe, CV, n, logscale = TRUE, theta1, theta2,
   } else {
     # cat() changed to message to allow suppressMessages()
     message("It is assumed that CV is the standard deviation.")
-    if (missing(theta1)) theta1 <- log(0.8)
+    if (missing(theta1)) theta1 <- -0.2
     if (missing(theta2)) theta2 <- -theta1
     ltheta1 <- theta1
     ltheta2 <- theta2
