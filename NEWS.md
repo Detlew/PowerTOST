@@ -1,6 +1,6 @@
 # PowerTOST 1.4.9.9999
 
-New version on GitHub started 2019-12-20.
+On GitHub 2020-04-20.
 
 ## Bug fixes
 

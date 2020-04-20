@@ -13,7 +13,7 @@ importFrom(stats, dnorm, pnorm, qnorm, rnorm, dt, pt, qt, dchisq, qchisq, rchisq
            confint, lm.fit, .lm.fit, lm, model.matrix, reshape, rWishart, anova)
 importFrom(utils, tail, head, read.table, flush.console, setTxtProgressBar,
            txtProgressBar)
-importFrom(tufte, quote_footer)
+#importFrom(tufte, quote_footer)
 #importFrom(pracma, quad2d)
 importFrom(cubature, hcubature)
 importFrom(TeachingDemos, shadowtext)
