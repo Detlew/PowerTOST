@@ -5,7 +5,7 @@
 \alias{ct9.6.8}
 \title{Sample Size Tables for the 2x4x4 Replicate Crossover Design}
 \description{These data.frames give sample size tables calculated with 
-\code{sampleN.TOST()} for the \enc{2×2×4}{2x4x4} replicate crossover design
+\code{sampleN.TOST()} for the \enc{2×4×4}{2x4x4} replicate crossover design
 (2-treatment 4-sequence 4-period design).}
 
 \details{
