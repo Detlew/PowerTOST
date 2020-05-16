@@ -1,6 +1,7 @@
 #----------------------------------------------------------------------------
 # Author: dlabes
 # 30-Oct-2012, made available as hidden function in V1.2-09 Aug2015
+# mai 2020 bk=1.1 for the design 2x2x4 ()
 #----------------------------------------------------------------------------
 # Calculate the power according to the algo implemented in PASS:
 # see Chow S.C., Liu J.P.,
@@ -20,13 +21,10 @@
 #           - power via shifted central t-approximation
 #           - power via 'exact' in case of 2x2
 #             but to be consistent we use also shifted as default
-
-# source('C:/Users/dlabes/workspace/PowerTOST/R/DesignHelpers.R')
-# source('C:/Users/dlabes/workspace/PowerTOST/R/power.R')
-# source('C:/Users/dlabes/workspace/PowerTOST/R/helper.R') 
-# source('C:/Users/dlabes/workspace/PowerTOST/R/helper_dp.R')
-# source('C:/Users/dlabes/workspace/PowerTOST/R/OwensQ.R')
-# source('C:/Users/dlabes/workspace/PowerTOST/R/OwensQOwen.R')
+#           - PASS uses CV = se in case of logscale=TRUE, but this crude 
+#             approximation is not the default here. 
+#             To use it and get the results of PASS use the workaround 
+#             CV=se2CV() in function call.
 
 power.PASS <- function(alpha=0.05, logscale=TRUE, theta0, theta1, theta2, 
                        CV, n, design="2x2", method="shifted")
@@ -41,11 +39,14 @@ power.PASS <- function(alpha=0.05, logscale=TRUE, theta0, theta1, theta2,
   ades <- .design.props(d.no)
   #degrees of freedom as expression
   dfe  <- .design.df(ades, robust=FALSE)
-  #design const.
-  bk    <- ades$bk
-  if (design=="2x2x4") bk <- 1.1
   # step size = no of sequences
   steps <- ades$steps
+  #design const.
+  bk    <- ades$bk
+  if (design=="2x2x4") {
+    bk <- 1.1
+    bkni <- bk/steps^2  # bk/seq^2
+  }
   
   #if (design=="2x2" | design=="2x2x2") method="exact"
   # regularize the method giving
