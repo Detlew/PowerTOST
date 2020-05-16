@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------
 # Author: dlabes
 # 30-Oct-2012, made available as hidden function in V1.2-09 Aug2015
-# mai 2020 bk=1.1 for the design 2x2x4 ()
+# mai 2020 bk=1.1 for the design 2x2x4 (), more explanations
 #----------------------------------------------------------------------------
 # Calculate the power according to the algo implemented in PASS:
 # see Chow S.C., Liu J.P.,
@@ -25,6 +25,7 @@
 #             approximation is not the default here. 
 #             To use it and get the results of PASS use the workaround 
 #             CV=se2CV() in function call.
+# Corr.: The CV = se approximation is in PASS 20.0.1 (?) no longer active
 
 power.PASS <- function(alpha=0.05, logscale=TRUE, theta0, theta1, theta2, 
                        CV, n, design="2x2", method="shifted")
