@@ -61,8 +61,8 @@ note0 <- paste("\nNote: Small discrepancies since in the reference only",
                "100,000 by default.\nFurthermore, sampleN.scABEL() rounds the",
                "sample size always up to\nobtain balanced sequences")
 #########################################################
-# Note: Set sdsims = FALSE to skip subject simulations. #
-#       Much faster and practically identical for       #
+# Note: Set sdsims = TRUE for subject simulations. Much #
+#       slower and practically identical for            #
 #       homogenicity (CVwT = CVwR) like in this case.   #
 #########################################################
 # Appendix Table A1. Sample sizes for the requirements of EMA in 3-period studies
@@ -70,12 +70,12 @@ txt1  <- paste(txt0, "APPENDIX Table A1. EMA partial replicate (TRR|RTR|RRT)\n")
 note1 <- paste(note0, "(i.e., the sample size is a multiple of 3).\n\n")
 tA.1  <- sampsiz(power = power, CV = CVs, GMR = GMRs,
                  theta1 = 0.8, design = "2x3x3",
-                 sdsims = TRUE) # Patience please if sdsims=TRUE!
+                 sdsims = FALSE) # Patience please if sdsims=TRUE!
 cat(txt1); print(tA.1, row.names=FALSE); cat(note1)
 # Appendix Table A2. Sample sizes for the requirements of EMA in 4-period studies
 txt2  <- paste(txt0, "APPENDIX Table A2. EMA 4-period full replicate (TRTR|RTRT)\n")
 note2 <- paste(note0, "(i.e., the sample size is a multiple of 2).\n\n")
 tA.2  <- sampsiz(power = power, CV = CVs, GMR = GMRs,
                  theta1 = 0.8, design = "2x2x4",
-                 sdsims = TRUE) # Patience please if sdsims=TRUE!
+                 sdsims = FALSE) # Patience please if sdsims=TRUE!
 cat(txt2); print(tA.2, row.names=FALSE); cat(note2)
