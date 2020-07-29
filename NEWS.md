@@ -3,7 +3,8 @@
 On GitHub 2020-04-20.
 
 ## Bug fixes
-
+  
+  * Fix Fix of the link to package emmeans in man pages of expected power
   * Fix in Example 1 of `ABE.Rmd` (not a good idea specify a variable with the same name as a function).
 
 ## Minor changes

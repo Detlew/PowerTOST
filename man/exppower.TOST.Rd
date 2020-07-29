@@ -126,7 +126,8 @@ main argument \code{design}.}
 For \code{prior.parm}, the combination consisting of \code{df} and \code{SEM} 
 requires a somewhat advanced knowledge of the prior trial (provided in the raw
 output from for example the software \acronym{SAS}, or may be obtained via
-\code{\link[emmeans]{emmeans}}. However, it has the advantage that if there were 
+\code{\link[emmeans]{emmeans}} of package emmeans. 
+However, it has the advantage that if there were 
 missing data the exact degrees of freedom and standard error of the difference 
 can be used, the former possibly being non-integer valued (\emph{e.g.}, if the 
 Kenward-Roger method was used).
