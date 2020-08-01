@@ -1,17 +1,17 @@
 # PowerTOST 1.4.9.9999
 
-On GitHub 2020-04-20.
+On GitHub 2020-08-01.
 
 ## Bug fixes
   
-  * Fix Fix of the link to package emmeans in man pages of expected power
+  * Fix of the link to package emmeans in man pages of expected power.
   * Fix in Example 1 of `ABE.Rmd` (not a good idea specify a variable with the same name as a function).
 
 ## Minor changes
 
   * Moved `tufte` from Imports to Suggests (Duncan Murdoch).
-  * Harmonize default value of theta1 in `pvalue.TOST` in case of `logscale = FALSE`
-  * Clarification of argument `CV` (and theta0, theta1, theta2) in case of `logscale = FALSE`.
+  * Harmonize default value of `theta1` in `pvalue.TOST` in case of `logscale = FALSE`
+  * Clarification of argument `CV` (and `theta0`, `theta1`, `theta2`) in case of `logscale = FALSE`.
   * Clarify in man-pages that all functions return the *total* sample size (and not subjects/sequence in crossovers and subjects/group in parallel designs -- like in some other software packages). Suggested by Amandine Schmutz.
 
 # PowerTOST 1.4-9
