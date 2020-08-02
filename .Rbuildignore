@@ -6,3 +6,6 @@ stuff
 .git
 .gitignore
 README.Rmd
+
+vignettes/RSABE.Rmd.orig
+vignettes/pre_compute.R
