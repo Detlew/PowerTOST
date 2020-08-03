@@ -1,3 +1,6 @@
+<!-- RSABE.rmd is generated from RSABE.Rmd.orig. Please edit that file -->
+<!-- Dont forget to run pre_compute.R if RSABE.Rmd.orig has changed  -->
+
 ---
 title: "PowerTOST &bull; Reference-Scaled Average Bioequivalence"
 lang: "en"
