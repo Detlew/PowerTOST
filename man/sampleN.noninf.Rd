@@ -79,10 +79,10 @@ The estimated sample size gives always the \emph{total} number of subjects (not 
 \strong{Notes on the underlying hypotheses}\cr
 If the supplied margin is < 0 (\code{logscale=FALSE}) or < 1 (\code{logscale=TRUE}), 
 then it is assumed higher response values are better. The hypotheses are\cr
-\verb{  H0: theta0 <= margin vs. H1: theta0 > margin}\cr
+\verb{  H0: theta0 <= margin vs. H1: theta0 > margin},\cr
 where \code{theta0 = mean(test)-mean(reference)} if \code{logscale=FALSE}\cr
 or\cr
-\verb{  H0: log(theta0) <= log(margin) vs. H1: log(theta0) > log(margin)}\cr
+\verb{  H0: log(theta0) <= log(margin) vs. H1: log(theta0) > log(margin)},\cr
 where \code{theta0 = mean(test)/mean(reference)} if \code{logscale=TRUE}.\cr
 
 If the supplied margin is > 0 (\code{logscale=FALSE}) or > 1 (\code{logscale=TRUE}), 

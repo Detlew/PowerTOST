@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{PowerTOST (Main Vignette)}
+  %\VignetteIndexEntry{PowerTOST &bull; Main Vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -38,7 +38,7 @@ For an overview of supported designs, methods, and defaults together with some b
   * [README](https://cran.r-project.org/package=PowerTOST/readme/README.html) of the released version on CRAN;
   * [README](https://github.com/Detlew/PowerTOST/blob/master/README.md) of the development version on GitHub.\
 
-<h3>Details and examples are accessible via the menu bar on top of the page and<br>the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.</h3>
+<h3>Details and examples are accessible via the menu bar on top of the page and in the<br><a href="https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf" title="PDF">online manual</a> of all functions.</h3>
 
 # Abbreviations, Definition of Terms, Models
 2×2×2

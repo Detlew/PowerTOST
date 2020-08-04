@@ -37,7 +37,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
   if(missing(progress)) progress <- FALSE
   no <- 0 # simulation counter
   if (details) ptm <- proc.time()
-  if (missing(n) || is.na(n)) {
+  if (missing(n) || any(is.na(n))) {
     if (is.na(alpha.pre) || (alpha.pre != alpha)) {
       al <- alpha.pre # If pre-specified, use alpha.pre
     } else {

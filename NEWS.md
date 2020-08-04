@@ -1,6 +1,6 @@
 # PowerTOST 1.4.9.9999
 
-On GitHub 2020-08-02.
+On GitHub 2020-08-04.
 
 ## Bug fixes
   
@@ -13,6 +13,8 @@ On GitHub 2020-08-02.
 
 ## Minor changes
 
+  * Highlight clarification about *total* sample size in vignettes.
+  * Removed links to man-pages in vignettes (they work in the library but not in the public ones on CRAN).
   * Moved `tufte` from Imports to Suggests (Duncan Murdoch).
   * Harmonize default value of `theta1` in `pvalue.TOST` in case of `logscale = FALSE`
   * Clarification of argument `CV` (and `theta0`, `theta1`, `theta2`) in case of `logscale = FALSE`.

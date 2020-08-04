@@ -223,7 +223,7 @@ Here the scaled ABE component shows the lowest power and drives the sample size,
 sampleN.dp(CV = 0.20, doses = c(1, 2, 8), beta0 = 1, targetpower = 0.90)
 ```
 Note that the acceptance range of the slope depends on the ratio of the highest and lowest doses (*i.e.*, it gets tighter for wider dose ranges and therefore, higher sample sizes will be required).  
-In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.50, 2.00) are recommended, which would translate in this example to an acceptance range of `0.66667 ... 1.3333` and a sample size of only six subjects.
+In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.50, 2.00) are recommended, which would translate in this example to an acceptance range of `0.66667 ... 1.3333` and a sample size of only six subjects.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -239,7 +239,7 @@ However, this is **not** a substitute for the “Sensitivity Analysis” recomme
 <small>[TOC ↩](#powertost)</small>
 
 ### Speed Comparisons
-Performed on a double Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R `r getRversion()` 64 bit on Windows 7.
+Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R `r getRversion()` 64 bit on Windows 7.
 
 #### ABE
 \"2x2\" crossover design, *CV* 0.17. Sample sizes and achieved power for the supported methods (the 1<sup>st</sup> one is the default).

@@ -34,7 +34,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Version 1.4.9 built 2019-12-16 with R 3.6.2.
+Version 1.4.9.9999 built 2020-08-04 with R 4.0.2.
 
 ## Supported Designs
 
@@ -540,7 +540,7 @@ highest and lowest doses (*i.e.*, it gets tighter for wider dose ranges
 and therefore, higher sample sizes will be required).  
 In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>,
 *θ*<sub>2</sub>} (0.50, 2.00) are recommended, which would translate in
-this example to an acceptance range of `0.66667 ... 1.3333` and a sample
+this example to an acceptance range of `0.66667 ... 1.3333` and a sample
 size of only six subjects.
 
 <small>[TOC ↩](#powertost)</small>
@@ -578,8 +578,8 @@ and analyze their respective power.
 
 ### Speed Comparisons
 
-Performed on a double Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R
-3.6.1 64 bit on Windows 7.
+Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R
+4.0.2 64 bit on Windows 7.
 
 #### ABE
 

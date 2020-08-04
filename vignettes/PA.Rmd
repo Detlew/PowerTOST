@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 4
 vignette: >
-  %\VignetteIndexEntry{PA}
+  %\VignetteIndexEntry{PowerTOST &bull; Power Analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 <li><span title="» You are here «">Power Analysis</span></li>
 </ul>
 </div>
-<h3>Details and examples of other methods are accessible via the menu bar on top of the page and the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.</h3>
+<h3>Details and examples of other methods are accessible via the menu bar on top of the page and in the <a href="https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf" title="PDF">online manual</a> of all functions.</h3>
 ```{r setup}
 library(PowerTOST) # attach the library
 ```
