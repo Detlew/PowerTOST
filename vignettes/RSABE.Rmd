@@ -10,7 +10,7 @@ output:
     toc: true
     toc_depth: 4
 vignette: >
-  %\VignetteIndexEntry{RSABE}
+  %\VignetteIndexEntry{PowerTOST &bull; Reference-Scaled Average Bioequivalence}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,7 +26,7 @@ vignette: >
 <li>[Power Analysis](PA.html)</li>
 </ul>
 </div>
-<h3>Details and examples of other methods are accessible via the menu bar on top of the page and the [online manual](https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf "PDF") of all functions.</h3>
+<h3>Details and examples of other methods are accessible via the menu bar on top of the page and in the <a href="https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf" title="PDF">online manual</a> of all functions.</h3>
 
 ```r
 library(PowerTOST) # attach the library
@@ -69,7 +69,7 @@ The terminology of the `design` argument follows this pattern: `treatments x seq
 
 With `foo(..., details = FALSE, print = FALSE)` results are given as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
-<span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence -- like in some other software packages).</span>
+<span style="background-color:#FFFF99">The estimated sample size gives always the *total* number of subjects (not subject/sequence -- like in some other software packages).</span>
 
 <h2>Conditions and Methods</h2><!-- not in the TOC -->
 
@@ -681,5 +681,5 @@ for (i in 1:3) {
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 
 # License{#license}
-<h4 class="author">Helmut Schütz 2020-08-02</h4>
+<h4 class="author">Helmut Schütz 2020-08-04</h4>
 [GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
