@@ -1,9 +1,10 @@
-# PowerTOST 1.4.9.9999
+# PowerTOST 1.5-0 (Maintenance release dedicated to 70 birtday of Detluuu)
 
-On GitHub 2020-08-04.
+On CRAN 2020-08-09.
 
 ## Bug fixes
   
+  * Bug fix in scABEL.ad w.r.t. coercion 
   * Fix of the link to package emmeans in man pages of expected power.
   * Fix in Example 1 of `ABE.Rmd` (not a good idea specify a variable with the same name as a function).
 
