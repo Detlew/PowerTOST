@@ -1,4 +1,5 @@
-# PowerTOST 1.5-0 (Maintenance release dedicated to 70 birtday of Detluuu)
+# PowerTOST 1.5-0 
+(Maintenance release dedicated to 70 birthday of Detluuu)
 
 On CRAN 2020-08-09.
 
