@@ -2,7 +2,7 @@ Encoding: UTF-8
 Package: PowerTOST
 Type: Package
 Title: Power and Sample Size for (Bio)Equivalence Studies
-Version: 1.5-0
+Version: 1.5.0.9999
 Date: 2020-08-09
 Authors@R: c(person("Detlew", "Labes",
                role = c("aut","cre"),

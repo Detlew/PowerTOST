@@ -1,3 +1,11 @@
+# PowerTOST 1.5.0.9999
+
+Started on GitHub 2020-08-10
+
+## Minor changes
+  * Changed http(s) locations of References according to R CMD check
+
+
 # PowerTOST 1.5-0 
 (Maintenance release dedicated to 70 birthday of Detluuu)
 
