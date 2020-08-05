@@ -45,7 +45,7 @@ if the CI was evaluated via a mixed model or via intra-subject contrasts
   }
 }
 \details{
-See Helmut \enc{Schütz’}{Schuetz'} \href{http://bebac.at/lectures/Bucharest2013WS1.pdf#page=26}{presentation} for the algebra underlying this function.
+See Helmut \enc{Schütz’}{Schuetz'} \href{https://bebac.at/lectures/Bucharest2013WS1.pdf#page=26}{presentation} for the algebra underlying this function.
 }
 \value{
 Numeric value of the CV as ratio.

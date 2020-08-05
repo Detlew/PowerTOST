@@ -62,7 +62,7 @@ A list of class \code{"CVp"} with components
 The class \code{"CVp"} has a S3 methods \code{print.CVp}.
 }
 \references{
-H. \enc{Schütz}{Schuetz}\enc{’}{'} \href{https://bebac.at/lectures.htm}{presentations} about sample size challenges.
+H. \enc{Schütz}{Schuetz}\enc{’}{'} \href{https://bebac.at/Lectures.htm}{presentations} about sample size challenges.
 
 Patterson S, Jones B. \emph{Bioequivalence and Statistics in Clinical Pharmacology.} Boca Raton: Chapman & Hall / CRC Press; 2\ifelse{html}{\out{<sup>nd</sup>}}{\eqn{^{nd}}} edition 2017. Chapter 5.7 \dQuote{Determining Trial Size}.
 }
