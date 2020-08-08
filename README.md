@@ -165,7 +165,7 @@ method (Owen’s Q).
 ### Reference-Scaled Average Bioequivalence
 
 *α* 0.05, point estimate constraint (0.80, 1.25), homoscedasticity
-(*CV*<sub>wT</sup> = *CV*<sub>wR</sup>), scaling is based on
+(*CV*<sub>wT</sub> = *CV*<sub>wR</sub>), scaling is based on
 *CV*<sub>wR</sub>, target power 0.80, design "2x3x3" (TRR|RTR|RRT),
 approximation by the non-central *t*-distribution, 100,000 simulations.
 
@@ -181,12 +181,12 @@ Endrényi](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download
 
 ###### EMA
 
-Regulatory constant `0.76`, upper cap of scaling at *CV*<sub>wR</sup>
+Regulatory constant `0.76`, upper cap of scaling at *CV*<sub>wR</sub>
 50%, evaluation by ANOVA.
 
 ###### Health Canada
 
-Regulatory constant `0.76`, upper cap of scaling at *CV*<sub>wR</sup>
+Regulatory constant `0.76`, upper cap of scaling at *CV*<sub>wR</sub>
 \~57.4%, evaluation by intra-subject contrasts.
 
 ###### FDA
@@ -197,9 +197,9 @@ approximation).
 #### Narrow Therapeutic Index Drugs (FDA)
 
 *θ*<sub>0</sub> 0.975, regulatory constant `log(1.11111)/0.1`, upper cap
-of scaling at *CV*<sub>wR</sup> \~21.4%, design "2x2x4" (TRTR|RTRT),
+of scaling at *CV*<sub>wR</sub> \~21.4%, design "2x2x4" (TRTR|RTRT),
 linearized scaled ABE (Howe’s approximation), upper limit of the
-confidence interval of *s*<sub>wT</sup>/*s*<sub>wR</sup> ≤2.5.
+confidence interval of *s*<sub>wT</sub>/*s*<sub>wR</sub> ≤2.5.
 
 ### Dose-Proportionality
 

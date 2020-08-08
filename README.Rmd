@@ -45,11 +45,11 @@ Whilst \"2x4x4\" four period full replicate designs with *four* sequences (TRTR|
 
 For various methods power can be *calculated* based on
 
-  - nominal *α*, coefficient of variation (*CV*), deviation of test from reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>, *θ*<sub>2</sub>}, sample size (*n*), and design.
+  - nominal *α*, coefficient of variation (*CV*), deviation of test from reference (*θ*~0~), acceptance limits {*θ*~1~, *θ*~2~}, sample size (*n*), and design.
 
 For all methods the sample size can be *estimated* based on
 
-  - nominal *α*, coefficient of variation (*CV*), deviation of test from reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>, *θ*<sub>2</sub>}, target power, and design.
+  - nominal *α*, coefficient of variation (*CV*), deviation of test from reference (*θ*~0~), acceptance limits {*θ*~1~, *θ*~2~}, target power, and design.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -61,7 +61,7 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
   - Two simultaneous TOST procedures.
   - Non-inferiority *t*-test.
   - Ratio of two means with normally distributed data on the original scale based on Fieller’s (‘fiducial’) confidence interval.
-  - ‘Expected’ power in case of uncertain (estimated) variability and/or uncertain *θ*<sub>0</sub>.
+  - ‘Expected’ power in case of uncertain (estimated) variability and/or uncertain *θ*~0~.
   - Reference-scaled bioequivalence based on simulations.  
     - EMA: Average Bioequivalence with Expanding Limits (ABEL).  
     - FDA: Reference-scaled Average Bioequivalence (RSABE) for Highly Variable Drugs / Drug Products and Narrow Therapeutic Index Drugs (NTIDs).  
@@ -83,50 +83,50 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
 ### Helpers
   - Calculate *CV* from *MSE* or *SE* (and vice versa).
   - Calculate *CV* from given confidence interval.
-  - Calculate *CV*<sub>wR</sub> from the upper expanded limit of an ABEL study.
+  - Calculate *CV*~wR~ from the upper expanded limit of an ABEL study.
   - Confidence interval of *CV*.
   - Pool *CV* from several studies.
   - Confidence interval for given *α*, *CV*, point estimate, sample size, and design.
-  - Calculate *CV*<sub>wT</sub> and *CV*<sub>wR</sub> from a (pooled) *CV*<sub>w</sub> assuming a ratio of intra-subject variances.
+  - Calculate *CV*~wT~ and *CV*~wR~ from a (pooled) *CV*~w~ assuming a ratio of intra-subject variances.
   - *p*-values of the TOST procedure.
-  - Analysis tool for exploration/visualization of the impact of expected values (*CV*, *θ*<sub>0</sub>, reduced sample size due to dropouts) on power of BE decision.
+  - Analysis tool for exploration/visualization of the impact of expected values (*CV*, *θ*~0~, reduced sample size due to dropouts) on power of BE decision.
   - Construct design matrices of incomplete block designs.
 
 <small>[TOC ↩](#powertost)</small>
 
 ## Defaults
-  * *α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25). Details of the sample size search (and the regulatory settings in reference-scaled average bioequivalence) are printed.
+  * *α* 0.05, {*θ*~1~, *θ*~2~} (0.80, 1.25). Details of the sample size search (and the regulatory settings in reference-scaled average bioequivalence) are printed.
   * Note: In all functions values have to be given as ratios, not in percent.  
 
 ### Average Bioequivalence  
-*θ*<sub>0</sub> 0.95, target power 0.80, design \"2x2\" (TR|RT), exact method (Owen’s Q).
+*θ*~0~ 0.95, target power 0.80, design \"2x2\" (TR|RT), exact method (Owen’s Q).
 
 ### Reference-Scaled Average Bioequivalence  
-*α* 0.05, point estimate constraint (0.80, 1.25), homoscedasticity (*CV*<sub>wT</sup> = *CV*<sub>wR</sup>),  scaling is based on *CV*<sub>wR</sub>, target power 0.80, design \"2x3x3\" (TRR|RTR|RRT), approximation by the non-central *t*-distribution, 100,000 simulations.
+*α* 0.05, point estimate constraint (0.80, 1.25), homoscedasticity (*CV*~wT~ = *CV*~wR~),  scaling is based on *CV*~wR~, target power 0.80, design \"2x3x3\" (TRR|RTR|RRT), approximation by the non-central *t*-distribution, 100,000 simulations.
 
   - EMA, WHO, Health Canada, and many others: Average bioequivalence with expanding limits (ABEL).
   - FDA: RSABE.
 
 #### Highly Variable Drugs / Drug Products  
-*θ*<sub>0</sub> 0.90 as recommended by [Tóthfalusi and Endrényi](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489) (2011).
+*θ*~0~ 0.90 as recommended by [Tóthfalusi and Endrényi](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489) (2011).
 
 ###### EMA
-Regulatory constant `0.76`, upper cap of scaling at *CV*<sub>wR</sup> 50\%, evaluation by ANOVA.
+Regulatory constant `0.76`, upper cap of scaling at *CV*~wR~ 50\%, evaluation by ANOVA.
 
 ###### Health Canada
-Regulatory constant `0.76`, upper cap of scaling at *CV*<sub>wR</sup> ~57.4\%, evaluation by intra-subject contrasts.
+Regulatory constant `0.76`, upper cap of scaling at *CV*~wR~ ~57.4\%, evaluation by intra-subject contrasts.
 
 ###### FDA
 Regulatory constant `log(1.25)/0.25`, linearized scaled ABE (Howe’s approximation).
 
 #### Narrow Therapeutic Index Drugs (FDA)
-*θ*<sub>0</sub> 0.975, regulatory constant `log(1.11111)/0.1`, upper cap of scaling at *CV*<sub>wR</sup> ~21.4\%, design \"2x2x4\" (TRTR|RTRT), linearized scaled ABE (Howe’s approximation), upper limit of the confidence interval of *s*<sub>wT</sup>/*s*<sub>wR</sup> ≤2.5.
+*θ*~0~ 0.975, regulatory constant `log(1.11111)/0.1`, upper cap of scaling at *CV*~wR~ ~21.4\%, design \"2x2x4\" (TRTR|RTRT), linearized scaled ABE (Howe’s approximation), upper limit of the confidence interval of *s*~wT~/*s*~wR~ ≤2.5.
 
 ### Dose-Proportionality
-*β*<sub>0</sub> (slope) `1+log(0.95)/log(rd)` where `rd` is the ratio of the highest and lowest dose, target power 0.80, crossover design, details of the sample size search suppressed.
+*β*~0~ (slope) `1+log(0.95)/log(rd)` where `rd` is the ratio of the highest and lowest dose, target power 0.80, crossover design, details of the sample size search suppressed.
 
 ### Power Analysis
-Minimum acceptable power 0.70. *θ*<sub>0</sub>, design, conditions, and sample size method depend on defaults of the respective approaches (ABE, ABEL, RSABE, NTID).
+Minimum acceptable power 0.70. *θ*~0~, design, conditions, and sample size method depend on defaults of the respective approaches (ABE, ABEL, RSABE, NTID).
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -139,7 +139,7 @@ library(PowerTOST)
 If not noted otherwise, defaults are employed.
 
 ### Parallel Design
-Power for total *CV* 0.35, *θ*<sub>0</sub> 0.95, group sizes 52 and 49, design \"parallel\".
+Power for total *CV* 0.35, *θ*~0~ 0.95, group sizes 52 and 49, design \"parallel\".
 ```{r parallel}
 power.TOST(CV = 0.35, theta0 = 0.95, n = c(52, 49), design = "parallel")
 ```
@@ -149,7 +149,7 @@ Sample size for assumed intra-subject *CV* 0.20.
 ```{r crossover_ABE}
 sampleN.TOST(CV = 0.20)
 ```
-Sample size for equivalence of the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval. Intra (within-) subject *CV*<sub>w</sub> 0.20, inter- (between-) subject *CV*<sub>b</sub> 0.40.  
+Sample size for equivalence of the ratio of two means with normality on original scale based on Fieller’s (‘fiducial’) confidence interval. Intra (within-) subject *CV*~w~ 0.20, inter- (between-) subject *CV*~b~ 0.40.  
 Note the default *α* 0.025 (95\% CI) of this function because it is intended for studies with clinical endpoints.
 ```{r crossover_fieller}
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
@@ -160,7 +160,7 @@ sampleN.RatioF(CV = 0.20, CVb = 0.40)
 ### Replicate Designs
 
 #### ABE
-Sample size for assumed intra-subject *CV* 0.45, *θ*<sub>0</sub> 0.90, three period full replicate study \"2x2x3\" (TRT|RTR *or* TRR|RTT).
+Sample size for assumed intra-subject *CV* 0.45, *θ*~0~ 0.90, three period full replicate study \"2x2x3\" (TRT|RTR *or* TRR|RTT).
 ```{r replicate_ABE1}
 sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
 ```
@@ -178,11 +178,11 @@ Similar sample size because the pooled *CV* is still 0.45.
 <small>[TOC ↩](#powertost)</small>
 
 #### ABEL
-Sample size assuming homoscedasticity (*CV*<sub>w</sub> = 0.45).
+Sample size assuming homoscedasticity (*CV*~w~ = 0.45).
 ```{r ABEL_1}
 sampleN.scABEL(CV = 0.45, details = TRUE)
 ```
-Iteratively adjust *α* to control the Type I Error ([Labes, Schütz](https://doi.org/10.1007/s11095-016-2006-1)). Slight heteroscedasticity (*CV*<sub>wT</sub> 0.30, *CV*<sub>wR</sub> 0.35), four period full replicate \"2x2x4\" study, 30 subjects, balanced sequences.
+Iteratively adjust *α* to control the Type I Error ([Labes, Schütz](https://doi.org/10.1007/s11095-016-2006-1)). Slight heteroscedasticity (*CV*~wT~ 0.30, *CV*~wR~ 0.35), four period full replicate \"2x2x4\" study, 30 subjects, balanced sequences.
 ```{r ABEL_2}
 scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4", n = 30)
 ```
@@ -193,21 +193,21 @@ Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to estimate t
 
 #### RSABE
 #### HVD(P)s
-Sample size for a four period full replicate \"2x2x4\" study (any of TRTR|RTRT, TRRT|RTTR, TTRR|RRTT) assuming heteroscedasticity (*CV*<sub>wT</sub> 0.40, *CV*<sub>wR</sub> 0.50). Details of the sample size search suppressed.
+Sample size for a four period full replicate \"2x2x4\" study (any of TRTR|RTRT, TRRT|RTTR, TTRR|RRTT) assuming heteroscedasticity (*CV*~wT~ 0.40, *CV*~wR~ 0.50). Details of the sample size search suppressed.
 ```{r RSABE}
 sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 ```
 <small>[TOC ↩](#powertost)</small>
 
 #### NTIDs
-Sample size assuming heteroscedasticity (*CV*<sub>w</sub> 0.125, σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher variability than R). TRTR|RTRT according to the [FDA’s guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf). Assess additionally which one of the three components (scaled, ABE, *s*<sub>wT</sub>/*s*<sub>wR</sub> ratio) drives the sample size.
+Sample size assuming heteroscedasticity (*CV*~w~ 0.125, σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher variability than R). TRTR|RTRT according to the [FDA’s guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf). Assess additionally which one of the three components (scaled, ABE, *s*~wT~/*s*~wR~ ratio) drives the sample size.
 ```{r NTID1}
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
 n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
 suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 ```
-The *s*<sub>wT</sub>/*s*<sub>wR</sub> component shows the lowest power and hence, drives the sample size.  
-Compare that with homoscedasticity (*CV*<sub>wT</sub> = *CV*<sub>wR</sub> = 0.125):
+The *s*~wT~/*s*~wR~ component shows the lowest power and hence, drives the sample size.  
+Compare that with homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.125):
 ```{r NTID2}
 CV <- 0.125
 n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
@@ -218,22 +218,22 @@ Here the scaled ABE component shows the lowest power and drives the sample size,
 <small>[TOC ↩](#powertost)</small>
 
 ### Dose-Proportionality
-*CV* 0.20, Doses 1, 2, and 8 units, assumed slope *β*<sub>0</sub> 1, target power 0.90.
+*CV* 0.20, Doses 1, 2, and 8 units, assumed slope *β*~0~ 1, target power 0.90.
 ```{r DP}
 sampleN.dp(CV = 0.20, doses = c(1, 2, 8), beta0 = 1, targetpower = 0.90)
 ```
 Note that the acceptance range of the slope depends on the ratio of the highest and lowest doses (*i.e.*, it gets tighter for wider dose ranges and therefore, higher sample sizes will be required).  
-In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.50, 2.00) are recommended, which would translate in this example to an acceptance range of `0.66667 ... 1.3333` and a sample size of only six subjects.
+In an exploratory setting wider equivalence margins {*θ*~1~, *θ*~2~} (0.50, 2.00) are recommended, which would translate in this example to an acceptance range of `0.66667 ... 1.3333` and a sample size of only six subjects.
 
 <small>[TOC ↩](#powertost)</small>
 
 ### Power Analysis
-Explore impact of deviations from assumptions (higher *CV*, higher deviation of *θ*<sub>0</sub> from 1, dropouts) on power. Assumed intra-subject *CV* 0.20, target power 0.90. Suppress the plot.
+Explore impact of deviations from assumptions (higher *CV*, higher deviation of *θ*~0~ from 1, dropouts) on power. Assumed intra-subject *CV* 0.20, target power 0.90. Suppress the plot.
 ```{r PA}
 res <- pa.ABE(CV = 0.20, targetpower = 0.90)
 print(res, plotit = FALSE)
 ```
-If the study starts with 26 subjects (power \~0.92), the *CV* can increase to \~0.27 **or** *θ*<sub>0</sub> decrease to \~0.90 **or** the sample size decrease to 10 whilst power will still be ≥0.70.    
+If the study starts with 26 subjects (power \~0.92), the *CV* can increase to \~0.27 **or** *θ*~0~ decrease to \~0.90 **or** the sample size decrease to 10 whilst power will still be ≥0.70.    
 However, this is **not** a substitute for the “Sensitivity Analysis” recommended in [ICH-E9](https://www.ich.org/fileadmin/Public_Web_Site/ICH_Products/Guidelines/Efficacy/E9/Step4/E9_Guideline.pdf), since in a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
 
 <small>[TOC ↩](#powertost)</small>
@@ -253,7 +253,7 @@ Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R `r getRversio
 The 2<sup>nd</sup> exact method is substantially slower than the 1<sup>st</sup>. The approximation based on the noncentral *t*-distribution is slightly faster but matches the 1<sup>st</sup> exact method closely. The approximation based on the shifted central *t*-distribution is the fastest but *might* estimate a sample size higher than necessary. Hence, it should be used only for comparative purposes.
 
 #### ABEL
-Four period full replicate study, homogenicity (*CV*<sub>wT</sub> = *CV*<sub>wR</sub> 0.45). Sample sizes and achieved power for the supported methods (‘key’ statistics or subject simulations).
+Four period full replicate study, homogenicity (*CV*~wT~ = *CV*~wR~ 0.45). Sample sizes and achieved power for the supported methods (‘key’ statistics or subject simulations).
 ```
 #               method  n   power seconds
 #     ‘key’ statistics 28 0.81116    0.16
@@ -263,7 +263,7 @@ Simulating via the ‘key’ statistics is the method of choice for speed reason
 However, subject simulations are recommended *if*
 
   - the partial replicate design (TRR|RTR|RRT) is planned *and*
-  - the special case of heterogenicity *CV*<sub>wT</sub> > *CV*<sub>wR</sub> is expected.
+  - the special case of heterogenicity *CV*~wT~ > *CV*~wR~ is expected.
 
 <small>[TOC ↩](#powertost)</small>
 
