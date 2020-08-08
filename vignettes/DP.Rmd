@@ -1,5 +1,5 @@
 ---
-title: "PowerTOST &bull; Dose-Proportionality"
+title: "Dose-Proportionality"
 lang: "en"
 output:
   rmarkdown::html_vignette:
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 4
 vignette: >
-  %\VignetteIndexEntry{PowerTOST &bull; Dose-Proportionality}
+  %\VignetteIndexEntry{Dose-Proportionality}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -36,34 +36,34 @@ library(PowerTOST) # attach the library
 # Defaults
 | Parameter | Argument | Purpose | Default |
 |---|---|-------------|----|
-| $\alpha$ | `alpha` | Nominal level of the test | `0.05` |
+| $\small{\alpha}$ | `alpha` | Nominal level of the test | `0.05` |
 | *CV* | `CV` | CV | none |
 | doses | `doses` | Vector of doses | see examples |
-| $\pi$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
-| $\beta_{0}$ | `beta0` | ‘True’ or assumed slope of the power model | see below |
-| $\theta_{1}$ | `theta1` | Lower limit for the ratio of dose normalized means *Rdmn* | see below |
-| $\theta_{2}$ | `theta2` | Upper limit for the ratio of dose normalized means *Rdmn* | see below |
+| $\small{\pi}$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
+| $\small{\beta_{0}}$ | `beta0` | ‘True’ or assumed slope of the power model | see below |
+| $\small{\theta_{1}}$ | `theta1` | Lower limit for the ratio of dose normalized means *Rdmn* | see below |
+| $\small{\theta_{2}}$ | `theta2` | Upper limit for the ratio of dose normalized means *Rdmn* | see below |
 | design | `design` | Planned design | `"crossover"` |
 | dm | `dm` | Design matrix | `NULL` |
-| *CV~b~* | `CVb` | Coefficient of variation of the between-subject variability | – |
+| *CV*~b~ | `CVb` | Coefficient of variation of the between-subject variability | – |
 | print | `print` | Show information in the console? | `TRUE` |
 | details | `details` | Show details of the sample size search? | `FALSE` |
 | imax | `imax` | Maximum number of iterations | `100` |
 
-Arguments `targetpower`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent.\
-The *CV* is generally the *within*-subject coefficient of variation. Only for `design = "parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*. The *between*-subject coefficient of variation *CV~b~* is only neccessary if `design = "IBD"` (if missing, it will be set to `2*CV`).
+Arguments `targetpower`, `theta1`, `theta2`, and `CV` have to be given as fractions, not in percent.\
+The *CV* is generally the *within-* (intra-) subject coefficient of variation. Only for `design = "parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*. The *between-* (intra-) subject coefficient of variation *CV*~b~ is only necessary if `design = "IBD"` (if missing, it will be set to `2*CV`).
 
-The ‘true’ or assumed slope of the power model <small>$\beta_{0}$</small> defaults to `1+log(0.95)/log(rd)`, where `rd` is the ratio of the highest/lowest dose.
+The ‘true’ or assumed slope of the power model $\small{\beta_{0}}$ defaults to `1+log(0.95)/log(rd)`, where `rd` is the ratio of the highest/lowest dose.
 
 Supported designs are `"crossover"` (default; Latin Squares), `"parallel"`, and `"IBD"` (incomplete block design). Note that when `"crossover"` is chosen, instead of Latin Squares any Williams’ design could be used as well (identical degrees of freedom result in the same sample size).
 
 With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with ten (`design = "crossover"`) or eleven (`design = "parallel"` or `design = "IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
 
-<span style="background-color:#FFFF99">The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).</span>
+<span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in a parallel design – like in some other software packages).</span>
 
 # Examples
-Estimate the sample size for a modified Fibonacci dose-escalation study, lowest dose 10, three levels. Assumed *CV* 0.20 and <small>$\beta_{0}$</small> slightly higher than 1. Defaults employed.
-```{r}
+Estimate the sample size for a modified Fibonacci dose-escalation study, lowest dose 10, three levels. Assumed *CV* 0.20 and $\small{\beta_{0}}$ slightly higher than 1. Defaults employed.
+```{r example1}
 mod.fibo <- function(lowest, levels) {
   # modified Fibonacci dose-escalation
   fib      <- c(2, 1 + 2/3, 1.5, 1 + 1/3)
@@ -90,7 +90,7 @@ sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02)
 ```
 
 As above but with an additional level.
-```{r}
+```{r example2}
 levels <- 4
 doses  <- mod.fibo(lowest, levels)
 x <- sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02) # we need the data.frame later
@@ -98,7 +98,7 @@ x <- sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02) # we need the data.frame
 Note that with the wider dose range the acceptance range narrows.
 
 Explore the impact of dropouts.
-```{r}
+```{r example3}
 res <- data.frame(n = seq(x[["Sample size"]], 12, -1),
                   power = NA)
 for (i in 1:nrow(res)) {
@@ -112,8 +112,8 @@ print(res, row.names = FALSE)
 ```
 As usual nothing to worry about.
 
-Rather extreme: Five levels and we want only three periods. Hence, we opt for an incomplete block design. The design matrix of a balanced minimal repeated measurements design is obtained by the function `balmin.RMD()` of package `crossdes`.
-```{r}
+Rather extreme: Five levels and we desire only three periods. Hence, we opt for an incomplete block design. The design matrix of a balanced minimal repeated measurements design is obtained by the function `balmin.RMD()` of package `crossdes`.
+```{r example4}
 levels <- 5
 doses  <- mod.fibo(lowest, levels)
 per    <- 3
@@ -124,7 +124,7 @@ x      <- sampleN.dp(CV = 0.20, doses = doses, beta0 = 1.02,
 ```
 The IBD comes with a price since we need at least two blocks.
 
-```{r}
+```{r example5}
 res <- data.frame(n = seq(x[["Sample size"]], nrow(dm), -1),
                   power = NA)
 for (i in 1:nrow(res)) {
@@ -139,18 +139,18 @@ print(res, row.names = FALSE)
 Again, we don’t have to worry about dropouts.
 
 For a wide dose range the acceptance range narrows and becomes increasingly difficult to meet.
-```{r}
+```{r example6}
 doses  <- 2^(seq(0, 8, 2))
 levels <- length(doses)
 sampleN.dp(CV = 0.30, doses = doses, beta0 = 1.02,
            design = "crossover")
 ```
 In an exploratory setting more liberal limits could be specified (only one has to be specified; the other is calculated as the reciprocal of it).
-```{r}
+```{r example7}
 sampleN.dp(CV = 0.30, doses = doses, beta0 = 1.02,
            design = "crossover", theta1 = 0.75)
 ```
-Hummel *et al*.^[Hummel J, McKendrick S, Brindley C, French R. *Exploratory assessment of dose proportionality: review of current approaches and proposal for a practical criterion.* Pharm. Stat. 2009; 8(1): 38--49. [doi:10.1002/pst.326](https://doi.org/10.1002/pst.326).] proposed even more liberal {<small>$\theta_{1},\theta_{2}$</small>} of {0.50, 2.0}.
+Hummel *et al*.^[Hummel J, McKendrick S, Brindley C, French R. *Exploratory assessment of dose proportionality: review of current approaches and proposal for a practical criterion.* Pharm. Stat. 2009; 8(1): 38--49. [doi:10.1002/pst.326](https://doi.org/10.1002/pst.326).] proposed even more liberal $\small{\theta_{1},\theta_{2}}$ of {0.50, 2.0}.
 
 # Cave!
 There is no guarantee that a desired incomplete block design (for given dose levels and number of periods) can be constructed. If you provide your own design matrix (in the argument `dm`) it is not assessed for meaningfulness.
@@ -160,4 +160,4 @@ Detlew Labes
 
 # License
 <h4 class="author">Helmut Schütz `r Sys.Date()`</h4>
-[GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
+[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")

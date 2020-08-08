@@ -1,5 +1,5 @@
 ---
-title: "PowerTOST &bull; Power Analysis"
+title: "Power Analysis"
 lang: "en"
 output:
   rmarkdown::html_vignette:
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 4
 vignette: >
-  %\VignetteIndexEntry{PowerTOST &bull; Power Analysis}
+  %\VignetteIndexEntry{Power Analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -40,39 +40,39 @@ Note that analysis of untransformed data (`logscale = FALSE`) is not supported. 
 | Parameter | Argument | Purpose | Default |
 |-|----|--------------|-------|
 | *CV* | `CV` | CV | none |
-| $\theta_{0}$ | `theta0` | ‘True’ or assumed deviation of T from R | `0.95` |
-| $\pi$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
-| $\pi$ | `minpower` | Minimum acceptable power | `0.70` |
+| $\small{\theta_{0}}$ | `theta0` | ‘True’ or assumed deviation of T from R | `0.95` |
+| $\small{\pi}$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
+| $\small{\pi}$ | `minpower` | Minimum acceptable power | `0.70` |
 | design | `design` | Planned design | `"2x2x2"` |
 | passed | `...` | Arguments to `power.TOST()` | none |
 
-If no addtional arguments are passed, the defaults of `power.TOST()` are applied, namely `alpha = 0.05`, `theta1 = 0.80`, `theta2 = 1.25`.
+If no additional arguments are passed, the defaults of `power.TOST()` are applied, namely `alpha = 0.05`, `theta1 = 0.80`, `theta2 = 1.25`.
 
-Arguments `targetpower`, `minpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent.\
-The *CV* is generally the *within*-subject coefficient of variation. Only for `design = "parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*.
+Arguments `targetpower`, `minpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not in percent.\
+The *CV* is generally the *within-* (intra-) subject coefficient of variation. Only for `design = "parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*.
 
 The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design can be abbreviated as `"2x2"`. Some call the `"parallel"` design a ‘one-sequence’ design. The `"paired"` design has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note that the underlying model assumes no period effects.
 
 With `x <- pa.ABE(...)` results are given as an [S3-object](http://adv-r.had.co.nz/S3.html "Hadley Wickham: The S3 object system") which can be printed, plotted, or both.
 
-<span class="hl">The estimated sample sizes give always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs -- like in some other software packages).</span>
+<span class="hl">The estimated sample sizes give always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in a parallel design – like in some other software packages).</span>
 
 ## Function `pa.scABE()`
 
 | Parameter | Argument | Purpose | Default |
 |-|----|--------------|-------|
 | *CV* | `CV` | CV | none |
-| $\theta_{0}$ | `theta0` | ‘True’ or assumed deviation of T from R | `0.90` |
-| $\pi$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
-| $\pi$ | `minpower` | Minimum acceptable power | `0.70` |
+| $\small{\theta_{0}}$ | `theta0` | ‘True’ or assumed deviation of T from R | `0.90` |
+| $\small{\pi}$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
+| $\small{\pi}$ | `minpower` | Minimum acceptable power | `0.70` |
 | design | `design` | Planned replicate design | `"2x2x3"` |
 | regulator | `regulator` | ‘target’ jurisdiction | `"EMA"` |
-| nsims | `nsims` | Number of simultions | `1e5` |
+| nsims | `nsims` | Number of simulations | `1e5` |
 | passed | `...` | Arguments to `power.scABEL()` or `power.RSABE()` | none |
 
 If no addtional arguments are passed, the defaults of `power.scABEL()` and `power.RSABE()` are applied, namely `alpha = 0.05`, `theta1 = 0.80`, `theta2 = 1.25`.
 
-Arguments `targetpower`, `minpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent. The *CV* is the *within*-subject coefficient of variation, where only homoscedasticity (*CV~wT~* = *CV~wR~*) is supported.
+Arguments `targetpower`, `minpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not in percent. The *CV* is the *within-* (intra-) subject coefficient of variation, where only homoscedasticity (*CV*~wT~ = *CV*~wR~) is supported.
 
 With `x <- pa.scABE(...)` results are given as an [S3-object](http://adv-r.had.co.nz/S3.html "Hadley Wickham: The S3 object system") which can be printed, plotted, or both.
 
@@ -81,45 +81,45 @@ With `x <- pa.scABE(...)` results are given as an [S3-object](http://adv-r.had.c
 | Parameter | Argument | Purpose | Default |
 |-|----|--------------|-------|
 | *CV* | `CV` | CV | none |
-| $\theta_{0}$ | `theta0` | ‘True’ or assumed deviation of T from R | `0.975` |
-| $\pi$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
-| $\pi$ | `minpower` | Minimum acceptable power | `0.70` |
+| $\small{\theta_{0}}$ | `theta0` | ‘True’ or assumed deviation of T from R | `0.975` |
+| $\small{\pi}$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
+| $\small{\pi}$ | `minpower` | Minimum acceptable power | `0.70` |
 | design | `design` | Planned replicate design | `"2x2x4"` |
-| nsims | `nsims` | Number of simultions | `1e5` |
+| nsims | `nsims` | Number of simulations | `1e5` |
 | passed | `...` | Arguments to `power.NTIDFDA()` | none |
 
 If no addtional arguments are passed, the defaults of `power.NTIDFDA()` are applied, namely `alpha = 0.05`, `theta1 = 0.80`, `theta2 = 1.25`.
 
-Arguments `targetpower`, `minpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent. The *CV* is the *within*-subject coefficient of variation, where only homoscedasticity (*CV~wT~* = *CV~wR~*) is supported.
+Arguments `targetpower`, `minpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent. The *CV* is the *within-* (intra-) subject coefficient of variation, where only homoscedasticity (*CV*~wT~ = *CV*~wR~) is supported.
 
 With `x <- pa.NTIDFDA(...)` results are given as an [S3-object](http://adv-r.had.co.nz/S3.html "Hadley Wickham: The S3 object system") which can be printed, plotted, or both.
 
 # Examples
 ## Average Bioequivalence
 <h5>[Example 1]{#expl1}</h5>
-[Example 3 of vignette ABE](ABE.html#expl3). Assumed $\theta_{0}$ 0.92, *CV* 0.20.
-```{r}
+[Example 3 of vignette ABE](ABE.html#expl3). Assumed *CV* 0.20, $\small{\theta_{0}}$ 0.92.
+```{r example1}
 pa.ABE(CV = 0.20, theta0 = 0.92)
 ```
 ![**Fig. 1** Power Analysis (in each panel one argument is varied and others kept constant)](figure6.png){width=469px}
 
-The most critical parameter is $\theta_{0}$, whereas dropouts are the least important. We will see such a pattern in other approaches as well.
+The most critical parameter is $\small{\theta_{0}}$, whereas dropouts are the least important. We will see a similar pattern in other approaches as well.
 
 ## Reference-scaled Average Bioequivalence
 ### Highly Variable Drugs / Drug Products
 #### EMA
 <h5>[Example 2]{#expl2}</h5>
-Assumed intra-subject *CV* 0.55 (*CV~wT~* = *CV~wR~*).
-```{r}
+Assumed intra-subject *CV* 0.55 (*CV*~wT~ = *CV*~wR~).
+```{r example2}
 pa.scABE(CV = 0.55)
 ```
 ![**Fig. 2** Power Analysis (in each panel one argument is varied and others kept constant)](figure2.png){width=469px}
 
-The idea behing reference-scaling is to preserve power even for high variability without requiring extreme sample sizes. However, we make two interesting observations. At *CV~wR~* 0.55 already the upper cap of scaling (50\%) cuts in and the expanded limits are the same as at *CV~wR~* 0.50. Therefore, if the variability increases, power decreases. On the other hand, if the CV decreases, power increases first (because being affected by the upper cap is less likely) and then decreases again (because we can expand the limits less).
+The idea behing reference-scaling is to preserve power even for high variability without requiring extreme sample sizes. However, we make two interesting observations. At *CV*~wR~ 0.55 already the upper cap of scaling (50\%) cuts in and the expanded limits are the same as at *CV*~wR~ 0.50. Therefore, if the variability increases, power decreases. On the other hand, if the CV decreases, power increases first (because being affected by the upper cap is less likely) and then decreases again (because we can expand the limits less).
 
 <h5>[Example 3]{#expl3}</h5>
-Assumed intra-subject *CV* 0.40 (*CV~wT~* = *CV~wR~*), 4-period full replicate design.
-```{r}
+Assumed intra-subject *CV* 0.40 (*CV*~wT~ = *CV*~wR~), 4-period full replicate design.
+```{r example3}
 pa.scABE(CV = 0.40, design = "2x2x4")
 ```
 ![**Fig. 3** Power Analysis (in each panel one argument is varied and others kept constant)](figure1.png){width=469px}
@@ -129,30 +129,30 @@ Here we see a different pattern. With increasing variability power increases (du
 #### Health Canada
 <h5>[Example 4]{#expl4}</h5>
 
-Same data like in [Example 2](#expl2).
-```{r}
+Same assumptions (*CV*, $\small{\theta_{0}}$) like in [Example 2](#expl2).
+```{r example4}
 pa.scABE(CV = 0.55, regulator = "HC")
 ```
 ![**Fig. 4** Power Analysis (in each panel one argument is varied and others kept constant)](figure9.png){width=469px}
 
-Since we are close to Health Canada’s upper cap of 57.4\%, power drops on both sides. Note that we need three subjects less than for the EMA’s method and *CV~wR~* can increase to \~0.76 until we reach the minimum acceptable power&nbsp;-- which is substantially higher than the \~0.67 for the EMA.
+Since we are close to Health Canada’s upper cap of 57.4\%, power drops on both sides. Note that we need three subjects less than for the EMA’s method and *CV*~wR~ can increase to \~0.76 until we reach the minimum acceptable power – which is substantially higher than the \~0.67 for the EMA.
 
 #### FDA
 <h5>[Example 5]{#expl5}</h5>
 
-Same data like in [Example 2](#expl2) and [Example 4](#expl4).
-```{r}
+Same assumptions (*CV*, $\small{\theta_{0}}$) like in [Example 2](#expl2) and [Example 4](#expl4).
+```{r example5}
 pa.scABE(CV = 0.55, regulator = "FDA")
 ```
 ![**Fig. 5** Power Analysis (in each panel one argument is varied and others kept constant)](figure10.png){width=469px}
 
-A similar pattern like the one of Health Canada, although due to the different regulatory constant we need nine subjects less (and twelve less than for the EMA). Caused by unlimited scaling the *CV~wR~* can increase more.
+A similar pattern like the one of Health Canada, although due to the different regulatory constant we need nine subjects less (and twelve less than for the EMA). Caused by unlimited scaling the *CV*~wR~ can increase more.
 
 ### Narrow Therapeutic Index Drugs (FDA)
 
 <h5>[Example 6]{#expl6}</h5>
-Assumed intra-subject *CV* 0.125.
-```{r}
+Assumed intra-subject *CV* 0.125. Note the default $\small{\theta_{0}}$ of 0.975 for NTIDs.
+```{r example6}
 pa.NTIDFDA(CV = 0.125)
 ```
 ![**Fig. 6** Power Analysis (in each panel one argument is varied and others kept constant)](figure11.png){width=469px}
@@ -170,4 +170,4 @@ The power analysis is <span class="hl"> not </span> a substitute for the ‘Se
 
 # License
 <h4 class="author">Helmut Schütz `r Sys.Date()`</h4>
-[GPL-2](https://cran.r-project.org/web/licenses/GPL-2 "GNU General Public License, Version 2") | [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
+[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")

@@ -59,7 +59,7 @@ Defaults depending on the argument `logscale`:
 | $\small{\theta_{1}}$ | `theta1` | `0.80` | `−0.20` |
 | $\small{\theta_{2}}$ | `theta2` | `1.25` | `+0.20` |
 
-Arguments `targetpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not percent.\
+Arguments `targetpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not in percent.\
 The *CV* is generally the *within*- (intra-) subject coefficient of variation. Only for `design = "parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*.
 
 The terminology of the argument `design` follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design can be abbreviated as `"2x2"`. Some call the `"parallel"` design a ‘one-sequence’ design. The design `"paired"` has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note that the underlying model assumes no period effects.
