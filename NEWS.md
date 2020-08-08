@@ -2,11 +2,16 @@
 
 Started on GitHub 2020-08-10
 
-## Minor changes
-  * Changed http(s) locations of References according to R CMD check
+## Bug fixes
+  
+  * Added `emmeans` to `Suggests`. Otherwise `NOTE` on r-devel-linux-x86_64-fedora-clang. THX to Gábor Csárdi and Duncan Murdoch on r-package-devel. Will be required in R4.1.0 released next year.
 
+## Minor changes
+
+  * Changed http(s) locations of References according to R CMD check.
 
 # PowerTOST 1.5-0 
+
 (Maintenance release dedicated to 70 birthday of Detluuu)
 
 On CRAN 2020-08-09.
