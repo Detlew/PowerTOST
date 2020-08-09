@@ -24,8 +24,8 @@ PowerTOST
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<!--[![cran checks](https://cranchecks.info/badges/summary/PowerTOST)](https://cran.r-project.org/web/checks/check_results_PowerTOST.html) -->
-
+![on CRAN](https://www.r-pkg.org/badges/version-ago/PowerTOST) [![cran
+checks](https://cranchecks.info/badges/worst/PowerTOST)](https://cran.r-project.org/web/checks/check_results_PowerTOST.html)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](https://r-pkg.org/pkg/PowerTOST)
 [![CRAN RStudio mirror
