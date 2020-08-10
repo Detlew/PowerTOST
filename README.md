@@ -587,11 +587,10 @@ print(res, plotit = FALSE)
 ```
 
 If the study starts with 26 subjects (power \~0.92), the *CV* can
-increase to \~0.27 <u>or</u> *θ*<sub>0</sub> decrease to \~0.90
-<u>or</u> the sample size decrease to 10 whilst power will still be
-≥0.70.  
-However, this is <u>**not**</u> a substitute for the “Sensitivity
-Analysis” recommended in
+increase to \~0.27 **or** *θ*<sub>0</sub> decrease to \~0.90 **or** the
+sample size decrease to 10 whilst power will still be ≥0.70.  
+However, this is **not** a substitute for the “Sensitivity Analysis”
+recommended in
 [ICH-E9](https://www.ich.org/fileadmin/Public_Web_Site/ICH_Products/Guidelines/Efficacy/E9/Step4/E9_Guideline.pdf),
 since in a real study a combination of all effects occurs
 simultaneously. It is up to *you* to decide on reasonable combinations
@@ -637,7 +636,7 @@ Simulating via the ‘key’ statistics is the method of choice for speed
 reasons.  
 However, subject simulations are recommended *if*
 
-  - the partial replicate design (TRR|RTR|RRT) is planned <u>and</u>
+  - the partial replicate design (TRR|RTR|RRT) is planned **and**
   - the special case of heterogenicity *CV*<sub>wT</sub> \>
     *CV*<sub>wR</sub> is expected.
 
