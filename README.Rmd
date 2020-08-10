@@ -201,7 +201,7 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 <small>[TOC ↩](#powertost)</small>
 
 #### NTIDs
-Sample size assuming heteroscedasticity (*CV*~w~ 0.125, σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher variability than R). TRTR|RTRT according to the [FDA’s guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf). Assess additionally which one of the three components (scaled <span title="Average Bioequivalence">ABE</span>, conventionally <span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~ ratio) drives the sample size.
+Sample size assuming heteroscedasticity (*CV*~w~ 0.125, σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher variability than R). TRTR|RTRT according to the [FDA’s guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf). Assess additionally which one of the three components (scaled <span title="Average Bioequivalence">ABE</span>, conventional <span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~ ratio) drives the sample size.
 ```{r NTID1}
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
 n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]

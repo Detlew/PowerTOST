@@ -461,7 +461,7 @@ Sample size assuming heteroscedasticity (*CV*<sub>w</sub> 0.125,
 variability than R). TRTR|RTRT according to the [FDA’s
 guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf).
 Assess additionally which one of the three components (scaled
-<span title="Average Bioequivalence">ABE</span>, conventionally
+<span title="Average Bioequivalence">ABE</span>, conventional
 <span title="Average Bioequivalence">ABE</span>,
 *s*<sub>wT</sub>/*s*<sub>wR</sub> ratio) drives the sample size.
 
