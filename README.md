@@ -34,7 +34,8 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Version 1.5.0 built 2020-08-09 with R 4.0.2.
+Published on CRAN 2020-08-05 (version 1.5.0 built 2020-08-05 with R
+4.0.2).
 
 ## Supported Designs
 
@@ -608,11 +609,11 @@ Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.0.2
 "2x2" crossover design, *CV* 0.17. Sample sizes and achieved power for
 the supported methods (the 1<sup>st</sup> one is the default).
 
-    #     method  n    power seconds
-    #      owenq 14 0.805683 0.00128
-    #        mvt 14 0.805690 0.11778
-    # noncentral 14 0.805683 0.00100
-    #    shifted 16 0.852301 0.00096
+    #     method  n    power time (s)
+    #      owenq 14 0.805683  0.00128
+    #        mvt 14 0.805690  0.11778
+    # noncentral 14 0.805683  0.00100
+    #    shifted 16 0.852301  0.00096
 
 The 2<sup>nd</sup> exact method is substantially slower than the
 1<sup>st</sup>. The approximation based on the noncentral
@@ -628,9 +629,9 @@ Four period full replicate study, homogenicity (*CV*<sub>wT</sub> =
 *CV*<sub>wR</sub> 0.45). Sample sizes and achieved power for the
 supported methods (‘key’ statistics and subject simulations).
 
-    #              function              method  n   power seconds
-    #        sampleN.scABEL    ‘key’ statistics 28 0.81116  0.1348
-    # sampleN.scABEL.sdsims subject simulations 28 0.81196  2.5377
+    #              function              method  n   power time (s)
+    #        sampleN.scABEL    ‘key’ statistics 28 0.81116   0.1348
+    # sampleN.scABEL.sdsims subject simulations 28 0.81196   2.5377
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons.  

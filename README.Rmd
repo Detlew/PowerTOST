@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies.  
-Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST")` with R `r getRversion()`.
+Published on CRAN `r packageDate("PowerTOST", date.fields = "Date/Publication")` (version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST", date.fields = "Built")` with R `r substr(packageDescription("PowerTOST", fields = "Built"), 3, 7)`).
 
 ## Supported Designs
 
@@ -245,20 +245,20 @@ Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R `r getRversio
 #### ABE
 \"2x2\" crossover design, *CV* 0.17. Sample sizes and achieved power for the supported methods (the 1<sup>st</sup> one is the default).
 ```
-#     method  n    power seconds
-#      owenq 14 0.805683 0.00128
-#        mvt 14 0.805690 0.11778
-# noncentral 14 0.805683 0.00100
-#    shifted 16 0.852301 0.00096
+#     method  n    power time (s)
+#      owenq 14 0.805683  0.00128
+#        mvt 14 0.805690  0.11778
+# noncentral 14 0.805683  0.00100
+#    shifted 16 0.852301  0.00096
 ```
 The 2<sup>nd</sup> exact method is substantially slower than the 1<sup>st</sup>. The approximation based on the noncentral *t*-distribution is slightly faster but matches the 1<sup>st</sup> exact method closely. Though the approximation based on the shifted central *t*-distribution is the fastest, it *might* estimate a larger than necessary sample size. Hence, it should be used only for comparative purposes.
 
 #### ABEL
 Four period full replicate study, homogenicity (*CV*~wT~ = *CV*~wR~ 0.45). Sample sizes and achieved power for the supported methods (‘key’ statistics and subject simulations).
 ```
-#              function              method  n   power seconds
-#        sampleN.scABEL    ‘key’ statistics 28 0.81116  0.1348
-# sampleN.scABEL.sdsims subject simulations 28 0.81196  2.5377
+#              function              method  n   power time (s)
+#        sampleN.scABEL    ‘key’ statistics 28 0.81116   0.1348
+# sampleN.scABEL.sdsims subject simulations 28 0.81196   2.5377
 ```
 Simulating via the ‘key’ statistics is the method of choice for speed reasons.  
 However, subject simulations are recommended *if*
