@@ -609,11 +609,11 @@ Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.0.2
 "2x2" crossover design, *CV* 0.17. Sample sizes and achieved power for
 the supported methods (the 1<sup>st</sup> one is the default).
 
-    #     method  n    power time (s)
-    #      owenq 14 0.805683  0.00128
-    #        mvt 14 0.805690  0.11778
-    # noncentral 14 0.805683  0.00100
-    #    shifted 16 0.852301  0.00096
+    #     method  n   power time (s)
+    #      owenq 14 0.80568  0.00128
+    #        mvt 14 0.80569  0.11778
+    # noncentral 14 0.80568  0.00100
+    #    shifted 16 0.85230  0.00096
 
 The 2<sup>nd</sup> exact method is substantially slower than the
 1<sup>st</sup>. The approximation based on the noncentral
@@ -627,7 +627,7 @@ purposes.
 
 Four period full replicate study, homogenicity (*CV*<sub>wT</sub> =
 *CV*<sub>wR</sub> 0.45). Sample sizes and achieved power for the
-supported methods (‘key’ statistics and subject simulations).
+supported methods.
 
     #              function              method  n   power time (s)
     #        sampleN.scABEL    ‘key’ statistics 28 0.81116   0.1348
