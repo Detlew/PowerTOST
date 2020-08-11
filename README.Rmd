@@ -283,3 +283,13 @@ remotes::install_github("Detlew/PowerTOST")
 Skips installation from a github remote if the [SHA-1](https://en.wikipedia.org/wiki/SHA-1) has not changed since last install. Use `force = TRUE` to force installation.
 
 <small>[TOC ↩](#powertost)</small>
+
+## Session Information
+Inspect this information for reproducibility. Of particular importance are the versions of R and the packages used to create this workflow. It is considered good practice to record this information with every analysis.
+
+```{r, sessioninfo}
+options(width = 80)
+devtools::session_info()
+```
+
+<small>[TOC ↩](#powertost)</small>
