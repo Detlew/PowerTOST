@@ -330,7 +330,8 @@ sampleN.TOST(CV = 0.125, theta0 = 0.975, theta1 = 0.90)
 <small>[TOC ↩](#powertost)</small>
 
 Sample size for equivalence of the ratio of two means with normality on
-original scale based on Fieller’s (‘fiducial’) confidence interval.
+the original scale based on [Fieller’s (‘fiducial’) confidence
+interval](https://dx.doi.org/10.1111/j.2517-6161.1954.tb00159.x).
 Within- (intra-) subject *CV*<sub>w</sub> 0.20 (20%), between- (inter-)
 subject *CV*<sub>b</sub> 0.40 (40%).  
 Note the default *α* 0.025 (95% CI) of this function because it is
@@ -437,6 +438,8 @@ sampleN.scABEL(CV = 0.45)
 # 39   0.8059
 ```
 
+<small>[TOC ↩](#powertost)</small>
+
 Iteratively adjust *α* to control the Type I Error ([Labes,
 Schütz](https://doi.org/10.1007/s11095-016-2006-1)). Slight
 heteroscedasticity (*CV*<sub>wT</sub> 0.30, *CV*<sub>wR</sub> 0.35),
@@ -470,13 +473,40 @@ scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4", n = 30)
 ```
 
 With the nominal *α* 0.05 the Type I Error will be inflated (0.0665).
-With the adjusted *α* 0.0354 (*i.e.*, the 92.92% confidence interval)
-the <span title="Type I Error">TIE</span> will be controlled, although
-with a slight loss in power (decreases from 0.814 to 0.771).  
+With the adjusted *α* 0.0354 (*i.e.*, a 92.92%
+<span title="Confidence Interval">CI</span>) the
+<span title="Type I Error">TIE</span> will be controlled, although with
+a slight loss in power (decreases from 0.814 to 0.771).  
 Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to
 estimate the sample size which both controls the
 <span title="Type I Error">TIE</span> and maintains the target power. In
 this example 34 subjects would be required.
+
+<small>[TOC ↩](#powertost)</small>
+
+<span title="Average Bioequivalence with Expanded Limits">ABEL</span>
+cannot be applied for *AUC* (except for the
+<span title="World Health Organization">WHO<span>). Hence, in many cases
+<span title="Average Bioequivalence">ABE</span> drives the sample size.
+Three period full replicate "2x2x3" study (TRT|RTR *or* TRR|RTT).
+
+``` r
+PK  <- c("Cmax", "AUC")
+CV  <- c(0.45, 0.30)
+# extract sample sizes and power
+r1  <- sampleN.scABEL(CV = CV[1], theta0 = 0.90, design = "2x2x3",
+                      print = FALSE, details = FALSE)[8:9]
+r2  <- sampleN.TOST(CV = CV[2], theta0 = 0.90, design = "2x2x3",
+                    print = FALSE, details = FALSE)[7:8]
+n   <- as.numeric(c(r1[1], r2[1]))
+pwr <- signif(as.numeric(c(r1[2], r2[2])), 5)
+# compile results
+res <- data.frame(PK = PK, method = c("ABEL", "ABE"), n = n, power = pwr)
+print(res, row.names = FALSE)
+#    PK method  n   power
+#  Cmax   ABEL 42 0.80017
+#   AUC    ABE 60 0.81002
+```
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -603,24 +633,27 @@ the chance of dropouts.
 
 ``` r
 CV  <- 0.10
-x1  <- sampleN.NTIDFDA(CV = CV, print = FALSE, details = FALSE)
-x2  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
-                    design = "2x2x4", print = FALSE, details = FALSE)
-x3  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
-                    design = "2x2x3", print = FALSE, details = FALSE)
-x4  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
-                    print = FALSE, details = FALSE)
+# extract sample sizes and power
+r1  <- sampleN.NTIDFDA(CV = CV, print = FALSE, details = FALSE)[8:9]
+r2  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
+                    design = "2x2x4", print = FALSE, details = FALSE)[7:8]
+r3  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
+                    design = "2x2x3", print = FALSE, details = FALSE)[7:8]
+r4  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
+                    print = FALSE, details = FALSE)[7:8]
+n   <- as.numeric(c(r1[1], r2[1], r3[1], r4[1]))
+pwr <- signif(as.numeric(c(r1[2], r2[2], r3[2], r4[2])), 5)
+# compile results
 res <- data.frame(method = c("FDA scaled", rep ("fixed narrow", 3)),
                   design = c(rep("2x2x4", 2), "2x2x3", "2x2x2"),
-                  n = c(x1[[8]], x2[[7]], x3[[7]], x4[[7]]),
-                  power = signif(c(x1[[9]], x2[[8]], x3[[8]], x4[[8]]), 5),
-                  administrations = c(x1[[8]]*4, x2[[7]]*4, x3[[7]]*3, x4[[7]]*2))
+                  n = n, power = pwr, a = n * c(4, 4, 3, 2))
+names(res)[5] <- "adm. #"
 print(res, row.names = FALSE)
-#        method design  n   power administrations
-#    FDA scaled  2x2x4 18 0.84179              72
-#  fixed narrow  2x2x4 12 0.85628              48
-#  fixed narrow  2x2x3 16 0.81393              48
-#  fixed narrow  2x2x2 22 0.81702              44
+#        method design  n   power adm. #
+#    FDA scaled  2x2x4 18 0.84179     72
+#  fixed narrow  2x2x4 12 0.85628     48
+#  fixed narrow  2x2x3 16 0.81393     48
+#  fixed narrow  2x2x2 22 0.81702     44
 ```
 
 <small>[TOC ↩](#powertost)</small>
