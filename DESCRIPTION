@@ -15,10 +15,6 @@ Authors@R: c(person("Detlew", "Labes",
              person("Benjamin", "Lang",
                role = c("aut"),
                email ="lang.be@icloud.com"))
-Author: Detlew Labes [aut, cre] (<https://orcid.org/0000-0003-2169-426X>),
-  Helmut Schütz [aut] (<https://orcid.org/0000-0002-1167-7880>),
-  Benjamin Lang [aut]
-Maintainer: Detlew Labes <DetlewLabes@gmx.de>
 Description: Contains functions to calculate power and sample size for
     various study designs used in bioequivalence studies. Use known.designs() to
     see the designs supported. Power and sample size can be obtained based on
