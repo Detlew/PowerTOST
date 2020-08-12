@@ -170,7 +170,7 @@ sequences or equal group sizes.
 
   - *α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25). Details
     of the sample size search (and the regulatory settings in
-    reference-scaled average bioequivalence) are printed.
+    reference-scaled average bioequivalence) are shown in the console.
   - Note: In all functions values have to be given as ratios, not in
     percent.
 
@@ -244,7 +244,7 @@ Before running the examples attach the library.
 library(PowerTOST)
 ```
 
-If not noted otherwise, defaults are employed.
+If not noted otherwise, the [defaults](#defaults) are employed.
 
 ### Parallel Design
 
@@ -277,6 +277,56 @@ sampleN.TOST(CV = 0.20)
 #  n     power
 # 20   0.834680
 ```
+
+Sample size for assumed within- (intra-) subject *CV* 0.40 (40%),
+*θ*<sub>0</sub> 0.90, four period full replicate “2x2x4” study. Wider
+acceptance range for *C*<sub>max</sub> (Gulf Cooperation Council, South
+Africa).
+
+``` r
+sampleN.TOST(CV = 0.40, theta0 = 0.90, theta1 = 0.75, design = "2x2x4")
+# 
+# +++++++++++ Equivalence test - TOST +++++++++++
+#             Sample size estimation
+# -----------------------------------------------
+# Study design: 2x2x4 (4 period full replicate) 
+# log-transformed data (multiplicative model)
+# 
+# alpha = 0.05, target power = 0.8
+# BE margins = 0.75 ... 1.333333 
+# True ratio = 0.9,  CV = 0.4
+# 
+# Sample size (total)
+#  n     power
+# 30   0.822929
+```
+
+<small>[TOC ↩](#powertost)</small>
+
+Sample size for assumed within- (intra-) subject *CV* 0.125 (12.5%),
+*θ*<sub>0</sub> 0.975. Acceptance range for
+<span title="Narrow Therapeutic Index Drugs">NTIDs</span> (many
+jurisdictions).
+
+``` r
+sampleN.TOST(CV = 0.125, theta0 = 0.975, theta1 = 0.90)
+# 
+# +++++++++++ Equivalence test - TOST +++++++++++
+#             Sample size estimation
+# -----------------------------------------------
+# Study design: 2x2 crossover 
+# log-transformed data (multiplicative model)
+# 
+# alpha = 0.05, target power = 0.8
+# BE margins = 0.9 ... 1.111111 
+# True ratio = 0.975,  CV = 0.125
+# 
+# Sample size (total)
+#  n     power
+# 32   0.800218
+```
+
+<small>[TOC ↩](#powertost)</small>
 
 Sample size for equivalence of the ratio of two means with normality on
 original scale based on Fieller’s (‘fiducial’) confidence interval.
@@ -425,7 +475,7 @@ with a slight loss in power (decreases from 0.814 to 0.771).
 Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to
 estimate the sample size which both controls the
 <span title="Type I Error">TIE</span> and maintains the target power. In
-this example 34 subjects will be required.
+this example 34 subjects would be required.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -463,9 +513,10 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 
 #### NTIDs
 
-Sample size assuming heteroscedasticity (*CV*<sub>w</sub> 0.125,
-σ<sup>2</sup> ratio 2.5, *i.e.*, T has a substantially higher
-variability than R). TRTR|RTRT according to the [FDA’s
+Sample size assuming heteroscedasticity (*CV*<sub>w</sub> 0.10,
+σ<sup>2</sup> ratio 2.5, *i.e.*, the test treatment has a substantially
+higher variability than the reference). TRTR|RTRT according to the
+[FDA’s
 guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf).
 Assess additionally which one of the three components (scaled
 <span title="Average Bioequivalence">ABE</span>, conventional
@@ -473,7 +524,7 @@ Assess additionally which one of the three components (scaled
 *s*<sub>wT</sub>/*s*<sub>wR</sub> ratio) drives the sample size.
 
 ``` r
-CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
+CV <- signif(CVp2CV(CV = 0.10, ratio = 2.5), 4)
 n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
 # 
 # +++++++++++ FDA method for NTIDs ++++++++++++
@@ -484,34 +535,37 @@ n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
 # 1e+05 studies for each step simulated.
 # 
 # alpha  = 0.05, target power = 0.8
-# CVw(T) = 0.1497, CVw(R) = 0.09433
+# CVw(T) = 0.1197, CVw(R) = 0.07551
 # True ratio     = 0.975 
 # ABE limits     = 0.8 ... 1.25 
-# Implied scABEL = 0.9056 ... 1.1043 
+# Implied scABEL = 0.9236 ... 1.0827 
 # Regulatory settings: FDA 
 # - Regulatory const. = 1.053605 
 # - 'CVcap'           = 0.2142 
 # 
 # Sample size search
 #  n     power
-# 28   0.665530 
-# 30   0.701440 
-# 32   0.734240 
-# 34   0.764500 
-# 36   0.792880 
-# 38   0.816080
+# 32   0.699120 
+# 34   0.730910 
+# 36   0.761440 
+# 38   0.785910 
+# 40   0.809580
 suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 #        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
-#      0.81608      0.93848      1.00000      0.85794
+#      0.80958      0.90966      1.00000      0.87447
 ```
 
-The *s*<sub>wT</sub>/*s*<sub>wR</sub> component shows the lowest power
-and hence, drives the sample size.  
+The *s*<sub>wT</sub>/*s*<sub>wR</sub> component shows the lowest
+probability to demonstrate <span title="Bioequivalence">BE</span> and
+hence, drives the sample size.
+
+<small>[TOC ↩](#powertost)</small>
+
 Compare that with homoscedasticity (*CV*<sub>wT</sub> =
-*CV*<sub>wR</sub> = 0.125):
+*CV*<sub>wR</sub> = 0.10):
 
 ``` r
-CV <- 0.125
+CV <- 0.10
 n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 # 
 # +++++++++++ FDA method for NTIDs ++++++++++++
@@ -522,22 +576,51 @@ n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 # 1e+05 studies for each step simulated.
 # 
 # alpha  = 0.05, target power = 0.8
-# CVw(T) = 0.125, CVw(R) = 0.125
+# CVw(T) = 0.1, CVw(R) = 0.1
 # True ratio     = 0.975 
 # ABE limits     = 0.8 ... 1.25 
 # Regulatory settings: FDA 
 # 
 # Sample size
 #  n     power
-# 16   0.822780
+# 18   0.841790
 suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 #        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
-#      0.82278      0.84869      1.00000      0.95128
+#      0.84179      0.85628      1.00000      0.97210
 ```
 
 Here the scaled <span title="Average Bioequivalence">ABE</span>
-component shows the lowest power and drives the sample size – which is
-much lower than in the previous example.
+component shows the lowest probability to demonstrate
+<span title="Bioequivalence">BE</span> and drives the sample size –
+which is much lower than in the previous example.
+
+<small>[TOC ↩](#powertost)</small>
+
+Comparison with *fixed* narrower limits applicable in other
+jurisdictions. Note that a replicate design is not required, reducing
+the chance of dropouts.
+
+``` r
+CV  <- 0.10
+x1  <- sampleN.NTIDFDA(CV = CV, print = FALSE,details = FALSE)
+x2  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
+                    design = "2x2x4", print = FALSE, details = FALSE)
+x3  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
+                    design = "2x2x3", print = FALSE, details = FALSE)
+x4  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
+                    print = FALSE, details = FALSE)
+res <- data.frame(method = c("FDA scaled", rep ("fixed narrow", 3)),
+                  design = c(rep("2x2x4", 2), "2x2x3", "2x2x2"),
+                  n = c(x1[[8]], x2[[7]], x3[[7]], x4[[7]]),
+                  power = signif(c(x1[[9]], x2[[8]], x3[[8]], x4[[8]]), 5),
+                  administrations = c(x1[[8]]*4, x2[[7]]*4, x3[[7]]*3, x4[[7]]*2))
+print(res, row.names = FALSE)
+#        method design  n   power administrations
+#    FDA scaled  2x2x4 18 0.84179              72
+#  fixed narrow  2x2x4 12 0.85628              48
+#  fixed narrow  2x2x3 16 0.81393              48
+#  fixed narrow  2x2x2 22 0.81702              44
+```
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -568,9 +651,10 @@ Note that the acceptance range of the slope depends on the ratio of the
 highest and lowest doses (*i.e.*, it gets tighter for wider dose ranges
 and therefore, higher sample sizes will be required).  
 In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>,
-*θ*<sub>2</sub>} (0.50, 2.00) are recommended, which would translate in
-this example to an acceptance range of `0.66667 ... 1.3333` and a sample
-size of only six subjects.
+*θ*<sub>2</sub>} (0.50, 2.00) were
+[proposed](https://doi.org/10.1002/pst.326), translating in this example
+to an acceptance range of `0.66667 ... 1.3333` and a sample size of only
+six subjects.
 
 <small>[TOC ↩](#powertost)</small>
 
