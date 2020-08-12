@@ -27,7 +27,7 @@ Power to achieve at least. Must be >0 and <1. Typical values are 0.80
 to 0.90 (\emph{i.e.}, 80\% to 90\%). Defaults to 0.80 if not given explicitly.
 }
   \item{theta0}{
-\sQuote{True} or assumed T/R ratio. Defaults to 0.90 according to the two \enc{Laszlós}{Laszlos} if not given explicitly.
+\sQuote{True} or assumed T/R ratio. Defaults to 0.90 according to the two \enc{Lászlós}{Laszlos} if not given explicitly.
 }
   \item{theta1}{
 Conventional lower \acronym{ABE} limit to be applied in the mixed procedure

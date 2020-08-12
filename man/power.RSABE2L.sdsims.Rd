@@ -36,7 +36,7 @@ Defaults to 1.25 if not given explicitly.
 }
   \item{theta0}{
 \sQuote{True} or assumed T/R ratio.\cr
-Defaults to 0.90 according to the two \enc{Laszlós}{Laszlos} if not given explicitly.
+Defaults to 0.90 according to the two \enc{Lászlós}{Laszlos} if not given explicitly.
 }
   \item{CV}{
 Intra-subject coefficient(s) of variation as ratio (not percent).

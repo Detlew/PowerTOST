@@ -22,7 +22,7 @@ Type I Error (\acronym{TIE}) probability (nominal level of the test). Per
 convention commonly set to 0.05.
 }
   \item{theta0}{
-\sQuote{True} or assumed T/R ratio. Defaults to 0.90 according to the two \enc{Laszlós}{Laszlos} if not given explicitly.
+\sQuote{True} or assumed T/R ratio. Defaults to 0.90 according to the two \enc{Lászlós}{Laszlos} if not given explicitly.
 }
   \item{theta1}{
 Conventional lower \acronym{ABE} limit to be applied in the mixed procedure

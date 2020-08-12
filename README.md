@@ -25,7 +25,12 @@ PowerTOST
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-![on CRAN](https://www.r-pkg.org/badges/version-ago/PowerTOST) [![cran
+[![License: GPL
+v2](https://img.shields.io/badge/License-GPLv2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![active](https://www.repostatus.org/badges/latest/active.svg) ![on
+CRAN](https://www.r-pkg.org/badges/version-ago/PowerTOST) [![cran
 checks](https://cranchecks.info/badges/worst/PowerTOST)](https://cran.r-project.org/web/checks/check_results_PowerTOST.html)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](https://r-pkg.org/pkg/PowerTOST)
@@ -686,7 +691,7 @@ devtools::session_info()
 #  collate  German_Germany.1252         
 #  ctype    German_Germany.1252         
 #  tz       Europe/Vienna               
-#  date     2020-08-11                  
+#  date     2020-08-12                  
 # 
 # - Packages -------------------------------------------------------------------
 #  package       * version date       lib source        
