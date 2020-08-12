@@ -12,7 +12,7 @@ The study design could be the full replicate design 2x2x4 with 4-periods (TRTR|R
 2x2x3 replicate design with 3-periods and sequences TRT|RTR.
 }
 \usage{
-power.HVNTID(alpha = 0.05, theta1, theta2, theta0, CV, n, design=c("2x2x4", "2x2x3"), 
+power.HVNTID(alpha = 0.05, theta1, theta2, theta0, CV, n, design = c("2x2x4", "2x2x3"), 
              nsims = 1e+05, details = FALSE, setseed = TRUE)
 }
 \arguments{

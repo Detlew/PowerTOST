@@ -5,7 +5,7 @@
 Sample size estimation for BE decision via linearized scaled ABE criterion
 }
 \description{
-This function performs the Sample size estimation for the BE decision via 
+This function performs the sample size estimation for the BE decision via 
 linearized scaled ABE criterion based on simulations.
 }
 \usage{

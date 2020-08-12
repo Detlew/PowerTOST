@@ -5,7 +5,7 @@
 Sample size for equivalence of the ratio of two means with normality on original scale
 }
 \description{
-Calculates the necessary sample size to have at least a given power based on 
+Estimates the necessary sample size to have at least a given power based on 
 Fieller’s confidence (\sQuote{fiducial}) interval.
 }
 \usage{
@@ -78,8 +78,12 @@ A data.frame with the input values and results will be returned.\cr
 The sample size n returned is the total sample size for both designs.\cr
 }
 \references{
-Hauschke D, Kieser M, Diletti E, Burke M. \emph{Sample size determination for proving equivalence based on the ratio of two means for normally distributed data.} Stat Med. 1999;18(1):93--105.\cr
-doi: \href{https://dx.doi.org/10.1002/(SICI)1097-0258(19990115)18\%3A1\%3C93\%3A\%3AAID-SIM992\%3E3.0.CO\%3B2-8}{10.1002/(SICI)1097-0258(19990115)18:1<93::AID-SIM992>3.0.CO;2-8}.
+Fieller EC. \emph{Some Problems in Interval Estimation.} J Royal Stat Soc B. 1954;16(2):175--85. \doi{10.1111/j.2517-6161.1954.tb00159.x}
+
+Sasabuchi S. \emph{A test of a multivariate normal mean with composite hypotheses determined by linear inequalities.} Biometrika. 1980;67(2):429--39. \doi{10.1093/biomet/67.2.429}
+
+Hauschke D, Kieser M, Diletti E, Burke M. \emph{Sample size determination for proving equivalence based on the ratio of two means for normally distributed data.} Stat Med. 1999;18(1):93--105. 
+doi: \href{https://dx.doi.org/10.1002/(SICI)1097-0258(19990115)18\%3A1\%3C93\%3A\%3AAID-SIM992\%3E3.0.CO\%3B2-8}{10.1002/(SICI)1097-0258(19990115)18:1<93::AID-SIM992>3.0.CO;2-8}
 
 Hauschke D, Steinijans V, Pigeot I. \emph{Bioequivalence Studies in Drug Development.} Chichester: Wiley; 2007. Chapter 10.
 

@@ -8,7 +8,7 @@
   Calculates the intra-subject CV (coefficient of variation) of the reference from
   the upper expanded limit of a BE study (replicate design for ABEL).
   Useful if no
-  \ifelse{html}{\out{CV<sub>wR</sub>}}{\eqn{CV_{wR}}{CVwR}} but the
+  \ifelse{html}{\out{<em>CV</em><sub>wR</sub>}}{\eqn{CV_{wR}}{CVwR}} but the
   expanded limits were given.
 }
 

@@ -5,7 +5,7 @@
 Sample size based on power of TOST
 }
 \description{
-Calculates the necessary sample size to have at least a given power.
+Estimates the necessary sample size to have at least a given power.
 }
 \usage{
 sampleN.TOST(alpha = 0.05, targetpower = 0.8, logscale = TRUE, 
@@ -90,7 +90,7 @@ Defaults to 100. Adaption only in rare cases needed.\cr
   }
 }
 \details{
-The sample size is calculated via iterative evaluation of power of the \acronym{TOST} procedure.\cr
+The sample size is estimated via iterative evaluation of power of the \acronym{TOST} procedure.\cr
 Start value for the sample size search is taken from a large sample approximation
 according to Zhang, modified.\cr
 The sample size is bound to 4 as minimum.\cr\cr

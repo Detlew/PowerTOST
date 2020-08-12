@@ -5,7 +5,7 @@
 Sample size for the non-inferiority t-test
 }
 \description{
-Function for calculating the sample size needed to have a pre-specified power
+Function for estimating the sample size needed to have a pre-specified power
 for the one-sided non-inferiority \emph{t}-test for normal or log-normal distributed data.
 }
 \usage{

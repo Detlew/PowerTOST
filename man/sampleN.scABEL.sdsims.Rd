@@ -94,7 +94,7 @@ Should a progressbar be shown? Defaults to \code{TRUE} if missing and nsims >5E5
 \details{
 The methods rely on the analysis of log-transformed data, \emph{i.e.}, assume a 
 log-normal distribution on the original scale.\cr\cr
-The widened BE acceptance limits will be calculated by the formula\cr
+The expanded BE acceptance limits will be calculated by the formula\cr
 \verb{  [L, U] = exp(± r_const * sWR)}\cr
 with \code{r_const} the regulatory constant and \code{sWR} the standard deviation of the within
 subjects variability of the Reference. \code{r_const = 0.76} (~log(1.25)/0.29356) is used 

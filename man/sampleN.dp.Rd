@@ -76,7 +76,7 @@ Defaults to 100. Adaption only in rare cases needed, if any.
 }
 }
 \details{
-The sample size is calculated via iterative evaluation of \code{power.dp()}.\cr
+The sample size is estimated via iterative evaluation of \code{power.dp()}.\cr
 Start value for the sample size search is taken from a large sample approximation.\cr
 The sample size is bound to number of dose or sequence groups as minimum.\cr
 Balanced designs are used although this is not absolutely necessary.\cr\cr

@@ -10,7 +10,7 @@ equivalence criterion.
 }
 \usage{
 power.dp(alpha = 0.05, CV, doses, n, beta0, theta1 = 0.8, theta2 = 1/theta1, 
-         design = c("crossover", "parallel", "IBD"), dm=NULL, CVb)
+         design = c("crossover", "parallel", "IBD"), dm = NULL, CVb)
 }
 \arguments{
   \item{alpha}{

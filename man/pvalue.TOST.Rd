@@ -17,7 +17,7 @@ pvalues.TOST(pe, CV, n, logscale = TRUE, theta1, theta2, design = "2x2",
 }
 \arguments{
   \item{pe}{
-Observed point esetimate of the T/R ratio or difference.\cr
+Observed point estimate of the T/R ratio or difference.\cr
 In case of \code{logscale=TRUE} it must be given as ratio T/R.\cr
 If \code{logscale=FALSE}, the observed difference in means. In this case, the difference may be expressed in two ways: relative to the same (underlying) reference mean, i.e. as (T-R)/R = T/R - 1; or as difference in means T-R. Note that in the former case the units of \code{CV}, \code{theta1} and \code{theta2} need also be given relative to the reference mean (specified as ratio).\cr
 }

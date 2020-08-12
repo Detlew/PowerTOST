@@ -91,5 +91,5 @@ European Medicines Agency, Committee for Proprietary Medicinal Products. \emph{P
 
 \examples{
 # 95\% Fieller CI for the 2x2 crossover
-CI.RatioF(pe = 1.05, CV = 0.3, CVb = 0.6, n = 24)
+CI.RatioF(pe = 0.95, CV = 0.3, CVb = 0.6, n = 32)
 }

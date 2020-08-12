@@ -5,7 +5,7 @@
 Power calculation of the BE decision with models incorporating groups
 }
 \description{
-The power is calculated via subject data simulations.\cr
+The power is obtained via subject data simulations.\cr
 Three models are implemented:
 \itemize{
 \item gmodel==1 is full FDA model for testing group-by-treatment interaction

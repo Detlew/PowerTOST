@@ -5,8 +5,8 @@
 Sample size based on power of two TOSTs
 }
 \description{
-Calculates the necessary sample size to have at least a given power when two
-parameters are being tested simultaneously.
+Estimates the necessary sample size to have at least a given power when two
+parameters are tested simultaneously.
 }
 \usage{
 sampleN.2TOST(alpha = c(0.05, 0.05), targetpower = 0.8, logscale = TRUE, 
@@ -88,7 +88,7 @@ Number of studies to simulate. Defaults to 100,000 = 1E5.
   }
 }
 \details{
-The sample size is calculated via iterative evaluation of power of the two TOSTs.\cr
+The sample size is estimated via iterative evaluation of power of the two TOSTs.\cr
 Start value for the sample size search is taken from a large sample approximation
 (one TOST) according to Zhang, modified.\cr
 The sample size is bound to 4 as minimum.\cr\cr

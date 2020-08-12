@@ -5,7 +5,7 @@
 Sample size based on expected power
 }
 \description{
-Calculates the sample size based on the expected power for a variety of study 
+Estimates the sample size based on the expected power for a variety of study 
 designs used in bioequivalence studies. See \link{known.designs} for the study 
 designs covered.
 }

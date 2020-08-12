@@ -1,6 +1,6 @@
 # PowerTOST 1.5.0.9999
 
-Started on GitHub 2020-08-10
+Started on GitHub 2020-08-10.
 
 ## Bug fixes
   
@@ -8,17 +8,17 @@ Started on GitHub 2020-08-10
 
 ## Minor changes
 
+  * Unified man pages of `sampleN.*`: Always *estimation* instead of *calculation*. References added for Fieller’s CI.
+  * More examples in `README`.
   * Changed http(s) locations of References according to R CMD check.
 
 # PowerTOST 1.5-0 
 
-(Maintenance release dedicated to 70 birthday of Detluuu)
-
-On CRAN 2020-08-09.
+On CRAN 2020-08-09. (Maintenance release dedicated to 70 birthday of Detluuu)
 
 ## Bug fixes
   
-  * Bug fix in scABEL.ad w.r.t. coercion 
+  * Bug fix in `scABEL.ad` w.r.t. coercion.
   * Fix of the link to package emmeans in man pages of expected power.
   * Fix in Example 1 of `ABE.Rmd` (not a good idea specify a variable with the same name as a function).
 
@@ -29,11 +29,11 @@ On CRAN 2020-08-09.
 ## Minor changes
 
   * Highlight clarification about *total* sample size in vignettes.
-  * Removed links to man-pages in vignettes (they work in the library but not in the public ones on CRAN).
+  * Removed links to man pages in vignettes (they work in the library but not in the public ones on CRAN).
   * Moved `tufte` from Imports to Suggests (Duncan Murdoch).
   * Harmonize default value of `theta1` in `pvalue.TOST` in case of `logscale = FALSE`
   * Clarification of argument `CV` (and `theta0`, `theta1`, `theta2`) in case of `logscale = FALSE`.
-  * Clarify in man-pages that all functions return the *total* sample size (and not subjects/sequence in crossovers and subjects/group in parallel designs -- like in some other software packages). Suggested by Amandine Schmutz.
+  * Clarify in man pages that all functions return the *total* sample size (and not subjects/sequence in crossovers and subjects/group in parallel designs -- like in some other software packages). Suggested by Amandine Schmutz.
 
 # PowerTOST 1.4-9
 

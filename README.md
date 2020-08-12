@@ -244,15 +244,16 @@ Before running the examples attach the library.
 library(PowerTOST)
 ```
 
-If not noted otherwise, the [defaults](#defaults) are employed.
+If not noted otherwise, the functions’ [defaults](#defaults) are
+employed.
 
 ### Parallel Design
 
-Power for total *CV* 0.35 (35%), *θ*<sub>0</sub> 0.95, group sizes 52
-and 49, design "parallel".
+Power for total *CV* 0.35 (35%), group sizes 52 and 49, design
+"parallel".
 
 ``` r
-power.TOST(CV = 0.35, theta0 = 0.95, n = c(52, 49), design = "parallel")
+power.TOST(CV = 0.35, n = c(52, 49), design = "parallel")
 # [1] 0.8011186
 ```
 
@@ -305,7 +306,7 @@ sampleN.TOST(CV = 0.40, theta0 = 0.90, theta1 = 0.75, design = "2x2x4")
 
 Sample size for assumed within- (intra-) subject *CV* 0.125 (12.5%),
 *θ*<sub>0</sub> 0.975. Acceptance range for
-<span title="Narrow Therapeutic Index Drugs">NTIDs</span> (many
+<span title="Narrow Therapeutic Index Drugs">NTIDs</span> (most
 jurisdictions).
 
 ``` r
@@ -602,7 +603,7 @@ the chance of dropouts.
 
 ``` r
 CV  <- 0.10
-x1  <- sampleN.NTIDFDA(CV = CV, print = FALSE,details = FALSE)
+x1  <- sampleN.NTIDFDA(CV = CV, print = FALSE, details = FALSE)
 x2  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
                     design = "2x2x4", print = FALSE, details = FALSE)
 x3  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,

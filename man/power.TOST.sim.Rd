@@ -6,7 +6,7 @@ Power of the TOST procedure obtained via simulations
 }
 \description{
 Power is calculated by simulations of studies (PE via its normal distribution, 
-MSE via its associated \ifelse{html}{\out{&chi;<sup>2</sup>}}{\eqn{\chi^2}{chi-squared}} distribution) and application of the two one-sided \emph{t}-tests. Power is obtained via ratio of studies found BE to 
+MSE via its associated \ifelse{html}{\out{<em>&chi;</em><sup>2</sup>}}{\eqn{\chi^2}{chi-squared}} distribution) and application of the two one-sided \emph{t}-tests. Power is obtained via ratio of studies found BE to 
 the number of simulated studies. 
 }
 \usage{

@@ -6,7 +6,7 @@ Sample size based on expected power for the non-inferiority test
 }
 
 \description{
-  Calculates the sample size based on the expected power for a variety
+  Estimates the sample size based on the expected power for a variety
   of designs used in bioequivalence studies. See \link{known.designs}
   for the study designs covered.
 }
@@ -117,7 +117,7 @@ expsampleN.noninf(alpha = 0.025, targetpower = 0.8, logscale = TRUE,
   }
 }
 \details{
-  The sample size is calculated based on iterative evaluation of
+  The sample size is estimated based on iterative evaluation of
   expected power. The starting value of the sample size search is
   taken from a large sample approximation if \code{prior.type="CV"}.
   Else an empirical start value is obtained. Note that in case of
