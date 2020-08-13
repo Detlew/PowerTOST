@@ -331,9 +331,9 @@ sampleN.TOST(CV = 0.125, theta0 = 0.975, theta1 = 0.90)
 
 Sample size for equivalence of the ratio of two means with normality on
 the original scale based on [Fieller’s (‘fiducial’) confidence
-interval](https://dx.doi.org/10.1111/j.2517-6161.1954.tb00159.x).
-Within- (intra-) subject *CV*<sub>w</sub> 0.20 (20%), between- (inter-)
-subject *CV*<sub>b</sub> 0.40 (40%).  
+interval](https://doi.org/10.1111/j.2517-6161.1954.tb00159.x). Within-
+(intra-) subject *CV*<sub>w</sub> 0.20 (20%), between- (inter-) subject
+*CV*<sub>b</sub> 0.40 (40%).  
 Note the default *α* 0.025 (95% CI) of this function because it is
 intended for studies with clinical endpoints.
 
@@ -809,7 +809,7 @@ devtools::session_info()
 #  collate  German_Germany.1252         
 #  ctype    German_Germany.1252         
 #  tz       Europe/Vienna               
-#  date     2020-08-12                  
+#  date     2020-08-14                  
 # 
 # - Packages -------------------------------------------------------------------
 #  package       * version date       lib source        

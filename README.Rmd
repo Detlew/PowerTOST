@@ -166,7 +166,7 @@ sampleN.TOST(CV = 0.125, theta0 = 0.975, theta1 = 0.90)
 
 <small>[TOC ↩](#powertost)</small>
 
-Sample size for equivalence of the ratio of two means with normality on the original scale based on [Fieller’s (‘fiducial’) confidence interval](https://dx.doi.org/10.1111/j.2517-6161.1954.tb00159.x). Within- (intra-) subject *CV*~w~ 0.20 (20\%), between- (inter-) subject *CV*~b~ 0.40 (40\%).  
+Sample size for equivalence of the ratio of two means with normality on the original scale based on [Fieller’s (‘fiducial’) confidence interval](https://doi.org/10.1111/j.2517-6161.1954.tb00159.x). Within- (intra-) subject *CV*~w~ 0.20 (20\%), between- (inter-) subject *CV*~b~ 0.40 (40\%).  
 Note the default *α* 0.025 (95\% CI) of this function because it is intended for studies with clinical endpoints.
 ```{r crossover_fieller}
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
