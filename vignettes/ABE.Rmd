@@ -441,7 +441,7 @@ print(res, row.names = FALSE)
 With the wrong formula – especially for high droput rates – you might end up with less eligible subjects than planned. On the other hand, with the correct one (due to rounding up to get balanced sequences) you might end up with slightly too many. Of course, if you want to be one the safe side, you can select the ‘best’ (column `opt`).
 
 ## Literature Data
-Sometimes the *CV* is not given in the literature. By means of the function `CVfromCI()` we can [calculate it](https://bebac.at/Lectures/Bucharest2013WS1.pdf#page=26 "underlying algebra") from the confidence interval, the design, and the sample size.
+Sometimes the *CV* is not given in the literature. By means of the function `CVfromCI()` we can [calculate it](https://bebac.at/lectures/Bucharest2013WS1.pdf#page=26 "underlying algebra") from the confidence interval, the design, and the sample size.
 ```{r lit1}
 CVfromCI(lower = 0.8323, upper = 1.0392,
          design = "2x2x4", n = 26)
