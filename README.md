@@ -39,26 +39,28 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
-studies.  
-Published on CRAN 2020-08-05 (version 1.5.0 built 2020-08-05 with R
-4.0.2).
+studies.
+
+    Version 1.5.0.9999 built 2020-08-14 with R 4.0.2 (development release not on CRAN).
 
 ## Supported Designs
 
-    #    design                        name    df
-    #  parallel           2 parallel groups   n-2
-    #       2x2               2x2 crossover   n-2
-    #     2x2x2             2x2x2 crossover   n-2
-    #       3x3               3x3 crossover 2*n-4
-    #     3x6x3             3x6x3 crossover 2*n-4
-    #       4x4               4x4 crossover 3*n-6
-    #     2x2x3   2x2x3 replicate crossover 2*n-3
-    #     2x2x4   2x2x4 replicate crossover 3*n-4
-    #     2x4x4   2x4x4 replicate crossover 3*n-4
-    #     2x3x3   partial replicate (2x3x3) 2*n-3
-    #     2x4x2            Balaam's (2x4x2)   n-2
-    #    2x2x2r Liu's 2x2x2 repeated x-over 3*n-2
-    #    paired                paired means   n-1
+``` 
+   design                        name    df
+ parallel           2 parallel groups   n-2
+      2x2               2x2 crossover   n-2
+    2x2x2             2x2x2 crossover   n-2
+      3x3               3x3 crossover 2*n-4
+    3x6x3             3x6x3 crossover 2*n-4
+      4x4               4x4 crossover 3*n-6
+    2x2x3   2x2x3 replicate crossover 2*n-3
+    2x2x4   2x2x4 replicate crossover 3*n-4
+    2x4x4   2x4x4 replicate crossover 3*n-4
+    2x3x3   partial replicate (2x3x3) 2*n-3
+    2x4x2            Balaam's (2x4x2)   n-2
+   2x2x2r Liu's 2x2x2 repeated x-over 3*n-2
+   paired                paired means   n-1
+```
 
 Codes of designs follow this pattern: `treatments x sequences x
 periods`.
@@ -254,7 +256,7 @@ Power for total *CV* 0.35 (35%), group sizes 52 and 49, design
 
 ``` r
 power.TOST(CV = 0.35, n = c(52, 49), design = "parallel")
-# [1] 0.8011186
+[1] 0.8011186
 ```
 
 ### Crossover Design
@@ -263,20 +265,20 @@ Sample size for assumed within- (intra-) subject *CV* 0.20 (20%).
 
 ``` r
 sampleN.TOST(CV = 0.20)
-# 
-# +++++++++++ Equivalence test - TOST +++++++++++
-#             Sample size estimation
-# -----------------------------------------------
-# Study design: 2x2 crossover 
-# log-transformed data (multiplicative model)
-# 
-# alpha = 0.05, target power = 0.8
-# BE margins = 0.8 ... 1.25 
-# True ratio = 0.95,  CV = 0.2
-# 
-# Sample size (total)
-#  n     power
-# 20   0.834680
+
++++++++++++ Equivalence test - TOST +++++++++++
+            Sample size estimation
+-----------------------------------------------
+Study design: 2x2 crossover 
+log-transformed data (multiplicative model)
+
+alpha = 0.05, target power = 0.8
+BE margins = 0.8 ... 1.25 
+True ratio = 0.95,  CV = 0.2
+
+Sample size (total)
+ n     power
+20   0.834680 
 ```
 
 Sample size for assumed within- (intra-) subject *CV* 0.40 (40%),
@@ -286,20 +288,20 @@ Africa).
 
 ``` r
 sampleN.TOST(CV = 0.40, theta0 = 0.90, theta1 = 0.75, design = "2x2x4")
-# 
-# +++++++++++ Equivalence test - TOST +++++++++++
-#             Sample size estimation
-# -----------------------------------------------
-# Study design: 2x2x4 (4 period full replicate) 
-# log-transformed data (multiplicative model)
-# 
-# alpha = 0.05, target power = 0.8
-# BE margins = 0.75 ... 1.333333 
-# True ratio = 0.9,  CV = 0.4
-# 
-# Sample size (total)
-#  n     power
-# 30   0.822929
+
++++++++++++ Equivalence test - TOST +++++++++++
+            Sample size estimation
+-----------------------------------------------
+Study design: 2x2x4 (4 period full replicate) 
+log-transformed data (multiplicative model)
+
+alpha = 0.05, target power = 0.8
+BE margins = 0.75 ... 1.333333 
+True ratio = 0.9,  CV = 0.4
+
+Sample size (total)
+ n     power
+30   0.822929 
 ```
 
 <small>[TOC ↩](#powertost)</small>
@@ -311,20 +313,20 @@ jurisdictions).
 
 ``` r
 sampleN.TOST(CV = 0.125, theta0 = 0.975, theta1 = 0.90)
-# 
-# +++++++++++ Equivalence test - TOST +++++++++++
-#             Sample size estimation
-# -----------------------------------------------
-# Study design: 2x2 crossover 
-# log-transformed data (multiplicative model)
-# 
-# alpha = 0.05, target power = 0.8
-# BE margins = 0.9 ... 1.111111 
-# True ratio = 0.975,  CV = 0.125
-# 
-# Sample size (total)
-#  n     power
-# 32   0.800218
+
++++++++++++ Equivalence test - TOST +++++++++++
+            Sample size estimation
+-----------------------------------------------
+Study design: 2x2 crossover 
+log-transformed data (multiplicative model)
+
+alpha = 0.05, target power = 0.8
+BE margins = 0.9 ... 1.111111 
+True ratio = 0.975,  CV = 0.125
+
+Sample size (total)
+ n     power
+32   0.800218 
 ```
 
 <small>[TOC ↩](#powertost)</small>
@@ -339,20 +341,20 @@ intended for studies with clinical endpoints.
 
 ``` r
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
-# 
-# +++++++++++ Equivalence test - TOST +++++++++++
-#     based on Fieller's confidence interval
-#             Sample size estimation
-# -----------------------------------------------
-# Study design: 2x2 crossover
-# Ratio of means with normality on original scale
-# alpha = 0.025, target power = 0.8
-# BE margins = 0.8 ... 1.25 
-# True ratio = 0.95,  CVw = 0.2,  CVb = 0.4
-# 
-# Sample size
-#  n     power
-# 28   0.807774
+
++++++++++++ Equivalence test - TOST +++++++++++
+    based on Fieller's confidence interval
+            Sample size estimation
+-----------------------------------------------
+Study design: 2x2 crossover
+Ratio of means with normality on original scale
+alpha = 0.025, target power = 0.8
+BE margins = 0.8 ... 1.25 
+True ratio = 0.95,  CVw = 0.2,  CVb = 0.4
+
+Sample size
+ n     power
+28   0.807774 
 ```
 
 <small>[TOC ↩](#powertost)</small>
@@ -367,20 +369,20 @@ Sample size for assumed within- (intra-) subject *CV* 0.45 (45%),
 
 ``` r
 sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
-# 
-# +++++++++++ Equivalence test - TOST +++++++++++
-#             Sample size estimation
-# -----------------------------------------------
-# Study design: 2x2x3 (3 period full replicate) 
-# log-transformed data (multiplicative model)
-# 
-# alpha = 0.05, target power = 0.8
-# BE margins = 0.8 ... 1.25 
-# True ratio = 0.9,  CV = 0.45
-# 
-# Sample size (total)
-#  n     power
-# 124   0.800125
+
++++++++++++ Equivalence test - TOST +++++++++++
+            Sample size estimation
+-----------------------------------------------
+Study design: 2x2x3 (3 period full replicate) 
+log-transformed data (multiplicative model)
+
+alpha = 0.05, target power = 0.8
+BE margins = 0.8 ... 1.25 
+True ratio = 0.9,  CV = 0.45
+
+Sample size (total)
+ n     power
+124   0.800125 
 ```
 
 Note that the conventional model assumes homoscedasticity (equal
@@ -397,8 +399,8 @@ CV  <- CVp2CV(CV = 0.45, ratio = 2/3)
 res <- sampleN.scABEL(CV=CV, design = "2x2x3", regulator = reg,
                       details = FALSE, print = FALSE)
 print(res[c(3:4, 8:9)], digits = 5, row.names = FALSE)
-#    CVwT    CVwR Sample size Achieved power
-#  0.3987 0.49767         126         0.8052
+   CVwT    CVwR Sample size Achieved power
+ 0.3987 0.49767         126         0.8052
 ```
 
 Similar sample size because the pooled *CV* is still 0.45.
@@ -412,30 +414,30 @@ Sample size assuming homoscedasticity (*CV*<sub>wT</sub> =
 
 ``` r
 sampleN.scABEL(CV = 0.45)
-# 
-# +++++++++++ scaled (widened) ABEL +++++++++++
-#             Sample size estimation
-#    (simulation based on ANOVA evaluation)
-# ---------------------------------------------
-# Study design: 2x3x3 (partial replicate)
-# log-transformed data (multiplicative model)
-# 1e+05 studies for each step simulated.
-# 
-# alpha  = 0.05, target power = 0.8
-# CVw(T) = 0.45; CVw(R) = 0.45
-# True ratio = 0.9
-# ABE limits / PE constraint = 0.8 ... 1.25 
-# EMA regulatory settings
-# - CVswitch            = 0.3 
-# - cap on scABEL if CVw(R) > 0.5
-# - regulatory constant = 0.76 
-# - pe constraint applied
-# 
-# 
-# Sample size search
-#  n     power
-# 36   0.7755 
-# 39   0.8059
+
++++++++++++ scaled (widened) ABEL +++++++++++
+            Sample size estimation
+   (simulation based on ANOVA evaluation)
+---------------------------------------------
+Study design: 2x3x3 (partial replicate)
+log-transformed data (multiplicative model)
+1e+05 studies for each step simulated.
+
+alpha  = 0.05, target power = 0.8
+CVw(T) = 0.45; CVw(R) = 0.45
+True ratio = 0.9
+ABE limits / PE constraint = 0.8 ... 1.25 
+EMA regulatory settings
+- CVswitch            = 0.3 
+- cap on scABEL if CVw(R) > 0.5
+- regulatory constant = 0.76 
+- pe constraint applied
+
+
+Sample size search
+ n     power
+36   0.7755 
+39   0.8059 
 ```
 
 <small>[TOC ↩](#powertost)</small>
@@ -448,28 +450,28 @@ sequences.
 
 ``` r
 scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4", n = 30)
-# +++++++++++ scaled (widened) ABEL ++++++++++++
-#          iteratively adjusted alpha
-#    (simulations based on ANOVA evaluation)
-# ----------------------------------------------
-# Study design: 2x2x4 (4 period full replicate)
-# log-transformed data (multiplicative model)
-# 1,000,000 studies in each iteration simulated.
-# 
-# CVwR 0.35, CVwT 0.3, n(i) 15|15 (N 30)
-# Nominal alpha                 : 0.05 
-# True ratio                    : 0.9000 
-# Regulatory settings           : EMA (ABEL)
-# Switching CVwR                : 0.3 
-# Regulatory constant           : 0.76 
-# Expanded limits               : 0.7723 ... 1.2948
-# Upper scaling cap             : CVwR > 0.5 
-# PE constraints                : 0.8000 ... 1.2500
-# Empiric TIE for alpha 0.0500  : 0.06651
-# Power for theta0 0.9000       : 0.814
-# Iteratively adjusted alpha    : 0.03540
-# Empiric TIE for adjusted alpha: 0.05000
-# Power for theta0 0.9000       : 0.771
++++++++++++ scaled (widened) ABEL ++++++++++++
+         iteratively adjusted alpha
+   (simulations based on ANOVA evaluation)
+----------------------------------------------
+Study design: 2x2x4 (4 period full replicate)
+log-transformed data (multiplicative model)
+1,000,000 studies in each iteration simulated.
+
+CVwR 0.35, CVwT 0.3, n(i) 15|15 (N 30)
+Nominal alpha                 : 0.05 
+True ratio                    : 0.9000 
+Regulatory settings           : EMA (ABEL)
+Switching CVwR                : 0.3 
+Regulatory constant           : 0.76 
+Expanded limits               : 0.7723 ... 1.2948
+Upper scaling cap             : CVwR > 0.5 
+PE constraints                : 0.8000 ... 1.2500
+Empiric TIE for alpha 0.0500  : 0.06651
+Power for theta0 0.9000       : 0.814
+Iteratively adjusted alpha    : 0.03540
+Empiric TIE for adjusted alpha: 0.05000
+Power for theta0 0.9000       : 0.771 
 ```
 
 With the nominal *α* 0.05 the Type I Error will be inflated (0.0665).
@@ -503,9 +505,9 @@ pwr <- signif(as.numeric(c(r1[2], r2[2])), 5)
 # compile results
 res <- data.frame(PK = PK, method = c("ABEL", "ABE"), n = n, power = pwr)
 print(res, row.names = FALSE)
-#    PK method  n   power
-#  Cmax   ABEL 42 0.80017
-#   AUC    ABE 60 0.81002
+   PK method  n   power
+ Cmax   ABEL 42 0.80017
+  AUC    ABE 60 0.81002
 ```
 
 <small>[TOC ↩](#powertost)</small>
@@ -521,23 +523,23 @@ size search suppressed.
 
 ``` r
 sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
-# 
-# ++++++++ Reference scaled ABE crit. +++++++++
-#            Sample size estimation
-# ---------------------------------------------
-# Study design: 2x2x4 (4 period full replicate)
-# log-transformed data (multiplicative model)
-# 1e+05 studies for each step simulated.
-# 
-# alpha  = 0.05, target power = 0.8
-# CVw(T) = 0.4; CVw(R) = 0.5
-# True ratio = 0.9
-# ABE limits / PE constraints = 0.8 ... 1.25 
-# Regulatory settings: FDA 
-# 
-# Sample size
-#  n    power
-# 20   0.81509
+
+++++++++ Reference scaled ABE crit. +++++++++
+           Sample size estimation
+---------------------------------------------
+Study design: 2x2x4 (4 period full replicate)
+log-transformed data (multiplicative model)
+1e+05 studies for each step simulated.
+
+alpha  = 0.05, target power = 0.8
+CVw(T) = 0.4; CVw(R) = 0.5
+True ratio = 0.9
+ABE limits / PE constraints = 0.8 ... 1.25 
+Regulatory settings: FDA 
+
+Sample size
+ n    power
+20   0.81509 
 ```
 
 <small>[TOC ↩](#powertost)</small>
@@ -557,33 +559,33 @@ Assess additionally which one of the three components (scaled
 ``` r
 CV <- signif(CVp2CV(CV = 0.10, ratio = 2.5), 4)
 n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
-# 
-# +++++++++++ FDA method for NTIDs ++++++++++++
-#            Sample size estimation
-# ---------------------------------------------
-# Study design:  2x2x4 (TRTR|RTRT) 
-# log-transformed data (multiplicative model)
-# 1e+05 studies for each step simulated.
-# 
-# alpha  = 0.05, target power = 0.8
-# CVw(T) = 0.1197, CVw(R) = 0.07551
-# True ratio     = 0.975 
-# ABE limits     = 0.8 ... 1.25 
-# Implied scABEL = 0.9236 ... 1.0827 
-# Regulatory settings: FDA 
-# - Regulatory const. = 1.053605 
-# - 'CVcap'           = 0.2142 
-# 
-# Sample size search
-#  n     power
-# 32   0.699120 
-# 34   0.730910 
-# 36   0.761440 
-# 38   0.785910 
-# 40   0.809580
+
++++++++++++ FDA method for NTIDs ++++++++++++
+           Sample size estimation
+---------------------------------------------
+Study design:  2x2x4 (TRTR|RTRT) 
+log-transformed data (multiplicative model)
+1e+05 studies for each step simulated.
+
+alpha  = 0.05, target power = 0.8
+CVw(T) = 0.1197, CVw(R) = 0.07551
+True ratio     = 0.975 
+ABE limits     = 0.8 ... 1.25 
+Implied scABEL = 0.9236 ... 1.0827 
+Regulatory settings: FDA 
+- Regulatory const. = 1.053605 
+- 'CVcap'           = 0.2142 
+
+Sample size search
+ n     power
+32   0.699120 
+34   0.730910 
+36   0.761440 
+38   0.785910 
+40   0.809580 
 suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
-#        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
-#      0.80958      0.90966      1.00000      0.87447
+       p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
+     0.80958      0.90966      1.00000      0.87447 
 ```
 
 The *s*<sub>wT</sub>/*s*<sub>wR</sub> component shows the lowest
@@ -598,26 +600,26 @@ Compare that with homoscedasticity (*CV*<sub>wT</sub> =
 ``` r
 CV <- 0.10
 n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
-# 
-# +++++++++++ FDA method for NTIDs ++++++++++++
-#            Sample size estimation
-# ---------------------------------------------
-# Study design:  2x2x4 (TRTR|RTRT) 
-# log-transformed data (multiplicative model)
-# 1e+05 studies for each step simulated.
-# 
-# alpha  = 0.05, target power = 0.8
-# CVw(T) = 0.1, CVw(R) = 0.1
-# True ratio     = 0.975 
-# ABE limits     = 0.8 ... 1.25 
-# Regulatory settings: FDA 
-# 
-# Sample size
-#  n     power
-# 18   0.841790
+
++++++++++++ FDA method for NTIDs ++++++++++++
+           Sample size estimation
+---------------------------------------------
+Study design:  2x2x4 (TRTR|RTRT) 
+log-transformed data (multiplicative model)
+1e+05 studies for each step simulated.
+
+alpha  = 0.05, target power = 0.8
+CVw(T) = 0.1, CVw(R) = 0.1
+True ratio     = 0.975 
+ABE limits     = 0.8 ... 1.25 
+Regulatory settings: FDA 
+
+Sample size
+ n     power
+18   0.841790 
 suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
-#        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
-#      0.84179      0.85628      1.00000      0.97210
+       p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
+     0.84179      0.85628      1.00000      0.97210 
 ```
 
 Here the scaled <span title="Average Bioequivalence">ABE</span>
@@ -649,11 +651,11 @@ res <- data.frame(method = c("FDA scaled", rep ("fixed narrow", 3)),
                   n = n, power = pwr, a = n * c(4, 4, 3, 2))
 names(res)[5] <- "adm. #"
 print(res, row.names = FALSE)
-#        method design  n   power adm. #
-#    FDA scaled  2x2x4 18 0.84179     72
-#  fixed narrow  2x2x4 12 0.85628     48
-#  fixed narrow  2x2x3 16 0.81393     48
-#  fixed narrow  2x2x2 22 0.81702     44
+       method design  n   power adm. #
+   FDA scaled  2x2x4 18 0.84179     72
+ fixed narrow  2x2x4 12 0.85628     48
+ fixed narrow  2x2x3 16 0.81393     48
+ fixed narrow  2x2x2 22 0.81702     44
 ```
 
 <small>[TOC ↩](#powertost)</small>
@@ -665,20 +667,20 @@ print(res, row.names = FALSE)
 
 ``` r
 sampleN.dp(CV = 0.20, doses = c(1, 2, 8), beta0 = 1, targetpower = 0.90)
-# 
-# ++++ Dose proportionality study, power model ++++
-#             Sample size estimation
-# -------------------------------------------------
-# Study design: crossover (3x3 Latin square) 
-# alpha = 0.05, target power = 0.9
-# Equivalence margins of R(dnm) = 0.8 ... 1.25 
-# Doses = 1 2 8 
-# True slope = 1, CV = 0.2
-# Slope acceptance range = 0.89269 ... 1.1073 
-# 
-# Sample size (total)
-#  n     power
-# 18   0.915574
+
+++++ Dose proportionality study, power model ++++
+            Sample size estimation
+-------------------------------------------------
+Study design: crossover (3x3 Latin square) 
+alpha = 0.05, target power = 0.9
+Equivalence margins of R(dnm) = 0.8 ... 1.25 
+Doses = 1 2 8 
+True slope = 1, CV = 0.2
+Slope acceptance range = 0.89269 ... 1.1073 
+
+Sample size (total)
+ n     power
+18   0.915574 
 ```
 
 Note that the acceptance range of the slope depends on the ratio of the
@@ -701,14 +703,14 @@ within-subject *CV* 0.20 (20%), target power 0.90. Plot suppressed.
 ``` r
 res <- pa.ABE(CV = 0.20, targetpower = 0.90)
 print(res, plotit = FALSE)
-# Sample size plan ABE
-#  Design alpha  CV theta0 theta1 theta2 Sample size Achieved power
-#     2x2  0.05 0.2   0.95    0.8   1.25          26      0.9176333
-# 
-# Power analysis
-# CV, theta0 and number of subjects which lead to min. acceptable power of at least 0.7:
-#  CV= 0.2729, theta0= 0.9044
-#  n = 16 (power= 0.7354)
+Sample size plan ABE
+ Design alpha  CV theta0 theta1 theta2 Sample size Achieved power
+    2x2  0.05 0.2   0.95    0.8   1.25          26      0.9176333
+
+Power analysis
+CV, theta0 and number of subjects which lead to min. acceptable power of at least 0.7:
+ CV= 0.2729, theta0= 0.9044
+ n = 16 (power= 0.7354)
 ```
 
 If the study starts with 26 subjects (power \~0.92), the *CV* can
@@ -733,11 +735,13 @@ Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.0.2
 "2x2" crossover design, *CV* 0.17. Sample sizes and achieved power for
 the supported methods (the 1<sup>st</sup> one is the default).
 
-    #     method  n   power time (s)
-    #      owenq 14 0.80568  0.00128
-    #        mvt 14 0.80569  0.11778
-    # noncentral 14 0.80568  0.00100
-    #    shifted 16 0.85230  0.00096
+``` 
+    method  n   power time (s)
+     owenq 14 0.80568  0.00128
+       mvt 14 0.80569  0.11778
+noncentral 14 0.80568  0.00100
+   shifted 16 0.85230  0.00096
+```
 
 The 2<sup>nd</sup> exact method is substantially slower than the
 1<sup>st</sup>. The approximation based on the noncentral
@@ -753,9 +757,11 @@ Four period full replicate study, homogenicity (*CV*<sub>wT</sub> =
 *CV*<sub>wR</sub> 0.45). Sample sizes and achieved power for the
 supported methods.
 
-    #              function              method  n   power time (s)
-    #        sampleN.scABEL    ‘key’ statistics 28 0.81116   0.1348
-    # sampleN.scABEL.sdsims subject simulations 28 0.81196   2.5377
+``` 
+              function              method  n   power time (s)
+        sampleN.scABEL    ‘key’ statistics 28 0.81116   0.1348
+ sampleN.scABEL.sdsims subject simulations 28 0.81196   2.5377
+```
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons.  
@@ -794,67 +800,68 @@ install. Use `force = TRUE` to force installation.
 Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
-analysis.
+analysis.  
+Version 1.5.0.9999 built 2020-08-14 with R 4.0.2.
 
 ``` r
 options(width = 80)
 devtools::session_info()
-# - Session info ---------------------------------------------------------------
-#  setting  value                       
-#  version  R version 4.0.2 (2020-06-22)
-#  os       Windows 7 x64 SP 1          
-#  system   x86_64, mingw32             
-#  ui       RTerm                       
-#  language EN                          
-#  collate  German_Germany.1252         
-#  ctype    German_Germany.1252         
-#  tz       Europe/Vienna               
-#  date     2020-08-14                  
-# 
-# - Packages -------------------------------------------------------------------
-#  package       * version date       lib source        
-#  assertthat      0.2.1   2019-03-21 [1] CRAN (R 4.0.0)
-#  backports       1.1.7   2020-05-13 [1] CRAN (R 4.0.0)
-#  callr           3.4.3   2020-03-28 [1] CRAN (R 4.0.0)
-#  cli             2.0.2   2020-02-28 [1] CRAN (R 4.0.0)
-#  crayon          1.3.4   2017-09-16 [1] CRAN (R 4.0.0)
-#  cubature        2.0.4.1 2020-07-06 [1] CRAN (R 4.0.2)
-#  desc            1.2.0   2018-05-01 [1] CRAN (R 4.0.0)
-#  devtools        2.3.1   2020-07-21 [1] CRAN (R 4.0.2)
-#  digest          0.6.25  2020-02-23 [1] CRAN (R 4.0.0)
-#  ellipsis        0.3.1   2020-05-15 [1] CRAN (R 4.0.0)
-#  evaluate        0.14    2019-05-28 [1] CRAN (R 4.0.0)
-#  fansi           0.4.1   2020-01-08 [1] CRAN (R 4.0.0)
-#  fs              1.5.0   2020-07-31 [1] CRAN (R 4.0.2)
-#  glue            1.4.1   2020-05-13 [1] CRAN (R 4.0.0)
-#  htmltools       0.5.0   2020-06-16 [1] CRAN (R 4.0.0)
-#  knitr           1.29    2020-06-23 [1] CRAN (R 4.0.2)
-#  magrittr        1.5     2014-11-22 [1] CRAN (R 4.0.0)
-#  memoise         1.1.0   2017-04-21 [1] CRAN (R 4.0.0)
-#  mvtnorm         1.1-1   2020-06-09 [1] CRAN (R 4.0.0)
-#  pkgbuild        1.1.0   2020-07-13 [1] CRAN (R 4.0.2)
-#  pkgload         1.1.0   2020-05-29 [1] CRAN (R 4.0.0)
-#  PowerTOST     * 1.5-0   2020-08-05 [1] CRAN (R 4.0.2)
-#  prettyunits     1.1.1   2020-01-24 [1] CRAN (R 4.0.0)
-#  processx        3.4.3   2020-07-05 [1] CRAN (R 4.0.2)
-#  ps              1.3.3   2020-05-08 [1] CRAN (R 4.0.0)
-#  R6              2.4.1   2019-11-12 [1] CRAN (R 4.0.0)
-#  Rcpp            1.0.5   2020-07-06 [1] CRAN (R 4.0.2)
-#  remotes         2.2.0   2020-07-21 [1] CRAN (R 4.0.2)
-#  rlang           0.4.7   2020-07-09 [1] CRAN (R 4.0.2)
-#  rmarkdown       2.3     2020-06-18 [1] CRAN (R 4.0.0)
-#  rprojroot       1.3-2   2018-01-03 [1] CRAN (R 4.0.0)
-#  sessioninfo     1.1.1   2018-11-05 [1] CRAN (R 4.0.0)
-#  stringi         1.4.6   2020-02-17 [1] CRAN (R 4.0.0)
-#  stringr         1.4.0   2019-02-10 [1] CRAN (R 4.0.0)
-#  TeachingDemos   2.12    2020-04-07 [1] CRAN (R 4.0.0)
-#  testthat        2.3.2   2020-03-02 [1] CRAN (R 4.0.0)
-#  usethis         1.6.1   2020-04-29 [1] CRAN (R 4.0.0)
-#  withr           2.2.0   2020-04-20 [1] CRAN (R 4.0.0)
-#  xfun            0.16    2020-07-24 [1] CRAN (R 4.0.2)
-#  yaml            2.2.1   2020-02-01 [1] CRAN (R 4.0.0)
-# 
-# [1] D:/Program Files/R/R-4.0.2/library
+- Session info ---------------------------------------------------------------
+ setting  value                       
+ version  R version 4.0.2 (2020-06-22)
+ os       Windows 7 x64 SP 1          
+ system   x86_64, mingw32             
+ ui       RTerm                       
+ language EN                          
+ collate  German_Germany.1252         
+ ctype    German_Germany.1252         
+ tz       Europe/Vienna               
+ date     2020-08-14                  
+
+- Packages -------------------------------------------------------------------
+ package       * version    date       lib source        
+ assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.0.0)
+ backports       1.1.7      2020-05-13 [1] CRAN (R 4.0.0)
+ callr           3.4.3      2020-03-28 [1] CRAN (R 4.0.0)
+ cli             2.0.2      2020-02-28 [1] CRAN (R 4.0.0)
+ crayon          1.3.4      2017-09-16 [1] CRAN (R 4.0.0)
+ cubature        2.0.4.1    2020-07-06 [1] CRAN (R 4.0.2)
+ desc            1.2.0      2018-05-01 [1] CRAN (R 4.0.0)
+ devtools        2.3.1      2020-07-21 [1] CRAN (R 4.0.2)
+ digest          0.6.25     2020-02-23 [1] CRAN (R 4.0.0)
+ ellipsis        0.3.1      2020-05-15 [1] CRAN (R 4.0.0)
+ evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.0)
+ fansi           0.4.1      2020-01-08 [1] CRAN (R 4.0.0)
+ fs              1.5.0      2020-07-31 [1] CRAN (R 4.0.2)
+ glue            1.4.1      2020-05-13 [1] CRAN (R 4.0.0)
+ htmltools       0.5.0      2020-06-16 [1] CRAN (R 4.0.0)
+ knitr           1.29       2020-06-23 [1] CRAN (R 4.0.2)
+ magrittr        1.5        2014-11-22 [1] CRAN (R 4.0.0)
+ memoise         1.1.0      2017-04-21 [1] CRAN (R 4.0.0)
+ mvtnorm         1.1-1      2020-06-09 [1] CRAN (R 4.0.0)
+ pkgbuild        1.1.0      2020-07-13 [1] CRAN (R 4.0.2)
+ pkgload         1.1.0      2020-05-29 [1] CRAN (R 4.0.0)
+ PowerTOST     * 1.5.0.9999 2020-08-14 [1] local         
+ prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.0.0)
+ processx        3.4.3      2020-07-05 [1] CRAN (R 4.0.2)
+ ps              1.3.3      2020-05-08 [1] CRAN (R 4.0.0)
+ R6              2.4.1      2019-11-12 [1] CRAN (R 4.0.0)
+ Rcpp            1.0.5      2020-07-06 [1] CRAN (R 4.0.2)
+ remotes         2.2.0      2020-07-21 [1] CRAN (R 4.0.2)
+ rlang           0.4.7      2020-07-09 [1] CRAN (R 4.0.2)
+ rmarkdown       2.3        2020-06-18 [1] CRAN (R 4.0.0)
+ rprojroot       1.3-2      2018-01-03 [1] CRAN (R 4.0.0)
+ sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.0)
+ stringi         1.4.6      2020-02-17 [1] CRAN (R 4.0.0)
+ stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.0)
+ TeachingDemos   2.12       2020-04-07 [1] CRAN (R 4.0.0)
+ testthat        2.3.2      2020-03-02 [1] CRAN (R 4.0.0)
+ usethis         1.6.1      2020-04-29 [1] CRAN (R 4.0.0)
+ withr           2.2.0      2020-04-20 [1] CRAN (R 4.0.0)
+ xfun            0.16       2020-07-24 [1] CRAN (R 4.0.2)
+ yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.0)
+
+[1] D:/Program Files/R/R-4.0.2/library
 ```
 
 <small>[TOC ↩](#powertost)</small>
