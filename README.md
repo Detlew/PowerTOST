@@ -41,7 +41,8 @@ The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.
 
-    Version 1.5.0.9999 built 2020-08-14 with R 4.0.2 (development release not on CRAN).
+    Version 1.5.0.9999 built 2020-08-14 with R 4.0.2 
+    (development version not on CRAN).
 
 ## Supported Designs
 
@@ -816,7 +817,7 @@ devtools::session_info()
  collate  German_Germany.1252         
  ctype    German_Germany.1252         
  tz       Europe/Vienna               
- date     2020-08-14                  
+ date     2020-08-15                  
 
 - Packages -------------------------------------------------------------------
  package       * version    date       lib source        

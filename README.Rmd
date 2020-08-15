@@ -22,9 +22,9 @@ txt <- paste0("Version ", packageVersion("PowerTOST"), " built ",
          packageDate("PowerTOST", date.fields = "Built"),
          " with R ", substr(packageDescription("PowerTOST", fields = "Built"), 3, 7))
 if (is.na(pub)) {
-  txt <- paste(txt, "(development release not on CRAN).")
+  txt <- paste(txt, "\n(development version not on CRAN).")
 } else {
-  txt <- paste0(txt, "stable release on CRAN ", pub, ".")
+  txt <- paste0(txt, "\n(stable release on CRAN ", pub, ").")
 }
 cat(txt)
 ```
