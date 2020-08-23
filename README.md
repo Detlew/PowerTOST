@@ -41,8 +41,8 @@ The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.
 
-    Version 1.5.0 built 2020-08-06 with R 4.0.2
-    (stable release on CRAN 2020-08-05).
+    Version 1.5.0.9999 built 2020-08-23 with R 4.0.2 
+    (development version not on CRAN).
 
 ## Supported Designs
 
@@ -802,7 +802,7 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.0 built 2020-08-06 with R 4.0.2.
+Version 1.5.0.9999 built 2020-08-23 with R 4.0.2.
 
 ``` r
 options(width = 80)
@@ -817,50 +817,50 @@ devtools::session_info()
  collate  German_Germany.1252         
  ctype    German_Germany.1252         
  tz       Europe/Berlin               
- date     2020-08-22                  
+ date     2020-08-23                  
 
 - Packages -------------------------------------------------------------------
- package       * version date       lib source        
- assertthat      0.2.1   2019-03-21 [1] CRAN (R 4.0.0)
- backports       1.1.7   2020-05-13 [1] CRAN (R 4.0.0)
- callr           3.4.3   2020-03-28 [1] CRAN (R 4.0.0)
- cli             2.0.2   2020-02-28 [1] CRAN (R 4.0.0)
- crayon          1.3.4   2017-09-16 [1] CRAN (R 4.0.0)
- cubature        2.0.4.1 2020-07-06 [1] CRAN (R 4.0.2)
- desc            1.2.0   2018-05-01 [1] CRAN (R 4.0.0)
- devtools        2.3.1   2020-07-21 [1] CRAN (R 4.0.2)
- digest          0.6.25  2020-02-23 [1] CRAN (R 4.0.0)
- ellipsis        0.3.1   2020-05-15 [1] CRAN (R 4.0.0)
- evaluate        0.14    2019-05-28 [1] CRAN (R 4.0.0)
- fansi           0.4.1   2020-01-08 [1] CRAN (R 4.0.0)
- fs              1.5.0   2020-07-31 [1] CRAN (R 4.0.2)
- glue            1.4.1   2020-05-13 [1] CRAN (R 4.0.0)
- htmltools       0.5.0   2020-06-16 [1] CRAN (R 4.0.0)
- knitr           1.29    2020-06-23 [1] CRAN (R 4.0.2)
- magrittr        1.5     2014-11-22 [1] CRAN (R 4.0.0)
- memoise         1.1.0   2017-04-21 [1] CRAN (R 4.0.0)
- mvtnorm         1.1-1   2020-06-09 [1] CRAN (R 4.0.0)
- pkgbuild        1.1.0   2020-07-13 [1] CRAN (R 4.0.2)
- pkgload         1.1.0   2020-05-29 [1] CRAN (R 4.0.0)
- PowerTOST     * 1.5-0   2020-08-05 [1] CRAN (R 4.0.2)
- prettyunits     1.1.1   2020-01-24 [1] CRAN (R 4.0.0)
- processx        3.4.3   2020-07-05 [1] CRAN (R 4.0.2)
- ps              1.3.4   2020-08-11 [1] CRAN (R 4.0.2)
- R6              2.4.1   2019-11-12 [1] CRAN (R 4.0.0)
- Rcpp            1.0.5   2020-07-06 [1] CRAN (R 4.0.2)
- remotes         2.2.0   2020-07-21 [1] CRAN (R 4.0.2)
- rlang           0.4.7   2020-07-09 [1] CRAN (R 4.0.2)
- rmarkdown       2.3     2020-06-18 [1] CRAN (R 4.0.0)
- rprojroot       1.3-2   2018-01-03 [1] CRAN (R 4.0.0)
- sessioninfo     1.1.1   2018-11-05 [1] CRAN (R 4.0.0)
- stringi         1.4.6   2020-02-17 [1] CRAN (R 4.0.0)
- stringr         1.4.0   2019-02-10 [1] CRAN (R 4.0.0)
- TeachingDemos   2.12    2020-04-07 [1] CRAN (R 4.0.0)
- testthat        2.3.2   2020-03-02 [1] CRAN (R 4.0.0)
- usethis         1.6.1   2020-04-29 [1] CRAN (R 4.0.0)
- withr           2.2.0   2020-04-20 [1] CRAN (R 4.0.0)
- xfun            0.16    2020-07-24 [1] CRAN (R 4.0.2)
- yaml            2.2.1   2020-02-01 [1] CRAN (R 4.0.0)
+ package       * version    date       lib source        
+ assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.0.0)
+ backports       1.1.7      2020-05-13 [1] CRAN (R 4.0.0)
+ callr           3.4.3      2020-03-28 [1] CRAN (R 4.0.0)
+ cli             2.0.2      2020-02-28 [1] CRAN (R 4.0.0)
+ crayon          1.3.4      2017-09-16 [1] CRAN (R 4.0.0)
+ cubature        2.0.4.1    2020-07-06 [1] CRAN (R 4.0.2)
+ desc            1.2.0      2018-05-01 [1] CRAN (R 4.0.0)
+ devtools        2.3.1      2020-07-21 [1] CRAN (R 4.0.2)
+ digest          0.6.25     2020-02-23 [1] CRAN (R 4.0.0)
+ ellipsis        0.3.1      2020-05-15 [1] CRAN (R 4.0.0)
+ evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.0)
+ fansi           0.4.1      2020-01-08 [1] CRAN (R 4.0.0)
+ fs              1.5.0      2020-07-31 [1] CRAN (R 4.0.2)
+ glue            1.4.1      2020-05-13 [1] CRAN (R 4.0.0)
+ htmltools       0.5.0      2020-06-16 [1] CRAN (R 4.0.0)
+ knitr           1.29       2020-06-23 [1] CRAN (R 4.0.2)
+ magrittr        1.5        2014-11-22 [1] CRAN (R 4.0.0)
+ memoise         1.1.0      2017-04-21 [1] CRAN (R 4.0.0)
+ mvtnorm         1.1-1      2020-06-09 [1] CRAN (R 4.0.0)
+ pkgbuild        1.1.0      2020-07-13 [1] CRAN (R 4.0.2)
+ pkgload         1.1.0      2020-05-29 [1] CRAN (R 4.0.0)
+ PowerTOST     * 1.5.0.9999 2020-08-23 [1] local         
+ prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.0.0)
+ processx        3.4.3      2020-07-05 [1] CRAN (R 4.0.2)
+ ps              1.3.4      2020-08-11 [1] CRAN (R 4.0.2)
+ R6              2.4.1      2019-11-12 [1] CRAN (R 4.0.0)
+ Rcpp            1.0.5      2020-07-06 [1] CRAN (R 4.0.2)
+ remotes         2.2.0      2020-07-21 [1] CRAN (R 4.0.2)
+ rlang           0.4.7      2020-07-09 [1] CRAN (R 4.0.2)
+ rmarkdown       2.3        2020-06-18 [1] CRAN (R 4.0.0)
+ rprojroot       1.3-2      2018-01-03 [1] CRAN (R 4.0.0)
+ sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.0)
+ stringi         1.4.6      2020-02-17 [1] CRAN (R 4.0.0)
+ stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.0)
+ TeachingDemos   2.12       2020-04-07 [1] CRAN (R 4.0.0)
+ testthat        2.3.2      2020-03-02 [1] CRAN (R 4.0.0)
+ usethis         1.6.1      2020-04-29 [1] CRAN (R 4.0.0)
+ withr           2.2.0      2020-04-20 [1] CRAN (R 4.0.0)
+ xfun            0.16       2020-07-24 [1] CRAN (R 4.0.2)
+ yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.0)
 
 [1] C:/Program Files/R/library
 [2] C:/Program Files/R/R-4.0.2/library
