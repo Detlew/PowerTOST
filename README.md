@@ -41,7 +41,7 @@ The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.
 
-    Version 1.5.0.9999 built 2020-08-23 with R 4.0.2 
+    Version 1.5.0.9999 built 2020-08-24 with R 4.0.2 
     (development version not on CRAN).
 
 ## Supported Designs
@@ -69,18 +69,24 @@ periods`.
 Although some replicate designs are more ‘popular’ than others, sample
 size estimations are valid for *all* of the following designs:
 
-| design  |  type   | sequences         | periods |
-| :-----: | :-----: | ----------------- | :-----: |
-| `2x2x4` |  full   | 2 `TRTR\|RTRT`    |    4    |
-| `2x2x4` |  full   | 2 `TRRT\|RTTR`    |    4    |
-| `2x2x4` |  full   | 2 `TTRR\|RRTT`    |    4    |
-| `2x2x3` |  full   | 2 `TRT\|RTR`      |    3    |
-| `2x2x3` |  full   | 2 `TRR\|RTT`      |    3    |
-| `2x3x3` | partial | 3 `TRR\|RTR\|RRT` |    3    |
+| <small>design</small> | <small>type</small> | <small>sequences</small> |                          | <small>periods</small> |
+| :-------------------: | :-----------------: | :----------------------: | ------------------------ | :--------------------: |
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TRTR\|RTRT`             |    <small>4</small>    |
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TRRT\|RTTR`             |    <small>4</small>    |
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TTRR\|RRTT`             |    <small>4</small>    |
+|        `2x4x4`        |     <small>full     |     <small>4</small>     | `TRTR\|RTRT\|TRRT\|RTTR` |    <small>4</small>    |
+|        `2x4x4`        |     <small>full     |     <small>4</small>     | `TRRT\|RTTR\|TTRR\|RRTT` |    <small>4</small>    |
+|        `2x2x3`        |     <small>full     |     <small>2</small>     | `TRT\|RTR`               |    <small>3</small>    |
+|        `2x2x3`        |     <small>full     |     <small>2</small>     | `TRR\|RTT`               |    <small>3</small>    |
+|        `2x4x2`        |     <small>full     |     <small>4</small>     | `TR\|RT\|TT\|RR`         |    <small>2</small>    |
+|        `2x3x3`        |   <small>partial    |     <small>3</small>     | `TRR\|RTR\|RRT`          |    <small>3</small>    |
+|        `2x2x3`        |   <small>partial    |     <small>2</small>     | `TRR\|RTR`               |    <small>3</small>    |
 
-Whilst "2x4x4" four period full replicate designs with *four* sequences
-(TRTR|RTRT|TRRT|RTTR *or* TRRT|RTTR|TTRR|RRTT) are supported, they
-should be avoided due to confounded effects.
+Balaam’s design `TR|RT|TT|RR` should be avoided due to its poor power
+characteristics. The three period partial replicate design with two
+sequences `TRR|RTR` (<span title="also known as">a.k.a.</span>
+extra-reference design) should be avoided because it is biased in the
+presence of period effects.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -123,10 +129,10 @@ sequences or equal group sizes.
       - U.S. <span title="Food and Drug Administration">FDA</span>,
         China <span title="Centre for Drug Evaluation">CDE</span>:
         Reference-scaled Average Bioequivalence (RSABE) for Highly
-        Variable Drugs / Drug Products and Narrow Therapeutic Index
+        Variable Drugs / Drug Products and Narrow Therapeutic Index
         Drugs (NTIDs). In China the former is required and the latter
         currently under discussion.
-  - Iteratively adjust *α* to control the type I error in ABEL and
+  - Iteratively adjust *α* to control the type I error in ABEL and
     RSABE.
   - U.S. <span title="Food and Drug Administration">FDA</span>:
     <span title="Average Bioequivalence">ABE</span> for highly variable
@@ -185,8 +191,8 @@ method (Owen’s Q).
 ### Reference-Scaled Average Bioequivalence
 
 *α* 0.05, point estimate constraint (0.80, 1.25), homoscedasticity
-(*CV*<sub>wT</sub> = *CV*<sub>wR</sub>), scaling is based on
-*CV*<sub>wR</sub>, target power 0.80, design "2x3x3" (TRR|RTR|RRT),
+(*CV*<sub>wT</sub> = *CV*<sub>wR</sub>), scaling is based on
+*CV*<sub>wR</sub>, target power 0.80, design "2x3x3" (TRR|RTR|RRT),
 approximation by the non-central *t*-distribution, 100,000 simulations.
 
   - <span title="European Medicines Agency">EMA</span>,
@@ -219,11 +225,11 @@ Regulatory constant `log(1.25)/0.25`, linearized scaled
 
 #### Narrow Therapeutic Index Drugs (FDA)
 
-*θ*<sub>0</sub> 0.975, regulatory constant `log(1.11111)/0.1`, upper cap
+*θ*<sub>0</sub> 0.975, regulatory constant `log(1.11111)/0.1`, upper cap
 of scaling at *CV*<sub>wR</sub> \~21.4%, design "2x2x4" (TRTR|RTRT),
 linearized scaled <span title="Average Bioequivalence">ABE</span>
 (Howe’s approximation), upper limit of the confidence interval of
-*s*<sub>wT</sub>/*s*<sub>wR</sub> ≤2.5.
+*s*<sub>wT</sub>/*s*<sub>wR</sub> ≤2.5.
 
 ### Dose-Proportionality
 
@@ -410,8 +416,8 @@ Similar sample size because the pooled *CV* is still 0.45.
 
 #### ABEL
 
-Sample size assuming homoscedasticity (*CV*<sub>wT</sub> =
-*CV*<sub>wR</sub> = 0.45).
+Sample size assuming homoscedasticity (*CV*<sub>wT</sub> =
+*CV*<sub>wR</sub> = 0.45).
 
 ``` r
 sampleN.scABEL(CV = 0.45)
@@ -445,7 +451,7 @@ Sample size search
 
 Iteratively adjust *α* to control the Type I Error ([Labes,
 Schütz](https://doi.org/10.1007/s11095-016-2006-1)). Slight
-heteroscedasticity (*CV*<sub>wT</sub> 0.30, *CV*<sub>wR</sub> 0.35),
+heteroscedasticity (*CV*<sub>wT</sub> 0.30, *CV*<sub>wR</sub> 0.35),
 four period full replicate "2x2x4" study, 30 subjects, balanced
 sequences.
 
@@ -625,7 +631,7 @@ suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 
 Here the scaled <span title="Average Bioequivalence">ABE</span>
 component shows the lowest probability to demonstrate
-<span title="Bioequivalence">BE</span> and drives the sample size –
+<span title="Bioequivalence">BE</span> and drives the sample size –
 which is much lower than in the previous example.
 
 <small>[TOC ↩](#powertost)</small>
@@ -690,7 +696,7 @@ and therefore, higher sample sizes will be required).
 In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>,
 *θ*<sub>2</sub>} (0.50, 2.00) were
 [proposed](https://doi.org/10.1002/pst.326), translating in this example
-to an acceptance range of `0.66667 ... 1.3333` and a sample size of only
+to an acceptance range of `0.66667 ... 1.3333` and a sample size of only
 six subjects.
 
 <small>[TOC ↩](#powertost)</small>
@@ -728,8 +734,8 @@ and analyze their respective power.
 
 ### Speed Comparisons
 
-Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.0.2
-64 bit on Windows 7.
+Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.0.2
+64 bit on Windows 7.
 
 #### ABE
 
@@ -754,8 +760,8 @@ purposes.
 
 #### ABEL
 
-Four period full replicate study, homogenicity (*CV*<sub>wT</sub> =
-*CV*<sub>wR</sub> 0.45). Sample sizes and achieved power for the
+Four period full replicate study, homogenicity (*CV*<sub>wT</sub> =
+*CV*<sub>wR</sub> 0.45). Sample sizes and achieved power for the
 supported methods.
 
 ``` 
@@ -769,7 +775,7 @@ reasons.
 However, subject simulations are recommended *if*
 
   - the partial replicate design (TRR|RTR|RRT) is planned **and**
-  - the special case of heterogenicity *CV*<sub>wT</sub> \>
+  - the special case of heterogenicity *CV*<sub>wT</sub> \>
     *CV*<sub>wR</sub> is expected.
 
 <small>[TOC ↩](#powertost)</small>
@@ -802,7 +808,7 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.0.9999 built 2020-08-23 with R 4.0.2.
+Version 1.5.0.9999 built 2020-08-24 with R 4.0.2.
 
 ``` r
 options(width = 80)
@@ -810,14 +816,14 @@ devtools::session_info()
 - Session info ---------------------------------------------------------------
  setting  value                       
  version  R version 4.0.2 (2020-06-22)
- os       Windows 10 x64              
+ os       Windows 7 x64 SP 1          
  system   x86_64, mingw32             
  ui       RTerm                       
  language EN                          
  collate  German_Germany.1252         
  ctype    German_Germany.1252         
- tz       Europe/Berlin               
- date     2020-08-23                  
+ tz       Europe/Vienna               
+ date     2020-08-24                  
 
 - Packages -------------------------------------------------------------------
  package       * version    date       lib source        
@@ -842,7 +848,7 @@ devtools::session_info()
  mvtnorm         1.1-1      2020-06-09 [1] CRAN (R 4.0.0)
  pkgbuild        1.1.0      2020-07-13 [1] CRAN (R 4.0.2)
  pkgload         1.1.0      2020-05-29 [1] CRAN (R 4.0.0)
- PowerTOST     * 1.5.0.9999 2020-08-23 [1] local         
+ PowerTOST     * 1.5.0.9999 2020-08-24 [1] local         
  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.0.0)
  processx        3.4.3      2020-07-05 [1] CRAN (R 4.0.2)
  ps              1.3.4      2020-08-11 [1] CRAN (R 4.0.2)
@@ -862,8 +868,7 @@ devtools::session_info()
  xfun            0.16       2020-07-24 [1] CRAN (R 4.0.2)
  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.0)
 
-[1] C:/Program Files/R/library
-[2] C:/Program Files/R/R-4.0.2/library
+[1] D:/Program Files/R/R-4.0.2/library
 ```
 
 <small>[TOC ↩](#powertost)</small>
