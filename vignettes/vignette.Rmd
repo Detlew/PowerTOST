@@ -158,7 +158,7 @@ R
 : Ratio of the highest/lowest dose. In the functions `rd`.
 
 `robust`
-: Selects degrees of freedom according to Senn’s basic estimator, where *n* -- *n*~seq~.
+: Selects degrees of freedom according to Senn’s basic estimator, where $\small{df=n-n_\textrm{seq}}$.
 
 <span id="rsabe">RSABE</span>
 : Reference-scaled Average Bioequivalence (U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="National Medical Products Administration, Center for Drug Evaluation">NMPA-CDE</span>). Applicable if the intra-subject variability of the reference treatment *s*~wR~ ≥0.294 (<a href="#CVwR">*CV*~wR~</a> ≈ 30\%). The linearized model is $$\small{H_0:(\mu_\textrm{T}/\mu_\textrm{R})^2-\theta_\textrm{s}\cdot s_{wR}^{2}>0\:vs\:H_1:(\mu_\textrm{T}/\mu_\textrm{R})^2-\theta_\textrm{s}\cdot s_{\textrm{wR}}^{2}\leq 0}$$
