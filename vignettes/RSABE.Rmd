@@ -36,9 +36,9 @@ library(PowerTOST) # attach the library
 |-|-|-------|-|
 | $\small{\alpha}$ | `alpha` | Nominal level of the test | `0.05` |
 | $\small{\pi}$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
-| $\small{\theta_{0}}$ | `theta0` | ‘True’ or assumed T/R ratio | `0.90` |
-| $\small{\theta_{1}}$ | `theta1` | Lower BE limit and PE constraint | `0.80` |
-| $\small{\theta_{2}}$ | `theta2` | Upper BE limit and PE constraint | `1.25` |
+| $\small{\theta_0}$ | `theta0` | ‘True’ or assumed T/R ratio | `0.90` |
+| $\small{\theta_1}$ | `theta1` | Lower BE limit and PE constraint | `0.80` |
+| $\small{\theta_2}$ | `theta2` | Upper BE limit and PE constraint | `1.25` |
 | *CV* | `CV` | CV | none |
 | design | `design` | Planned replicate design | <span title="partial replicate">`"2x3x3"`</span> |
 | regulator | `regulator` | ‘target’ jurisdiction | `"EMA"` |
@@ -66,7 +66,7 @@ If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
 
-With `foo(..., details = FALSE, print = FALSE)` results are given as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `foo(..., details = FALSE, print = FALSE)` results are given as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-05-02. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 <span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence – like in some other software packages).</span>
 
@@ -245,7 +245,6 @@ sampleN.scABEL(CV = 0.55, regulator = "HC")
 # 36   0.7864 
 # 39   0.8142
 ```
-
 ### FDA
 Apart from the FDA only required by China’s agency.
 
@@ -407,7 +406,7 @@ With \~0.0656 the type I error is inflated (significantly larger than the nomin
 
 ![**Fig. 1** Empiric type I error for the EMA’s ABEL, 4-period full replicate design.<br />Pink plane at nominal $\small{\alpha}$ 0.05. Contour lines enclose region of inflation.](figure8.png){width=450px}
 
-A substantially higher inflation of the type I error was reported for the FDA’s model. However, Davit *et al.* (2012^[Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf FT, Nwakama PE, Patel DT, Schuirmann DJ, Yu LX. *Implementation of a Reference-Scaled Average Bioequivalence Approach for Highly Variable Generic Drug Products by the US Food and Drug Administration.* AAPS J. 2012: 14(4); 915--24. [doi:10.1208/s12248-012-9406-x](https://doi.org/10.1208/s12248-012-9406-x).]) assessed the type I error not at the [‘implied limits’](#ImpLim) but with the [‘desired consumer risk model’](#DesCRM) if $\small{s_{\textrm{wR}}\geq s_0}$ (*CV*~wR~ ≥\~25.4\%) at $\small{\exp\left ( \log_{e}(1.25)/s_0 \sqrt{\log_{e}(CV_{\textrm{wR}}^2+1)} \right )}$. Some statisticians call the latter ‘hocus-pocus’. However, even with this approach the type I error is still – although less – inflated.
+A substantially higher inflation of the type I error was reported for the FDA’s model. However, Davit *et al.* (2012^[Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf FT, Nwakama PE, Patel DT, Schuirmann DJ, Yu LX. *Implementation of a Reference-Scaled Average Bioequivalence Approach for Highly Variable Generic Drug Products by the US Food and Drug Administration.* AAPS J. 2012: 14(4); 915--24. [doi:10.1208/s12248-012-9406-x](https://doi.org/10.1208/s12248-012-9406-x).]) assessed the type I error not at the [‘implied limits’](#ImpLim) but with the [‘desired consumer risk model’](#DesCRM) if $\small{s_{\textrm{wR}}\geq s_0}$ (*CV*~wR~ ≥\~25.4\%) at $\small{\exp\left ( \log_{e}(1.25)/s_0 \sqrt{\log_{e}(CV_{\textrm{wR}}^2+1)} \right )}$. Some statisticians call the latter ‘hocus-pocus’. However, even with this approach the type I error is still –although less – inflated.
 
 ```r
 res <- data.frame(CV = sort(c(seq(0.25, 0.32, 0.01), se2CV(0.25))),
@@ -680,5 +679,5 @@ for (i in 1:3) {
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 
 # License{#license}
-<h4 class="author">Helmut Schütz 2020-08-08</h4>
+<h4 class="author">Helmut Schütz 2020-08-25</h4>
 [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")

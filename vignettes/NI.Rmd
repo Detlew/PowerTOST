@@ -40,7 +40,7 @@ library(PowerTOST) # attach the library
 | $\small{\pi}$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
 | logscale | `logscale` | Analysis on log-transformed or original scale? | `TRUE` |
 | margin | `margin` | Non-inferiority margin | see below |
-| $\small{\theta_{0}}$ | `theta0` | ‘True’ or assumed T/R ratio | see below |
+| $\small{\theta_0}$ | `theta0` | ‘True’ or assumed T/R ratio | see below |
 | *CV* | `CV` | CV | none |
 | design | `design` | Planned design | `"2x2"` |
 | imax | `imax` | Maximum number of iterations | `100` |
@@ -53,7 +53,7 @@ Defaults depending on the argument `logscale`:
 | Parameter | Argument | `logscale=TRUE` | `logscale=FALSE` |
 |-|----|:--------:|:--------:|
 | margin | `margin` | `0.80` | `–0.20` |
-| $\small{\theta_{0}}$ | `theta0` | `0.95` | `+0.05` |
+| $\small{\theta_0}$ | `theta0` | `0.95` | `+0.05` |
 
 Arguments `targetpower`, `margin`, `theta0`, and `CV` have to be given as fractions, not in percent.\
 The *CV* is generally the *within-* (intra-) subject coefficient of variation. Only for `design = "parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*.
@@ -74,7 +74,7 @@ Designs with one (parallel), two (conventional crossover and paired), and three 
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design can be abbreviated as `"2x2"`. Some call the `"parallel"` design a ‘one-sequence’ design. The design `"paired"` has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note that the underlying model assumes no period effects.
 
-With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with eight columns `Design`, `alpha`, `CV`, `theta0`, `Margin`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `sampleN.noninf[1, 6]` or `sampleN.noninf[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-05-02. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eight columns `Design`, `alpha`, `CV`, `theta0`, `Margin`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `sampleN.noninf[1, 6]` or `sampleN.noninf[["Sample size"]]`. We suggest to use the latter in scripts for clarity.
 
 <span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs – like in some other software packages).</span>
 
@@ -82,11 +82,11 @@ With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided 
 If the supplied margin is < 1 (`logscale = TRUE`) or < 0 (`logscale = FALSE`), then it is assumed that *higher* response values are <u>better</u>. The hypotheses are with
 
 * `logscale = TRUE`
-$$\small{H_{0}:\theta_0 \leq \log({margin})\:vs\:H_{1}:\theta_0>\log({margin})}$$
-    where $\small{\theta_0=\mu_T/\mu_R}$
+$$\small{H_0:\theta_0 \leq \log({margin})\:vs\:H_1:\theta_0>\log({margin})}$$
+    where $\small{\theta_0=\mu_\textrm{T}/\mu_\textrm{R}}$
 
 * `logscale = FALSE`
-$$\small{H_{0}:\theta_0 \leq {margin}\:vs\:H_{1}:\theta_0>{margin}}$$
+$$\small{H_0:\theta_0 \leq {margin}\:vs\:H_1:\theta_0>{margin}}$$
 
     where $\small{\theta_0=\mu_T-\mu_R}$
 
@@ -112,7 +112,7 @@ If the supplied margin is > 1 (`logscale = TRUE`) or > 0 (`logscale = FALSE`), t
 
 * `logscale = TRUE`
 $$\small{H_{0}:\theta_0 \geq \log({margin})\:vs\:H_{1}:\theta_0<\log({margin})}$$
-    where $\small{\theta_0=\mu_T/\mu_R}$
+    where $\small{\theta_0=\mu_\textrm{T}/\mu_\textrm{R}}$
 
 * `logscale = FALSE`
 $$\small{H_{0}:\theta_0 \geq {margin}\:vs\:H_{1}:\theta_0<{margin}}$$

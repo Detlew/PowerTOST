@@ -40,9 +40,9 @@ library(PowerTOST) # attach the library
 | *CV* | `CV` | CV | none |
 | doses | `doses` | Vector of doses | see examples |
 | $\small{\pi}$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
-| $\small{\beta_{0}}$ | `beta0` | ‘True’ or assumed slope of the power model | see below |
-| $\small{\theta_{1}}$ | `theta1` | Lower limit for the ratio of dose normalized means *Rdmn* | see below |
-| $\small{\theta_{2}}$ | `theta2` | Upper limit for the ratio of dose normalized means *Rdmn* | see below |
+| $\small{\beta_0}$ | `beta0` | ‘True’ or assumed slope of the power model | see below |
+| $\small{\theta_1}$ | `theta1` | Lower limit for the ratio of dose normalized means *Rdmn* | see below |
+| $\small{\theta_2}$ | `theta2` | Upper limit for the ratio of dose normalized means *Rdmn* | see below |
 | design | `design` | Planned design | `"crossover"` |
 | dm | `dm` | Design matrix | `NULL` |
 | *CV*~b~ | `CVb` | Coefficient of variation of the between-subject variability | – |
@@ -53,16 +53,16 @@ library(PowerTOST) # attach the library
 Arguments `targetpower`, `theta1`, `theta2`, and `CV` have to be given as fractions, not in percent.\
 The *CV* is generally the *within-* (intra-) subject coefficient of variation. Only for `design = "parallel"` it is the *total* (<span title="also known as">a.k.a.</span> pooled) *CV*. The *between-* (intra-) subject coefficient of variation *CV*~b~ is only necessary if `design = "IBD"` (if missing, it will be set to `2*CV`).
 
-The ‘true’ or assumed slope of the power model $\small{\beta_{0}}$ defaults to `1+log(0.95)/log(rd)`, where `rd` is the ratio of the highest/lowest dose.
+The ‘true’ or assumed slope of the power model $\small{\beta_0}$ defaults to `1+log(0.95)/log(rd)`, where `rd` is the ratio of the highest/lowest dose.
 
 Supported designs are `"crossover"` (default; Latin Squares), `"parallel"`, and `"IBD"` (incomplete block design). Note that when `"crossover"` is chosen, instead of Latin Squares any Williams’ design could be used as well (identical degrees of freedom result in the same sample size).
 
-With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with ten (`design = "crossover"`) or eleven (`design = "parallel"` or `design = "IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
+With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-05-02. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with ten (`design = "crossover"`) or eleven (`design = "parallel"` or `design = "IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
 
 <span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in a parallel design – like in some other software packages).</span>
 
 # Examples
-Estimate the sample size for a modified Fibonacci dose-escalation study, lowest dose 10, three levels. Assumed *CV* 0.20 and $\small{\beta_{0}}$ slightly higher than 1. Defaults employed.
+Estimate the sample size for a modified Fibonacci dose-escalation study, lowest dose 10, three levels. Assumed *CV* 0.20 and $\small{\beta_0}$ slightly higher than 1. Defaults employed.
 ```{r example1}
 mod.fibo <- function(lowest, levels) {
   # modified Fibonacci dose-escalation
@@ -99,13 +99,11 @@ Note that with the wider dose range the acceptance range narrows.
 
 Explore the impact of dropouts.
 ```{r example3}
-res <- data.frame(n = seq(x[["Sample size"]], 12, -1),
-                  power = NA)
+res <- data.frame(n = seq(x[["Sample size"]], 12, -1), power = NA)
 for (i in 1:nrow(res)) {
   res$power[i] <- signif(suppressMessages(
                            power.dp(CV = 0.20, doses = doses,
-                                    beta0 = 1.02,
-                                    n = res$n[i])), 5)
+                                    beta0 = 1.02, n = res$n[i])), 5)
 }
 res <- res[res$power >= 0.80, ]
 print(res, row.names = FALSE)
@@ -150,7 +148,7 @@ In an exploratory setting more liberal limits could be specified (only one has t
 sampleN.dp(CV = 0.30, doses = doses, beta0 = 1.02,
            design = "crossover", theta1 = 0.75)
 ```
-Hummel *et al*.^[Hummel J, McKendrick S, Brindley C, French R. *Exploratory assessment of dose proportionality: review of current approaches and proposal for a practical criterion.* Pharm. Stat. 2009; 8(1): 38--49. [doi:10.1002/pst.326](https://doi.org/10.1002/pst.326).] proposed even more liberal $\small{\theta_{1},\theta_{2}}$ of {0.50, 2.0}.
+Hummel *et al*. ^[Hummel J, McKendrick S, Brindley C, French R. *Exploratory assessment of dose proportionality: review of current approaches and proposal for a practical criterion.* Pharm. Stat. 2009; 8(1): 38--49. [doi:10.1002/pst.326](https://doi.org/10.1002/pst.326).] proposed even more liberal $\small{\theta_{1},\theta_{2}}$ of {0.50, 2.0}.
 
 # Cave!
 There is no guarantee that a desired incomplete block design (for given dose levels and number of periods) can be constructed. If you provide your own design matrix (in the argument `dm`) it is not assessed for meaningfulness.

@@ -5,7 +5,7 @@ output:
   rmarkdown::html_vignette:
     css: vignette.css
     toc: true
-    toc_depth: 2
+    toc_depth: 1
 vignette: >
   %\VignetteIndexEntry{Main Vignette}
   %\VignetteEngine{knitr::rmarkdown}
@@ -42,7 +42,7 @@ For an overview of supported designs, methods, and defaults together with some b
 
 # Abbreviations, Definition of Terms, Models
 2×2×2
-: Crossover design with 2 treatments, 2 sequences, and 2 periods. In the literature also TR | RT or AB | AB. In the functions `2x2x2` or short `2x2`.
+: Crossover design with 2 treatments, 2 sequences, and 2 periods. In the literature also TR|RT or AB|AB. In the functions `2x2x2` or `2x2` for short.
 
 2x2x3, 2x2x4
 : Full replicate designs with 2 treatments, 2 sequences, and 3 or 4 periods. Both T and R are administered twice to ½ of the subjects.
@@ -54,10 +54,10 @@ For an overview of supported designs, methods, and defaults together with some b
 : Full replicate design with 2 treatments, 4 sequences, and 2 periods (Balaam’s design). TR|RT|TT|RR; not optimal due to poor power characteristics.
 
 2×4×4
-: Full replicate designs with 2 treatments, 4 sequences, and 4 periods (TRTR|RTRT|TRRT|RTTR or TRTR|RTRT|TTRR|RRTT). This design should be avoided due to confounding.
+: Full replicate designs with 2 treatments, 4 sequences, and 4 periods (TRTR|RTRT|TRRT|RTTR or TRTR|RTRT|TTRR|RRTT).
 
 3×3, 3×6×3
-: Higher-order crossover designs with 3 treatments, 3 or 6 sequences, and 3 periods (Latin Square or a Williams’ design). In the functions `3x3` and `3x6x3`. Both have the same degrees of freedom (2*n*--4) in the convential approach and therefore, require the same number of subjects.
+: Higher-order crossover designs with 3 treatments, 3 or 6 sequences, and 3 periods (Latin Square or a Williams’ design). In the functions `3x3` and `3x6x3`. Both have the same degrees of freedom (2*n*--4) in the conventional approach and therefore, require the same number of subjects.
 
 4×4
 : Higher-order crossover design with 4 treatments, 4 sequences, and 4 periods (Latin Square or a Williams’ design).
@@ -75,32 +75,38 @@ $\beta$
 : Probability that the Null-hypothesis of inequivalence is *falsely not* rejected. Also the type II error or producer’s risk, where $\small{\beta=1-\pi}$.
 
 $\beta_0$
-: Assumed or true slope of the (linearized) power model of dose-proportionality $\small{x=\alpha\cdot dose^\beta,\:\log_{e}x=\alpha+\beta\cdot \log_{e}dose}$. Argument `beta0`.
+: Assumed or true slope of the (linearized) power model of dose-proportionality $\small{x=\alpha\cdot dose^{\,\beta},\:\log_{e}x=\alpha+\beta\cdot \log_{e}dose}$. Argument `beta0`.
 
-CV
+*CV*
 : Coefficient of variation
 
     : Calculated from the residual error of the model of log-transformed data as $\small{CV=\sqrt{\exp (\sigma^2)+1}}$.
     <ul>
       <li>In crossover designs the within- (intra-) subject CV. Argument `CV`.</li>
       <li>In parallel designs the total (pooled) CV. Argument `CV`.</li>
-      <li>In replicate designs the intra-subject CV (assuming homoscedasticity, argument `CV`). If hetero­scedasticity is assumed, `CV` has to given as a vector with two elements `CV = c(x, y)` where `CV[1]` is *CV*~wT~ and `CV[2]` is *CV*~wR~.</li>
+      <li>In replicate designs the intra-subject CV (assuming homoscedasticity, argument `CV`). If hetero­scedasticity is assumed, `CV` has to given as a vector with two elements `CV = c(x, y)`, where `CV[1]` is <a href="#CVwT">CV~wT~</a> and `CV[2]` is <a href="#CVwR">CV~wR~</a>.</li>
     </ul>
 
-CV~b~
+*CV*~b~
 : Between- (inter-) subject coefficient of variation. Argument `CVb` is required in function `sampleN.RatioF()` and in function `sampleN.dp()` if `design = "IBD"` (incomplete block design).
 
 <span id="CVcap">CV~cap~</span>
-: Upper cap in <a href="#abel">ABEL</a>. If *CV*~wR~ > CV~cap~, expanding is based on CV~cap~ (and not on *CV*~wR~). In all jurisdictions 50\%, except for Health Canada where CV~cap~ ≈57.4\%.
+: Upper cap in <a href="#abel">ABEL</a>. If <a href="#CVwR">CV~wR~</a> > CV~cap~, expanding is based on CV~cap~ (and not on <a href="#CVwR">CV~wR~</a>). In all jurisdictions 50\%, except for Health Canada, where CV~cap~ ≈57.4\%.
 
-CV~switch~
+*CV*~switch~
 : Switching coefficient of variation in reference-scaling. Only above this value reference-scaling is acceptable. For highly variable drugs / drug products 30\% (*CV*~0~ 0.30, *s*~0~ 0.294).
+
+<span id="CVwR">*CV*~wR~</span>
+: Within-subject coefficient of variation of R; can be estimated in any replicate design.
+
+<span id="CVwT">*CV*~wT~</span>
+: Within-subject coefficient of variation of T; can be estimated only in full replicate designs.
 
 <span id="Delta">$\small{\Delta}$</span>
 : Clinically not relevant difference. Commonly 0.20.  For <a href="#ntid">NTIDs</a> (<span title="European Medicines Agency">EMA</span> and other jurisdictions) $\small{\Delta}$ 0.10, for *C*~max~ (Russian Federation, <span title="Eurasian Economic Union">EEU</span>, <span title="Gulf Cooperation Council">GCC</span>) $\small{\Delta}$ 0.25.
 
 HVD(P)
-: Highly variable drug (product); commonly defined with an intra-subject *CV* of ≥30\%. HVDs exhibit highly variable clearances (*CV* ≥30\% if administered as a solution), whereas HVDPs may additionally – or solely – show highly variable absorption. HVDP(s) generally are ones with a flat dose-response curve.
+: Highly variable drug (product); commonly defined with a <a href="#CVwR">CV~wR~</a> of ≥30\%. HVDs exhibit highly variable clearances (<a href="#CVwR">CV~wR~</a> ≥30\% if administered as a solution), whereas HVDPs may additionally – or solely – show highly variable absorption. HVDP(s) generally are ones with a flat dose-response curve.
 
 <span id="k">*k*</span>
 : Regulatory constant <span style="font-weight:normal">(also $\small{\theta_\textrm{s}}$)</span>
@@ -113,8 +119,8 @@ HVD(P)
 
     : **<a href="#abel">ABEL</a>**: Lower and upper expanded limits.
     <ul>
-      <li>30% < *CV*~wR~ ≤ 50%: Based on $\small{s_\textrm{wR}}$. $\small{\left[ {L,\,U} \right] = 100\cdot \exp (\mp 0.760 \cdot {s_\textrm{wR}})}$</li>
-      <li>*CV*~wR~ > <a href="#CVcap">CV~cap~</a>: Applying $\small{s^*_\textrm{wR}=\sqrt{\log_{e}(CV_\textrm{cap}^{2}+1)}}$ in the expansion formula: $\small{\left[ {L,\,U} \right] = {69.84 - 143.19\%}}$. All jurisdictions except Health Canada, where $\small{\left[ {L,\,U} \right] = {66.7 - 150.0\%}}$.</li>
+      <li>30% < <a href="#CVwR">CV~wR~</a> ≤ 50%: Based on $\small{s_\textrm{wR}}$. $\small{\left[ {L,\,U} \right] = 100\cdot \exp (\mp 0.760 \cdot {s_\textrm{wR}})}$</li>
+      <li><a href="#CVwR">CV~wR~</a> > <a href="#CVcap">CV~cap~</a>: Applying $\small{s^*_\textrm{wR}=\sqrt{\log_{e}(CV_\textrm{cap}^{2}+1)}}$ in the expansion formula: $\small{\left[ {L,\,U} \right] = {69.84 - 143.19\%}}$. All jurisdictions except Health Canada, where $\small{\left[ {L,\,U} \right] = {66.7 - 150.0\%}}$.</li>
     </ul>
     : **<a href="#rsabe">RSABE</a>**: Lower and upper ‘implied limits’.
     <ul>
@@ -136,14 +142,14 @@ margin
 *n*
 : (Total) number of subjects.
 
-*n~seq~*
+*n*~seq~
 : Number of sequences.
 
 <span id="ntid">NTID</span>
-: Narrow therapeutic index drug, *i.e.*, with a steep dose-response curve.
+: Narrow therapeutic index drug, *i.e.*, with a steep dose-response curve. <span title="also known as">A.k.a.</span> NRD (Narrow Range Drug).
 
 $\pi$
-: Target (or desired) power in study planning. Commonly set to 0.80--0.90. In the functions `targetpower`.
+: Target (or desired) power in study planning. Commonly set to 0.80 – 0.90. In the functions `targetpower`.
 
 R
 : Reference (treatment, product).
@@ -152,16 +158,16 @@ R
 : Ratio of the highest/lowest dose. In the functions `rd`.
 
 `robust`
-: Selects degrees of freedom according to Senn’s basic estimator, where *n* -- *n~seq~*.
+: Selects degrees of freedom according to Senn’s basic estimator, where *n* -- *n*~seq~.
 
 <span id="rsabe">RSABE</span>
-: Reference-scaled Average Bioequivalence (U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="National Medical Products Administration, Center for Drug Evaluation">NMPA-CDE</span>). Applicable if the intra-subject variability of the reference treatment *s*~wR~ ≥0.294 (*CV*~wR~ ≈ 30\%). The linearized model is $$\small{H_0:(\mu_\textrm{T}/\mu_\textrm{R})^2-\theta_\textrm{s}\cdot s_{wR}^{2}>0\:vs\:H_1:(\mu_\textrm{T}/\mu_\textrm{R})^2-\theta_\textrm{s}\cdot s_{\textrm{wR}}^{2}\leq 0}$$
+: Reference-scaled Average Bioequivalence (U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="National Medical Products Administration, Center for Drug Evaluation">NMPA-CDE</span>). Applicable if the intra-subject variability of the reference treatment *s*~wR~ ≥0.294 (<a href="#CVwR">*CV*~wR~</a> ≈ 30\%). The linearized model is $$\small{H_0:(\mu_\textrm{T}/\mu_\textrm{R})^2-\theta_\textrm{s}\cdot s_{wR}^{2}>0\:vs\:H_1:(\mu_\textrm{T}/\mu_\textrm{R})^2-\theta_\textrm{s}\cdot s_{\textrm{wR}}^{2}\leq 0}$$
     See also <a href="#abel">ABEL</a>.
 
 $\theta_0$
-: Assumed or true T/R-ratio (`logscale = TRUE`) or difference T--R (`logscale = FALSE`). In the functions `theta0`.
+: Assumed or true T/R-ratio (`logscale = TRUE`) or difference T – R (`logscale = FALSE`). In the functions `theta0`.
 
-$\theta_1,\theta_2$
+<span id="theta12">$\theta_1,\theta_2$</span>
 : Lower and upper limits of the equivalence range. In the functions `theta1` and `theta2`.
 
 $\theta_s$
@@ -172,6 +178,45 @@ T
 
 TIE <span style="font-weight:normal">(type I error)</span>
 : Probability that the Null-hypothesis of inequivalence is *falsely* rejected (*i.e.*, equivalence is concluded). Also the patient’s risk. Can be assessed with the power-functions setting `theta0 = theta2` or `theta0 = theta1`.<br />Exact, except in reference-scaling based on simulations (`power.scABEL()`, `power.RSABE()`, `power.NTIDFDA()`, `power.HVNTID()`).
+
+# A Note on Rounding{#round}
+In all functions sample sizes are estimated based on equivalence margins <a href="#theta12">[$\small{\theta_1,\theta_2}$]</a> in full numeric precision. If, *e.g*, for a <a href="#ntid">NTID</a> `theta1 = 0.90` is specified, $\small{\theta_2=1/\theta_1=1.\dot{1}}$ and not the rounded 1.1111 as in the guidelines. Health Canada requires rounding to only one decimal place and its bioequivalence margins for <a href="#ntid">NTIDs</a> are 90.0 – 112.0%. Similarly, the widened margins for *C*~max~ according to the guideline of the <span title="Gulf Cooperation Council">GCC</span> are $\small{\theta_1=0.75,}$ $\small{\theta_2=1/\theta_1=1.\dot{3}}$ and not the rounded 1.3333.\
+Hence, the estimated sample sizes are always conservative.
+```{r rounding}
+library(PowerTOST) # attach the library
+res <- data.frame(CV = c(rep(0.574, 3), rep(0.1, 2)),
+                  regulator = c("EMA", "HC", "GGC", "EMA", "HC"),
+                  method = c(rep("ABEL", 2), rep("ABE", 3)),
+                  theta1.GL = NA, theta2.GL = NA, theta1 = NA, theta2 = NA)
+for (i in 1:nrow(res)) {
+  if (i <= 2) {
+    UL <- scABEL(CV = res$CV[i], regulator = res$regulator[i])
+    if (i == 1) {
+      res[i, 4:5] <- sprintf("%.2f%%", 100*UL)
+      res[i, 6:7] <- sprintf("%.4f%%", 100*UL)
+    } else {
+      res[i, 4:5] <- sprintf("%.1f %%", 100*UL)
+      res[i, 6:7] <- sprintf("%.4f%%", 100*UL)
+    }
+  }
+  if (i == 3) {
+    UL <- c(0.75, 1/0.75)
+    res[i, 4:5] <- sprintf("%.2f%%", 100*UL)
+    res[i, 6:7] <- sprintf("%.4f%%", 100*UL)
+  }
+  if (i == 4) {
+    UL <- c(0.9, 1/0.9)
+    res[i, 4:5] <- sprintf("%.2f%%", 100*UL)
+    res[i, 6:7] <- sprintf("%.4f%%", 100*UL)
+  }
+  if (i == 5) {
+    UL <- c(0.9, 1/0.9)
+    res[i, 4:5] <- sprintf("%.1f %%", c(90, 112))
+    res[i, 6:7] <- sprintf("%.4f%%", 100*UL)
+  }
+}
+print(res, row.names = FALSE)
+```
 
 # Installation
 You can install the released version of PowerTOST from [CRAN](https://CRAN.R-project.org) with …

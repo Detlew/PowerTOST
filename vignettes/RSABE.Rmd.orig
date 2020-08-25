@@ -40,9 +40,9 @@ library(PowerTOST) # attach the library
 |-|-|-------|-|
 | $\small{\alpha}$ | `alpha` | Nominal level of the test | `0.05` |
 | $\small{\pi}$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
-| $\small{\theta_{0}}$ | `theta0` | ‘True’ or assumed T/R ratio | `0.90` |
-| $\small{\theta_{1}}$ | `theta1` | Lower BE limit and PE constraint | `0.80` |
-| $\small{\theta_{2}}$ | `theta2` | Upper BE limit and PE constraint | `1.25` |
+| $\small{\theta_0}$ | `theta0` | ‘True’ or assumed T/R ratio | `0.90` |
+| $\small{\theta_1}$ | `theta1` | Lower BE limit and PE constraint | `0.80` |
+| $\small{\theta_2}$ | `theta2` | Upper BE limit and PE constraint | `1.25` |
 | *CV* | `CV` | CV | none |
 | design | `design` | Planned replicate design | <span title="partial replicate">`"2x3x3"`</span> |
 | regulator | `regulator` | ‘target’ jurisdiction | `"EMA"` |
@@ -70,7 +70,7 @@ If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
 
-With `foo(..., details = FALSE, print = FALSE)` results are given as a [data.frame](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html) with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `foo(..., details = FALSE, print = FALSE)` results are given as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-05-02. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 <span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence – like in some other software packages).</span>
 

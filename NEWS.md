@@ -11,7 +11,7 @@ Started on GitHub 2020-08-10.
   * Unified man pages of `sampleN.*`: Always *estimation* instead of *calculation*. References added for Fieller’s CI.
   * More examples in `README`.
   * Changed http(s) locations of References according to R CMD check.
-  * Cosmetics in the ABE-Vignette.
+  * Cosmetics in the ABE-Vignette. Added examples for `logscale = FALSE`.
 
 # PowerTOST 1.5-0 
 
