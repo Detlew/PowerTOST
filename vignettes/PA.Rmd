@@ -66,11 +66,12 @@ The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design 
 | $\small{\pi}$ | `targetpower` | <span title="typically 0.80 – 0.90">Minimum desired power</span> | `0.80` |
 | $\small{\pi}$ | `minpower` | Minimum acceptable power | `0.70` |
 | design | `design` | Planned replicate design | `"2x2x3"` |
-| regulator | `regulator` | ‘target’ jurisdiction | `"EMA"` |
+| regulator | `regulator` | ‘target’ jurisdiction (see below) | `"EMA"` |
 | nsims | `nsims` | Number of simulations | `1e5` |
 | passed | `...` | Arguments to `power.scABEL()` or `power.RSABE()` | none |
 
-If no additional arguments are passed, the defaults of `power.scABEL()` and `power.RSABE()` are applied, namely `alpha = 0.05`, `theta1 = 0.80`, `theta2 = 1.25`. Note the recommended<small> </small>^[Tóthfalusi L, Endrényi L. *Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs.* J Pharm Pharmaceut Sci. 2011;15(1):73--84. [Open access](http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489).] default $\small{\theta_0}$ 0.90 for <span title="Highly Variable Drug Products">HVDPs</span>.
+If no additional arguments are passed, the defaults of `power.scABEL()` and `power.RSABE()` are applied, namely `alpha = 0.05`, `theta1 = 0.80`, `theta2 = 1.25`. Note the recommended<small> </small>^[Tóthfalusi L, Endrényi L. *Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs.* J Pharm Pharmaceut Sci. 2011;15(1):73--84. [Open access](http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489).] default $\small{\theta_0}$ 0.90 for <span title="Highly Variable Drug Products">HVDPs</span>.\
+`regulator` can be `"EMA"`, `"HC"`, or `"FDA"`.
 
 Arguments `targetpower`, `minpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not in percent. *CV* is the *within-* (intra-) subject coefficient of variation, where only homoscedasticity (*CV*~wT~ = *CV*~wR~) is supported.
 
