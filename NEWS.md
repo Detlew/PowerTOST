@@ -11,7 +11,7 @@ Started on GitHub 2020-08-10.
   * Unified man pages of `sampleN.*`: Always *estimation* instead of *calculation*. References added for Fieller’s CI.
   * More examples in `README`.
   * Changed http(s) locations of References according to R CMD check.
-  * Cosmetics in the ABE-Vignette. Added examples for `logscale = FALSE`.
+  * Cosmetics in Vignettes. Added examples for `logscale = FALSE` to the ABE-Vignette.
 
 # PowerTOST 1.5-0 
 
@@ -20,12 +20,12 @@ On CRAN 2020-08-09. (Maintenance release dedicated to 70 birthday of Detluuu)
 ## Bug fixes
   
   * Bug fix in `scABEL.ad` w.r.t. coercion.
-  * Fix of the link to package emmeans in man pages of expected power.
+  * Fix of the link to package `emmeans` in man pages of expected power.
   * Fix in Example 1 of `ABE.Rmd` (not a good idea specify a variable with the same name as a function).
 
 ## Major changes
 
-  * Pre-compiled RSABE vignette.
+  * Pre-compiled RSABE-Vignette.
 
 ## Minor changes
 
@@ -34,7 +34,7 @@ On CRAN 2020-08-09. (Maintenance release dedicated to 70 birthday of Detluuu)
   * Moved `tufte` from Imports to Suggests (Duncan Murdoch).
   * Harmonize default value of `theta1` in `pvalue.TOST` in case of `logscale = FALSE`
   * Clarification of argument `CV` (and `theta0`, `theta1`, `theta2`) in case of `logscale = FALSE`.
-  * Clarify in man pages that all functions return the *total* sample size (and not subjects/sequence in crossovers and subjects/group in parallel designs -- like in some other software packages). Suggested by Amandine Schmutz.
+  * Clarify in man pages and vignettes that all functions return the *total* sample size (and not subjects/sequence in crossovers and subjects/group in parallel designs -- like in some other software packages). Suggested by Amandine Schmutz.
 
 # PowerTOST 1.4-9
 

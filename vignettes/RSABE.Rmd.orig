@@ -54,7 +54,7 @@ library(PowerTOST) # attach the library
 | setseed | `setseed` | Issue a fixed seed of the random number generator? | `TRUE` |
 
 Arguments `targetpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not in percent.\
-The *CV* is the *within* (intra-) subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV*~wT~ = *CV*~wR~. If two values are given (*i.e.*, `CV = c(x, y)`) heteroscedasticity (unequal variances) is assumed, where `CV[1]` has to be *CV*~wT~ and `CV[2]` *CV*~wR~.
+The *CV* is the *within* (intra-) subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV*~wT~ = *CV*~wR~. If two values are given (*i.e.*, `CV = c(x, y)`) heteroscedasticity (unequal variances) is assumed, where `CV[1]` has to be *CV*~wT~ and `CV[2]` *CV*~wR~.
 
 If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100,000. If simulating for the empiric type I error (`theta0` set to one of the BE limits), `nsims` defaults to 1 million.
 

@@ -368,11 +368,11 @@ Let us first recap the hypotheses in bioequivalence.
   $$\small{H_0:\frac{\mu_\textrm{T}}{\mu_\textrm{R}}\notin \left [ \theta_1, \theta_2 \right]\:vs\:H_1:\theta_1<\frac{\mu_\textrm{T}}{\mu_\textrm{R}}<\theta_2}$$
 
 Note that the null hypotheses imply bio<u>**in**</u>equivalence where $\small{[\theta_1,\theta_2]}$ are the lower and upper limits of the bioequivalence range.\
-TOST provides two *p*-values and is of historical interest only because the <span title="Confidence Interval">CI</span> inclusion approach is preferred in regulatory guidelines.
+TOST provides two $\small{p}$ values (where $\small{H_0}$ is not rejected if $\small{\max}\,[p_\textrm{L},p_\textrm{U}]>\alpha$) and is of historical interest only because the <span title="Confidence Interval">CI</span> inclusion approach is preferred in regulatory guidelines.
 
-From a regulatory perspective the outcome of a comparative BA study is dichotomous. <span class="hl"> Either </span> the study demonstrated bioequivalence (confidence interval entirely *within* $\small{[\theta_1,\theta_2]}$) <span class="hl"> or </span> not.<small> </small>^[If the <span title="confidence interval">CI</span> overlaps $\small{[\theta_1,\theta_2]}$, the outcome is indecisive (called ‘the gray zone’ by some). As long as $\small{\theta_0}$ lies within $\small{[\theta_1,\theta_2]}$ you can hope to show BE in a larger sample size. However, once $\small{\theta_0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
+From a regulatory perspective the outcome of a comparative <span title="Bioavailability">BA</span> study is dichotomous. <span class="hl"> *Either* </span> the study demonstrated bioequivalence (confidence interval entirely *within* $\small{[\theta_1,\theta_2]}$) <span class="hl"> *or* </span> not.<small> </small>^[If the <span title="Confidence Interval">CI</span> overlaps $\small{[\theta_1,\theta_2]}$, the outcome is indecisive (called ‘the gray zone’ by some). As long as $\small{\theta_0}$ lies within $\small{[\theta_1,\theta_2]}$ you can hope to show BE in a larger sample size. However, once $\small{\theta_0}$ approaches one of the limits, if might be futile – even with a very small *CV*. Try\
   `sampleN.TOST(CV = 0.075, theta0 = 0.81)` and then\
-  `sampleN.TOST(CV = 0.075, theta0 = 0.80)` to get an idea.] Only if the <span title="confidence interval">CI</span> lies entirely *outside* $\small{[\theta_1,\theta_2]}$, the null hypothesis is not rejected and further studies not warranted.\
+  `sampleN.TOST(CV = 0.075, theta0 = 0.80)` to get an idea.] Only if the <span title="Confidence Interval">CI</span> lies entirely *outside* $\small{[\theta_1,\theta_2]}$, the null hypothesis is not rejected and further studies not warranted.\
 In any case, calculation of *post hoc* (<span title="also known as">a.k.a.</span> *a posteriori*, retrospective) power is futile.<small> </small>^[Hoenig JM, Heisey DM. [*The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.*](https://www.vims.edu/people/hoenig_jm/pubs/hoenig2.pdf) Am Stat. 2001; 55(1): 19--24]
 
 > There is simple intuition behind results like these: If my car made it to the top of the hill, then it is powerful enough to climb that hill; if it didn’t, then it obviously isn’t powerful enough. Retrospective power is an obvious answer to a rather uninteresting question. A more meaningful question is to ask whether the car is powerful enough to climb a particular hill never climbed before; or whether a different car can climb that new hill. Such questions are prospective, not retrospective.
@@ -440,7 +440,7 @@ This exercise confirms what we already know. The most critical parameter is $\sm
 More details are given in the vignette [Power Analysis](PA.html).
 
 ## Dropouts
-As we have seen, the impact of dropouts on power is rather limited. Regularly CROs suggest additional subjects to ‘compensate for the potential loss in power’. IMHO, milking sponsors to make wealthy CROs richer. Note that the dropout-rate is based on *dosed* subjects. Hence, the correct formula for the adjusted sample size $\small{n{}'}$ based on the estimated one $\small{n}$ is $\small{n{}'=n / (1-{dropout\:rate})}$, and <u>not</u> $\small{n{}'=n \times (1+{dropout\:rate})}$. An example for studies with three periods:
+As we have seen, the impact of dropouts on power is rather limited. Regularly <span title="Contract Research Organizations">CROs</span> suggest additional subjects to ‘compensate for the potential loss in power’. IMHO, milking sponsors to make wealthy <span title="Contract Research Organizations">CROs</span> richer. Note that the dropout-rate is based on *dosed* subjects. Hence, the correct formula for the adjusted sample size $\small{n{}'}$ based on the estimated one $\small{n}$ is $\small{n{}'=n / (1-{dropout\:rate})}$, and <u>not</u> $\small{n{}'=n \times (1+{dropout\:rate})}$. An example for studies with three periods:
 ```{r DO}
 balance <- function(x, y) {
   return(y * (x %/% y + as.logical(x %% y)))
@@ -474,22 +474,29 @@ Sometimes the *CV* is not given in the literature. By means of the function `CVf
 ```{r lit1}
 CVfromCI(lower = 0.8323, upper = 1.0392, design = "2x2x4", n = 26)
 ```
-The method is exact if the subjects/sequence are known. In the literature commonly only the total sample size is given and the function tries to keep sequences as balanced as possible. What if the study was imbalanced?\
+The method is exact if the subjects/sequence are known. In the literature quite often only the total sample size is given and the function tries to keep sequences as balanced as possible. What if the study was imbalanced?\
 A total sample size of 26 was reported. The study was either balanced or imbalanced to an unknown degree:
 ```{r lit2}
-n     <- 26
-n1    <- balance(seq(n, 16, -1), 2) / 2
-n2    <- n - n1
-nseqs <- unique(data.frame(n1 = n1, n2 = n2, n = n))
-res   <- data.frame(n1 = nseqs$n1, n2 = nseqs$n2, CV = NA)
+n      <- 26
+CV.est <- CVfromCI(lower = 0.8323, upper = 1.0392, design = "2x2x4", n = 26)
+n.est  <- sampleN.TOST(CV = CV.est, design = "2x2x4", print = FALSE,
+                       details = FALSE)[["Sample size"]]
+n1     <- balance(seq(n, 18, -1), 2) / 2
+n2     <- n - n1
+nseqs  <- unique(data.frame(n1 = n1, n2 = n2, n = n))
+res    <- data.frame(n1 = nseqs$n1, n2 = nseqs$n2, CV.true = NA,
+                     CV.est = CV.est, n.true = NA, n.est = n.est)
 for (i in 1:nrow(res)) {
-  res$CV[i] <- CVfromCI(lower = 0.8323, upper = 1.0392,
-                        design = "2x2x4",
-                        n = c(res$n1[i], res$n2[i]))
+  res$CV.true[i] <- CVfromCI(lower = 0.8323, upper = 1.0392, design = "2x2x4",
+                             n = c(res$n1[i], res$n2[i]))
+  res$n.true[i]  <- sampleN.TOST(CV = res$CV.true[i], design = "2x2x4",
+                                 print = FALSE, details = FALSE)[["Sample size"]]
+  res$n.est[i]   <- sampleN.TOST(CV = CV.est, design = "2x2x4",
+                                 print = FALSE, details = FALSE)[["Sample size"]]
 }
-print(res, row.names = FALSE)
+print(signif(res, 5), row.names = FALSE)
 ```
-The true *CV* of any imbalanced study was lower than what we assumed. That means, if we use the *CV* – falsely – assuming balanced sequences our sample size estimation will always be conservative.
+The true *CV* of any imbalanced study might have been lower than what we assumed. That means, if we use the estimated *CV* – falsely assuming balanced sequences – our sample size estimation will always be conservative.
 
 ## Direction of Deviation
 If you are unsure about the direction of the deviation of T from R (lower or higher) always assume $\small{\theta_0<1}$.
