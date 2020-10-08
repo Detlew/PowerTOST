@@ -8,6 +8,7 @@ Started on GitHub 2020-08-10.
 
 ## Minor changes
 
+  * More checks of CV and theta0 vectorized input to power.TOST(). Only one argument may be a vector.
   * Unified man pages of `sampleN.*`: Always *estimation* instead of *calculation*. References added for Fieller’s CI.
   * More examples in `README`.
   * Changed http(s) locations of References according to R CMD check.
