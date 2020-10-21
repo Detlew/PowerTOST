@@ -41,8 +41,11 @@ power.TOST.sim <- function(alpha = 0.05, logscale = TRUE, theta1, theta2,
   if (logscale) { # log-transformed
     if (missing(theta0))  theta0 <- 0.95
     if (any(theta0 <= 0)) stop("theta0 must be > 0.")
-    if (missing(theta1))  theta1 <- 0.8
-    if (missing(theta2))  theta2 <- 1/theta1
+    
+    if (missing(theta1) & missing(theta2)) theta1 <- 0.8
+    if (missing(theta2)) theta2 <- 1/theta1
+    if (missing(theta1)) theta1 <- 1/theta2
+    
     if (theta1 <= 0 || theta1 > theta2 || length(theta1) != 1 || length(theta2) != 1)
       stop("theta1 and/or theta2 not correctly specified.")
     ltheta1 <- log(theta1)
@@ -51,9 +54,12 @@ power.TOST.sim <- function(alpha = 0.05, logscale = TRUE, theta1, theta2,
     se <- CV2se(CV) * se.fac
     mse <- CV2mse(CV)
   } else { # original scale
-    if (missing(theta1))  theta1 <- -0.2
     if (missing(theta0))  theta0 <- 0.05
-    if (missing(theta2))  theta2 <- -theta1
+    
+    if (missing(theta1) & missing(theta2)) theta1 <- -0.2
+    if (missing(theta2)) theta2 <- -theta1
+    if (missing(theta1)) theta1 <- -theta2
+    
     if (theta1 > theta2 || length(theta1) != 1 || length(theta2) != 1)
       stop("theta1 and/or theta2 not correctly specified.")
     ltheta1 <- theta1

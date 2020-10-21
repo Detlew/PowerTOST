@@ -77,6 +77,7 @@ sampleN.2TOST <- function(alpha=c(0.05, 0.05), targetpower=0.8, logscale=TRUE,
   # handle the log transformation
   if (logscale) {
     if (missing(theta1)) theta1 <- c(0.8, 0.8)
+    if (missing(theta1)) theta1 <- 1/theta2
     if (missing(theta2)) theta2 <- 1/theta1
     if (any(theta1 <= 0) || any(theta1 > theta2))
       stop("theta1 and/or theta2 not correctly specified.")

@@ -158,8 +158,9 @@ sampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE, theta0,
   
   # handle the log transformation
   if (logscale) {
-    if (missing(theta1) & missing(theta2)) theta1 <- 0.8
     if (missing(theta0)) theta0 <- 0.95
+    if (missing(theta1) & missing(theta2)) theta1 <- 0.8
+    if (missing(theta1)) theta1=1/theta2
     if (missing(theta2)) theta2=1/theta1
     if ( (theta0<=theta1) | (theta0>=theta2) ) {
       stop("True ratio ",theta0," not between margins ",theta1," / ",theta2,"!", 
@@ -171,8 +172,9 @@ sampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE, theta0,
     se      <- CV2se(CV)
     if (print) cat("log-transformed data (multiplicative model)\n\n")
   } else {
-    if (missing(theta1) & missing(theta2)) theta1 <- -0.2
     if (missing(theta0)) theta0 <- 0.05
+    if (missing(theta1) & missing(theta2)) theta1 <- -0.2
+    if (missing(theta1)) theta1=-theta2
     if (missing(theta2)) theta2=-theta1
     if ( (theta0<=theta1) | (theta0>=theta2) ) {
       stop("True diff. ",theta0," not between margins ",theta1," / ",theta2,"!", 

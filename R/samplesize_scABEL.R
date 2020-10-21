@@ -60,8 +60,8 @@ sampleN.scABEL1 <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
                             details=TRUE, setseed=TRUE)
 {
   if (missing(theta1) & missing(theta2)) theta1 <- 0.8
-  if (missing(theta2)) theta2 <- 1/theta1
   if (missing(theta1)) theta1 <- 1/theta2
+  if (missing(theta2)) theta2 <- 1/theta1
   # the two Laszlos recommend theta0=0.9 for HVDs
   if (missing(theta0)) theta0 <- 0.9
   if ( (theta0<=theta1) | (theta0>=theta2) ) {

@@ -3,7 +3,7 @@
 Started on GitHub 2020-08-10.
 
 ## Bug fixes
-  
+  * Fix of the default settings of theta1, theta2 if missing in various functions
   * Added `emmeans` to `Suggests`. Otherwise `NOTE` on r-devel-linux-x86_64-fedora-clang. THX to Gábor Csárdi and Duncan Murdoch on r-package-devel. Will be required in R4.1.0 released next year.
 
 ## Minor changes

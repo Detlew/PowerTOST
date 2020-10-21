@@ -18,6 +18,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     flushable <- FALSE) # supress flushing on other OS's
   # acceptance range defaults
   if (missing(theta1) && missing(theta2)) theta1 <- 0.8
+  if (missing(theta1)) theta1 = 1/theta2
   if (missing(theta2)) theta2 = 1/theta1
   # check theta0
   if (missing(theta0)) theta0 <- 0.9
