@@ -14,10 +14,13 @@ sampleN.scABEL.sdsims <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
   if (missing(theta2)) theta2 <- 1/theta1
   if (missing(theta1)) theta1 <- 1/theta2
   if (missing(theta0)) theta0 <- 0.9
-  if ((theta0<=theta1) | (theta0>=theta2)) {
-    stop("True ratio ",theta0, " not between margins ", theta1, " / ",
-         theta2, "!", call.=FALSE)
+  # theta0 in range
+  if ( (theta0 < theta1) | abs(theta0-theta1) <1e-8  
+       | (theta0 > theta2) | abs(theta0-theta2) <1e-8 ){
+    stop("True ratio ", theta0," not within margins ", theta1," ... ",
+         theta2,"!", call.=FALSE)
   }
+}
   if (missing(CV)) stop("CV must be given!", call.=FALSE)
   if (missing(design)) design <- "2x3x3"
   if (missing(regulator)) regulator <- "EMA"
