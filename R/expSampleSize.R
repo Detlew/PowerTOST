@@ -47,11 +47,15 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
   # Data log-normal or normal?
   if (logscale) {
     if (missing(theta0)) theta0 <- 0.95
-    if (missing(theta1)) theta1 <- 0.8
+    if (missing(theta0)) theta0 <- 0.95
+    if (missing(theta1) & missing(theta2)) theta1 <- 0.8
+    if (missing(theta1)) theta1 <- 1/theta2
     if (missing(theta2)) theta2 <- 1/theta1
-    if ((theta0 <= theta1) || (theta0 >= theta2)) {
-      stop("Ratio ",theta0," not between margins ", theta1," / ", theta2,"!", 
-           call. = FALSE)
+    # theta0 in range
+    if ( (theta0 < theta1) | abs(theta0-theta1) <1e-8  
+         | (theta0 > theta2) | abs(theta0-theta1) <1e-8 ){
+      stop("True ratio ", theta0," not within margins ", theta1," ... ",
+           theta2,"!", call.=FALSE)
     }
     ltheta1 <- log(theta1)
     ltheta2 <- log(theta2)
@@ -59,12 +63,12 @@ expsampleN.TOST <- function(alpha = 0.05, targetpower = 0.8, logscale = TRUE,
     se      <- CV2se(CV)
   } else {
     if (missing(theta0)) theta0 <- 0.05
-    if (missing(theta1)) theta1 <- -0.2
     if (missing(theta1) && missing(theta2)) theta1 <- -0.2
-    if (missing(theta0)) theta0 <- 0.05
+    if (missing(theta1)) theta1 <- -0.2
     if (missing(theta2)) theta2 <- -theta1
-    if ((theta0 <= theta1) || (theta0 >= theta2)) {
-      stop("Diff. ", theta0, " not between margins ", theta1," / ", theta2, "!", 
+    if ( (theta0 < theta1) | abs(theta0-theta1) <1e-8  
+         | (theta0 > theta2) | abs(theta0-theta1) <1e-8 ){
+      stop("Diff. ", theta0, " not within margins ", theta1," ... ", theta2, "!", 
            call. = FALSE)
     }
     ltheta1 <- theta1

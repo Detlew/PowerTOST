@@ -160,8 +160,8 @@ sampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE, theta0,
   if (logscale) {
     if (missing(theta0)) theta0 <- 0.95
     if (missing(theta1) & missing(theta2)) theta1 <- 0.8
-    if (missing(theta1)) theta1=1/theta2
-    if (missing(theta2)) theta2=1/theta1
+    if (missing(theta1)) theta1 <- 1/theta2
+    if (missing(theta2)) theta2 <- 1/theta1
     # theta0 in range
     if ( (theta0 < theta1) | abs(theta0-theta1) <1e-8  
          | (theta0 > theta2) | abs(theta0-theta1) <1e-8 ){
@@ -176,8 +176,8 @@ sampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE, theta0,
   } else {
     if (missing(theta0)) theta0 <- 0.05
     if (missing(theta1) & missing(theta2)) theta1 <- -0.2
-    if (missing(theta1)) theta1=-theta2
-    if (missing(theta2)) theta2=-theta1
+    if (missing(theta1)) theta1 <- -theta2
+    if (missing(theta2)) theta2 <- -theta1
     # theta0 in range
     if ( (theta0 < theta1) | abs(theta0-theta1) <1e-8  
          | (theta0 > theta2) | abs(theta0-theta2) <1e-8 ){

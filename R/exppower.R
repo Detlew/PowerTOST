@@ -268,24 +268,26 @@ exppower.TOST <- function(alpha = 0.05, logscale = TRUE, theta0, theta1, theta2,
     if (missing(theta0)) theta0 <- 0.95
     if (theta0 <= 0) 
       stop("theta0 must be > 0.", call. = FALSE)
-    if (missing(theta1)) theta1 <- 0.8 
+    if (missing(theta1) & missing(theta2)) theta1 <- 0.8
+    if (missing(theta1)) theta1 <- 1/theta2
     if (missing(theta2)) theta2 <- 1/theta1
     if (theta1 < 0 || theta1 > theta2) 
       stop("theta1 and/or theta2 not correctly specified.", call. = FALSE)
     ltheta1 <- log(theta1)
     ltheta2 <- log(theta2)
-    ldiff <- log(theta0)
-    se <- CV2se(CV)
+    ldiff   <- log(theta0)
+    se      <- CV2se(CV)
   } else {
     if (missing(theta0)) theta0 <- 0.05
-    if (missing(theta1)) theta1 <- -0.2 
+    if (missing(theta1) & missing(theta2)) theta1 <- -0.2
+    if (missing(theta1)) theta1 <- -theta2
     if (missing(theta2)) theta2 <- -theta1
     if (theta1 > theta2) 
       stop("theta1 and/or theta2 not correctly specified.", call. = FALSE)
     ltheta1 <- theta1
     ltheta2 <- theta2
-    ldiff <- theta0
-    se <- CV
+    ldiff   <- theta0
+    se      <- CV
   }
   
   # Check method and uncertainty type
