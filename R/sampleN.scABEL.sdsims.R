@@ -20,7 +20,7 @@ sampleN.scABEL.sdsims <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     stop("True ratio ", theta0," not within margins ", theta1," ... ",
          theta2,"!", call.=FALSE)
   }
-}
+
   if (missing(CV)) stop("CV must be given!", call.=FALSE)
   if (missing(design)) design <- "2x3x3"
   if (missing(regulator)) regulator <- "EMA"
