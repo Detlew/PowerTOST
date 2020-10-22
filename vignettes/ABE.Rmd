@@ -450,7 +450,7 @@ An example where pooling could be misleading: *C*~max~ data of pilot and pivotal
 This is an apples-and-oranges comparison. Red squares show *CV*s which were above the upper <span title="Confidence Limit">CL</span> of the pooled *CV*. Given, only in two studies (#1, #6) their lower <span title="Confidence Limit">CL</span> did not overlap the upper one of the pooled *CV*.
 
 > Which side of the great divide are you on? Do you believe that meta is better or do you hold instead that pooling is fooling? Well, to nail my colours to the mast, I belong to the former school. It seems to me that there is no other topic in medical statistics, with the possible exceptions of cross-over trials, bioequivalence and n-of-1 studies, which has the same capacity as this one to rot the brains.
-> `r tufte::quote_footer('--- Stephen Senn, *[A Dip in the Pool.](http://www.senns.demon.co.uk/wprose.html#Pool)*')`
+> `r tufte::quote_footer('--- Stephen Senn, *[A Dip in the Pool.](https://web.archive.org/web/20191002012312/http://www.senns.demon.co.uk/wprose.html#Pool)*')`
 
 # Hints
 ## Power Analysis
