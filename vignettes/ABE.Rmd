@@ -272,7 +272,7 @@ expsampleN.TOST(CV = 0.20, theta0 = 0.92, prior.type = "both",
                 prior.parm = list(m = 16, design = "2x2x2"),
                 details = FALSE)
 ```
-This sample size is almost twice the 28 your boss got from his/her Excel-Sheet.<small> </small>^[Dubins D. *My Tiny Contribution to Clinical Research: FARTSSIE.* 2019-11-27. [FARTSSIE – Free Analysis Research Tool for Sample Size Iterative Estimation](http://individual.utoronto.ca/ddubins/).] If you are not fired right away when suggesting such a study, take it as a warning what *might* happen.\
+This sample size is almost twice the 28 your boss got from his/her Excel-Sheet.<small> </small>^[Dubins D. *My Tiny Contribution to Clinical Research: FARTSSIE.* 2020-10-13. [FARTSSIE – Free Analysis Research Tool for Sample Size Iterative Estimation](http://individual.utoronto.ca/ddubins/).] If you are not fired right away when suggesting such a study, take it as a warning what *might* happen.\
 At least, if the pivotal study is performed in a lower sample size and fails, *you* know why.
 
 ![**Fig. 3** Expected power for uncertain estimates (from top: *CV*, $\theta_0$, both)](figure5.png){width=354px}
@@ -280,6 +280,31 @@ At least, if the pivotal study is performed in a lower sample size and fails, *y
 If you are adventurous consider an Adaptive Two-Stage Sequential Design with sample size re-estimation. Various methods are supported in the package Power2Stage.<small> </small>^[Labes D, Lang B, Schütz H. *Power2Stage: Power and Sample-Size Distribution of 2-Stage Bioequivalence Studies.* 2019-04-20. [R-package Version 0.5.2](https://cran.r-project.org/package=Power2Stage).]
 
 ## Example 4{#expl4}
+An alternative to working with an assumed $\small{\theta_0}$ is using *statistical assurance* as proposed by Ring *et al.*<small> </small>^[Ring A, Lang B, Kazaroho C, Labes D, Schall R, Schütz H. *Sample size determination in bioequivalence studies using statistical assurance.* Br J Clin Pharmacol. 2019; 85(10): 2369--77. [doi:10.1111/bcp.14055](https://doi.org/10.1111/bcp.14055).] This concept uses the distribution of T/R-ratios and assumes an uncertainty parameter $\small{\sigma_\textrm{u}}$. A natural assumption is $\small{\sigma_\textrm{u}=1-\theta_0}$, *i.e.*, for the commonly applied $\small{\theta_0=0.95}$ one can use the argument `sem = 0.05` the function `expsampleN.TOST()` where the argument `theta0` is kept at 1. The following example reproduces Table 1 of the paper.
+```{r example4}
+CV  <- 0.214
+res <- data.frame(target = c(rep(0.8, 5), rep(0.9, 5)),
+                  theta0 = rep(c(1, seq(0.95, 0.92, -0.01)), 2),
+                  n.1 = NA, power = NA,
+                  sigma.u = rep(c(0.001, seq(0.05, 0.08, 0.01)), 2),
+                  n.2 = NA, assurance = NA)
+for (i in 1:nrow(res)) {
+  res[i, 3:4] <- sampleN.TOST(CV = CV, targetpower = res$target[i],
+                              theta0 = res$theta0[i], details = FALSE,
+                              print = FALSE)[7:8]
+  res[i, 6:7] <- expsampleN.TOST(CV = CV, targetpower = res$target[i],
+                                 theta0 = 1, prior.type = "theta0",
+                                 prior.parm = list(sem = res$sigma.u[i]),
+                                 details = FALSE, print = FALSE)[9:10]
+}
+res                 <- signif(res, 3)
+res[, 5]            <- sprintf("%.2f", res[, 5])
+names(res)[c(3, 6)] <- "n"
+print(res, row.names = FALSE)
+```
+One caveat: Assuming *no* uncertainty ($\small{\sigma_\textrm{u}=0}$) would fail because the level of technical success is zero. Here a small value of 0.001 was used instead.
+
+## Example 5{#expl5}
 Estimate the sample size for a study of two blood pressure lowering drugs in a 2×2 design assessing the difference in means of untransformed data (raw, linear scale; *i.e.*, specifying `logscale = FALSE`). In this setup everything has to be given with the same units (*i.e.*, here $\small{\theta_0}$ –5 mm Hg, $\small{\theta_1}$ –15 mm Hg, $\small{\theta_2}$ +15 mm Hg systolic <span title="Blood Pressure">BP</span>).
 
 Assuming a residual standard deviation 20 mm Hg.

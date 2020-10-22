@@ -9,6 +9,7 @@ Started on GitHub 2020-08-10.
 
 ## Minor changes
 
+  * Added example for statistical assurance to the ABE-Vignette. 
   * More checks of CV and theta0 vectorized input to power.TOST(). Only one argument may be a vector.
   * Unified man pages of `sampleN.*`: Always *estimation* instead of *calculation*. References added for Fieller’s CI.
   * More examples in `README`.
