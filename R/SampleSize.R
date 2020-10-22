@@ -184,7 +184,6 @@ sampleN.TOST <- function(alpha=0.05, targetpower=0.8, logscale=TRUE, theta0,
       stop("True diff. ", theta0," not within margins ", theta1," ... ",
            theta2,"!", call.=FALSE)
     }
-  }
     ltheta1 <- theta1
     ltheta2 <- theta2
     diffm   <- theta0
