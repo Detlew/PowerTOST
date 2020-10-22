@@ -11,7 +11,7 @@ output:
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = ""
+  comment = "#"
 )
 ```
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies.  
