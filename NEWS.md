@@ -1,6 +1,6 @@
-# PowerTOST 1.5.0.9999
+# PowerTOST 1.5-1
 
-Started on GitHub 2020-08-10.
+On CRAN 2020-10-22
 
 ## Bug fixes
   * Check of arg `theta0` within range `theta1 ... theta2` fixed.
