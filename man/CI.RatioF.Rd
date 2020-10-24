@@ -82,7 +82,7 @@ two formulation means.} J Pharmacokin Biopharm. 1984;12(6):649--55. \doi{10.1007
 
 Hauschke D, Steinijans VW, Pigeot I. \emph{Bioequivalence Studies in Drug Development.} Chichester: John Wiley; 2007. Chapter 10. \doi{10.1002/9780470094778.fmatter}
 
-European Medicines Agency, Committee for Proprietary Medicinal Products. \emph{Points to consider on switching between superiority and non-inferiority.} London, 27 July 2000. \href{https://www.ema.europa.eu/documents/scientific-guideline/points-consider-switching-between-superiority-non-inferiority_en.pdf}{CPMP/EWP/482/99}
+European Medicines Agency, Committee for Proprietary Medicinal Products. \emph{Points to consider on switching between superiority and non-inferiority.} London, 27 July 2000. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/points-consider-switching-between-superiority-non-inferiority_en.pdf}{CPMP/EWP/482/99}
 }
 
 \seealso{
