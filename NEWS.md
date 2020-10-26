@@ -1,11 +1,18 @@
+# PowerTOST 1.5-1.9999
+
+On GitHub 2020-10-26.
+
+## Bug fixes
+  * `stringsAsFactors = FALSE` in example of main vignette for R v<4.0.0.
+
 # PowerTOST 1.5-1
 
-On CRAN 2020-10-22
+On CRAN 2020-10-22.
 
 ## Bug fixes
   * Check of arg `theta0` within range `theta1 ... theta2` fixed.
   * Fix of the default settings of `theta1, theta2` if missing in various functions.
-  * Added `emmeans` to `Suggests`. Otherwise `NOTE` on r-devel-linux-x86_64-fedora-clang. THX to Gábor Csárdi and Duncan Murdoch on r-package-devel. Will be required in R4.1.0 released next year.
+  * Added `emmeans` to `Suggests`. Otherwise `NOTE` on r-devel-linux-x86_64-fedora-clang. THX to Gábor Csárdi and Duncan Murdoch on r-pck-devel. Will be required in R4.1.0 released next year.
 
 ## Minor changes
 

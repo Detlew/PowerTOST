@@ -69,7 +69,7 @@ Implemented exact algorithms are `"exact"` / `"owenq"` (Owen’s Q function, de
 `"robust = TRUE"` forces the degrees of freedom to `n-seq` and is used only in higher-order crossover designs. It could be used if the evaluation was done with a mixed-effects model.
 
 With `sampleN.TOST(..., details = FALSE, print = FALSE)` results are provided as a
-data frame<small> </small>^[R Documentation. *Data Frames.* 2020-05-02. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with nine columns `Design`, `alpha`, `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`.\
+data frame<small> </small>^[R Documentation. *Data Frames.* 2020-10-26. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with nine columns `Design`, `alpha`, `CV`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`.\
 To access *e.g.*, the sample size use either `sampleN.TOST[1, 7]` or `sampleN.TOST[["Sample size"]]`. We suggest to use the latter in scripts for clarity.
 
 <span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in a parallel design -- like in some other software packages).</span>
@@ -111,7 +111,8 @@ Maybe the clinical site has a limited capacity. Any study can also be performed 
 designs <- c("2x2x2", "2x2x3", "2x3x3", "2x2x4")
 # data.frame of results
 res <- data.frame(design = designs, n = NA, power = NA, n.do = NA,
-                  power.do = NA, stringsAsFactors = FALSE)
+                  power.do = NA,
+                  stringsAsFactors = FALSE) # this line for R <4.0.0
 for (i in 1:4) {
   # print = FALSE and details = FALSE suppress output to the console
   # we are only interested in columns 7-8
@@ -130,7 +131,8 @@ But why is power in the replicate designs higher than in the 2×2×2? If residua
 ```{r example1e, echo = FALSE}
 designs <- c("2x2x2", "2x2x3", "2x3x3", "2x2x4")
 res <- data.frame(design = rep(NA, 4), name = NA, n = NA, formula = NA,
-                  df = NA, t.value = NA, stringsAsFactors = FALSE)
+                  df = NA, t.value = NA,
+                  stringsAsFactors = FALSE) # this line for R <4.0.0
 res[, c(2:1, 4)] <- known.designs()[which(known.designs()[, 2] %in% designs),
                                     c(9, 2:3)]
 for (i in 1:4) {
@@ -280,13 +282,13 @@ At least, if the pivotal study is performed in a lower sample size and fails, *y
 If you are adventurous consider an Adaptive Two-Stage Sequential Design with sample size re-estimation. Various methods are supported in the package Power2Stage.<small> </small>^[Labes D, Lang B, Schütz H. *Power2Stage: Power and Sample-Size Distribution of 2-Stage Bioequivalence Studies.* 2019-04-20. [R-package Version 0.5.2](https://cran.r-project.org/package=Power2Stage).]
 
 ## Example 4{#expl4}
-An alternative to working with an assumed $\small{\theta_0}$ is using *statistical assurance* as proposed by Ring *et al.*<small> </small>^[Ring A, Lang B, Kazaroho C, Labes D, Schall R, Schütz H. *Sample size determination in bioequivalence studies using statistical assurance.* Br J Clin Pharmacol. 2019; 85(10): 2369--77. [doi:10.1111/bcp.14055](https://doi.org/10.1111/bcp.14055).] This concept uses the distribution of T/R-ratios and assumes an uncertainty parameter $\small{\sigma_\textrm{u}}$. A natural assumption is $\small{\sigma_\textrm{u}=1-\theta_0}$, *i.e.*, for the commonly applied $\small{\theta_0=0.95}$ one can use the argument `sem = 0.05` the function `expsampleN.TOST()` where the argument `theta0` is kept at 1. The following example reproduces Table 1 of the paper.
+An alternative to working with an assumed $\small{\theta_0}$ is using *statistical assurance* as proposed by Ring *et al.*<small> </small>^[Ring A, Lang B, Kazaroho C, Labes D, Schall R, Schütz H. *Sample size determination in bioequivalence studies using statistical assurance.* Br J Clin Pharmacol. 2019; 85(10): 2369--77. [doi:10.1111/bcp.14055](https://doi.org/10.1111/bcp.14055).] This concept uses the distribution of T/R-ratios and assumes an uncertainty parameter $\small{\sigma_\textrm{u}}$. A natural assumption is $\small{\sigma_\textrm{u}=1-\theta_0}$, *i.e.*, for the commonly applied $\small{\theta_0=0.95}$ one can use the argument `sem = 0.05` of the function `expsampleN.TOST()` where the argument `theta0` has to be kept at 1. The following example reproduces Table 1 of the paper.
 ```{r example4}
 CV  <- 0.214
 res <- data.frame(target = c(rep(0.8, 5), rep(0.9, 5)),
                   theta0 = rep(c(1, seq(0.95, 0.92, -0.01)), 2),
                   n.1 = NA, power = NA,
-                  sigma.u = rep(c(0.001, seq(0.05, 0.08, 0.01)), 2),
+                  sigma.u = rep(c(0.0005, seq(0.05, 0.08, 0.01)), 2),
                   n.2 = NA, assurance = NA)
 for (i in 1:nrow(res)) {
   res[i, 3:4] <- sampleN.TOST(CV = CV, targetpower = res$target[i],
@@ -302,7 +304,7 @@ res[, 5]            <- sprintf("%.2f", res[, 5])
 names(res)[c(3, 6)] <- "n"
 print(res, row.names = FALSE)
 ```
-One caveat: Assuming *no* uncertainty ($\small{\sigma_\textrm{u}=0}$) would fail because the level of technical success is zero. Here a small value of 0.001 was used instead.
+One caveat: Assuming *no* uncertainty ($\small{\sigma_\textrm{u}=0}$) would fail because the level of technical success is zero. Here a small value of 0.0005 was used instead.
 
 ## Example 5{#expl5}
 Estimate the sample size for a study of two blood pressure lowering drugs in a 2×2 design assessing the difference in means of untransformed data (raw, linear scale; *i.e.*, specifying `logscale = FALSE`). In this setup everything has to be given with the same units (*i.e.*, here $\small{\theta_0}$ –5 mm Hg, $\small{\theta_1}$ –15 mm Hg, $\small{\theta_2}$ +15 mm Hg systolic <span title="Blood Pressure">BP</span>).

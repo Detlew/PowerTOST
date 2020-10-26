@@ -57,7 +57,7 @@ The ‘true’ or assumed slope of the power model $\small{\beta_0}$ defaults to
 
 Supported designs are `"crossover"` (default; Latin Squares), `"parallel"`, and `"IBD"` (incomplete block design). Note that when `"crossover"` is chosen, instead of Latin Squares any Williams’ design could be used as well (identical degrees of freedom result in the same sample size).
 
-With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-05-02. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with ten (`design = "crossover"`) or eleven (`design = "parallel"` or `design = "IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
+With `sampleN.dp(..., details = FALSE, print = FALSE)` results are provided as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-10-26. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with ten (`design = "crossover"`) or eleven (`design = "parallel"` or `design = "IBD"`) columns: `Design`, `alpha`, `CV`, (`CVb`,) `doses`, `beta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use `sampleN.dp[["Sample size"]]`.
 
 <span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in a parallel design – like in some other software packages).</span>
 

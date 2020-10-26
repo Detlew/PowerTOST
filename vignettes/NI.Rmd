@@ -74,7 +74,7 @@ Designs with one (parallel), two (conventional crossover and paired), and three 
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`. The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design can be abbreviated as `"2x2"`. Some call the `"parallel"` design a ‘one-sequence’ design. The design `"paired"` has two periods but no sequences, *e.g.*, in studying linear pharmacokinetics a single dose is followed by multiple doses. A profile in steady state (T) is compared to the one after the single dose (R). Note that the underlying model assumes no period effects.
 
-With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-05-02. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eight columns `Design`, `alpha`, `CV`, `theta0`, `Margin`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `sampleN.noninf[1, 6]` or `sampleN.noninf[["Sample size"]]`. We suggest to use the latter in scripts for clarity.
+With `sampleN.noninf(..., details = FALSE, print = FALSE)` results are provided as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-10-26. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eight columns `Design`, `alpha`, `CV`, `theta0`, `Margin`, `Sample size`, `Achieved power`, and `Target power`. To access *e.g.*, the sample size use either `sampleN.noninf[1, 6]` or `sampleN.noninf[["Sample size"]]`. We suggest to use the latter in scripts for clarity.
 
 <span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence in crossovers or subjects/group in parallel designs – like in some other software packages).</span>
 
@@ -132,7 +132,8 @@ Which PK metric leads the sample size?
 ```{r bracket1}
 res <- data.frame(design = "2x2x4", metric = c("Cmin", "Cmax"),
                   margin = c(0.80, 1.25), CV = c(0.35, 0.20),
-                  theta0 = c(0.95, 1.05), n = NA, power = NA)
+                  theta0 = c(0.95, 1.05), n = NA, power = NA,
+                  stringsAsFactors = FALSE) # this line for R <4.0.0)
 for (i in 1:2) {
   res[i, 6:7] <- sampleN.noninf(design = res$design[i],
                                 margin = res$margin[i],
@@ -159,7 +160,7 @@ The bracketing approach does not necessarily give lower sample sizes than tests 
 res <- data.frame(design = "2x2x4", intended = c("ABEL", "ABE"),
                   metric = c("Cmin", "Cmax"), CV = c(0.35, 0.20),
                   theta0 = c(0.90, 1.05), n = NA, power = NA,
-                  stringsAsFactors = FALSE)
+                  stringsAsFactors = FALSE) # this line for R <4.0.0
 res[1, 6:7] <- sampleN.scABEL(CV = res$CV[1], theta0 = res$theta0[1],
                               design = res$design[1], print = FALSE,
                               details = FALSE)[8:9]
@@ -176,7 +177,7 @@ n <- sampleN.scABEL(CV = 0.35, theta0 = 0.90, design = "2x2x4",
 res <- data.frame(design = "2x2x4", intended = c("ABEL", "ABE"),
                   metric = c("Cmin", "Cmax"), CV = c(0.50, 0.25),
                   theta0 = c(0.88, 1.12), n = n, power = NA,
-                  stringsAsFactors = FALSE)
+                  stringsAsFactors = FALSE) # this line for R <4.0.0
 res[1, 7] <- power.scABEL(CV = res$CV[1], theta0 = res$theta0[1],
                           design = res$design[1], n = n)
 res[2, 7] <- power.TOST(CV = res$CV[2], theta0 = res$theta0[2],

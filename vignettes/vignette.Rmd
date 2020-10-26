@@ -36,7 +36,7 @@ Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST", date.f
 For an overview of supported designs, methods, and defaults together with some basic examples see
 
   * [README](https://cran.r-project.org/package=PowerTOST/readme/README.html) of the released version on CRAN;
-  * [README](https://github.com/Detlew/PowerTOST/blob/master/README.md) of the development version on GitHub.\
+  * [README](https://github.com/Detlew/PowerTOST#readme) of the development version on GitHub.\
 
 <h3>Details and examples are accessible via the menu bar on top of the page and in the <a href="https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf" title="PDF">online manual</a> of all functions.</h3>
 
@@ -164,7 +164,7 @@ R
 : Selects degrees of freedom according to Senn’s basic estimator, where $\small{df=n-n_\textrm{seq}}$.
 
 <span id="rsabe">RSABE</span>
-: Reference-scaled Average Bioequivalence (U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="National Medical Products Administration, Center for Drug Evaluation">NMPA-CDE</span>). Applicable if the intra-subject variability of the reference treatment *s*~wR~ ≥0.294 (<a href="#CVwR">*CV*~wR~</a> ≈ 30\%). The linearized model is $$\small{H_0:(\mu_\textrm{T}/\mu_\textrm{R})^2-\theta_\textrm{s}\cdot s_{wR}^{2}>0\:vs\:H_1:(\mu_\textrm{T}/\mu_\textrm{R})^2-\theta_\textrm{s}\cdot s_{\textrm{wR}}^{2}\leq 0}$$
+: Reference-scaled Average Bioequivalence (U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="National Medical Products Administration, Center for Drug Evaluation">NMPA-CDE</span>). Applicable if the intra-subject variability of the reference treatment *s*~wR~ ≥0.294 (<a href="#CVwR">*CV*~wR~</a> ≈ 30\%). The linearized model is $$\small{H_0:(\mu_\textrm{T}/\mu_\textrm{R})^2-\theta_\textrm{s}\cdot s_\textrm{wR}^{2}>0\:vs\:H_1:(\mu_\textrm{T}/\mu_\textrm{R})^2-\theta_\textrm{s}\cdot s_\textrm{wR}^{2}\leq 0}$$
     See also <a href="#abel">ABEL</a>.
 
 $\theta_0$
@@ -187,13 +187,14 @@ In all functions sample sizes are estimated based on equivalence margins [<a hre
 The widened margins for highly variable *C*~max~ are $\small{\theta_1=0.75,}$ $\small{\theta_2=1/\theta_1=1.\dot{3}}$ and not the rounded 75.00 – 133.33% according to the guidelines of the Russian Federation, the <span title="Eurasian Economic Union">EEU</span>, and the <span title="Gulf Cooperation Council">GCC</span>. If for a <a href="#ntid" title="Narrow Therapeutic Index Drug">NTID</a> `theta1 = 0.90` is specified, $\small{\theta_2=1/\theta_1=1.\dot{1}}$ and not the rounded 111.11% as in the guidelines. Health Canada requires rounding to only one decimal place with bioequivalence margins for <a href="#ntid" title="Narrow Therapeutic Index Drugs">NTIDs</a> of 90.0 – 112.0%.\
 Estimated sample sizes are generally not affected or – in *extremely* rare cases – conservative.
 
-Example for a <a href="#HVDP" title="Highly Variable Drug Product">HVDP</a> ($\small{\theta_0}$ 0.90, design TRTR|RTRT) and a <a href="#ntid" title="Narrow Therapeutic Index Drug">NTID</a> ($\small{\theta_0}$ 0.975, design TR|RT):
+Example for a <a href="#HVDP" title="Highly Variable Drug Product">HVDP</a> ($\small{\theta_0}$ 0.90, design 2x2x4) and a <a href="#ntid" title="Narrow Therapeutic Index Drug">NTID</a> ($\small{\theta_0}$ 0.975, design 2x2x2):
 ```{r rounding, echo = FALSE}
 library(PowerTOST)
 res <- data.frame(CV = c(rep(0.574, 3), rep(0.1, 2)),
                   regulator = c("EMA", "HC", "RU/EEU/GGC", "EMA", "HC"),
                   method = c(rep("ABEL", 2), rep("ABE", 3)),
-                  L = NA, U = NA, n.GL =NA, theta1 = NA, theta2 = NA, n = NA)
+                  L = NA, U = NA, n.GL = NA, theta1 = NA, theta2 = NA, n = NA,
+                  stringsAsFactors = FALSE) # this line for R <4.0.0
 for (i in 1:nrow(res)) {
   if (i <= 2) {
     LU <- scABEL(CV = res$CV[i], regulator = res$regulator[i])

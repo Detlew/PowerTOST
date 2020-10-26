@@ -66,7 +66,7 @@ If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
 
-With `foo(..., details = FALSE, print = FALSE)` results are given as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-05-02. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `foo(..., details = FALSE, print = FALSE)` results are given as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-10-26. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 <span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence – like in some other software packages).</span>
 
@@ -89,7 +89,7 @@ Estimate the sample size for assumed intra-subject *CV* 0.55 (*CV*~wT~ = *CV*~
 
 ### EMA
 Average Bioequivalence with Expanding Limits (ABEL). Default `regulator = "EMA"`.\
-Note that this approach is recommended in other jurisdictions as well (*e.g.*, the <span title="World Health Organisation">WHO</span>; <span title="Association of Southeast Asian Nations">ASEAN</span> States, Australia, Brazil, the East African Community, Egypt, the Eurasian Economic Union, New Zealand, the Russian Federation).
+Note that this approach is recommended in other jurisdictions as well (*e.g.*, the <span title="World Health Organisation">WHO</span>; <span title="Association of Southeast Asian Nations">ASEAN</span> States, Australia, Brazil, Chile, the East African Community, Egypt, the Eurasian Economic Union, New Zealand, the Russian Federation).
 
 ```r
 sampleN.scABEL(CV = 0.55)
@@ -577,7 +577,7 @@ With \~0.0482 the patient’s risk is controlled. However, the regulatory accept
 CV  <- c(0.30, 0.40898, 0.50, 0.57382)
 res <- data.frame(CV = CV, EMA.L = NA, EMA.U = NA, EMA.cap = "",
                   HC.L = NA, HC.U = NA, HC.cap = "",
-                  stringsAsFactors = FALSE)
+                  stringsAsFactors = FALSE) # this line for R <4.0.0
 for (i in seq_along(CV)) {
   res[i, 2:3] <- sprintf("%.4f", scABEL(CV[i], regulator = "EMA"))
   res[i, 5:6] <- sprintf("%.3f", scABEL(CV[i], regulator = "HC"))
@@ -602,7 +602,7 @@ For the FDA there is no upper cap (scaling is unlimited).
 ```r
 res <- data.frame(CV = c(0.25, se2CV(0.25), 0.275, 0.3, 0.5, 1.0),
                   impl.L = NA, impl.U = NA, cap = "",
-                  stringsAsFactors = FALSE)
+                  stringsAsFactors = FALSE) # this line for R <4.0.0
 for (i in 1:nrow(res)) {
   res[i, 2:3] <- sprintf("%.4f", scABEL(CV = res$CV[i],
                                         regulator = "FDA"))
@@ -623,7 +623,7 @@ print(res, row.names = FALSE)
 ```r
 res <- data.frame(CV = c(0.25, se2CV(0.25), 0.275, 0.3, 0.5, 1.0),
                   des.L = NA, des.U = NA, cap = "",
-                  stringsAsFactors = FALSE)
+                  stringsAsFactors = FALSE) # this line for R <4.0.0
 for (i in 1:nrow(res)) {
   if (CV2se(res$CV[i]) <= 0.25) {
     res[i, 2:3] <- sprintf("%.4f", c(0.80, 1.25))
