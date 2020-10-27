@@ -1,6 +1,6 @@
-# PowerTOST 1.5-1.9999
+# PowerTOST 1.5-2
 
-On GitHub 2020-10-26.
+On CRAN 2020-10-27.
 
 ## Bug fixes
   * `stringsAsFactors = FALSE` in example of main vignette for R v<4.0.0.
