@@ -67,18 +67,18 @@ Codes of designs follow this pattern:
 Although some replicate designs are more ‘popular’ than others, sample
 size estimations are valid for *all* of the following designs:
 
-| <small>design</small> | <small>type</small> | <small>sequences</small> |                       | <small>periods</small> |
-|:---------------------:|:-------------------:|:------------------------:|-----------------------|:----------------------:|
-|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TRTR|RTRT`           |    <small>4</small>    |
-|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TRRT|RTTR`           |    <small>4</small>    |
-|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TTRR|RRTT`           |    <small>4</small>    |
-|        `2x4x4`        |     <small>full     |     <small>4</small>     | `TRTR|RTRT|TRRT|RTTR` |    <small>4</small>    |
-|        `2x4x4`        |     <small>full     |     <small>4</small>     | `TRRT|RTTR|TTRR|RRTT` |    <small>4</small>    |
-|        `2x2x3`        |     <small>full     |     <small>2</small>     | `TRT|RTR`             |    <small>3</small>    |
-|        `2x2x3`        |     <small>full     |     <small>2</small>     | `TRR|RTT`             |    <small>3</small>    |
-|        `2x4x2`        |     <small>full     |     <small>4</small>     | `TR|RT|TT|RR`         |    <small>2</small>    |
-|        `2x3x3`        |   <small>partial    |     <small>3</small>     | `TRR|RTR|RRT`         |    <small>3</small>    |
-|        `2x2x3`        |   <small>partial    |     <small>2</small>     | `TRR|RTR`             |    <small>3</small>    |
+| <small>design</small> | <small>type</small> | <small>sequences</small> |                          | <small>periods</small> |
+|:---------------------:|:-------------------:|:------------------------:|--------------------------|:----------------------:|
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TRTR\|RTRT`             |    <small>4</small>    |
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TRRT\|RTTR`             |    <small>4</small>    |
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TTRR\|RRTT`             |    <small>4</small>    |
+|        `2x4x4`        |     <small>full     |     <small>4</small>     | `TRTR\|RTRT\|TRRT\|RTTR` |    <small>4</small>    |
+|        `2x4x4`        |     <small>full     |     <small>4</small>     | `TRRT\|RTTR\|TTRR\|RRTT` |    <small>4</small>    |
+|        `2x2x3`        |     <small>full     |     <small>2</small>     | `TRT\|RTR`               |    <small>3</small>    |
+|        `2x2x3`        |     <small>full     |     <small>2</small>     | `TRR\|RTT`               |    <small>3</small>    |
+|        `2x4x2`        |     <small>full     |     <small>4</small>     | `TR\|RT\|TT\|RR`         |    <small>2</small>    |
+|        `2x3x3`        |   <small>partial    |     <small>3</small>     | `TRR\|RTR\|RRT`          |    <small>3</small>    |
+|        `2x2x3`        |   <small>partial    |     <small>2</small>     | `TRR\|RTR`               |    <small>3</small>    |
 
 Balaam’s design `TR|RT|TT|RR` should be avoided due to its poor power
 characteristics. The three period partial replicate design with two
