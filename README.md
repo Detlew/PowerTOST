@@ -36,6 +36,10 @@ checks](https://cranchecks.info/badges/worst/PowerTOST)](https://cran.r-project.
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](https://r-pkg.org/pkg/PowerTOST)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
+![code
+size](https://img.shields.io/github/languages/code-size/Detlew/PowerTOST?color=green)
+![repo
+size](https://img.shields.io/github/repo-size/Detlew/PowerTOST?color=yellow)
 
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
@@ -779,7 +783,7 @@ Version 1.5.2 built 2020-10-27 with R 4.0.3.
     #  collate  German_Germany.1252         
     #  ctype    German_Germany.1252         
     #  tz       Europe/Vienna               
-    #  date     2020-10-27                  
+    #  date     2020-10-28                  
     # 
     # - Packages -------------------------------------------------------------------
     #  package       * version date       lib source        
