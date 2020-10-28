@@ -43,10 +43,9 @@ size](https://img.shields.io/github/repo-size/Detlew/PowerTOST?color=yellow)
 
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
-studies.
-
-    # Version 1.5.2 built 2020-10-27 with R 4.0.3
-    # (stable release on CRAN 2020-10-27).
+studies.  
+Version 1.5.2 built 2020-10-27 with R 4.0.3 (stable release on CRAN
+2020-10-27).
 
 ## Supported Designs
 

@@ -15,8 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies.  
-
-```{r, echo=FALSE}
+```{r, echo = FALSE, results = "asis"}
 pub <- packageDate("PowerTOST", date.fields = "Date/Publication")
 txt <- paste0("Version ", packageVersion("PowerTOST"), " built ",
          packageDate("PowerTOST", date.fields = "Built"),
