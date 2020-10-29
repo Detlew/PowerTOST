@@ -29,6 +29,7 @@ PowerTOST
 v2](https://img.shields.io/badge/License-GPLv2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![repo](https://img.shields.io/badge/repo%20since-Jun%202016-brightgreen)
 ![active](https://www.repostatus.org/badges/latest/active.svg) ![repo
 size](https://img.shields.io/github/repo-size/Detlew/PowerTOST?color=yellow)
 ![code
