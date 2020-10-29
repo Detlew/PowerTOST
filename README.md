@@ -33,6 +33,7 @@ v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/li
 size](https://img.shields.io/github/repo-size/Detlew/PowerTOST?color=yellow)
 ![code
 size](https://img.shields.io/github/languages/code-size/Detlew/PowerTOST?color=green)
+![first](https://img.shields.io/badge/CRAN%20since-May%202010-brightgreen)
 ![on CRAN](https://www.r-pkg.org/badges/version-ago/PowerTOST) [![cran
 checks](https://cranchecks.info/badges/worst/PowerTOST)](https://cran.r-project.org/web/checks/check_results_PowerTOST.html)
 [![CRAN RStudio mirror
