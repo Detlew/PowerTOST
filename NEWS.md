@@ -3,7 +3,7 @@
 On CRAN 2020-10-27.
 
 ## Bug fixes
-  * `stringsAsFactors = FALSE` in example of main vignette for R v<4.0.0.
+  * `stringsAsFactors = FALSE` in example of main vignette for R <4.0.0.
 
 # PowerTOST 1.5-1
 
@@ -12,7 +12,7 @@ On CRAN 2020-10-22.
 ## Bug fixes
   * Check of arg `theta0` within range `theta1 ... theta2` fixed.
   * Fix of the default settings of `theta1, theta2` if missing in various functions.
-  * Added `emmeans` to `Suggests`. Otherwise `NOTE` on r-devel-linux-x86_64-fedora-clang. THX to Gábor Csárdi and Duncan Murdoch on r-pck-devel. Will be required in R4.1.0 released next year.
+  * Added `emmeans` to `Suggests`. Otherwise `NOTE` on r-devel-linux-x86_64-fedora-clang. THX to Gábor Csárdi and Duncan Murdoch @r-pkg-devel. Will be required in R4.1.0 released next year.
 
 ## Minor changes
 
@@ -31,7 +31,7 @@ On CRAN 2020-08-09. (Maintenance release dedicated to 70 birthday of Detluuu)
   
   * Bug fix in `scABEL.ad` w.r.t. coercion.
   * Fix of the link to package `emmeans` in man pages of expected power.
-  * Fix in Example 1 of `ABE.Rmd` (not a good idea specify a variable with the same name as a function).
+  * Fix in Example 1 of `ABE.Rmd` (not a good idea to assign a variable with the same name as a function).
 
 ## Major changes
 
@@ -41,7 +41,7 @@ On CRAN 2020-08-09. (Maintenance release dedicated to 70 birthday of Detluuu)
 
   * Highlight clarification about *total* sample size in vignettes.
   * Removed links to man pages in vignettes (they work in the library but not in the public ones on CRAN).
-  * Moved `tufte` from Imports to Suggests (Duncan Murdoch).
+  * Moved `tufte` from Imports to Suggests (Duncan Murdoch @r-pkg-devel).
   * Harmonize default value of `theta1` in `pvalue.TOST` in case of `logscale = FALSE`
   * Clarification of argument `CV` (and `theta0`, `theta1`, `theta2`) in case of `logscale = FALSE`.
   * Clarify in man pages and vignettes that all functions return the *total* sample size (and not subjects/sequence in crossovers and subjects/group in parallel designs -- like in some other software packages). Suggested by Amandine Schmutz.
@@ -93,7 +93,7 @@ On CRAN 2019-08-29.
 ## Minor changes
 
   * LaTeX-builder on CRAN laments about UTF-8 characters in man-pages. No problem rendering the PDF-manual locally! Replaced all UTF-8 characters by `\enc{foo}{bar}`.
-  * In `power.scABEL()`: If `nsims` not given, defaults to 1e5 (like before). If `theta0` equals one of the expanded limits, deafault s to 1e6. Man-page updated.
+  * In `power.scABEL()`: If `nsims` not given, defaults to 1e5 (like before). If `theta0` equals one of the expanded limits, defaults to 1e6. Man-page updated.
   * Output of `sampleN.TOST()`: Same name of replicate designs like in the scaled functions.
   * In `power.scABEL()` name of scaled component `"p(BE-ABEL)"` instead of `"p(BE-wABEL)"`.
   * Updated `test_ABEL.R` in `inst/tests` to support subject simulations.

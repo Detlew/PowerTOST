@@ -29,17 +29,16 @@ PowerTOST
 v2](https://img.shields.io/badge/License-GPLv2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![active](https://www.repostatus.org/badges/latest/active.svg) ![on
-CRAN](https://www.r-pkg.org/badges/version-ago/PowerTOST) [![cran
+![active](https://www.repostatus.org/badges/latest/active.svg) ![repo
+size](https://img.shields.io/github/repo-size/Detlew/PowerTOST?color=yellow)
+![code
+size](https://img.shields.io/github/languages/code-size/Detlew/PowerTOST?color=green)
+![on CRAN](https://www.r-pkg.org/badges/version-ago/PowerTOST) [![cran
 checks](https://cranchecks.info/badges/worst/PowerTOST)](https://cran.r-project.org/web/checks/check_results_PowerTOST.html)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](https://r-pkg.org/pkg/PowerTOST)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
-![code
-size](https://img.shields.io/github/languages/code-size/Detlew/PowerTOST?color=green)
-![repo
-size](https://img.shields.io/github/repo-size/Detlew/PowerTOST?color=yellow)
 
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
@@ -782,7 +781,7 @@ Version 1.5.2 built 2020-10-27 with R 4.0.3.
     #  collate  German_Germany.1252         
     #  ctype    German_Germany.1252         
     #  tz       Europe/Vienna               
-    #  date     2020-10-28                  
+    #  date     2020-10-29                  
     # 
     # - Packages -------------------------------------------------------------------
     #  package       * version date       lib source        
