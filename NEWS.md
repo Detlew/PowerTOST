@@ -1,3 +1,13 @@
+# PowerTOST 1.5.2.9000
+
+On GitHub 2020-11-26.
+
+## Major changes
+
+  * Started implementation of power calculations of the GCC recommended 
+    evaluation of HVD/HVDP via subject data sims. Function power.fwl.sds()
+    but not documented up to now.
+  
 # PowerTOST 1.5-2
 
 On CRAN 2020-10-27.
