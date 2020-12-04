@@ -13,7 +13,8 @@ reg_const(regulator, r_const, CVswitch, CVcap, pe_constr)
 }
 \arguments{
   \item{regulator}{
-Name of the regulatory body as a string. Implemented settings are for \code{"EMA"}, \code{"FDA"}, and \code{"HC"}.\cr
+Name of the regulatory body as a string. Implemented settings are for \code{"EMA"}, 
+\code{"FDA"}, \code{"HC"}. and \code{"GCC"}.\cr
 The former (inofficial) settings for \code{"ANVISA"} are covered by the EMA settings.\cr 
 In case of \code{regulator="USER"} the other arguments must be given.
 Otherwise, they may be missing.
@@ -58,5 +59,5 @@ reg_const("EMA")
 # to define the old ANVISA settings
 reg      <- reg_const("USER", r_const = 0.76, CVswitch = 0.4, CVcap = 0.5)
 reg$name <- "Old ANVISA"
-# Use reg as argument in the power / sample size functions
+# Use reg as argument in the scaled ABEL power / sample size functions for
 }

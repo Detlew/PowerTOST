@@ -37,7 +37,8 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
     \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
           and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
     \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
-          heteroscedasticity, the CV of the Test \strong{must} be given in \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
+          heteroscedasticity, the CV of the Test \strong{must} be given in 
+          \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
   }
 }
   \item{n}{
@@ -61,16 +62,16 @@ Defaults to \code{"2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
-May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"FDA"} or as an object of
-class 'regSet' (see \code{\link{reg_const}}).\cr
+May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"FDA"}, 
+\code{"GCC"} or as an object of class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr
-The former \code{regulator="ANVISA"} is no longer allowed. Since 2016 the ANVISA recommends the EMA\enc{’}{'} regulatory settings. 
 }
   \item{nsims}{
 Number of simulations to be performed to obtain the empirical power.
 Defaults to 100,000 = 1e+05.\cr
-If not given and \code{theta0} equals one of the expanded limits (\emph{i.e.}, simulating empirical alpha), defaults to 1e+06.
+If not given and \code{theta0} equals one of the expanded limits (\emph{i.e.}, 
+simulating empirical alpha), defaults to 1e+06.
 }
   \item{details}{
 If set to \code{TRUE} the computational time is shown as well as the components
@@ -100,6 +101,9 @@ In case of \code{regulator="EMA"} a cap is placed on the widened limits if
 CVwR>0.5, \emph{i.e.}, the widened limits are held at value calculated for CVwR=0.5.
 In case of \code{regulator="HC"} the capping is done such that the acceptance
 limits are 0.6666 ... 1.5 at maximum.\cr\cr
+The case of \code{regulator="GCC"} is treatd as special case of ABEL with 
+CVswitch = CVcap = 0.3. The r_const = log(1.25)/CV2se(0.3) assures that for CV>0.3
+the widened BE limits of 0.7 ... 1.3333 are used.\cr\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on widened ABEL.\cr
 For more details see the document \verb{Implementation_scaledABE_simsVx.yy.pdf} in the 
@@ -121,7 +125,8 @@ range} alone. p(BE-ABE) is the power of the conventional ABE test given for
 comparative purposes.
 }
 \references{
-\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L. \emph{Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs.} J Pharm Pharmaceut Sci. 2011;15(1):73--84. \href{https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{open source}
+\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L. \emph{Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs.} J Pharm Pharmaceut Sci. 2011;15(1):73--84. 
+\href{https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{open source}
 }
 \author{
 D. Labes

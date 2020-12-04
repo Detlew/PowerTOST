@@ -8,7 +8,8 @@ Sample size estimation for BE Decision via Reference Scaled ABE
 \description{
 These functions performs the sample size estimation of the BE decision via 
 the reference scaled ABE based on \bold{subject data} simulations.
-Implemented are the methods ABEL, Hyslop and \sQuote{exact} (see the References in \code{\link{power.RSABE2L.sdsims}}).\cr
+Implemented are the methods ABEL, Hyslop and \sQuote{exact} (see the References in 
+\code{\link{power.RSABE2L.sdsims}}).\cr
 The estimation method of the key statistics needed to perform the \acronym{RSABE} decision 
 is the usual \acronym{ANOVA}.\cr
 This function has an alias sampleN.RSABE2L.sds().
@@ -63,7 +64,8 @@ Defaults to \code{design="2x3x3"}. Details are given the section about Designs.
   \item{SABE_test}{
 This argument specifies the test method to be used for the reference scaled
 \acronym{ABE} decision.\cr
-Default is the \code{"exact"} \sQuote{ncTOST} method of the two \enc{Laszlós}{Laszlos}. Other choices are \code{"ABEL"}, \code{"Hyslop"} and \code{"FDA"}. See Details.\cr
+Default is the \code{"exact"} \sQuote{ncTOST} method of the two \enc{Laszlós}{Laszlos}. 
+Other choices are \code{"ABEL"}, \code{"Hyslop"} and \code{"FDA"}. See Details.\cr
 This argument may be given also in lower case.
 }
   \item{regulator}{

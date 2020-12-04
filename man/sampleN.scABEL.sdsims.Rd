@@ -46,7 +46,8 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
     \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
           and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
     \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
-          heteroscedasticity, the CV of the Test \strong{must} be given in \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
+          heteroscedasticity, the CV of the Test \strong{must} be given in 
+          \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
   }
 }
   \item{design}{
@@ -58,8 +59,7 @@ Defaults to \code{design="2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
-May be given as \code{"EMA"} or as an object of
-class 'regSet' (see \code{\link{reg_const}}).\cr
+May be given as \code{"EMA"} or as an object of class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr
 If given as object of class 'regSet' the component \code{est_method} must not be \code{"ISC"}. 

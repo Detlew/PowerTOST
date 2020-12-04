@@ -27,6 +27,7 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
   else if (regulator=="EMA"){
     # r_const taken literally from BE guideline
     r <- list(name="EMA", CVswitch=0.3, r_const=0.76, CVcap=0.5)
+    r <- list(name="EMA", CVswitch=0.3, r_const=log(1.25)/CV2se(0.3), CVcap=0.5)
   }
   else if (regulator=="HC"){
     # r_const taken literally from guideline, 
@@ -34,8 +35,13 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
     # literally it was given as 57.4%
     r <- list(name="HC", CVswitch=0.3, r_const=0.76, 
               CVcap=0.57382,  # se2CV(log(1.5)/0.76) = 0.57381995
-              est_method="ISC") 
-  } else {
+              est_method="ISC")
+  }
+  else if (regulator=="GCC") {
+    # GCC as special case of ABEL
+    r <- list(name="GCC", CVswitch=0.3, r_const=log(0.75)/CV2se(0.3), CVcap=0.3)
+  } 
+  else {
     stop("Unknown regulator.")
   }
   class(r) <- "regSet"
@@ -51,7 +57,7 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
 # returns the regulatory settings as an object of class 'regSet'
 # regulator may be a character string or an object of class 'regSet'
 # ---------------------------------------------------------------------------
-reg_check <- function(regulator, choices=c("EMA", "HC", "FDA"))
+reg_check <- function(regulator, choices=c("EMA", "HC", "FDA", "GCC"))
 {
   if (class(regulator)=="character"){
     reg <- toupper(regulator)

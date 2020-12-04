@@ -40,7 +40,8 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
     \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
           and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
     \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
-          heteroscedasticity, the CV of the Test \strong{must} be given in \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
+          heteroscedasticity, the CV of the Test \strong{must} be given in 
+          \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
   }
 }
   \item{n}{

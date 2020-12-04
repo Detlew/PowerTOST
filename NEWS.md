@@ -1,13 +1,15 @@
 # PowerTOST 1.5.2.9000
 
-On GitHub 2020-11-26.
+On GitHub 2020-12-04.
 
 ## Major changes
 
-  * Started implementation of power calculations of the GCC recommended 
-    evaluation of HVD/HVDP via subject data sims. Function power.fwl.sds()
-    but not documented up to now.
-  
+  * Regulator "GCC" introduced (GCC = Co-operation Council for the Arab States 
+    of the Gulf). The GCC evaluation framework for HVD / HVDP is/can be
+    treated as special case of ABEL, i.e. use the regulatory settings with 
+    `power.scABEL()` / `sampleN.scABEL()`.
+    Experimental function power.fwl.sds() in turn removed.
+
 # PowerTOST 1.5-2
 
 On CRAN 2020-10-27.
@@ -22,7 +24,8 @@ On CRAN 2020-10-22.
 ## Bug fixes
   * Check of arg `theta0` within range `theta1 ... theta2` fixed.
   * Fix of the default settings of `theta1, theta2` if missing in various functions.
-  * Added `emmeans` to `Suggests`. Otherwise `NOTE` on r-devel-linux-x86_64-fedora-clang. THX to Gábor Csárdi and Duncan Murdoch @r-pkg-devel. Will be required in R4.1.0 released next year.
+  * Added `emmeans` to `Suggests`. Otherwise `NOTE` on r-devel-linux-x86_64-fedora-clang. 
+  THX to Gábor Csárdi and Duncan Murdoch @r-pkg-devel. Will be required in R4.1.0 released next year.
 
 ## Minor changes
 

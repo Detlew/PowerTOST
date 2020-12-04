@@ -43,7 +43,8 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
     \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
           and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
     \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
-          heteroscedasticity, the CV of the Test \strong{must} be given in \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
+          heteroscedasticity, the CV of the Test \strong{must} be given in 
+          \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
   }
 }
   \item{design}{
@@ -55,12 +56,10 @@ Defaults to \code{design="2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
-May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"FDA"} or as an object of
-class 'regSet' (see \code{\link{reg_const}}).\cr
+May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"FDA"} 
+or as an object of class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr\cr
-The former argument \code{regulator="ANVISA"} is defunct. Use "EMA" since the 
-ANVISA now recommends the use of EMA regulatory settings. 
 }
   \item{nsims}{
 Number of simulations to be performed to obtain the (empirical) power.
@@ -75,7 +74,8 @@ After reworking the start n in version 1.1-05 rarely needed.
 Maximum number of steps in sample size search. Defaults to 100.
 }
   \item{print}{
-If \verb{TRUE} (default) the function prints its results. If \verb{FALSE} only the result data.frame will be returned.
+If \verb{TRUE} (default) the function prints its results. 
+If \verb{FALSE} only the result data.frame will be returned.
 }
   \item{details}{
 If set to \code{TRUE} (default), the steps during sample size search are shown.
@@ -88,8 +88,7 @@ is issued if \code{setseed=TRUE}, the default.
 }
 \details{
 The simulations are done via the distributional properties of the statistical
-quantities necessary for deciding BE based on ABEL (\sQuote{Average Bioequivalence with Expanded Limits}). For more details see
-a description in the \code{/doc} sub-directory of the package.\cr\cr
+quantities necessary for deciding BE based on ABEL (\sQuote{Average Bioequivalence with Expanded Limits}). For more details see a description in the \code{/doc} sub-directory of the package.\cr\cr
 Function \code{sampleN.scABEL()} is based on power calculations via simulations 
 using the distributional characteristics of the \sQuote{key} statistics obtained from 
 the EMA recommended evaluation via ANOVA if \code{regulator="EMA"} or if the
@@ -98,7 +97,8 @@ of class 'regSet'.\cr
 Otherwise, the simulations are based on the distributional characteristis of the 
 \sQuote{key} statistics obtained from evaluation via intra-subject contrasts (ISC), 
 as recommended by the FDA.\cr\cr
-The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence -- like in some other software packages).\cr\cr
+The estimated sample size gives always the \emph{total} number of subjects 
+(not subject/sequence -- like in some other software packages).\cr\cr
 Function \code{sampleN.scABEL2()} is solely based on power calculations via 
 simulation using the distributional characteristics of the \sQuote{key} statistics 
 obtained from evaluation via ISC. This function is deprecated.
@@ -109,7 +109,8 @@ The \code{Sample size} column contains the total sample size.\cr
 The \code{nlast} column contains the last \code{n} value. May be useful for restarting.
 }
 \references{
-\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L. \emph{Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs.} J Pharm Pharmaceut Sci. 2011;15(1):73--84. \href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{open access}
+\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L. \emph{Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs.} J Pharm Pharmaceut Sci. 2011;15(1):73--84. 
+\href{http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489}{open access}
 }
 \author{
 D. Labes

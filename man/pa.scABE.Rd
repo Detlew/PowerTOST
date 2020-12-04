@@ -41,7 +41,7 @@ Defaults to \code{2x3x3}, the partial replicate design (TRR|RTR|RRT).
 }
   \item{regulator}{
 Character string describing the scaled ABE method recommended by the regulatory
-bodies \code{"EMA"}, \code{"HC"}, or \code{"FDA"}.\cr
+bodies \code{"EMA"}, \code{"HC"}, \code{"FDA"} or \code{"GCC"}.\cr
 Defaults to \code{"EMA"}, method of scaled (expanded) bioequivalence limits.
 }
   \item{\dots}{
@@ -56,7 +56,9 @@ Power calculations are done via \code{power.scABEL()} or \code{power.RSABE()} an
 calculations of CV and theta0 which result in \code{minpower} derived via R base \code{\link{uniroot}}.\cr
 While one of the parameters (CV, GMR, N) is varied, the respective two others are
 kept constant. The tool shows the relative impact of single parameters on power.\cr\cr
-The tool takes a minimum of 12 subjects as required in most BE guidances into account. However, the sample size will be increased from the estimated one if one of the following conditions is applicable:
+The tool takes a minimum of 12 subjects as required in most BE guidances into account. 
+However, the sample size will be increased from the estimated one if one of the 
+following conditions is applicable:
   \itemize{
     \item The FDA requires at least 24 subjects \emph{enrolled} in studies intended for reference-scaling.
     \item The EMA requires at least 12 \emph{eligible} subjects in the sequence RTR of the TRT|RTR-design (hence the minimum sample size is 24).
@@ -83,10 +85,12 @@ The class \code{'pwrA'} has the S3 methods \code{print()} and \code{plot()}.
 See \code{\link{pa.ABE}} for usage.
 }
 \references{
-\enc{Schütz}{Schuetz} H. \emph{Deviating from assumptions.} August 08, 2014. \href{https://forum.bebac.at/mix_entry.php?id=13353}{BEBA Forum}
+\enc{Schütz}{Schuetz} H. \emph{Deviating from assumptions.} August 08, 2014. 
+\href{https://forum.bebac.at/mix_entry.php?id=13353}{BEBA Forum}
 }
 \author{
-Idea and original code by H. \enc{Schütz}{Schuetz} with modifications by D. Labes to use PowerTOST infrastructure.
+Idea and original code by H. \enc{Schütz}{Schuetz} with modifications by D. Labes 
+to use PowerTOST infrastructure.
 }
 \note{
 The code for impact of deviations from planned sample size tries to
