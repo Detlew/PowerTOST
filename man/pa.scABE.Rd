@@ -13,7 +13,7 @@ in planning the sample size of the study.
 \usage{
 pa.scABE(CV, theta0 = 0.9, targetpower = 0.8, minpower = 0.7,
          design = c("2x3x3", "2x2x4", "2x2x3"),
-         regulator = c("EMA", "HC", "FDA"), ...)
+         regulator = c("EMA", "HC", "FDA", "GCC"), ...)
 }
 \arguments{
   \item{CV}{
