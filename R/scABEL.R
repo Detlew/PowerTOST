@@ -39,7 +39,7 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
   }
   else if (regulator=="GCC") {
     # GCC as special case of ABEL
-    r <- list(name="GCC", CVswitch=0.3, r_const=log(0.75)/CV2se(0.3), CVcap=0.3)
+    r <- list(name="GCC", CVswitch=0.3, r_const=log(1/0.75)/CV2se(0.3), CVcap=0.3)
   } 
   else {
     stop("Unknown regulator.")
