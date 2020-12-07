@@ -26,8 +26,9 @@ print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
   if (method == "scABE") {
     meth <- switch(x$regulator,
                    EMA=   " (EMA/ABEL)",
-                   HC =   " (HC/ABEL2)",
-                   FDA=   " (FDA/RSABE)"
+                   HC =   " (HC/ABEL)",
+                   FDA=   " (FDA/RSABE)",
+                   GCC=   " (GCC/ABEL)"
                   )
     method <- paste0(method, meth)
   }
