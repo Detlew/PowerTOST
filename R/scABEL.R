@@ -27,7 +27,7 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
   else if (regulator=="EMA"){
     # r_const taken literally from BE guideline
     r <- list(name="EMA", CVswitch=0.3, r_const=0.76, CVcap=0.5)
-    r <- list(name="EMA", CVswitch=0.3, r_const=log(1.25)/CV2se(0.3), CVcap=0.5)
+#    r <- list(name="EMA", CVswitch=0.3, r_const=log(1.25)/CV2se(0.3), CVcap=0.5)
   }
   else if (regulator=="HC"){
     # r_const taken literally from guideline, 
