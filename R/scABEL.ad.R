@@ -79,13 +79,13 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
   # Simulate underlying statistics (if sdsims=FALSE)
   opt1 <- function(x) {
     if (reg$name == "FDA") { # FDA
-      power.scABEL(alpha = x, CV = CV, theta0 = U, n = n,
-                   regulator = reg, design = design,
-                   nsims = nsims, setseed = setseed) - alpha
-    } else {                # EMA, HC, or GCC
       power.RSABE(alpha = x, CV = CV, theta0 = U, n = n,
                   regulator = reg, design = design,
                   nsims = nsims, setseed = setseed) - alpha
+    } else {                # EMA, HC, or GCC
+      power.scABEL(alpha = x, CV = CV, theta0 = U, n = n,
+                   regulator = reg, design = design,
+                   nsims = nsims, setseed = setseed) - alpha
     }
   }
   # Simulate subject data (if sdsims=TRUE)
