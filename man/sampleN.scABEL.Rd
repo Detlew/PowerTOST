@@ -56,8 +56,8 @@ Defaults to \code{design="2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
-May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"FDA"} 
-or as an object of class 'regSet' (see \code{\link{reg_const}}).\cr
+May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"GCC"},
+\code{"FDA"} or as an object of class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr\cr
 }

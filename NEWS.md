@@ -4,9 +4,10 @@ On GitHub 2020-12-04.
 
 ## Major changes
 
+  * `scABEL.ad()` and man page updated.
   * Regulator "GCC" introduced (GCC = Co-operation Council for the Arab States 
     of the Gulf). The GCC evaluation framework for HVD / HVDP is/can be
-    treated as special case of ABEL, i.e. use the regulatory settings with 
+    treated as special case of ABEL, i.e., use the regulatory settings with 
     `power.scABEL()` / `sampleN.scABEL()`.
     Experimental function power.fwl.sds() in turn removed.
 

@@ -14,7 +14,7 @@ reg_const(regulator, r_const, CVswitch, CVcap, pe_constr)
 \arguments{
   \item{regulator}{
 Name of the regulatory body as a string. Implemented settings are for \code{"EMA"}, 
-\code{"FDA"}, \code{"HC"}. and \code{"GCC"}.\cr
+\code{"FDA"}, \code{"HC"}, and \code{"GCC"}.\cr
 The former (inofficial) settings for \code{"ANVISA"} are covered by the EMA settings.\cr 
 In case of \code{regulator="USER"} the other arguments must be given.
 Otherwise, they may be missing.

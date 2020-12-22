@@ -13,7 +13,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
 {
   env <- as.character(Sys.info()[1]) # get info about the OS
   ifelse ((env == "Windows") || (env == "Darwin"), flushable <- TRUE,
-          flushable <- FALSE) # supress flushing on other OS's
+          flushable <- FALSE) # suppress flushing on other OS's
   # acceptance range defaults
   if (missing(theta1) && missing(theta2)) theta1 <- 0.8
   if (missing(theta1)) theta1 = 1/theta2
@@ -24,10 +24,10 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     stop("theta0 must be within [theta1, theta2]")
   # check regulator arg
   if(missing(regulator)) regulator <- "EMA"
-  reg <- reg_check(regulator, choices=c("EMA", "HC", "FDA"))
-  # if (regulator %in% c("HC", "FDA") && sdsims) # bug!
+  reg <- reg_check(regulator, choices=c("EMA", "HC", "GCC", "FDA"))
   if (reg$name %in% c("HC", "FDA") && sdsims) {
-    stop("Subject data simulations are not supported for regulator='HC' or 'FDA'.")
+    stop("Subject data simulations are not supported for regulator =\n",
+         "       \"HC\" or \"FDA\".")
   }
   # set iteration tolerance for uniroot().
   if (missing(tol)) tol <- 1e-6
@@ -59,14 +59,14 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
                          setseed = setseed)[["Sample size"]]
     }
     if (is.na(n))
-      stop(paste0("Sample size search in sampleN.scABEL() or sampleN.RSABE() failed.\n",
-                  "Restart with an explicitly high n (>1000)."))
+      stop("Sample size search in sampleN.scABEL() or sampleN.RSABE() failed.\n",
+           "       Restart with an explicitly high n (>1000).")
     no <- 1e5
   }
   if (sum(n) < 6) stop("Sample size too low.")
   if (alpha.pre > alpha) {
-    warning(paste0("alpha.pre > alpha does not make sense.\n",
-                   "alpha.pre was set to alpha."))
+    warning("alpha.pre > alpha does not make sense.\n",
+            "alpha.pre was set to alpha.")
     alpha.pre <- alpha
   }
   seqs <- as.numeric(substr(design, 3, 3)) # subjects / sequence
@@ -78,11 +78,11 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
   # Finds adjusted alpha which gives TIE as close as possible to alpha.
   # Simulate underlying statistics (if sdsims=FALSE)
   opt1 <- function(x) {
-    if (!reg$name == "FDA") { # EMA or HC
+    if (reg$name == "FDA") { # FDA
       power.scABEL(alpha = x, CV = CV, theta0 = U, n = n,
                    regulator = reg, design = design,
                    nsims = nsims, setseed = setseed) - alpha
-    } else {                  # FDA
+    } else {                # EMA, HC, or GCC
       power.RSABE(alpha = x, CV = CV, theta0 = U, n = n,
                   regulator = reg, design = design,
                   nsims = nsims, setseed = setseed) - alpha
@@ -103,7 +103,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     if (reg$name == "FDA") {
       method <- "RSABE"
     } else {
-      method  <- "ABEL" 
+      method <- "ABEL" 
     }
   }
   limits <- as.numeric(scABEL(CV = CVwR, regulator = reg$name))
@@ -123,7 +123,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     if (sdsims) cat("Be patient. Simulating subject data will take a good while!\n\n")  
     cat("+++++++++++ scaled (widened) ABEL ++++++++++++\n")
     cat("         iteratively adjusted alpha\n")
-    if (reg$name == "EMA") cat("   (simulations based on ANOVA evaluation)\n")
+    if (reg$name %in% c("EMA", "GCC")) cat("   (simulations based on ANOVA evaluation)\n")
     if (reg$name %in% c("HC", "FDA")) cat("(simulations based on intra-subject contrasts)\n")
     cat("----------------------------------------------\n")
     cat("Study design: ")
@@ -153,39 +153,44 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     } else {
       cat(paste("Switching CVwR                :", reg$CVswitch,
                 "\nRegulatory constant           :", signif(reg$r_const, 4), "\n"))
-      if (!reg$name == "FDA") { # EMA or HC
-        cat(sprintf("%s               : %.4f%s%.4f%s", "Expanded limits",
-                    limits[1], " ... ", limits[2], "\n"))
-      } else {                  # FDA
+      if (reg$name == "FDA") { # FDA
         cat(sprintf("%s             : %.4f%s%.4f%s", "Implied BE limits",
                     limits[1], " ... ", limits[2], "\n"))
+      } else {                 # EMA or HC
+        if (reg$name %in% c("EMA", "HC")) {
+          cat(sprintf("%s               : %.4f%s%.4f%s", "Expanded limits",
+                      limits[1], " ... ", limits[2], "\n"))
+        } else {               # GCC
+          cat(sprintf("%s               : %.4f%s%.4f%s", "Widened limits ",
+                      limits[1], " ... ", limits[2], "\n"))
+        }
       }
     }
-    if (regulator != "FDA")
+    if (!regulator %in% c("FDA", "GCC"))
       cat("Upper scaling cap             : CVwR >", reg$CVcap, "\n")
     cat("PE constraints                : 0.8000 ... 1.2500\n")
     if (progress) cat("Progress of each iteration:\n")
     if (flushable) flush.console() # advance console output.
   }
   if (!sdsims) { # simulate underlying statistics
-    if (!reg$name == "FDA") { # EMA or HC
-      TIE[1] <- power.scABEL(alpha = al, CV = CV, theta0 = U, n = n,
-                             design = design, regulator = reg,
-                             nsims = nsims, setseed = setseed)
-    } else {                  # FDA
+    if (reg$name == "FDA") { # FDA
       TIE[1] <- power.RSABE(alpha = al, CV = CV, theta0 = U, n = n,
                             design = design, regulator = reg,
                             nsims = nsims, setseed = setseed)
+    } else {                 # EMA, HC, GCC
+      TIE[1] <- power.scABEL(alpha = al, CV = CV, theta0 = U, n = n,
+                             design = design, regulator = reg,
+                             nsims = nsims, setseed = setseed)
     }
     no <- no + nsims
-    if (!reg$name == "FDA") { # EMA or HC
-      pwr[1] <- power.scABEL(alpha = al, CV = CV, theta0 = theta0,
-                             n = n, design = design, regulator = reg,
-                             setseed = setseed)
-    } else {                  # FDA
+    if (reg$name == "FDA") { # FDA
       pwr[1] <- power.RSABE(alpha = al, CV = CV, theta0 = theta0,
                             n = n, design = design, regulator = reg,
                             setseed = setseed)
+    } else {                  # EMA, HC, GCC
+      pwr[1] <- power.scABEL(alpha = al, CV = CV, theta0 = theta0,
+                             n = n, design = design, regulator = reg,
+                             setseed = setseed)
     }
     no <- no + 1e5
   } else { # simulate subject data
@@ -207,20 +212,20 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
     }
     alpha.adj <- x$root
     if (!sdsims) { # simulate underlying statistics
-      if (!reg$name == "FDA") { # EMA or HC
-        TIE[2] <- power.scABEL(alpha = alpha.adj, CV = CV, theta0 = U, n = n,
-                               design = design, regulator = reg,
-                               nsims = nsims, setseed = setseed)
-        pwr[2] <- power.scABEL(alpha = alpha.adj, CV = CV, theta0 = theta0,
-                               n = n, design = design, regulator = reg,
-                               setseed = setseed)
-      } else {                  # FDA
+      if (reg$name == "FDA") { # FDA
         TIE[2] <- power.RSABE(alpha = alpha.adj, CV = CV, theta0 = U, n = n,
                               design = design, regulator = reg,
                               nsims = nsims, setseed = setseed)
         pwr[2] <- power.RSABE(alpha = alpha.adj, CV = CV, theta0 = theta0,
                               n = n, design = design, regulator = reg,
                               setseed = setseed)
+      } else {                # EMA, HC, GCC
+        TIE[2] <- power.scABEL(alpha = alpha.adj, CV = CV, theta0 = U, n = n,
+                               design = design, regulator = reg,
+                               nsims = nsims, setseed = setseed)
+        pwr[2] <- power.scABEL(alpha = alpha.adj, CV = CV, theta0 = theta0,
+                               n = n, design = design, regulator = reg,
+                               setseed = setseed)
       }
     } else { # simulate subject data
       TIE[2] <- power.scABEL.sdsims(alpha = alpha.adj, CV = CV, theta0 = U,
