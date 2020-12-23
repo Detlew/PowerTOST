@@ -59,7 +59,7 @@ Defaults to \code{design="2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for the widening of the BE acceptance limits.\cr
-May be given as \code{"EMA"} or as an object of class 'regSet' (see \code{\link{reg_const}}).\cr
+May be given as \code{"EMA"}, \code{"GCC"}, or as an object of class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr
 If given as object of class 'regSet' the component \code{est_method} must not be \code{"ISC"}. 
@@ -102,7 +102,8 @@ in case of \code{regulator="EMA"}.
 If the CVwR of the Reference is < CVswitch=0.3 the conventional ABE limits 
 apply (mixed procedure).\cr 
 In case of \code{regulator="EMA"} a cap is placed on the widened limits if 
-CVwr>0.5, \emph{i.e.}, the widened limits are held at value calculated for CVwR=0.5.\cr\cr
+CVwR>0.5, \emph{i.e.}, the widened limits are held at value calculated for CVwR=0.5.\cr
+In case of \code{regulator="GCC"} \emph{fixed} wider limits of 0.7500--1.3333 for CVwR>0.3 are applied and the conventional limits otherwise.\cr\cr
 The simulations are done by simulating subject data (all effects fixed except the
 residuals) and evaluating these data via ANOVA of all data to get the point estimate
 of T vs. R along with its 90\% CI and an ANOVA of the data under R(eference) only

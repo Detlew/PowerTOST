@@ -119,7 +119,7 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
 *θ*~0~ 0.95, target power 0.80, design \"2x2\" (TR|RT), exact method (Owen’s Q).
 
 ### Reference-Scaled Average Bioequivalence  
-*α* 0.05, point estimate constraint (0.80, 1.25), homoscedasticity (*CV*~wT~ = *CV*~wR~),  scaling is based on *CV*~wR~, target power 0.80, design \"2x3x3\" (TRR|RTR|RRT), approximation by the non-central *t*-distribution, 100,000 simulations.
+*α* 0.05, point estimate constraint (0.80, 1.25), homoscedasticity (*CV*~wT~ = *CV*~wR~), scaling is based on *CV*~wR~, target power 0.80, design \"2x3x3\" (TRR|RTR|RRT), approximation by the non-central *t*-distribution, 100,000 simulations.
 
   - <span title="European Medicines Agency">EMA</span>, <span title="World Health Organization">WHO</span>, Health Canada, and many other jurisdictions: Average Bioequivalence with Expanding Limits (ABEL).
   - U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="Centre for Drug Evaluation">CDE</span>: RSABE.

@@ -56,7 +56,9 @@ sampleN.scABEL.sdsims <- function(alpha=0.05, targetpower=0.8, theta0, theta1,
     cat("alpha  = ", alpha,", target power = ", targetpower,"\n", sep="")
     cat("CVw(T) = ", CVwT,"; CVw(R) = ", CVwR,"\n", sep="")
     cat("True ratio = ",theta0,"\n", sep="")
-    cat("ABE limits / PE constraint =", theta1, "...", theta2,"\n")
+    cat("ABE limits / PE constraint =", theta1, "...", theta2, "\n")
+    if (reg$name == "GCC" & CVwR > 0.3)
+      cat("Widened limits =", 0.75, "...", 1/0.75, "\n")
     if (details | reg$name == "USER") { 
       print(reg)
       cat("\n")

@@ -66,7 +66,7 @@ If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
 
-With `foo(..., details = FALSE, print = FALSE)` results are given as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-10-26. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `foo(..., details = FALSE, print = FALSE)` results are given as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-12-23. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 <span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence – like in some other software packages).</span>
 
@@ -245,6 +245,37 @@ sampleN.scABEL(CV = 0.55, regulator = "HC")
 # 36   0.7864 
 # 39   0.8142
 ```
+### Gulf Cooperation Council
+Special case of ABEL: Conventional limits if *CV*~wR~ ≤30\% and widened limits of 0.7500--1.3333 otherwise. No upper cap of widening. Defaults as above but `regulator = "GCC"`.
+
+```r
+sampleN.scABEL(CV = 0.55, regulator = "GCC")
+# 
+# +++++++++++ scaled (widened) ABEL +++++++++++
+#             Sample size estimation
+#    (simulation based on ANOVA evaluation)
+# ---------------------------------------------
+# Study design: 2x3x3 (partial replicate)
+# log-transformed data (multiplicative model)
+# 1e+05 studies for each step simulated.
+# 
+# alpha  = 0.05, target power = 0.8
+# CVw(T) = 0.55; CVw(R) = 0.55
+# True ratio = 0.9
+# ABE limits / PE constraint = 0.8 ... 1.25 
+# Widened limits = 0.75 ... 1.333333 
+# GCC regulatory settings
+# - CVswitch            = 0.3 
+# - cap on scABEL if CVw(R) > 0.3
+# - regulatory constant = 0.9799758 
+# - pe constraint applied
+# 
+# 
+# Sample size search
+#  n     power
+# 72   0.7874 
+# 75   0.8021
+```
 ### FDA
 Apart from the FDA only required by China’s agency.
 
@@ -388,7 +419,7 @@ Power can by calculated by the counterparts of the respective sample size functi
 Contrary to average bioequivalence, where the Null-hypothesis is based on fixed limits, in reference-scaling the Null is generated in face of the data (*i.e*, the limits are random variables).
 
 Endrényi and Tóthfalusi (2009,^[Endrényi L, Tóthfalusi L. *Regulatory and study conditions for the determination of bioequivalence of highly variable drugs.* J Pharm Sci. 2009: 12(1); 138--49. [Open access](https://journals.library.ualberta.ca/jpps/index.php/JPPS/article/download/771/5275/0).] 2019^[Endrényi L, Tóthfalusi L. *Bioequivalence for highly variable drugs: regulatory agreements, disagreements, and harmonization.* J Pharmacokin Pharmacodyn. 2019: 46(2); 117--26. [doi:10.1007/s10928-019-09623-w](https://doi.org/10.1007/s10928-019-09623-w).]), Labes (2013^[Labes D. *‘alpha’ of scaled ABE?* BEBA Forum. Vienna, 2013. [Open access](https://forum.bebac.at/mix_entry.php?id=10202#top10202).]), Wonnemann *et al.* (2015^[Wonnemann M, Frömke C, Koch A. *Inflation of the Type I Error: Investigations on Regulatory Recommendations for Bioequivalence of Highly Variable Drugs.* Pharm Res. 2015: 32(1); 135--43. [doi:10.1007/s11095-014-1450-z](https://doi.org/10.1007/s11095-014-1450-z).]), Muñoz *et al.* (2016^[Muñoz J, Alcaide D, Ocaña J. *Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence in highly variable drugs.* Stat Med. 2016: 35(12); 1933--43. [doi:10.1002/sim.6834](https://doi.org/10.1002/sim.6834).]),
-Labes and Schütz (2016^[Labes D, Schütz H. *Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.* Pharm Res. 2016: 33(11); 2805--14. [doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).]), Tóthfalusi and Endrényi (2016,^[Tóthfalusi L, Endrényi L. *An Exact Procedure for the Evaluation of Reference-Scaled Average Bioequivalence.* AAPS J. 2016: 18(2); 476--89. [doi:10.1208/s12248-016-9873-6](https://doi.org/10.1208/s12248-016-9873-6).] 2017^[Tóthfalusi L, Endrényi L. *Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.* Stat Med. 2017: 36(27); 4378--90. [doi:10.1002/sim.7440](https://doi.org/10.1002/sim.7440).]), Molins *et al.* (2017^[Molins E, Cobo E, Ocaña J. *Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?* Stat Med. 2017: 36(30); 4777--88. 1650--67. [doi:10.1002/sim.7452](https://doi.org/10.1002/sim.7452).]), Deng and Zhou (2019^[Deng Y, Zhou X-H. *Methods to control the empirical type I error rate in average bioequivalence tests for highly variable drugs.* Stat Meth Med Res. 2019: 29(6). [doi:10.1177/0962280219871589](https://doi.org/10.1177/0962280219871589).]) showed that under certain conditions (EMA, Health Canada: *CV*~wR~ \~0.22--0.45, FDA: *CV*~wR~ ≤0.30) the type I error will be substantially inflated.\
+Labes and Schütz (2016^[Labes D, Schütz H. *Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.* Pharm Res. 2016: 33(11); 2805--14. [doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).]), Tóthfalusi and Endrényi (2016,^[Tóthfalusi L, Endrényi L. *An Exact Procedure for the Evaluation of Reference-Scaled Average Bioequivalence.* AAPS J. 2016: 18(2); 476--89. [doi:10.1208/s12248-016-9873-6](https://doi.org/10.1208/s12248-016-9873-6).] 2017^[Tóthfalusi L, Endrényi L. *Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.* Stat Med. 2017: 36(27); 4378--90. [doi:10.1002/sim.7440](https://doi.org/10.1002/sim.7440).]), Molins *et al.* (2017^[Molins E, Cobo E, Ocaña J. *Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?* Stat Med. 2017: 36(30); 4777--88. [doi:10.1002/sim.7452](https://doi.org/10.1002/sim.7452).]), Deng and Zhou (2019^[Deng Y, Zhou X-H. *Methods to control the empirical type I error rate in average bioequivalence tests for highly variable drugs.* Stat Meth Med Res. 2019: 29(6). [doi:10.1177/0962280219871589](https://doi.org/10.1177/0962280219871589).]) showed that under certain conditions (EMA, Health Canada: *CV*~wR~ \~0.22--0.45, FDA: *CV*~wR~ ≤0.30) the type I error will be substantially inflated.\
 Below the inflation region the study will be evaluated for ABE and the type I error controlled by the TOST. Above the inflation region the type I error is controlled by the PE restriction and for the EMA and Health Canada additionally by the upper cap of scaling.
 
 ```r
@@ -571,28 +602,31 @@ With \~0.0482 the patient’s risk is controlled. However, the regulatory accept
 
 # Helpers
 ## BE limits
-### Expanded Limits (EMA, Health Canada){#ExpLim}
+### Expanded Limits (EMA, Health Canada), widened limits (GCC){#ExpLim}
 
 ```r
 CV  <- c(0.30, 0.40898, 0.50, 0.57382)
 res <- data.frame(CV = CV, EMA.L = NA, EMA.U = NA, EMA.cap = "",
                   HC.L = NA, HC.U = NA, HC.cap = "",
+                  GCC.L = NA, GCC.U = NA, GCC.cap = "",
                   stringsAsFactors = FALSE) # this line for R <4.0.0
 for (i in seq_along(CV)) {
   res[i, 2:3] <- sprintf("%.4f", scABEL(CV[i], regulator = "EMA"))
   res[i, 5:6] <- sprintf("%.3f", scABEL(CV[i], regulator = "HC"))
+  res[i, 8:9] <- sprintf("%.3f", scABEL(CV[i], regulator = "GCC"))
 }
 res$EMA.cap[res$CV <= 0.30]   <- res$HC.cap[res$CV <= 0.30] <- "lower"
 res$EMA.cap[res$CV >= 0.50]   <- "upper"
 res$HC.cap[res$CV >= 0.57382] <- "upper"
+res$GCC.cap[res$CV <= 0.30]   <- res$GCC.cap[res$CV <= 0.30] <- "lower"
 print(res, row.names = FALSE)
-#       CV  EMA.L  EMA.U EMA.cap  HC.L  HC.U HC.cap
-#  0.30000 0.8000 1.2500   lower 0.800 1.250  lower
-#  0.40898 0.7416 1.3484         0.742 1.348       
-#  0.50000 0.6984 1.4319   upper 0.698 1.432       
-#  0.57382 0.6984 1.4319   upper 0.667 1.500  upper
+#       CV  EMA.L  EMA.U EMA.cap  HC.L  HC.U HC.cap GCC.L GCC.U GCC.cap
+#  0.30000 0.8000 1.2500   lower 0.800 1.250  lower 0.800 1.250   lower
+#  0.40898 0.7416 1.3484         0.742 1.348        0.750 1.333        
+#  0.50000 0.6984 1.4319   upper 0.698 1.432        0.750 1.333        
+#  0.57382 0.6984 1.4319   upper 0.667 1.500  upper 0.750 1.333
 ```
-For both agencies the lower cap for scaling is 30\%. Whereas the upper cap for the EMA is at 50\% (expanded limits 69.84--143.19\%), for Health Canada it is at ~57.4\% (expanded limits 66.7--150.0\%).
+For all agencies the lower cap for scaling is 30\%. Whereas the upper cap for the EMA is at 50\% (expanded limits 69.84--143.19\%), for Health Canada it is at ~57.4\% (expanded limits 66.7--150.0\%). The GCC has no upper cap (fixed widened limits 75.00--133.33\%).
 
 ### FDA
 For the FDA there is no upper cap (scaling is unlimited).
@@ -647,8 +681,8 @@ print(res, row.names = FALSE)
 ## Regulatory Settings
 
 ```r
-reg <- c("EMA", "HC", "FDA")
-for (i in 1:3) {
+reg <- c("EMA", "HC", "GCC", "FDA")
+for (i in 1:4) {
   print(reg_const(regulator = reg[i]))
   cat("\n")
 }
@@ -662,6 +696,12 @@ for (i in 1:3) {
 # - CVswitch            = 0.3 
 # - cap on scABEL if CVw(R) > 0.57382
 # - regulatory constant = 0.76 
+# - pe constraint applied
+# 
+# GCC regulatory settings
+# - CVswitch            = 0.3 
+# - cap on scABEL if CVw(R) > 0.3
+# - regulatory constant = 0.9799758 
 # - pe constraint applied
 # 
 # FDA regulatory settings
@@ -679,5 +719,5 @@ for (i in 1:3) {
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 
 # License{#license}
-<h4 class="author">Helmut Schütz 2020-08-25</h4>
+<h4 class="author">Helmut Schütz 2020-12-23</h4>
 [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")

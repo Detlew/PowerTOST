@@ -101,7 +101,7 @@ The estimated sample size gives always the \emph{total} number of subjects
 (not subject/sequence -- like in some other software packages).\cr\cr
 Function \code{sampleN.scABEL2()} is solely based on power calculations via 
 simulation using the distributional characteristics of the \sQuote{key} statistics 
-obtained from evaluation via ISC. This function is deprecated.
+obtained from evaluation via intra-subject contrasts (ISC). This function is deprecated.
 }
 \value{
 Returns a data.frame with the input settings and sample size results.\cr
@@ -156,7 +156,7 @@ If results of \code{\link{power.scABEL}} are expected to be inaccurate (partial
 replicate design with unbalanced sequences and/or heteroscedasticity
 where CVwT > CVwR), subject data via \code{\link{sampleN.scABEL.sdsims}} should
 be simulated instead. Very time consuming (easily 100times slower)! Subject data
-simulations are only supported for \code{regulator="EMA"}.
+simulations are only supported for \code{regulator="EMA"} and \code{regulator="GCC"}.
 }
 
 \seealso{
@@ -177,7 +177,7 @@ sampleN.scABEL(CV = 0.3)
 reg      <- reg_const("USER", r_const = 0.76, CVswitch = 0.4, CVcap = 0.5)
 reg$name <- "Old ANVISA"
 sampleN.scABEL(CV = 0.3, regulator = reg)
-# should result in n=60, power=0.8101
+# should result in a sample size n=60, power=0.8101
 
 # For the full replicate design, target power = 90\%
 # true assumed ratio = 0.9, FDA regulatory settings
@@ -190,5 +190,4 @@ sampleN.scABEL(CV = 0.4, targetpower = 0.9, design = "2x2x4",
 sampleN.scABEL(CV = 0.4, targetpower = 0.9, design = "2x2x4",
                regulator = "GCC")
 # should result in a sample size n=40, power=0.9039              
-
 }
