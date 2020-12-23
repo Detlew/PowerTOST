@@ -126,8 +126,12 @@ sequences or equal group sizes.
 -   ‘Expected’ power in case of uncertain (estimated) variability and/or
     uncertain *θ*<sub>0</sub>.
 -   Reference-scaled bioequivalence based on simulations.
-    -   <span title="European Medicines Agency">EMA</span>: Average
-        Bioequivalence with Expanding Limits (ABEL).  
+    -   <span title="European Medicines Agency">EMA</span>, <span
+        title="World Health Organization">WHO</span> and many others:
+        Average Bioequivalence with Expanding Limits (ABEL).
+    -   <span title="Gulf Co-operation Council">GCC</span>: Average
+        Bioequivalence with *fixed* widened limits of 75.00–133.33% if
+        *CV*<sub>wR</sub> &gt;30%.  
     -   U.S. <span title="Food and Drug Administration">FDA</span>,
         China <span title="Centre for Drug Evaluation">CDE</span>:
         Reference-scaled Average Bioequivalence (RSABE) for Highly
@@ -221,7 +225,7 @@ Regulatory constant `0.76`, upper cap of scaling at *CV*<sub>wR</sub>
 
 ###### Gulf Cooperation Council
 
-Regulatory constant `0.9799758`, widened limits 0.7500–1.3333 if
+Regulatory constant `0.9799758`, widened limits 75.00–133.33% if
 *CV*<sub>wR</sub> &gt;30%, no upper cap of scaling, evaluation by <span
 title="Analysis of Variance">ANOVA</span>.
 
