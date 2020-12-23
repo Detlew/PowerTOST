@@ -106,13 +106,13 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
           "BE limits          : 0.8000 ... 1.2500\n", sep="")
     } else {
       cat(paste("Switching CVwR     :", reg$CVswitch,
-                "\nRegulatory constant:", reg$r_const, "\n"))
+                "\nRegulatory constant:", signif(reg$r_const, 5), "\n"))
       if (!regulator == "GCC") {
         cat(sprintf("%s    : %.4f%s%.4f%s", "Expanded limits",
-                    limits[1], "...", limits[2], "\n"))
+                    limits[1], " ... ", limits[2], "\n"))
       } else {
         cat(sprintf("%s    : %.4f%s%.4f%s", "Widened limits ",
-                    limits[1], "...", limits[2], "\n"))
+                    limits[1], " ... ", limits[2], "\n"))
       }
     }
     if (!regulator == "GCC")
