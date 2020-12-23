@@ -60,7 +60,7 @@ Defaults to \code{"2x3x3"}. Details are given the section about Designs.
 }
   \item{regulator}{
 Regulatory settings for the widening of the \acronym{BE} acceptance limits.
-Choose from \code{"EMA"} (default) or \code{"HC"}. This argument may be given
+Choose from \code{"EMA"} (default), \code{"HC"}, or \code{"GCC"}. This argument may be given
 also in lower case.
 }
   \item{nstart}{
@@ -97,7 +97,7 @@ Pre-specified alpha (optional). Must be \code{<=alpha}. \acronym{ABEL} will be
 performed at level \verb{alpha.pre} and the \acronym{TIE} assessed at level \code{alpha}.\cr
 Less powerful than adjusting alpha but an alternative in the critical
 region of maximum inflation of the \acronym{TIE}. In certain scenarios
-Bonferroni’s 0.025 is not sufficient to preserve the Type I Error.\cr
+Bonferroni\enc{’}{'}s 0.025 is not sufficient to preserve the Type I Error.\cr
 Not recommended if \code{CVwR >= 0.45} due to poor power characteristics.
 }
 \item{setseed}{
@@ -112,7 +112,7 @@ Set to \code{TRUE} if results of \code{\link{power.scABEL}} are expected to
 be inaccurate (partial replicate design with unbalanced sequences and/or heteroscedasticity
 where CVwT > CVwR) and subject data via \code{\link{power.scABEL.sdsims}} should
 be simulated instead. Very time consuming (easily 100times slower)! Subject data
-simulations are only supported for \code{regulator="EMA"}.
+simulations are only supported for \code{regulator="EMA"} and \code{regulator="GCC"}.
 }
 \item{progress}{
 Set to \code{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims=FALSE}.
@@ -124,15 +124,15 @@ quantities necessary for assessing \acronym{BE} based on \acronym{ABEL}.
 Simulations for the \acronym{TIE} are performed at the upper (expanded) limit \emph{U}
 of the acceptance range. Due to the symmetry around 1 results are valid for the lower
 (expanded) limit \emph{L} as well.\cr
-\emph{U} at the \acronym{EMA}’s and Health Canada’s \code{CVswitch} and
-\code{CVcap}:\preformatted{scABEL(CV=0.3, reg="EMA")[["upper"]]; scABEL(CV=0.3, reg="HC")[["upper"]]
-[1] 1.25
-[1] 1.25
-scABEL(CV=0.5, reg="EMA")[["upper"]]; scABEL(CV=0.57382, reg="HC")[["upper"]]
+\emph{U} at the \acronym{EMA}\enc{’}{'}s and Health Canada\enc{’}{'}s \code{CVcap}, the \acronym{GCC}\enc{’}{'}s for \emph{any} CVwR > 0.3:\preformatted{
+scABEL(CV=0.5, reg="EMA")[["upper"]]
 [1] 1.43191
-[1] 1.5}
+scABEL(CV=0.57382, reg="HC")[["upper"]]
+[1] 1.5
+scABEL(CV=0.31, reg="GCC")[["upper"]]
+[1] 1.333333}
 Simulated studies are evaluated by ANOVA (Method A) as recommended in the
-\acronym{EMA}’s Q&A-document and by intra-subject contrasts if \code{regulator="HC"}.
+\acronym{EMA}\enc{’}{'}s Q&A-document and by intra-subject contrasts if \code{regulator="HC"}.
 Health Canada requires a mixed effects model which cannot be implemented in R. However,
 intra-subjects contrasts are a sufficiently close approximation.\cr
 
@@ -190,7 +190,8 @@ Since the dependence of power from \code{n} is very flat in the mentioned region
 also consider to adapt the number of simulations not to tap in the simulation
 error trap.\cr\cr
 See also the Warning section of the function \code{\link{power.scABEL}} concerning
-the power value agreement to those obtained from simulations via subject data.
+the power value agreement to those obtained from simulations via subject data.\cr\cr
+For the \acronym{GCC} and CVwR \enc{≤}{<=} 0.3 simulations will be time consuming and may result in large sample sizes.
 }
 
 \seealso{

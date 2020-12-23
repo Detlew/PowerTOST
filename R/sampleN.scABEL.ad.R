@@ -15,7 +15,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
 {
   env <- as.character(Sys.info()[1]) # get info about the OS
   ifelse ((env == "Windows") || (env == "Darwin"), flushable <- TRUE,
-    flushable <- FALSE) # supress flushing on other OS's
+    flushable <- FALSE) # suppress flushing on other OS's
   # acceptance range defaults
   if (missing(theta1) && missing(theta2)) theta1 <- 0.8
   if (missing(theta1)) theta1 = 1/theta2
@@ -26,9 +26,9 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     stop("theta0 must be within [theta1, theta2]")
   # check regulator arg
   if (missing(regulator)) regulator <- "EMA"
-  reg <- reg_check(regulator, choices=c("EMA", "HC"))
+  reg <- reg_check(regulator, choices=c("EMA", "HC", "GCC"))
   if (regulator == "HC" & sdsims)
-    stop("Subject data simulations are not supported for regulator='HC'.")
+    stop("Subject data simulations are not supported for regulator=\"HC\".")
   if (length(nstart) == 2) nstart <- sum(nstart)
   design <- match.arg(design)
   if (missing(CV)) stop("CV must be given!")
@@ -49,7 +49,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
                      conf.level = 1 - alpha)$conf.int[2]
   method <- "ABE"
   if (CVwR > reg$CVswitch) method <- "ABEL"
-  # define the data.frame of rseults
+  # define the data.frame of results
   res <- data.frame(design = design, regulator = reg$name,
                     method = method, eval = reg$est_method,
                     theta0 = theta0, CVwT = CVwT, CVwR = CVwR,
@@ -78,7 +78,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     cat("\n+++++++++++ scaled (widened) ABEL ++++++++++++\n")
     cat("            Sample size estimation\n")
     cat("        for iteratively adjusted alpha\n")
-    if (regulator == "EMA") cat("   (simulations based on ANOVA evaluation)\n")
+    if (regulator %in% c("EMA", "GCC")) cat("   (simulations based on ANOVA evaluation)\n")
     if (regulator == "HC") cat("(simulations based on intra-subject contrasts)\n")
     cat("----------------------------------------------\n")
     cat("Study design: ")
@@ -107,10 +107,16 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     } else {
       cat(paste("Switching CVwR     :", reg$CVswitch,
                 "\nRegulatory constant:", reg$r_const, "\n"))
-      cat(sprintf("%s    : %.4f%s%.4f%s", "Expanded limits",
-                  limits[1], "...", limits[2], "\n"))
+      if (!regulator == "GCC") {
+        cat(sprintf("%s    : %.4f%s%.4f%s", "Expanded limits",
+                    limits[1], "...", limits[2], "\n"))
+      } else {
+        cat(sprintf("%s    : %.4f%s%.4f%s", "Widened limits ",
+                    limits[1], "...", limits[2], "\n"))
+      }
     }
-    cat("Upper scaling cap  : CVwR >", reg$CVcap, "\n")
+    if (!regulator == "GCC")
+      cat("Upper scaling cap  : CVwR >", reg$CVcap, "\n")
     cat("PE constraints     : 0.8000 ... 1.2500\n")
     if (progress) cat("Progress of each iteration:\n")
     if (flushable) flush.console()

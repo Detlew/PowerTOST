@@ -119,8 +119,7 @@ quantities necessary for assessing \acronym{BE} based on \acronym{ABEL}.
 Simulations for the \acronym{TIE} are performed at the upper (expanded) limit \emph{U}
 of the acceptance range. Due to the symmetry around 1 results are valid for the lower
 (expanded) limit \emph{L} as well.\cr
-\emph{U} at the \acronym{EMA}\enc{’}{'}s and Health Canada\enc{’}{'}s \code{CVswitch} and
-\code{CVcap}:\preformatted{scABEL(CV=0.5, reg="EMA")[["upper"]]
+\emph{U} at the \acronym{EMA}\enc{’}{'}s and Health Canada\enc{’}{'}s \code{CVcap}, the \acronym{GCC}\enc{’}{'}s for \emph{any} CVwR > 0.3:\preformatted{scABEL(CV=0.5, reg="EMA")[["upper"]]
 [1] 1.43191
 scABEL(CV=0.57382, reg="HC")[["upper"]]
 [1] 1.5

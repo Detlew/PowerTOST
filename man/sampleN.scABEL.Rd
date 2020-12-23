@@ -41,7 +41,7 @@ Defaults to 1.25 if not given explicitly.
 Intra-subject coefficient(s) of variation as ratio (not percent).
   \itemize{
     \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
-          and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
+          and Reference is assumed (homoscedasticity, CVwT=CVwR).
     \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
           heteroscedasticity, the CV of the Test \strong{must} be given in 
           \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
@@ -64,7 +64,7 @@ This argument may be given also in lower case if given as character.\cr\cr
   \item{nsims}{
 Number of simulations to be performed to obtain the (empirical) power.
 The default value 100,000 = 1e+5 is usually sufficient. Consider to rise 
-this value if theta0<=0.85 or >=1.25. But see the warning section.
+this value if \code{theta0} \enc{≤}{<=}0.85 or \enc{≥}{>=}1.25. But see the warning section.
 }
   \item{nstart}{
 Set this to a start for the sample size search if a previous run failed.\cr
@@ -143,7 +143,7 @@ Although some designs are more \sQuote{popular} than others, sample size estimat
   }
 }
 \section{Warning }{
-The sample size estimation for very extreme theta0 (<0.83 or >1.21) may be very 
+The sample size estimation for extreme \code{theta0} (<0.83 or >1.21) may be very 
 time consuming and will eventually also fail since the start values chosen are 
 not really reasonable in that ranges. This is especially true in the range around 
 CV = 0.3 and regulatory constant according to FDA.\cr
@@ -171,18 +171,24 @@ simulations are only supported for \code{regulator="EMA"}.
 # EMA regulatory settings
 sampleN.scABEL(CV = 0.3)
 # should result in a sample size n=54, power=0.8159
-#
-# now with former (inofficial) ANVISA settings, CVswitch=40\%
+
+# Now with former (inofficial) ANVISA settings, CVswitch=40\%
 # (since 2016 ANVISA uses the same settings as EMA)
 reg      <- reg_const("USER", r_const = 0.76, CVswitch = 0.4, CVcap = 0.5)
 reg$name <- "Old ANVISA"
 sampleN.scABEL(CV = 0.3, regulator = reg)
 # should result in n=60, power=0.8101
 
-# for the full replicate design, target power = 90\%
+# For the full replicate design, target power = 90\%
 # true assumed ratio = 0.9, FDA regulatory settings
 # sims based on evalaution via ISC
-sampleN.scABEL(CV = 0.4, targetpower = 0.9, theta0 = 0.9,
-               design = "2x2x4", regulator = "FDA")
+sampleN.scABEL(CV = 0.4, targetpower = 0.9, design = "2x2x4",
+               regulator = "FDA")
 # should result in a sample size n=32, power=0.9125
+
+# Fixed wider limits (0.7500 - 1.3333) for the GCC
+sampleN.scABEL(CV = 0.4, targetpower = 0.9, design = "2x2x4",
+               regulator = "GCC")
+# should result in a sample size n=40, power=0.9039              
+
 }
