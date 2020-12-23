@@ -166,7 +166,6 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
   if (!is.na(TIE.adj)) {
     if (TIE.adj <= alpha && pwr.adj > targetpower) step.1 <- TRUE
   }
-  # browser()
   if (step.1 && is.na(TIE.adj)) { # Stop: Nothing to do.
     if (!details && print) { # only if we don't have this info already
       cat(sprintf("%s %3d, %s %.4f %s %.4f%s %.4f%s", "\nn", unadj.n,
@@ -210,7 +209,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
       step.1 <- TRUE
     } else {         # In later iterations use scABEL.ad().
       if (step.1) {             # Prevents overshooting power in
-        n.new <- n.new - 2*seqs # the 1st step, e.g, aim /lower/
+        n.new <- n.new - seqs   # the 1st step, e.g, aim /lower/
         step.1 <- FALSE         # to be on the safe side!
       } else {
         n.new <- n.new + seqs   # Increase n in further steps.
