@@ -133,6 +133,9 @@ Regulatory constant `0.76`, upper cap of scaling at *CV*~wR~ 50\%, evaluation by
 ###### Health Canada
 Regulatory constant `0.76`, upper cap of scaling at *CV*~wR~ ~57.4\%, evaluation by intra-subject contrasts.
 
+###### Gulf Cooperation Council
+Regulatory constant `0.9799758`, widened limits 0.7500--1.3333 if *CV*~wR~ >30\%, no upper cap of scaling, evaluation by <span title="Analysis of Variance">ANOVA</span>.
+
 ###### FDA
 Regulatory constant `log(1.25)/0.25`, linearized scaled <span title="Average Bioequivalence">ABE</span> (Howe’s approximation).
 
