@@ -41,9 +41,9 @@ Defaults to 1.25 if not given explicitly.
 Intra-subject coefficient(s) of variation as ratio (not percent).
   \itemize{
     \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
-          and Reference is assumed (homoscedasticity, CVwT=CVwR).
+          and Reference is assumed (homoscedasticity, \ifelse{latex}{\out{$CV_\textrm{wT}=CV_\textrm{wR}$}}{\ifelse{html}{\out{<em>CV</em><sub>wT</sub>&nbsp=&nbsp;<em>CV</em><sub>wR</sub>}}{CVwT = CVwR}}).
     \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
-          heteroscedasticity, the CV of the Test \strong{must} be given in 
+          heteroscedasticity, the \ifelse{latex}{\out{$CV$}}{\ifelse{html}{\out{<em>CV</em>}}{CV}} of the Test \strong{must} be given in 
           \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
   }
 }
@@ -123,7 +123,7 @@ In case of \code{regulator="FDA"} the sample size is only approximate since
 the BE decision method is not exactly what is expected by the FDA. But the two \enc{Lászlós}{Laszlos} state that the scABEL method should be \sQuote{operationally} equivalent to the
 FDA method. Thus the sample size should be comparable.\cr
 Consider in case of \code{regulator="FDA"} to use the function 
-\code{sampleN.RSABE()}.\cr\cr
+\code{sampleN.RSABE()} instead.\cr\cr
 In case of \code{regulator="HC"} the underlying power is only approximative 
 since the Health Canada recommends evaluation by a mixed model approach. 
 But this could only implemented via subject data simulations which are very 
@@ -148,15 +148,12 @@ time consuming and will eventually also fail since the start values chosen are
 not really reasonable in that ranges. This is especially true in the range around 
 CV = 0.3 and regulatory constant according to FDA.\cr
 If you really need sample sizes in that range be prepared to restart the sample 
-size estimation via the argument nstart.\cr
+size estimation via the argument \code{nstart}.\cr
 Since the dependence of power from n is very flat in the mentioned region you may 
-also consider to adapt the number of simulations not to tap in the simulation 
+also consider to adapt the number of simulations not to get caught in the simulation 
 error trap.\cr\cr
 If results of \code{\link{power.scABEL}} are expected to be inaccurate (partial
-replicate design with unbalanced sequences and/or heteroscedasticity
-where CVwT > CVwR), subject data via \code{\link{sampleN.scABEL.sdsims}} should
-be simulated instead. Very time consuming (easily 100times slower)! Subject data
-simulations are only supported for \code{regulator="EMA"} and \code{regulator="GCC"}.
+replicate design with unbalanced sequences and/or heteroscedasticity in the case of  \ifelse{latex}{\out{$CV_\textrm{wT}>CV_\textrm{wR}$}}{\ifelse{html}{\out{<em>CV</em><sub>wT</sub>&nbsp&gt;&nbsp;<em>CV</em><sub>wR</sub>}}{CVwT > CVwR}}, subject data via \code{\link{sampleN.scABEL.sdsims}} should be simulated instead. Very time consuming (easily 100times slower)! Subject data simulations are only supported for \code{regulator="EMA"} and \code{regulator="GCC"}.
 }
 
 \seealso{

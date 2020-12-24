@@ -43,10 +43,10 @@ Defaults to 1.25 if not given explicitly.
   \item{CV}{
 Intra-subject coefficient(s) of variation as ratio (not percent).
   \itemize{
-    \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
-          and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
+    \item If given as a scalar (\code{length(CV)==1}) the \emph{same} \ifelse{latex}{\out{$CV$}}{\ifelse{html}{\out{<em>CV</em>}}{CV}} of Test
+          and Reference is assumed (homoscedasticity, \ifelse{latex}{\out{$CV_\textrm{wT}=CV_\textrm{wR}$}}{\ifelse{html}{\out{<em>CV</em><sub>wT</sub>&nbsp=&nbsp;<em>CV</em><sub>wR</sub>}}{CVwT = CVwR}}).
     \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
-          heteroscedasticity, the CV of the Test \strong{must} be given in 
+          heteroscedasticity, the \ifelse{latex}{\out{$CV$}}{\ifelse{html}{\out{<em>CV</em>}}{CV}} of the Test \strong{must} be given in 
           \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
   }
 }
@@ -67,7 +67,7 @@ If given as object of class 'regSet' the component \code{est_method} must not be
   \item{nsims}{
 Number of simulations to be performed to obtain the (empirical) power.
 The default value 100,000 = 1e+5 is usually sufficient. Consider to rise 
-this value if theta0<=0.85 or >=1.25. But see the warning section.
+this value if \code{theta0} <=0.85 or >=1.25. But see the warning section.
 }
   \item{nstart}{
 Set this to a start for the sample size search if a previous run failed.\cr
@@ -88,7 +88,7 @@ generator. To avoid differences in power for different runs a \code{set.seed(123
 is issued if \code{setseed=TRUE}, the default. 
 }
   \item{progress}{
-Should a progressbar be shown? Defaults to \code{TRUE} if missing and nsims >5E5.
+Should a progressbar be shown? Defaults to \code{TRUE} if missing and \code{nsims} >5E5.
 }
 }
 \details{
@@ -99,15 +99,14 @@ The expanded BE acceptance limits will be calculated by the formula\cr
 with \code{r_const} the regulatory constant and \code{sWR} the standard deviation of the within
 subjects variability of the Reference. \code{r_const = 0.76} (~log(1.25)/0.29356) is used 
 in case of \code{regulator="EMA"}.
-If the CVwR of the Reference is < CVswitch=0.3 the conventional ABE limits 
-apply (mixed procedure).\cr 
+If the CVwR is < CVswitch=0.3 the conventional ABE limits apply (mixed procedure).\cr 
 In case of \code{regulator="EMA"} a cap is placed on the widened limits if 
-CVwR>0.5, \emph{i.e.}, the widened limits are held at value calculated for CVwR=0.5.\cr
-In case of \code{regulator="GCC"} \emph{fixed} wider limits of 0.7500--1.3333 for CVwR>0.3 are applied and the conventional limits otherwise.\cr\cr
+\ifelse{latex}{\out{$CV_\textrm{wR}>0.50$}}{\ifelse{html}{\out{<em>CV</em><sub>wR</sub>&nbsp&gt;&nbsp;0.50}}{CVwR > 0.50}}, \emph{i.e.}, the widened limits are held at value calculated for \ifelse{latex}{\out{$CV_\textrm{wR}=0.50$}}{\ifelse{html}{\out{<em>CV</em><sub>wR</sub>&nbsp=&nbsp;0.50}}{CVwR = 0.50}}.\cr
+In case of \code{regulator="GCC"} \emph{fixed} wider limits of 0.7500 -- 1.3333 for \ifelse{latex}{\out{$CV_\textrm{wR}>0.30$}}{\ifelse{html}{\out{<em>CV</em><sub>wR</sub>&nbsp;&gt;&nbsp;0.30}}{CVwR >= 0.30}} are applied and the conventional limits otherwise.\cr\cr
 The simulations are done by simulating subject data (all effects fixed except the
 residuals) and evaluating these data via ANOVA of all data to get the point estimate
 of T vs. R along with its 90\% CI and an ANOVA of the data under R(eference) only
-to get an estimate of s2wR.\cr\cr
+to get an estimate of \ifelse{latex}{\out{$s^2_\textrm{wR}$}}{\ifelse{html}{\out{<em>s</em>&sup2;<sub>wR</sub>}}{s2wR}}.\cr\cr
 The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence -- like in some other software packages).
 }
 \value{
@@ -129,7 +128,7 @@ The minimum sample size is 6, even if the power is higher than the intended
 targetpower.\cr\cr
 Subject simulations are easily more than 100times slower than simulations based
 on the \sQuote{key} statistics. We recommend this function only for the partial
-replicate design (TRR|RTR|RRT) assuming heteroscedasticity, especially if \code{CVwT > CVwR}.\cr
+replicate design (TRR|RTR|RRT) assuming heteroscedasticity in the case of  \ifelse{latex}{\out{$CV_\textrm{wT}>CV_\textrm{wR}$}}{\ifelse{html}{\out{<em>CV</em><sub>wT</sub>&nbsp&gt;&nbsp;<em>CV</em><sub>wR</sub>}}{CVwT > CVwR}}.\cr
 Thus be patient and go for a cup of coffee if you use this function with high 
 sample sizes!
 }
@@ -145,13 +144,13 @@ Although some designs are more \sQuote{popular} than others, sample size estimat
   }
 }
 \section{Warning }{
-The sample size estimation for very extreme theta0 (<0.83 or >1.21) may be very 
+The sample size estimation for very extreme \code{theta0} (<0.83 or >1.21) may be very 
 time consuming and will eventually also fail since the start values chosen are 
 not really reasonable in that ranges.\cr
 If you really need sample sizes in that range be prepared to restart the sample 
 size estimation via the argument nstart.\cr
 Since the dependence of power from n is very flat in the mentioned region you may 
-also consider to adapt the number of simulations not to tap in the simulation 
+also consider to adapt the number of simulations not to get caught in the simulation 
 error trap.
 }
 
@@ -164,7 +163,7 @@ error trap.
 # true assumed ratio = 0.90, 1E+5 simulated studies
 # ABE limits, PE constraint 0.8 - 1.25
 # EMA regulatory settings
-# Heterogenicity (CVwT 0.4, CVwR 0.3)
+# Heteroscedasticity (CVwT 0.4, CVwR 0.3)
 # compare results and run times
 \donttest{
 CV           <- c(0.4, 0.3)

@@ -42,12 +42,11 @@ constraint. Defaults to 1.25 if not given explicitly.
   \item{CV}{
 Intra-subject coefficient(s) of variation as ratio (not percent).
   \itemize{
-    \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
-          and Reference is assumed\cr
-          (homoscedasticity: \code{CVwT==CVwR}).
+    \item If given as a scalar (\code{length(CV)==1}) the \emph{same} \ifelse{latex}{\out{$CV$}}{\ifelse{html}{\out{<em>CV</em>}}{CV}} of Test
+          and Reference is assumed (homoscedasticity: \ifelse{latex}{\out{$CV_\textrm{wT}=CV_\textrm{wR}$}}{\ifelse{html}{\out{<em>CV</em><sub>wT</sub>&nbsp=&nbsp;<em>CV</em><sub>wR</sub>}}{CVwT = CVwR}}).
     \item If given as a vector (\code{length(CV)==2}) -- assuming
           heteroscedasticity --\cr
-          the CV of Test \strong{must} be given in the \emph{first} element
+          the \ifelse{latex}{\out{$CV$}}{\ifelse{html}{\out{<em>CV</em>}}{CV}} of Test \strong{must} be given in the \emph{first} element
           and the one of Reference in the \emph{second}.
   }
 }
@@ -69,8 +68,8 @@ start with the sample size estimated for \code{alpha} (or \code{alpha.pre},
 if given), \code{theta0}, and \code{targetpower}.\cr
 Can also be set to start the sample size search if a previous run
 failed.\cr
-According to regulatory requirements must be >=12 for the \acronym{EMA} and
->=24 for \acronym{ANVISA}.
+According to regulatory requirements must be \enc{≥}{>=}12 for the \acronym{EMA} and
+\enc{≥}{>=}24 for \acronym{ANVISA}.
 }
   \item{nsims}{
 Number of simulations to be performed to estimate the (empirical)
@@ -98,33 +97,34 @@ performed at level \verb{alpha.pre} and the \acronym{TIE} assessed at level \cod
 Less powerful than adjusting alpha but an alternative in the critical
 region of maximum inflation of the \acronym{TIE}. In certain scenarios
 Bonferroni\enc{’}{'}s 0.025 is not sufficient to preserve the Type I Error.\cr
-Not recommended if \code{CVwR >= 0.45} due to poor power characteristics.
+Not recommended if \ifelse{latex}{\out{$CV_\textrm{wR}\geq0.45$}}{\ifelse{html}{\out{<em>CV</em><sub>wR</sub>&nbsp;&ge;&nbsp;0.45}}{CVwR >= 0.45}} due to poor power characteristics.
 }
-\item{setseed}{
+  \item{setseed}{
 Simulations are dependent on the starting point of the (pseudo)
 random number generator. To avoid differences in power for different
 runs \code{set.seed(123456)} is issued if \code{setseed=TRUE} (default).
 }
-\item{sdsims}{
+  \item{sdsims}{
 If \code{FALSE} (default) power is estimated by the respective \sQuote{key} statistics.
 Recommended for speed reasons.\cr
 Set to \code{TRUE} if results of \code{\link{power.scABEL}} are expected to
 be inaccurate (partial replicate design with unbalanced sequences and/or heteroscedasticity
-where CVwT > CVwR) and subject data via \code{\link{power.scABEL.sdsims}} should
+where \ifelse{latex}{\out{$CV_\textrm{wT}>CV_\textrm{wR}$}}{\ifelse{html}{\out{<em>CV</em><sub>wT</sub>&nbsp;&gt;&nbsp;<em>CV</em><sub>wR</sub>}}{CVwT > CVwR}}) and subject data via \code{\link{power.scABEL.sdsims}} should
 be simulated instead. Very time consuming (easily 100times slower)! Subject data
 simulations are only supported for \code{regulator="EMA"} and \code{regulator="GCC"}.
 }
-\item{progress}{
-Set to \code{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims=FALSE}.
+  \item{progress}{
+Set to \code{TRUE} if a progress bar should be displayed. Defaults to \code{FALSE}.\cr
+Ignored if \code{sdsims=FALSE}.
 }
 }
 \details{
 The simulations are done via the distributional properties of the statistical
 quantities necessary for assessing \acronym{BE} based on \acronym{ABEL}.
-Simulations for the \acronym{TIE} are performed at the upper (expanded) limit \emph{U}
+Simulations of the \acronym{TIE} are performed at the upper (expanded) limit \emph{U}
 of the acceptance range. Due to the symmetry around 1 results are valid for the lower
 (expanded) limit \emph{L} as well.\cr
-\emph{U} at the \acronym{EMA}\enc{’}{'}s and Health Canada\enc{’}{'}s \code{CVcap}, the \acronym{GCC}\enc{’}{'}s for \emph{any} CVwR > 0.3:\preformatted{
+\emph{U} at the \acronym{EMA}\enc{’}{'}s and Health Canada\enc{’}{'}s \code{CVcap}, the \acronym{GCC}\enc{’}{'}s for \emph{any} \ifelse{latex}{\out{$CV_\textrm{wR}>0.30$}}{\ifelse{html}{\out{<em>CV</em><sub>wR</sub>&nbsp;&gt;&nbsp;0.30}}{CVwR > 0.30}}:\preformatted{
 scABEL(CV=0.5, reg="EMA")[["upper"]]
 [1] 1.43191
 scABEL(CV=0.57382, reg="HC")[["upper"]]
@@ -180,7 +180,7 @@ Although some designs are more \sQuote{popular} than others, sample size estimat
     \code{"2x3x3"} \tab TRR | RTR | RRT
   }
 }
-\section{Warning }{
+\section{Warning}{
 The sample size estimation for extreme \code{theta0} (<0.83 or >1.21) may be time
 consuming and will eventually also fail since the start values chosen are
 not really reasonable in that ranges.\cr
@@ -191,7 +191,8 @@ also consider to adapt the number of simulations not to tap in the simulation
 error trap.\cr\cr
 See also the Warning section of the function \code{\link{power.scABEL}} concerning
 the power value agreement to those obtained from simulations via subject data.\cr\cr
-For the \acronym{GCC} and CVwR \enc{≤}{<=} 0.3 simulations will be time consuming and may result in large sample sizes.
+For the \acronym{GCC} and \ifelse{latex}{\out{$CV_\textrm{wR}\leq0.30$}}{\ifelse{html}{\out{<em>CV</em><sub>wR</sub>&nbsp;&le;&nbsp;0.30}}{CVwR <= 0.30} simulations will be time consuming and may result in large sample sizes.
+}
 }
 
 \seealso{

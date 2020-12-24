@@ -156,7 +156,7 @@ sampleN.scABEL.ad <- function(alpha = 0.05, targetpower = 0.8, theta0,
     if (alpha.pre == alpha)
       al.txt <- "nomin. alpha:" else al.txt <- " spec. alpha:"
     if (details) {
-      cat(sprintf("%s %3d, %s %.4f %s %.4f%s %.4f%s", "\nn", unadj.n,
+      cat(sprintf("%s %3d, %s %.5f %s %.4f%s %.4f%s", "\nn", unadj.n,
                   al.txt, al, "(power", pwr.unadj, "), TIE:", TIE.unadj,
                   "\n"))
     }
