@@ -45,7 +45,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Version 1.5.2.9000 built 2020-12-23 with R 4.0.3 (development version
+Version 1.5.2.9000 built 2020-12-24 with R 4.0.3 (development version
 not on CRAN).
 
 ## Supported Designs
@@ -693,7 +693,7 @@ within-subject *CV* 0.20 (20%), target power 0.90. Plot suppressed.
     #     2x2  0.05 0.2   0.95    0.8   1.25          26      0.9176333
     # 
     # Power analysis
-    # CV, theta0 and number of subjects which lead to min. acceptable power of at least 0.7:
+    # CV, theta0 and number of subjects leading to min. acceptable power of ≥0.7:
     #  CV= 0.2729, theta0= 0.9044
     #  n = 16 (power= 0.7354)
 
@@ -779,7 +779,7 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.2.9000 built 2020-12-23 with R 4.0.3.
+Version 1.5.2.9000 built 2020-12-24 with R 4.0.3.
 
     options(width = 80)
     devtools::session_info()
@@ -793,7 +793,7 @@ Version 1.5.2.9000 built 2020-12-23 with R 4.0.3.
     #  collate  German_Germany.1252         
     #  ctype    German_Germany.1252         
     #  tz       Europe/Vienna               
-    #  date     2020-12-23                  
+    #  date     2020-12-24                  
     # 
     # - Packages -------------------------------------------------------------------
     #  package       * version    date       lib source        
@@ -818,7 +818,7 @@ Version 1.5.2.9000 built 2020-12-23 with R 4.0.3.
     #  mvtnorm         1.1-1      2020-06-09 [1] CRAN (R 4.0.0)
     #  pkgbuild        1.2.0      2020-12-15 [1] CRAN (R 4.0.3)
     #  pkgload         1.1.0      2020-05-29 [1] CRAN (R 4.0.0)
-    #  PowerTOST     * 1.5.2.9000 2020-12-23 [1] local         
+    #  PowerTOST     * 1.5.2.9000 2020-12-24 [1] local         
     #  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.0.0)
     #  processx        3.4.5      2020-11-30 [1] CRAN (R 4.0.3)
     #  ps              1.5.0      2020-12-05 [1] CRAN (R 4.0.3)
