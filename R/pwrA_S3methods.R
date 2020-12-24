@@ -36,8 +36,8 @@ print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
   # without "nlast"
   print(x$plan[,-ncol(x$plan)], row.names = FALSE)
   cat("\nPower analysis\n")
-  cat("CV, theta0 and number of subjects which lead to min. acceptable ",
-      "power of at least ", round(min.pwr, digits), ":\n", sep="")
+  cat("CV, theta0 and number of subjects leading to min. acceptable ",
+      "power of \u2265", round(min.pwr, digits), ":\n", sep="")
   #react to RSABE NTID where there may be a CV.min, CV.max which
   if (method!="RSABE NTID") {
     # let to power=minpower
