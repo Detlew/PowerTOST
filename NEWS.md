@@ -1,14 +1,15 @@
 # PowerTOST 1.5.2.9000
 
-On GitHub 2020-12-23.
+On GitHub 2020-12-24.
 
 ## Major changes
 
-  * `scABEL.ad()` and `sampleN.scABEL.ad()` for `regulator = "GCC"`. Man pages, README, and RSABE-vignette updated accordingly.
+  * `scABEL.ad()` and `sampleN.scABEL.ad()` adapted to deal with `regulator = "GCC"`. 
+    Man pages, README, and RSABE-vignette updated accordingly.
   * Regulator "GCC" introduced (GCC = Co-operation Council for the Arab States 
     of the Gulf). The GCC evaluation framework for HVD / HVDP is/can be
     treated as a special case of ABEL, *i.e.*, use the regulatory settings with 
-    `power.scABEL()` / `sampleN.scABEL()`.
+    `power.scABEL()` or `sampleN.scABEL()`.
     Experimental function `power.fwl.sds()` in turn removed.
 
 # PowerTOST 1.5-2
