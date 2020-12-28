@@ -17,7 +17,7 @@ Coefficient of variation (of the Reference) as ratio.
 }
   \item{regulator}{
 Regulatory body settings for the widening of the BE acceptance limits.\cr
-May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"GCC"}, \code{"FDA"} or as an object of
+May be given as character from the choices \code{"EMA"}, \code{"HC"} (Health Canada), \code{"GCC"} (Gulf Cooperation Council), \code{"FDA"} or as an object of
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 The former \code{regulator="ANVISA"} is no longer allowed. The ANVISA 
@@ -37,9 +37,9 @@ with \code{r_const} the regulatory constant and \code{sWR} the standard deviatio
 subjects variability of the Reference.\cr
 \itemize{
   \item \code{regulator="EMA"} or \code{regulator="HC"}\cr
-  \code{r_const = 0.76} (~ log(1.25)/0.29356\dots)
+  \code{r_const = 0.76} (~ log(1.25)/sqrt(log(0.30^2+1)))
   \item \code{regulator="GCC"}\cr
-  \code{r_const = 0.97997\dots} (= log(1/0.75)/0.29356\dots)
+  \code{r_const = 0.97997\dots} (= log(1/0.75)/sqrt(log(0.30^2+1)))
   \item \code{regulator="FDA"}\cr
   \code{r_const = 0.89257\dots} (= log(1.25)/0.25)
 }
