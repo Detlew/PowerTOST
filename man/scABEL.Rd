@@ -17,7 +17,7 @@ Coefficient of variation (of the Reference) as ratio.
 }
   \item{regulator}{
 Regulatory body settings for the widening of the BE acceptance limits.\cr
-May be given as character from the choices \code{"EMA"}, \code{"HC"}, \code{"FDA"} or as an object of
+May be given as character from the choices \code{"EMA"}, \code{"HC"} (Health Canada), \code{"GCC"} (Gulf Cooperation Council), \code{"FDA"} or as an object of
 class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 The former \code{regulator="ANVISA"} is no longer allowed. The ANVISA 
@@ -37,7 +37,9 @@ with \code{r_const} the regulatory constant and \code{sWR} the standard deviatio
 subjects variability of the Reference.\cr
 \itemize{
   \item \code{regulator="EMA"} or \code{regulator="HC"}\cr
-  \code{r_const = 0.76} (~ log(1.25)/0.29356)
+  \code{r_const = 0.76} (~ log(1.25)/sqrt(log(0.30^2+1)))
+  \item \code{regulator="GCC"}\cr
+  \code{r_const = 0.97997\dots} (= log(1/0.75)/sqrt(log(0.30^2+1)))
   \item \code{regulator="FDA"}\cr
   \code{r_const = 0.89257\dots} (= log(1.25)/0.25)
 }
@@ -50,10 +52,7 @@ limits are 0.6666 \dots 1.5 at maximum, \emph{i.e.}, CVcap=0.57382.
 Literally it is given by Health Canada rounded to three significant digits as 57.4\%.
 }
 \note{
-The scaled acceptance limits are not directly used in the BE evaluation 
-for highly variable drugs recommended by the FDA. They are included here
-for comparative purposes. Moreover, there are controversies where to locate the 
-so-called \sQuote{implied} BE acceptance limits. See reference below.
+The scaled acceptance limits (coined \emph{\sQuote{implied limits}} by Davit \emph{et al.}) are not directly used in the BE evaluation for HVDP(s) recommended by the FDA. They are included here for comparative purposes. Moreover, there are controversies where to locate the \emph{\sQuote{implied limits}} and whether the so-called \sQuote{desired consumer-risk model} should be used.
 }
 \references{
 Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf FT, Nwakama PE, Patel DT, Schuirmann DJ, Yu LX. \emph{Implementation of a Reference-Scaled Average Bioequivalence Approach for 
@@ -70,20 +69,36 @@ D. Labes
 }
 \examples{
 scABEL(CV = 0.3, regulator = "EMA")
-# should give the usual BE limits:
-# lower  upper
-#  0.80   1.25
-scABEL(CV = 0.4, regulator = "EMA")
-# should give the widened limits:
-#   lower     upper
-# 0.746177 1.340165
-#
+# should give the conventional (unscaled) BE limits:
+# lower upper
+#  0.80  1.25
+
+scABEL(CV = 0.5, regulator = "EMA")
+# should give the (maximum) expanded limits:
+#     lower     upper
+# 0.6983678 1.4319102
+
 # define old ANVISA settings via reg_const()
 rc      <- reg_const("USER", r_const = 0.76,
                      CVswitch = 0.4, CVcap = 0.5)
 rc$name <- "ANVISAold"
 scABEL(CV = 0.4, regulator = rc)
-# should give the not widened limits:
-# lower upper 
-#  0.80  1.25 
+# should give the conventional (not expanded) limits:
+# lower upper
+#  0.80  1.25
+
+scABEL(CV = 0.55, regulator = "HC")
+# should give the widened limits:
+#     lower     upper
+# 0.6765789 1.4780241
+
+scABEL(CV = 0.55, regulator = "GCC")
+# should give the widened limits:
+#    lower    upper
+# 0.750000 1.333333
+
+scABEL(CV = 0.55, regulator = "FDA")
+# should give the 'implied' limits:
+#     lower     upper
+# 0.6320032 1.5822705
 }
