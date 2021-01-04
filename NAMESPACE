@@ -56,7 +56,8 @@ export(
   , power.NTIDFDA
   , power.HVNTID
   , power.RSABE
-  , power.RSABE2L.sds
+  , power.RSABE2L.sdsims
+  , power.RSABE2L.sds      # alias
   , power.scABEL
   , power.scABEL.sdsims
   , power.scABEL.sds       # alias
