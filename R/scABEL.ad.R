@@ -152,7 +152,7 @@ scABEL.ad <-function(alpha = 0.05, theta0, theta1, theta2, CV,
           "BE limits                     : 0.8000 ... 1.2500\n", sep="")
     } else {
       cat(paste("Switching CVwR                :", reg$CVswitch,
-                "\nRegulatory constant           :", signif(reg$r_const, 4), "\n"))
+                "\nRegulatory constant           :", signif(reg$r_const, 5), "\n"))
       if (reg$name == "FDA") { # FDA
         cat(sprintf("%s             : %.4f%s%.4f%s", "Implied BE limits",
                     limits[1], " ... ", limits[2], "\n"))
