@@ -295,8 +295,7 @@ Sample size for assumed within- (intra-) subject *CV* 0.20 (20%).
 
 Sample size for assumed within- (intra-) subject *CV* 0.40 (40%),
 *θ*<sub>0</sub> 0.90, four period full replicate “2x2x4” study. Wider
-acceptance range for *C*<sub>max</sub> (Gulf Cooperation Council, South
-Africa).
+acceptance range for *C*<sub>max</sub> (South Africa).
 
     sampleN.TOST(CV = 0.40, theta0 = 0.90, theta1 = 0.75, design = "2x2x4")
     # 
@@ -505,6 +504,33 @@ Three period full replicate "2x2x3" study (TRT\|RTR *or* TRR\|RTT).
     #    PK method  n   power
     #  Cmax   ABEL 42 0.80017
     #   AUC    ABE 60 0.81002
+
+<small>[TOC ↩](#powertost)</small>
+
+Sample size assuming homoscedasticity (*CV*<sub>wT</sub> =
+*CV*<sub>wR</sub> = 0.45) for the widened limits of the Gulf Cooperation
+Council.
+
+    sampleN.scABEL(CV = 0.45, regulator = "GCC", details = FALSE)
+    # 
+    # +++++++++++ scaled (widened) ABEL +++++++++++
+    #             Sample size estimation
+    #    (simulation based on ANOVA evaluation)
+    # ---------------------------------------------
+    # Study design: 2x3x3 (partial replicate)
+    # log-transformed data (multiplicative model)
+    # 1e+05 studies for each step simulated.
+    # 
+    # alpha  = 0.05, target power = 0.8
+    # CVw(T) = 0.45; CVw(R) = 0.45
+    # True ratio = 0.9
+    # ABE limits / PE constraint = 0.8 ... 1.25 
+    # Widened limits = 0.75 ... 1.333333 
+    # Regulatory settings: GCC 
+    # 
+    # Sample size
+    #  n     power
+    # 54   0.8123
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -793,7 +819,7 @@ Version 1.5.2.9000 built 2021-01-13 with R 4.0.3.
     #  collate  German_Germany.1252         
     #  ctype    German_Germany.1252         
     #  tz       Europe/Vienna               
-    #  date     2021-01-13                  
+    #  date     2021-01-15                  
     # 
     # - Packages -------------------------------------------------------------------
     #  package       * version    date       lib source        

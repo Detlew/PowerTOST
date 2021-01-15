@@ -171,7 +171,7 @@ Sample size for assumed within- (intra-) subject *CV* 0.20 (20\%).
 sampleN.TOST(CV = 0.20)
 ```
 
-Sample size for assumed within- (intra-) subject *CV* 0.40 (40\%), *θ*~0~ 0.90, four period full replicate "2x2x4" study. Wider acceptance range for *C*~max~ (Gulf Cooperation Council, South Africa).
+Sample size for assumed within- (intra-) subject *CV* 0.40 (40\%), *θ*~0~ 0.90, four period full replicate "2x2x4" study. Wider acceptance range for *C*~max~ (South Africa).
 ```{r crossover_ABE2}
 sampleN.TOST(CV = 0.40, theta0 = 0.90, theta1 = 0.75, design = "2x2x4")
 ```
@@ -245,6 +245,12 @@ res <- data.frame(PK = PK, method = c("ABEL", "ABE"), n = n, power = pwr)
 print(res, row.names = FALSE)
 ```
 
+<small>[TOC ↩](#powertost)</small>
+
+Sample size assuming homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.45) for the widened limits of the Gulf Cooperation Council.
+```{r ABEL_4}
+sampleN.scABEL(CV = 0.45, regulator = "GCC", details = FALSE)
+```
 <small>[TOC ↩](#powertost)</small>
 
 #### RSABE
