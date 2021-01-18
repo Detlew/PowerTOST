@@ -1,6 +1,6 @@
-# PowerTOST 1.5.2.9000
+# PowerTOST 1.5-3
 
-On GitHub 2020-12-24.
+On CRAN 2021-01-19.
 
 ## Major changes
 
@@ -10,7 +10,6 @@ On GitHub 2020-12-24.
     of the Gulf). The GCC evaluation framework for HVD / HVDP is/can be
     treated as a special case of ABEL, *i.e.*, use the regulatory settings with 
     `power.scABEL()` or `sampleN.scABEL()`.
-    Experimental function `power.fwl.sds()` in turn removed.
 
 # PowerTOST 1.5-2
 
