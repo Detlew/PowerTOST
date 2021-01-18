@@ -1,6 +1,6 @@
 # PowerTOST 1.5-3
 
-On CRAN 2021-01-19.
+On CRAN 2021-01-18.
 
 ## Major changes
 
