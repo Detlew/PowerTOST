@@ -107,7 +107,7 @@ The function does not vectorize properly if design is a vector. Moreover,
 Other vector input is not tested yet.\cr\cr
 }
 \references{
-Phillips KF. \emph{Power for Testing Multiple Instances of the Two One-Sided Tests Procedure.} Int J Biostat. 2009;5(1):Article 15. \doi{10.2202/1557-4679.1169}
+Phillips KF. \emph{Power for Testing Multiple Instances of the Two One-Sided Tests Procedure.} Int J Biostat. 2009;5(1):Article 15. 
 
 Hua SY, Xu S, D\enc{’}{'}Agostino RB Sr. \emph{Multiplicity adjustments in testing for bioequivalence.} Stat Med. 2015;34(2):215--31. \doi{10.1002/sim.6247}
 
