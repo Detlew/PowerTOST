@@ -165,7 +165,7 @@ European Medicines Agency, Committee for Medicinal Products for Human Use. \emph
 Health Canada, Therapeutic Products Directorate. \emph{Policy on Bioequivalence Standards for Highly Variable Drug Products.} Ottawa, 18 April 2016. \href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/announcements/notice-policy-bioequivalence-standards-highly-variable-drug-products.html}{16-104293-140}
 
 Executive Board of the Health Ministers’ Council for GCC States. \emph{The GCC Guidelines for
-Bioequivalence.} 30 March 2016. \href{https://www.sfda.gov.sa/en/drug/drug_reg/Regulations/GCC_Guidelines_Bioequivalence.pdf}{Version 2.4}
+Bioequivalence.} 30 March 2016. \href{https://old.sfda.gov.sa/en/drug/drug_reg/Regulations/GCC_Guidelines_Bioequivalence.pdf}{Version 2.4}
 }
 
 \author{

@@ -62,12 +62,12 @@ Regulatory settings for the widening of the BE acceptance limits.\cr
 May be given as \code{"EMA"}, \code{"GCC"}, or as an object of class 'regSet' (see \code{\link{reg_const}}).\cr
 Defaults to \code{regulator="EMA"} if missing.\cr
 This argument may be given also in lower case if given as character.\cr
-If given as object of class 'regSet' the component \code{est_method} must not be \code{"ISC"}. 
+If given as object of class 'regSet' the component \code{est_method} must not be \code{"ISC"}.
 }
   \item{nsims}{
 Number of simulations to be performed to obtain the (empirical) power.
 The default value 100,000 = 1e+5 is usually sufficient. Consider to rise 
-this value if \code{theta0} <=0.85 or >=1.25. But see the warning section.
+this value if \code{theta0} <=0.85 or >=1.20. But see the warning section.
 }
   \item{nstart}{
 Set this to a start for the sample size search if a previous run failed.\cr

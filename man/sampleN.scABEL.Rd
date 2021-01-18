@@ -64,7 +64,7 @@ This argument may be given also in lower case if given as character.\cr\cr
   \item{nsims}{
 Number of simulations to be performed to obtain the (empirical) power.
 The default value 100,000 = 1e+5 is usually sufficient. Consider to rise 
-this value if \code{theta0} \enc{≤}{<=}0.85 or \enc{≥}{>=}1.25. But see the warning section.
+this value if \code{theta0} <=0.85 or >=1.20. But see the warning section.
 }
   \item{nstart}{
 Set this to a start for the sample size search if a previous run failed.\cr

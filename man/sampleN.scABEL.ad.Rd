@@ -68,8 +68,8 @@ start with the sample size estimated for \code{alpha} (or \code{alpha.pre},
 if given), \code{theta0}, and \code{targetpower}.\cr
 Can also be set to start the sample size search if a previous run
 failed.\cr
-According to regulatory requirements must be \enc{≥}{>=}12 for the \acronym{EMA} and
-\enc{≥}{>=}24 for \acronym{ANVISA}.
+According to regulatory requirements must be >=12 for the \acronym{EMA} and
+>=24 for \acronym{ANVISA}.
 }
   \item{nsims}{
 Number of simulations to be performed to estimate the (empirical)

@@ -69,8 +69,7 @@ Fieller EC. \emph{Some Problems in Interval Estimation.} J Royal Stat Soc B. 195
 
 Sasabuchi S. \emph{A test of a multivariate normal mean with composite hypotheses determined by linear inequalities.} Biometrika. 1980;67(2):429--39. \doi{10.1093/biomet/67.2.429}
 
-Hauschke D, Kieser M, Diletti E, Burke M. \emph{Sample size determination for proving equivalence based on the ratio of two means for normally distributed data.} Stat Med. 1999;18(1):93--105. 
-doi: \href{https://dx.doi.org/10.1002/(SICI)1097-0258(19990115)18\%3A1\%3C93\%3A\%3AAID-SIM992\%3E3.0.CO\%3B2-8}{10.1002/(SICI)1097-0258(19990115)18:1<93::AID-SIM992>3.0.CO;2-8}
+Hauschke D, Kieser M, Diletti E, Burke M. \emph{Sample size determination for proving equivalence based on the ratio of two means for normally distributed data.} Stat Med. 1999;18(1):93--105.
 
 Hauschke D, Steinijans V, Pigeot I. \emph{Bioequivalence Studies in Drug Development.} Chichester: Wiley; 2007. Chapter 10.
 
