@@ -45,7 +45,8 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Version 1.5.3 built 2021-01-18 with R 4.0.3 (stable release on CRAN 2021-01-18).
+Version 1.5.3 built 2021-01-18 with R 4.0.3 (stable release on CRAN
+2021-01-18).
 
 ## Supported Designs
 
@@ -818,7 +819,7 @@ Version 1.5.3 built 2021-01-18 with R 4.0.3.
     #  collate  German_Germany.1252         
     #  ctype    German_Germany.1252         
     #  tz       Europe/Vienna               
-    #  date     2021-01-18                  
+    #  date     2021-01-19                  
     # 
     # - Packages -------------------------------------------------------------------
     #  package       * version date       lib source        
@@ -832,7 +833,7 @@ Version 1.5.3 built 2021-01-18 with R 4.0.3.
     #  digest          0.6.27  2020-10-24 [1] CRAN (R 4.0.3)
     #  ellipsis        0.3.1   2020-05-15 [1] CRAN (R 4.0.0)
     #  evaluate        0.14    2019-05-28 [1] CRAN (R 4.0.0)
-    #  fansi           0.4.1   2020-01-08 [1] CRAN (R 4.0.3)
+    #  fansi           0.4.2   2021-01-15 [1] CRAN (R 4.0.3)
     #  fs              1.5.0   2020-07-31 [1] CRAN (R 4.0.2)
     #  glue            1.4.2   2020-08-27 [1] CRAN (R 4.0.2)
     #  htmltools       0.5.0   2020-06-16 [1] CRAN (R 4.0.3)
@@ -843,7 +844,7 @@ Version 1.5.3 built 2021-01-18 with R 4.0.3.
     #  mvtnorm         1.1-1   2020-06-09 [1] CRAN (R 4.0.0)
     #  pkgbuild        1.2.0   2020-12-15 [1] CRAN (R 4.0.3)
     #  pkgload         1.1.0   2020-05-29 [1] CRAN (R 4.0.0)
-    #  PowerTOST     * 1.5-3   2021-01-18 [1] local         
+    #  PowerTOST     * 1.5-3   2021-01-18 [1] CRAN (R 4.0.3)
     #  prettyunits     1.1.1   2020-01-24 [1] CRAN (R 4.0.0)
     #  processx        3.4.5   2020-11-30 [1] CRAN (R 4.0.3)
     #  ps              1.5.0   2020-12-05 [1] CRAN (R 4.0.3)
