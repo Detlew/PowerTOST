@@ -365,7 +365,7 @@ suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 Here the scaled ABE component shows the lowest power and drives the sample size, which is much lower than in the previous example.
 
 ## Highly Variable Narrow Therapeutic Index Drugs (FDA)
-Almost a contradiction in itself. Required for [dagibatran](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf "Recommended Jun 2012; Revised Sep 2015, Jul 2017") and [rivaroxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral%20tablet_22406_RC09-15.pdf "Recommended Sep 2015").\
+Almost a contradiction in itself. Required for [dagibatran](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf "Recommended Jun 2012; Revised Sep 2015, Jul 2017"), [rivaroxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral%20tablet_22406_RC09-15.pdf "Recommended Sep 2015"), and [edoxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_206316.pdf "Recommended May 2017; Revised Mar 2020").\
 Assuming homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.30). Employ the defaults (`theta0 = 0.95`, `targetpower = 0.80`, `design = "2x2x4"`, `nsims = 1e5`). Details of the sample size search suppressed.
 
 ```r
@@ -556,7 +556,7 @@ sampleN.scABEL.ad(CV = CV, design = "2x2x4")
 # Regulatory settings: EMA (ABEL)
 # Switching CVwR     : 0.3 
 # Regulatory constant: 0.76 
-# Expanded limits    : 0.7723...1.2948
+# Expanded limits    : 0.7723 ... 1.2948
 # Upper scaling cap  : CVwR > 0.5 
 # PE constraints     : 0.8000 ... 1.2500
 # n  38,   adj. alpha: 0.03610 (power 0.8100), TIE: 0.05000
@@ -719,5 +719,5 @@ for (i in 1:4) {
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 
 # License{#license}
-<h4 class="author">Helmut Schütz 2020-12-23</h4>
+<h4 class="author">Helmut Schütz 2021-01-24</h4>
 [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
