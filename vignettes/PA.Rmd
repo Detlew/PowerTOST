@@ -71,7 +71,7 @@ The conventional TR|RT (<span title="also known as">a.k.a.</span> AB|BA) design 
 | passed | `...` | Arguments to `power.scABEL()` or `power.RSABE()` | none |
 
 If no additional arguments are passed, the defaults of `power.scABEL()` and `power.RSABE()` are applied, namely `alpha = 0.05`, `theta1 = 0.80`, `theta2 = 1.25`. Note the recommended<small> </small>^[Tóthfalusi L, Endrényi L. *Sample Sizes for Designing Bioequivalence Studies for Highly Variable Drugs.* J Pharm Pharmaceut Sci. 2011;15(1):73--84. [Open access](http://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489).] default $\small{\theta_0}$ 0.90 for <span title="Highly Variable Drug Products">HVDPs</span>.\
-`regulator` can be `"EMA"`, `"HC"`, or `"FDA"`.
+`regulator` can be `"EMA"`, `"HC"`, `"GCC"`, or `"FDA"`.
 
 Arguments `targetpower`, `minpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not in percent. *CV* is the *within-* (intra-) subject coefficient of variation, where only homoscedasticity (*CV*~wT~ = *CV*~wR~) is supported.
 
@@ -134,27 +134,38 @@ pa.scABE(CV = 0.55, regulator = "HC")
 
 Since we are close to Health Canada’s upper cap of 57.4\%, power decreases on both sides. Note that three subjects less than for the <span title="European Medicines Agency">EMA</span>’s method are required and *CV*~wR~ can increase to \~0.76 until we reach the minimum acceptable power – which is substantially higher than the \~0.67 for the <span title="European Medicines Agency">EMA</span>.
 
-#### FDA
+#### Gulf Cooperation Council
 <h5>[Example 5]{#expl5}</h5>
 
 Same assumptions (*CV*, $\small{\theta_0}$) like in [Example 2](#expl2) and [Example 4](#expl4).
 ```{r example5}
+pa.scABE(CV = 0.55, regulator = "GCC")
+```
+![**Fig. 5** Power Analysis (in each panel one argument is varied and others kept constant)](figure13.png){width=469px}
+
+Since we are far above the switching *CV*~wR~ of 30\%, (fixed) widened BE margins of 75.00--133.33\% are applicable and the pattern is similar to <span title="Average Bioequivalence">ABE</span>.
+
+#### FDA
+<h5>[Example 6]{#expl6}</h5>
+
+Same assumptions (*CV*, $\small{\theta_0}$) like in [Example 2](#expl2), [Example 4](#expl4) and [Example 5](#expl5).
+```{r example6}
 pa.scABE(CV = 0.55, regulator = "FDA")
 ```
-![**Fig. 5** Power Analysis (in each panel one argument is varied and others kept constant)](figure10.png){width=469px}
+![**Fig. 6** Power Analysis (in each panel one argument is varied and others kept constant)](figure10.png){width=469px}
 
 A similar pattern like the one of Health Canada, although due to the different regulatory constants ($\small{\theta_s\approx0.8926}$ *vs* $\small{k=0.760}$ for Health Canada and the <span title="European Medicines Agency">EMA</span>) nine subjects less (and twelve less than for the <span title="European Medicines Agency">EMA</span>) are required. Due to unlimited scaling the *CV* can increase more.
 
 ### Narrow Therapeutic Index Drugs (FDA)
 
-<h5>[Example 6]{#expl6}</h5>
+<h5>[Example 7]{#expl7}</h5>
 Assumed intra-subject *CV* 0.125.
-```{r example6}
+```{r example7}
 pa.NTIDFDA(CV = 0.125)
 ```
-![**Fig. 6** Power Analysis (in each panel one argument is varied and others kept constant)](figure11.png){width=469px}
+![**Fig. 7** Power Analysis (in each panel one argument is varied and others kept constant)](figure11.png){width=469px}
 
-With decreasing variability power decreases because the scaled limits become narrower. With increasing variability we gain power because we have to scale less until at \~21.4\% the additional criterion ‘must pass conventional BE limits of 80.00--125.00\%’ cuts in.
+With decreasing variability power decreases because the scaled limits become narrower. With increasing variability we gain power because we have to scale less until at \~21.4\% the additional criterion “must pass conventional BE limits of 80.00--125.00\%” cuts in.
 
 # Cave!
 The power analysis is <span class="hl"> not </span> a substitute for the ‘Sensitivity Analysis’ recommended by the ICH.<small> </small>^[International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use. *ICH Harmonised Tripartite Guideline. Statistical Principles for Clinical Trials.* 5 February 1998. [E9 Step 4](https://database.ich.org/sites/default/files/E9_Guideline.pdf).] In a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
