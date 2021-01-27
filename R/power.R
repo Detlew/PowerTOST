@@ -272,8 +272,8 @@ power.TOST <- function(alpha=0.05, logscale=TRUE, theta1, theta2, theta0,
     ldiff   <- theta0
     se      <- CV
   }
-  
-  if (length(CV) > 1 & length(theta0 > 1))
+
+  if (length(CV) > 1 & length(theta0) > 1)
     stop("Only CV or theta0 can be vectors, not both of them")
   
   df <- eval(dfe)
