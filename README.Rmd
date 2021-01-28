@@ -16,14 +16,14 @@ knitr::opts_chunk$set(
 ```
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies.  
 ```{r, echo = FALSE, results = "asis"}
-pub <- packageDate("PowerTOST", date.fields = "Date/Publication")
 txt <- paste0("Version ", packageVersion("PowerTOST"), " built ",
          packageDate("PowerTOST", date.fields = "Built"),
          " with R ", substr(packageDescription("PowerTOST", fields = "Built"), 3, 7))
-if (is.na(pub)) {
+if (grepl("900",  as.character(packageVersion("PowerTOST")))) {
   txt <- paste(txt, "\n(development version not on CRAN).")
 } else {
-  txt <- paste0(txt, "\n(stable release on CRAN ", pub, ").")
+  txt <- paste0(txt, "\n(stable release on CRAN ",
+           packageDate("PowerTOST", date.fields = "Date/Publication"), ").")
 }
 cat(txt)
 ```
