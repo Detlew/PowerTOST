@@ -37,7 +37,7 @@ Julious SA. \emph{Tutorial in Biostatistics. Sample sizes for clinical trials wi
 Chow SC, Wang H. \emph{On Sample Size Calculation in Bioequivalence Trials.} J Pharmacokinet Pharmacodyn. 2001;28(2):155--69. \doi{10.1023/A:1011503032353}
 }
 
-\note{Scripts for creation of these data.frames can be found in the \code{/test}
+\note{Scripts for creation of these data.frames can be found in the \code{/tests}
 sub-directory of the package.\cr
 Comparing the results of these scripts to the corresponding data.frames can 
 be used for validation purposes.}

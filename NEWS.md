@@ -3,8 +3,7 @@
 On GitHub 2021-01-27.
 
 ## Bug fixes
-  * Fix in power.TOST() w.r.t vectorization of CV or theta0
-
+  * Fix in `power.TOST()` w.r.t vectorization of `CV` or `theta0`.
 
 # PowerTOST 1.5-3
 
