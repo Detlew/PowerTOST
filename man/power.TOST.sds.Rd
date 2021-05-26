@@ -114,13 +114,18 @@ The power is calculated via subject data sims.\cr
 The evaluation of BE is done via 1-2*alpha confidence interval using classical ANOVA
 for the models with group effects.\cr
 The data.frame with columns  \code{subject, sequence, period} and \code{tmt} 
-necessary for evalution of simulated subject data is constructed internally from 
+necessary for evaluation of simulated subject data is constructed internally from 
 the arguments \code{design} and \code{n} or may be given user defined via the argument 
 \code{design_dta}. The last option is usefull if missing data have to be considered
 or if designs have to be evaluated which are not in the list of argument 
 \code{design}.\cr
 This feature is experimental in the sense that the data.frame is not checked 
-for complying with the assumed structure.
+for complying with the assumed structure.\cr\cr
+The test of the treatment by group interaction in case of \code{gmodel=1} is hard coded with p.level = 0.1.\cr
+If the treatment by group interaction is significant the subsequent BE decision 
+is done with the data of the largest group. If there are more than one with the same size, one gets
+a warning that this feature - showing BE in all that groups - isn't implemented yet.
+Only the first of the largest groups is tested for BE.
 }
 \value{
 Returns the value of the (empirical) power
