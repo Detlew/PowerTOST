@@ -33,7 +33,7 @@ Attention! CV is se (standard error) of residuals.
 Chow SC, Liu JP. \emph{Design and Analysis of Bioavailability and Bioequivalence Studies.} Boca Raton: CRC Press; 3\ifelse{html}{\out{<sup>rd</sup>}}{\eqn{^{rd}}} edition 2009.
 }
 
-\note{Scripts for creation of these data.frames can be found in the \code{/test}
+\note{Scripts for creation of these data.frames can be found in the \code{/tests}
 sub-directory of the package.\cr
 Comparing the results of these scripts to the corresponding data.frames can 
 be used for validation purposes.}
