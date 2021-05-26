@@ -6,8 +6,8 @@ On GitHub 2021-01-27.
   * Fix in `power.TOST()` w.r.t vectorization of `CV` or `theta0`.
 
 ## Minor changes
-  * Clarification of the calculations with gmodel=1 in the man page section Details 
-    of function power.TOST.sds().
+  * Clarification of the calculations with `gmodel=1` in the man page section Details 
+    of function `power.TOST.sds()`.
 
 # PowerTOST 1.5-3
 
