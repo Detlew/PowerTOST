@@ -11,7 +11,7 @@ output:
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "R>"
+  comment = "#R>"
 )
 ```
 The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies.  
@@ -376,7 +376,7 @@ Inspect this information for reproducibility. Of particular importance are the v
 Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST", date.fields = "Built")` with R `r substr(packageDescription("PowerTOST", fields = "Built"), 3, 7)`.
 
 ```{r, sessioninfo}
-options(width = 80)
+options(width = 60)
 devtools::session_info()
 ```
 
