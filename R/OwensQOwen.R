@@ -125,6 +125,7 @@ OwensT <- function(h, a)
 # R port of the matlab code given on
 # https://people.sc.fsu.edu/~jburkardt/m_src/owens/owens.html
 # by J. Burkhardt license GNU LGPL
+# the home page with the MATLAB code is gone meanwhile!
 #
 # is called as tfn(h, a) if a<=1
 # otherwise as tfn(a*h, 1/a)
@@ -134,6 +135,13 @@ tfn <- function(x, fx)
   ng  <- 5
   r   <- c(0.1477621, 0.1346334, 0.1095432, 0.0747257, 0.0333357)
   u   <- c(0.0744372, 0.2166977, 0.3397048, 0.4325317, 0.4869533)
+  
+  # coefficients with more decimals (15) for the 10-point Gauss quadrature 
+  # THX to PharmCat
+  # but does it make sense?
+  r <- c(0.14776211235737646, 0.13463335965499826, 0.10954318125799103, 0.07472567457529028, 0.033335672154344104)
+  u <- c(0.07443716949081561, 0.2166976970646236, 0.3397047841495122, 0.43253168334449227, 0.48695326425858587)
+  
   tp  <- 1/(2.*pi) # 0.159155
   tv1 <- .Machine$double.eps # 1e-19 in AS R65, 1E-35 in matlab code
                              # 2.220446e-16 on my machine
