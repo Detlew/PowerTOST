@@ -123,8 +123,7 @@ This feature is experimental in the sense that the data.frame is not checked
 for complying with the assumed structure.\cr\cr
 The test of the treatment by group interaction in case of \code{gmodel=1} is hard coded with p.level = 0.1.\cr
 If the treatment by group interaction is significant the subsequent BE decision 
-is done with the data of the largest group. If there are more than one with the same size, one gets
-a warning that this feature - showing BE in all that groups - isn't implemented yet.
+is done with the data of the largest group. If there are more than one with the same size, one gets a warning that this feature -- showing BE in all that groups -- isn’t implemented yet.
 Only the first of the largest groups is tested for BE.
 }
 \value{

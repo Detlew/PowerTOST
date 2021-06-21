@@ -71,7 +71,7 @@ sampleN.RSABE2L.sdsims <- function(alpha = 0.05, targetpower = 0.8, theta0,
     if (details | reg$name == "USER") { 
       print(reg)
     } else {
-      cat("Regulatory settings:", reg$name)
+      cat("Regulatory settings:", reg$name, "\n")
     }
     cat("SABE test =", SABE_test, "\n\n")
   }
