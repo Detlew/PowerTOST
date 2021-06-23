@@ -269,12 +269,6 @@ Skips installation from a github remote if the [SHA-1](https://en.wikipedia.org/
 - Helmut Schütz (author)
 - Benjamin Lang (author)
 
-# Session Information
-Inspect this information for reproducibility. Of particular importance are the versions of R and the packages used to create this workflow. It is considered good practice to record this information with every analysis.
-```{r sess, sessioninfo}
-options(width = 80)
-devtools::session_info()
-```
 # License{#license}
 <h4 class="author">Helmut Schütz `r Sys.Date()`</h4>
 [GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")

@@ -45,7 +45,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Version 1.5.3.9000 built 2021-05-26 with R 4.1.0 (development version
+Version 1.5.3.9000 built 2021-06-21 with R 4.1.0 (development version
 not on CRAN).
 
 ## Supported Designs
@@ -848,12 +848,12 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.3.9000 built 2021-05-26 with R 4.1.0.
+Version 1.5.3.9000 built 2021-06-21 with R 4.1.0.
 
 ``` r
-options(width = 60)
+options(width = 59)
 devtools::session_info()
-#R> - Session info -------------------------------------------
+#R> - Session info ------------------------------------------
 #R>  setting  value                       
 #R>  version  R version 4.1.0 (2021-05-18)
 #R>  os       Windows 7 x64 SP 1          
@@ -863,9 +863,9 @@ devtools::session_info()
 #R>  collate  German_Germany.1252         
 #R>  ctype    German_Germany.1252         
 #R>  tz       Europe/Vienna               
-#R>  date     2021-05-26                  
+#R>  date     2021-06-23                  
 #R> 
-#R> - Packages -----------------------------------------------
+#R> - Packages ----------------------------------------------
 #R>  package       * version    date       lib source        
 #R>  cachem          1.0.5      2021-05-15 [1] CRAN (R 4.1.0)
 #R>  callr           3.7.0      2021-04-20 [1] CRAN (R 4.1.0)
@@ -873,7 +873,7 @@ devtools::session_info()
 #R>  crayon          1.4.1      2021-02-08 [1] CRAN (R 4.1.0)
 #R>  cubature        2.0.4.2    2021-05-13 [1] CRAN (R 4.1.0)
 #R>  desc            1.3.0      2021-03-05 [1] CRAN (R 4.1.0)
-#R>  devtools        2.4.1      2021-05-05 [1] CRAN (R 4.1.0)
+#R>  devtools        2.4.2      2021-06-07 [1] CRAN (R 4.1.0)
 #R>  digest          0.6.27     2020-10-24 [1] CRAN (R 4.1.0)
 #R>  ellipsis        0.3.2      2021-04-29 [1] CRAN (R 4.1.0)
 #R>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.1.0)
@@ -885,28 +885,28 @@ devtools::session_info()
 #R>  lifecycle       1.0.0      2021-02-15 [1] CRAN (R 4.1.0)
 #R>  magrittr        2.0.1      2020-11-17 [1] CRAN (R 4.1.0)
 #R>  memoise         2.0.0      2021-01-26 [1] CRAN (R 4.1.0)
-#R>  mvtnorm         1.1-1      2020-06-09 [1] CRAN (R 4.1.0)
+#R>  mvtnorm         1.1-2      2021-06-07 [1] CRAN (R 4.1.0)
 #R>  pkgbuild        1.2.0      2020-12-15 [1] CRAN (R 4.1.0)
 #R>  pkgload         1.2.1      2021-04-06 [1] CRAN (R 4.1.0)
-#R>  PowerTOST     * 1.5.3.9000 2021-05-26 [1] local         
+#R>  PowerTOST     * 1.5.3.9000 2021-06-21 [1] local         
 #R>  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.1.0)
 #R>  processx        3.5.2      2021-04-30 [1] CRAN (R 4.1.0)
 #R>  ps              1.6.0      2021-02-28 [1] CRAN (R 4.1.0)
 #R>  purrr           0.3.4      2020-04-17 [1] CRAN (R 4.1.0)
 #R>  R6              2.5.0      2020-10-28 [1] CRAN (R 4.1.0)
 #R>  Rcpp            1.0.6      2021-01-15 [1] CRAN (R 4.1.0)
-#R>  remotes         2.3.0      2021-04-01 [1] CRAN (R 4.1.0)
+#R>  remotes         2.4.0      2021-06-02 [1] CRAN (R 4.1.0)
 #R>  rlang           0.4.11     2021-04-30 [1] CRAN (R 4.1.0)
-#R>  rmarkdown       2.8        2021-05-07 [1] CRAN (R 4.1.0)
+#R>  rmarkdown       2.9        2021-06-15 [1] CRAN (R 4.1.0)
 #R>  rprojroot       2.0.2      2020-11-15 [1] CRAN (R 4.1.0)
 #R>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.1.0)
 #R>  stringi         1.6.1      2021-05-10 [1] CRAN (R 4.1.0)
 #R>  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.1.0)
 #R>  TeachingDemos   2.12       2020-04-07 [1] CRAN (R 4.1.0)
-#R>  testthat        3.0.2      2021-02-14 [1] CRAN (R 4.1.0)
+#R>  testthat        3.0.3      2021-06-16 [1] CRAN (R 4.1.0)
 #R>  usethis         2.0.1      2021-02-10 [1] CRAN (R 4.1.0)
 #R>  withr           2.4.2      2021-04-18 [1] CRAN (R 4.1.0)
-#R>  xfun            0.23       2021-05-15 [1] CRAN (R 4.1.0)
+#R>  xfun            0.24       2021-06-15 [1] CRAN (R 4.1.0)
 #R>  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.1.0)
 #R> 
 #R> [1] D:/Program Files/R/R-4.1.0/library
