@@ -6,6 +6,8 @@ On GitHub 2021-01-27.
   * Fix in `power.TOST()` w.r.t vectorization of `CV` or `theta0`.
 
 ## Minor changes
+  * Coefficients with more decimals (15) for the 10-point Gauss quadrature in
+    function tfn. Thanks to PharmCat for contributing them.
   * Clarification of the calculations with `gmodel=1` in the man page section Details 
     of function `power.TOST.sds()`.
 
