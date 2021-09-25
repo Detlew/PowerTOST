@@ -1,27 +1,27 @@
 PowerTOST
 ================
 
-  - [Supported Designs](#supported-designs)
-  - [Purpose](#purpose)
-  - [Supported](#supported)
-      - [Power and Sample Size](#power-and-sample-size)
-      - [Methods](#methods)
-      - [Helpers](#helpers)
-  - [Defaults](#defaults)
-      - [Average Bioequivalence](#average-bioequivalence)
-      - [Reference-Scaled Average
+-   [Supported Designs](#supported-designs)
+-   [Purpose](#purpose)
+-   [Supported](#supported)
+    -   [Power and Sample Size](#power-and-sample-size)
+    -   [Methods](#methods)
+    -   [Helpers](#helpers)
+-   [Defaults](#defaults)
+    -   [Average Bioequivalence](#average-bioequivalence)
+    -   [Reference-Scaled Average
         Bioequivalence](#reference-scaled-average-bioequivalence)
-      - [Dose-Proportionality](#dose-proportionality)
-      - [Power Analysis](#power-analysis)
-  - [Examples](#examples)
-      - [Parallel Design](#parallel-design)
-      - [Crossover Design](#crossover-design)
-      - [Replicate Designs](#replicate-designs)
-      - [Dose-Proportionality](#dose-proportionality-1)
-      - [Power Analysis](#power-analysis-1)
-      - [Speed Comparisons](#speed-comparisons)
-  - [Installation](#installation)
-  - [Session Information](#session-information)
+    -   [Dose-Proportionality](#dose-proportionality)
+    -   [Power Analysis](#power-analysis)
+-   [Examples](#examples)
+    -   [Parallel Design](#parallel-design)
+    -   [Crossover Design](#crossover-design)
+    -   [Replicate Designs](#replicate-designs)
+    -   [Dose-Proportionality](#dose-proportionality-1)
+    -   [Power Analysis](#power-analysis-1)
+    -   [Speed Comparisons](#speed-comparisons)
+-   [Installation](#installation)
+-   [Session Information](#session-information)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -45,8 +45,8 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Version 1.5.3.9000 built 2021-06-21 with R 4.1.0 (development version
-not on CRAN).
+Version 1.5.3 built 2021-01-18 with R 4.0.3 (stable release on CRAN
+2021-01-18).
 
 ## Supported Designs
 
@@ -65,24 +65,24 @@ not on CRAN).
     #R>    2x2x2r Liu's 2x2x2 repeated x-over 3*n-2
     #R>    paired                paired means   n-1
 
-Codes of designs follow this pattern: `treatments x sequences x
-periods`.
+Codes of designs follow this pattern:
+`treatments x sequences x periods`.
 
 Although some replicate designs are more ‘popular’ than others, sample
 size estimations are valid for *all* of the following designs:
 
-| <small>design</small> | <small>type</small> | <small>sequences</small> |                             | <small>periods</small> |
-| :-------------------: | :-----------------: | :----------------------: | --------------------------- | :--------------------: |
-|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TRTR\\|RTRT`               |    <small>4</small>    |
-|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TRRT\\|RTTR`               |    <small>4</small>    |
-|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TTRR\\|RRTT`               |    <small>4</small>    |
-|        `2x4x4`        |     <small>full     |     <small>4</small>     | `TRTR\\|RTRT\\|TRRT\\|RTTR` |    <small>4</small>    |
-|        `2x4x4`        |     <small>full     |     <small>4</small>     | `TRRT\\|RTTR\\|TTRR\\|RRTT` |    <small>4</small>    |
-|        `2x2x3`        |     <small>full     |     <small>2</small>     | `TRT\\|RTR`                 |    <small>3</small>    |
-|        `2x2x3`        |     <small>full     |     <small>2</small>     | `TRR\\|RTT`                 |    <small>3</small>    |
-|        `2x4x2`        |     <small>full     |     <small>4</small>     | `TR\\|RT\\|TT\\|RR`         |    <small>2</small>    |
-|        `2x3x3`        |   <small>partial    |     <small>3</small>     | `TRR\\|RTR\\|RRT`           |    <small>3</small>    |
-|        `2x2x3`        |   <small>partial    |     <small>2</small>     | `TRR\\|RTR`                 |    <small>3</small>    |
+| <small>design</small> | <small>type</small> | <small>sequences</small> |                          | <small>periods</small> |
+|:---------------------:|:-------------------:|:------------------------:|--------------------------|:----------------------:|
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TRTR\|RTRT`             |    <small>4</small>    |
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TRRT\|RTTR`             |    <small>4</small>    |
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | `TTRR\|RRTT`             |    <small>4</small>    |
+|        `2x4x4`        |     <small>full     |     <small>4</small>     | `TRTR\|RTRT\|TRRT\|RTTR` |    <small>4</small>    |
+|        `2x4x4`        |     <small>full     |     <small>4</small>     | `TRRT\|RTTR\|TTRR\|RRTT` |    <small>4</small>    |
+|        `2x2x3`        |     <small>full     |     <small>2</small>     | `TRT\|RTR`               |    <small>3</small>    |
+|        `2x2x3`        |     <small>full     |     <small>2</small>     | `TRR\|RTT`               |    <small>3</small>    |
+|        `2x4x2`        |     <small>full     |     <small>4</small>     | `TR\|RT\|TT\|RR`         |    <small>2</small>    |
+|        `2x3x3`        |   <small>partial    |     <small>3</small>     | `TRR\|RTR\|RRT`          |    <small>3</small>    |
+|        `2x2x3`        |   <small>partial    |     <small>2</small>     | `TRR\|RTR`               |    <small>3</small>    |
 
 Balaam’s design `TR|RT|TT|RR` should be avoided due to its poor power
 characteristics. The three period partial replicate design with two
@@ -96,13 +96,13 @@ presence of period effects.
 
 For various methods power can be *calculated* based on
 
-  - nominal *α*, coefficient of variation (*CV*), deviation of test from
+-   nominal *α*, coefficient of variation (*CV*), deviation of test from
     reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
     *θ*<sub>2</sub>}, sample size (*n*), and design.
 
 For all methods the sample size can be *estimated* based on
 
-  - nominal *α*, coefficient of variation (*CV*), deviation of test from
+-   nominal *α*, coefficient of variation (*CV*), deviation of test from
     reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
     *θ*<sub>2</sub>}, target (*i.e.*, desired) power, and design.
 
@@ -117,95 +117,94 @@ replicate designs and equal/unequal group sizes in two-group parallel
 designs. Sample sizes are always rounded up to achieve balanced
 sequences or equal group sizes.
 
-  - Average Bioequivalence (with arbitrary *fixed* limits).
-  - Two simultaneous <span title="Two One-Sided Tests">TOST</span>
+-   Average Bioequivalence (with arbitrary *fixed* limits).
+-   Two simultaneous <span title="Two One-Sided Tests">TOST</span>
     procedures.
-  - Non-inferiority *t*-test.
-  - Ratio of two means with normally distributed data on the original
+-   Non-inferiority *t*-test.
+-   Ratio of two means with normally distributed data on the original
     scale based on Fieller’s (‘fiducial’) confidence interval.
-  - ‘Expected’ power in case of uncertain (estimated) variability and/or
+-   ‘Expected’ power in case of uncertain (estimated) variability and/or
     uncertain *θ*<sub>0</sub>.
-  - Reference-scaled bioequivalence based on simulations.
-      - <span title="European Medicines Agency">EMA</span>,
-        <span title="World Health Organization">WHO</span> and many
-        others: Average Bioequivalence with Expanding Limits (ABEL).
-      - <span title="Gulf Co-operation Council">GCC</span>: Average
+-   Reference-scaled bioequivalence based on simulations.
+    -   <span title="European Medicines Agency">EMA</span>, <span
+        title="World Health Organization">WHO</span> and many others:
+        Average Bioequivalence with Expanding Limits (ABEL).
+    -   <span title="Gulf Co-operation Council">GCC</span>: Average
         Bioequivalence with *fixed* widened limits of 75.00–133.33% if
-        *CV*<sub>wR</sub> \>30%.  
-      - U.S. <span title="Food and Drug Administration">FDA</span>,
+        *CV*<sub>wR</sub> &gt;30%.  
+    -   U.S. <span title="Food and Drug Administration">FDA</span>,
         China <span title="Centre for Drug Evaluation">CDE</span>:
         Reference-scaled Average Bioequivalence (RSABE) for Highly
         Variable Drugs / Drug Products and Narrow Therapeutic Index
         Drugs (NTIDs). In China the former is required and the latter
         currently under discussion.
-  - Iteratively adjust *α* to control the type I error in ABEL and
+-   Iteratively adjust *α* to control the type I error in ABEL and
     RSABE.
-  - U.S. <span title="Food and Drug Administration">FDA</span>:
-    <span title="Average Bioequivalence">ABE</span> for highly variable
-    <span title="Narrow Therapeutic Index Drugs">NTIDs</span> by
-    simulations.
-  - Dose-Proportionality using the power model.
+-   U.S. <span title="Food and Drug Administration">FDA</span>: <span
+    title="Average Bioequivalence">ABE</span> for highly variable <span
+    title="Narrow Therapeutic Index Drugs">NTIDs</span> by simulations.
+-   Dose-Proportionality using the power model.
 
 <small>[TOC ↩](#powertost)</small>
 
 ### Methods
 
-  - Exact
-      - Owen’s Q.
-      - Direct integration of the bivariate non-central
+-   Exact
+    -   Owen’s Q.
+    -   Direct integration of the bivariate non-central
         *t*-distribution.
-  - Approximations
-      - Non-central *t*-distribution.
-      - ‘Shifted’ central *t*-distribution.
+-   Approximations
+    -   Non-central *t*-distribution.
+    -   ‘Shifted’ central *t*-distribution.
 
 <small>[TOC ↩](#powertost)</small>
 
 ### Helpers
 
-  - Calculate *CV* from *MSE* or *SE* (and vice versa).
-  - Calculate *CV* from given confidence interval.
-  - Calculate *CV*<sub>wR</sub> from the upper expanded limit of an ABEL
+-   Calculate *CV* from *MSE* or *SE* (and vice versa).
+-   Calculate *CV* from given confidence interval.
+-   Calculate *CV*<sub>wR</sub> from the upper expanded limit of an ABEL
     study.
-  - Confidence interval of *CV*.
-  - Pool *CV* from several studies.
-  - Confidence interval for given *α*, *CV*, point estimate, sample
+-   Confidence interval of *CV*.
+-   Pool *CV* from several studies.
+-   Confidence interval for given *α*, *CV*, point estimate, sample
     size, and design.
-  - Calculate *CV*<sub>wT</sub> and *CV*<sub>wR</sub> from a (pooled)
+-   Calculate *CV*<sub>wT</sub> and *CV*<sub>wR</sub> from a (pooled)
     *CV*<sub>w</sub> assuming a ratio of intra-subject variances.
-  - *p*-values of the <span title="Two One-Sided Tests">TOST</span>
+-   *p*-values of the <span title="Two One-Sided Tests">TOST</span>
     procedure.
-  - Analysis tool for exploration/visualization of the impact of
+-   Analysis tool for exploration/visualization of the impact of
     expected values (*CV*, *θ*<sub>0</sub>, reduced sample size due to
     dropouts) on power of BE decision.
-  - Construct design matrices of incomplete block designs.
+-   Construct design matrices of incomplete block designs.
 
 <small>[TOC ↩](#powertost)</small>
 
 ## Defaults
 
-  - *α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25). Details
+-   *α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25). Details
     of the sample size search (and the regulatory settings in
     reference-scaled average bioequivalence) are shown in the console.
-  - Note: In all functions values have to be given as ratios, not in
+-   Note: In all functions values have to be given as ratios, not in
     percent.
 
 ### Average Bioequivalence
 
-*θ*<sub>0</sub> 0.95, target power 0.80, design "2x2" (TR|RT), exact
+*θ*<sub>0</sub> 0.95, target power 0.80, design "2x2" (TR\|RT), exact
 method (Owen’s Q).
 
 ### Reference-Scaled Average Bioequivalence
 
 *α* 0.05, point estimate constraint (0.80, 1.25), homoscedasticity
 (*CV*<sub>wT</sub> = *CV*<sub>wR</sub>), scaling is based on
-*CV*<sub>wR</sub>, target power 0.80, design "2x3x3" (TRR|RTR|RRT),
+*CV*<sub>wR</sub>, target power 0.80, design "2x3x3" (TRR\|RTR\|RRT),
 approximation by the non-central *t*-distribution, 100,000 simulations.
 
-  - <span title="European Medicines Agency">EMA</span>,
-    <span title="World Health Organization">WHO</span>, Health Canada,
-    and many other jurisdictions: Average Bioequivalence with Expanding
+-   <span title="European Medicines Agency">EMA</span>, <span
+    title="World Health Organization">WHO</span>, Health Canada, and
+    many other jurisdictions: Average Bioequivalence with Expanding
     Limits (ABEL).
-  - U.S. <span title="Food and Drug Administration">FDA</span>, China
+-   U.S. <span title="Food and Drug Administration">FDA</span>, China
     <span title="Centre for Drug Evaluation">CDE</span>: RSABE.
 
 #### Highly Variable Drugs / Drug Products
@@ -227,18 +226,18 @@ Regulatory constant `0.76`, upper cap of scaling at *CV*<sub>wR</sub>
 ###### Gulf Cooperation Council
 
 Regulatory constant `log(1/0.75)/sqrt(log(0.3^2+1))`, widened limits
-75.00–133.33% if *CV*<sub>wR</sub> \>30%, no upper cap of scaling,
+75.00–133.33% if *CV*<sub>wR</sub> &gt;30%, no upper cap of scaling,
 evaluation by <span title="Analysis of Variance">ANOVA</span>.
 
 ###### FDA
 
-Regulatory constant `log(1.25)/0.25`, linearized scaled
-<span title="Average Bioequivalence">ABE</span> (Howe’s approximation).
+Regulatory constant `log(1.25)/0.25`, linearized scaled <span
+title="Average Bioequivalence">ABE</span> (Howe’s approximation).
 
 #### Narrow Therapeutic Index Drugs (FDA)
 
 *θ*<sub>0</sub> 0.975, regulatory constant `log(1.11111)/0.1`, upper cap
-of scaling at *CV*<sub>wR</sub> \~21.4%, design "2x2x4" (TRTR|RTRT),
+of scaling at *CV*<sub>wR</sub> \~21.4%, design "2x2x4" (TRTR\|RTRT),
 linearized scaled <span title="Average Bioequivalence">ABE</span>
 (Howe’s approximation), upper limit of the confidence interval of
 *s*<sub>wT</sub>/*s*<sub>wR</sub> ≤2.5.
@@ -325,8 +324,8 @@ sampleN.TOST(CV = 0.40, theta0 = 0.90, theta1 = 0.75, design = "2x2x4")
 <small>[TOC ↩](#powertost)</small>
 
 Sample size for assumed within- (intra-) subject *CV* 0.125 (12.5%),
-*θ*<sub>0</sub> 0.975. Acceptance range for
-<span title="Narrow Therapeutic Index Drugs">NTIDs</span> (most
+*θ*<sub>0</sub> 0.975. Acceptance range for <span
+title="Narrow Therapeutic Index Drugs">NTIDs</span> (most
 jurisdictions).
 
 ``` r
@@ -383,7 +382,7 @@ sampleN.RatioF(CV = 0.20, CVb = 0.40)
 
 Sample size for assumed within- (intra-) subject *CV* 0.45 (45%),
 *θ*<sub>0</sub> 0.90, three period full replicate study "2x2x3"
-(TRT|RTR *or* TRR|RTT).
+(TRT\|RTR *or* TRR\|RTT).
 
 ``` r
 sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
@@ -405,10 +404,10 @@ sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
 
 Note that the conventional model assumes homoscedasticity (equal
 variances of treatments). For heteroscedasticity we can ‘switch off’ all
-conditions of one of the methods for reference-scaled
-<span title="Average Bioequivalence">ABE</span>. We assume a
-σ<sup>2</sup> ratio of ⅔ (*i.e.*, the test has a lower variability than
-the reference). Only relevant columns of the data.frame shown.
+conditions of one of the methods for reference-scaled <span
+title="Average Bioequivalence">ABE</span>. We assume a σ<sup>2</sup>
+ratio of ⅔ (*i.e.*, the test has a lower variability than the
+reference). Only relevant columns of the data.frame shown.
 
 ``` r
 reg <- reg_const("USER", r_const = NA, CVswitch = Inf,
@@ -493,14 +492,14 @@ scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4", n = 30)
 ```
 
 With the nominal *α* 0.05 the Type I Error will be inflated (0.0665).
-With the adjusted *α* 0.0354 (*i.e.*, a 92.92%
-<span title="Confidence Interval">CI</span>) the
-<span title="Type I Error">TIE</span> will be controlled, although with
-a slight loss in power (decreases from 0.814 to 0.771).  
+With the adjusted *α* 0.0354 (*i.e.*, a 92.92% <span
+title="Confidence Interval">CI</span>) the <span
+title="Type I Error">TIE</span> will be controlled, although with a
+slight loss in power (decreases from 0.814 to 0.771).  
 Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to
-estimate the sample size which both controls the
-<span title="Type I Error">TIE</span> and maintains the target power. In
-this example 34 subjects would be required.
+estimate the sample size which both controls the <span
+title="Type I Error">TIE</span> and maintains the target power. In this
+example 34 subjects would be required.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -508,7 +507,7 @@ this example 34 subjects would be required.
 cannot be applied for *AUC* (except for the
 <span title="World Health Organization">WHO<span>). Hence, in many cases
 <span title="Average Bioequivalence">ABE</span> drives the sample size.
-Three period full replicate "2x2x3" study (TRT|RTR *or* TRR|RTT).
+Three period full replicate "2x2x3" study (TRT\|RTR *or* TRR\|RTT).
 
 ``` r
 PK  <- c("Cmax", "AUC")
@@ -564,7 +563,7 @@ sampleN.scABEL(CV = 0.45, regulator = "GCC", details = FALSE)
 #### HVD(P)s
 
 Sample size for a four period full replicate "2x2x4" study (any of
-TRTR|RTRT, TRRT|RTTR, TTRR|RRTT) assuming heteroscedasticity
+TRTR\|RTRT, TRRT\|RTTR, TTRR\|RRTT) assuming heteroscedasticity
 (*CV*<sub>wT</sub> 0.40, *CV*<sub>wR</sub> 0.50). Details of the sample
 size search suppressed.
 
@@ -595,12 +594,12 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 
 Sample size assuming heteroscedasticity (*CV*<sub>w</sub> 0.10,
 σ<sup>2</sup> ratio 2.5, *i.e.*, the test treatment has a substantially
-higher variability than the reference). TRTR|RTRT according to the
+higher variability than the reference). TRTR\|RTRT according to the
 [FDA’s
 guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf).
-Assess additionally which one of the three components (scaled
-<span title="Average Bioequivalence">ABE</span>, conventional
-<span title="Average Bioequivalence">ABE</span>,
+Assess additionally which one of the three components (scaled <span
+title="Average Bioequivalence">ABE</span>, conventional <span
+title="Average Bioequivalence">ABE</span>,
 *s*<sub>wT</sub>/*s*<sub>wR</sub> ratio) drives the sample size.
 
 ``` r
@@ -670,9 +669,9 @@ suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 ```
 
 Here the scaled <span title="Average Bioequivalence">ABE</span>
-component shows the lowest probability to demonstrate
-<span title="Bioequivalence">BE</span> and drives the sample size –
-which is much lower than in the previous example.
+component shows the lowest probability to demonstrate <span
+title="Bioequivalence">BE</span> and drives the sample size – which is
+much lower than in the previous example.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -774,7 +773,7 @@ and analyze their respective power.
 
 ### Speed Comparisons
 
-Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.1.0
+Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.1.1
 64 bit on Windows 7.
 
 #### ABE
@@ -782,13 +781,11 @@ Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.1.0
 "2x2" crossover design, *CV* 0.17. Sample sizes and achieved power for
 the supported methods (the 1<sup>st</sup> one is the default).
 
-``` 
-    method  n   power time (s)
-     owenq 14 0.80568  0.00128
-       mvt 14 0.80569  0.11778
-noncentral 14 0.80568  0.00100
-   shifted 16 0.85230  0.00096
-```
+        method  n   power time (s)
+         owenq 14 0.80568  0.00128
+           mvt 14 0.80569  0.11778
+    noncentral 14 0.80568  0.00100
+       shifted 16 0.85230  0.00096
 
 The 2<sup>nd</sup> exact method is substantially slower than the
 1<sup>st</sup>. The approximation based on the noncentral
@@ -804,18 +801,16 @@ Four period full replicate study, homogenicity (*CV*<sub>wT</sub> =
 *CV*<sub>wR</sub> 0.45). Sample sizes and achieved power for the
 supported methods.
 
-``` 
-              function              method  n   power time (s)
-        sampleN.scABEL    ‘key’ statistics 28 0.81116   0.1348
- sampleN.scABEL.sdsims subject simulations 28 0.81196   2.5377
-```
+                  function              method  n   power time (s)
+            sampleN.scABEL    ‘key’ statistics 28 0.81116   0.1348
+     sampleN.scABEL.sdsims subject simulations 28 0.81196   2.5377
 
 Simulating via the ‘key’ statistics is the method of choice for speed
 reasons.  
 However, subject simulations are recommended *if*
 
-  - the partial replicate design (TRR|RTR|RRT) is planned **and**
-  - the special case of heterogenicity *CV*<sub>wT</sub> \>
+-   the partial replicate design (TRR\|RTR\|RRT) is planned **and**
+-   the special case of heterogenicity *CV*<sub>wT</sub> &gt;
     *CV*<sub>wR</sub> is expected.
 
 <small>[TOC ↩](#powertost)</small>
@@ -848,68 +843,70 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.3.9000 built 2021-06-21 with R 4.1.0.
+Version 1.5.3 built 2021-01-18 with R 4.0.3.
 
 ``` r
 options(width = 59)
 devtools::session_info()
 #R> - Session info ------------------------------------------
 #R>  setting  value                       
-#R>  version  R version 4.1.0 (2021-05-18)
-#R>  os       Windows 7 x64 SP 1          
+#R>  version  R version 4.1.1 (2021-08-10)
+#R>  os       Windows 10 x64              
 #R>  system   x86_64, mingw32             
 #R>  ui       RTerm                       
-#R>  language EN                          
+#R>  language en                          
 #R>  collate  German_Germany.1252         
 #R>  ctype    German_Germany.1252         
-#R>  tz       Europe/Vienna               
-#R>  date     2021-06-23                  
+#R>  tz       Europe/Berlin               
+#R>  date     2021-09-25                  
 #R> 
 #R> - Packages ----------------------------------------------
-#R>  package       * version    date       lib source        
-#R>  cachem          1.0.5      2021-05-15 [1] CRAN (R 4.1.0)
-#R>  callr           3.7.0      2021-04-20 [1] CRAN (R 4.1.0)
-#R>  cli             2.5.0      2021-04-26 [1] CRAN (R 4.1.0)
-#R>  crayon          1.4.1      2021-02-08 [1] CRAN (R 4.1.0)
-#R>  cubature        2.0.4.2    2021-05-13 [1] CRAN (R 4.1.0)
-#R>  desc            1.3.0      2021-03-05 [1] CRAN (R 4.1.0)
-#R>  devtools        2.4.2      2021-06-07 [1] CRAN (R 4.1.0)
-#R>  digest          0.6.27     2020-10-24 [1] CRAN (R 4.1.0)
-#R>  ellipsis        0.3.2      2021-04-29 [1] CRAN (R 4.1.0)
-#R>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.1.0)
-#R>  fastmap         1.1.0      2021-01-25 [1] CRAN (R 4.1.0)
-#R>  fs              1.5.0      2020-07-31 [1] CRAN (R 4.1.0)
-#R>  glue            1.4.2      2020-08-27 [1] CRAN (R 4.1.0)
-#R>  htmltools       0.5.1.1    2021-01-22 [1] CRAN (R 4.1.0)
-#R>  knitr           1.33       2021-04-24 [1] CRAN (R 4.1.0)
-#R>  lifecycle       1.0.0      2021-02-15 [1] CRAN (R 4.1.0)
-#R>  magrittr        2.0.1      2020-11-17 [1] CRAN (R 4.1.0)
-#R>  memoise         2.0.0      2021-01-26 [1] CRAN (R 4.1.0)
-#R>  mvtnorm         1.1-2      2021-06-07 [1] CRAN (R 4.1.0)
-#R>  pkgbuild        1.2.0      2020-12-15 [1] CRAN (R 4.1.0)
-#R>  pkgload         1.2.1      2021-04-06 [1] CRAN (R 4.1.0)
-#R>  PowerTOST     * 1.5.3.9000 2021-06-21 [1] local         
-#R>  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.1.0)
-#R>  processx        3.5.2      2021-04-30 [1] CRAN (R 4.1.0)
-#R>  ps              1.6.0      2021-02-28 [1] CRAN (R 4.1.0)
-#R>  purrr           0.3.4      2020-04-17 [1] CRAN (R 4.1.0)
-#R>  R6              2.5.0      2020-10-28 [1] CRAN (R 4.1.0)
-#R>  Rcpp            1.0.6      2021-01-15 [1] CRAN (R 4.1.0)
-#R>  remotes         2.4.0      2021-06-02 [1] CRAN (R 4.1.0)
-#R>  rlang           0.4.11     2021-04-30 [1] CRAN (R 4.1.0)
-#R>  rmarkdown       2.9        2021-06-15 [1] CRAN (R 4.1.0)
-#R>  rprojroot       2.0.2      2020-11-15 [1] CRAN (R 4.1.0)
-#R>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.1.0)
-#R>  stringi         1.6.1      2021-05-10 [1] CRAN (R 4.1.0)
-#R>  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.1.0)
-#R>  TeachingDemos   2.12       2020-04-07 [1] CRAN (R 4.1.0)
-#R>  testthat        3.0.3      2021-06-16 [1] CRAN (R 4.1.0)
-#R>  usethis         2.0.1      2021-02-10 [1] CRAN (R 4.1.0)
-#R>  withr           2.4.2      2021-04-18 [1] CRAN (R 4.1.0)
-#R>  xfun            0.24       2021-06-15 [1] CRAN (R 4.1.0)
-#R>  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.1.0)
+#R>  package       * version date       lib source        
+#R>  cachem          1.0.6   2021-08-19 [1] CRAN (R 4.1.1)
+#R>  callr           3.7.0   2021-04-20 [1] CRAN (R 4.0.5)
+#R>  cli             3.0.1   2021-07-17 [1] CRAN (R 4.1.0)
+#R>  crayon          1.4.1   2021-02-08 [1] CRAN (R 4.0.4)
+#R>  cubature        2.0.4.2 2021-05-13 [1] CRAN (R 4.1.0)
+#R>  desc            1.3.0   2021-03-05 [1] CRAN (R 4.0.4)
+#R>  devtools        2.4.2   2021-06-07 [1] CRAN (R 4.1.0)
+#R>  digest          0.6.28  2021-09-23 [1] CRAN (R 4.1.1)
+#R>  ellipsis        0.3.2   2021-04-29 [1] CRAN (R 4.0.5)
+#R>  evaluate        0.14    2019-05-28 [1] CRAN (R 4.0.0)
+#R>  fastmap         1.1.0   2021-01-25 [1] CRAN (R 4.0.4)
+#R>  fs              1.5.0   2020-07-31 [1] CRAN (R 4.0.2)
+#R>  glue            1.4.2   2020-08-27 [1] CRAN (R 4.0.2)
+#R>  htmltools       0.5.2   2021-08-25 [1] CRAN (R 4.1.1)
+#R>  knitr           1.34    2021-09-09 [1] CRAN (R 4.1.1)
+#R>  lifecycle       1.0.1   2021-09-24 [1] CRAN (R 4.1.1)
+#R>  magrittr        2.0.1   2020-11-17 [1] CRAN (R 4.0.3)
+#R>  memoise         2.0.0   2021-01-26 [1] CRAN (R 4.0.4)
+#R>  mvtnorm         1.1-2   2021-06-07 [1] CRAN (R 4.1.0)
+#R>  pkgbuild        1.2.0   2020-12-15 [1] CRAN (R 4.0.3)
+#R>  pkgload         1.2.2   2021-09-11 [1] CRAN (R 4.1.1)
+#R>  PowerTOST     * 1.5-3   2021-01-18 [1] CRAN (R 4.0.3)
+#R>  prettyunits     1.1.1   2020-01-24 [1] CRAN (R 4.0.0)
+#R>  processx        3.5.2   2021-04-30 [1] CRAN (R 4.0.5)
+#R>  ps              1.6.0   2021-02-28 [1] CRAN (R 4.0.4)
+#R>  purrr           0.3.4   2020-04-17 [1] CRAN (R 4.0.0)
+#R>  R6              2.5.1   2021-08-19 [1] CRAN (R 4.1.1)
+#R>  Rcpp            1.0.7   2021-07-07 [1] CRAN (R 4.1.1)
+#R>  remotes         2.4.0   2021-06-02 [1] CRAN (R 4.1.0)
+#R>  rlang           0.4.11  2021-04-30 [1] CRAN (R 4.0.5)
+#R>  rmarkdown       2.11    2021-09-14 [1] CRAN (R 4.1.1)
+#R>  rprojroot       2.0.2   2020-11-15 [1] CRAN (R 4.0.3)
+#R>  rstudioapi      0.13    2020-11-12 [1] CRAN (R 4.0.3)
+#R>  sessioninfo     1.1.1   2018-11-05 [1] CRAN (R 4.0.0)
+#R>  stringi         1.7.4   2021-08-25 [1] CRAN (R 4.1.1)
+#R>  stringr         1.4.0   2019-02-10 [1] CRAN (R 4.0.0)
+#R>  TeachingDemos   2.12    2020-04-07 [1] CRAN (R 4.0.0)
+#R>  testthat        3.0.4   2021-07-01 [1] CRAN (R 4.1.0)
+#R>  usethis         2.0.1   2021-02-10 [1] CRAN (R 4.0.4)
+#R>  withr           2.4.2   2021-04-18 [1] CRAN (R 4.0.4)
+#R>  xfun            0.26    2021-09-14 [1] CRAN (R 4.1.1)
+#R>  yaml            2.2.1   2020-02-01 [1] CRAN (R 4.0.0)
 #R> 
-#R> [1] D:/Program Files/R/R-4.1.0/library
+#R> [1] C:/Program Files/R/library
+#R> [2] C:/Program Files/R/R-4.1.1/library
 ```
 
 <small>[TOC ↩](#powertost)</small>
