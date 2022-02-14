@@ -162,7 +162,7 @@ European Medicines Agency, Committee for Medicinal Products for Human Use. \emph
 
 European Medicines Agency, Committee for Medicinal Products for Human Use. \emph{Questions & Answers: positions on specific questions addressed to the Pharmacokinetics Working Party (PKWP).} London, 19 November 2015. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/questions-answers-positions-specific-questions-addressed-pharmacokinetics-working-party_en.pdf}{EMA/618604/2008 Rev. 13}
 
-Health Canada, Therapeutic Products Directorate. \emph{Policy on Bioequivalence Standards for Highly Variable Drug Products.} Ottawa, 18 April 2016. \href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/announcements/notice-policy-bioequivalence-standards-highly-variable-drug-products.html}{16-104293-140}
+Health Canada, Therapeutic Products Directorate. \emph{Comparative Bioavailability Standards: Formulations Used for Systemic Effects, 2.1.1.8 Highly variable drug products} Ottawa, 08 June 2018. \href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/applications-submissions/guidance-documents/bioavailability-bioequivalence/comparative-bioavailability-standards-formulations-used-systemic-effects.html#a2.1.1.8}
 
 Executive Board of the Health Ministers’ Council for GCC States. \emph{The GCC Guidelines for
 Bioequivalence.} 30 March 2016. \href{https://old.sfda.gov.sa/en/drug/drug_reg/Regulations/GCC_Guidelines_Bioequivalence.pdf}{Version 2.4}

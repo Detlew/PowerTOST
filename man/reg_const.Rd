@@ -51,7 +51,7 @@ D. Labes
 The former inofficial regulatory settings for \code{regulator="ANVISA"} are covered by \code{regulator="EMA"} (see the \href{http://forum.bebac.at/mix_entry.php?id=16291}{BEBA Forum, May 2016}).\cr\cr
 The settings for CVcap of Health Canada (\code{regulator="HC"}) were chosen in such a way
 that the limits of the acceptance range are capped nearly exact to 1/1.5 
-up to 1.5. Literally it is given rounded to 3 significant digits (\href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/announcements/notice-policy-bioequivalence-standards-highly-variable-drug-products.html}{Health Canada, April 18, 2016}).
+up to 1.5. Literally it is given rounded to 3 significant digits (\href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/applications-submissions/guidance-documents/bioavailability-bioequivalence/comparative-bioavailability-standards-formulations-used-systemic-effects.html}{Health Canada, September 1, 2018}).
 }
 \examples{
 # to retrieve the EMA settings

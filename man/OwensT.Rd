@@ -44,7 +44,7 @@ Thomas GE. \emph{Remark AS R30: A Remark on Algorithm AS 76: An Integral Useful 
 
 Young JC, Minder C. \emph{Algorithm AS 76: An Integral Useful in Calculating Non-Central t and Bivariate Normal Probabilities.} J Royal Stat Soc C. 1974;23(3):455--7. \doi{10.2307/2347148}
 
-Burkardt J. \emph{ASA076. Owen's T Function.} Last revised 25 November 2018. \url{https://people.sc.fsu.edu/~jburkardt/m_src/asa076/asa076.html}
+Burkardt J. \emph{ASA076. Owen's T Function.} \url{https://people.math.sc.edu/Burkardt/f_src/asa076/asa076.html}
 
 Owen DB. \emph{Tables for Computing Bivariate Normal Probabilities.} Ann Math Stat. 1956;27(4):1075--90. \doi{10.1214/aoms/1177728074}
 }
