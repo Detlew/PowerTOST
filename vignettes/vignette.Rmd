@@ -66,7 +66,7 @@ For an overview of supported designs, methods, and defaults together with some b
 : Higher-order crossover design with 4 treatments, 4 sequences, and 4 periods (Latin Square ABCD|BCDA|CDAB|DABC or any of the six Williams’ designs ADBC|BACD|CBDA|DCAB, ADCB|BCDA|CABD|DBAC, ACDB|BDCA|CBAD|DABC, ACBD|BADC|CDAB|DBCA, ABDC|BCAD|CDBA|DACB, ABCD|BDAC|CADB|DCBA).
 
 <span id="abe">ABE</span>
-: Average Bioequivalence with *fixed* limits based on a clinically not relevant difference $\small{\Delta}$. The common $\small{\Delta}$ 0.20 leads to $\small{\theta_1=1-\Delta,\:\theta_2=1/(1-\Delta)}$ or 80.00--125.00\%. For <a href="#ntid">NTIDs</a> (<span title="European Medicines Agency">EMA</span> and other jurisdicions) $\small{\Delta}$ 0.10 (90.00--111.11\%). For highly variable *C*~max~ (Russian Federation, <span title="Eurasian Economic Union">EEU</span>, <span title="Gulf Cooperation Council">GCC</span>) $\small{\Delta}$ 0.25 (75.00--133.33\%).$$\small{H_0:\mu_\textrm{T}/\mu_\textrm{R}\notin \left [ \theta_1,\theta_2 \right ]\:vs\:H_1:\theta_1<\mu_\textrm{T}/\mu_\textrm{R}<\theta_2}$$
+: Average Bioequivalence with *fixed* limits based on a clinically not relevant difference $\small{\Delta}$. The common $\small{\Delta}$ 0.20 leads to $\small{\theta_1=1-\Delta,\:\theta_2=1/(1-\Delta)}$ or 80.00--125.00\%. For <a href="#ntid">NTIDs</a> (<span title="European Medicines Agency">EMA</span> and other jurisdicions) $\small{\Delta}$ 0.10 (90.00--111.11\%). For highly variable *C*~max~ (Russian Federation, South Africa) $\small{\Delta}$ 0.25 (75.00--133.33\%).$$H_0:\;\frac{\mu_\textrm{T}}{\mu_\textrm{R}}\ni\left\{\theta_1,\,\theta_2\right\}\;vs\;H_1:\;\theta_1<\frac{\mu_\textrm{T}}{\mu_\textrm{R}}<\theta_2$$
 
 <span id="abel">ABEL</span>
 : Average Bioequivalence with *expanding* limits (see also ***<a href="#LU">L, U</a>***). Same model like for <a href="#abe">ABE</a> but $\small{\theta_1,\theta_2}$ are based on the *CV*~wR~ observed in the study.
@@ -106,7 +106,7 @@ $\beta_0$
 : Within-subject coefficient of variation of T; can be estimated only in full replicate designs.
 
 <span id="Delta">$\small{\Delta}$</span>
-: Clinically not relevant difference. Commonly 0.20.  For <a href="#ntid">NTIDs</a> (<span title="European Medicines Agency">EMA</span> and other jurisdictions) $\small{\Delta}$ 0.10, for *C*~max~ (Russian Federation, <span title="Eurasian Economic Union">EEU</span>, <span title="Gulf Cooperation Council">GCC</span>) $\small{\Delta}$ 0.25.
+: Clinically not relevant difference. Commonly 0.20.  For <a href="#ntid">NTIDs</a> (<span title="European Medicines Agency">EMA</span> and other jurisdictions) $\small{\Delta}$ 0.10, for *C*~max~ (Russian Federation, South Africa) $\small{\Delta}$ 0.25.
 
 <span id="HVDP">HVD(P)</span>
 : Highly variable drug (product); commonly defined with a <a href="#CVwR">CV~wR~</a> of ≥30\%. HVDs exhibit highly variable clearances (<a href="#CVwR">CV~wR~</a> ≥30\% if administered as a solution), whereas HVDPs may additionally – or solely – show highly variable absorption. HVDP(s) generally are ones with a flat dose-response curve.
@@ -122,17 +122,17 @@ $\beta_0$
 
     : **<a href="#abel">ABEL</a>**: Lower and upper expanded limits.
     <ul>
-      <li>30% < <a href="#CVwR">CV~wR~</a> ≤ 50%: Based on $\small{s_\textrm{wR}}$. $\small{\left[ {L,\,U} \right] = 100\cdot \exp (\mp 0.760 \cdot {s_\textrm{wR}})}$</li>
-      <li><a href="#CVwR">CV~wR~</a> > <a href="#CVcap">CV~cap~</a>: Applying $\small{s^*_\textrm{wR}=\sqrt{\log_{e}(CV_\textrm{cap}^{2}+1)}}$ in the expansion formula: $\small{\left[ {L,\,U} \right] = {69.84 - 143.19\%}}$. All jurisdictions except Health Canada, where $\small{\left[ {L,\,U} \right] = {66.7 - 150.0\%}}$.</li>
+      <li>30% < <a href="#CVwR">CV~wR~</a> ≤ 50%: Based on $\small{s_\textrm{wR}}$, where $\small{\left\{ {L,\,U} \right\}= 100\cdot \exp (\mp 0.760 \cdot {s_\textrm{wR}})}$</li>
+      <li><a href="#CVwR">CV~wR~</a> > <a href="#CVcap">CV~cap~</a>: Applying $\small{s^*_\textrm{wR}=\sqrt{\log_{e}(CV_\textrm{cap}^{2}+1)}}$ in the expansion formula: $\small{\left\{ {L,\,U} \right\} = {69.84 - 143.19\%}}$. All jurisdictions except Health Canada, where $\small{\left\{ {L,\,U} \right\} = {66.7 - 150.0\%}}$.</li>
     </ul>
     : **<a href="#rsabe">RSABE</a>**: Lower and upper ‘implied limits’.
     <ul>
-      <li>If $\small{s_\textrm{wR}\geq 0.294: \left[ {L,\: U} \right] = 100\cdot \exp (\mp 0.8926 \cdot {s_\textrm{wR}})}$</li>
+      <li>If $\small{s_\textrm{wR}\geq 0.294: \left\{ {L,\: U} \right\} = 100\cdot \exp (\mp 0.8926 \cdot {s_\textrm{wR}})}$</li>
     </ul>
 
 : Dose-Proportionality
 
-    : $\small{\left[ {L,\,U} \right]=\left[1+\log_{e}0.80/\log_{e}rd,\:1+\log_{e}1.25/\log_{e}rd \right]}$
+    : $\small{\left\{ {L,\,U} \right\}=\left[1+\log_{e}0.80/\log_{e}rd,\:1+\log_{e}1.25/\log_{e}rd \right]}$
 
 margin
 : Non-inferiority/-superiority margin <span style="font-weight:normal">(example for `logscale = TRUE` where <small>$\theta_0=\mu_\textrm{T}/\mu_\textrm{R}$</small>).</span>
@@ -270,5 +270,4 @@ Skips installation from a github remote if the [SHA-1](https://en.wikipedia.org/
 - Benjamin Lang (author)
 
 # License{#license}
-<h4 class="author">Helmut Schütz `r Sys.Date()`</h4>
-[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
+<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") `r Sys.Date()` Helmut Schütz</h4>

@@ -162,10 +162,9 @@ European Medicines Agency, Committee for Medicinal Products for Human Use. \emph
 
 European Medicines Agency, Committee for Medicinal Products for Human Use. \emph{Questions & Answers: positions on specific questions addressed to the Pharmacokinetics Working Party (PKWP).} London, 19 November 2015. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/questions-answers-positions-specific-questions-addressed-pharmacokinetics-working-party_en.pdf}{EMA/618604/2008 Rev. 13}
 
-Health Canada, Therapeutic Products Directorate. \emph{Comparative Bioavailability Standards: Formulations Used for Systemic Effects, 2.1.1.8 Highly variable drug products} Ottawa, 08 June 2018. \href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/applications-submissions/guidance-documents/bioavailability-bioequivalence/comparative-bioavailability-standards-formulations-used-systemic-effects.html#a2.1.1.8}{???}
+Health Canada, Therapeutic Products Directorate. \emph{Comparative Bioavailability Standards: Formulations Used for Systemic Effects, 2.1.1.8 Highly variable drug products} Ottawa, 08 June 2018. \href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/applications-submissions/guidance-documents/bioavailability-bioequivalence/comparative-bioavailability-standards-formulations-used-systemic-effects.html#a2.1.1.8}{online}
 
-Executive Board of the Health Ministers’ Council for GCC States. \emph{The GCC Guidelines for
-Bioequivalence.} 30 March 2016. \href{https://old.sfda.gov.sa/en/drug/drug_reg/Regulations/GCC_Guidelines_Bioequivalence.pdf}{Version 2.4}
+Executive Board of the Health Ministers’ Council for GCC States. \emph{The GCC Guidelines for Bioequivalence.} May 2021. \href{https://www.sfda.gov.sa/sites/default/files/2021-10/GCC_Guidelines_Bioequivalence.pdf}{Version 3.0}
 }
 
 \author{
@@ -179,7 +178,7 @@ of 0.80 (both for \code{alpha} and adjusted alpha) will be estimated. If
 If you are interested in other levels of power, use \code{\link{sampleN.scABEL.ad}}.
 
 The EMA\enc{’s}{'s} method is currently recommended in other jurisdictions as well (\emph{e.g.}, by the WHO;
-in ASEAN States, Australia, Brazil, Egypt, the Eurasian Economic Union, New Zealand, the Russian Federation, and the East African Community).\cr
+in ASEAN States, Australia, Brazil, Egypt, the Eurasian Economic Union, New Zealand, and the East African Community).\cr
 If CVwR > 30\%, \emph{fixed} wider limits of 0.7500--1.3333 are recommended by the Gulf Cooperation Council (Bahrain, Kuwait, Oman, Qatar, Saudi Arabia, United Arab Emirates).
 }
 \section{Designs}{
