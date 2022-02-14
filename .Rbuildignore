@@ -1,11 +1,10 @@
-.project
-stuff
+^stuff$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-.Rhistory
-.git
-.gitignore
-README.Rmd
+^\.Rhistory$
+^\\.git$
+^\.gitignore
+^README\.Rmd$
 
-vignettes/RSABE.Rmd.orig
-vignettes/pre_compute.R
+^vignettes/RSABE\\.Rmd\\.orig$
+^vignettes/pre_compute\\.R$
