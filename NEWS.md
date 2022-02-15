@@ -1,15 +1,14 @@
 # PowerTOST 1.5.3.9000
 
-On GitHub 2021-01-27.
+On GitHub 2021-02-15.
 
 ## Bug fixes
   * Fix in `power.TOST()` w.r.t vectorization of `CV` or `theta0`.
 
 ## Minor changes
-  * Coefficients with more decimals (15) for the 10-point Gauss quadrature in
-    function tfn. Thanks to PharmCat for contributing them.
-  * Clarification of the calculations with `gmodel=1` in the man page section Details 
-    of function `power.TOST.sds()`.
+  * URLs in README and man pages updated.
+  * Coefficients with more decimals (15) for the 10-point Gauss quadrature in function tfn. Thanks to PharmCat for contributing them.
+  * Clarification of the calculations with `gmodel = 1` in the man page section Details of function `power.TOST.sds()`.
 
 # PowerTOST 1.5-3
 

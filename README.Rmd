@@ -81,7 +81,7 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
   - Reference-scaled bioequivalence based on simulations.  
     - <span title="European Medicines Agency">EMA</span>, <span title="World Health Organization">WHO</span> and many others: Average Bioequivalence with Expanding Limits (ABEL).
     - <span title="Gulf Co-operation Council">GCC</span>: Average Bioequivalence with *fixed* widened limits of 75.00--133.33\% if *CV*~wR~ >30\%.  
-    - U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="Centre for Drug Evaluation">CDE</span>: Reference-scaled Average Bioequivalence (RSABE) for Highly Variable Drugs / Drug Products and Narrow Therapeutic Index Drugs (NTIDs). In China the former is required  and the latter currently under discussion.
+    - U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="Center for Drug Evaluation">CDE</span>: Reference-scaled Average Bioequivalence (RSABE) for Highly Variable Drugs / Drug Products and Narrow Therapeutic Index Drugs (NTIDs). In China the former is required  and the latter currently under discussion.
   - Iteratively adjust *α* to control the type I error in ABEL and RSABE.
   - U.S. <span title="Food and Drug Administration">FDA</span>: <span title="Average Bioequivalence">ABE</span> for highly variable <span title="Narrow Therapeutic Index Drugs">NTIDs</span> by simulations.
   - Dose-Proportionality using the power model.
@@ -123,7 +123,7 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
 *α* 0.05, point estimate constraint (0.80, 1.25), homoscedasticity (*CV*~wT~ = *CV*~wR~), scaling is based on *CV*~wR~, target power 0.80, design \"2x3x3\" (TRR|RTR|RRT), approximation by the non-central *t*-distribution, 100,000 simulations.
 
   - <span title="European Medicines Agency">EMA</span>, <span title="World Health Organization">WHO</span>, Health Canada, and many other jurisdictions: Average Bioequivalence with Expanding Limits (ABEL).
-  - U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="Centre for Drug Evaluation">CDE</span>: RSABE.
+  - U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="Center for Drug Evaluation">CDE</span>: RSABE.
 
 #### Highly Variable Drugs / Drug Products  
 *θ*~0~ 0.90 as recommended by [Tóthfalusi and Endrényi](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489) (2011).
@@ -262,7 +262,7 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 <small>[TOC ↩](#powertost)</small>
 
 #### NTIDs
-Sample size assuming heteroscedasticity (*CV*~w~ 0.10, σ<sup>2</sup> ratio 2.5, *i.e.*, the test treatment has a substantially higher variability than the reference). TRTR|RTRT according to the [FDA’s guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf). Assess additionally which one of the three components (scaled <span title="Average Bioequivalence">ABE</span>, conventional <span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~ ratio) drives the sample size.
+Sample size assuming heteroscedasticity (*CV*~w~ 0.10, σ<sup>2</sup> ratio 2.5, *i.e.*, the test treatment has a substantially higher variability than the reference). TRTR|RTRT according to the [FDA’s guidance](https://www.fda.gov/media/87219/Download). Assess additionally which one of the three components (scaled <span title="Average Bioequivalence">ABE</span>, conventional <span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~ ratio) drives the sample size.
 ```{r NTID2}
 CV <- signif(CVp2CV(CV = 0.10, ratio = 2.5), 4)
 n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
@@ -322,7 +322,7 @@ res <- pa.ABE(CV = 0.20, targetpower = 0.90)
 print(res, plotit = FALSE)
 ```
 If the study starts with 26 subjects (power \~0.92), the *CV* can increase to \~0.27 **or** *θ*~0~ decrease to \~0.90 **or** the sample size decrease to 10 whilst power will still be ≥0.70.    
-However, this is **not** a substitute for the “Sensitivity Analysis” recommended in [ICH-E9](https://www.ich.org/fileadmin/Public_Web_Site/ICH_Products/Guidelines/Efficacy/E9/Step4/E9_Guideline.pdf), since in a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
+However, this is **not** a substitute for the “Sensitivity Analysis” recommended in [ICH-E9](https://database.ich.org/sites/default/files/E9_Guideline.pdf), since in a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
 
 <small>[TOC ↩](#powertost)</small>
 

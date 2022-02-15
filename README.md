@@ -45,7 +45,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Version 1.5.3.9000 built 2022-02-14 with R 4.1.2 (development version
+Version 1.5.3.9000 built 2022-02-15 with R 4.1.2 (development version
 not on CRAN).
 
 ## Supported Designs
@@ -133,7 +133,7 @@ sequences or equal group sizes.
         Bioequivalence with *fixed* widened limits of 75.00–133.33% if
         *CV*<sub>wR</sub> \>30%.  
     -   U.S. <span title="Food and Drug Administration">FDA</span>,
-        China <span title="Centre for Drug Evaluation">CDE</span>:
+        China <span title="Center for Drug Evaluation">CDE</span>:
         Reference-scaled Average Bioequivalence (RSABE) for Highly
         Variable Drugs / Drug Products and Narrow Therapeutic Index
         Drugs (NTIDs). In China the former is required and the latter
@@ -205,7 +205,7 @@ approximation by the non-central *t*-distribution, 100,000 simulations.
     many other jurisdictions: Average Bioequivalence with Expanding
     Limits (ABEL).
 -   U.S. <span title="Food and Drug Administration">FDA</span>, China
-    <span title="Centre for Drug Evaluation">CDE</span>: RSABE.
+    <span title="Center for Drug Evaluation">CDE</span>: RSABE.
 
 #### Highly Variable Drugs / Drug Products
 
@@ -595,9 +595,8 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 Sample size assuming heteroscedasticity (*CV*<sub>w</sub> 0.10,
 σ<sup>2</sup> ratio 2.5, *i.e.*, the test treatment has a substantially
 higher variability than the reference). TRTR\|RTRT according to the
-[FDA’s
-guidance](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Warfarin_Sodium_tab_09218_RC12-12.pdf).
-Assess additionally which one of the three components (scaled <span
+[FDA’s guidance](https://www.fda.gov/media/87219/Download). Assess
+additionally which one of the three components (scaled <span
 title="Average Bioequivalence">ABE</span>, conventional <span
 title="Average Bioequivalence">ABE</span>,
 *s*<sub>wT</sub>/*s*<sub>wR</sub> ratio) drives the sample size.
@@ -764,7 +763,7 @@ increase to \~0.27 **or** *θ*<sub>0</sub> decrease to \~0.90 **or** the
 sample size decrease to 10 whilst power will still be ≥0.70.  
 However, this is **not** a substitute for the “Sensitivity Analysis”
 recommended in
-[ICH-E9](https://www.ich.org/fileadmin/Public_Web_Site/ICH_Products/Guidelines/Efficacy/E9/Step4/E9_Guideline.pdf),
+[ICH-E9](https://database.ich.org/sites/default/files/E9_Guideline.pdf),
 since in a real study a combination of all effects occurs
 simultaneously. It is up to *you* to decide on reasonable combinations
 and analyze their respective power.
@@ -843,7 +842,7 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.3.9000 built 2022-02-14 with R 4.1.2.
+Version 1.5.3.9000 built 2022-02-15 with R 4.1.2.
 
 ``` r
 options(width = 59)
@@ -858,7 +857,7 @@ devtools::session_info()
 #  collate  German_Germany.1252
 #  ctype    German_Germany.1252
 #  tz       Europe/Vienna
-#  date     2022-02-14
+#  date     2022-02-15
 #  pandoc   2.17.1.1 @ D:/Program Files/RStudio/bin/pandoc/ (via rmarkdown)
 # 
 # - Packages ----------------------------------------------
@@ -885,7 +884,7 @@ devtools::session_info()
 #  mvtnorm         1.1-3      2021-10-08 [1] CRAN (R 4.1.1)
 #  pkgbuild        1.3.1      2021-12-20 [1] CRAN (R 4.1.2)
 #  pkgload         1.2.4      2021-11-30 [1] CRAN (R 4.1.2)
-#  PowerTOST     * 1.5.3.9000 2022-02-14 [1] local
+#  PowerTOST     * 1.5.3.9000 2022-02-15 [1] local
 #  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.1.0)
 #  processx        3.5.2      2021-04-30 [1] CRAN (R 4.1.0)
 #  ps              1.6.0      2021-02-28 [1] CRAN (R 4.1.0)
