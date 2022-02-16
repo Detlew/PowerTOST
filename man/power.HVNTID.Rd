@@ -5,14 +5,14 @@
 (Empirical) Power for BE decision via FDA method for highly variable NTIDs
 }
 \description{
-This function performs the power calculation of the BE decision via 
-the FDA\enc{’}{'}s method for highly variable narrow therapeutic index drugs (NTIDs) 
+This function performs the power calculation of the BE decision via
+the FDA\enc{’}{'}s method for highly variable narrow therapeutic index drugs (NTIDs)
 as described in respective guidances based on simulations.
 The study design could be the full replicate design 2x2x4 with 4-periods (TRTR|RTRT) or the
 2x2x3 replicate design with 3-periods and sequences TRT|RTR.
 }
 \usage{
-power.HVNTID(alpha = 0.05, theta1, theta2, theta0, CV, n, design = c("2x2x4", "2x2x3"), 
+power.HVNTID(alpha = 0.05, theta1, theta2, theta0, CV, n, design = c("2x2x4", "2x2x3"),
              nsims = 1e+05, details = FALSE, setseed = TRUE)
 }
 \arguments{
@@ -44,10 +44,10 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
 Number of subjects under study.\cr
 May be given as vector. In that case it is assumed that \code{n} contains the number
 of subjects per sequence groups.\cr
-Attention! In case of the \code{"2x2x3"} (TRT|RTR) design the order of sample sizes is important 
-if given as vector. \code{n[1]} is for sequence group 'TRT' and \code{n[2]} is for 
-sequence group 'RTR'.\cr 
-If \code{n} is given as single number (total sample size) and this number is not 
+Attention! In case of the \code{"2x2x3"} (TRT|RTR) design the order of sample sizes is important
+if given as vector. \code{n[1]} is for sequence group 'TRT' and \code{n[2]} is for
+sequence group 'RTR'.\cr
+If \code{n} is given as single number (total sample size) and this number is not
 divisible by the number of sequences of the design an unbalanced design is assumed.
 A corresponding message is thrown showing the numbers of subjects in the sequence groups.
 }
@@ -65,13 +65,13 @@ Defaults to 100,000 = 1e+5.
 If set to \code{TRUE} the computational time is shown as well as the components
 for the BE decision.\cr
 p(BE-ABE) is the simulated probability for the conventional ABE test.
-p(BE-sratio) is the probability that the upper 90\% confidence limit of the 
+p(BE-sratio) is the probability that the upper 90\% confidence limit of the
 ratio of sWT/sWR is < 2.5.
 }
   \item{setseed}{
-Simulations are dependent on the starting point of the (pseudo) random number 
-generator. To avoid differences in power for different runs a \code{set.seed(123456)} 
-is issued if \code{setseed=TRUE}, the default. 
+Simulations are dependent on the starting point of the (pseudo) random number
+generator. To avoid differences in power for different runs a \code{set.seed(123456)}
+is issued if \code{setseed=TRUE}, the default.
 }
 }
 \details{
@@ -79,7 +79,7 @@ For deciding BE the study must pass the conventional ABE test (90\% CI within th
 acceptance range) and additional the test that the ratio of sWT/sWR is < 2.5.\cr\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on this method.\cr
-Details can be found in a document \verb{Implementation_scaledABE_sims} located in 
+Details can be found in a document \verb{Implementation_scaledABE_sims} located in
 the \code{/doc} sub-directory of the package.
 }
 \value{
@@ -101,7 +101,8 @@ D. Labes
 \note{
 The FD\enc{’}{'}s guidances recommend only the full replicate design "2x2x4" (TRTR|RTRT).
 The results for the design "2x2x3" (TRT|RTR) are to be considered as experimental since
-at present not thorougly tested.
+at present not thorougly tested.\cr\cr
+The method is also required by China\enc{’}{'}s Center of Drug Evaluation.
 }
 \seealso{
 \code{\link{sampleN.HVNTID}}

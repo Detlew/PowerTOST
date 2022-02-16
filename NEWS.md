@@ -1,6 +1,6 @@
 # PowerTOST 1.5.3.9000
 
-On GitHub 2021-02-15.
+On GitHub 2021-02-16.
 
 ## Bug fixes
   * Fix in `power.TOST()` w.r.t vectorization of `CV` or `theta0`.

@@ -2,17 +2,17 @@
 \name{sampleN.HVNTID}
 \alias{sampleN.HVNTID}
 \title{
-Sample size estimation for BE decision via FDA method for highly variable (HV) 
+Sample size estimation for BE decision via FDA method for highly variable (HV)
 narrow therapeutic index drugs (NTIDs)
 }
 \description{
-This function performs the sample size estimation for the BE decision via 
+This function performs the sample size estimation for the BE decision via
 the FDA\enc{’}{'}s method for highly variable NTIDs as described in respective guidances based on simulations.\cr
-The study designs may be the full replicate design 2x2x4 with 4 periods (TRTR|RTRT) and 
+The study designs may be the full replicate design 2x2x4 with 4 periods (TRTR|RTRT) and
 the 3-period replicate design 2x2x3 with sequences RTR|TRT.
 }
 \usage{
-sampleN.HVNTID(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, CV, 
+sampleN.HVNTID(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, CV,
                design = c("2x2x4", "2x2x3"), nsims = 1e+05, nstart, imax = 100,
                print = TRUE, details = TRUE, setseed = TRUE)
 }
@@ -63,16 +63,16 @@ May be missing.
 Maximum number of steps in sample size search. Defaults to 100.
 }
   \item{print}{
-If \verb{TRUE} (default) the function prints its results. If \verb{FALSE} only the resulting dataframe will be returned. 
+If \verb{TRUE} (default) the function prints its results. If \verb{FALSE} only the resulting dataframe will be returned.
 }
   \item{details}{
 If set to \code{TRUE}, the default, the steps during sample size search are shown.
 Moreover the details of the method settings are printed.
 }
   \item{setseed}{
-Simulations are dependent on the starting point of the (pseudo) random number 
-generator. To avoid differences in power values for different runs a 
-\code{set.seed(123456)} is issued if \code{setseed=TRUE}, the default. 
+Simulations are dependent on the starting point of the (pseudo) random number
+generator. To avoid differences in power values for different runs a
+\code{set.seed(123456)} is issued if \code{setseed=TRUE}, the default.
 }
 }
 \details{
@@ -80,7 +80,7 @@ For deciding BE the study must pass the conventional ABE test and additionally
 the test that the ratio of sWT/sWR is <= 2.5.\cr\cr
 The simulations are done via the distributional properties of the statistical
 quantities necessary for deciding BE based on these method.\cr
-Details can be found in a document \verb{Implementation_scaledABE_sims} located in 
+Details can be found in a document \verb{Implementation_scaledABE_sims} located in
 the \code{/doc} sub-directory of the package.\cr\cr
 The estimated sample size gives always the \emph{total} number of subjects (not subject/sequence -- like in some other software packages).
 }
@@ -100,24 +100,24 @@ Food and Drug Administration, Office of Generic Drugs (OGD). \emph{Draft Guidanc
 D. Labes
 }
 \note{
-The design recommended by the FDA is the full replicate design \code{"2x2x4"}.\cr 
-The sample size estimation is done only for balanced studies since the 
+The design recommended by the FDA is the full replicate design \code{"2x2x4"}.\cr
+The sample size estimation is done only for balanced studies since the
 break down of the total subject number in case of unbalanced sequence groups
 is not unique. Moreover the formulas used are only valid for balanced designs.\cr
 The FDA method is described for the ABE limits 0.8 ... 1.25 only. Setting theta1, theta2
 to other values may not be reasonable and is not tested.\cr
-The minimum sample size is 6, even if the power is higher than the intended 
-targetpower.
+The minimum sample size is 6, even if the power is higher than the intended  targetpower.\cr\cr
+The method is also required by China\enc{’}{'}s Center of Drug Evaluation.
 }
 \section{Warning }{
-For some input constellations the sample size search may be very time 
+For some input constellations the sample size search may be very time
 consuming and will eventually also fail since the start values chosen may
 not really reasonable for them.\cr
-In case of a failed sample size search you may restart with setting the argument 
+In case of a failed sample size search you may restart with setting the argument
 \verb{nstart}.\cr
 }
 
-\seealso{ 
+\seealso{
 \code{\link{power.HVNTID}}\cr
 and \code{\link{power.NTIDFDA}}, \code{\link{sampleN.NTIDFDA}} for NTIDs with
 low variability

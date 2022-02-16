@@ -39,9 +39,9 @@ Defaults to 1.25 if not given explicitly.
   \item{CV}{
 Intra-subject coefficient(s) of variation as ratio (not percent).
   \itemize{
-    \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
-          and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
-    \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
+    \item If given as a scalar (\code{length(CV) == 1}) the \emph{same} CV of Test
+          and Reference is assumed (homoscedasticity, \code{CVwT == CVwR}).
+    \item If given as a vector (\code{length(CV) == 2}), \emph{i.e.}, assuming
           heteroscedasticity, the CV of the Test \strong{must} be given in \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
   }
 }
@@ -49,7 +49,7 @@ Intra-subject coefficient(s) of variation as ratio (not percent).
 Design of the study to be planned.\cr
 \code{"2x2x4"} is the full replicate with 2 sequences and 4 periods (TRTR|RTRT).\cr
 \code{"2x2x3"} is the full replicate with 2 sequences and 3 periods (TRT|RTR).\cr
-Defaults to \code{design="2x2x4"}.
+Defaults to \code{design = "2x2x4"}.
 }
   \item{nsims}{
 Number of simulations to be performed to obtain the empirical power.
@@ -72,22 +72,22 @@ Moreover the details of the method settings are printed.
   \item{setseed}{
 Simulations are dependent on the starting point of the (pseudo) random number
 generator. To avoid differences in power values for different runs a
-\code{set.seed(123456)} is issued if \code{setseed=TRUE}, the default.
+\code{set.seed(123456)} is issued if \code{setseed = TRUE}, the default.
 }
 }
 \details{
 The linearized scaled ABE criterion is calculated according to the SAS code
-given in the FDA Warfarine guidance. For deciding BE the study must pass that criterion,
-the conventional ABE test and additional the test that the ratio of
-\code{sWT/sWR <= 2.5.}\cr\cr
+given in the FDA\enc{’}{'}s guidances. For deciding BE the study must pass that criterion,
+the conventional ABE test, and that the upper confidence limit of
+\ifelse{latex}{\out{$\sigma_{\rm{wT}}/\sigma_{\rm{wR}}\leq 2.5$}}{\ifelse{html}{\out{<em>&sigma;</em><sub>wT</sub>/<em>&sigma;</em><sub>wR</sub>&nbsp;&leq;&nbsp;2.5}}{sWT/sWR <= 2.5}}.\cr\cr
 The simulations are done via the distributional properties of the statistical
-quantities necessary for deciding BE based on these method.\cr
+quantities necessary for deciding BE based on this method.\cr
 Details can be found in a document \verb{Implementation_scaledABE_sims} located in
 the \code{/doc} sub-directory of the package.\cr\cr
 The estimated sample size gives always the \emph{total} number of subjects (not subject / sequence -- like in some other software packages).
 }
 \value{
-Returns a data.frame with the input settings and sample size results.\cr
+Returns a data frame with the input settings and sample size results.\cr
 The \code{Sample size} column contains the total sample size.\cr
 The \code{nlast} column contains the last \code{n} value. May be useful for re-starting.
 }
@@ -112,26 +112,26 @@ The design recommended by the FDA is the full replicate design \code{"2x2x4"}.\c
 The sample size estimation is done only for balanced studies since the
 break down of the total subject number in case of unbalanced sequence groups
 is not unique. Moreover the formulas used are only valid for balanced designs.\cr
-The FDA method is described for the ABE limits 0.8 ... 1.25 only. Setting theta1,
-theta2 to other values may not be reasonable and is not tested.\cr\cr
+The FDA method is described for the ABE limits 0.8 ... 1.25 only. Setting \code{theta1},
+\code{theta2} to other values may not be reasonable and is not tested.\cr
 The results for the design \code{"2x2x3"} are to be considered as experimental since
 at present not thorougly tested.\cr
 The minimum sample size is 6, even if the power is higher than the intended
 targetpower.\cr\cr
-China\enc{’}{'}s Center for Drug Evaluation (CDE) announced on August 3, 2020 a \dQuote{Technical Guidance on Bioequivalence Studies of Drugs with Narrow Therapeutic Index (Draft for Comments)}, which is essentially a 1:1 translation of the FDA\enc{’}{'}s guidances.
+The method is also required by China\enc{’}{'}s Center of Drug Evaluation.
 }
 
 \section{Warning}{
-For some input constellations the sample size search may be very time
-consuming and will eventually also fail since the start values chosen may
-not really reasonable for them. This applies especially for theta0 values
-near to the implied scaled (tightened/widened) ABE limits according to
-\code{exp(±1.053605*swR)}.\cr
+For some input combinations the sample size search may be very time
+consuming and will eventually even fail since the start values chosen may
+not really reasonable for them. This applies especially for \code{theta0} values
+close to the implied scaled limits according to
+\ifelse{latex}{\out{$\exp(\mp 1.053605\times s_{\rm{wR}})$}}{\ifelse{html}{\out{exp(&mnplus;1.053605&nbsp;&times;&nbsp;<em>s</em><sub>wR</sub>)}}{exp(±1.053605*swR)}}.\cr
 In case of a failed sample size search you may restart with setting the argument
 \verb{nstart}.\cr
-In case of theta0 values outside the implied scaled (tightened/widened) ABE limits
+In case of \code{theta0} values outside the implied scaled (tightened/widened) ABE limits
 no sample size estimation is possible and the function throws an error
-(f.i. CV=0.04, theta0=0.95).
+(f.i. \code{CV = 0.04, theta0 = 0.95}).
 }
 
 \seealso{
