@@ -145,7 +145,7 @@ pa.scABE(CV = 0.55, regulator = "GCC")
 
 Since we are far above the switching *CV*~wR~ of 30\%, (fixed) widened BE margins of 75.00--133.33\% are applicable and the pattern is similar to <span title="Average Bioequivalence">ABE</span>.
 
-#### FDA
+#### FDA, CDE
 <h5>[Example 6]{#expl6}</h5>
 
 Same assumptions (*CV*, $\small{\theta_0}$) like in [Example 2](#expl2), [Example 4](#expl4) and [Example 5](#expl5).
@@ -156,7 +156,7 @@ pa.scABE(CV = 0.55, regulator = "FDA")
 
 A similar pattern like the one of Health Canada, although due to the different regulatory constants ($\small{\theta_s\approx0.8926}$ *vs* $\small{k=0.760}$ for Health Canada and the <span title="European Medicines Agency">EMA</span>) nine subjects less (and twelve less than for the <span title="European Medicines Agency">EMA</span>) are required. Due to unlimited scaling the *CV* can increase more.
 
-### Narrow Therapeutic Index Drugs (FDA)
+### Narrow Therapeutic Index Drugs (FDA, CDE)
 
 <h5>[Example 7]{#expl7}</h5>
 Assumed intra-subject *CV* 0.125.
@@ -177,5 +177,4 @@ The power analysis is <span class="hl"> not </span> a substitute for the ‘Se
 |`pa.NTIDFDA`|Detlew Labes acc. to code by Helmut Schütz for `pa.ABE` and `pa.scABE`|
 
 # License
-<h4 class="author">Helmut Schütz `r Sys.Date()`</h4>
-[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
+<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") `r Sys.Date()` Helmut Schütz</h4>

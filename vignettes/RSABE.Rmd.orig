@@ -56,7 +56,7 @@ library(PowerTOST) # attach the library
 Arguments `targetpower`, `theta0`, `theta1`, `theta2`, and `CV` have to be given as fractions, not in percent.\
 The *CV* is the *within* (intra-) subject coefficient of variation. If one value is given, homoscedasticity (equal variances) is assumed and therefore, *CV*~wT~ = *CV*~wR~. If two values are given (*i.e.*, `CV = c(x, y)`) heteroscedasticity (unequal variances) is assumed, where `CV[1]` has to be *CV*~wT~ and `CV[2]` *CV*~wR~.
 
-If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100,000. If simulating for the empiric type I error (`theta0` set to one of the BE limits), `nsims` defaults to 1 million.
+If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100,000. If simulating for the empiric type I error (`theta0` set to one of the BE limits), `nsims` defaults to one million.
 
 <h2>Implemented Designs</h2>
 ```
@@ -70,7 +70,7 @@ If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
 
-With `foo(..., details = FALSE, print = FALSE)` results are given as a data frame<small> </small>^[R Documentation. *Data Frames.* 2020-12-23. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
+With `foo(..., details = FALSE, print = FALSE)` results are given as a data frame<small> </small>^[R Documentation. *Data Frames.* 2022-02-08. [R-manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/data.frame.html).] with eleven columns `Design`, `alpha`,  `CVwT`, `CVwR`, `theta0`, `theta1`, `theta2`, `Sample size`, `Achieved power`, `Target power`, and `nlast`. To access *e.g.*, the sample size use either `foo(...)[1, 8]` or `foo(...)[["Sample size"]]`. We suggest to use the latter in your code for clarity.
 
 <span class="hl">The estimated sample size gives always the *total* number of subjects (not subject/sequence – like in some other software packages).</span>
 
@@ -177,8 +177,8 @@ sampleN.RSABE(CV = 0.55)
 ```
 Note the lower sample size compared to the other approaches (due to the different regulatory constant and unlimited scaling).
 
-## Narrow Therapeutic Index Drugs (FDA)
-Required by the FDA and currently under discussion by the Chinese authority.\
+## Narrow Therapeutic Index Drugs (FDA, CDE)
+Required by the FDA and the Chinese authority.\
 Assuming heteroscedasticity (*CV*~w~ 0.125, *σ*^2^ ratio 2.5, *i.e.*, T has a substantially higher variability than R). Details of the sample size search suppressed. Assess additionally which one of the three components (scaled, ABE, *s*~wT~/*s*~wR~ ratio) drives the sample size.
 ```{r NTID1}
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
@@ -194,7 +194,7 @@ suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
 ```    
 Here the scaled ABE component shows the lowest power and drives the sample size, which is much lower than in the previous example.
 
-## Highly Variable Narrow Therapeutic Index Drugs (FDA)
+## Highly Variable Narrow Therapeutic Index Drugs (FDA, CDE)
 Almost a contradiction in itself. Required for [dagibatran](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf "Recommended Jun 2012; Revised Sep 2015, Jul 2017"), [rivaroxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral%20tablet_22406_RC09-15.pdf "Recommended Sep 2015"), and [edoxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_206316.pdf "Recommended May 2017; Revised Mar 2020").\
 Assuming homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.30). Employ the defaults (`theta0 = 0.95`, `targetpower = 0.80`, `design = "2x2x4"`, `nsims = 1e5`). Details of the sample size search suppressed.
 ```{r HVNTID1}
@@ -422,5 +422,4 @@ for (i in 1:4) {
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 
 # License{#license}
-<h4 class="author">Helmut Schütz `r Sys.Date()`</h4>
-[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3")
+<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") `r Sys.Date()` Helmut Schütz</h4>
