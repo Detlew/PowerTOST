@@ -131,7 +131,7 @@ Point estimate constraints (0.80, 1.25), homoscedasticity (*CV*~wT~ = *CV*~wR~)
   - U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="Center for Drug Evaluation">CDE</span>: RSABE.
 
 #### Highly Variable Drugs / Drug Products  
-*θ*~0~ 0.90 as recommended by [Tóthfalusi and Endrényi](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489) (2011).
+*θ*~0~ 0.90.<sup id="a1">[1](#f1)</sup>
 
 ###### EMA and many others
 Regulatory constant `0.760`, upper cap of scaling at *CV*~wR~ 50\%, evaluation by <span title="Analysis of Variance">ANOVA</span>.
@@ -191,7 +191,7 @@ sampleN.TOST(CV = 0.125, theta0 = 0.975, theta1 = 0.90)
 
 <small>[TOC ↩](#powertost)</small>
 
-Sample size for equivalence of the ratio of two means with normality on the original scale based on [Fieller’s (‘fiducial’) confidence interval](https://doi.org/10.1111/j.2517-6161.1954.tb00159.x). Within- (intra-) subject *CV*~w~ 0.20 (20\%), between- (inter-) subject *CV*~b~ 0.40 (40\%).  
+Sample size for equivalence of the ratio of two means with normality on the original scale based on Fieller’s (‘fiducial’) confidence interval.<sup id="a2">[2](#f2)</sup> Within- (intra-) subject *CV*~w~ 0.20 (20\%), between- (inter-) subject *CV*~b~ 0.40 (40\%).  
 Note the default *α* 0.025 (95\% CI) of this function because it is intended for studies with clinical endpoints.
 ```{r crossover_fieller}
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
@@ -206,7 +206,7 @@ Sample size for assumed within- (intra-) subject *CV* 0.45 (45\%), *θ*~0~ 0.90,
 ```{r replicate_ABE1}
 sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
 ```
-Note that the conventional model assumes homoscedasticity (equal variances of treatments). For heteroscedasticity we can ‘switch off’ all conditions of one of the methods for reference-scaled <span title="Average Bioequivalence">ABE</span>. We assume a σ^2^-ratio of ⅔ (*i.e.*, the test has a lower variability than the reference). Only relevant columns of the data.frame shown.
+Note that the conventional model assumes homoscedasticity (equal variances of treatments). For heteroscedasticity we can ‘switch off’ all conditions of one of the methods for reference-scaled <span title="Average Bioequivalence">ABE</span>. We assume a *σ*^2^-ratio of ⅔ (*i.e.*, the test has a lower variability than the reference). Only relevant columns of the data frame shown.
 ```{r replicate_ABE2}
 reg <- reg_const("USER", r_const = NA, CVswitch = Inf,
                  CVcap = Inf, pe_constr = FALSE)
@@ -220,7 +220,7 @@ Similar sample size because the pooled *CV*~w~ is still 0.45.
 <small>[TOC ↩](#powertost)</small>
 
 ##### Highly Variable Narrow Therapeutic Index Drug
-Sample size assuming heteroscedasticity (*CV*~w~ 0.45, variance-ratio 2.5, *i.e.*, the test treatment has a substantially higher variability than the reference). TRTR|RTRT according to the [FDA’s guidance](https://www.fda.gov/media/87219/Download). Assess additionally which one of the components (<span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~-ratio) drives the sample size.
+Sample size assuming heteroscedasticity (*CV*~w~ 0.45, variance-ratio 2.5, *i.e.*, the test treatment has a substantially higher variability than the reference). TRTR|RTRT according to the FDA’s guidances.<sup id="a3">[3,](#f3)</sup><sup id="a4">[4,](#f4)</sup><sup id="a5">[5](#f5)</sup> Assess additionally which one of the components (<span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~-ratio) drives the sample size.
 ```{r HVNTID}
 CV <- signif(CVp2CV(CV = 0.45, ratio = 2.5), 4)
 n  <- sampleN.HVNTID(CV = CV, details = FALSE)[["Sample size"]]
@@ -237,7 +237,7 @@ sampleN.scABEL(CV = 0.45)
 ```
 <small>[TOC ↩](#powertost)</small>
 
-Iteratively adjust *α* to control the Type I Error ([Labes, Schütz](https://doi.org/10.1007/s11095-016-2006-1)). Heteroscedasticity (*CV*~wT~ 0.30, *CV*~wR~ 0.40, *i.e.*, variance-ratio ~0.58), four period full replicate study (any of TRTR|RTRT, TRRT|RTTR, TTRR|RRTT), 24 subjects, balanced sequences.
+Iteratively adjust *α* to control the Type I Error.<sup id="a6">[6](#f6)</sup> Heteroscedasticity (*CV*~wT~ 0.30, *CV*~wR~ 0.40, *i.e.*, variance-ratio ~0.58), four period full replicate study (any of TRTR|RTRT, TRRT|RTTR, TTRR|RRTT), 24 subjects, balanced sequences.
 ```{r ABEL_2}
 scABEL.ad(CV = c(0.30, 0.40), design = "2x2x4", n = 24)
 ```
@@ -299,7 +299,7 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 <small>[TOC ↩](#powertost)</small>
 
 #### NTIDs (FDA, CDE)
-Sample size assuming heteroscedasticity (*CV*~w~ 0.10, variance-ratio 2.5, *i.e.*, the test treatment has a substantially higher variability than the reference). TRTR|RTRT according to the [FDA’s guidance](https://www.fda.gov/media/87219/Download). Assess additionally which one of the three components (scaled <span title="Average Bioequivalence">ABE</span>, conventional <span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~-ratio) drives the sample size.
+Sample size assuming heteroscedasticity (*CV*~w~ 0.10, variance-ratio 2.5, *i.e.*, the test treatment has a substantially higher variability than the reference). TRTR|RTRT according to the FDA’s guidance.<sup id="a7">[7](#f7)</sup> Assess additionally which one of the three components (scaled <span title="Average Bioequivalence">ABE</span>, conventional <span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~-ratio) drives the sample size.
 ```{r NTID2}
 CV <- signif(CVp2CV(CV = 0.10, ratio = 2.5), 4)
 n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
@@ -348,7 +348,7 @@ print(res, row.names = FALSE)
 sampleN.dp(CV = 0.20, doses = c(1, 2, 8), beta0 = 1, targetpower = 0.90)
 ```
 Note that the acceptance range of the slope depends on the ratio of the highest and lowest doses (*i.e.*, it gets tighter for wider dose ranges and therefore, higher sample sizes will be required).  
-In an exploratory setting wider equivalence margins {*θ*~1~, *θ*~2~} (0.50, 2.00) were [proposed](https://doi.org/10.1002/pst.326), translating in this example to an acceptance range of `0.66667 ... 1.3333` and a sample size of only six subjects.
+In an exploratory setting wider equivalence margins {*θ*~1~, *θ*~2~} (0.50, 2.00) were proposed,<sup id="a8">[8](#f8)</sup> translating in this example to an acceptance range of `0.66667 ... 1.3333` and a sample size of only six subjects.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -359,7 +359,7 @@ res <- pa.ABE(CV = 0.20, targetpower = 0.90)
 print(res, plotit = FALSE)
 ```
 If the study starts with 26 subjects (power \~0.92), the *CV* can increase to \~0.27 **or** *θ*~0~ decrease to \~0.90 **or** the sample size decrease to 10 whilst power will still be ≥0.70.    
-However, this is **not** a substitute for the ‘Sensitivity Analysis’ recommended in [ICH-E9](https://database.ich.org/sites/default/files/E9_Guideline.pdf), since in a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
+However, this is **not** a substitute for the ‘Sensitivity Analysis’ recommended in ICH-E9,<sup id="a9">[9](#f9)</sup> since in a real study a combination of all effects occurs simultaneously. It is up to *you* to decide on reasonable combinations and analyze their respective power.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -418,3 +418,21 @@ devtools::session_info()
 ```
 
 <small>[TOC ↩](#powertost)</small>
+
+***
+
+<span id="f1" style="font-size:smaller">1. Tóthfalusi L, Endrényi L. *Sample Sizes for Designing
+Bioequivalence Studies for Highly Variable Drugs.* J Pharm Pharmacol Sci. 2012;
+15(1): 73--84. [doi:10.18433/j3z88f](https://doi.org/10.18433/j3z88f). [Open access](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489).</span> [↩](#a1)\
+<span id="f2" style="font-size:smaller">2. Fieller EC. *Some Problems In Interval Estimation.* J Royal Stat Soc B. 1954; 16(2): 175–85. [JSTOR:2984043](https://www.jstor.org/stable/2984043).</span> [↩](#a2)\
+<span id="f3" style="font-size:smaller">3. U.S. Food and Drug Administration, Office of Generic Drugs. *Draft Guidance on Dabigatran Etexilate Mesylate.* Recommended Jun 2012; Revised Sep 2015, Jul 2017. [Online](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf).</span> [↩](#a3)\
+<span id="f4" style="font-size:smaller">4. U.S. Food and Drug Administration, Office of Generic Drugs. *Draft Guidance on Rivaroxaban.* Recommended Sep 2015. [Online](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral%20tablet_22406_RC09-15.pdf).</span> [↩](#a4)\
+<span id="f5" style="font-size:smaller">5. U.S. Food and Drug Administration, Office of Generic Drugs. *Draft Guidance on Edoxaban Tosylate.* Recommended May 2017; Revised Mar 2020. [Online](https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_206316.pdf).</span> [↩](#a5)\
+<span id="f6" style="font-size:smaller">6. Labes D, Schütz H. *Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.* Pharm Res. 2016; 33(11): 2805--14. [doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).</span> [↩](#a6)\
+<span id="f7" style="font-size:smaller">7. U.S. Food and Drug Administration, Center for Drug Evaluation and Research. *Draft Guidance for Industry. Bioequivalence Studies with Pharmacokinetic Endpoints for Drugs Submitted Under an ANDA.* August 2021. [Online](https://www.fda.gov/media/87219/Download).</span> [↩](#a7)\
+<span id="f8" style="font-size:smaller">8. Hummel J, McKendrick S, Brindley C, French R. *Exploratory assessment of dose proportionality: review of current approaches and proposal for a practical criterion.* Pharm. Stat. 2009; 8(1): 38--49. [doi:10.1002/pst.326](https://doi.org/10.1002/pst.326).</span> [↩](#a8)\
+<span id="f9" style="font-size:smaller">9. International Conference on
+Harmonisation of Technical Requirements for Registration of
+Pharmaceuticals for Human Use. *ICH Harmonised Tripartite
+Guideline. E9. Statistical Principles for Clinical Trials.* 5 February 1998.
+[Online](https://database.ich.org/sites/default/files/E9_Guideline.pdf).</span> [↩](#a9)

@@ -226,9 +226,7 @@ the non-central *t*-distribution, 100,000 simulations.
 
 #### Highly Variable Drugs / Drug Products
 
-*θ*<sub>0</sub> 0.90 as recommended by [Tóthfalusi and
-Endrényi](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489)
-(2011).
+*θ*<sub>0</sub> 0.90.<sup id="a1">[1](#f1)</sup>
 
 ###### EMA and many others
 
@@ -370,10 +368,10 @@ sampleN.TOST(CV = 0.125, theta0 = 0.975, theta1 = 0.90)
 <small>[TOC ↩](#powertost)</small>
 
 Sample size for equivalence of the ratio of two means with normality on
-the original scale based on [Fieller’s (‘fiducial’) confidence
-interval](https://doi.org/10.1111/j.2517-6161.1954.tb00159.x). Within-
-(intra-) subject *CV*<sub>w</sub> 0.20 (20%), between- (inter-) subject
-*CV*<sub>b</sub> 0.40 (40%).  
+the original scale based on Fieller’s (‘fiducial’) confidence
+interval.<sup id="a2">[2](#f2)</sup> Within- (intra-) subject
+*CV*<sub>w</sub> 0.20 (20%), between- (inter-) subject *CV*<sub>b</sub>
+0.40 (40%).  
 Note the default *α* 0.025 (95% CI) of this function because it is
 intended for studies with clinical endpoints.
 
@@ -429,8 +427,8 @@ Note that the conventional model assumes homoscedasticity (equal
 variances of treatments). For heteroscedasticity we can ‘switch off’ all
 conditions of one of the methods for reference-scaled <span
 title="Average Bioequivalence">ABE</span>. We assume a
-σ<sup>2</sup>-ratio of ⅔ (*i.e.*, the test has a lower variability than
-the reference). Only relevant columns of the data.frame shown.
+*σ*<sup>2</sup>-ratio of ⅔ (*i.e.*, the test has a lower variability
+than the reference). Only relevant columns of the data frame shown.
 
 ``` r
 reg <- reg_const("USER", r_const = NA, CVswitch = Inf,
@@ -452,8 +450,9 @@ Similar sample size because the pooled *CV*<sub>w</sub> is still 0.45.
 Sample size assuming heteroscedasticity (*CV*<sub>w</sub> 0.45,
 variance-ratio 2.5, *i.e.*, the test treatment has a substantially
 higher variability than the reference). TRTR\|RTRT according to the
-[FDA’s guidance](https://www.fda.gov/media/87219/Download). Assess
-additionally which one of the components (<span
+FDA’s
+guidances.<sup id="a3">[3,](#f3)</sup><sup id="a4">[4,](#f4)</sup><sup id="a5">[5](#f5)</sup>
+Assess additionally which one of the components (<span
 title="Average Bioequivalence">ABE</span>,
 *s*<sub>wT</sub>/*s*<sub>wR</sub>-ratio) drives the sample size.
 
@@ -522,8 +521,8 @@ sampleN.scABEL(CV = 0.45)
 
 <small>[TOC ↩](#powertost)</small>
 
-Iteratively adjust *α* to control the Type I Error ([Labes,
-Schütz](https://doi.org/10.1007/s11095-016-2006-1)). Heteroscedasticity
+Iteratively adjust *α* to control the Type I
+Error.<sup id="a6">[6](#f6)</sup> Heteroscedasticity
 (*CV*<sub>wT</sub> 0.30, *CV*<sub>wR</sub> 0.40, *i.e.*, variance-ratio
 \~0.58), four period full replicate study (any of TRTR\|RTRT,
 TRRT\|RTTR, TTRR\|RRTT), 24 subjects, balanced sequences.
@@ -686,8 +685,8 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 Sample size assuming heteroscedasticity (*CV*<sub>w</sub> 0.10,
 variance-ratio 2.5, *i.e.*, the test treatment has a substantially
 higher variability than the reference). TRTR\|RTRT according to the
-[FDA’s guidance](https://www.fda.gov/media/87219/Download). Assess
-additionally which one of the three components (scaled <span
+FDA’s guidance.<sup id="a7">[7](#f7)</sup> Assess additionally which one
+of the three components (scaled <span
 title="Average Bioequivalence">ABE</span>, conventional <span
 title="Average Bioequivalence">ABE</span>,
 *s*<sub>wT</sub>/*s*<sub>wR</sub>-ratio) drives the sample size.
@@ -823,10 +822,9 @@ Note that the acceptance range of the slope depends on the ratio of the
 highest and lowest doses (*i.e.*, it gets tighter for wider dose ranges
 and therefore, higher sample sizes will be required).  
 In an exploratory setting wider equivalence margins {*θ*<sub>1</sub>,
-*θ*<sub>2</sub>} (0.50, 2.00) were
-[proposed](https://doi.org/10.1002/pst.326), translating in this example
-to an acceptance range of `0.66667 ... 1.3333` and a sample size of only
-six subjects.
+*θ*<sub>2</sub>} (0.50, 2.00) were proposed,<sup id="a8">[8](#f8)</sup>
+translating in this example to an acceptance range of
+`0.66667 ... 1.3333` and a sample size of only six subjects.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -853,11 +851,9 @@ If the study starts with 26 subjects (power \~0.92), the *CV* can
 increase to \~0.27 **or** *θ*<sub>0</sub> decrease to \~0.90 **or** the
 sample size decrease to 10 whilst power will still be ≥0.70.  
 However, this is **not** a substitute for the ‘Sensitivity Analysis’
-recommended in
-[ICH-E9](https://database.ich.org/sites/default/files/E9_Guideline.pdf),
-since in a real study a combination of all effects occurs
-simultaneously. It is up to *you* to decide on reasonable combinations
-and analyze their respective power.
+recommended in ICH-E9,<sup id="a9">[9](#f9)</sup> since in a real study
+a combination of all effects occurs simultaneously. It is up to *you* to
+decide on reasonable combinations and analyze their respective power.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -948,7 +944,7 @@ devtools::session_info()
 #  collate  German_Germany.1252
 #  ctype    German_Germany.1252
 #  tz       Europe/Vienna
-#  date     2022-02-16
+#  date     2022-02-17
 #  pandoc   2.17.1.1 @ D:/Program Files/RStudio/bin/pandoc/ (via rmarkdown)
 # 
 # - Packages ----------------------------------------------
@@ -1003,3 +999,52 @@ devtools::session_info()
 ```
 
 <small>[TOC ↩](#powertost)</small>
+
+------------------------------------------------------------------------
+
+<span id="f1" style="font-size:smaller">1. Tóthfalusi L, Endrényi L.
+*Sample Sizes for Designing Bioequivalence Studies for Highly Variable
+Drugs.* J Pharm Pharmacol Sci. 2012; 15(1): 73–84.
+[doi:10.18433/j3z88f](https://doi.org/10.18433/j3z88f). [Open
+access](https://ejournals.library.ualberta.ca/index.php/JPPS/article/download/11612/9489).</span>
+[↩](#a1)  
+<span id="f2" style="font-size:smaller">2. Fieller EC. *Some Problems In
+Interval Estimation.* J Royal Stat Soc B. 1954; 16(2): 175–85.
+[JSTOR:2984043](https://www.jstor.org/stable/2984043).</span> [↩](#a2)  
+<span id="f3" style="font-size:smaller">3. U.S. Food and Drug
+Administration, Office of Generic Drugs. *Draft Guidance on Dabigatran
+Etexilate Mesylate.* Recommended Jun 2012; Revised Sep 2015, Jul 2017.
+[Online](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf).</span>
+[↩](#a3)  
+<span id="f4" style="font-size:smaller">4. U.S. Food and Drug
+Administration, Office of Generic Drugs. *Draft Guidance on
+Rivaroxaban.* Recommended Sep 2015.
+[Online](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral%20tablet_22406_RC09-15.pdf).</span>
+[↩](#a4)  
+<span id="f5" style="font-size:smaller">5. U.S. Food and Drug
+Administration, Office of Generic Drugs. *Draft Guidance on Edoxaban
+Tosylate.* Recommended May 2017; Revised Mar 2020.
+[Online](https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_206316.pdf).</span>
+[↩](#a5)  
+<span id="f6" style="font-size:smaller">6. Labes D, Schütz H. *Inflation
+of Type I Error in the Evaluation of Scaled Average Bioequivalence, and
+a Method for its Control.* Pharm Res. 2016; 33(11): 2805–14.
+[doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).</span>
+[↩](#a6)  
+<span id="f7" style="font-size:smaller">7. U.S. Food and Drug
+Administration, Center for Drug Evaluation and Research. *Draft Guidance
+for Industry. Bioequivalence Studies with Pharmacokinetic Endpoints for
+Drugs Submitted Under an ANDA.* August 2021.
+[Online](https://www.fda.gov/media/87219/Download).</span> [↩](#a7)  
+<span id="f8" style="font-size:smaller">8. Hummel J, McKendrick S,
+Brindley C, French R. *Exploratory assessment of dose proportionality:
+review of current approaches and proposal for a practical criterion.*
+Pharm. Stat. 2009; 8(1): 38–49.
+[doi:10.1002/pst.326](https://doi.org/10.1002/pst.326).</span>
+[↩](#a8)  
+<span id="f9" style="font-size:smaller">9. International Conference on
+Harmonisation of Technical Requirements for Registration of
+Pharmaceuticals for Human Use. *ICH Harmonised Tripartite Guideline. E9.
+Statistical Principles for Clinical Trials.* 5 February 1998.
+[Online](https://database.ich.org/sites/default/files/E9_Guideline.pdf).</span>
+[↩](#a9)
