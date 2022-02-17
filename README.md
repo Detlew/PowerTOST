@@ -45,7 +45,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](
 The package contains functions to calculate power and estimate sample
 size for various study designs used in (not only bio-) equivalence
 studies.  
-Version 1.5.3.9000 built 2022-02-16 with R 4.1.2 (development version
+Version 1.5.3.9000 built 2022-02-17 with R 4.1.2 (development version
 not on CRAN).
 
 ## Supported Designs
@@ -929,7 +929,7 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.3.9000 built 2022-02-16 with R 4.1.2.
+Version 1.5.3.9000 built 2022-02-17 with R 4.1.2.
 
 ``` r
 options(width = 59)
@@ -953,7 +953,7 @@ devtools::session_info()
 #  cachem          1.0.6      2021-08-19 [1] CRAN (R 4.1.1)
 #  callr           3.7.0      2021-04-20 [1] CRAN (R 4.1.0)
 #  cli             3.1.1      2022-01-20 [1] CRAN (R 4.1.2)
-#  crayon          1.4.2      2021-10-29 [1] CRAN (R 4.1.1)
+#  crayon          1.5.0      2022-02-14 [1] CRAN (R 4.1.2)
 #  cubature        2.0.4.2    2021-05-13 [1] CRAN (R 4.1.0)
 #  desc            1.4.0      2021-09-28 [1] CRAN (R 4.1.1)
 #  devtools        2.4.3      2021-11-30 [1] CRAN (R 4.1.2)
@@ -971,7 +971,7 @@ devtools::session_info()
 #  mvtnorm         1.1-3      2021-10-08 [1] CRAN (R 4.1.1)
 #  pkgbuild        1.3.1      2021-12-20 [1] CRAN (R 4.1.2)
 #  pkgload         1.2.4      2021-11-30 [1] CRAN (R 4.1.2)
-#  PowerTOST     * 1.5.3.9000 2022-02-16 [1] local
+#  PowerTOST     * 1.5.3.9000 2022-02-17 [1] local
 #  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.1.0)
 #  processx        3.5.2      2021-04-30 [1] CRAN (R 4.1.0)
 #  ps              1.6.0      2021-02-28 [1] CRAN (R 4.1.0)
