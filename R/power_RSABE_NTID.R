@@ -1,3 +1,11 @@
+# function to check if function is called with FDA in its name
+check4FDA <- function(fname)
+{
+  if(grepl("FDA", fname)) 
+    message("Function ", fname, " is deprecated.\n",
+            "Use version without FDA in it's name.")
+}
+
 #---------------------------------------------------------------------------
 # Simulate full replicate designs and calculate scaled ABE power
 # according to FDA Warfarin guidance
@@ -5,10 +13,13 @@
 # Author: dlabes
 #---------------------------------------------------------------------------
 
-power.NTIDFDA <- function(alpha=0.05, theta1, theta2, theta0, CV, n, 
-                          design=c("2x2x4", "2x2x3"), nsims=1E5, details=FALSE, 
-                          setseed=TRUE)
-{
+power.NTID <- function(alpha=0.05, theta1, theta2, theta0, CV, n, 
+                       design=c("2x2x4", "2x2x3"), nsims=1E5, details=FALSE, 
+                       setseed=TRUE)
+{ 
+  #check if function name contains FDA and warn function deprecated
+  check4FDA(fname=as.character(sys.call())[1])
+  
   if (missing(CV)) stop("CV must be given!", call.=FALSE)
   if (missing(n))  stop("Number of subjects n must be given!", call.=FALSE)
    
@@ -173,3 +184,7 @@ power.NTIDFDA <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   # return the pBEs
   counts/nsims
 }
+
+# alias 'power.NTID' since this evaluation is not only requested by FDA but also
+# by the China CDE
+power.NTIDFDA <- power.NTID
