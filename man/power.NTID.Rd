@@ -1,5 +1,5 @@
 \encoding{utf-8}
-\name{power.NTIDFDA}
+\name{power.NTID}
 \alias{power.NTID}
 \alias{power.NTIDFDA}
 \title{

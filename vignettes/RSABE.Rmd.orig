@@ -182,15 +182,15 @@ Required by the FDA and the Chinese authority.\
 Assuming heteroscedasticity (*CV*~w~ 0.125, *σ*^2^ ratio 2.5, *i.e.*, T has a substantially higher variability than R). Details of the sample size search suppressed. Assess additionally which one of the three components (scaled, ABE, *s*~wT~/*s*~wR~ ratio) drives the sample size.
 ```{r NTID1}
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
-n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
-suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
+n  <- sampleN.NTID(CV = CV, details = FALSE)[["Sample size"]]
+suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
 ```
 The *s*~wT~/*s*~wR~ component shows the lowest power and hence, drives the sample size.  
 Compare that with homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.125):
 ```{r NTID2}
 CV <- 0.125
-n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
-suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
+n  <- sampleN.NTID(CV = CV, details = FALSE)[["Sample size"]]
+suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
 ```    
 Here the scaled ABE component shows the lowest power and drives the sample size, which is much lower than in the previous example.
 
@@ -209,7 +209,7 @@ In this case a substantially higher sample size is required since the variabilit
 
 # Power
 Power can by calculated by the counterparts of the respective sample size functions (instead the argument `targetpower` use the argument `n` and provide the observed `theta0`), *i.e.*,\
-`power.scABEL()`, `power.RSABE()`, `power.NTIDFDA()`, and `power.HVNTID()`.  
+`power.scABEL()`, `power.RSABE()`, `power.NTID()`, and `power.HVNTID()`.  
 
 # Type I Error
 Contrary to average bioequivalence, where the Null-hypothesis is based on fixed limits, in reference-scaling the Null is generated in face of the data (*i.e*, the limits are random variables).
@@ -417,7 +417,7 @@ for (i in 1:4) {
 # Authors{#authors}
 |function|author(s)|
 |---|-|
-|`sampleN.scABEL`, `sampleN.RSABE`, `sampleN.NTIDFDA`, `sampleN.HVNTID`,<br />`power.scABEL`, `power.RSABE2L.sdsims`, `scABEL`, `reg_const`|Detlew Labes|
+|`sampleN.scABEL`, `sampleN.RSABE`, `sampleN.NTID`, `sampleN.HVNTID`,<br />`power.scABEL`, `power.RSABE2L.sdsims`, `scABEL`, `reg_const`|Detlew Labes|
 |`power.scABEL.sdsims`|<span style="white-space:nowrap">Detlew Labes, Benjamin Lang</span>|
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 

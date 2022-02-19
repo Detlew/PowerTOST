@@ -313,26 +313,54 @@ Assuming heteroscedasticity (*CV*~w~ 0.125, *σ*^2^ ratio 2.5, *i.e.*, T has a s
 
 ```r
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
-n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
-# Warning: 'sampleN.NTIDFDA' is deprecated.
-# Use 'sampleN.NTIDRSABE' instead.
-# See help("Deprecated")
-# Error in sampleN.NTIDRSABE(...): could not find function "sampleN.NTIDRSABE"
-suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
-# Error in power.NTIDFDA(CV = CV, n = n, details = TRUE): object 'n' not found
+n  <- sampleN.NTID(CV = CV, details = FALSE)[["Sample size"]]
+# 
+# +++++++++++ FDA method for NTIDs ++++++++++++
+#            Sample size estimation
+# ---------------------------------------------
+# Study design:  2x2x4 (TRTR|RTRT) 
+# log-transformed data (multiplicative model)
+# 1e+05 studies for each step simulated.
+# 
+# alpha  = 0.05, target power = 0.8
+# CVw(T) = 0.1497, CVw(R) = 0.09433
+# True ratio     = 0.975 
+# ABE limits     = 0.8 ... 1.25 
+# Regulatory settings: FDA 
+# 
+# Sample size
+#  n     power
+# 38   0.816080
+suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
+#        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
+#      0.81608      0.93848      1.00000      0.85794
 ```
 The *s*~wT~/*s*~wR~ component shows the lowest power and hence, drives the sample size.  
 Compare that with homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.125):
 
 ```r
 CV <- 0.125
-n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
-# Warning: 'sampleN.NTIDFDA' is deprecated.
-# Use 'sampleN.NTIDRSABE' instead.
-# See help("Deprecated")
-# Error in sampleN.NTIDRSABE(...): could not find function "sampleN.NTIDRSABE"
-suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
-# Error in power.NTIDFDA(CV = CV, n = n, details = TRUE): object 'n' not found
+n  <- sampleN.NTID(CV = CV, details = FALSE)[["Sample size"]]
+# 
+# +++++++++++ FDA method for NTIDs ++++++++++++
+#            Sample size estimation
+# ---------------------------------------------
+# Study design:  2x2x4 (TRTR|RTRT) 
+# log-transformed data (multiplicative model)
+# 1e+05 studies for each step simulated.
+# 
+# alpha  = 0.05, target power = 0.8
+# CVw(T) = 0.125, CVw(R) = 0.125
+# True ratio     = 0.975 
+# ABE limits     = 0.8 ... 1.25 
+# Regulatory settings: FDA 
+# 
+# Sample size
+#  n     power
+# 16   0.822780
+suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
+#        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
+#      0.82278      0.84869      1.00000      0.95128
 ```
 Here the scaled ABE component shows the lowest power and drives the sample size, which is much lower than in the previous example.
 
@@ -385,7 +413,7 @@ In this case a substantially higher sample size is required since the variabilit
 
 # Power
 Power can by calculated by the counterparts of the respective sample size functions (instead the argument `targetpower` use the argument `n` and provide the observed `theta0`), *i.e.*,\
-`power.scABEL()`, `power.RSABE()`, `power.NTIDFDA()`, and `power.HVNTID()`.  
+`power.scABEL()`, `power.RSABE()`, `power.NTID()`, and `power.HVNTID()`.  
 
 # Type I Error
 Contrary to average bioequivalence, where the Null-hypothesis is based on fixed limits, in reference-scaling the Null is generated in face of the data (*i.e*, the limits are random variables).
@@ -686,9 +714,9 @@ for (i in 1:4) {
 # Authors{#authors}
 |function|author(s)|
 |---|-|
-|`sampleN.scABEL`, `sampleN.RSABE`, `sampleN.NTIDFDA`, `sampleN.HVNTID`,<br />`power.scABEL`, `power.RSABE2L.sdsims`, `scABEL`, `reg_const`|Detlew Labes|
+|`sampleN.scABEL`, `sampleN.RSABE`, `sampleN.NTID`, `sampleN.HVNTID`,<br />`power.scABEL`, `power.RSABE2L.sdsims`, `scABEL`, `reg_const`|Detlew Labes|
 |`power.scABEL.sdsims`|<span style="white-space:nowrap">Detlew Labes, Benjamin Lang</span>|
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 
 # License{#license}
-<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") 2022-02-16 Helmut Schütz</h4>
+<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") 2022-02-19 Helmut Schütz</h4>
