@@ -1,19 +1,22 @@
 # -------------------------------------------------------------------
-# power analysis for NTID according to FDA method
+# power analysis for NTID according to FDA method / China CDE
 # Author: D. Labes after pa.ABE() from Helmut Schuetz 
 # Only design="2x2x4" according to the Warfarin guidance
 # -------------------------------------------------------------------
-pa.NTIDFDA <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...) 
+pa.NTID <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...) 
 { 
+  # check for the deprecated function
+  check4FDA(fname=as.character(sys.call())[1])
+  
   # Rversion must be >=3.1.0 for the uniroot call with argument extendInt
   Rver <- paste0(R.Version()$major, ".", R.Version()$minor)
   
   # functions to use with uniroot
   pwrCV  <- function(x, ...) {
-    power.NTIDFDA(CV=x, ...) - minpower
+    power.NTID(CV=x, ...) - minpower
   } 
   pwrGMR <- function(x, ...) {
-    power.NTIDFDA(theta0=x, ...) - minpower
+    power.NTID(theta0=x, ...) - minpower
   } 
   # to avoid reprogramming of Helmuts code
   GMR <- theta0
@@ -39,15 +42,15 @@ pa.NTIDFDA <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   #if(minpower < 0.05) stop("Minimum acceptable power must not be <0.05!")
   # otherwise uniroot() throws an error says Helmut
   
-  # power.NTIDFDA has only full replicate design implemented
+  # power.NTID has only full replicate design implemented
   design <- "2x2x4"
   dno     <- .design.no(design)
   if (is.na(dno)) stop("Design,", design, " not implemented")
   d.props <- .design.props(dno)
   seqs    <- d.props$steps
   
-  res  <- sampleN.NTIDFDA(CV=CV, theta0=GMR, targetpower=targetpower, 
-                          print=FALSE, details=FALSE, ...)
+  res  <- sampleN.NTID(CV=CV, theta0=GMR, targetpower=targetpower, 
+                       print=FALSE, details=FALSE, ...)
   n.est   <- res[1, "Sample size"   ]
   pwr.est <- res[1, "Achieved power"]
   # don't allow below 12 subjects
@@ -56,7 +59,7 @@ pa.NTIDFDA <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   if (n.est < 12) {
     incr  <- TRUE
     n.est <- 12
-    pwr.est <- power.NTIDFDA(CV=CV, n=n.est, ...)
+    pwr.est <- power.NTID(CV=CV, n=n.est, ...)
     res[,"Sample size"] <- n.est
     res[,"Achieved power"] <- pwr.est
   }
@@ -86,7 +89,7 @@ pa.NTIDFDA <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   pBECV  <- vector("numeric", length=length(CVs))
   # replace next eventually with apply/sapply
   for(j in seq_along(CVs)) {
-    pBECV[j] <- power.NTIDFDA(CV=CVs[j], n=n.est, theta0=GMR, ...)
+    pBECV[j] <- power.NTID(CV=CVs[j], n=n.est, theta0=GMR, ...)
   }
   
   ######################################
@@ -99,7 +102,7 @@ pa.NTIDFDA <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   pBEGMR   <- vector("numeric", length=length(GMRs))
   # replace next loop eventually with apply/sapply/vapply
   for(j in seq_along(GMRs)) {
-    pBEGMR[j] <- power.NTIDFDA(CV=CV, n=n.est, theta0=GMRs[j], ...)
+    pBEGMR[j] <- power.NTID(CV=CV, n=n.est, theta0=GMRs[j], ...)
   }
   
   ####################################
@@ -125,13 +128,13 @@ pa.NTIDFDA <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   ni <- 1:seqs
   while(pwrN >= minpower & j<nNs){
     j <- j+1
-    # next is done in power.NTIDFDA(), but left here
+    # next is done in power.NTID(), but left here
     n[-seqs] <- diff(floor(Ns[j]*ni/seqs))
     n[seqs]  <- Ns[j] -sum(n[-seqs])
     # debug prints
     #cat("Ns[j]",Ns[j],"\n")
     #print(n)
-    pwrN <- power.NTIDFDA(CV=CV, n=n, theta0=GMR, ...)
+    pwrN <- power.NTID(CV=CV, n=n, theta0=GMR, ...)
     if(pwrN >= minpower) {
       n.min <- c(n.min, sum(n))
       pBEn <- c(pBEn, pwrN)
@@ -156,3 +159,7 @@ pa.NTIDFDA <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   return(ret)
 
 }
+
+# alias 'pa.NTID' since this evaluation is not only requested by FDA but also
+# by the China CDE
+pa.NTIDFDA <- pa.NTID

@@ -1,5 +1,6 @@
 \encoding{utf-8}
-\name{pa.NTIDFDA}
+\name{pa.NTID}
+\alias{pa.NTID}
 \alias{pa.NTIDFDA}
 \title{
 Power analysis for scaled ABE for NTIDs according to FDA
@@ -13,7 +14,7 @@ The only implemented design is the full replicate design "2x2x4" according to th
 FDA Warfarin guidance.
 }
 \usage{
-pa.NTIDFDA(CV, theta0 = 0.975, targetpower = 0.8, minpower = 0.7, ...)
+pa.NTID(CV, theta0 = 0.975, targetpower = 0.8, minpower = 0.7, ...)
 }
 \arguments{
   \item{CV}{
@@ -36,14 +37,14 @@ Has to be lower than \code{targetpower}. Defaults to 0.7.\cr
 \code{minpower} < 0.5 doesn’t make much sense.
 }
   \item{\dots}{
-More arguments to pass to \code{power.NTIDFDA()}.\cr
+More arguments to pass to \code{power.NTID()}.\cr
 F.i., \code{alpha}, \code{theta1}, \code{theta2} or \code{nsims} if other values
 than the defaults for these arguments are needed. \cr
 See man page of \code{power.NTIDFDA()}.
 }
 }
 \details{
-Power calculations are done via \code{power.NTIDFDA()} and
+Power calculations are done via \code{power.NTID()} and
 calculations of CV and theta0 which result in \code{minpower} are derived via \code{uniroot()}.\cr
 While one of the parameters (CV, theta0, n) is varied, the respective two others are
 kept constant. The tool shows the relative impact of single parameters on power.\cr
@@ -57,7 +58,7 @@ It is up to \emph{you} to decide on reasonable combinations and analyze their re
 \value{
 Returns a list with class \code{'pwrA'} with the components
   \item{plan}{A data.frame with the result of the sample size estimation.
-              See output of \code{sampleN.NTIDFDA()}.}
+              See output of \code{sampleN.NTID()}.}
   \item{paCV}{A data.frame with value pairs CV, pwr for impact of
               deviations from CV.}
   \item{paGMR}{A data.frame with value pairs theta0, pwr for impact of
@@ -95,15 +96,15 @@ below 0.05 (5\%). Adapt in that case your expected true ratio (\code{theta0})
 to values nearer to 1 to not run into errors and/or long execution times.
 }
 \seealso{
-  \code{\link{power.NTIDFDA}, \link{print.pwrA}, \link{plot.pwrA}, \link{pa.ABE}, \link{pa.scABE}}
+  \code{\link{power.NTID}, \link{print.pwrA}, \link{plot.pwrA}, \link{pa.ABE}, \link{pa.scABE}}
 }
 \examples{
 # using the defaults:
 # targetpower=0.8, minpower=0.7, theta0/GMR=0.975
-# BE margins from defaults of sampleN.NTIDFDA() 0.9002 ... 1.1108
-# 1E5 sims in power.NTIDFDA()
+# BE margins from defaults of sampleN.NTID() 0.9002 ... 1.1108
+# 1E5 sims in power.NTID()
 # not run due to timing policy of CRAN for examples
 # may run some ten seconds or more
 \donttest{
-plot(pa.NTIDFDA(CV=0.1))}
+plot(pa.NTID(CV=0.1))}
 }
