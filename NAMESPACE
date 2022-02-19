@@ -44,6 +44,7 @@ export(
   , pa.ABE
   , pa.scABE
   , pa.NTIDFDA
+  , pa.NTID                # alias
   , power.2TOST
   , type1error.2TOST
   , power.noninf
@@ -52,6 +53,7 @@ export(
   , power.TOST.sim
   , power.TOST.sds
   , power.NTIDFDA
+  , power.NTID             # alias
   , power.HVNTID
   , power.RSABE
   , power.RSABE2L.sdsims
@@ -70,6 +72,7 @@ export(
   , sampleN.2TOST
   , sampleN.TOST
   , sampleN.NTIDFDA
+  , sampleN.NTID           # alias
   , sampleN.HVNTID
   , sampleN.RSABE
   , sampleN.scABEL
