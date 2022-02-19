@@ -14,7 +14,6 @@ knitr::opts_chunk$set(
   comment = "#"
 )
 ```
-The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies.  
 ```{r, echo = FALSE, results = "asis"}
 txt <- paste0("Version ", packageVersion("PowerTOST"), " built ",
          packageDate("PowerTOST", date.fields = "Built"),
@@ -28,8 +27,10 @@ if (grepl("900",  as.character(packageVersion("PowerTOST")))) {
 cat(txt)
 ```
 
-## Supported Designs
+## Introduction{#introduction}
+The package contains functions to calculate power and estimate sample size for various study designs used in (not only bio-) equivalence studies.
 
+## Supported Designs{#designs}
 ```{r, echo = FALSE}
 library(PowerTOST)
 designs <- known.designs()
@@ -57,7 +58,7 @@ Balaam’s design TR|RT|TT|RR should be avoided due to its poor power characteri
 
 <small>[TOC ↩](#powertost)</small>
 
-## Purpose
+## Purpose{#purpose}
 
 For various methods power can be *calculated* based on
 
@@ -69,8 +70,8 @@ For all methods the sample size can be *estimated* based on
 
 <small>[TOC ↩](#powertost)</small>
 
-## Supported
-### Power and Sample Size
+## Supported{#supported}
+### Power and Sample Size{#power_sample_size}
 Power covers balanced as well as unbalanced sequences in crossover or replicate designs and equal/unequal group sizes in two-group parallel designs. Sample sizes are always rounded up to achieve balanced sequences or equal group sizes.
 
   - Average Bioequivalence (with arbitrary *fixed* limits).
@@ -89,7 +90,7 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
 
 <small>[TOC ↩](#powertost)</small>
 
-### Methods
+### Methods{#methods}
   - Exact
     - Owen’s Q.
     - Direct integration of the bivariate non-central *t*-distribution.
@@ -99,7 +100,7 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
 
 <small>[TOC ↩](#powertost)</small>
 
-### Helpers
+### Helpers{#helpers}
   - Calculate *CV* from *MSE* or *SE* (and vice versa).
   - Calculate *CV* from given confidence interval.
   - Calculate *CV*~wR~ from the upper expanded limit of an ABEL study.
@@ -117,46 +118,46 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
   * *α* 0.05, {*θ*~1~, *θ*~2~} (0.80, 1.25), target power 0.80. Details of the sample size search (and the regulatory settings in reference-scaled average bioequivalence) are shown in the console.
   * Note: In all functions values have to be given as ratios, not in percent.  
 
-### Average Bioequivalence
-#### Conventional (unscaled)
+### Average Bioequivalence{#ABE}
+#### Conventional (unscaled){#conventional}
 Design `"2x2"` (TR|RT), exact method (Owen’s Q).
 
-#### Highly Variable NTIDs (FDA, CDE)
+#### Highly Variable NTIDs (FDA, CDE){#NTID}
 Design `"2x2x4"` (TRTR|RTRT), upper limit of the confidence interval of *σ*~wT~/*σ*~wR~ ≤2.5, approximation by the non-central *t*-distribution, 100,000 simulations.
 
-### Reference-Scaled Average Bioequivalence  
+### Reference-Scaled Average Bioequivalence{#RSABE}
 Point estimate constraints (0.80, 1.25), homoscedasticity (*CV*~wT~ = *CV*~wR~), scaling is based on *CV*~wR~, design `"2x3x3"` (TRR|RTR|RRT), approximation by the non-central *t*-distribution, 100,000 simulations.
 
   - <span title="European Medicines Agency">EMA</span>, <span title="World Health Organization">WHO</span>, Health Canada, and many other jurisdictions: Average Bioequivalence with Expanding Limits (ABEL).
   - U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="Center for Drug Evaluation">CDE</span>: RSABE.
 
-#### Highly Variable Drugs / Drug Products  
+#### Highly Variable Drugs / Drug Products{#HVDP}
 *θ*~0~ 0.90.<sup id="a1">[1](#f1)</sup>
 
-###### EMA and many others
+###### EMA and many others{#ABEL.EMA}
 Regulatory constant `0.760`, upper cap of scaling at *CV*~wR~ 50\%, evaluation by <span title="Analysis of Variance">ANOVA</span>.
 
-###### Health Canada
+###### Health Canada{#ABEL.HC}
 Regulatory constant `0.760`, upper cap of scaling at *CV*~wR~ ~57.4\%, evaluation by intra-subject contrasts.
 
-###### Gulf Cooperation Council
+###### Gulf Cooperation Council{#ABEL.GCC}
 Regulatory constant `log(1/0.75)/sqrt(log(0.3^2+1))`, widened limits 75.00--133.33\% if *CV*~wR~ >30\%, no upper cap of scaling, evaluation by <span title="Analysis of Variance">ANOVA</span>.
 
-###### FDA, CDE
+###### FDA, CDE{#RSABE}
 Regulatory constant `log(1.25)/0.25`, no upper cap of scaling, evaluation by linearized scaled <span title="Average Bioequivalence">ABE</span> (Howe’s approximation).
 
-#### Narrow Therapeutic Index Drugs (FDA, CDE)
+#### Narrow Therapeutic Index Drugs (FDA, CDE){#NTID.FDA}
 *θ*~0~ 0.975, regulatory constant `log(1.11111)/0.1`, implicit upper cap of scaling at *CV*~wR~ ~21.4\%, design `"2x2x4"` (TRTR|RTRT), evaluation by linearized scaled <span title="Average Bioequivalence">ABE</span> (Howe’s approximation), upper limit of the confidence interval of *σ*~wT~/*σ*~wR~ ≤2.5.
 
-### Dose-Proportionality
+### Dose-Proportionality{#DP}
 *β*~0~ (slope) `1+log(0.95)/log(rd)` where `rd` is the ratio of the highest and lowest dose, target power 0.80, crossover design, details of the sample size search suppressed.
 
-### Power Analysis
+### Power Analysis{#PA}
 Minimum acceptable power 0.70. *θ*~0~; design, conditions, and sample size method depend on defaults of the respective approaches (ABE, ABEL, RSABE, NTID, HVNTID).
 
 <small>[TOC ↩](#powertost)</small>
 
-## Examples
+## Examples{#examples}
 Before running the examples attach the library.
 
 ```{r attach_library}
@@ -164,13 +165,13 @@ library(PowerTOST)
 ```
 If not noted otherwise, the functions’ [defaults](#defaults) are employed.
 
-### Parallel Design
+### Parallel Design{#parallel}
 Power for total *CV* 0.35 (35\%), group sizes 52 and 49.
 ```{r parallel}
 power.TOST(CV = 0.35, n = c(52, 49), design = "parallel")
 ```
 
-### Crossover Design
+### Crossover Design{#crossover}
 Sample size for assumed within- (intra-) subject *CV* 0.20 (20\%).
 ```{r crossover_ABE1}
 sampleN.TOST(CV = 0.20)
@@ -199,9 +200,9 @@ sampleN.RatioF(CV = 0.20, CVb = 0.40)
 
 <small>[TOC ↩](#powertost)</small>
 
-### Replicate Designs
-#### ABE
-##### Conventional (unscaled)
+### Replicate Designs{#replicate}
+#### ABE{#repl.ABE}
+##### Conventional (unscaled){#repl.ABE.conv}
 Sample size for assumed within- (intra-) subject *CV* 0.45 (45\%), *θ*~0~ 0.90, three period full replicate study (TRT|RTR *or* TRR|RTT).
 ```{r replicate_ABE1}
 sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
@@ -219,7 +220,7 @@ Similar sample size because the pooled *CV*~w~ is still 0.45.
 
 <small>[TOC ↩](#powertost)</small>
 
-##### Highly Variable Narrow Therapeutic Index Drug
+##### Highly Variable Narrow Therapeutic Index Drug{#HVNTID}
 Sample size assuming heteroscedasticity (*CV*~w~ 0.45, variance-ratio 2.5, *i.e.*, the test treatment has a substantially higher variability than the reference). TRTR|RTRT according to the FDA’s guidances.<sup id="a3">[3,](#f3)</sup><sup id="a4">[4,](#f4)</sup><sup id="a5">[5](#f5)</sup> Assess additionally which one of the components (<span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~-ratio) drives the sample size.
 ```{r HVNTID}
 CV <- signif(CVp2CV(CV = 0.45, ratio = 2.5), 4)
@@ -230,7 +231,7 @@ The ABE component shows a lower probability to demonstrate BE than the *s*~wT~/*
 
 <small>[TOC ↩](#powertost)</small>
 
-#### ABEL
+#### ABEL{#ABEL}
 Sample size assuming homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.45).
 ```{r ABEL_1}
 sampleN.scABEL(CV = 0.45)
@@ -290,15 +291,15 @@ sampleN.scABEL(CV = 0.45, regulator = "GCC", details = FALSE)
 ```
 <small>[TOC ↩](#powertost)</small>
 
-#### RSABE
-#### HVD(P)s
+#### RSABE{#RSABE}
+#### HVD(P)s{#RSABE.HVDP}
 Sample size for a four period full replicate study (any of TRTR|RTRT, TRRT|RTTR, TTRR|RRTT) assuming heteroscedasticity (*CV*~wT~ 0.40, *CV*~wR~ 0.50, *i.e.*, variance-ratio ~0.67). Details of the sample size search suppressed.
 ```{r RSABE}
 sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 ```
 <small>[TOC ↩](#powertost)</small>
 
-#### NTIDs (FDA, CDE)
+#### NTIDs (FDA, CDE){#RSABE.HVNTID}
 Sample size assuming heteroscedasticity (*CV*~w~ 0.10, variance-ratio 2.5, *i.e.*, the test treatment has a substantially higher variability than the reference). TRTR|RTRT according to the FDA’s guidance.<sup id="a7">[7](#f7)</sup> Assess additionally which one of the three components (scaled <span title="Average Bioequivalence">ABE</span>, conventional <span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~-ratio) drives the sample size.
 ```{r NTID2}
 CV <- signif(CVp2CV(CV = 0.10, ratio = 2.5), 4)

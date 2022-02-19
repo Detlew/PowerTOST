@@ -1,24 +1,24 @@
 PowerTOST
 ================
 
--   [Supported Designs](#supported-designs)
+-   [Introduction](#introduction)
+-   [Supported Designs](#designs)
 -   [Purpose](#purpose)
 -   [Supported](#supported)
-    -   [Power and Sample Size](#power-and-sample-size)
+    -   [Power and Sample Size](#power_sample_size)
     -   [Methods](#methods)
     -   [Helpers](#helpers)
 -   [Defaults](#defaults)
-    -   [Average Bioequivalence](#average-bioequivalence)
-    -   [Reference-Scaled Average
-        Bioequivalence](#reference-scaled-average-bioequivalence)
+    -   [Average Bioequivalence](#ABE)
+    -   [Reference-Scaled Average Bioequivalence](#RSABE)
+    -   [Dose-Proportionality](#DP)
+    -   [Power Analysis](#PA)
+-   [Examples](#examples)
+    -   [Parallel Design](#parallel)
+    -   [Crossover Design](#crossover)
+    -   [Replicate Designs](#replicate)
     -   [Dose-Proportionality](#dose-proportionality)
     -   [Power Analysis](#power-analysis)
--   [Examples](#examples)
-    -   [Parallel Design](#parallel-design)
-    -   [Crossover Design](#crossover-design)
-    -   [Replicate Designs](#replicate-designs)
-    -   [Dose-Proportionality](#dose-proportionality-1)
-    -   [Power Analysis](#power-analysis-1)
     -   [Speed Comparisons](#speed-comparisons)
 -   [Installation](#installation)
 -   [Session Information](#session-information)
@@ -45,11 +45,14 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-The package contains functions to calculate power and estimate sample
-size for various study designs used in (not only bio-) equivalence
-studies.  
 Version 1.5.3.9000 built 2022-02-17 with R 4.1.2 (development version
 not on CRAN).
+
+## Introduction
+
+The package contains functions to calculate power and estimate sample
+size for various study designs used in (not only bio-) equivalence
+studies.
 
 ## Supported Designs
 
