@@ -491,7 +491,7 @@ Although we suggest to explore the various options shown in [Example 3](#expl3),
 ```{r PA}
 pa.ABE(CV = 0.20, theta0 = 0.92)
 ```
-![**Fig. 5** Power Analysis (in each panel one argument is varied and others kept constant)](figure6.png){width=469px}
+![**Fig. 5** Power Analysis (in each panel one argument is varied and others kept constant)](figure6.png){height=626px}
 
 This exercise confirms what we already know. The most critical parameter is $\small{\theta_0}$, whereas dropouts are the least important.
 

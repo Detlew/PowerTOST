@@ -128,4 +128,3 @@ high variability
 power.NTID(CV = 0.1, n = 12)
 # should give a power of 0.62553
 }
-

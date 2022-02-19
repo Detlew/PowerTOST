@@ -9,8 +9,8 @@ PowerTOST
     -   [Methods](#methods)
     -   [Helpers](#helpers)
 -   [Defaults](#defaults)
-    -   [Average Bioequivalence](#ABE)
-    -   [Reference-Scaled Average Bioequivalence](#RSABE)
+    -   [Average Bioequivalence](#ABE.defaults)
+    -   [Reference-Scaled Average Bioequivalence](#RSABE.defaults)
     -   [Dose-Proportionality](#DP)
     -   [Power Analysis](#PA)
 -   [Examples](#examples)
@@ -45,7 +45,8 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-Version 1.5.4 built 2022-02-19 with R 4.1.2 (stable release on CRAN NA).
+Version 1.5.4 built 2022-02-19 with R 4.1.2 (development version not on
+CRAN).
 
 ## Introduction
 
@@ -133,7 +134,7 @@ sequences or equal group sizes.
         title="European Medicines Agency">EMA</span>, <span
         title="World Health Organization">WHO</span> and many others.
     -   Average Bioequivalence with *fixed* widened limits of
-        75.00–133.33% if *CV*<sub>wR</sub> >30%: Gulf Cooperation
+        75.00–133.33% if *CV*<sub>wR</sub> \>30%: Gulf Cooperation
         Council.  
     -   Reference-scaled Average Bioequivalence (RSABE) for <span
         title="Highly Variable Drugs / Drug Products">HVDP(s)</span>:
@@ -698,9 +699,7 @@ title="Average Bioequivalence">ABE</span>,
 
 ``` r
 CV <- signif(CVp2CV(CV = 0.10, ratio = 2.5), 4)
-n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
-# Function sampleN.NTIDFDA is deprecated.
-# Use version without FDA in it's name.
+n  <- sampleN.NTID(CV = CV)[["Sample size"]]
 # 
 # +++++++++++ FDA method for NTIDs ++++++++++++
 #            Sample size estimation
@@ -725,7 +724,7 @@ n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
 # 36   0.761440 
 # 38   0.785910 
 # 40   0.809580
-suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
+suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
 #        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
 #      0.80958      0.90966      1.00000      0.87447
 ```
@@ -741,9 +740,7 @@ Compare that with homoscedasticity (*CV*<sub>wT</sub> =
 
 ``` r
 CV <- 0.10
-n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
-# Function sampleN.NTIDFDA is deprecated.
-# Use version without FDA in it's name.
+n  <- sampleN.NTID(CV = CV, details = FALSE)[["Sample size"]]
 # 
 # +++++++++++ FDA method for NTIDs ++++++++++++
 #            Sample size estimation
@@ -761,7 +758,7 @@ n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
 # Sample size
 #  n     power
 # 18   0.841790
-suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
+suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
 #        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
 #      0.84179      0.85628      1.00000      0.97210
 ```
@@ -780,9 +777,7 @@ the chance of dropouts and requiring less administrations
 ``` r
 CV  <- 0.10
 # extract sample sizes and power
-r1  <- sampleN.NTIDFDA(CV = CV, print = FALSE, details = FALSE)[8:9]
-# Function sampleN.NTIDFDA is deprecated.
-# Use version without FDA in it's name.
+r1  <- sampleN.NTID(CV = CV, print = FALSE, details = FALSE)[8:9]
 r2  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
                     design = "2x2x4", print = FALSE, details = FALSE)[7:8]
 r3  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
@@ -792,13 +787,13 @@ r4  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
 n   <- as.numeric(c(r1[1], r2[1], r3[1], r4[1]))
 pwr <- signif(as.numeric(c(r1[2], r2[2], r3[2], r4[2])), 5)
 # compile results
-res <- data.frame(method = c("FDA scaled", rep ("fixed narrow", 3)),
+res <- data.frame(method = c("FDA/CDE", rep ("fixed narrow", 3)),
                   design = c(rep("2x2x4", 2), "2x2x3", "2x2x2"),
                   n = n, power = pwr, a = n * c(4, 4, 3, 2))
 names(res)[5] <- "adm. #" # number of administrations
 print(res, row.names = FALSE)
 #        method design  n   power adm. #
-#    FDA scaled  2x2x4 18 0.84179     72
+#       FDA/CDE  2x2x4 18 0.84179     72
 #  fixed narrow  2x2x4 12 0.85628     48
 #  fixed narrow  2x2x3 16 0.81393     48
 #  fixed narrow  2x2x2 22 0.81702     44
@@ -853,7 +848,7 @@ print(res, plotit = FALSE)
 #     2x2  0.05 0.2   0.95    0.8   1.25          26      0.9176333
 # 
 # Power analysis
-# CV, theta0 and number of subjects leading to min. acceptable power of =0.7:
+# CV, theta0 and number of subjects leading to min. acceptable power of ~0.7:
 #  CV= 0.2729, theta0= 0.9044
 #  n = 16 (power= 0.7354)
 ```
@@ -907,7 +902,7 @@ reasons.
 However, subject simulations are recommended **if**
 
 -   the partial replicate design (TRR\|RTR\|RRT) is planned **and**
--   the special case of heterogenicity *CV*<sub>wT</sub> >
+-   the special case of heterogenicity *CV*<sub>wT</sub> \>
     *CV*<sub>wR</sub> is expected.
 
 <small>[TOC ↩](#powertost)</small>
@@ -948,63 +943,63 @@ devtools::session_info()
 # - Session info ------------------------------------------
 #  setting  value
 #  version  R version 4.1.2 (2021-11-01)
-#  os       Windows 10 x64 (build 19043)
+#  os       Windows 7 x64 (build 7601) SP 1
 #  system   x86_64, mingw32
 #  ui       RTerm
-#  language en
+#  language EN
 #  collate  German_Germany.1252
 #  ctype    German_Germany.1252
-#  tz       Europe/Berlin
+#  tz       Europe/Vienna
 #  date     2022-02-19
-#  pandoc   2.14.0.3 @ C:/Program Files/RStudio/bin/pandoc/ (via rmarkdown)
+#  pandoc   2.17.1.1 @ D:/Program Files/RStudio/bin/pandoc/ (via rmarkdown)
 # 
 # - Packages ----------------------------------------------
 #  package       * version date (UTC) lib source
+#  brio            1.1.3   2021-11-30 [1] CRAN (R 4.1.2)
 #  cachem          1.0.6   2021-08-19 [1] CRAN (R 4.1.1)
-#  callr           3.7.0   2021-04-20 [1] CRAN (R 4.1.1)
-#  cli             3.1.0   2021-10-27 [1] CRAN (R 4.1.1)
-#  crayon          1.4.2   2021-10-29 [1] CRAN (R 4.1.1)
+#  callr           3.7.0   2021-04-20 [1] CRAN (R 4.1.0)
+#  cli             3.1.1   2022-01-20 [1] CRAN (R 4.1.2)
+#  crayon          1.5.0   2022-02-14 [1] CRAN (R 4.1.2)
 #  cubature        2.0.4.2 2021-05-13 [1] CRAN (R 4.1.0)
 #  desc            1.4.0   2021-09-28 [1] CRAN (R 4.1.1)
 #  devtools        2.4.3   2021-11-30 [1] CRAN (R 4.1.2)
 #  digest          0.6.29  2021-12-01 [1] CRAN (R 4.1.2)
-#  ellipsis        0.3.2   2021-04-29 [1] CRAN (R 4.1.1)
-#  evaluate        0.14    2019-05-28 [1] CRAN (R 4.1.1)
-#  fastmap         1.1.0   2021-01-25 [1] CRAN (R 4.1.1)
+#  ellipsis        0.3.2   2021-04-29 [1] CRAN (R 4.1.0)
+#  evaluate        0.15    2022-02-18 [1] CRAN (R 4.1.2)
+#  fastmap         1.1.0   2021-01-25 [1] CRAN (R 4.1.0)
 #  fs              1.5.2   2021-12-08 [1] CRAN (R 4.1.2)
-#  glue            1.6.0   2021-12-17 [1] CRAN (R 4.1.2)
+#  glue            1.6.1   2022-01-22 [1] CRAN (R 4.1.2)
 #  htmltools       0.5.2   2021-08-25 [1] CRAN (R 4.1.1)
 #  knitr           1.37    2021-12-16 [1] CRAN (R 4.1.2)
 #  lifecycle       1.0.1   2021-09-24 [1] CRAN (R 4.1.1)
-#  magrittr        2.0.1   2020-11-17 [1] CRAN (R 4.1.1)
+#  magrittr        2.0.2   2022-01-26 [1] CRAN (R 4.1.2)
 #  memoise         2.0.1   2021-11-26 [1] CRAN (R 4.1.2)
 #  mvtnorm         1.1-3   2021-10-08 [1] CRAN (R 4.1.1)
 #  pkgbuild        1.3.1   2021-12-20 [1] CRAN (R 4.1.2)
 #  pkgload         1.2.4   2021-11-30 [1] CRAN (R 4.1.2)
 #  PowerTOST     * 1.5-4   2022-02-19 [1] local
-#  prettyunits     1.1.1   2020-01-24 [1] CRAN (R 4.1.1)
-#  processx        3.5.2   2021-04-30 [1] CRAN (R 4.1.1)
-#  ps              1.6.0   2021-02-28 [1] CRAN (R 4.1.1)
-#  purrr           0.3.4   2020-04-17 [1] CRAN (R 4.1.1)
+#  prettyunits     1.1.1   2020-01-24 [1] CRAN (R 4.1.0)
+#  processx        3.5.2   2021-04-30 [1] CRAN (R 4.1.0)
+#  ps              1.6.0   2021-02-28 [1] CRAN (R 4.1.0)
+#  purrr           0.3.4   2020-04-17 [1] CRAN (R 4.1.0)
 #  R6              2.5.1   2021-08-19 [1] CRAN (R 4.1.1)
-#  Rcpp            1.0.7   2021-07-07 [1] CRAN (R 4.1.1)
+#  Rcpp            1.0.8   2022-01-13 [1] CRAN (R 4.1.2)
 #  remotes         2.4.2   2021-11-30 [1] CRAN (R 4.1.2)
-#  rlang           0.4.12  2021-10-18 [1] CRAN (R 4.1.1)
+#  rlang           1.0.1   2022-02-03 [1] CRAN (R 4.1.2)
 #  rmarkdown       2.11    2021-09-14 [1] CRAN (R 4.1.1)
-#  rprojroot       2.0.2   2020-11-15 [1] CRAN (R 4.1.1)
-#  rstudioapi      0.13    2020-11-12 [1] CRAN (R 4.1.1)
+#  rprojroot       2.0.2   2020-11-15 [1] CRAN (R 4.1.0)
+#  rstudioapi      0.13    2020-11-12 [1] CRAN (R 4.1.0)
 #  sessioninfo     1.2.2   2021-12-06 [1] CRAN (R 4.1.2)
 #  stringi         1.7.6   2021-11-29 [1] CRAN (R 4.1.2)
-#  stringr         1.4.0   2019-02-10 [1] CRAN (R 4.1.1)
-#  TeachingDemos   2.12    2020-04-07 [1] CRAN (R 4.1.1)
-#  testthat        3.1.1   2021-12-03 [1] CRAN (R 4.1.2)
+#  stringr         1.4.0   2019-02-10 [1] CRAN (R 4.1.0)
+#  TeachingDemos   2.12    2020-04-07 [1] CRAN (R 4.1.0)
+#  testthat        3.1.2   2022-01-20 [1] CRAN (R 4.1.2)
 #  usethis         2.1.5   2021-12-09 [1] CRAN (R 4.1.2)
 #  withr           2.4.3   2021-11-30 [1] CRAN (R 4.1.2)
 #  xfun            0.29    2021-12-14 [1] CRAN (R 4.1.2)
-#  yaml            2.2.1   2020-02-01 [1] CRAN (R 4.1.1)
+#  yaml            2.2.2   2022-01-25 [1] CRAN (R 4.1.2)
 # 
-#  [1] C:/Program Files/R/library
-#  [2] C:/Program Files/R/R-4.1.2/library
+#  [1] D:/Program Files/R/R-4.1.2/library
 # 
 # ---------------------------------------------------------
 ```

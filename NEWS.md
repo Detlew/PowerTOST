@@ -3,20 +3,19 @@
 On CRAN 2022-02-21.
 
 ## Bug fixes
-  * Incomplete HTML-entities in 3 man pages corrected.
-    (Request of Kurt Hornik)
+  * Incomplete HTML-entities in 3 man pages corrected (request of Kurt Hornik).
   * Fix in `power.TOST()` w.r.t vectorization of `CV` or `theta0`.
 
 ## Minor changes
+  * Example with vectorized `sampleN.TOST()` added to vignette ABE; vignette PA adapted to `pa.NTID()`. 
   * URLs in README and man pages updated.
   * Coefficients with more decimals (15) for the 10-point Gauss quadrature in function `tfn()`. Thanks to PharmCat for contributing them.
   * Clarification of the calculations with `gmodel = 1` in the man page section Details of function `power.TOST.sds()`.
 
 ## Major changes
-  * Functions dealing with the FDA method for NTID have now aliases without FDA
-    in their names since the evaluation methods requested by the FDA are also required by China CDE.
-    The aliases are power.NTID, sampleN.NTID and pa.NTID.
-    The former functions power.NTIDFDA, sampleN.NTIDFDA and pa.NTIDFDA are deprecated and will be removed in future.
+  * Functions dealing with the FDA method for NTID have now aliases without FDA in their names since the evaluation methods requested by the FDA are also required by China CDE.
+    The aliases are `power.NTID()`, `sampleN.NTID()`, and `pa.NTID()`.
+    The functions `power.NTIDFDA(), `sampleN.NTIDFDA()`, and `pa.NTIDFDA()` are deprecated and will be removed in the next release.
     
 # PowerTOST 1.5-3
 
@@ -26,10 +25,8 @@ On CRAN 2021-01-18
 
   * `scABEL.ad()` and `sampleN.scABEL.ad()` adapted to deal with `regulator = "GCC"`. 
     Man pages, README, and RSABE-vignette updated accordingly.
-  * Regulator "GCC" introduced (GCC = Co-operation Council for the Arab States 
-    of the Gulf). The GCC evaluation framework for HVD / HVDP is/can be
-    treated as a special case of ABEL, *i.e.*, use the regulatory settings with 
-    `power.scABEL()` or `sampleN.scABEL()`.
+  * Regulator "GCC" introduced (GCC = Co-operation Council for the Arab States of the Gulf). The GCC evaluation framework for HVD / HVDP is/can be
+    treated as a special case of ABEL, *i.e.*, use the regulatory settings with `power.scABEL()` or `sampleN.scABEL()`.
 
 # PowerTOST 1.5-2
 

@@ -18,7 +18,8 @@ knitr::opts_chunk$set(
 txt <- paste0("Version ", packageVersion("PowerTOST"), " built ",
          packageDate("PowerTOST", date.fields = "Built"),
          " with R ", substr(packageDescription("PowerTOST", fields = "Built"), 3, 7))
-if (grepl("900",  as.character(packageVersion("PowerTOST")))) {
+if (grepl("900", as.character(packageVersion("PowerTOST"))) |
+    is.na(packageDate("PowerTOST", date.fields = "Date/Publication"))) {
   txt <- paste(txt, "\n(development version not on CRAN).")
 } else {
   txt <- paste0(txt, "\n(stable release on CRAN ",
@@ -118,35 +119,35 @@ Power covers balanced as well as unbalanced sequences in crossover or replicate 
   * *α* 0.05, {*θ*~1~, *θ*~2~} (0.80, 1.25), target power 0.80. Details of the sample size search (and the regulatory settings in reference-scaled average bioequivalence) are shown in the console.
   * Note: In all functions values have to be given as ratios, not in percent.  
 
-### Average Bioequivalence{#ABE}
+### Average Bioequivalence{#ABE.defaults}
 #### Conventional (unscaled){#conventional}
 Design `"2x2"` (TR|RT), exact method (Owen’s Q).
 
-#### Highly Variable NTIDs (FDA, CDE){#NTID}
+#### Highly Variable NTIDs (FDA, CDE){#NTID.defaults}
 Design `"2x2x4"` (TRTR|RTRT), upper limit of the confidence interval of *σ*~wT~/*σ*~wR~ ≤2.5, approximation by the non-central *t*-distribution, 100,000 simulations.
 
-### Reference-Scaled Average Bioequivalence{#RSABE}
+### Reference-Scaled Average Bioequivalence{#RSABE.defaults}
 Point estimate constraints (0.80, 1.25), homoscedasticity (*CV*~wT~ = *CV*~wR~), scaling is based on *CV*~wR~, design `"2x3x3"` (TRR|RTR|RRT), approximation by the non-central *t*-distribution, 100,000 simulations.
 
   - <span title="European Medicines Agency">EMA</span>, <span title="World Health Organization">WHO</span>, Health Canada, and many other jurisdictions: Average Bioequivalence with Expanding Limits (ABEL).
   - U.S. <span title="Food and Drug Administration">FDA</span>, China <span title="Center for Drug Evaluation">CDE</span>: RSABE.
 
-#### Highly Variable Drugs / Drug Products{#HVDP}
+#### Highly Variable Drugs / Drug Products{#HVDP.defaults}
 *θ*~0~ 0.90.<sup id="a1">[1](#f1)</sup>
 
-###### EMA and many others{#ABEL.EMA}
+###### EMA and many others{#ABEL.EMA.defaults}
 Regulatory constant `0.760`, upper cap of scaling at *CV*~wR~ 50\%, evaluation by <span title="Analysis of Variance">ANOVA</span>.
 
-###### Health Canada{#ABEL.HC}
+###### Health Canada{#ABEL.HC.defaults}
 Regulatory constant `0.760`, upper cap of scaling at *CV*~wR~ ~57.4\%, evaluation by intra-subject contrasts.
 
-###### Gulf Cooperation Council{#ABEL.GCC}
+###### Gulf Cooperation Council{#ABEL.GCC.defaults}
 Regulatory constant `log(1/0.75)/sqrt(log(0.3^2+1))`, widened limits 75.00--133.33\% if *CV*~wR~ >30\%, no upper cap of scaling, evaluation by <span title="Analysis of Variance">ANOVA</span>.
 
-###### FDA, CDE{#RSABE}
+###### FDA, CDE{#RSABE.FDA.defaults}
 Regulatory constant `log(1.25)/0.25`, no upper cap of scaling, evaluation by linearized scaled <span title="Average Bioequivalence">ABE</span> (Howe’s approximation).
 
-#### Narrow Therapeutic Index Drugs (FDA, CDE){#NTID.FDA}
+#### Narrow Therapeutic Index Drugs (FDA, CDE){#NTID.FDA.defaults}
 *θ*~0~ 0.975, regulatory constant `log(1.11111)/0.1`, implicit upper cap of scaling at *CV*~wR~ ~21.4\%, design `"2x2x4"` (TRTR|RTRT), evaluation by linearized scaled <span title="Average Bioequivalence">ABE</span> (Howe’s approximation), upper limit of the confidence interval of *σ*~wT~/*σ*~wR~ ≤2.5.
 
 ### Dose-Proportionality{#DP}
@@ -303,8 +304,8 @@ sampleN.RSABE(CV = c(0.40, 0.50), design = "2x2x4", details = FALSE)
 Sample size assuming heteroscedasticity (*CV*~w~ 0.10, variance-ratio 2.5, *i.e.*, the test treatment has a substantially higher variability than the reference). TRTR|RTRT according to the FDA’s guidance.<sup id="a7">[7](#f7)</sup> Assess additionally which one of the three components (scaled <span title="Average Bioequivalence">ABE</span>, conventional <span title="Average Bioequivalence">ABE</span>, *s*~wT~/*s*~wR~-ratio) drives the sample size.
 ```{r NTID2}
 CV <- signif(CVp2CV(CV = 0.10, ratio = 2.5), 4)
-n  <- sampleN.NTIDFDA(CV = CV)[["Sample size"]]
-suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
+n  <- sampleN.NTID(CV = CV)[["Sample size"]]
+suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
 ```
 The *s*~wT~/*s*~wR~ component shows the lowest probability to demonstrate <span title="Bioequivalence">BE</span> and hence, drives the sample size.
 
@@ -313,8 +314,8 @@ The *s*~wT~/*s*~wR~ component shows the lowest probability to demonstrate <span 
 Compare that with homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.10):
 ```{r NTID3}
 CV <- 0.10
-n  <- sampleN.NTIDFDA(CV = CV, details = FALSE)[["Sample size"]]
-suppressMessages(power.NTIDFDA(CV = CV, n = n, details = TRUE))
+n  <- sampleN.NTID(CV = CV, details = FALSE)[["Sample size"]]
+suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
 ```    
 Here the scaled <span title="Average Bioequivalence">ABE</span> component shows the lowest probability to demonstrate <span title="Bioequivalence">BE</span> and drives the sample size – which is much lower than in the previous example.
 
@@ -324,7 +325,7 @@ Comparison with *fixed* narrower limits applicable in other jurisdictions. Note 
 ```{r NTID4}
 CV  <- 0.10
 # extract sample sizes and power
-r1  <- sampleN.NTIDFDA(CV = CV, print = FALSE, details = FALSE)[8:9]
+r1  <- sampleN.NTID(CV = CV, print = FALSE, details = FALSE)[8:9]
 r2  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
                     design = "2x2x4", print = FALSE, details = FALSE)[7:8]
 r3  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
@@ -334,7 +335,7 @@ r4  <- sampleN.TOST(CV = CV, theta0 = 0.975, theta1 = 0.90,
 n   <- as.numeric(c(r1[1], r2[1], r3[1], r4[1]))
 pwr <- signif(as.numeric(c(r1[2], r2[2], r3[2], r4[2])), 5)
 # compile results
-res <- data.frame(method = c("FDA scaled", rep ("fixed narrow", 3)),
+res <- data.frame(method = c("FDA/CDE", rep ("fixed narrow", 3)),
                   design = c(rep("2x2x4", 2), "2x2x3", "2x2x2"),
                   n = n, power = pwr, a = n * c(4, 4, 3, 2))
 names(res)[5] <- "adm. #" # number of administrations

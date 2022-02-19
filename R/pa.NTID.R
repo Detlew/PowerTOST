@@ -1,55 +1,55 @@
 # -------------------------------------------------------------------
 # power analysis for NTID according to FDA method / China CDE
-# Author: D. Labes after pa.ABE() from Helmut Schuetz 
+# Author: D. Labes after pa.ABE() from Helmut Schuetz
 # Only design="2x2x4" according to the Warfarin guidance
 # -------------------------------------------------------------------
-pa.NTID <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...) 
-{ 
+pa.NTID <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
+{
   # check for the deprecated function
   check4FDA(fname=as.character(sys.call())[1])
-  
+
   # Rversion must be >=3.1.0 for the uniroot call with argument extendInt
   Rver <- paste0(R.Version()$major, ".", R.Version()$minor)
-  
+
   # functions to use with uniroot
   pwrCV  <- function(x, ...) {
     power.NTID(CV=x, ...) - minpower
-  } 
+  }
   pwrGMR <- function(x, ...) {
     power.NTID(theta0=x, ...) - minpower
-  } 
+  }
   # to avoid reprogramming of Helmuts code
   GMR <- theta0
-  
+
   if (length(CV)>1) stop("Only CVwT=CVwR=CV implemented. CV has to be a scalar.")
   if (CV<0) {
     CV <- -CV
     message("Negative CV changed to ",CV,".")
   }
-  if (targetpower>=1 | minpower>=1 | targetpower<=0 | minpower<=0 ) 
-    stop("Power values have to be within 0...1") 
+  if (targetpower>=1 | minpower>=1 | targetpower<=0 | minpower<=0 )
+    stop("Power values have to be within 0...1")
   if (minpower>=targetpower) stop("Minimum acceptable power must < than target.")
   if (Rver<"3.1.0"){
     if (minpower < 0.5) stop("Minimum acceptable power must be >=0.5.")
     if (targetpower < 0.5) stop("Target power must be >=0.5.")
   } else {
-    if (minpower <= 0.5) 
+    if (minpower <= 0.5)
       message("Note: Minimum acceptable power <=0.5 doesn't make much sense.")
-    if (targetpower <= 0.5) 
+    if (targetpower <= 0.5)
       message("Note: Target power <=0.5 doesn't make much sense.")
   }
-  
+
   #if(minpower < 0.05) stop("Minimum acceptable power must not be <0.05!")
   # otherwise uniroot() throws an error says Helmut
-  
+
   # power.NTID has only full replicate design implemented
   design <- "2x2x4"
   dno     <- .design.no(design)
   if (is.na(dno)) stop("Design,", design, " not implemented")
   d.props <- .design.props(dno)
   seqs    <- d.props$steps
-  
-  res  <- sampleN.NTID(CV=CV, theta0=GMR, targetpower=targetpower, 
+
+  res  <- sampleN.NTID(CV=CV, theta0=GMR, targetpower=targetpower,
                        print=FALSE, details=FALSE, ...)
   n.est   <- res[1, "Sample size"   ]
   pwr.est <- res[1, "Achieved power"]
@@ -71,27 +71,27 @@ pa.NTID <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   upr <- max(CV*10, 1/CV)
   CV.max <- NA
   # for the try code see Hadley Wickhams "Advanced R"
-  try(CV.max <- uniroot(pwrCV,  c(CV, upr), tol=1e-7, n=n.est, 
+  try(CV.max <- uniroot(pwrCV,  c(CV, upr), tol=1e-7, n=n.est,
                         theta0=GMR, ...)$root, silent = TRUE)
   CV.min <- NA
-  try(CV.min <- uniroot(pwrCV,  c(0.0001, CV), tol=1e-7, n=n.est, 
+  try(CV.min <- uniroot(pwrCV,  c(0.0001, CV), tol=1e-7, n=n.est,
                         theta0=GMR, ...)$root, silent = TRUE)
   if (is.na(CV.min)) CV.min <- CV*2/3 else CV.min <- as.numeric(CV.min)
   if (is.na(CV.max)) CV.max <- 0.5    else CV.max <- as.numeric(CV.max)
   # points for plotting
-  seg    <- 60; 
+  seg    <- 60;
   # DL: simplified code of Helmut
   # do we need here different stepsizes
-  CVs    <- c(seq(CV.min, CV, length.out=seg*.25), 
+  CVs    <- c(seq(CV.min, CV, length.out=seg*.25),
               seq(CV, CV.max, length.out=seg*.75)[-1])
-  
+
   # dimension vector properly in advance
   pBECV  <- vector("numeric", length=length(CVs))
   # replace next eventually with apply/sapply
   for(j in seq_along(CVs)) {
     pBECV[j] <- power.NTID(CV=CVs[j], n=n.est, theta0=GMR, ...)
   }
-  
+
   ######################################
   # min. GMR for minimum accept. power #
   ######################################
@@ -104,7 +104,7 @@ pa.NTID <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   for(j in seq_along(GMRs)) {
     pBEGMR[j] <- power.NTID(CV=CV, n=n.est, theta0=GMRs[j], ...)
   }
-  
+
   ####################################
   # min. n for minimum accept. power #
   # workaround, since uniroot() does # what does he mean here?
@@ -115,7 +115,7 @@ pa.NTID <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
   if (n.est>500) nstep <- 10
   if (n.est>1000) nstep <- 50
   if (n.est>5000) nstep <- 100
-  
+
   Ns   <- seq(n.est, 12, by=-nstep) # don't drop below 12 subjects
   if (n.est==12) Ns <- seq(n.est, 8)
   nNs  <-length(Ns)
@@ -142,16 +142,16 @@ pa.NTID <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
       break
     }
   }
-  
+
   # plots are now contained in the S3 method plot
 
   # return what?
-  ret <-list(plan=res, 
+  ret <-list(plan=res,
              paCV=data.frame(CV=CVs, pwr=pBECV),
              paGMR=data.frame(theta0=GMRs, pwr=pBEGMR),
              paN=data.frame(N=n.min, pwr=pBEn),
              minpower=minpower,
-             method="RSABE NTID",
+             method="NTID",
              regulator="FDA", incr=incr
              )
   class(ret) <- c("pwrA", class(ret))

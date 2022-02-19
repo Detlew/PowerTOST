@@ -37,9 +37,9 @@ print.pwrA <- function(x, digits=4, plotit=TRUE, ...)
   print(x$plan[,-ncol(x$plan)], row.names = FALSE)
   cat("\nPower analysis\n")
   cat("CV, theta0 and number of subjects leading to min. acceptable ",
-      "power of \u2265", round(min.pwr, digits), ":\n", sep="")
-  #react to RSABE NTID where there may be a CV.min, CV.max which
-  if (method!="RSABE NTID") {
+      "power of ~", round(min.pwr, digits), ":\n", sep="")
+  #react to NTID where there may be a CV.min, CV.max which
+  if (method!="NTID") {
     # let to power=minpower
     cat(" CV= ", round(CV.max, digits), ", theta0= ",
         round(min.theta0, digits),"\n", sep="")
@@ -116,14 +116,14 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
       legend("topright", legend=c(algo, paste0("(",reg,")")), cex=0.90,
       bg="white", box.lty=0, x.intersp=0)
     }
-    if (method=="RSABE NTID"){
-      legend("topright", legend=c("RSABE", "(NTID FDA)"), cex=0.90,
+    if (method=="NTID"){
+      legend("topright", legend=c("RSABE", "(NTID)"), cex=0.90,
       bg="white", box.lty=0, x.intersp=0)
     }
   }
 
   op <- par(no.readonly=TRUE) # save par() options
-  on.exit(par(op)) 
+  on.exit(par(op))
   par(mar =c(c(3.5, 3.5, 2.5, 0.75))+0.1) # bottom, left, top, right
   par(cex.main=0.95, font.main=1, cex.axis=0.95, cex.lab=0.95,
       mgp =c(2, 0.75, 0), tcl = -0.2)
@@ -154,7 +154,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                labels=paste0("CV = ", signif(CV.max, 4), pctsign," (",
                              round(minpower, dec), pctsign,")"),
                col="black", bg="white", pos=4, r=0.5, cex=0.9)
-    
+
   } else {
     # any scABE (including RSABE NTID)
     plot(CVs, pwr, type="n",
@@ -174,9 +174,9 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     }
     txt <- paste0("CV = ", signif(CV.max, 4), pctsign, " (",
                   round(minpower, dec), pctsign, ")")
-    if  (x$method=="RSABE NTID") {
+    if  (x$method=="NTID") {
       if (abs(pwr[1]-minpower)/minpower <= 1e-4) {
-        #we have also CV.min with power=minpower
+        # we have also CV.min with power=minpower
         points(CV.min, pwr[1], col=clr[seg], pch=16, cex=1.1)
         txt <- paste0("CV = (", signif(CV.min, 4),", ", signif(CV.max, 4),
                       pctsign, ") (",round(minpower, dec), pctsign, ")")
@@ -186,7 +186,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                labels=txt,col="black", bg="white", pos=4, r=0.5, cex=0.9)
   }
   box()
-  
+
   screen(2) ### 'Sensitivity' of GMR (CV and n constant) ###
   pwr <- as.numeric(fact*x$paGMR[, "pwr"])
   GMRs <- as.numeric(x$paGMR[, "theta0"])
@@ -231,14 +231,14 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     text(100*GMR, (minpower+(pwr.est-minpower)*0.1),
          labels=paste0(ratiolabel, " = ",signif(100*GMR.min, 4), "% (",
                        round(minpower, dec), pctsign, ")"),
-         cex=0.9, pos=4)    
+         cex=0.9, pos=4)
     shadowtext(100*GMR, (minpower+(pwr.est-minpower)*0.1),
                labels=paste0(ratiolabel, " = ", signif(100*GMR.min, 4), "% (",
                              round(minpower, dec), pctsign, ")"),
                col="black", bg="white", pos=4, r=0.5, cex=0.9)
   }
   box()
-  
+
   screen(3) ### Sensitivity of n (GMR and CV constant) ###
   pwr <- as.numeric(fact*x$paN[, "pwr"])
   Ns  <- as.numeric(x$paN[, "N"])
@@ -273,7 +273,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   box()
 
   screen(4) ### Some basic information ###
-  if (x$method != "RSABE NTID") {
+  if (x$method != "NTID") {
     if (fact == 1) {
       CVtxt <- sprintf("  CV = %.4f (%+5.1f%%)",
                      CV.max, 100*(CV.max-CV)/CV)
@@ -331,7 +331,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                                 100*wtheta1, "...", 100*wtheta2))
    }
  }
- if (x$method == "RSABE NTID") {
+ if (x$method == "NTID") {
    Ltxt <-"  implied BE margins:"
    wtheta1 <- max(theta1,exp(CV2se(CV/fact)*log(0.9)/0.1))
    wtheta2 <- min(theta2,exp(-CV2se(CV/fact)*log(0.9)/0.1))
@@ -344,10 +344,10 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
    }
  }
  plot(1, type="n", axes=F, xlab="", ylab="")
- if (x$method != "RSABE NTID") {
+ if (x$method != "NTID") {
    cex <- 0.9
  } else {
-   cex <- 0.88 # more lines, smaller font
+   cex <- 0.85 # more lines require smaller font
  }
  if (fact == 100) { # percent
    legend("topleft", inset=-0.055,
@@ -358,7 +358,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                    sprintf("  %s %2.0f%%", "target =", targetpower),
                    sprintf("  %s %5.2f%% %s %i%s", "estimated =", pwr.est,
                            "(n =", n.est, ")"),
-                   sprintf("  %s %2.0f%%", "minimum acceptable =", minpower),
+                   sprintf("  %s %2.0f%%", "min. acceptable =", minpower),
                    "acceptable (relative) deviations:",
                    #TODO:react to RSABE NTID where there may be also a CVmin
                    CVtxt,
@@ -368,7 +368,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                            "n =", min(Ns), 100*(min(Ns)-n.est)/n.est)),
           bty="n", cex=cex)
   } else { # ratios
-    legend("topleft", inset=-0.065,
+    legend("topleft", inset=-0.055,
            legend=c(paste0(design, " design", "; assumed:"),
                     sprintf("  %s %.4f%s%s%s %.4f", "CV =", CV, ", ", ratiolabel, " =", GMR),
                     BEARtxt,
@@ -376,7 +376,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                     sprintf("  %s %5.4f", "target =", targetpower),
                     sprintf("  %s %5.4f %s %i%s", "estimated =", pwr.est,
                             "(n =", n.est, ")"),
-                    sprintf("  %s %5.4f", "minimum acceptable =", minpower),
+                    sprintf("  %s %5.4f", "min. acceptable =", minpower),
                     "acceptable (relative) deviations:",
                     CVtxt,
                     sprintf("  %s%s %.4f (%+5.2f%%)",

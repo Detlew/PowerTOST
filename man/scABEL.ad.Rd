@@ -26,20 +26,20 @@ convention commonly set to 0.05.
 }
   \item{theta1}{
 Conventional lower \acronym{ABE} limit to be applied in the mixed procedure
-if \code{CVwR==CVswitch}. Also lower limit for the point estimate
+if \code{CVwR == CVswitch}. Also lower limit for the point estimate
 constraint. Defaults to 0.80 if not given explicitly.
 }
   \item{theta2}{
 Conventional upper \acronym{ABE} limit to be applied in the mixed procedure
-if \code{CVwR==CVswitch}. Also upper limit for the point estimate
+if \code{CVwR == CVswitch}. Also upper limit for the point estimate
 constraint. Defaults to 1.25 if not given explicitly.
 }
   \item{CV}{
 Intra-subject coefficient(s) of variation as ratio (not percent).
   \itemize{
-    \item If given as a scalar (\code{length(CV)==1}) the \emph{same} CV of Test
+    \item If given as a scalar (\code{length(CV) == 1}) the \emph{same} CV of Test
           and Reference is assumed (homoscedasticity, \code{CVwT==CVwR}).
-    \item If given as a vector (\code{length(CV)==2}), \emph{i.e.}, assuming
+    \item If given as a vector (\code{length(CV) == 2}), \emph{i.e.}, assuming
           heteroscedasticity, the CV of the Test \strong{must} be given in \code{CV[1]} and the one of the Reference in the \code{CV[2]}.
   }
 }
@@ -62,7 +62,7 @@ in the full replicate designs or not a multiple of three in the partial
 replicate), the code tries to keep subjects / sequence as balanced as possible.\cr
 In evaluating a particular \emph{unbalanced} study \strong{always} give \code{n}
 as a vector.\cr
-Only if \code{design="2x2x3"} (TRT|RTR) the \emph{order} of sample sizes
+Only if \code{design = "2x2x3"} (TRT|RTR) the \emph{order} of sample sizes
 is important. \code{n[1]} is for sequence TRT and \code{n[2]} for sequence RTR.\cr
 If \code{n} is missing, a sample size is estimated with target power 0.80 and pre-specified
 alpha if defined. Otherwise, alpha is used.
@@ -107,10 +107,10 @@ Set to \code{TRUE} if results of \code{\link{power.scABEL}} are expected to
 be inaccurate (partial replicate design with unbalanced sequences and/or heteroscedasticity
 where CVwT > CVwR) and subject data via \code{\link{power.scABEL.sdsims}} should
 be simulated instead. Very time consuming (easily 100times slower)! Subject data
-simulations are only supported for \code{regulator="EMA"} and \code{regulator="GCC"}.
+simulations are only supported for \code{regulator = "EMA"} and \code{regulator = "GCC"}.
 }
   \item{progress}{
-Set to \code{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims=FALSE}.
+Set to \code{TRUE} if a progress bar should be displayed. Ignored if \code{sdsims = FALSE}.
 }
 }
 \details{
@@ -119,14 +119,14 @@ quantities necessary for assessing \acronym{BE} based on \acronym{ABEL}.
 Simulations for the \acronym{TIE} are performed at the upper (expanded) limit \emph{U}
 of the acceptance range. Due to the symmetry around 1 results are valid for the lower
 (expanded) limit \emph{L} as well.\cr
-\emph{U} at the \acronym{EMA}\enc{’}{'}s and Health Canada\enc{’}{'}s \code{CVcap}, the \acronym{GCC}\enc{’}{'}s for \emph{any} CVwR > 0.3:\preformatted{scABEL(CV=0.5, reg="EMA")[["upper"]]
+\emph{U} at the \acronym{EMA}\enc{’}{'}s and Health Canada\enc{’}{'}s \code{CVcap}, the \acronym{GCC}\enc{’}{'}s for \emph{any} CVwR > 0.3:\preformatted{scABEL(CV = 0.5, reg = "EMA")[["upper"]]
 [1] 1.43191
-scABEL(CV=0.57382, reg="HC")[["upper"]]
+scABEL(CV = 0.57382, reg = "HC")[["upper"]]
 [1] 1.5
-scABEL(CV=0.5, reg="GCC")[["upper"]]
+scABEL(CV = 0.5, reg = "GCC")[["upper"]]
 [1] 1.333333}
 Simulated studies are evaluated by ANOVA (Method A) as recommended in the
-\acronym{EMA}\enc{’}{'} Q&A-document and by intra-subject contrasts if \code{regulator="HC"}.
+\acronym{EMA}\enc{’}{'} Q&A-document and by intra-subject contrasts if \code{regulator = "HC"}.
 Health Canada requires a mixed-effects model which cannot be implemented in R.
 However, intra-subjects contrasts are a sufficiently close approximation.\cr
 The Type I Error in \acronym{ABEL} depends only on \code{CVwR} and -- to a

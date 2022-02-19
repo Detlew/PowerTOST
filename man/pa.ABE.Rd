@@ -29,12 +29,12 @@ Must be given as ratio.
   \item{targetpower}{
 Power to achieve at least in sample size estimation. Must be >0 and <1.\cr
 Typical values are 0.8 or 0.9. Defaults to 0.8.\cr
-Note that targetpower < 0.5 doesn’t make much sense.
+Note that targetpower < 0.5 doesn\enc{’}{'}t make much sense.
 }
   \item{minpower}{
 Minimum acceptable power to have if deviating from assumptions for sample size plan.\cr
 Has to be lower than \code{targetpower}. Defaults to 0.7.\cr
-\code{minpower} < 0.5 doesn’t make much sense.
+\code{minpower} < 0.5 doesn\enc{’}{'}t make much sense.
 }
   \item{design}{
 Character string describing the study design.\cr
@@ -75,10 +75,10 @@ the color changes gradually to \code{cols[2]}.}
 \details{
 Power calculations are done via \code{power.TOST()} and calculations of CV and theta0
 which gave a power=\code{minpower} are derived via R base \code{\link{uniroot}}.
-While one of the parameters (CV, theta0, N) is varied, the respective two others are
+While one of the parameters (\code{CV}, \code{theta0}, \code{n}) is varied, the respective two others are
 kept constant. The tool shows the relative impact of single parameters on power.\cr
 The tool takes a minimum of 12 subjects as required in most BE guidances into account.\cr\cr
-It should be kept in mind that this is \bold{not} a substitute for the \dQuote{Sensitivity Analysis}
+It should be kept in mind that this is \bold{not} a substitute for the \sQuote{Sensitivity Analysis}
 recommended in ICH-E9. In a real study a combination of all effects occurs simultaneously.
 It is up to \emph{you} to decide on reasonable combinations and analyze their respective power.
 }
@@ -92,7 +92,7 @@ Returns a list with class \code{"pwrA"} with the components
                deviations from theta0 (GMR).}
   \item{paN}{A data.frame with value pairs N, pwr for impact of
              deviations from planned N (dropouts).}
-  \item{method}{Method of BE decision. Here fix = "ABE".}
+  \item{method}{Method of BE decision. Here "ABE".}
   \item{minpower}{Minimum acceptable power.}
 
 The class \code{'pwrA'} has the S3 methods \code{print()} and \code{plot()}.
