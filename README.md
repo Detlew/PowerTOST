@@ -36,7 +36,9 @@ size](https://img.shields.io/github/repo-size/Detlew/PowerTOST?color=yellow)
 size](https://img.shields.io/github/languages/code-size/Detlew/PowerTOST?color=green)
 ![first](https://img.shields.io/badge/CRAN%20since-May%202010-brightgreen)
 ![on CRAN](https://www.r-pkg.org/badges/version-ago/PowerTOST) [![cran
-checks](https://cranchecks.info/badges/worst/PowerTOST)](https://cran.r-project.org/web/checks/check_results_PowerTOST.html)
+checks](https://cranchecks.info/badges/worst/PowerTOST)](https://cran.r-project.org/web/checks/check_results_PowerTOST.html)![commits](https://img.shields.io/github/commits-since/Detlew/PowerTOST/latest)
+![last
+commit](https://img.shields.io/github/last-commit/Detlew/PowerTOST)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](https://r-pkg.org/pkg/PowerTOST)
 [![CRAN RStudio mirror
@@ -944,7 +946,7 @@ devtools::session_info()
 #  collate  German_Germany.1252
 #  ctype    German_Germany.1252
 #  tz       Europe/Vienna
-#  date     2022-02-17
+#  date     2022-02-19
 #  pandoc   2.17.1.1 @ D:/Program Files/RStudio/bin/pandoc/ (via rmarkdown)
 # 
 # - Packages ----------------------------------------------
