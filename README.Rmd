@@ -415,8 +415,7 @@ Inspect this information for reproducibility. Of particular importance are the v
 Version `r packageVersion("PowerTOST")` built `r packageDate("PowerTOST", date.fields = "Built")` with R `r substr(packageDescription("PowerTOST", fields = "Built"), 3, 7)`.
 
 ```{r, sessioninfo}
-options(width = 59)
-devtools::session_info()
+sessionInfo()
 ```
 
 <small>[TOC ↩](#powertost)</small>

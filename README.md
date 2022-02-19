@@ -938,70 +938,30 @@ analysis.
 Version 1.5.4 built 2022-02-19 with R 4.1.2.
 
 ``` r
-options(width = 59)
-devtools::session_info()
-# - Session info ------------------------------------------
-#  setting  value
-#  version  R version 4.1.2 (2021-11-01)
-#  os       Windows 7 x64 (build 7601) SP 1
-#  system   x86_64, mingw32
-#  ui       RTerm
-#  language EN
-#  collate  German_Germany.1252
-#  ctype    German_Germany.1252
-#  tz       Europe/Vienna
-#  date     2022-02-19
-#  pandoc   2.17.1.1 @ D:/Program Files/RStudio/bin/pandoc/ (via rmarkdown)
+sessionInfo()
+# R version 4.1.2 (2021-11-01)
+# Platform: x86_64-w64-mingw32/x64 (64-bit)
+# Running under: Windows 7 x64 (build 7601) Service Pack 1
 # 
-# - Packages ----------------------------------------------
-#  package       * version date (UTC) lib source
-#  brio            1.1.3   2021-11-30 [1] CRAN (R 4.1.2)
-#  cachem          1.0.6   2021-08-19 [1] CRAN (R 4.1.1)
-#  callr           3.7.0   2021-04-20 [1] CRAN (R 4.1.0)
-#  cli             3.1.1   2022-01-20 [1] CRAN (R 4.1.2)
-#  crayon          1.5.0   2022-02-14 [1] CRAN (R 4.1.2)
-#  cubature        2.0.4.2 2021-05-13 [1] CRAN (R 4.1.0)
-#  desc            1.4.0   2021-09-28 [1] CRAN (R 4.1.1)
-#  devtools        2.4.3   2021-11-30 [1] CRAN (R 4.1.2)
-#  digest          0.6.29  2021-12-01 [1] CRAN (R 4.1.2)
-#  ellipsis        0.3.2   2021-04-29 [1] CRAN (R 4.1.0)
-#  evaluate        0.15    2022-02-18 [1] CRAN (R 4.1.2)
-#  fastmap         1.1.0   2021-01-25 [1] CRAN (R 4.1.0)
-#  fs              1.5.2   2021-12-08 [1] CRAN (R 4.1.2)
-#  glue            1.6.1   2022-01-22 [1] CRAN (R 4.1.2)
-#  htmltools       0.5.2   2021-08-25 [1] CRAN (R 4.1.1)
-#  knitr           1.37    2021-12-16 [1] CRAN (R 4.1.2)
-#  lifecycle       1.0.1   2021-09-24 [1] CRAN (R 4.1.1)
-#  magrittr        2.0.2   2022-01-26 [1] CRAN (R 4.1.2)
-#  memoise         2.0.1   2021-11-26 [1] CRAN (R 4.1.2)
-#  mvtnorm         1.1-3   2021-10-08 [1] CRAN (R 4.1.1)
-#  pkgbuild        1.3.1   2021-12-20 [1] CRAN (R 4.1.2)
-#  pkgload         1.2.4   2021-11-30 [1] CRAN (R 4.1.2)
-#  PowerTOST     * 1.5-4   2022-02-19 [1] local
-#  prettyunits     1.1.1   2020-01-24 [1] CRAN (R 4.1.0)
-#  processx        3.5.2   2021-04-30 [1] CRAN (R 4.1.0)
-#  ps              1.6.0   2021-02-28 [1] CRAN (R 4.1.0)
-#  purrr           0.3.4   2020-04-17 [1] CRAN (R 4.1.0)
-#  R6              2.5.1   2021-08-19 [1] CRAN (R 4.1.1)
-#  Rcpp            1.0.8   2022-01-13 [1] CRAN (R 4.1.2)
-#  remotes         2.4.2   2021-11-30 [1] CRAN (R 4.1.2)
-#  rlang           1.0.1   2022-02-03 [1] CRAN (R 4.1.2)
-#  rmarkdown       2.11    2021-09-14 [1] CRAN (R 4.1.1)
-#  rprojroot       2.0.2   2020-11-15 [1] CRAN (R 4.1.0)
-#  rstudioapi      0.13    2020-11-12 [1] CRAN (R 4.1.0)
-#  sessioninfo     1.2.2   2021-12-06 [1] CRAN (R 4.1.2)
-#  stringi         1.7.6   2021-11-29 [1] CRAN (R 4.1.2)
-#  stringr         1.4.0   2019-02-10 [1] CRAN (R 4.1.0)
-#  TeachingDemos   2.12    2020-04-07 [1] CRAN (R 4.1.0)
-#  testthat        3.1.2   2022-01-20 [1] CRAN (R 4.1.2)
-#  usethis         2.1.5   2021-12-09 [1] CRAN (R 4.1.2)
-#  withr           2.4.3   2021-11-30 [1] CRAN (R 4.1.2)
-#  xfun            0.29    2021-12-14 [1] CRAN (R 4.1.2)
-#  yaml            2.2.2   2022-01-25 [1] CRAN (R 4.1.2)
+# Matrix products: default
 # 
-#  [1] D:/Program Files/R/R-4.1.2/library
+# locale:
+# [1] LC_COLLATE=German_Germany.1252  LC_CTYPE=German_Germany.1252   
+# [3] LC_MONETARY=German_Germany.1252 LC_NUMERIC=C                   
+# [5] LC_TIME=German_Germany.1252    
 # 
-# ---------------------------------------------------------
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# other attached packages:
+# [1] PowerTOST_1.5-4
+# 
+# loaded via a namespace (and not attached):
+#  [1] Rcpp_1.0.8         mvtnorm_1.1-3      digest_0.6.29      magrittr_2.0.2    
+#  [5] evaluate_0.15      TeachingDemos_2.12 rlang_1.0.1        stringi_1.7.6     
+#  [9] cli_3.1.1          cubature_2.0.4.2   rstudioapi_0.13    rmarkdown_2.11    
+# [13] tools_4.1.2        stringr_1.4.0      xfun_0.29          yaml_2.2.2        
+# [17] fastmap_1.1.0      compiler_4.1.2     htmltools_0.5.2    knitr_1.37
 ```
 
 <small>[TOC ↩](#powertost)</small>
