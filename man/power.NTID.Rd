@@ -1,5 +1,6 @@
 \encoding{utf-8}
 \name{power.NTIDFDA}
+\alias{power.NTID}
 \alias{power.NTIDFDA}
 \title{
 (Empirical) Power for BE decision via FDA method for NTIDs
@@ -11,8 +12,8 @@ The study design could be the full replicate design 2x2x4 with 4-periods (TRTR|R
 2x2x3 replicate design with sequences TRT|RTR.
 }
 \usage{
-power.NTIDFDA(alpha = 0.05, theta1, theta2, theta0, CV, n, design=c("2x2x4", "2x2x3"),
-              nsims = 1e+05, details = FALSE, setseed = TRUE)
+power.NTID(alpha = 0.05, theta1, theta2, theta0, CV, n, design=c("2x2x4", "2x2x3"),
+           nsims = 1e+05, details = FALSE, setseed = TRUE)
 }
 \arguments{
   \item{alpha}{
@@ -116,7 +117,7 @@ The results for the design \code{"2x2x3"} are to be considered as experimental s
 The method is also required by China\enc{’}{'}s Center of Drug Evaluation.
 }
 \seealso{
-\code{\link{sampleN.NTIDFDA}}\cr
+\code{\link{sampleN.NTID}}\cr
 and \code{\link{power.HVNTID}}, \code{\link{sampleN.HVNTID}} for NTIDs with
 high variability
 }
@@ -124,7 +125,7 @@ high variability
 # using the all defaults:
 # GMR=0.975, theta1=0.8, theta2=1.25, 100,000 simulations
 # and a CV of 0.1 (= 10\%) with 12 subjects, balanced
-power.NTIDFDA(CV = 0.1, n = 12)
+power.NTID(CV = 0.1, n = 12)
 # should give a power of 0.62553
 }
 

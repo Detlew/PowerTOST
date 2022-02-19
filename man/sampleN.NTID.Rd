@@ -1,5 +1,6 @@
 \encoding{utf-8}
-\name{sampleN.NTIDFDA}
+\name{sampleN.NTID}
+\alias{sampleN.NTID}
 \alias{sampleN.NTIDFDA}
 \title{
 Sample size estimation for BE decision via the FDA's method for narrow therapeutic index drugs (NTIDs)
@@ -10,9 +11,9 @@ the FDA\enc{’}{'}s method for NTIDs based on simulations. The study design is 
 replicate design 2x2x4 (TRTR|RTRT) or the 3-period replicate design with sequences TRT|RTR.
 }
 \usage{
-sampleN.NTIDFDA(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, CV,
-                design = c("2x2x4", "2x2x3"), nsims = 1e+05, nstart, imax = 100,
-                print = TRUE, details = TRUE, setseed = TRUE)
+sampleN.NTID(alpha = 0.05, targetpower = 0.8, theta0, theta1, theta2, CV,
+             design = c("2x2x4", "2x2x3"), nsims = 1e+05, nstart, imax = 100,
+             print = TRUE, details = TRUE, setseed = TRUE)
 }
 \arguments{
   \item{alpha}{
@@ -135,22 +136,22 @@ no sample size estimation is possible and the function throws an error
 }
 
 \seealso{
-\code{\link{power.NTIDFDA}}
+\code{\link{power.NTID}}
 and \code{\link{power.HVNTID}}, \code{\link{sampleN.HVNTID}} for NTIDs with
 high variability
 }
 \examples{
-sampleN.NTIDFDA(CV = 0.04,theta0 = 0.975)
+sampleN.NTID(CV = 0.04,theta0 = 0.975)
 # should give
 # n=54 with an (empirical) power of 0.809590
 #
 # Test formulation with lower variability
-sampleN.NTIDFDA(CV = c(0.04,0.06),theta0 = 0.975)
+sampleN.NTID(CV = c(0.04,0.06),theta0 = 0.975)
 # should give
 # n=20 with an (empirical) power of 0.0.814610
 #
 # alternative 3-period design
-sampleN.NTIDFDA(CV = 0.04,theta0 = 0.975, design="2x2x3")
+sampleN.NTID(CV = 0.04,theta0 = 0.975, design="2x2x3")
 # should give
 # n=86 with power = 0.80364
 }
