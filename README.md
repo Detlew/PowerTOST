@@ -134,7 +134,7 @@ sequences or equal group sizes.
         title="European Medicines Agency">EMA</span>, <span
         title="World Health Organization">WHO</span> and many others.
     -   Average Bioequivalence with *fixed* widened limits of
-        75.00–133.33% if *CV*<sub>wR</sub> \>30%: Gulf Cooperation
+        75.00–133.33% if *CV*<sub>wR</sub> >30%: Gulf Cooperation
         Council.  
     -   Reference-scaled Average Bioequivalence (RSABE) for <span
         title="Highly Variable Drugs / Drug Products">HVDP(s)</span>:
@@ -848,7 +848,7 @@ print(res, plotit = FALSE)
 #     2x2  0.05 0.2   0.95    0.8   1.25          26      0.9176333
 # 
 # Power analysis
-# CV, theta0 and number of subjects leading to min. acceptable power of ~0.7:
+# CV, theta0 and number of subjects leading to min. acceptable power of =0.7:
 #  CV= 0.2729, theta0= 0.9044
 #  n = 16 (power= 0.7354)
 ```
@@ -902,7 +902,7 @@ reasons.
 However, subject simulations are recommended **if**
 
 -   the partial replicate design (TRR\|RTR\|RRT) is planned **and**
--   the special case of heterogenicity *CV*<sub>wT</sub> \>
+-   the special case of heterogenicity *CV*<sub>wT</sub> >
     *CV*<sub>wR</sub> is expected.
 
 <small>[TOC ↩](#powertost)</small>
@@ -941,7 +941,7 @@ Version 1.5.4 built 2022-02-19 with R 4.1.2.
 sessionInfo()
 # R version 4.1.2 (2021-11-01)
 # Platform: x86_64-w64-mingw32/x64 (64-bit)
-# Running under: Windows 7 x64 (build 7601) Service Pack 1
+# Running under: Windows 10 x64 (build 19043)
 # 
 # Matrix products: default
 # 
@@ -957,11 +957,11 @@ sessionInfo()
 # [1] PowerTOST_1.5-4
 # 
 # loaded via a namespace (and not attached):
-#  [1] Rcpp_1.0.8         mvtnorm_1.1-3      digest_0.6.29      magrittr_2.0.2    
-#  [5] evaluate_0.15      TeachingDemos_2.12 rlang_1.0.1        stringi_1.7.6     
-#  [9] cli_3.1.1          cubature_2.0.4.2   rstudioapi_0.13    rmarkdown_2.11    
-# [13] tools_4.1.2        stringr_1.4.0      xfun_0.29          yaml_2.2.2        
-# [17] fastmap_1.1.0      compiler_4.1.2     htmltools_0.5.2    knitr_1.37
+#  [1] Rcpp_1.0.7         mvtnorm_1.1-3      digest_0.6.29      magrittr_2.0.1    
+#  [5] evaluate_0.14      TeachingDemos_2.12 rlang_0.4.12       stringi_1.7.6     
+#  [9] cubature_2.0.4.2   rmarkdown_2.11     tools_4.1.2        stringr_1.4.0     
+# [13] xfun_0.29          yaml_2.2.1         fastmap_1.1.0      compiler_4.1.2    
+# [17] htmltools_0.5.2    knitr_1.37
 ```
 
 <small>[TOC ↩](#powertost)</small>
