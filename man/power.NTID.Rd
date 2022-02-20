@@ -67,7 +67,7 @@ Defaults to 100,000 = 1e+5.
 If set to \code{TRUE} the computational time is shown as well as the components
 for the BE decision.\cr
 \verb{p(BE-ABE)} is the simulated probability for the conventional ABE test.\cr
-\verb{p(BE-sABEc)} is the probability that the 95\% CI of the scaled ABE criterion is \ifelse{latex}{\out{$&leq;0$}}{\ifelse{html}{\out{&leq;&nbsp;0}}{<= 0}}.\cr
+\verb{p(BE-sABEc)} is the probability that the 95\% CI of the scaled ABE criterion is \ifelse{latex}{\out{$\leq0$}}{\ifelse{html}{\out{&leq;&nbsp;0}}{<= 0}}.\cr
 \verb{p(BE-sratio)} is the probability that the upper confidence limit of
 \ifelse{latex}{\out{$\sigma_{\rm{wT}}/\sigma_{\rm{wR}}\leq 2.5$}}{\ifelse{html}{\out{<em>&sigma;</em><sub>wT</sub>/<em>&sigma;</em><sub>wR</sub>&nbsp;&leq;&nbsp;2.5}}{sWT/sWR <= 2.5}}.
 }
