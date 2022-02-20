@@ -45,7 +45,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-Version 1.5.4 built 2022-02-19 with R 4.1.2 (development version not on
+Version 1.5.4 built 2022-02-20 with R 4.1.2 (development version not on
 CRAN).
 
 ## Introduction
@@ -848,7 +848,7 @@ print(res, plotit = FALSE)
 #     2x2  0.05 0.2   0.95    0.8   1.25          26      0.9176333
 # 
 # Power analysis
-# CV, theta0 and number of subjects leading to min. acceptable power of =0.7:
+# CV, theta0 and number of subjects leading to min. acceptable power of ~0.7:
 #  CV= 0.2729, theta0= 0.9044
 #  n = 16 (power= 0.7354)
 ```
@@ -935,7 +935,7 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.4 built 2022-02-19 with R 4.1.2.
+Version 1.5.4 built 2022-02-20 with R 4.1.2.
 
 ``` r
 sessionInfo()
