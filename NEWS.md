@@ -15,7 +15,7 @@ On CRAN 2022-02-21.
 ## Major changes
   * Functions dealing with the FDA method for NTID have now aliases without FDA in their names since the evaluation methods requested by the FDA are also required by China CDE.
     The aliases are `power.NTID()`, `sampleN.NTID()`, and `pa.NTID()`.
-    The functions `power.NTIDFDA(), `sampleN.NTIDFDA()`, and `pa.NTIDFDA()` are deprecated and will be removed in the next release.
+    The functions `power.NTIDFDA()`, `sampleN.NTIDFDA()`, and `pa.NTIDFDA()` are deprecated and will be removed in the next release.
     
 # PowerTOST 1.5-3
 
