@@ -1,3 +1,8 @@
+# PowerTOST 1.5.4.9000
+
+On GitHub 2022-02-23.
+
+
 # PowerTOST 1.5-4
 
 On CRAN 2022-02-21.
