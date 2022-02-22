@@ -45,8 +45,8 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-Version 1.5.4 built 2022-02-20 with R 4.1.2 (development version not on
-CRAN).
+Version 1.5.4 built 2022-02-22 with R 4.1.2 (stable release on CRAN
+2022-02-21).
 
 ## Introduction
 
@@ -134,7 +134,7 @@ sequences or equal group sizes.
         title="European Medicines Agency">EMA</span>, <span
         title="World Health Organization">WHO</span> and many others.
     -   Average Bioequivalence with *fixed* widened limits of
-        75.00–133.33% if *CV*<sub>wR</sub> \>30%: Gulf Cooperation
+        75.00–133.33% if *CV*<sub>wR</sub> >30%: Gulf Cooperation
         Council.  
     -   Reference-scaled Average Bioequivalence (RSABE) for <span
         title="Highly Variable Drugs / Drug Products">HVDP(s)</span>:
@@ -902,7 +902,7 @@ reasons.
 However, subject simulations are recommended **if**
 
 -   the partial replicate design (TRR\|RTR\|RRT) is planned **and**
--   the special case of heterogenicity *CV*<sub>wT</sub> \>
+-   the special case of heterogenicity *CV*<sub>wT</sub> >
     *CV*<sub>wR</sub> is expected.
 
 <small>[TOC ↩](#powertost)</small>
@@ -935,14 +935,14 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.4 built 2022-02-20 with R 4.1.2.
+Version 1.5.4 built 2022-02-22 with R 4.1.2.
 
 ``` r
 options(width = 66)
 sessionInfo()
 # R version 4.1.2 (2021-11-01)
 # Platform: x86_64-w64-mingw32/x64 (64-bit)
-# Running under: Windows 7 x64 (build 7601) Service Pack 1
+# Running under: Windows 10 x64 (build 19043)
 # 
 # Matrix products: default
 # 
