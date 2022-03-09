@@ -963,10 +963,10 @@ sessionInfo()
 # loaded via a namespace (and not attached):
 #  [1] Rcpp_1.0.8         mvtnorm_1.1-3      digest_0.6.29     
 #  [4] magrittr_2.0.2     evaluate_0.15      TeachingDemos_2.12
-#  [7] rlang_1.0.1        stringi_1.7.6      cli_3.1.1         
+#  [7] rlang_1.0.1        stringi_1.7.6      cli_3.2.0         
 # [10] cubature_2.0.4.2   rstudioapi_0.13    rmarkdown_2.11    
 # [13] tools_4.1.2        stringr_1.4.0      xfun_0.29         
-# [16] yaml_2.2.2         fastmap_1.1.0      compiler_4.1.2    
+# [16] yaml_2.3.5         fastmap_1.1.0      compiler_4.1.2    
 # [19] htmltools_0.5.2    knitr_1.37
 ```
 
