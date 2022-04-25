@@ -59,11 +59,12 @@ reg_const <- function(regulator, r_const, CVswitch, CVcap, pe_constr)
 # ---------------------------------------------------------------------------
 reg_check <- function(regulator, choices=c("EMA", "HC", "FDA", "GCC"))
 {
-  if (class(regulator)=="character"){
+  #R4.2.0: if() conditions comparing class() to string no longer recommended
+  if (inherits(regulator, "character")){
     reg <- toupper(regulator)
     reg <- match.arg(reg, choices)
     reg <- reg_const(reg)
-  } else if (class(regulator)=="regSet") {
+  } else if (inherits(regulator, "regSet")) {
     reg <- regulator
     # more checks?
   } else {
