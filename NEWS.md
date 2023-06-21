@@ -1,6 +1,6 @@
-# PowerTOST 1.5.4.9000
+# PowerTOST 1.5-5
 
-On GitHub 2022-02-23.
+On CRAN 2023-06-27.
 
 ## Bug fixes
   * Bug fixed in CI.BE() regarding cases with only Ntotal given.
