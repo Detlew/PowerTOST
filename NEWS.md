@@ -2,6 +2,11 @@
 
 On GitHub 2022-02-23.
 
+## Bug fixes
+  * Bug fixed in CI.BE() regarding cases with only Ntotal given.
+
+## Minor changes
+  * Example results in functions power.2TOST() and SampleN2TOST() corrected.
 
 # PowerTOST 1.5-4
 

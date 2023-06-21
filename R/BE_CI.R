@@ -15,8 +15,13 @@ CI.BE <- function(alpha=0.05, pe, CV, n, design="2x2", robust=FALSE)
   mse  <- CV2mse(CV)
   # check if n is ntotal
   if (length(n)==1) {
-    df <- eval(dfe)
-    hw <- qt(1-alpha, df)*sqrt(mse*ades$bk/n)
+    # n given as ntotal
+    n <- nvec(n = n, grps = ades$steps)
+    if (n[1] != n[length(n)]) {
+      message("Unbalanced ", design, " design. n(i)= ", paste(n, collapse = "/"),
+              " assumed.")
+    }
+    
   } else {
     # or n per sequence group 
     # check the correct length due to design
@@ -24,11 +29,12 @@ CI.BE <- function(alpha=0.05, pe, CV, n, design="2x2", robust=FALSE)
     if (length(n)!= ades$steps){
       stop("Length of n vector must be ",ades$steps,"!")
     }
-    nc <- sum(1/n)
-    n <- sum(n)
-    df <- eval(dfe)
-    hw <- qt(1-alpha, df)*sqrt(mse*ades$bkni*nc)
   }
+  nc <- sum(1/n)
+  n <- sum(n)
+  df <- eval(dfe)
+  
+  hw <- qt(1-alpha, df)*sqrt(mse*ades$bkni*nc)
   upper <- log(pe) + hw
   lower <- log(pe) - hw
   CI    <- cbind(lower,upper)    # gives a matrix
