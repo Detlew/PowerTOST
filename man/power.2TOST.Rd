@@ -126,7 +126,7 @@ B. Lang, D. Labes\cr
 # default values)
 power.2TOST(theta0 = rep(1.05, 2), CV = rep(se2CV(0.3), 2),
             n = 24, rho = 0.75)
-# should give: 0.38906
+# should give: 0.38849
 \donttest{
 # Setting as before but use rho 1 and high number of simulations
 # to reproduce result of power.TOST()
