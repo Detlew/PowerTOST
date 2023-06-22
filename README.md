@@ -45,8 +45,8 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-Version 1.5.4 built 2022-10-30 with R 4.2.1 (stable release on CRAN
-2022-02-21).
+Version 1.5.5 built 2023-06-22 with R 4.3.1 (development version not on
+CRAN).
 
 ## Introduction
 
@@ -932,7 +932,7 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.4 built 2022-10-30 with R 4.2.1.
+Version 1.5.5 built 2023-06-22 with R 4.3.1.
 
 ``` r
 options(width = 66)
@@ -959,7 +959,7 @@ sessionInfo()
 # [7] base     
 # 
 # other attached packages:
-# [1] PowerTOST_1.5-4
+# [1] PowerTOST_1.5-5
 # 
 # loaded via a namespace (and not attached):
 #  [1] digest_0.6.31      cubature_2.1.0     fastmap_1.1.1     
