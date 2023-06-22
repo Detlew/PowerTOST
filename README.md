@@ -1,27 +1,27 @@
 PowerTOST
 ================
 
--   [Introduction](#introduction)
--   [Supported Designs](#designs)
--   [Purpose](#purpose)
--   [Supported](#supported)
-    -   [Power and Sample Size](#power_sample_size)
-    -   [Methods](#methods)
-    -   [Helpers](#helpers)
--   [Defaults](#defaults)
-    -   [Average Bioequivalence](#ABE.defaults)
-    -   [Reference-Scaled Average Bioequivalence](#RSABE.defaults)
-    -   [Dose-Proportionality](#DP)
-    -   [Power Analysis](#PA)
--   [Examples](#examples)
-    -   [Parallel Design](#parallel)
-    -   [Crossover Design](#crossover)
-    -   [Replicate Designs](#replicate)
-    -   [Dose-Proportionality](#dose-proportionality)
-    -   [Power Analysis](#power-analysis)
-    -   [Speed Comparisons](#speed-comparisons)
--   [Installation](#installation)
--   [Session Information](#session-information)
+- [Introduction](#introduction)
+- [Supported Designs](#designs)
+- [Purpose](#purpose)
+- [Supported](#supported)
+  - [Power and Sample Size](#power_sample_size)
+  - [Methods](#methods)
+  - [Helpers](#helpers)
+- [Defaults](#defaults)
+  - [Average Bioequivalence](#ABE.defaults)
+  - [Reference-Scaled Average Bioequivalence](#RSABE.defaults)
+  - [Dose-Proportionality](#DP)
+  - [Power Analysis](#PA)
+- [Examples](#examples)
+  - [Parallel Design](#parallel)
+  - [Crossover Design](#crossover)
+  - [Replicate Designs](#replicate)
+  - [Dose-Proportionality](#dose-proportionality)
+  - [Power Analysis](#power-analysis)
+  - [Speed Comparisons](#speed-comparisons)
+- [Installation](#installation)
+- [Session Information](#session-information)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -45,8 +45,8 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-Version 1.5.4.9000 built 2022-03-09 with R 4.1.2 (development version
-not on CRAN).
+Version 1.5.4 built 2022-10-30 with R 4.2.1 (stable release on CRAN
+2022-02-21).
 
 ## Introduction
 
@@ -102,15 +102,15 @@ presence of period effects.
 
 For various methods power can be *calculated* based on
 
--   nominal *α*, coefficient of variation (*CV*), deviation of test from
-    reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
-    *θ*<sub>2</sub>}, sample size (*n*), and design.
+- nominal *α*, coefficient of variation (*CV*), deviation of test from
+  reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
+  *θ*<sub>2</sub>}, sample size (*n*), and design.
 
 For all methods the sample size can be *estimated* based on
 
--   nominal *α*, coefficient of variation (*CV*), deviation of test from
-    reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
-    *θ*<sub>2</sub>}, target (*i.e.*, desired) power, and design.
+- nominal *α*, coefficient of variation (*CV*), deviation of test from
+  reference (*θ*<sub>0</sub>), acceptance limits {*θ*<sub>1</sub>,
+  *θ*<sub>2</sub>}, target (*i.e.*, desired) power, and design.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -123,86 +123,83 @@ replicate designs and equal/unequal group sizes in two-group parallel
 designs. Sample sizes are always rounded up to achieve balanced
 sequences or equal group sizes.
 
--   Average Bioequivalence (with arbitrary *fixed* limits).
--   <span title="Average Bioequivalence">ABE</span> for Highly Variable
-    Narrow Therapeutic Index Drugs by simulations: U.S. <span
-    title="Food and Drug Administration">FDA</span>, China <span
-    title="Center for Drug Evaluation">CDE</span>.
--   Scaled Average Bioequivalence based on simulations.
-    -   Average Bioequivalence with Expanding Limits (ABEL) for Highly
-        Variable Drugs / Drug Products: <span
-        title="European Medicines Agency">EMA</span>, <span
-        title="World Health Organization">WHO</span> and many others.
-    -   Average Bioequivalence with *fixed* widened limits of
-        75.00–133.33% if *CV*<sub>wR</sub> >30%: Gulf Cooperation
-        Council.  
-    -   Reference-scaled Average Bioequivalence (RSABE) for <span
-        title="Highly Variable Drugs / Drug Products">HVDP(s)</span>:
-        U.S. <span title="Food and Drug Administration">FDA</span>,
-        China <span title="Center for Drug Evaluation">CDE</span>.
-    -   Iteratively adjust *α* to control the type I error in <span
-        title="Average Bioequivalence with Expanding Limits">ABEL</span>
-        and <span
-        title="Reference-scaled Average Bioequivalence">RSABE</span> for
-        <span
-        title="Highly Variable Drugs / Drug Products">HVDP(s)</span>.
-    -   <span
-        title="Reference-scaled Average Bioequivalence">RSABE</span> for
-        <span title="Narrow Therapeutic Index Drugs">NTIDs</span>: U.S.
-        <span title="Food and Drug Administration">FDA</span>, China
-        <span title="Center for Drug Evaluation">CDE</span>.
--   Two simultaneous <span title="Two One-Sided Tests">TOST</span>
-    procedures.
--   Non-inferiority *t*-test.
--   Ratio of two means with normally distributed data on the original
-    scale based on Fieller’s (‘fiducial’) confidence interval.
--   ‘Expected’ power in case of uncertain (estimated) variability and/or
-    uncertain *θ*<sub>0</sub>.
--   Dose-Proportionality using the power model.
+- Average Bioequivalence (with arbitrary *fixed* limits).
+- <span title="Average Bioequivalence">ABE</span> for Highly Variable
+  Narrow Therapeutic Index Drugs by simulations: U.S.
+  <span title="Food and Drug Administration">FDA</span>, China
+  <span title="Center for Drug Evaluation">CDE</span>.
+- Scaled Average Bioequivalence based on simulations.
+  - Average Bioequivalence with Expanding Limits (ABEL) for Highly
+    Variable Drugs / Drug Products:
+    <span title="European Medicines Agency">EMA</span>,
+    <span title="World Health Organization">WHO</span> and many others.
+  - Average Bioequivalence with *fixed* widened limits of 75.00–133.33%
+    if *CV*<sub>wR</sub> \>30%: Gulf Cooperation Council.  
+  - Reference-scaled Average Bioequivalence (RSABE) for
+    <span title="Highly Variable Drugs / Drug Products">HVDP(s)</span>:
+    U.S. <span title="Food and Drug Administration">FDA</span>, China
+    <span title="Center for Drug Evaluation">CDE</span>.
+  - Iteratively adjust *α* to control the type I error in
+    <span title="Average Bioequivalence with Expanding Limits">ABEL</span>
+    and
+    <span title="Reference-scaled Average Bioequivalence">RSABE</span>
+    for
+    <span title="Highly Variable Drugs / Drug Products">HVDP(s)</span>.
+  - <span title="Reference-scaled Average Bioequivalence">RSABE</span>
+    for <span title="Narrow Therapeutic Index Drugs">NTIDs</span>: U.S.
+    <span title="Food and Drug Administration">FDA</span>, China
+    <span title="Center for Drug Evaluation">CDE</span>.
+- Two simultaneous <span title="Two One-Sided Tests">TOST</span>
+  procedures.
+- Non-inferiority *t*-test.
+- Ratio of two means with normally distributed data on the original
+  scale based on Fieller’s (‘fiducial’) confidence interval.
+- ‘Expected’ power in case of uncertain (estimated) variability and/or
+  uncertain *θ*<sub>0</sub>.
+- Dose-Proportionality using the power model.
 
 <small>[TOC ↩](#powertost)</small>
 
 ### Methods
 
--   Exact
-    -   Owen’s Q.
-    -   Direct integration of the bivariate non-central
-        *t*-distribution.
--   Approximations
-    -   Non-central *t*-distribution.
-    -   ‘Shifted’ central *t*-distribution.
+- Exact
+  - Owen’s Q.
+  - Direct integration of the bivariate non-central *t*-distribution.
+- Approximations
+  - Non-central *t*-distribution.
+  - ‘Shifted’ central *t*-distribution.
 
 <small>[TOC ↩](#powertost)</small>
 
 ### Helpers
 
--   Calculate *CV* from *MSE* or *SE* (and vice versa).
--   Calculate *CV* from given confidence interval.
--   Calculate *CV*<sub>wR</sub> from the upper expanded limit of an ABEL
-    study.
--   Confidence interval of *CV*.
--   Pool *CV* from several studies.
--   Confidence interval for given *α*, *CV*, point estimate, sample
-    size, and design.
--   Calculate *CV*<sub>wT</sub> and *CV*<sub>wR</sub> from a (pooled)
-    *CV*<sub>w</sub> assuming a ratio of intra-subject variances.
--   *p*-values of the <span title="Two One-Sided Tests">TOST</span>
-    procedure.
--   Analysis tool for exploration/visualization of the impact of
-    expected values (*CV*, *θ*<sub>0</sub>, reduced sample size due to
-    dropouts) on power of BE decision.
--   Construct design matrices of incomplete block designs.
+- Calculate *CV* from *MSE* or *SE* (and vice versa).
+- Calculate *CV* from given confidence interval.
+- Calculate *CV*<sub>wR</sub> from the upper expanded limit of an ABEL
+  study.
+- Confidence interval of *CV*.
+- Pool *CV* from several studies.
+- Confidence interval for given *α*, *CV*, point estimate, sample size,
+  and design.
+- Calculate *CV*<sub>wT</sub> and *CV*<sub>wR</sub> from a (pooled)
+  *CV*<sub>w</sub> assuming a ratio of intra-subject variances.
+- *p*-values of the <span title="Two One-Sided Tests">TOST</span>
+  procedure.
+- Analysis tool for exploration/visualization of the impact of expected
+  values (*CV*, *θ*<sub>0</sub>, reduced sample size due to dropouts) on
+  power of BE decision.
+- Construct design matrices of incomplete block designs.
 
 <small>[TOC ↩](#powertost)</small>
 
 ## Defaults
 
--   *α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25), target
-    power 0.80. Details of the sample size search (and the regulatory
-    settings in reference-scaled average bioequivalence) are shown in
-    the console.
--   Note: In all functions values have to be given as ratios, not in
-    percent.
+- *α* 0.05, {*θ*<sub>1</sub>, *θ*<sub>2</sub>} (0.80, 1.25), target
+  power 0.80. Details of the sample size search (and the regulatory
+  settings in reference-scaled average bioequivalence) are shown in the
+  console.
+- Note: In all functions values have to be given as ratios, not in
+  percent.
 
 ### Average Bioequivalence
 
@@ -223,12 +220,12 @@ Point estimate constraints (0.80, 1.25), homoscedasticity
 *CV*<sub>wR</sub>, design `"2x3x3"` (TRR\|RTR\|RRT), approximation by
 the non-central *t*-distribution, 100,000 simulations.
 
--   <span title="European Medicines Agency">EMA</span>, <span
-    title="World Health Organization">WHO</span>, Health Canada, and
-    many other jurisdictions: Average Bioequivalence with Expanding
-    Limits (ABEL).
--   U.S. <span title="Food and Drug Administration">FDA</span>, China
-    <span title="Center for Drug Evaluation">CDE</span>: RSABE.
+- <span title="European Medicines Agency">EMA</span>,
+  <span title="World Health Organization">WHO</span>, Health Canada, and
+  many other jurisdictions: Average Bioequivalence with Expanding Limits
+  (ABEL).
+- U.S. <span title="Food and Drug Administration">FDA</span>, China
+  <span title="Center for Drug Evaluation">CDE</span>: RSABE.
 
 #### Highly Variable Drugs / Drug Products
 
@@ -242,7 +239,7 @@ Regulatory constant `0.760`, upper cap of scaling at *CV*<sub>wR</sub>
 ###### Health Canada
 
 Regulatory constant `0.760`, upper cap of scaling at *CV*<sub>wR</sub>
-\~57.4%, evaluation by intra-subject contrasts.
+~57.4%, evaluation by intra-subject contrasts.
 
 ###### Gulf Cooperation Council
 
@@ -253,16 +250,16 @@ evaluation by <span title="Analysis of Variance">ANOVA</span>.
 ###### FDA, CDE
 
 Regulatory constant `log(1.25)/0.25`, no upper cap of scaling,
-evaluation by linearized scaled <span
-title="Average Bioequivalence">ABE</span> (Howe’s approximation).
+evaluation by linearized scaled
+<span title="Average Bioequivalence">ABE</span> (Howe’s approximation).
 
 #### Narrow Therapeutic Index Drugs (FDA, CDE)
 
 *θ*<sub>0</sub> 0.975, regulatory constant `log(1.11111)/0.1`, implicit
-upper cap of scaling at *CV*<sub>wR</sub> \~21.4%, design `"2x2x4"`
-(TRTR\|RTRT), evaluation by linearized scaled <span
-title="Average Bioequivalence">ABE</span> (Howe’s approximation), upper
-limit of the confidence interval of
+upper cap of scaling at *CV*<sub>wR</sub> ~21.4%, design `"2x2x4"`
+(TRTR\|RTRT), evaluation by linearized scaled
+<span title="Average Bioequivalence">ABE</span> (Howe’s approximation),
+upper limit of the confidence interval of
 *σ*<sub>wT</sub>/*σ*<sub>wR</sub> ≤2.5.
 
 ### Dose-Proportionality
@@ -349,8 +346,8 @@ sampleN.TOST(CV = 0.40, theta0 = 0.90, theta1 = 0.75, design = "2x2x4")
 <small>[TOC ↩](#powertost)</small>
 
 Sample size for assumed within- (intra-) subject *CV* 0.125 (12.5%),
-*θ*<sub>0</sub> 0.975. Narrower acceptance range for <span
-title="Narrow Therapeutic Index Drugs">NTIDs</span> (most
+*θ*<sub>0</sub> 0.975. Narrower acceptance range for
+<span title="Narrow Therapeutic Index Drugs">NTIDs</span> (most
 jurisdictions).
 
 ``` r
@@ -431,8 +428,8 @@ sampleN.TOST(CV = 0.45, theta0 = 0.90, design = "2x2x3")
 
 Note that the conventional model assumes homoscedasticity (equal
 variances of treatments). For heteroscedasticity we can ‘switch off’ all
-conditions of one of the methods for reference-scaled <span
-title="Average Bioequivalence">ABE</span>. We assume a
+conditions of one of the methods for reference-scaled
+<span title="Average Bioequivalence">ABE</span>. We assume a
 *σ*<sup>2</sup>-ratio of ⅔ (*i.e.*, the test has a lower variability
 than the reference). Only relevant columns of the data frame shown.
 
@@ -458,8 +455,8 @@ variance-ratio 2.5, *i.e.*, the test treatment has a substantially
 higher variability than the reference). TRTR\|RTRT according to the
 FDA’s
 guidances.<sup id="a3">[3,](#f3)</sup><sup id="a4">[4,](#f4)</sup><sup id="a5">[5](#f5)</sup>
-Assess additionally which one of the components (<span
-title="Average Bioequivalence">ABE</span>,
+Assess additionally which one of the components
+(<span title="Average Bioequivalence">ABE</span>,
 *s*<sub>wT</sub>/*s*<sub>wR</sub>-ratio) drives the sample size.
 
 ``` r
@@ -530,8 +527,8 @@ sampleN.scABEL(CV = 0.45)
 Iteratively adjust *α* to control the Type I
 Error.<sup id="a6">[6](#f6)</sup> Heteroscedasticity
 (*CV*<sub>wT</sub> 0.30, *CV*<sub>wR</sub> 0.40, *i.e.*, variance-ratio
-\~0.58), four period full replicate study (any of TRTR\|RTRT,
-TRRT\|RTTR, TTRR\|RRTT), 24 subjects, balanced sequences.
+~0.58), four period full replicate study (any of TRTR\|RTRT, TRRT\|RTTR,
+TTRR\|RRTT), 24 subjects, balanced sequences.
 
 ``` r
 scABEL.ad(CV = c(0.30, 0.40), design = "2x2x4", n = 24)
@@ -560,14 +557,14 @@ scABEL.ad(CV = c(0.30, 0.40), design = "2x2x4", n = 24)
 ```
 
 With the nominal *α* 0.05 the Type I Error will be inflated (0.05953).
-With the adjusted *α* 0.03997 (*i.e.*, a \~92% <span
-title="Confidence Interval">CI</span>) the <span
-title="Type I Error">TIE</span> will be controlled, although with a
-slight loss in power (decreases from 0.805 to 0.778).  
+With the adjusted *α* 0.03997 (*i.e.*, a ~92%
+<span title="Confidence Interval">CI</span>) the
+<span title="Type I Error">TIE</span> will be controlled, although with
+a slight loss in power (decreases from 0.805 to 0.778).  
 Consider `sampleN.scABEL.ad(CV = c(0.30, 0.35), design = "2x2x4")` to
-estimate the sample size preserving both the <span
-title="Type I Error">TIE</span> and target power. In this example 26
-subjects would be required.
+estimate the sample size preserving both the
+<span title="Type I Error">TIE</span> and target power. In this example
+26 subjects would be required.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -660,7 +657,7 @@ sampleN.scABEL(CV = 0.45, regulator = "GCC", details = FALSE)
 
 Sample size for a four period full replicate study (any of TRTR\|RTRT,
 TRRT\|RTTR, TTRR\|RRTT) assuming heteroscedasticity (*CV*<sub>wT</sub>
-0.40, *CV*<sub>wR</sub> 0.50, *i.e.*, variance-ratio \~0.67). Details of
+0.40, *CV*<sub>wR</sub> 0.50, *i.e.*, variance-ratio ~0.67). Details of
 the sample size search suppressed.
 
 ``` r
@@ -692,9 +689,9 @@ Sample size assuming heteroscedasticity (*CV*<sub>w</sub> 0.10,
 variance-ratio 2.5, *i.e.*, the test treatment has a substantially
 higher variability than the reference). TRTR\|RTRT according to the
 FDA’s guidance.<sup id="a7">[7](#f7)</sup> Assess additionally which one
-of the three components (scaled <span
-title="Average Bioequivalence">ABE</span>, conventional <span
-title="Average Bioequivalence">ABE</span>,
+of the three components (scaled
+<span title="Average Bioequivalence">ABE</span>, conventional
+<span title="Average Bioequivalence">ABE</span>,
 *s*<sub>wT</sub>/*s*<sub>wR</sub>-ratio) drives the sample size.
 
 ``` r
@@ -764,9 +761,9 @@ suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
 ```
 
 Here the scaled <span title="Average Bioequivalence">ABE</span>
-component shows the lowest probability to demonstrate <span
-title="Bioequivalence">BE</span> and drives the sample size – which is
-much lower than in the previous example.
+component shows the lowest probability to demonstrate
+<span title="Bioequivalence">BE</span> and drives the sample size –
+which is much lower than in the previous example.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -853,8 +850,8 @@ print(res, plotit = FALSE)
 #  n = 16 (power= 0.7354)
 ```
 
-If the study starts with 26 subjects (power \~0.92), the *CV* can
-increase to \~0.27 **or** *θ*<sub>0</sub> decrease to \~0.90 **or** the
+If the study starts with 26 subjects (power ~0.92), the *CV* can
+increase to ~0.27 **or** *θ*<sub>0</sub> decrease to ~0.90 **or** the
 sample size decrease to 10 whilst power will still be ≥0.70.  
 However, this is **not** a substitute for the ‘Sensitivity Analysis’
 recommended in ICH-E9,<sup id="a9">[9](#f9)</sup> since in a real study
@@ -865,7 +862,7 @@ decide on reasonable combinations and analyze their respective power.
 
 ### Speed Comparisons
 
-Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.1.2
+Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.3.1
 64 bit on Windows 7.
 
 #### ABE
@@ -901,9 +898,9 @@ Simulating via the ‘key’ statistics is the method of choice for speed
 reasons.  
 However, subject simulations are recommended **if**
 
--   the partial replicate design (TRR\|RTR\|RRT) is planned **and**
--   the special case of heterogenicity *CV*<sub>wT</sub> >
-    *CV*<sub>wR</sub> is expected.
+- the partial replicate design (TRR\|RTR\|RRT) is planned **and**
+- the special case of heterogenicity *CV*<sub>wT</sub> \>
+  *CV*<sub>wR</sub> is expected.
 
 <small>[TOC ↩](#powertost)</small>
 
@@ -935,39 +932,42 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.4.9000 built 2022-03-09 with R 4.1.2.
+Version 1.5.4 built 2022-10-30 with R 4.2.1.
 
 ``` r
 options(width = 66)
 sessionInfo()
-# R version 4.1.2 (2021-11-01)
+# R version 4.3.1 (2023-06-16 ucrt)
 # Platform: x86_64-w64-mingw32/x64 (64-bit)
-# Running under: Windows 10 x64 (build 19043)
+# Running under: Windows 10 x64 (build 19045)
 # 
 # Matrix products: default
 # 
+# 
 # locale:
-# [1] LC_COLLATE=German_Germany.1252 
-# [2] LC_CTYPE=German_Germany.1252   
-# [3] LC_MONETARY=German_Germany.1252
+# [1] LC_COLLATE=German_Germany.utf8 
+# [2] LC_CTYPE=German_Germany.utf8   
+# [3] LC_MONETARY=German_Germany.utf8
 # [4] LC_NUMERIC=C                   
-# [5] LC_TIME=German_Germany.1252    
+# [5] LC_TIME=German_Germany.utf8    
+# 
+# time zone: Europe/Berlin
+# tzcode source: internal
 # 
 # attached base packages:
 # [1] stats     graphics  grDevices utils     datasets  methods  
 # [7] base     
 # 
 # other attached packages:
-# [1] PowerTOST_1.5.4.9000
+# [1] PowerTOST_1.5-4
 # 
 # loaded via a namespace (and not attached):
-#  [1] Rcpp_1.0.8         mvtnorm_1.1-3      digest_0.6.29     
-#  [4] magrittr_2.0.2     evaluate_0.15      TeachingDemos_2.12
-#  [7] rlang_1.0.1        stringi_1.7.6      cli_3.2.0         
-# [10] cubature_2.0.4.2   rstudioapi_0.13    rmarkdown_2.11    
-# [13] tools_4.1.2        stringr_1.4.0      xfun_0.29         
-# [16] yaml_2.3.5         fastmap_1.1.0      compiler_4.1.2    
-# [19] htmltools_0.5.2    knitr_1.37
+#  [1] digest_0.6.31      cubature_2.1.0     fastmap_1.1.1     
+#  [4] xfun_0.39          knitr_1.43         htmltools_0.5.5   
+#  [7] rmarkdown_2.22     mvtnorm_1.2-2      cli_3.6.1         
+# [10] compiler_4.3.1     rstudioapi_0.14    tools_4.3.1       
+# [13] evaluate_0.21      TeachingDemos_2.12 Rcpp_1.0.10       
+# [16] yaml_2.3.7         rlang_1.1.1
 ```
 
 <small>[TOC ↩](#powertost)</small>
@@ -1007,7 +1007,7 @@ a Method for its Control.* Pharm Res. 2016; 33(11): 2805–14.
 Administration, Center for Drug Evaluation and Research. *Draft Guidance
 for Industry. Bioequivalence Studies with Pharmacokinetic Endpoints for
 Drugs Submitted Under an ANDA.* August 2021.
-[Online](https://www.fda.gov/media/87219/Download).</span> [↩](#a7)  
+[Online](https://www.fda.gov/media/87219/download).</span> [↩](#a7)  
 <span id="f8" style="font-size:smaller">8. Hummel J, McKendrick S,
 Brindley C, French R. *Exploratory assessment of dose proportionality:
 review of current approaches and proposal for a practical criterion.*
