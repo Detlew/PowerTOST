@@ -36,7 +36,7 @@ size](https://img.shields.io/github/repo-size/Detlew/PowerTOST?color=yellow)
 size](https://img.shields.io/github/languages/code-size/Detlew/PowerTOST?color=green)
 ![first](https://img.shields.io/badge/CRAN%20since-May%202010-brightgreen)
 ![on CRAN](https://www.r-pkg.org/badges/version-ago/PowerTOST) [![cran
-checks](https://cranchecks.info/badges/worst/PowerTOST)](https://cran.r-project.org/web/checks/check_results_PowerTOST.html)
+checks](https://badges.cranchecks.info/worst/PowerTOST.svg)](https://cran.r-project.org/web/checks/check_results_PowerTOST.html)
 ![commits](https://img.shields.io/github/commits-since/Detlew/PowerTOST/latest)
 ![last
 commit](https://img.shields.io/github/last-commit/Detlew/PowerTOST)
