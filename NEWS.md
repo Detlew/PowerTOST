@@ -6,7 +6,7 @@ On CRAN 2023-06-27.
   * Bug fixed in CI.BE() regarding cases with only Ntotal given.
 
 ## Minor changes
-  * Example results in functions power.2TOST() and SampleN2TOST() corrected.
+  * Example results in functions power.2TOST() and SampleN.2TOST() corrected.
 
 # PowerTOST 1.5-4
 
