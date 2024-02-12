@@ -500,7 +500,7 @@ scABEL.ad(CV = CV, design = "2x2x4", n = n)
 # PE constraints                : 0.8000 ... 1.2500
 # Empiric TIE for alpha 0.0500  : 0.04889
 # Power for theta0 0.9000       : 0.811
-# TIE = nominal alpha; no adjustment of alpha is required.
+# TIE ≤ nominal alpha; no adjustment of alpha is required.
 ```
 Inside the region of inflated type I errors.
 
@@ -719,4 +719,4 @@ for (i in 1:4) {
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 
 # License{#license}
-<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") 2022-02-19 Helmut Schütz</h4>
+<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") 2024-02-12 Helmut Schütz</h4>

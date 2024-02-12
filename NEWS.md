@@ -1,22 +1,20 @@
-# PowerTOST 1.5.5.9000
+# PowerTOST 1.5-6
 
 On GitHub 2024-02-12.
 
+## Bug fixes
+  * Bug fixed in CI.BE() regarding cases with only Ntotal given.
+  
 ## Minor changes
   * Lifted the function `shadowtext()` from the orphaned package `TeachingDemos` 
     (request of Brian Ripley).
   * Updated the RSABE-vignette and the Man page of `sampleN.scABEL()` to reflect 
     the GCC guidelines (Version 3.1 of 10 August 2010).
+  * Example results in functions power.2TOST() and SampleN.2TOST() corrected.
 
 # PowerTOST 1.5-5
 
-On CRAN 2023-06-27.
-
-## Bug fixes
-  * Bug fixed in CI.BE() regarding cases with only Ntotal given.
-
-## Minor changes
-  * Example results in functions power.2TOST() and SampleN.2TOST() corrected.
+Never on CRAN, only a development version.
 
 # PowerTOST 1.5-4
 
