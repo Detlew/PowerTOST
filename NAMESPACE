@@ -6,15 +6,16 @@
 # import selectively only the used functions (good practice)
 importFrom(mvtnorm, GenzBretz, pmvt, pmvnorm, rmvnorm)
 importFrom(graphics, abline, box, close.screen, legend, par, plot, points, 
-           screen, split.screen,  segments, text, mtext, grid)
-importFrom(grDevices, colorRampPalette)
+           screen, split.screen,  segments, text, mtext, grid,
+           grconvertX, grconvertY, strheight, strwidth)
+importFrom(grDevices, colorRampPalette, xy.coords)
 importFrom(stats, dnorm, pnorm, qnorm, rnorm, dt, pt, qt, dchisq, qchisq, rchisq, 
            qf, rf, df, uniroot, integrate, optim, optimize, binom.test, coef, 
            confint, lm.fit, .lm.fit, lm, model.matrix, reshape, rWishart, anova)
 importFrom(utils, tail, head, read.table, flush.console, setTxtProgressBar,
            txtProgressBar)
 importFrom(cubature, hcubature)
-importFrom(TeachingDemos, shadowtext)
+#importFrom(TeachingDemos, shadowtext)
 
 # Export all names except those beginning with .
 # exportPattern("^[^\\.]")

@@ -1,3 +1,13 @@
+# PowerTOST 1.5.5.9000
+
+On GitHub 2024-02-12.
+
+## Minor changes
+  * Lifted the function `shadowtext()` from the orphaned package `TeachingDemos` 
+    (request of Brian Ripley).
+  * Updated the RSABE-vignette and the Man page of `sampleN.scABEL()` to reflect 
+    the GCC guidelines (Version 3.1 of 10 August 2010).
+
 # PowerTOST 1.5-5
 
 On CRAN 2023-06-27.
