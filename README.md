@@ -45,8 +45,8 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-Version 1.5.5 built 2023-06-22 with R 4.3.1 (development version not on
-CRAN).
+Version 1.5.4.9000 built 2024-02-12 with R 4.3.2 (development version
+not on CRAN).
 
 ## Introduction
 
@@ -862,7 +862,7 @@ decide on reasonable combinations and analyze their respective power.
 
 ### Speed Comparisons
 
-Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.3.1
+Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.3.2
 64 bit on Windows 7.
 
 #### ABE
@@ -932,12 +932,12 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.5 built 2023-06-22 with R 4.3.1.
+Version 1.5.4.9000 built 2024-02-12 with R 4.3.2.
 
 ``` r
 options(width = 66)
 sessionInfo()
-# R version 4.3.1 (2023-06-16 ucrt)
+# R version 4.3.2 (2023-10-31 ucrt)
 # Platform: x86_64-w64-mingw32/x64 (64-bit)
 # Running under: Windows 10 x64 (build 19045)
 # 
@@ -959,15 +959,15 @@ sessionInfo()
 # [7] base     
 # 
 # other attached packages:
-# [1] PowerTOST_1.5-5
+# [1] PowerTOST_1.5.4.9000
 # 
 # loaded via a namespace (and not attached):
-#  [1] digest_0.6.31      cubature_2.1.0     fastmap_1.1.1     
-#  [4] xfun_0.39          knitr_1.43         htmltools_0.5.5   
-#  [7] rmarkdown_2.22     mvtnorm_1.2-2      cli_3.6.1         
-# [10] compiler_4.3.1     rstudioapi_0.14    tools_4.3.1       
-# [13] evaluate_0.21      TeachingDemos_2.12 Rcpp_1.0.10       
-# [16] yaml_2.3.7         rlang_1.1.1
+#  [1] cubature_2.1.0    compiler_4.3.2    fastmap_1.1.1    
+#  [4] cli_3.6.2         tools_4.3.2       htmltools_0.5.7  
+#  [7] rstudioapi_0.15.0 yaml_2.3.8        Rcpp_1.0.12      
+# [10] mvtnorm_1.2-4     rmarkdown_2.25    knitr_1.45       
+# [13] xfun_0.41         digest_0.6.34     rlang_1.1.3      
+# [16] evaluate_0.23
 ```
 
 <small>[TOC ↩](#powertost)</small>
