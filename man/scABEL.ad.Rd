@@ -160,11 +160,12 @@ Molins E, Cobo E, \enc{Ocaña}{Ocana} J. \emph{Two-Stage Designs Versus European
 
 European Medicines Agency, Committee for Medicinal Products for Human Use. \emph{Guideline on the Investigation of Bioequivalence.} London, 20 January 2010. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf}{CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **}
 
-European Medicines Agency, Committee for Medicinal Products for Human Use. \emph{Questions & Answers: positions on specific questions addressed to the Pharmacokinetics Working Party (PKWP).} London, 19 November 2015. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/questions-answers-positions-specific-questions-addressed-pharmacokinetics-working-party_en.pdf}{EMA/618604/2008 Rev. 13}
+European Medicines Agency, Committee for Medicinal Products for Human Use. \emph{Questions & Answers: positions on specific questions addressed to the Pharmacokinetics Working Party (PKWP).} London, 19 November 2015. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/questions-and-answers-positions-specific-questions-addressed-pharmacokinetics-working-party_en.pdf}{EMA/618604/2008 Rev. 13}
 
 Health Canada, Therapeutic Products Directorate. \emph{Comparative Bioavailability Standards: Formulations Used for Systemic Effects, 2.1.1.8 Highly variable drug products} Ottawa, 08 June 2018. \href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/applications-submissions/guidance-documents/bioavailability-bioequivalence/comparative-bioavailability-standards-formulations-used-systemic-effects.html#a2.1.1.8}{online}
 
-Executive Board of the Health Ministers’ Council for GCC States. \emph{The GCC Guidelines for Bioequivalence.} May 2021. \href{https://www.sfda.gov.sa/sites/default/files/2021-10/GCC_Guidelines_Bioequivalence.pdf}{Version 3.0}
+Executive Board of the Health Ministers’ Council for GCC States. \emph{The GCC Guidelines for Bioequivalence.} May 2021. \href{https://web.archive.org/web/20220728114758/https://www.sfda.gov.sa/sites/default/files/2021-10/GCC_Guidelines_Bioequivalence.pdf}{Version 3.0}
+Saudi Food & Drug Authority \emph{The GCC Guidelines for Bioequivalence.} \href{https://www.sfda.gov.sa/sites/default/files/2022-08/GCC_Guidelines_Bioequivalence31_0.pdf}{Version 3.1}
 }
 
 \author{

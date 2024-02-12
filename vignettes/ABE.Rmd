@@ -234,7 +234,7 @@ Estimate the sample size for equivalence of the ratio of two means with normalit
 ```{r example2}
 sampleN.RatioF(CV = 0.20, CVb = 0.40)
 ```
-In this function the default $\small{\alpha}$ is 0.025, since it is intended for studies with clinical endpoints, where the 95\% confidence interval is usually used for equivalence testing.^[EMEA, CPMP. *Points to Consider on Switching between Superiority and Non-Inferiority.* London. 27 July 2000. CPMP/EWP/482/99. [Online](https://www.ema.europa.eu/en/documents/scientific-guideline/points-consider-switching-between-superiority-non-inferiority_en.pdf).]
+In this function the default $\small{\alpha}$ is 0.025, since it is intended for studies with clinical endpoints, where the 95\% confidence interval is usually used for equivalence testing.^[EMEA, CPMP. *Points to Consider on Switching between Superiority and Non-Inferiority.* London. 27 July 2000. CPMP/EWP/482/99. [Online](https://www.ema.europa.eu/en/documents/scientific-guideline/points-consider-switching-between-superiority-and-non-inferiority_en.pdf).]
 
 ## Example 3{#expl3}
 Estimate the sample size based on the results of a 2×2×2 pilot study in 16 subjects where we observed an intra-subject *CV* 0.20 and $\small{\theta_0}$ 0.92.

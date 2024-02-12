@@ -73,7 +73,7 @@ Hauschke D, Kieser M, Diletti E, Burke M. \emph{Sample size determination for pr
 
 Hauschke D, Steinijans V, Pigeot I. \emph{Bioequivalence Studies in Drug Development.} Chichester: Wiley; 2007. Chapter 10.
 
-European Agency for the Evaluation of Medicinal Products, CPMP. \emph{Points to Consider on Switching between Superiority and Non-Inferiority.} London, 27 July 2000. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/points-consider-switching-between-superiority-non-inferiority_en.pdf}{CPMP/EWP/482/99}
+European Agency for the Evaluation of Medicinal Products, CPMP. \emph{Points to Consider on Switching between Superiority and Non-Inferiority.} London, 27 July 2000. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/points-consider-switching-between-superiority-and-non-inferiority_en.pdf}{CPMP/EWP/482/99}
 }
 \author{
 D. Labes

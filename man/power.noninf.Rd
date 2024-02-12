@@ -95,7 +95,7 @@ D. Labes
 \note{
 This function does not rely on TOST but may be useful in planning BE studies 
 if the question is not equivalence but \sQuote{non-superiority}.\cr
-Hint: Evaluation of Fluctuation in the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/note-guidance-modified-release-oral-transdermal-dosage-forms-section-ii-pharmacokinetic-clinical_en.pdf}{\enc{EMEA’s}{EMEA's} Note for Guidance} between a modified release 
+Hint: Evaluation of Fluctuation in the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/note-guidance-modified-release-oral-and-transdermal-dosage-forms-section-ii-pharmacokinetic-and-clinical-evaluation-superseded_en.pdf}{\enc{EMEA’s}{EMEA's} Note for Guidance} between a modified release 
 formulation and an immediate release product.
 }
 
