@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # simulate subject data & evaluate via model with group effect
-# gmodel==1 is full FDA model but only for testing grptreatment interaction
+# gmodel==1 is full FDA model but only for testing grp-by-treatment interaction
 # gmodel==2 is full FDA model but without group by treatment interaction
 # gmodel==3 is model with pooled groups, i.e. without any group term
 #
@@ -9,7 +9,8 @@
 power.TOST.sds <- function(alpha=0.05, theta1, theta2, theta0, CV, n,   
                            design=c("2x2", "2x2x2", "2x3x3", "2x2x4", "2x2x3"), 
                            design_dta=NULL, grps=2, ngrp = NULL, gmodel=2,
-                           nsims=1E5, details=FALSE, setseed=TRUE, progress)
+                           p.level=0.1, nsims=1E5, details=FALSE, setseed=TRUE, 
+                           progress)
 {
   # Check CV
   if (missing(CV)) stop("CV must be given!")
@@ -130,7 +131,8 @@ power.TOST.sds <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   
   # call the working horse
   pwr <- .pwr.ABE.sds(muR=log(10), design_dta=design_dta, ldiff=log(theta0), 
-                      s2WR=s2wR, s2WT=s2wT, C2=C2, nsims=nsims, gmodel = gmodel,  
+                      s2WR=s2wR, s2WT=s2wT, C2=C2, nsims=nsims, 
+                      gmodel = gmodel, p.level=p.level,  
                       ln_lBEL=log(theta1), ln_uBEL=log(theta2), alpha=alpha, 
                       setseed=setseed, details=details, progress=progress)
   pwr
@@ -221,7 +223,7 @@ power.ABE.sds <- power.TOST.sds
     # determine largest group(s?)
     largest <- as.numeric(which(summary(dta$grp) == max(summary(dta$grp))))
     if (length(largest)>1) {
-      warning("More than 1 max. group not implemented yet.")
+      warning("More than 1 max. group not implemented yet. First one used.")
       largest <- largest[1]
     }
     dta3G <- dta[dta$grp==largest, ]
@@ -329,7 +331,9 @@ power.ABE.sds <- power.TOST.sds
       pwr
     } else {
       #return pwr + some summary givings
-      res <- list(pBE=pwr, 'p.GxT > p.level'=sum(p.GxT>p.level)/nsims)
+      res <- list('p.level'=p.level,
+                  'empirical alpha'=pwr,
+                  'p(GxT) > p.level'=sum(p.GxT>p.level)/nsims)
       df  <- data.frame(gmodels=gmod, BE=BE_ABE)
       res$xtab <- table(df)
       res

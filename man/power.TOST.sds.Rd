@@ -18,7 +18,7 @@ Three models are implemented:
 \usage{
 power.TOST.sds(alpha = 0.05, theta1, theta2, theta0, CV, n, 
                design = c("2x2", "2x2x2", "2x3x3", "2x2x4", "2x2x3"),
-               design_dta = NULL, grps = 2, ngrp = NULL, gmodel = 2,
+               design_dta = NULL, grps = 2, ngrp = NULL, gmodel = 2, p.level=0.1,
                nsims = 1e+05, details = FALSE, setseed = TRUE, progress)
 }
 \arguments{
@@ -92,6 +92,9 @@ Vector of number of subjects in groups.
 }
 Defaults to \code{gmodel=2}.
 }
+  \item{p.level}{Significance level of the test of a group-by-treatment interaction.
+Defaults to \code{p.level=0.1}.
+} 
   \item{nsims}{
 Number of simulations to be performed to obtain the empirical power.
 Defaults to 100,000 = 1e+05.\cr
@@ -121,9 +124,12 @@ or if designs have to be evaluated which are not in the list of argument
 \code{design}.\cr
 This feature is experimental in the sense that the data.frame is not checked 
 for complying with the assumed structure.\cr\cr
-The test of the treatment by group interaction in case of \code{gmodel=1} is hard coded with p.level = 0.1.\cr
-If the treatment by group interaction is significant the subsequent BE decision 
-is done with the data of the largest group. If there are more than one with the same size, one gets a warning that this feature -- showing BE in all that groups -- isn’t implemented yet.
+The p.value of the test of the group-by-treatment interaction in case of \code{gmodel=1} \cr
+defaults to \code{p.level = 0.1}, the value originally used by the FDA. Later on a value of 
+\code{p.level = 0.05} was used.
+
+If the group-by-treatment interaction is significant the subsequent BE decision 
+is done with the data of the largest group. If there are more than one with the same size, one gets a warning that this feature -- showing BE in all that groups -- is not implemented yet.
 Only the first of the largest groups is tested for BE.
 }
 \value{
