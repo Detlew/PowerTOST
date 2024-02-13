@@ -1,6 +1,6 @@
 # PowerTOST 1.5-6
 
-On GitHub 2024-02-12.
+On CRAN 2024-02-13.
 
 ## Bug fixes
   * Bug fixed in CI.BE() regarding cases with only Ntotal given.
@@ -10,7 +10,11 @@ On GitHub 2024-02-12.
     (request of Brian Ripley).
   * Updated the RSABE-vignette and the Man page of `sampleN.scABEL()` to reflect 
     the GCC guidelines (Version 3.1 of 10 August 2010).
-  * Example results in functions power.2TOST() and SampleN.2TOST() corrected.
+  * Example results in man pages of functions power.2TOST() and SampleN.2TOST() corrected.
+
+## Major changes
+  * Argument p.level in function power.TOST.sds() introduced to make the significance level
+    of the group-by-treatment interaction test variable. Was former hard coded to 0.1.
 
 # PowerTOST 1.5-5
 
