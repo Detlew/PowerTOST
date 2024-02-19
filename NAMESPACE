@@ -44,8 +44,7 @@ export(
   , OwensT
   , pa.ABE
   , pa.scABE
-  , pa.NTIDFDA
-  , pa.NTID                # alias
+  , pa.NTID                # replaces pa.NTIDFDA
   , power.2TOST
   , type1error.2TOST
   , power.noninf
@@ -53,8 +52,7 @@ export(
   , power.TOST
   , power.TOST.sim
   , power.TOST.sds
-  , power.NTIDFDA
-  , power.NTID             # alias
+  , power.NTID             # replaces power.NTIDFDA
   , power.HVNTID
   , power.RSABE
   , power.RSABE2L.sdsims
@@ -72,8 +70,7 @@ export(
   , sampleN.RatioF
   , sampleN.2TOST
   , sampleN.TOST
-  , sampleN.NTIDFDA
-  , sampleN.NTID           # alias
+  , sampleN.NTID           # replaces sampleN.NTIDFDA 
   , sampleN.HVNTID
   , sampleN.RSABE
   , sampleN.scABEL

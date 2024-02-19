@@ -211,6 +211,6 @@ sampleN.NTID <- function(alpha=0.05, targetpower=0.8, theta0, theta1, theta2,
   
 } # end function
 
-# alias 'sampleN.NTID' because this evaluation is not only requested by FDA 
+# alias 'sampleN.NTIDFDA' now removed because this evaluation is not only requested by FDA 
 # but also by the China CDE
-sampleN.NTIDFDA <- sampleN.NTID
+# sampleN.NTIDFDA <- sampleN.NTID

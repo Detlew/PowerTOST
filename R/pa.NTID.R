@@ -160,6 +160,6 @@ pa.NTID <- function(CV, theta0=0.975, targetpower=0.8, minpower=0.7,  ...)
 
 }
 
-# alias 'pa.NTID' since this evaluation is not only requested by FDA but also
-# by the China CDE
-pa.NTIDFDA <- pa.NTID
+# alias 'pa.NTIDFDA' now removed since this evaluation is not only requested 
+# by FDA but also by the China CDE
+# pa.NTIDFDA <- pa.NTID

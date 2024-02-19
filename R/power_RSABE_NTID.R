@@ -185,6 +185,6 @@ power.NTID <- function(alpha=0.05, theta1, theta2, theta0, CV, n,
   counts/nsims
 }
 
-# alias 'power.NTID' since this evaluation is not only requested by FDA but also
-# by the China CDE
-power.NTIDFDA <- power.NTID
+# alias 'power.NTIDFDA' removed since this evaluation is not only requested 
+# by FDA but also by the China CDE
+# power.NTIDFDA <- power.NTID
