@@ -45,8 +45,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-Version 1.5.6 built 2024-02-20 with R 4.3.2 (development version not on
-CRAN).
+Version 1.5.6 built 2024-02-20 with R 4.3.2
 
 ## Introduction
 

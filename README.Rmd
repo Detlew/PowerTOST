@@ -18,13 +18,15 @@ knitr::opts_chunk$set(
 txt <- paste0("Version ", packageVersion("PowerTOST"), " built ",
          packageDate("PowerTOST", date.fields = "Built"),
          " with R ", substr(packageDescription("PowerTOST", fields = "Built"), 3, 7))
-if (grepl("900", as.character(packageVersion("PowerTOST"))) |
-    is.na(packageDate("PowerTOST", date.fields = "Date/Publication"))) {
-  txt <- paste(txt, "\n(development version not on CRAN).")
-} else {
-  txt <- paste0(txt, "\n(stable release on CRAN ",
-           packageDate("PowerTOST", date.fields = "Date/Publication"), ").")
-}
+# date.fields = "Date/Publication") is available if package is already on CRAN!
+# But we want submit it to CRAN as stable. Thus the next doesn't do the job.
+# if (grepl("900", as.character(packageVersion("PowerTOST"))) |
+#     is.na(packageDate("PowerTOST", date.fields = "Date/Publication"))) {
+#   txt <- paste(txt, "\n(development version not on CRAN).")
+# } else {
+#   txt <- paste0(txt, "\n(stable release on CRAN ",
+#            packageDate("PowerTOST", date.fields = "Date/Publication"), ").")
+# }
 cat(txt)
 ```
 
