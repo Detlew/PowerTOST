@@ -1,20 +1,26 @@
 # PowerTOST 1.5-6
 
-On CRAN 2024-02-13.
+On CRAN 2024-02-19.
 
 ## Bug fixes
-  * Bug fixed in CI.BE() regarding cases with only Ntotal given.
+  * Bug fixed in `CI.BE()` regarding cases with only `Ntotal` given.
   
 ## Minor changes
-  * Lifted the function `shadowtext()` from the orphaned package `TeachingDemos` 
-    (request of Brian Ripley).
+  * Function `shadowtext()` lifted from package `TeachingDemos` and recoded since
+    `TeachingDemos`was orphaned (request of Brian Ripley). Orphaned status later 
+    on abandoned but nevertheless the recoded function used furthermore. 
   * Updated the RSABE-vignette and the Man page of `sampleN.scABEL()` to reflect 
     the GCC guidelines (Version 3.1 of 10 August 2010).
-  * Example results in man pages of functions power.2TOST() and SampleN.2TOST() corrected.
+  * Example results in man pages of functions `power.2TOST()` and 
+    `SampleN.2TOST()` corrected.
 
 ## Major changes
-  * Argument p.level in function power.TOST.sds() introduced to make the significance level
+  * Argument `p.level` in function `power.TOST.sds()` introduced to make the significance level
     of the group-by-treatment interaction test variable. Was former hard coded to 0.1.
+  * The name of functions dealing with the FDA methods for NTID are now without the acronym FDA
+    in their names since the evaluation methods requested by the FDA are also required by China CDE. 
+    These functions are `power.NTID()`, `sampleN.NTID()`, and `pa.NTID()`.  
+    See NEWS under `PowerTOST 1.5-4`.
 
 # PowerTOST 1.5-5
 

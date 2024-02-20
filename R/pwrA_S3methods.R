@@ -2,17 +2,20 @@
 # shadowtext() lifted from the package TeachingDemos
 # author Greg Snow, orphaned on CRAN 2024-02-10
 # request from Prof Brian Ripley to comply with the CRAN policy
-shadowtext <- function(x, y = NULL, labels, col = "white", bg = "black",
-                       theta = seq(pi / 32, 2 * pi, length.out = 64),
-                       r = 0.1, cex = 1, ... ) {
+# Later on the orphan status was abandoned, but decided to use  
+# the recoded function nevertheless
+shtxt <- function(x, y = NULL, labels, col = "white", bg = "black",
+                  theta = seq(pi / 32, 2 * pi, length.out = 64), r = 0.1, 
+                  cex = 1, ... ) 
+{
   xy  <- xy.coords(x, y)
   fx  <- grconvertX(xy$x, to = "nfc")
   fy  <- grconvertY(xy$y, to = "nfc")
-  fxo <- r * strwidth("A", units = "figure", cex = cex)
-  fyo <- r * strheight("A", units = "figure", cex = cex)
-  for (i in theta) {
-    text(grconvertX(fx + cos(i) * fxo, from = "nfc"),
-         grconvertY(fy + sin(i) * fyo, from = "nfc"),
+  fx0 <- r * strwidth("A", units = "figure", cex = cex)
+  fy0 <- r * strheight("A", units = "figure", cex = cex)
+  for (step in theta) {
+    text(grconvertX(fx + cos(step) * fx0, from = "nfc"),
+         grconvertY(fy + sin(step) * fy0, from = "nfc"),
          labels, cex = cex, col = bg, ...)
   }
   text(xy$x, xy$y, labels, cex = cex, col = col, ... )
@@ -170,7 +173,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     segments(CVs[s], pwr[s], CVs[s+1], pwr[s+1], lwd=2, col=clr[s])
     points(CVs[1], pwr[1], col=clr[1], pch=16, cex=1.25)
     points(CVs[seg], pwr[seg], col=clr[seg], pch=16, cex=1.25)
-    shadowtext(CV, (minpower+(pwr.est-minpower)*0.1),
+    shtxt(CV, (minpower+(pwr.est-minpower)*0.1),
                labels=paste0("CV = ", signif(CV.max, 4), pctsign," (",
                              round(minpower, dec), pctsign,")"),
                col="black", bg="white", pos=4, r=0.5, cex=0.9)
@@ -202,7 +205,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
                       pctsign, ") (",round(minpower, dec), pctsign, ")")
       }
     }
-    shadowtext(min(CVs), (minpower+(max(pwr)-minpower)*0.1),
+    shtxt(min(CVs), (minpower+(max(pwr)-minpower)*0.1),
                labels=txt,col="black", bg="white", pos=4, r=0.5, cex=0.9)
   }
   box()
@@ -229,7 +232,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
     # TODO rework if plan.GMR not at border
     points(GMRs[1], pwr[1], col=clr[1], pch=16, cex=1.25)
     points(GMRs[seg], pwr[seg], col=clr[seg], pch=16, cex=1.25)
-    shadowtext(GMR, (minpower+(pwr.est-minpower)*0.1),
+    shtxt(GMR, (minpower+(pwr.est-minpower)*0.1),
                labels=paste0(ratiolabel, " = ", signif(GMR.min, 4), " (",
                              round(minpower, dec), pctsign, ")"),
                col="black", bg="white", pos=4, r=0.5, cex=0.9)
@@ -252,7 +255,7 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
          labels=paste0(ratiolabel, " = ",signif(100*GMR.min, 4), "% (",
                        round(minpower, dec), pctsign, ")"),
          cex=0.9, pos=4)
-    shadowtext(100*GMR, (minpower+(pwr.est-minpower)*0.1),
+    shtxt(100*GMR, (minpower+(pwr.est-minpower)*0.1),
                labels=paste0(ratiolabel, " = ", signif(100*GMR.min, 4), "% (",
                              round(minpower, dec), pctsign, ")"),
                col="black", bg="white", pos=4, r=0.5, cex=0.9)
@@ -285,9 +288,9 @@ plot.pwrA <- function(x, pct=TRUE, ratiolabel="theta0", cols=c("blue", "red"), .
   # label even drop-outs
   do.even  <- Ns[c(TRUE, FALSE)]
   pwr.even <- pwr[c(TRUE, FALSE)]
-  shadowtext(do.even, pwr.even, labels=n.est-do.even,
+  shtxt(do.even, pwr.even, labels=n.est-do.even,
              col="black", bg="white", pos=3, r=0.4, cex=0.75)
-  shadowtext(max(Ns), (minpower+(pwr.est-minpower)*0.1),
+  shtxt(max(Ns), (minpower+(pwr.est-minpower)*0.1),
              labels=paste0("n = ", min(Ns), " (", signif(min(pwr), 4), pctsign, ")"),
              col="black", bg="white", pos=4, r=0.5, cex=0.9)
   box()
