@@ -10,7 +10,7 @@ On CRAN submitted 2024-02-20.
     `TeachingDemos`was orphaned (request of Brian Ripley). Orphaned status later 
     on abandoned but nevertheless the recoded function used furthermore. 
   * Updated the RSABE-vignette and the Man page of `sampleN.scABEL()` to reflect 
-    the GCC guidelines (Version 3.1 of 10 August 2010).
+    the GCC guidelines (Version 3.1 of 10 August 2022).
   * Example results in man pages of functions `power.2TOST()` and 
     `SampleN.2TOST()` corrected.
 
