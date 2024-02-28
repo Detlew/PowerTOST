@@ -246,7 +246,9 @@ sampleN.scABEL(CV = 0.55, regulator = "HC")
 # 39   0.8142
 ```
 ### Gulf Cooperation Council
-Special case of ABEL: Conventional limits if *CV*~wR~ ≤30\% and widened limits of 0.7500--1.3333 otherwise. No upper cap of widening. Defaults as above but `regulator = "GCC"`.
+Special case of ABEL: Conventional limits if *CV*~wR~ ≤30\% and widened limits of 0.7500--1.3333 otherwise. 
+No upper cap of widening. Defaults as above but `regulator = "GCC"`.
+Only to compare with previous studies because since in Version 3.1 of 10 August 2022 the GCC implemented the EMA’s method.
 
 ```r
 sampleN.scABEL(CV = 0.55, regulator = "GCC")
@@ -626,8 +628,9 @@ print(res, row.names = FALSE)
 #  0.50000 0.6984 1.4319   upper 0.698 1.432        0.750 1.333        
 #  0.57382 0.6984 1.4319   upper 0.667 1.500  upper 0.750 1.333
 ```
-For all agencies the lower cap for scaling is 30\%. Whereas the upper cap for the EMA is at 50\% (expanded limits 69.84--143.19\%), for Health Canada it is at ~57.4\% (expanded limits 66.7--150.0\%). The GCC has no upper cap (fixed widened limits 75.00--133.33\%).
-
+For all agencies the lower cap for scaling is 30\%. Whereas the upper cap for the EMA is at 50\% (expanded limits 69.84--143.19\%), for Health Canada it is at ~57.4\% (expanded limits 66.7--150.0\%). 
+The GCC had no upper cap (fixed widened limits 75.00--133.33\%); since August 2022 
+the GCC uses the EMA’s method.
 ### FDA
 For the FDA there is no upper cap (scaling is unlimited).
 
