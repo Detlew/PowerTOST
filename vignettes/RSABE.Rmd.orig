@@ -100,7 +100,7 @@ res[, 4]  <- signif(as.numeric(res[, 4]), 5)
 print(res, row.names = FALSE)
 ```
 `CVswitch` is the lower cap of scaling, *i.e.*, if *CV*~wR~ is below this value reference-scaling is not acceptable. The upper cap of scaling `CVcap` differes between the EMA and HC, whereas for the FDA scaling is unlimited. The regulatory constant `r_const` is used for calculating the expanded limits (EMA, HC) and ‘implied limits’ (FDA) based on *s*~wR~: $\small{\left [ L,U \right ]=100\cdot\exp (\mp 0.760\cdot s_{\textrm{wR}})}$\
-Here `L` and `U` give the maximum acceptable expansion based on $\small{s_{\textrm{wR}}^{*}=\sqrt{\log_{e}(CV_\textrm{cap}^2)+1}}$. The point estimate constraint `pe_constr` [0.80, 1.25] is applicable in all regulations. Evaluation has to be performed by ANOVA (EMA) or a mixed-effects model (HC, FDA). For the latter intra-subject contrasts are a suffiently close approximation.
+Here `L` and `U` give the maximum acceptable expansion based on $\small{s_{\textrm{wR}}^{*}=\sqrt{\log_{e}(CV_\textrm{cap}^2)+1}}$. The point estimate constraint `pe_constr` [0.80, 1.25] is applicable in all regulations. Evaluation has to be performed by ANOVA (EMA) or a mixed-effects model (HC, FDA). For the latter intra-subject contrasts are a sufficiently close approximation.
  
 # Sample Size
 ## Highly Variable Drugs / Drug Products
