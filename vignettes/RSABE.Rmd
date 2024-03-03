@@ -59,10 +59,7 @@ If simulating for power (`theta0` within the BE limits), `nsims` defaults to 100
 #    design                        name   df
 #   "2x2x3"   2x2x3 replicate crossover 2n-3
 #   "2x2x4"   2x2x4 replicate crossover 3n-4
-#   "2x4x4"   2x4x4 replicate crossover 3n-4
 #   "2x3x3"   partial replicate (2x3x3) 2n-3
-#   "2x4x2"            Balaam’s (2x4x2)  n-2
-#  "2x2x2r" Liu’s 2x2x2 repeated x-over 3n-2
 ```
 The terminology of the `design` argument follows this pattern: `treatments x sequences x periods`.
 
@@ -722,4 +719,4 @@ for (i in 1:4) {
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 
 # License{#license}
-<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") 2024-02-28 Helmut Schütz</h4>
+<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") 2024-02-29 Helmut Schütz</h4>
