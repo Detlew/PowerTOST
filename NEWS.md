@@ -1,6 +1,6 @@
 # PowerTOST 1.5-6
 
-On CRAN submitted 2024-02-20.
+On CRAN submitted 2024-03-18.
 
 ## Bug fixes
   * Bug fixed in `CI.BE()` regarding cases with only `Ntotal` given.

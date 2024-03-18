@@ -13,9 +13,11 @@ Due to the intersection-union principle the \emph{TIE} is always upper bounded t
 \code{power.scABEL2} and \code{sampleN.scABEL2} were removed in version 1.4-3.
 
 \code{power2.TOST} was deprecated in version 1.2-6 since \code{power.TOST} was modified in order to handle unbalanced sequences. \code{power2.TOST} was removed in version in version 1.2-7.
-}
 
-The functions \code{power.NTIDFDA}, \code{sampleN.NTIDFDA}, and \code{pa.NTIDFDA} were deprecated in version 1.5-4 and were removed in version 1.5-6.
+The functions \code{power.NTIDFDA}, \code{sampleN.NTIDFDA} and \code{pa.NTIDFDA} were deprecated in 
+version 1.5-4 and were removed in version 1.5-6.
+
+}
 
 \references{
 Berger RL, Hsu JC. \emph{Bioequivalence Trials, Intersection-Union Tests and Equivalence Confidence Sets.} Stat Sci. 1996;11(4):283--302. \href{https://www.jstor.org/stable/2246021}{JSTOR:2246021}

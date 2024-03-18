@@ -45,7 +45,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-Version 1.5.6 built 2024-02-20 with R 4.3.2
+Version 1.5.6 built 2024-03-18 with R 4.3.3
 
 ## Introduction
 
@@ -861,7 +861,7 @@ decide on reasonable combinations and analyze their respective power.
 
 ### Speed Comparisons
 
-Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.3.2
+Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.3.3
 64 bit on Windows 7.
 
 #### ABE
@@ -931,12 +931,12 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.6 built 2024-02-20 with R 4.3.2.
+Version 1.5.6 built 2024-03-18 with R 4.3.3.
 
 ``` r
 options(width = 66)
 sessionInfo()
-# R version 4.3.2 (2023-10-31 ucrt)
+# R version 4.3.3 (2024-02-29 ucrt)
 # Platform: x86_64-w64-mingw32/x64 (64-bit)
 # Running under: Windows 10 x64 (build 19045)
 # 
@@ -961,11 +961,11 @@ sessionInfo()
 # [1] PowerTOST_1.5-6
 # 
 # loaded via a namespace (and not attached):
-#  [1] cubature_2.1.0    compiler_4.3.2    fastmap_1.1.1    
-#  [4] cli_3.6.2         tools_4.3.2       htmltools_0.5.7  
+#  [1] cubature_2.1.0    compiler_4.3.3    fastmap_1.1.1    
+#  [4] cli_3.6.2         tools_4.3.3       htmltools_0.5.7  
 #  [7] rstudioapi_0.15.0 yaml_2.3.8        Rcpp_1.0.12      
-# [10] mvtnorm_1.2-4     rmarkdown_2.25    knitr_1.45       
-# [13] xfun_0.41         digest_0.6.34     rlang_1.1.3      
+# [10] mvtnorm_1.2-4     rmarkdown_2.26    knitr_1.45       
+# [13] xfun_0.42         digest_0.6.35     rlang_1.1.3      
 # [16] evaluate_0.23
 ```
 
