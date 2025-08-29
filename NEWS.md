@@ -1,3 +1,11 @@
+# PowerTOST 1.5-7
+
+On CRAN submitted 2025-08-29.
+
+## Bug fixes
+in nvec() regarding Splitting total sample size into vector of subjects per sequence
+
+
 # PowerTOST 1.5-6
 
 On CRAN submitted 2024-03-18.

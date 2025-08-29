@@ -51,16 +51,14 @@ CVp2CV <- function(CV, ratio=1.5)
 
 # -------------------------------------------------------------------------
 # helper functions for partitioning Ntotal into (sequence) groups
-# Author dlabes
+# Author dlabes, bug fix by Helmut
 # -------------------------------------------------------------------------
-# partition n into grps with 'best' balance between grps
-nvec <- function(n, grps)
+nvec <- function (n, grps)
 {
-  ni <- trunc(n/grps)
-  nv <- rep.int(ni, times=grps)
-  rest <- n-grps*ni
-  if(rest!=0){
-    nv <- nv + c(rep.int(1,rest), rep.int(0,grps-rest))
-  }
-  nv
+  n.int     <- as.integer(round(n))
+  quotient  <- n.int %/% grps
+remainder <- n.int %% grps
+nv        <- c(rep.int(quotient + 1L, remainder),
+               rep.int(quotient, grps - remainder))
+return(as.integer(nv))
 }
