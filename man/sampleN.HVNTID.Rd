@@ -92,7 +92,9 @@ The \code{nlast} column contains the last \code{n} value. May be useful for re-s
 \references{
 Food and Drug Administration, Office of Generic Drugs (OGD). \emph{Draft Guidance on Dabigatran Etexilate Mesylate.} Recommended Jun 2012; Revised Sep 2015, Jul 2017. \href{https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran\%20etexilate\%20mesylate_oral\%20capsule_NDA\%20022512_RV05-17.pdf}{download}
 
-Food and Drug Administration, Office of Generic Drugs (OGD). \emph{Draft Guidance on Rivaroxaban.} Recommended Sep 2015. \href{https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral\%20tablet_22406_RC09-15.pdf}{download}
+Food and Drug Administration, Office of Generic Drugs (OGD). 
+\emph{Draft Guidance on Rivaroxaban.} Recommended Sep 2015. 
+\href{https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_022406.pdf}{download}
 
 Food and Drug Administration, Office of Generic Drugs (OGD). \emph{Draft Guidance on Edoxaban Tosylate.} Recommended May 2017; Revised Mar 2020. \href{https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_206316.pdf}{download}
 }
