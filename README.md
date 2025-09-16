@@ -45,7 +45,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/PowerTOST?color=blue)](
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/PowerTOST?color=green)](https://r-pkg.org/pkg/PowerTOST)
 
-Version 1.5.6 built 2025-05-02 with R 4.5.0
+Version 1.5.6 built 2024-03-18 with R 4.3.3
 
 ## Introduction
 
@@ -76,18 +76,18 @@ Codes of designs follow this pattern:
 Although some replicate designs are more ‘popular’ than others, sample
 size estimations are valid for *all* of the following designs:
 
-| <small>design</small> | <small>type</small> | <small>sequences</small> |  | <small>periods</small> |
-|:--:|:--:|:--:|----|:--:|
-| `2x2x4` | <small>full | <small>2</small> | <small>TRTR\|RTRT</small> | <small>4</small> |
-| `2x2x4` | <small>full | <small>2</small> | <small>TRRT\|RTTR</small> | <small>4</small> |
-| `2x2x4` | <small>full | <small>2</small> | <small>TTRR\|RRTT</small> | <small>4</small> |
-| `2x4x4` | <small>full | <small>4</small> | <small>TRTR\|RTRT\|TRRT\|RTTR</small> | <small>4</small> |
-| `2x4x4` | <small>full | <small>4</small> | <small>TRRT\|RTTR\|TTRR\|RRTT</small> | <small>4</small> |
-| `2x2x3` | <small>full | <small>2</small> | <small>TRT\|RTR</small> | <small>3</small> |
-| `2x2x3` | <small>full | <small>2</small> | <small>TRR\|RTT</small> | <small>3</small> |
-| `2x4x2` | <small>full | <small>4</small> | <small>TR\|RT\|TT\|RR</small> | <small>2</small> |
-| `2x3x3` | <small>partial | <small>3</small> | <small>TRR\|RTR\|RRT</small> | <small>3</small> |
-| `2x2x3` | <small>partial | <small>2</small> | <small>TRR\|RTR</small> | <small>3</small> |
+| <small>design</small> | <small>type</small> | <small>sequences</small> |                                       | <small>periods</small> |
+|:---------------------:|:-------------------:|:------------------------:|---------------------------------------|:----------------------:|
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | <small>TRTR\|RTRT</small>             |    <small>4</small>    |
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | <small>TRRT\|RTTR</small>             |    <small>4</small>    |
+|        `2x2x4`        |     <small>full     |     <small>2</small>     | <small>TTRR\|RRTT</small>             |    <small>4</small>    |
+|        `2x4x4`        |     <small>full     |     <small>4</small>     | <small>TRTR\|RTRT\|TRRT\|RTTR</small> |    <small>4</small>    |
+|        `2x4x4`        |     <small>full     |     <small>4</small>     | <small>TRRT\|RTTR\|TTRR\|RRTT</small> |    <small>4</small>    |
+|        `2x2x3`        |     <small>full     |     <small>2</small>     | <small>TRT\|RTR</small>               |    <small>3</small>    |
+|        `2x2x3`        |     <small>full     |     <small>2</small>     | <small>TRR\|RTT</small>               |    <small>3</small>    |
+|        `2x4x2`        |     <small>full     |     <small>4</small>     | <small>TR\|RT\|TT\|RR</small>         |    <small>2</small>    |
+|        `2x3x3`        |   <small>partial    |     <small>3</small>     | <small>TRR\|RTR\|RRT</small>          |    <small>3</small>    |
+|        `2x2x3`        |   <small>partial    |     <small>2</small>     | <small>TRR\|RTR</small>               |    <small>3</small>    |
 
 Balaam’s design TR\|RT\|TT\|RR should be avoided due to its poor power
 characteristics. The three period partial replicate design with two
@@ -861,7 +861,7 @@ decide on reasonable combinations and analyze their respective power.
 
 ### Speed Comparisons
 
-Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.5.1
+Performed on a Xeon E3-1245v3 3.4 GHz, 8 MB cache, 16 GB RAM, R 4.3.3
 64 bit on Windows 7.
 
 #### ABE
@@ -931,17 +931,17 @@ Inspect this information for reproducibility. Of particular importance
 are the versions of R and the packages used to create this workflow. It
 is considered good practice to record this information with every
 analysis.  
-Version 1.5.6 built 2025-05-02 with R 4.5.0.
+Version 1.5.6 built 2024-03-18 with R 4.3.3.
 
 ``` r
 options(width = 66)
 sessionInfo()
-# R version 4.5.1 (2025-06-13 ucrt)
-# Platform: x86_64-w64-mingw32/x64
+# R version 4.3.3 (2024-02-29 ucrt)
+# Platform: x86_64-w64-mingw32/x64 (64-bit)
 # Running under: Windows 10 x64 (build 19045)
 # 
 # Matrix products: default
-#   LAPACK version 3.12.1
+# 
 # 
 # locale:
 # [1] LC_COLLATE=German_Germany.utf8 
@@ -961,12 +961,12 @@ sessionInfo()
 # [1] PowerTOST_1.5-6
 # 
 # loaded via a namespace (and not attached):
-#  [1] cubature_2.1.4    compiler_4.5.1    fastmap_1.2.0    
-#  [4] cli_3.6.5         tools_4.5.1       htmltools_0.5.8.1
-#  [7] rstudioapi_0.17.1 yaml_2.3.10       Rcpp_1.1.0       
-# [10] mvtnorm_1.3-3     rmarkdown_2.29    knitr_1.50       
-# [13] xfun_0.52         digest_0.6.37     rlang_1.1.6      
-# [16] evaluate_1.0.4
+#  [1] cubature_2.1.0    compiler_4.3.3    fastmap_1.1.1    
+#  [4] cli_3.6.2         tools_4.3.3       htmltools_0.5.7  
+#  [7] rstudioapi_0.15.0 yaml_2.3.8        Rcpp_1.0.12      
+# [10] mvtnorm_1.2-4     rmarkdown_2.26    knitr_1.45       
+# [13] xfun_0.42         digest_0.6.35     rlang_1.1.3      
+# [16] evaluate_0.23
 ```
 
 <small>[TOC ↩](#powertost)</small>

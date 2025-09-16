@@ -27,7 +27,7 @@ vignette: >
 </div>
 <h3>Details and examples of other methods are accessible via the menu bar on top of the page and in the <a href="https://cran.r-project.org/package=PowerTOST/PowerTOST.pdf" title="PDF">online manual</a> of all functions.</h3>
 
-```r
+``` r
 library(PowerTOST) # attach the library
 ```
 # Defaults
@@ -88,7 +88,7 @@ Estimate the sample size for assumed intra-subject *CV* 0.55 (*CV*~wT~ = *CV*~
 Average Bioequivalence with Expanding Limits (ABEL). Default `regulator = "EMA"`.\
 Note that this approach is recommended in other jurisdictions as well (*e.g.*, the <span title="World Health Organisation">WHO</span>; <span title="Association of Southeast Asian Nations">ASEAN</span> States, Australia, Brazil, Chile, the East African Community, Egypt, the Eurasian Economic Union, New Zealand, the Russian Federation).
 
-```r
+``` r
 sampleN.scABEL(CV = 0.55)
 # 
 # +++++++++++ scaled (widened) ABEL +++++++++++
@@ -118,7 +118,7 @@ sampleN.scABEL(CV = 0.55)
 <h2>Heterogenicity</h2>
 Whilst in full replicate designs simulating via the ‘key’ statistics closely matches the ‘gold standard’ of subject simulations, this is less so for unequal variances in the partial replicate design if *CV*~wT~ > *CV*~wR~. Let us keep *CV*~w~ 0.55 and split variances by a ratio of 1.5 (*i.e.*, T has a higher variance than R).
 
-```r
+``` r
 CV <- signif(CVp2CV(CV = 0.55, ratio = 1.5), 4)
 sampleN.scABEL(CV = CV, details = FALSE)
 # 
@@ -142,7 +142,7 @@ sampleN.scABEL(CV = CV, details = FALSE)
 ```
 Although the runtime will be longer, we recommend the function `sampleN.scABEL.sdsims()` instead.
 
-```r
+``` r
 sampleN.scABEL.sdsims(CV = CV, details = FALSE)
 # Be patient. Simulating subject data may take a while!
 # 
@@ -168,7 +168,7 @@ The sample size is slightly larger.
 
 Explore sample sizes for extreme heterogenicity (variance ratio 2.5) via the ‘key’ statistics and subject simulations (4- and 3-period full replicate and partial replicate designs).
 
-```r
+``` r
 CVp <- seq(0.40, 0.70, 0.05)
 CV  <- signif(CVp2CV(CV = CVp, ratio = 2.5), 4)
 res <- data.frame(CVp = CVp, CVwT = CV[, 1], CVwR = CV[, 2],
@@ -214,7 +214,7 @@ However, if *CV*~wT~ ≤ *CV*~wR~ we get identical results via the ‘key’ sta
 ### Health Canada
 Average Bioequivalence with Expanding Limits (ABEL). Defaults as above but `regulator = "HC"`.
 
-```r
+``` r
 sampleN.scABEL(CV = 0.55, regulator = "HC")
 # 
 # +++++++++++ scaled (widened) ABEL +++++++++++
@@ -247,7 +247,7 @@ Special case of ABEL: Conventional limits if *CV*~wR~ ≤30\% and widened limits
 No upper cap of widening. Defaults as above but `regulator = "GCC"`.
 Only to compare with previous studies because since in Version 3.1 of 10 August 2022 the GCC implemented the EMA’s method.
 
-```r
+``` r
 sampleN.scABEL(CV = 0.55, regulator = "GCC")
 # 
 # +++++++++++ scaled (widened) ABEL +++++++++++
@@ -278,7 +278,7 @@ sampleN.scABEL(CV = 0.55, regulator = "GCC")
 ### FDA
 Apart from the FDA only required by China’s agency.
 
-```r
+``` r
 sampleN.RSABE(CV = 0.55)
 # 
 # ++++++++ Reference scaled ABE crit. +++++++++
@@ -310,7 +310,7 @@ Note the lower sample size compared to the other approaches (due to the differen
 Required by the FDA and the Chinese authority.\
 Assuming heteroscedasticity (*CV*~w~ 0.125, *σ*^2^ ratio 2.5, *i.e.*, T has a substantially higher variability than R). Details of the sample size search suppressed. Assess additionally which one of the three components (scaled, ABE, *s*~wT~/*s*~wR~ ratio) drives the sample size.
 
-```r
+``` r
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
 n  <- sampleN.NTID(CV = CV, details = FALSE)[["Sample size"]]
 # 
@@ -337,7 +337,7 @@ suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
 The *s*~wT~/*s*~wR~ component shows the lowest power and hence, drives the sample size.  
 Compare that with homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.125):
 
-```r
+``` r
 CV <- 0.125
 n  <- sampleN.NTID(CV = CV, details = FALSE)[["Sample size"]]
 # 
@@ -361,13 +361,19 @@ suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
 #        p(BE)  p(BE-sABEc)    p(BE-ABE) p(BE-sratio) 
 #      0.82278      0.84869      1.00000      0.95128
 ```
-Here the scaled ABE component shows the lowest power and drives the sample size, which is much lower than in the previous example.
+Here the scaled ABE component shows the lowest power and drives the sample size, 
+which is much lower than in the previous example.
 
 ## Highly Variable Narrow Therapeutic Index Drugs (FDA, CDE)
-Almost a contradiction in itself. Required for [dagibatran](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf "Recommended Jun 2012; Revised Sep 2015, Jul 2017"), [rivaroxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral%20tablet_22406_RC09-15.pdf "Recommended Sep 2015"), and [edoxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_206316.pdf "Recommended May 2017; Revised Mar 2020").\
-Assuming homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.30). Employ the defaults (`theta0 = 0.95`, `targetpower = 0.80`, `design = "2x2x4"`, `nsims = 1e5`). Details of the sample size search suppressed.
+Almost a contradiction in itself. Required for [dagibatran]
+(https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf
+"Recommended Jun 2012; Revised Sep 2015, Jul 2017"), 
+[rivaroxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_022406.pdf "Recommended Sep 2015; Revised Aug 2020"), 
+and [edoxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_206316.pdf "Recommended May 2017; Revised Mar 2020").\
+Assuming homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.30). 
+Employ the defaults (`theta0 = 0.95`, `targetpower = 0.80`, `design = "2x2x4"`, `nsims = 1e5`). Details of the sample size search suppressed.
 
-```r
+``` r
 sampleN.HVNTID(CV = 0.30, details = FALSE)
 # 
 # +++++++++ FDA method for HV NTIDs ++++++++++++
@@ -388,7 +394,7 @@ sampleN.HVNTID(CV = 0.30, details = FALSE)
 ```
 Assuming heteroscedasticity (*CV*~w~ 0.30, *σ*^2^ ratio 2.5).
 
-```r
+``` r
 CV <- signif(CVp2CV(CV = 0.125, ratio = 2.5), 4)
 sampleN.HVNTID(CV = CV, details = FALSE)
 # 
@@ -421,7 +427,7 @@ Endrényi and Tóthfalusi (2009,^[Endrényi L, Tóthfalusi L. *Regulatory and st
 Labes and Schütz (2016^[Labes D, Schütz H. *Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.* Pharm Res. 2016: 33(11); 2805--14. [doi:10.1007/s11095-016-2006-1](https://doi.org/10.1007/s11095-016-2006-1).]), Tóthfalusi and Endrényi (2016,^[Tóthfalusi L, Endrényi L. *An Exact Procedure for the Evaluation of Reference-Scaled Average Bioequivalence.* AAPS J. 2016: 18(2); 476--89. [doi:10.1208/s12248-016-9873-6](https://doi.org/10.1208/s12248-016-9873-6).] 2017^[Tóthfalusi L, Endrényi L. *Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.* Stat Med. 2017: 36(27); 4378--90. [doi:10.1002/sim.7440](https://doi.org/10.1002/sim.7440).]), Molins *et al.* (2017^[Molins E, Cobo E, Ocaña J. *Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?* Stat Med. 2017: 36(30); 4777--88. [doi:10.1002/sim.7452](https://doi.org/10.1002/sim.7452).]), Deng and Zhou (2019^[Deng Y, Zhou X-H. *Methods to control the empirical type I error rate in average bioequivalence tests for highly variable drugs.* Stat Meth Med Res. 2019: 29(6). [doi:10.1177/0962280219871589](https://doi.org/10.1177/0962280219871589).]) showed that under certain conditions (EMA, Health Canada: *CV*~wR~ \~0.22--0.45, FDA: *CV*~wR~ ≤0.30) the type I error will be substantially inflated.\
 Below the inflation region the study will be evaluated for ABE and the type I error controlled by the TOST. Above the inflation region the type I error is controlled by the PE restriction and for the EMA and Health Canada additionally by the upper cap of scaling.
 
-```r
+``` r
 CV      <- 0.35
 res     <- data.frame(n = NA, CV = CV, TIE = NA)
 res$n   <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
@@ -438,7 +444,7 @@ With \~0.0656 the type I error is inflated (significantly larger than the nomin
 
 A substantially higher inflation of the type I error was reported for the FDA’s model. However, Davit *et al.* (2012^[Davit BM, Chen ML, Conner DP, Haidar SH, Kim S, Lee CH, Lionberger RA, Makhlouf FT, Nwakama PE, Patel DT, Schuirmann DJ, Yu LX. *Implementation of a Reference-Scaled Average Bioequivalence Approach for Highly Variable Generic Drug Products by the US Food and Drug Administration.* AAPS J. 2012: 14(4); 915--24. [doi:10.1208/s12248-012-9406-x](https://doi.org/10.1208/s12248-012-9406-x).]) assessed the type I error not at the [‘implied limits’](#ImpLim) but with the [‘desired consumer risk model’](#DesCRM) if $\small{s_{\textrm{wR}}\geq s_0}$ (*CV*~wR~ ≥\~25.4\%) at $\small{\exp\left ( \log_{e}(1.25)/s_0 \sqrt{\log_{e}(CV_{\textrm{wR}}^2+1)} \right )}$. Some statisticians call the latter ‘hocus-pocus’. However, even with this approach the type I error is still –although less – inflated.
 
-```r
+``` r
 res <- data.frame(CV = sort(c(seq(0.25, 0.32, 0.01), se2CV(0.25))),
                   impl.L = NA, impl.U = NA, impl.TIE = NA,
                   des.L = NA, des.U = NA, des.TIE = NA)
@@ -475,7 +481,7 @@ Various approaches were suggested to control the patient’s risk. The methods o
 If an inflated type I error is expected, $\small{\alpha}$ is adjusted based on the observed *CV*~wR~ and the study should be evaluated with a wider confidence interval (Labes and Schütz 2016). Implemented designs: `"2x3x3"` (default), `"2x2x3"`, `"2x2x4"`.\
 No adjustment is suggested if the study’s conditions (*CV*~wR~, sample size, design) will not lead to an inflated type I error.
 
-```r
+``` r
 CV <- 0.45
 n  <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
                      details = FALSE)[["Sample size"]]
@@ -503,7 +509,7 @@ scABEL.ad(CV = CV, design = "2x2x4", n = n)
 ```
 Inside the region of inflated type I errors.
 
-```r
+``` r
 CV <- 0.35
 n  <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
                      details = FALSE)[["Sample size"]]
@@ -535,7 +541,7 @@ An adjusted $\small{\alpha}$ of 0.0363 (*i.e.*, the 92.74\% CI) controls the pat
 
 In order to counteract this loss in power, we can adjust the sample size with the function `sampleN.scABEL.ad()`.
 
-```r
+``` r
 CV <- 0.35
 sampleN.scABEL.ad(CV = CV, design = "2x2x4")
 # 
@@ -586,7 +592,7 @@ For high variability the negative impact on power is substantial.
 ## ‘Exact’ Procedure
 Proposed by Tóthfalusi and Endrényi (2016). Example of the ‘ncTOST’ method by the same authors (2017).  Implemented designs: `"2x3x3"` (default), `"2x2x3"`, `"2x2x4"`.
 
-```r
+``` r
 CV <- 0.35
 n  <- sampleN.scABEL(CV = CV, design = "2x2x4", print = FALSE,
                      details = FALSE)[["Sample size"]]
@@ -603,7 +609,7 @@ With \~0.0482 the patient’s risk is controlled. However, the regulatory accept
 ## BE limits
 ### Expanded Limits (EMA, Health Canada), widened limits (GCC){#ExpLim}
 
-```r
+``` r
 CV  <- c(0.30, 0.40898, 0.50, 0.57382)
 res <- data.frame(CV = CV, EMA.L = NA, EMA.U = NA, EMA.cap = "",
                   HC.L = NA, HC.U = NA, HC.cap = "",
@@ -633,7 +639,7 @@ For the FDA there is no upper cap (scaling is unlimited).
 
 #### ‘Implied’ Limits{#ImpLim}
 
-```r
+``` r
 res <- data.frame(CV = c(0.25, se2CV(0.25), 0.275, 0.3, 0.5, 1.0),
                   impl.L = NA, impl.U = NA, cap = "",
                   stringsAsFactors = FALSE) # this line for R <4.0.0
@@ -654,7 +660,7 @@ print(res, row.names = FALSE)
 ```
 #### Limits of the ‘desired consumer risk model’{#DesCRM}
 
-```r
+``` r
 res <- data.frame(CV = c(0.25, se2CV(0.25), 0.275, 0.3, 0.5, 1.0),
                   des.L = NA, des.U = NA, cap = "",
                   stringsAsFactors = FALSE) # this line for R <4.0.0
@@ -680,7 +686,7 @@ print(res, row.names = FALSE)
 
 ## Regulatory Settings
 
-```r
+``` r
 reg <- c("EMA", "HC", "GCC", "FDA")
 for (i in 1:4) {
   print(reg_const(regulator = reg[i]))
@@ -719,4 +725,4 @@ for (i in 1:4) {
 |`sampleN.scABEL.ad`, `sampleN.scABEL.sdsims`, `sampleN.RSABE2L.sdsims`,<br />`scABEL.ad`|Helmut Schütz|
 
 # License{#license}
-<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") 2024-02-29 Helmut Schütz</h4>
+<h4 class="author">[GPL-3](https://cran.r-project.org/web/licenses/GPL-3 "GNU General Public License, Version 3") 2025-09-16 Helmut Schütz</h4>

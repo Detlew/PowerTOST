@@ -191,11 +191,17 @@ CV <- 0.125
 n  <- sampleN.NTID(CV = CV, details = FALSE)[["Sample size"]]
 suppressMessages(power.NTID(CV = CV, n = n, details = TRUE))
 ```    
-Here the scaled ABE component shows the lowest power and drives the sample size, which is much lower than in the previous example.
+Here the scaled ABE component shows the lowest power and drives the sample size, 
+which is much lower than in the previous example.
 
 ## Highly Variable Narrow Therapeutic Index Drugs (FDA, CDE)
-Almost a contradiction in itself. Required for [dagibatran](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf "Recommended Jun 2012; Revised Sep 2015, Jul 2017"), [rivaroxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/Rivaroxaban_oral%20tablet_22406_RC09-15.pdf "Recommended Sep 2015"), and [edoxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_206316.pdf "Recommended May 2017; Revised Mar 2020").\
-Assuming homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.30). Employ the defaults (`theta0 = 0.95`, `targetpower = 0.80`, `design = "2x2x4"`, `nsims = 1e5`). Details of the sample size search suppressed.
+Almost a contradiction in itself. Required for [dagibatran]
+(https://www.accessdata.fda.gov/drugsatfda_docs/psg/Dabigatran%20etexilate%20mesylate_oral%20capsule_NDA%20022512_RV05-17.pdf
+"Recommended Jun 2012; Revised Sep 2015, Jul 2017"), 
+[rivaroxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_022406.pdf "Recommended Sep 2015; Revised Aug 2020"), 
+and [edoxaban](https://www.accessdata.fda.gov/drugsatfda_docs/psg/PSG_206316.pdf "Recommended May 2017; Revised Mar 2020").\
+Assuming homoscedasticity (*CV*~wT~ = *CV*~wR~ = 0.30). 
+Employ the defaults (`theta0 = 0.95`, `targetpower = 0.80`, `design = "2x2x4"`, `nsims = 1e5`). Details of the sample size search suppressed.
 ```{r HVNTID1}
 sampleN.HVNTID(CV = 0.30, details = FALSE)
 ```
