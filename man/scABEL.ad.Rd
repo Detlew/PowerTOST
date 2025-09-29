@@ -148,25 +148,54 @@ If no adjustment is necessary, \code{NAs} will be returned for the respective
 variables (\code{alpha.adj}, \code{TIE.adj}, \code{rel.change}, \code{pwr.adj}, \code{rel.loss}).
 }
 \references{
-Wonnemann M, \enc{Frömke}{Froemke} C, Koch A. \emph{Inflation of the Type I Error: Investigations on Regulatory Recommendations for Bioequivalence of Highly Variable Drugs.} Pharm Res. 2015;32(1):135--43. \doi{10.1007/s11095-014-1450-z}
+Wonnemann M, \enc{Frömke}{Froemke} C, Koch A. 
+\emph{Inflation of the Type I Error: Investigations on Regulatory Recommendations 
+for Bioequivalence of Highly Variable Drugs.} 
+Pharm Res. 2015;32(1):135--43. \doi{10.1007/s11095-014-1450-z}
 
-\enc{Muñoz}{Munoz} J, Alcaide D, \enc{Ocaña}{Ocana} J. \emph{Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence in highly variable drugs.} Stat Med. 2015;35(12):1933--43. \doi{10.1002/sim.6834}
+\enc{Muñoz}{Munoz} J, Alcaide D, \enc{Ocaña}{Ocana} J. 
+\emph{Consumer’s risk in the EMA and FDA regulatory approaches for bioequivalence 
+in highly variable drugs.} 
+Stat Med. 2015;35(12):1933--43. \doi{10.1002/sim.6834}
 
-Labes D, \enc{Schütz}{Schuetz} H. \emph{Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, and a Method for its Control.} Pharm Res. 2016;33(11):2805--14. \doi{10.1007/s11095-016-2006-1}
+Labes D, \enc{Schütz}{Schuetz} H. 
+\emph{Inflation of Type I Error in the Evaluation of Scaled Average Bioequivalence, 
+and a Method for its Control.} 
+Pharm Res. 2016;33(11):2805--14. \doi{10.1007/s11095-016-2006-1}
 
-\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L. \emph{Algorithms for Evaluating Reference Scaled Average Bioequivalence: Power, Bias, and Consumer Risk.} Stat Med. 2017;36(27):4378--90. \doi{10.1002/sim.7440}
+\enc{Tóthfalusi}{Tothfalusi} L, \enc{Endrényi}{Endrenyi} L. 
+\emph{Algorithms for Evaluating Reference Scaled Average Bioequivalence: 
+Power, Bias, and Consumer Risk.} 
+Stat Med. 2017;36(27):4378--90. \doi{10.1002/sim.7440}
 
-Molins E, Cobo E, \enc{Ocaña}{Ocana} J. \emph{Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies for Highly Variable Drugs: Which to Choose?} Stat Med. 2017;36(30):4777--88. \doi{10.1002/sim.7452}
+Molins E, Cobo E, \enc{Ocaña}{Ocana} J. 
+\emph{Two-Stage Designs Versus European Scaled Average Designs in Bioequivalence Studies 
+for Highly Variable Drugs: Which to Choose?} 
+Stat Med. 2017;36(30):4777--88. \doi{10.1002/sim.7452}
 
-European Medicines Agency, Committee for Medicinal Products for Human Use. \emph{Guideline on the Investigation of Bioequivalence.} London, 20 January 2010. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf}{CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **}
+European Medicines Agency, Committee for Medicinal Products for Human Use. 
+\emph{Guideline on the Investigation of Bioequivalence.} London, 20 January 2010. 
+\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-bioequivalence-rev1_en.pdf}{CPMP/EWP/QWP/1401/98 Rev. 1/ Corr **}
 
-European Medicines Agency, Committee for Medicinal Products for Human Use. \emph{Questions & Answers: positions on specific questions addressed to the Pharmacokinetics Working Party (PKWP).} London, 19 November 2015. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/questions-and-answers-positions-specific-questions-addressed-pharmacokinetics-working-party_en.pdf}{EMA/618604/2008 Rev. 13}
+European Medicines Agency, 
+Committee for Medicinal Products for Human Use. 
+\emph{Questions & Answers: positions on specific questions addressed to the Pharmacokinetics Working Party (PKWP).} 
+London, 19 November 2015. \href{https://www.ema.europa.eu/en/documents/scientific-guideline/questions-and-answers-positions-specific-questions-addressed-pharmacokinetics-working-party_en.pdf}{EMA/618604/2008 Rev. 13}
 
-Health Canada, Therapeutic Products Directorate. \emph{Comparative Bioavailability Standards: Formulations Used for Systemic Effects, 2.1.1.8 Highly variable drug products} Ottawa, 08 June 2018. \href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/applications-submissions/guidance-documents/bioavailability-bioequivalence/comparative-bioavailability-standards-formulations-used-systemic-effects.html#a2.1.1.8}{online}
+Health Canada, Therapeutic Products Directorate. 
+\emph{Comparative Bioavailability Standards: Formulations Used for Systemic Effects, 
+2.1.1.8 Highly variable drug products} Ottawa, 08 June 2018. 
+\href{https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/applications-submissions/guidance-documents/bioavailability-bioequivalence/comparative-bioavailability-standards-formulations-used-systemic-effects.html#a2.1.1.8}{online}
 
-Executive Board of the Health Ministers’ Council for GCC States. \emph{The GCC Guidelines for Bioequivalence.} May 2021. \href{https://web.archive.org/web/20220728114758/https://www.sfda.gov.sa/sites/default/files/2021-10/GCC_Guidelines_Bioequivalence.pdf}{Version 3.0}
-Saudi Food & Drug Authority \emph{The GCC Guidelines for Bioequivalence.} \href{https://www.sfda.gov.sa/sites/default/files/2022-08/GCC_Guidelines_Bioequivalence31_0.pdf}{Version 3.1}
-}
+Executive Board of the Health Ministers’ Council for GCC States.\cr 
+\emph{The GCC Guidelines for Bioequivalence.} 
+\href{https://web.archive.org/web/20220728114758/https:
+//www.sfda.gov.sa/sites/default/files/2021-10/GCC_Guidelines_Bioequivalence.pdf}{Version 3.0} May 2021
+
+Saudi Food & Drug Authority \cr
+\emph{The GCC Guidelines for Bioequivalence.}
+\href{https://web.archive.org/web/20231207095424/https://www.sfda.gov.sa/sites/default/files/2022-08/GCC_Guidelines_Bioequivalence31_0.pdf
+}{Version 3.1} Oct 2021}
 
 \author{
 H. \enc{Schütz}{Schuetz}
